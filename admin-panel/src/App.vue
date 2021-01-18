@@ -39,12 +39,12 @@
           <v-spacer></v-spacer>
           <v-btn rounded small outlined color="green">
             <v-icon>mdi-content-save</v-icon>
-            <v-icon>mdi-math-norm</v-icon>
+            <v-icon>mdi-ampersand</v-icon>
             <v-icon>mdi-text-box-plus-outline</v-icon>
           </v-btn>
           <v-btn rounded small outlined color="orange" class="mx-4">
             <v-icon>mdi-content-save</v-icon>
-            <v-icon>mdi-math-norm</v-icon>
+            <v-icon>mdi-ampersand</v-icon>
             <v-icon>mdi-file-document-edit-outline</v-icon>
           </v-btn>
           <v-btn rounded small outlined color="blue">
