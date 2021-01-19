@@ -114,9 +114,3 @@ export default {
   })
 }
 </script>
-
-<style scoped>
-.pl-footer {
-  padding-left: 256px;
-}
-</style>
