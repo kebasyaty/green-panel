@@ -1,6 +1,6 @@
 <template>
   <!-- Footer and control buttons. -->
-  <v-footer fixed class="pl-footer pr-0" color="transparent">
+  <v-footer fixed class="pr-0" color="transparent">
     <v-card flat tile width="100%">
       <v-divider></v-divider>
       <v-footer color="transparent" class="pb-0">

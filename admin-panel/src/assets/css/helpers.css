@@ -1,7 +1,7 @@
 /* Vuetify
 ----------------------------------------------------------------------------------------------------
 */
-/* Footer */
-.pl-footer {
-  padding-left: 256px;
+/* Service list panel */
+.service-list__content .v-expansion-panel-content__wrap {
+  padding: 0;
 }

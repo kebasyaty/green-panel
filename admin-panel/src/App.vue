@@ -12,10 +12,28 @@
         </v-list-item-content>
       </v-list-item>
       <!-- List of services (applications) and collections in them. -->
-      <v-expansion-panels>
-        <v-expansion-panel v-for="(item, index) in service_list" :key="index">
-          <v-expansion-panel-header>{{item.service_name}}</v-expansion-panel-header>
-          <v-expansion-panel-content>{{item.text}}</v-expansion-panel-content>
+      <v-expansion-panels class="service-list">
+        <!-- Service list -->
+        <v-expansion-panel v-for="(item, index) in serviceList" :key="index">
+          <v-expansion-panel-header class="text-subtitle-1 font-weight-medium">{{item.service_name}}</v-expansion-panel-header>
+          <v-expansion-panel-content class="service-list__content">
+            <!-- Ccollection list -->
+            <v-list shaped dense>
+              <v-list-item-group v-model="selectedItem" color="primary">
+                <v-list-item v-for="(item, index) in item.collections" :key="index" class="px-1">
+                  <v-list-item-icon class="mr-2">
+                    <v-icon v-text="`mdi-${item.icon}`"></v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title
+                      class="text-subtitle-1 font-weight-regular"
+                      v-text="item.name"
+                    ></v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+          </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
     </v-navigation-drawer>
@@ -78,12 +96,16 @@ export default {
     // Open and close navigation-drawer.
     drawer: null,
     // List of services (applications) with nested list of collections.
-    service_list: [
-      { service_name: 'Service name 1', text: '???' },
-      { service_name: 'Service name 2', text: '???' },
-      { service_name: 'Service name 3', text: '???' },
-      { service_name: 'Service name 4', text: '???' },
-      { service_name: 'Service name 5', text: '???' }
+    selectedItem: -1,
+    serviceList: [
+      {
+        service_name: 'Service name 1',
+        collections: [
+          { name: 'Collection name 1', model_key: '???', icon: 'home' },
+          { name: 'Collection name 2', model_key: '???', icon: 'home' },
+          { name: 'Collection name 3', model_key: '???', icon: 'home' }
+        ]
+      }
     ]
   })
 }
