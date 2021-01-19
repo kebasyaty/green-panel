@@ -3,7 +3,7 @@
     <!-- Navigation bar.
     ------------------------------------------------------------------------------------------------
     -->
-    <v-navigation-drawer app v-model="drawer" width="320">
+    <v-navigation-drawer app v-model="drawer" width="320" class="pa-1">
       <!-- Company name and short description. -->
       <v-list-item>
         <v-list-item-content>
@@ -12,7 +12,12 @@
         </v-list-item-content>
       </v-list-item>
       <!-- List of services (applications) and collections in them. -->
-      <!-- -->
+      <v-expansion-panels>
+        <v-expansion-panel v-for="(item, index) in service_list" :key="index">
+          <v-expansion-panel-header>{{item.service_name}}</v-expansion-panel-header>
+          <v-expansion-panel-content>{{item.text}}</v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
     </v-navigation-drawer>
 
     <!-- Top panel with control buttons.
@@ -70,7 +75,14 @@ export default {
   },
 
   data: () => ({
-    drawer: null
+    drawer: null,
+    service_list: [
+      { service_name: 'Service name 1', text: '???' },
+      { service_name: 'Service name 2', text: '???' },
+      { service_name: 'Service name 3', text: '???' },
+      { service_name: 'Service name 4', text: '???' },
+      { service_name: 'Service name 5', text: '???' }
+    ]
   })
 }
 </script>
