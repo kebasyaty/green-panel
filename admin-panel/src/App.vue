@@ -1,14 +1,19 @@
 <template>
   <v-app>
+    <!-- Navigation bar. -->
     <v-navigation-drawer app permanent>
+      <!-- Company name and short description. -->
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title">Сompany Name</v-list-item-title>
           <v-list-item-subtitle>Brief description of the company.</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
+      <!-- List of services (applications) and collections in them. -->
+      <!-- -->
     </v-navigation-drawer>
 
+    <!-- Top panel with control buttons. -->
     <v-app-bar app dense fixed>
       <!-- Home button. -->
       <v-tooltip right>
@@ -40,12 +45,14 @@
       </v-tooltip>
     </v-app-bar>
 
+    <!-- Content display.  -->
     <v-main>
       <v-container>
         <router-view></router-view>
       </v-container>
     </v-main>
 
+    <!-- Footer and control buttons. -->
     <v-footer fixed class="pl-footer pr-0" color="transparent">
       <v-card flat tile width="100%">
         <v-divider></v-divider>
