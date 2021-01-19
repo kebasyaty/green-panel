@@ -1,6 +1,8 @@
 <template>
   <v-app>
-    <!-- Navigation bar. -->
+    <!-- Navigation bar.
+    ------------------------------------------------------------------------------------------------
+    -->
     <v-navigation-drawer app v-model="drawer" width="320">
       <!-- Company name and short description. -->
       <v-list-item>
@@ -13,7 +15,9 @@
       <!-- -->
     </v-navigation-drawer>
 
-    <!-- Top panel with control buttons. -->
+    <!-- Top panel with control buttons.
+    ------------------------------------------------------------------------------------------------
+    -->
     <v-app-bar app dense fixed>
       <!-- Menu button. -->
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
@@ -47,7 +51,9 @@
       </v-tooltip>
     </v-app-bar>
 
-    <!-- Content display.  -->
+    <!-- Content display.
+    ------------------------------------------------------------------------------------------------
+    -->
     <v-main>
       <router-view></router-view>
     </v-main>
