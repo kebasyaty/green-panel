@@ -32,22 +32,22 @@
       <v-card flat tile width="100%">
         <v-divider></v-divider>
         <v-footer color="transparent" class="pb-0">
-          <v-btn rounded small outlined color="red">
-            <v-icon>mdi-close-thick</v-icon>
+          <v-btn rounded small depressed color="red">
+            <v-icon color="white">mdi-close-thick</v-icon>
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn rounded small outlined color="green">
-            <v-icon>mdi-content-save</v-icon>
-            <v-icon>mdi-ampersand</v-icon>
-            <v-icon>mdi-text-box-plus-outline</v-icon>
+          <v-btn rounded small depressed color="green">
+            <v-icon color="white">mdi-content-save</v-icon>
+            <v-icon color="white">mdi-ampersand</v-icon>
+            <v-icon color="white">mdi-file-outline</v-icon>
           </v-btn>
-          <v-btn rounded small outlined color="orange" class="mx-4">
-            <v-icon>mdi-content-save</v-icon>
-            <v-icon>mdi-ampersand</v-icon>
-            <v-icon>mdi-file-document-edit-outline</v-icon>
+          <v-btn rounded small depressed color="orange" class="mx-4">
+            <v-icon color="white">mdi-content-save</v-icon>
+            <v-icon color="white">mdi-ampersand</v-icon>
+            <v-icon color="white">mdi-file-document-edit-outline</v-icon>
           </v-btn>
-          <v-btn rounded small outlined color="blue">
-            <v-icon>mdi-content-save</v-icon>
+          <v-btn rounded small depressed color="blue">
+            <v-icon color="white">mdi-content-save</v-icon>
           </v-btn>
         </v-footer>
       </v-card>
