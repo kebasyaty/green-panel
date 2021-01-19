@@ -10,16 +10,34 @@
     </v-navigation-drawer>
 
     <v-app-bar app dense fixed>
-      <v-btn icon>
-        <v-icon>mdi-home</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-logout</v-icon>
-      </v-btn>
+      <!-- Home button. -->
+      <v-tooltip right>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on">
+            <v-icon>mdi-home</v-icon>
+          </v-btn>
+        </template>
+        <span>Home page.</span>
+      </v-tooltip>
+      <!-- Logout button. -->
+      <v-tooltip right>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on">
+            <v-icon>mdi-logout</v-icon>
+          </v-btn>
+        </template>
+        <span>Logout.</span>
+      </v-tooltip>
       <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>mdi-brightness-4</v-icon>
-      </v-btn>
+      <!-- Light or dark theme button. -->
+      <v-tooltip left>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on">
+            <v-icon>mdi-brightness-4</v-icon>
+          </v-btn>
+        </template>
+        <span>Light or Dark theme.</span>
+      </v-tooltip>
     </v-app-bar>
 
     <v-main>
