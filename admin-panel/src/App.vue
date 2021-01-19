@@ -77,7 +77,7 @@ export default {
   data: () => ({
     // Open and close navigation-drawer.
     drawer: null,
-    // List of services with nested list of collections.
+    // List of services (applications) with nested list of collections.
     service_list: [
       { service_name: 'Service name 1', text: '???' },
       { service_name: 'Service name 2', text: '???' },
