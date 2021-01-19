@@ -3,11 +3,10 @@
     <v-navigation-drawer app permanent>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="title">Application Name</v-list-item-title>
-          <v-list-item-subtitle></v-list-item-subtitle>
+          <v-list-item-title class="title">Сompany Name</v-list-item-title>
+          <v-list-item-subtitle>Brief description of the company.</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
-      <v-divider></v-divider>
     </v-navigation-drawer>
 
     <v-app-bar app dense fixed>
@@ -29,7 +28,7 @@
       </v-container>
     </v-main>
 
-    <v-footer fixed class="pl-256px pr-0" color="transparent">
+    <v-footer fixed class="pl-footer pr-0" color="transparent">
       <v-card flat tile width="100%">
         <v-divider></v-divider>
         <v-footer color="transparent" class="pb-0">
@@ -68,3 +67,9 @@ export default {
   })
 }
 </script>
+
+<style scoped>
+.pl-footer {
+  padding-left: 256px;
+}
+</style>
