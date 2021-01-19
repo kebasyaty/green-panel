@@ -14,12 +14,12 @@
         <v-icon>mdi-home</v-icon>
       </v-btn>
       <v-btn icon>
-        <v-icon>mdi-step-backward</v-icon>
-      </v-btn>
-      <v-btn icon>
         <v-icon>mdi-logout</v-icon>
       </v-btn>
       <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon>mdi-brightness-4</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-main>
