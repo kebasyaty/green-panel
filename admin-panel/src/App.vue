@@ -14,11 +14,8 @@
       <!-- List of services (applications) and collections in them. -->
       <v-expansion-panels class="service-list">
         <!-- Service list -->
-        <v-expansion-panel v-for="item in serviceList" :key="item.service.name">
-          <v-expansion-panel-header
-            class="text-subtitle-1 font-weight-medium pl-0"
-            @click="selectedItem = -1"
-          >
+        <v-expansion-panel v-for="(item, index) in serviceList" :key="item.service.name">
+          <v-expansion-panel-header class="text-subtitle-1 font-weight-medium pl-0">
             <v-row no-gutters>
               <v-col cols="2" class="pl-1">
                 <v-icon class="pos-relative pos-top-n2" v-text="`mdi-${item.service.icon}`"></v-icon>
@@ -31,8 +28,13 @@
           <v-expansion-panel-content class="service-list__content">
             <!-- Ccollection list -->
             <v-list shaped dense>
-              <v-list-item-group v-model="selectedItem" color="primary">
-                <v-list-item v-for="item in item.collections" :key="item.model_key" class="px-1">
+              <v-list-item-group v-model="selectedItem[index]" color="primary">
+                <v-list-item
+                  v-for="item in item.collections"
+                  :key="item.model_key"
+                  class="px-1"
+                  @click="resetPreSelectedItem(index)"
+                >
                   <v-list-item-icon class="mr-2">
                     <v-icon>mdi-circle-medium</v-icon>
                   </v-list-item-icon>
@@ -109,7 +111,7 @@ export default {
     // Open and close navigation-drawer.
     drawer: null,
     // List of services (applications) with nested list of collections.
-    selectedItem: -1,
+    selectedItem: [undefined, undefined, undefined],
     serviceList: [
       {
         service: { name: 'Service name 1', icon: 'laptop' },
@@ -136,6 +138,18 @@ export default {
         ]
       }
     ]
-  })
+  }),
+
+  methods: {
+    // List of services - Resetting previously activated items.
+    resetPreSelectedItem: function (currIndex) {
+      this.selectedItem.forEach(function (item, idx, arr) {
+        if (idx !== currIndex) {
+          arr[idx] = undefined
+        }
+        return item
+      })
+    }
+  }
 }
 </script>
