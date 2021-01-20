@@ -20,7 +20,7 @@
             <!-- Ccollection list -->
             <v-list shaped dense>
               <v-list-item-group v-model="selectedItem" color="primary">
-                <v-list-item v-for="(item, index) in item.collections" :key="index" class="px-1">
+                <v-list-item v-for="item in item.collections" :key="item.model_key" class="px-1">
                   <v-list-item-icon class="mr-2">
                     <v-icon>mdi-circle-medium</v-icon>
                   </v-list-item-icon>
@@ -102,9 +102,9 @@ export default {
       {
         service_name: 'Service name 1',
         collections: [
-          { name: 'Collection name 1', model_key: '???' },
-          { name: 'Collection name 2', model_key: '???' },
-          { name: 'Collection name 3', model_key: '???' }
+          { name: 'Collection name 1', model_key: '1' },
+          { name: 'Collection name 2', model_key: '2' },
+          { name: 'Collection name 3', model_key: '3' }
         ]
       }
     ]
