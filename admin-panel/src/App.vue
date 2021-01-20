@@ -22,7 +22,7 @@
               <v-list-item-group v-model="selectedItem" color="primary">
                 <v-list-item v-for="(item, index) in item.collections" :key="index" class="px-1">
                   <v-list-item-icon class="mr-2">
-                    <v-icon v-text="`mdi-${item.icon}`"></v-icon>
+                    <v-icon v-text="`mdi-circle-medium`"></v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title
@@ -44,6 +44,7 @@
     <v-app-bar app dense fixed>
       <!-- Menu button. -->
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-spacer></v-spacer>
       <!-- Home button. -->
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
@@ -101,9 +102,9 @@ export default {
       {
         service_name: 'Service name 1',
         collections: [
-          { name: 'Collection name 1', model_key: '???', icon: 'home' },
-          { name: 'Collection name 2', model_key: '???', icon: 'home' },
-          { name: 'Collection name 3', model_key: '???', icon: 'home' }
+          { name: 'Collection name 1', model_key: '???' },
+          { name: 'Collection name 2', model_key: '???' },
+          { name: 'Collection name 3', model_key: '???' }
         ]
       }
     ]
