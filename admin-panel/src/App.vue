@@ -22,7 +22,7 @@
               <v-list-item-group v-model="selectedItem" color="primary">
                 <v-list-item v-for="(item, index) in item.collections" :key="index" class="px-1">
                   <v-list-item-icon class="mr-2">
-                    <v-icon v-text="`mdi-circle-medium`"></v-icon>
+                    <v-icon>mdi-circle-medium</v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title
