@@ -15,7 +15,10 @@
       <v-expansion-panels class="service-list">
         <!-- Service list -->
         <v-expansion-panel v-for="item in serviceList" :key="item.service.name">
-          <v-expansion-panel-header class="text-subtitle-1 font-weight-medium pl-0">
+          <v-expansion-panel-header
+            class="text-subtitle-1 font-weight-medium pl-0"
+            @click="selectedItem = -1"
+          >
             <v-row no-gutters>
               <v-col cols="2" class="pl-1">
                 <v-icon class="pos-relative pos-top-n2" v-text="`mdi-${item.service.icon}`"></v-icon>
