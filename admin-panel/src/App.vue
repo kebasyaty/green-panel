@@ -3,7 +3,7 @@
     <!-- Navigation bar.
     ------------------------------------------------------------------------------------------------
     -->
-    <v-navigation-drawer app v-model="drawer" width="320" class="pa-1">
+    <v-navigation-drawer app v-model="drawer" width="360" class="pa-1">
       <!-- Company name and short description. -->
       <v-list-item>
         <v-list-item-content>
@@ -15,7 +15,16 @@
       <v-expansion-panels class="service-list">
         <!-- Service list -->
         <v-expansion-panel v-for="(item, index) in serviceList" :key="index">
-          <v-expansion-panel-header class="text-subtitle-1 font-weight-medium">{{item.service_name}}</v-expansion-panel-header>
+          <v-expansion-panel-header class="text-subtitle-1 font-weight-medium pl-0">
+            <v-row no-gutters>
+              <v-col cols="2" class="pl-1">
+                <v-icon class="pos-relative pos-top-n2" v-text="`mdi-${item.service.icon}`"></v-icon>
+              </v-col>
+              <v-col cols="10">
+                <span class="pos-relative pos-left-n8">{{item.service.name}}</span>
+              </v-col>
+            </v-row>
+          </v-expansion-panel-header>
           <v-expansion-panel-content class="service-list__content">
             <!-- Ccollection list -->
             <v-list shaped dense>
@@ -100,11 +109,27 @@ export default {
     selectedItem: -1,
     serviceList: [
       {
-        service_name: 'Service name 1',
+        service: { name: 'Service name 1', icon: 'laptop' },
         collections: [
           { name: 'Collection name 1', model_key: '1' },
           { name: 'Collection name 2', model_key: '2' },
           { name: 'Collection name 3', model_key: '3' }
+        ]
+      },
+      {
+        service: { name: 'Service name 2', icon: 'cellphone' },
+        collections: [
+          { name: 'Collection name 1', model_key: '4' },
+          { name: 'Collection name 2', model_key: '5' },
+          { name: 'Collection name 3', model_key: '6' }
+        ]
+      },
+      {
+        service: { name: 'Service name 3', icon: 'wifi' },
+        collections: [
+          { name: 'Collection name 1', model_key: '7' },
+          { name: 'Collection name 2', model_key: '8' },
+          { name: 'Collection name 3', model_key: '9' }
         ]
       }
     ]

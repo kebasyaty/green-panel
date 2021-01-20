@@ -5,3 +5,20 @@
 .service-list__content .v-expansion-panel-content__wrap {
   padding: 0;
 }
+
+/* Position
+----------------------------------------------------------------------------------------------------
+*/
+.pos-relative {
+  position: relative;
+}
+
+/* Left (negative) */
+.pos-left-n8 {
+  left: -8px;
+}
+
+/* Top (negative) */
+.pos-top-n2 {
+  top: -2px;
+}
