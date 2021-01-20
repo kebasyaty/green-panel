@@ -14,7 +14,7 @@
       <!-- List of services (applications) and collections in them. -->
       <v-expansion-panels class="service-list">
         <!-- Service list -->
-        <v-expansion-panel v-for="(item, index) in serviceList" :key="index">
+        <v-expansion-panel v-for="item in serviceList" :key="item.service.name">
           <v-expansion-panel-header class="text-subtitle-1 font-weight-medium pl-0">
             <v-row no-gutters>
               <v-col cols="2" class="pl-1">
