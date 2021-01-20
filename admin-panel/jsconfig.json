@@ -1,13 +1,24 @@
 {
   "compilerOptions": {
-    "target": "es6"
+    "target": "es2020",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+    }
   },
   "exclude": [
     "node_modules",
-    "**/node_modules/*"
+    "**/node_modules/*",
+    ".nuxt",
+    "dist",
+    "bower_components",
+    "tmp",
+    "temp",
+    "jspm_packages"
   ],
   "include": [
     "src/**/*"
   ]
 }
-
