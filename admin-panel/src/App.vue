@@ -147,7 +147,6 @@ export default {
         if (idx !== currIndex) {
           arr[idx] = undefined
         }
-        return item
       })
     }
   }
