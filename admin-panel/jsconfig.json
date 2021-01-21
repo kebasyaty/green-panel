@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "target": "es2019",
     "baseUrl": ".",
     "paths": {
       "@/*": [
