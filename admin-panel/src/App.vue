@@ -3,11 +3,11 @@
     <!-- Navigation bar.
     ------------------------------------------------------------------------------------------------
     -->
-    <v-navigation-drawer app v-model="drawer" width="360" class="pa-1">
+    <v-navigation-drawer app v-model="serviceListDrawer" :width="380" class="pa-1">
       <!-- Company name and short description. -->
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="title">Сompany Name</v-list-item-title>
+          <v-list-item-title class="text-h6">Сompany Name</v-list-item-title>
           <v-list-item-subtitle>Brief description of the company.</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -21,7 +21,7 @@
                 <v-icon class="pos-relative pos-top-n2" v-text="`mdi-${item.service.icon}`"></v-icon>
               </v-col>
               <v-col cols="10">
-                <span class="pos-relative pos-left-n8">{{item.service.name}}</span>
+                <span class="pos-relative pos-left-n16">{{item.service.name}}</span>
               </v-col>
             </v-row>
           </v-expansion-panel-header>
@@ -57,7 +57,7 @@
     -->
     <v-app-bar app dense fixed>
       <!-- Menu button. -->
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click="serviceListDrawer = !serviceListDrawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
       <!-- Home button. -->
       <v-tooltip bottom>
@@ -108,8 +108,8 @@ export default {
   },
 
   data: () => ({
-    // Open and close navigation-drawer.
-    drawer: null,
+    // Open and close service list panel (navigation-drawer).
+    serviceListDrawer: null,
     // List of services (applications) with nested list of collections.
     selectedItem: [undefined, undefined, undefined],
     serviceList: [

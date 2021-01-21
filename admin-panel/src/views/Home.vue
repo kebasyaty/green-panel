@@ -7,14 +7,13 @@
 
       <v-col cols="12">
         <h1 class="text-h2 font-weight-bold mb-3">Welcome, root.</h1>
-        <p class="text-h5 font-weight-regular">Good luck on your business!</p>
+        <p class="text-h5 font-weight-regular orange--text">Good luck on your business!</p>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-
 export default {
   name: 'Home',
   components: {
