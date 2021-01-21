@@ -14,14 +14,14 @@
       <!-- List of services (applications) and collections in them. -->
       <v-expansion-panels class="service-list">
         <!-- Service list -->
-        <v-expansion-panel v-for="(item, index) in serviceList" :key="item.service.name">
+        <v-expansion-panel v-for="(item, index) in serviceList" :key="item.service.title">
           <v-expansion-panel-header class="text-subtitle-1 font-weight-medium pl-0">
             <v-row no-gutters>
               <v-col cols="2" class="pl-1">
                 <v-icon class="pos-relative pos-top-n2" v-text="`mdi-${item.service.icon}`"></v-icon>
               </v-col>
               <v-col cols="10">
-                <span class="pos-relative pos-left-n16">{{item.service.name}}</span>
+                <span class="pos-relative pos-left-n16">{{item.service.title}}</span>
               </v-col>
             </v-row>
           </v-expansion-panel-header>
@@ -30,10 +30,11 @@
             <v-list shaped dense>
               <v-list-item-group v-model="selectedItem[index]" color="primary">
                 <v-list-item
-                  v-for="item in item.collections"
-                  :key="item.model_key"
+                  v-for="collection in item.collections"
+                  :key="collection.model_key"
                   class="px-1"
                   @click="resetPreSelectedItem(index)"
+                  :to="createUrlDocumentList(item.service.title, collection.title)"
                 >
                   <v-list-item-icon class="mr-2">
                     <v-icon>mdi-circle-medium</v-icon>
@@ -41,7 +42,7 @@
                   <v-list-item-content>
                     <v-list-item-title
                       class="text-subtitle-1 font-weight-regular"
-                      v-text="item.name"
+                      v-text="collection.title"
                     ></v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
@@ -99,6 +100,7 @@
 </template>
 
 <script>
+import slug from 'slug'
 
 export default {
   name: 'App',
@@ -108,33 +110,35 @@ export default {
   },
 
   data: () => ({
+    // Current locale.
+    locale: 'ru',
     // Open and close service list panel (navigation-drawer).
     serviceListDrawer: null,
     // List of services (applications) with nested list of collections.
     selectedItem: [undefined, undefined, undefined],
     serviceList: [
       {
-        service: { name: 'Service name 1', icon: 'laptop' },
+        service: { title: 'Название сервиса 1', icon: 'laptop' },
         collections: [
-          { name: 'Collection name 1', model_key: '1' },
-          { name: 'Collection name 2', model_key: '2' },
-          { name: 'Collection name 3', model_key: '3' }
+          { title: 'Название коллекции 1.1', model_key: '1' },
+          { title: 'Collection name 1.2', model_key: '2' },
+          { title: 'Collection name 1.3', model_key: '3' }
         ]
       },
       {
-        service: { name: 'Service name 2', icon: 'cellphone' },
+        service: { title: 'Service name 2', icon: 'cellphone' },
         collections: [
-          { name: 'Collection name 1', model_key: '4' },
-          { name: 'Collection name 2', model_key: '5' },
-          { name: 'Collection name 3', model_key: '6' }
+          { title: 'Collection name 2.1', model_key: '4' },
+          { title: 'Collection name 2.2', model_key: '5' },
+          { title: 'Collection name 2.3', model_key: '6' }
         ]
       },
       {
-        service: { name: 'Service name 3', icon: 'wifi' },
+        service: { title: 'Service name 3', icon: 'wifi' },
         collections: [
-          { name: 'Collection name 1', model_key: '7' },
-          { name: 'Collection name 2', model_key: '8' },
-          { name: 'Collection name 3', model_key: '9' }
+          { title: 'Collection name 3.1', model_key: '7' },
+          { title: 'Collection name 3.2', model_key: '8' },
+          { title: 'Collection name 3.3', model_key: '9' }
         ]
       }
     ]
@@ -148,6 +152,13 @@ export default {
           arr[idx] = undefined
         }
       })
+    },
+    // Create Url for Document list.
+    createUrlDocumentList: function (serviceTitle, collectionTitle) {
+      const currLocale = this.locale
+      const slugServiceTitle = slug(serviceTitle, { locale: currLocale })
+      const slugCollectionTitle = slug(collectionTitle, { locale: currLocale })
+      return `/${slugServiceTitle}/${slugCollectionTitle}/document-list`
     }
   }
 }

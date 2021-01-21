@@ -5,11 +5,19 @@ import Home from '../views/Home.vue'
 Vue.use(VueRouter)
 
 const routes = [
+  // Home page.
   {
     path: '/',
     name: 'Home',
     component: Home
   },
+  // Document list
+  {
+    path: '/:service/:collection/document-list',
+    name: 'DocumentList',
+    component: () => import('../views/DocumentList.vue')
+  },
+  // Error 404 - Page not found.
   {
     path: '/*',
     name: 'NotFound',
