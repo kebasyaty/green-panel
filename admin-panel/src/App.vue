@@ -62,7 +62,7 @@
       <!-- Home button. -->
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on">
+          <v-btn icon v-bind="attrs" v-on="on" to="/">
             <v-icon>mdi-home</v-icon>
           </v-btn>
         </template>
