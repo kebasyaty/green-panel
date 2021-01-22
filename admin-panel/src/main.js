@@ -15,14 +15,8 @@ if (process.env.NODE_ENV.trim() === 'production') {
   Vue.config.silent = true
 }
 
-// Add translation support.
+// Add support for language translation.
 Vue.use(VueI18n)
-/*
-let langCode = document.documentElement.lang.slice(0, 3)
-if (!Object.keys(messages).includes(langCode)) {
-  langCode = 'en'
-}
-*/
 // Create VueI18n instance with options.
 const i18n = new VueI18n({
   locale: 'en',
