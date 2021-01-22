@@ -111,7 +111,7 @@ export default {
 
   data: () => ({
     // Current locale.
-    locale: 'ru',
+    currentLocale: 'ru',
     // Open and close service list panel (navigation-drawer).
     serviceListDrawer: null,
     // List of services (applications) with nested list of collections.
@@ -155,9 +155,8 @@ export default {
     },
     // Create Url for Document list.
     createUrlDocumentList: function (serviceTitle, collectionTitle) {
-      const currLocale = this.locale
-      const slugServiceTitle = slug(serviceTitle, { locale: currLocale })
-      const slugCollectionTitle = slug(collectionTitle, { locale: currLocale })
+      const slugServiceTitle = slug(serviceTitle, { locale: this.currentLocale })
+      const slugCollectionTitle = slug(collectionTitle, { locale: this.currentLocale })
       return `/${slugServiceTitle}/${slugCollectionTitle}/document-list`
     }
   }
