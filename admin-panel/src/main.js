@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import App from './App.vue'
+import VueI18n from 'vue-i18n'
 import router from './router'
 import store from './store'
+import messages from './i18n/messages'
 import vuetify from './plugins/vuetify'
 import '@/assets/css/helpers.css'
 
@@ -13,9 +15,24 @@ if (process.env.NODE_ENV.trim() === 'production') {
   Vue.config.silent = true
 }
 
+// Add translation support.
+Vue.use(VueI18n)
+/*
+let langCode = document.documentElement.lang.slice(0, 3)
+if (!Object.keys(messages).includes(langCode)) {
+  langCode = 'en'
+}
+*/
+// Create VueI18n instance with options.
+const i18n = new VueI18n({
+  locale: 'en',
+  messages
+})
+
 new Vue({
   router,
   store,
+  i18n,
   vuetify,
   render: h => h(App)
 }).$mount('#app')

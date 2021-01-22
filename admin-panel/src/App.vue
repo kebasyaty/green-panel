@@ -70,14 +70,14 @@
       <!-- Menu button. -->
       <v-app-bar-nav-icon @click="panelServiceList = !panelServiceList"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
-      <!-- Home button. -->
+      <!-- Reload panel button. -->
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on" href="/">
-            <v-icon>mdi-home</v-icon>
+            <v-icon>mdi-reload</v-icon>
           </v-btn>
         </template>
-        <span>Home page</span>
+        <span>{{ $t("message.1") }}</span>
       </v-tooltip>
       <!-- Light or dark theme button. -->
       <v-tooltip bottom>
