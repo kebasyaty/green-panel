@@ -77,7 +77,7 @@
             <v-icon>mdi-reload</v-icon>
           </v-btn>
         </template>
-        <span>{{ $t("message.Reload panel") }}</span>
+        <span>{{ $t("message.0") }}</span>
       </v-tooltip>
       <!-- Light or dark theme button. -->
       <v-tooltip bottom>
@@ -86,7 +86,7 @@
             <v-icon>mdi-brightness-4</v-icon>
           </v-btn>
         </template>
-        <span>{{ $t("message.Light or Dark theme") }}</span>
+        <span>{{ $t("message.1") }}</span>
       </v-tooltip>
       <v-spacer></v-spacer>
       <!-- Logout button. -->
@@ -96,7 +96,7 @@
             <v-icon>mdi-logout</v-icon>
           </v-btn>
         </template>
-        <span>{{ $t("message.Logout") }}</span>
+        <span>{{ $t("message.2") }}</span>
       </v-tooltip>
     </v-app-bar>
 
