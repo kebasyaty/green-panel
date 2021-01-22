@@ -1,5 +1,5 @@
-import en from '@/i18n/translations/en'
-import ru from '@/i18n/translations/ru'
+import en from '@/i18n/lang/en'
+import ru from '@/i18n/lang/ru'
 
 export default {
   en,
