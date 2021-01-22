@@ -86,7 +86,7 @@
             <v-icon>mdi-brightness-4</v-icon>
           </v-btn>
         </template>
-        <span>Light or Dark theme</span>
+        <span>{{ $t("message.2") }}</span>
       </v-tooltip>
       <v-spacer></v-spacer>
       <!-- Logout button. -->
@@ -96,7 +96,7 @@
             <v-icon>mdi-logout</v-icon>
           </v-btn>
         </template>
-        <span>Logout</span>
+        <span>{{ $t("message.3") }}</span>
       </v-tooltip>
     </v-app-bar>
 
