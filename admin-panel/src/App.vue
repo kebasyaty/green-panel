@@ -3,7 +3,7 @@
     <!-- Navigation bar.
     ------------------------------------------------------------------------------------------------
     -->
-    <v-navigation-drawer app v-model="serviceListDrawer" :width="380" class="pa-1">
+    <v-navigation-drawer app v-model="panelServiceList" :width="panelWidthServiceList" class="pa-1">
       <!-- Company name and short description. -->
       <v-list-item>
         <v-list-item-content>
@@ -11,19 +11,29 @@
           <v-list-item-subtitle>Brief description of the company.</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
+      <!-- Change the width of the panel. -->
+      <v-list-item class="panel-width-service-list pl-1">
+        <v-list-item-content>
+          <v-slider
+            dense
+            hide-details
+            v-model="panelWidthServiceList"
+            prepend-icon="mdi-arrow-split-vertical"
+            min="256"
+            max="600"
+            class="panel-width-service-list__slider"
+          ></v-slider>
+        </v-list-item-content>
+      </v-list-item>
       <!-- List of services (applications) and collections in them. -->
       <v-expansion-panels class="service-list">
         <!-- Service list -->
         <v-expansion-panel v-for="(item, index) in serviceList" :key="item.service.title">
           <v-expansion-panel-header class="text-subtitle-1 font-weight-medium pl-0">
-            <v-row no-gutters>
-              <v-col cols="2" class="pl-1">
-                <v-icon class="pos-relative pos-top-n2" v-text="`mdi-${item.service.icon}`"></v-icon>
-              </v-col>
-              <v-col cols="10">
-                <span class="pos-relative pos-left-n16">{{item.service.title}}</span>
-              </v-col>
-            </v-row>
+            <div class="pl-1 service-list__icon">
+              <v-icon class="pos-relative pos-top-n2" v-text="`mdi-${item.service.icon}`"></v-icon>
+            </div>
+            <span class>{{item.service.title}}</span>
           </v-expansion-panel-header>
           <v-expansion-panel-content class="service-list__content">
             <!-- Ccollection list -->
@@ -58,7 +68,7 @@
     -->
     <v-app-bar app dense fixed>
       <!-- Menu button. -->
-      <v-app-bar-nav-icon @click="serviceListDrawer = !serviceListDrawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click="panelServiceList = !panelServiceList"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
       <!-- Home button. -->
       <v-tooltip bottom>
@@ -112,8 +122,10 @@ export default {
   data: () => ({
     // Current locale.
     currentLocale: 'ru',
+    // Panel width for list of services (Drawer).
+    panelWidthServiceList: 360,
     // Open and close service list panel (navigation-drawer).
-    serviceListDrawer: null,
+    panelServiceList: null,
     // List of services (applications) with nested list of collections.
     selectedItem: [undefined, undefined, undefined],
     serviceList: [
@@ -162,3 +174,12 @@ export default {
   }
 }
 </script>
+
+<style>
+.panel-width-service-list__slider .v-slider {
+  max-width: 195px;
+}
+.service-list__icon {
+  max-width: 37px;
+}
+</style>

@@ -13,11 +13,6 @@
   position: relative;
 }
 
-/* Left (negative) */
-.pos-left-n16 {
-  left: -16px;
-}
-
 /* Top (negative) */
 .pos-top-n2 {
   top: -2px;
