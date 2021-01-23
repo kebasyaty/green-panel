@@ -5,11 +5,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    currentSelectedService: {}
+    currentActivatedService: {}
   },
   mutations: {
-    setCurrentSelectedService(state, payload) {
-      state.currentSelectedService = payload
+    setCurrentActivatedService(state, payload) {
+      state.currentActivatedService = payload
     }
   },
   actions: {
