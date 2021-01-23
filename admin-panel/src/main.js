@@ -17,11 +17,9 @@ if (process.env.NODE_ENV.trim() === 'production') {
 
 // Add support for language translation.
 Vue.use(VueI18n)
-// Get language code from browser locale.
-const userLang = (navigator.language || navigator.userLanguage).slice(0, 2).toLowerCase()
 // Create VueI18n instance with options.
 const i18n = new VueI18n({
-  locale: userLang,
+  locale: 'en',
   fallbackLocale: 'en',
   messages
 })

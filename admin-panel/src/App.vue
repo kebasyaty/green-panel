@@ -164,10 +164,11 @@ export default {
   methods: {
     // List of services - Resetting previously activated items.
     resetPreSelectedItem: function (currIndex) {
-      this.selectedItem.forEach(function (item, idx, arr) {
+      this.selectedItem = this.selectedItem.map(function (item, idx) {
         if (idx !== currIndex) {
-          arr[idx] = undefined
+          item = undefined
         }
+        return item
       })
     },
     // Create Url for Document list.
@@ -176,10 +177,6 @@ export default {
       const slugCollectionTitle = slug(collectionTitle, { locale: this.currentUserLocale })
       return `/${slugServiceTitle}/${slugCollectionTitle}/document-list`
     }
-  },
-
-  created() {
-    this.$i18n.locale = this.currentUserLocale
   }
 }
 </script>
