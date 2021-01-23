@@ -1,10 +1,8 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-title>{{ serviceList[$route.params.indexService].collections[$route.params.indexCollection].title }}</v-card-title>
-      <v-card-subtitle
-        class="pb-0"
-      >{{ `${serviceList[$route.params.indexService].service.title} > ${serviceList[$route.params.indexService].collections[$route.params.indexCollection].title}` }}</v-card-subtitle>
+      <v-card-title>{{ collectionTitle }}</v-card-title>
+      <v-card-subtitle class="pb-0">{{ breadcrumbs }}</v-card-subtitle>
     </v-card>
   </v-container>
 </template>
@@ -15,14 +13,21 @@ import { mapState } from 'vuex'
 export default {
   name: 'DocumentList',
 
-  components: {
-    //
-  },
-
   computed: {
     ...mapState([
       'serviceList'
-    ])
+    ]),
+    collectionTitle: function () {
+      const indexService = this.$route.params.indexService
+      const indexCollection = this.$route.params.indexCollection
+      return this.serviceList[indexService].collections[indexCollection].title
+    },
+    breadcrumbs: function () {
+      const indexService = this.$route.params.indexService
+      const indexCollection = this.$route.params.indexCollection
+      const service = this.serviceList[indexService]
+      return `${service.service.title} > ${service.collections[indexCollection].title}`
+    }
   }
 }
 </script>
