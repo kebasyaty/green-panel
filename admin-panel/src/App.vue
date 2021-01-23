@@ -121,7 +121,7 @@ export default {
 
   data: () => ({
     // Current locale.
-    currentLocale: 'ru',
+    currentUserLocale: 'ru',
     // Panel width for list of services (Drawer).
     panelWidthServiceList: 360,
     // Open and close service list panel (navigation-drawer).
@@ -167,8 +167,8 @@ export default {
     },
     // Create Url for Document list.
     createUrlDocumentList: function (serviceTitle, collectionTitle) {
-      const slugServiceTitle = slug(serviceTitle, { locale: this.currentLocale })
-      const slugCollectionTitle = slug(collectionTitle, { locale: this.currentLocale })
+      const slugServiceTitle = slug(serviceTitle, { locale: this.currentUserLocale })
+      const slugCollectionTitle = slug(collectionTitle, { locale: this.currentUserLocale })
       return `/${slugServiceTitle}/${slugCollectionTitle}/document-list`
     }
   }
