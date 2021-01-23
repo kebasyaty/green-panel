@@ -1,17 +1,18 @@
 <template>
   <v-container>
-    <v-card>
+    <v-card class="mt-5">
       <v-card-title>{{ collectionTitle }}</v-card-title>
       <v-card-subtitle class="pb-0">{{ breadcrumbs }}</v-card-subtitle>
       <v-card-text class="pt-4">
         <v-row>
           <v-col cols="6">
+            <!-- Search query field. -->
             <v-text-field
+              dense
               rounded
               outlined
-              dense
-              hide-details
               clearable
+              hide-details
               v-model="searchQuery"
               placeholder="Search"
               append-icon="mdi-magnify"
@@ -19,6 +20,29 @@
             ></v-text-field>
           </v-col>
         </v-row>
+        <!-- Document table. -->
+        <v-simple-table fixed-header class="mt-4">
+          <template v-slot:default>
+            <thead>
+              <tr>
+                <th class="text-left">
+                  <v-checkbox></v-checkbox>
+                </th>
+                <th class="text-left">Number</th>
+                <th class="text-left">Title</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(document, index) in documentList" :key="document.title">
+                <td width="76" class="pr-0">
+                  <v-checkbox></v-checkbox>
+                </td>
+                <td width="76" class="pr-0">{{ index + 1 }}</td>
+                <td>{{ document.title }}</td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
       </v-card-text>
     </v-card>
   </v-container>
@@ -32,7 +56,12 @@ export default {
 
   data: () => ({
     // Search query.
-    searchQuery: null
+    searchQuery: null,
+    documentList: [
+      {
+        title: 'Document name 1'
+      }
+    ]
   }),
 
   computed: {
