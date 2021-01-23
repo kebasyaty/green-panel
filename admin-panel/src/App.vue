@@ -180,7 +180,6 @@ export default {
 
   created() {
     this.$i18n.locale = this.currentUserLocale
-    window.console.log(this.$i18n.locale)
   }
 }
 </script>
