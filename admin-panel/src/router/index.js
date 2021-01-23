@@ -13,13 +13,13 @@ const routes = [
   },
   // Document list
   {
-    path: '/:service/:collection/document-list',
+    path: '/:service/:index_service/:collection/:index_collection/document-list',
     name: 'DocumentList',
     component: () => import('../views/DocumentList.vue')
   },
   // Error 404 - Page not found.
   {
-    path: '/*',
+    path: '*',
     name: 'NotFound',
     component: () => import('../views/NotFound.vue')
   }

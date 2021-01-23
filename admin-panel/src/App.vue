@@ -28,7 +28,7 @@
       <!-- List of services (applications) and collections in them. -->
       <v-expansion-panels class="service-list">
         <!-- Service list -->
-        <v-expansion-panel v-for="(item, index) in serviceList" :key="item.service.title">
+        <v-expansion-panel v-for="(item, indexService) in serviceList" :key="item.service.title">
           <v-expansion-panel-header class="text-subtitle-1 font-weight-medium pl-0">
             <div class="pl-1 service-list__icon">
               <v-icon class="pos-relative pos-top-n2" v-text="`mdi-${item.service.icon}`"></v-icon>
@@ -38,13 +38,13 @@
           <v-expansion-panel-content class="service-list__content">
             <!-- Ccollection list -->
             <v-list shaped dense>
-              <v-list-item-group v-model="selectedItem[index]" color="primary">
+              <v-list-item-group v-model="selectedService[indexService]" color="primary">
                 <v-list-item
-                  v-for="collection in item.collections"
+                  v-for="(collection, indexCollection) in item.collections"
                   :key="collection.model_key"
                   class="px-1"
-                  @click="resetPreActivatedService(index)"
-                  :to="createUrlDocumentList(item.service.title, collection.title)"
+                  @click="resetPreActivatedService(indexService)"
+                  :to="createUrlDocumentList(item.service.title, collection.title, indexService, indexCollection)"
                 >
                   <v-list-item-icon class="mr-2">
                     <v-icon>mdi-circle-medium</v-icon>
@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import slug from 'slug'
 
 export default {
@@ -124,56 +124,35 @@ export default {
     // Panel width for list of services (Drawer).
     panelWidthServiceList: 360,
     // Open and close service list panel (navigation-drawer).
-    panelServiceList: null,
-    // List of services (applications) with nested list of collections.
-    selectedItem: [undefined, undefined, undefined],
-    serviceList: [
-      {
-        service: { title: 'Название сервиса 1', icon: 'laptop' },
-        collections: [
-          { title: 'Название коллекции 1.1', model_key: '1' },
-          { title: 'Collection name 1.2', model_key: '2' },
-          { title: 'Collection name 1.3', model_key: '3' }
-        ]
-      },
-      {
-        service: { title: 'Service name 2', icon: 'cellphone' },
-        collections: [
-          { title: 'Collection name 2.1', model_key: '4' },
-          { title: 'Collection name 2.2', model_key: '5' },
-          { title: 'Collection name 2.3', model_key: '6' }
-        ]
-      },
-      {
-        service: { title: 'Service name 3', icon: 'wifi' },
-        collections: [
-          { title: 'Collection name 3.1', model_key: '7' },
-          { title: 'Collection name 3.2', model_key: '8' },
-          { title: 'Collection name 3.3', model_key: '9' }
-        ]
-      }
-    ]
+    panelServiceList: null
   }),
+
+  computed: {
+    ...mapState([
+      'selectedService',
+      'serviceList'
+    ])
+  },
 
   methods: {
     ...mapMutations([
-      'setCurrentActivedService'
+      'setSelectedService'
     ]),
     // List of services - Resetting previously activated items.
     resetPreActivatedService: function (currIndex) {
-      this.selectedItem = this.selectedItem.map(function (item, idx) {
+      this.setSelectedService(this.selectedService.map(function (item, idx) {
         if (idx !== currIndex) {
           item = undefined
         }
         return item
-      })
+      }))
     },
     // Create Url for Document list.
-    createUrlDocumentList: function (serviceTitle, collectionTitle) {
+    createUrlDocumentList: function (serviceTitle, collectionTitle, indexService, indexCollection) {
       const currentUserLocale = this.$i18n.locale
       const slugServiceTitle = slug(serviceTitle, { locale: currentUserLocale })
       const slugCollectionTitle = slug(collectionTitle, { locale: currentUserLocale })
-      return `/${slugServiceTitle}/${slugCollectionTitle}/document-list`
+      return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document-list`
     }
   }
 }
