@@ -110,6 +110,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import slug from 'slug'
 
 export default {
@@ -120,8 +121,6 @@ export default {
   },
 
   data: () => ({
-    // Current locale.
-    currentUserLocale: 'ru',
     // Panel width for list of services (Drawer).
     panelWidthServiceList: 360,
     // Open and close service list panel (navigation-drawer).
@@ -156,6 +155,12 @@ export default {
     ]
   }),
 
+  computed: {
+    ...mapState([
+      'currentUserLocale'
+    ])
+  },
+
   methods: {
     // List of services - Resetting previously activated items.
     resetPreSelectedItem: function (currIndex) {
@@ -171,6 +176,11 @@ export default {
       const slugCollectionTitle = slug(collectionTitle, { locale: this.currentUserLocale })
       return `/${slugServiceTitle}/${slugCollectionTitle}/document-list`
     }
+  },
+
+  created() {
+    this.$i18n.locale = this.currentUserLocale
+    window.console.log(this.$i18n.locale)
   }
 }
 </script>

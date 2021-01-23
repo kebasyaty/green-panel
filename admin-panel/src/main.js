@@ -1,10 +1,10 @@
 import Vue from 'vue'
-import App from './App.vue'
+import App from '@/App.vue'
 import VueI18n from 'vue-i18n'
-import router from './router'
-import store from './store'
-import messages from './i18n/messages'
-import vuetify from './plugins/vuetify'
+import router from '@/router'
+import store from '@/store'
+import messages from '@/i18n/messages'
+import vuetify from '@/plugins/vuetify'
 import '@/assets/css/helpers.css'
 
 // Disable debug to production.
