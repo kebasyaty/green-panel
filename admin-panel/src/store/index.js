@@ -5,9 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    currentUserLocale: 'en'
+    currentSelectedService: {}
   },
   mutations: {
+    setCurrentSelectedService(state, payload) {
+      state.currentSelectedService = payload
+    }
   },
   actions: {
   },

@@ -43,7 +43,7 @@
                   v-for="collection in item.collections"
                   :key="collection.model_key"
                   class="px-1"
-                  @click="resetPreSelectedItem(index)"
+                  @click="resetPreActivatedService(index)"
                   :to="createUrlDocumentList(item.service.title, collection.title)"
                 >
                   <v-list-item-icon class="mr-2">
@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapMutations } from 'vuex'
 import slug from 'slug'
 
 export default {
@@ -155,15 +155,12 @@ export default {
     ]
   }),
 
-  computed: {
-    ...mapState([
-      'currentUserLocale'
-    ])
-  },
-
   methods: {
+    ...mapMutations([
+      'setCurrentSelectedService'
+    ]),
     // List of services - Resetting previously activated items.
-    resetPreSelectedItem: function (currIndex) {
+    resetPreActivatedService: function (currIndex) {
       this.selectedItem = this.selectedItem.map(function (item, idx) {
         if (idx !== currIndex) {
           item = undefined
@@ -173,8 +170,9 @@ export default {
     },
     // Create Url for Document list.
     createUrlDocumentList: function (serviceTitle, collectionTitle) {
-      const slugServiceTitle = slug(serviceTitle, { locale: this.currentUserLocale })
-      const slugCollectionTitle = slug(collectionTitle, { locale: this.currentUserLocale })
+      const currentUserLocale = this.$i18n.locale
+      const slugServiceTitle = slug(serviceTitle, { locale: currentUserLocale })
+      const slugCollectionTitle = slug(collectionTitle, { locale: currentUserLocale })
       return `/${slugServiceTitle}/${slugCollectionTitle}/document-list`
     }
   }
