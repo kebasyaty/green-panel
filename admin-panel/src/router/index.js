@@ -13,7 +13,7 @@ const routes = [
   },
   // Document list
   {
-    path: '/:service/:index_service/:collection/:index_collection/document-list',
+    path: '/:service/:indexService/:collection/:indexCollection/document-list',
     name: 'DocumentList',
     component: () => import('../views/DocumentList.vue')
   },

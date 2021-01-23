@@ -1,11 +1,10 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-title>{{ serviceList[$route.params.index_service].service.title }}</v-card-title>
+      <v-card-title>{{ serviceList[$route.params.indexService].collections[$route.params.indexCollection].title }}</v-card-title>
       <v-card-subtitle
         class="pb-0"
-        :text="`/${$route.params.service}/${$route.params.collection}/`"
-      ></v-card-subtitle>
+      >{{ `${serviceList[$route.params.indexService].service.title} > ${serviceList[$route.params.indexService].collections[$route.params.indexCollection].title}` }}</v-card-subtitle>
     </v-card>
   </v-container>
 </template>
