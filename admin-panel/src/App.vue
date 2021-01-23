@@ -157,7 +157,7 @@ export default {
 
   methods: {
     ...mapMutations([
-      'setCurrentActivatedService'
+      'setCurrentActivedService'
     ]),
     // List of services - Resetting previously activated items.
     resetPreActivatedService: function (currIndex) {

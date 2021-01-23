@@ -5,11 +5,13 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    currentActivatedService: {}
+    // Information about the currently actived service.
+    currentActivedService: {}
   },
   mutations: {
-    setCurrentActivatedService(state, payload) {
-      state.currentActivatedService = payload
+    // Update information about the currently actived service.
+    setCurrentActivedService(state, payload) {
+      state.currentActivedService = payload
     }
   },
   actions: {
