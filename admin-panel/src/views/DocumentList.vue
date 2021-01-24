@@ -16,7 +16,7 @@
               v-model="searchQuery"
               placeholder="Search"
               append-icon="mdi-magnify"
-              @click:append="docSearch"
+              @click:append="documentSearch"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -28,7 +28,7 @@
                 <th class="text-left">
                   <v-checkbox></v-checkbox>
                 </th>
-                <th class="text-left">Number</th>
+                <th class="text-left">&#8470;</th>
                 <th class="text-left">Title</th>
               </tr>
             </thead>
@@ -83,7 +83,7 @@ export default {
 
   methods: {
     // Documents search.
-    docSearch: function () {
+    documentSearch: function () {
       if (this.searchQuery !== null) {
         window.console.log(this.searchQuery)
       }
