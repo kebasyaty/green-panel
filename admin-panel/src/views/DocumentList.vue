@@ -26,10 +26,12 @@
             <thead>
               <tr>
                 <th width="76" class="text-left">
+                  <!-- Delete all documents. -->
                   <v-checkbox></v-checkbox>
                 </th>
                 <!-- Symbol - № -->
                 <th width="76" class="text-left">&#8470;</th>
+                <!-- Header list. -->
                 <th
                   class="text-left"
                   v-for="header in headerList"
@@ -40,9 +42,12 @@
             <tbody>
               <tr v-for="(document, index) in documentList" :key="index">
                 <td width="76" class="pr-0">
+                  <!-- Delete document. -->
                   <v-checkbox></v-checkbox>
                 </td>
+                <!-- Number of the document in the table. -->
                 <td width="76" class="pr-0">{{ index + 1 }}</td>
+                <!-- Document list. -->
                 <td
                   v-for="header in headerList"
                   :key="Object.keys(header)[0]"
