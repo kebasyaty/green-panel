@@ -44,7 +44,7 @@
                   :key="collection.model_key"
                   class="px-1"
                   @click="resetPreActivatedService(indexService)"
-                  :to="createUrlDocumentList(item.service.title, collection.title, indexService, indexCollection)"
+                  :to="createDocumentListUrl(item.service.title, collection.title, indexService, indexCollection)"
                 >
                   <v-list-item-icon class="mr-2">
                     <v-icon>mdi-circle-medium</v-icon>
@@ -148,7 +148,7 @@ export default {
       }))
     },
     // Create Url for Document list.
-    createUrlDocumentList: function (serviceTitle, collectionTitle, indexService, indexCollection) {
+    createDocumentListUrl: function (serviceTitle, collectionTitle, indexService, indexCollection) {
       const currentUserLocale = this.$i18n.locale
       const slugServiceTitle = slug(serviceTitle, { locale: currentUserLocale })
       const slugCollectionTitle = slug(collectionTitle, { locale: currentUserLocale })

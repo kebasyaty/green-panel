@@ -21,7 +21,7 @@
           </v-col>
         </v-row>
         <!-- Document table. -->
-        <v-simple-table fixed-header class="mt-4 table-document-list">
+        <v-simple-table fixed-header class="mt-4">
           <template v-slot:default>
             <thead>
               <tr>
@@ -40,22 +40,21 @@
               </tr>
             </thead>
             <tbody>
-              <tr
-                v-for="(document, index) in documentList"
-                :key="index"
-                class="table-document-list__tr-doc"
-              >
+              <tr v-for="(document, idxDoc) in documentList" :key="idxDoc">
                 <!-- Delete document. -->
                 <td width="76" class="pr-0">
                   <v-checkbox></v-checkbox>
                 </td>
                 <!-- Number of the document in the table. -->
-                <td width="76" class="pr-0">{{ index + 1 }}</td>
+                <td width="76" class="pr-0">{{ idxDoc + 1 }}</td>
                 <!-- Document list. -->
-                <td
-                  v-for="header in headerList"
-                  :key="Object.keys(header)[0]"
-                >{{ document[Object.keys(header)[0]] }}</td>
+                <td v-for="(header, idxHead) in headerList" :key="Object.keys(header)[0]">
+                  <router-link
+                    v-if="idxHead === 0"
+                    :to="createDocumentUrl(document.hash)"
+                  >{{ document[Object.keys(header)[0]] }}</router-link>
+                  <template v-else>{{ document[Object.keys(header)[0]] }}</template>
+                </td>
               </tr>
             </tbody>
           </template>
@@ -67,6 +66,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import slug from 'slug'
 
 export default {
   name: 'DocumentList',
@@ -74,9 +74,9 @@ export default {
   data: () => ({
     // Search query.
     searchQuery: null,
-    headerList: [{ title: 'Title' }],
+    headerList: [{ title: 'Title' }, { nickname: 'Nickname' }],
     documentList: [
-      { hash: 'h1', title: 'Document name 1' }
+      { hash: 'h1', title: 'Document name 1', nickname: 'rust' }
     ]
   }),
 
@@ -103,13 +103,17 @@ export default {
       if (this.searchQuery !== null) {
         window.console.log(this.searchQuery)
       }
+    },
+    // Create Url for Document.
+    createDocumentUrl: function (hash) {
+      const currentUserLocale = this.$i18n.locale
+      const indexService = this.$route.params.indexService
+      const indexCollection = this.$route.params.indexCollection
+      const service = this.serviceList[indexService]
+      const slugServiceTitle = slug(service.service.title, { locale: currentUserLocale })
+      const slugCollectionTitle = slug(service.collections[indexCollection].title, { locale: currentUserLocale })
+      return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document/${hash}`
     }
   }
 }
 </script>
-
-<style>
-.table-document-list__tr-doc {
-  cursor: pointer;
-}
-</style>
