@@ -94,6 +94,16 @@ export default {
       const indexCollection = this.$route.params.indexCollection
       const service = this.serviceList[indexService]
       return `${service.service.title} > ${service.collections[indexCollection].title}`
+    },
+    // Document url without hash.
+    docUrlNoHash: function () {
+      const currentUserLocale = this.$i18n.locale
+      const indexService = this.$route.params.indexService
+      const indexCollection = this.$route.params.indexCollection
+      const service = this.serviceList[indexService]
+      const slugServiceTitle = slug(service.service.title, { locale: currentUserLocale })
+      const slugCollectionTitle = slug(service.collections[indexCollection].title, { locale: currentUserLocale })
+      return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document/`
     }
   },
 
@@ -106,13 +116,7 @@ export default {
     },
     // Create Url for Document.
     createDocumentUrl: function (hash) {
-      const currentUserLocale = this.$i18n.locale
-      const indexService = this.$route.params.indexService
-      const indexCollection = this.$route.params.indexCollection
-      const service = this.serviceList[indexService]
-      const slugServiceTitle = slug(service.service.title, { locale: currentUserLocale })
-      const slugCollectionTitle = slug(service.collections[indexCollection].title, { locale: currentUserLocale })
-      return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document/${hash}`
+      return this.docUrlNoHash + hash
     }
   }
 }
