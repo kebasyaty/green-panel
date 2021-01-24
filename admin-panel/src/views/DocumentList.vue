@@ -9,22 +9,24 @@
       <v-card-title class="pt-0">{{ collectionTitle }}</v-card-title>
       <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
       <v-card-text class="pt-4">
-        <v-row>
-          <v-col cols="6">
-            <!-- Search query field. -->
-            <v-text-field
-              dense
-              rounded
-              outlined
-              clearable
-              hide-details
-              v-model="searchQuery"
-              placeholder="Search"
-              append-icon="mdi-magnify"
-              @click:append="documentSearch"
-            ></v-text-field>
-          </v-col>
-        </v-row>
+        <v-container fluid class="pa-0">
+          <v-row>
+            <v-col cols="6">
+              <!-- Search query field. -->
+              <v-text-field
+                dense
+                rounded
+                outlined
+                clearable
+                hide-details
+                v-model="searchQuery"
+                placeholder="Search"
+                append-icon="mdi-magnify"
+                @click:append="documentSearch"
+              ></v-text-field>
+            </v-col>
+          </v-row>
+        </v-container>
         <!-- Document table. -->
         <v-simple-table fixed-header class="mt-4">
           <template v-slot:default>
@@ -65,6 +67,11 @@
           </template>
         </v-simple-table>
       </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-pagination v-model="pageNumber" :length="countPage" :total-visible="7" circle></v-pagination>
+        <v-spacer></v-spacer>
+      </v-card-actions>
     </v-card>
   </v-container>
 </template>
@@ -77,7 +84,9 @@ export default {
   name: 'DocumentList',
 
   data: () => ({
-    searchQuery: null
+    searchQuery: null,
+    pageNumber: 1,
+    countPage: 8
   }),
 
   computed: {
