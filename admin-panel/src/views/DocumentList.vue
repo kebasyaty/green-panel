@@ -25,8 +25,8 @@
           <template v-slot:default>
             <thead>
               <tr>
+                <!-- Delete all documents. -->
                 <th width="76" class="text-left">
-                  <!-- Delete all documents. -->
                   <v-checkbox></v-checkbox>
                 </th>
                 <!-- Symbol - № -->
@@ -41,8 +41,8 @@
             </thead>
             <tbody>
               <tr v-for="(document, index) in documentList" :key="index">
+                <!-- Delete document. -->
                 <td width="76" class="pr-0">
-                  <!-- Delete document. -->
                   <v-checkbox></v-checkbox>
                 </td>
                 <!-- Number of the document in the table. -->
