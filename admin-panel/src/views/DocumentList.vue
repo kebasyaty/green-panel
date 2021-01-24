@@ -11,7 +11,7 @@
       <v-card-text class="pt-4">
         <v-container fluid class="pa-0">
           <v-row>
-            <v-col cols="12" sm="6">
+            <v-col cols="12" md="6">
               <!-- Search query field. -->
               <v-text-field
                 dense
