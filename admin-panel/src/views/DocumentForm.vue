@@ -6,7 +6,7 @@
           <v-icon>mdi-arrow-left</v-icon>
         </v-btn>
       </v-toolbar>
-      <v-card-title class="pt-0">Document Name</v-card-title>
+      <v-card-title class="pt-0">{{ docTitle }}</v-card-title>
       <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
       <v-card-text></v-card-text>
     </v-card>
@@ -30,13 +30,16 @@ export default {
       'headers',
       'documents'
     ]),
+    docTitle: function () {
+      const indexDoc = this.$route.params.indexDoc
+      const docTitle = this.documents[indexDoc][Object.keys(this.headers[0])[0]]
+      return docTitle
+    },
     breadcrumbs: function () {
       const indexService = this.$route.params.indexService
       const indexCollection = this.$route.params.indexCollection
-      const indexDoc = this.$route.params.indexDoc
       const service = this.serviceList[indexService]
-      const docTitle = this.documents[indexDoc][Object.keys(this.headers[0])[0]]
-      return `${service.service.title} > ${service.collections[indexCollection].title} > ${docTitle}`
+      return `${service.service.title} > ${service.collections[indexCollection].title} > ${this.docTitle}`
     }
   },
 
