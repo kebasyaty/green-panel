@@ -56,7 +56,7 @@
                 <td v-for="(header, idxHead) in headers" :key="Object.keys(header)[0]">
                   <router-link
                     v-if="idxHead === 0"
-                    :to="createDocumentUrl(document.hash)"
+                    :to="createDocumentUrl(idxDoc)"
                   >{{ document[Object.keys(header)[0]] }}</router-link>
                   <template v-else>{{ document[Object.keys(header)[0]] }}</template>
                 </td>
@@ -100,7 +100,7 @@ export default {
       return `${service.service.title} > ${service.collections[indexCollection].title}`
     },
     // Document url without hash.
-    docUrlNoHash: function () {
+    docUrlNoIndex: function () {
       const currentUserLocale = this.$i18n.locale
       const indexService = this.$route.params.indexService
       const indexCollection = this.$route.params.indexCollection
@@ -122,8 +122,8 @@ export default {
       }
     },
     // Create Url for Document.
-    createDocumentUrl: function (hash) {
-      return `${this.docUrlNoHash}/${hash}`
+    createDocumentUrl: function (indexDoc) {
+      return `${this.docUrlNoIndex}/${indexDoc}`
     }
   }
 }

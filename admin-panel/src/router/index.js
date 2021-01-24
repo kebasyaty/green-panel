@@ -19,7 +19,7 @@ const routes = [
   },
   // Document form
   {
-    path: '/:service/:indexService/:collection/:indexCollection/document/:hash',
+    path: '/:service/:indexService/:collection/:indexCollection/document/:indexDoc',
     name: 'DocumentForm',
     component: () => import('../views/DocumentForm.vue')
   },

@@ -25,6 +25,10 @@ export default {
   computed: {
     ...mapState([
       'serviceList'
+    ]),
+    ...mapState('documentList', [
+      'headers',
+      'documents'
     ])
   },
 
