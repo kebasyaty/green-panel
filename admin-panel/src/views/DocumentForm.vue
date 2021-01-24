@@ -8,7 +8,9 @@
       </v-toolbar>
       <v-card-title class="pt-0">{{ docTitle }}</v-card-title>
       <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
-      <v-card-text></v-card-text>
+      <v-card-text class="pt-4">
+        <!-- -->
+      </v-card-text>
     </v-card>
   </v-container>
 </template>

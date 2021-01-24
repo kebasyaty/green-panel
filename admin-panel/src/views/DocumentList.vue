@@ -8,7 +8,7 @@
       </v-toolbar>
       <v-card-title class="pt-0">{{ collectionTitle }}</v-card-title>
       <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
-      <v-card-text>
+      <v-card-text class="pt-4">
         <v-row>
           <v-col cols="6">
             <!-- Search query field. -->
