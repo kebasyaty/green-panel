@@ -77,17 +77,16 @@ export default {
   name: 'DocumentList',
 
   data: () => ({
-    // Search query.
-    searchQuery: null,
-    headerList: [{ title: 'Title' }, { nickname: 'Nickname' }],
-    documentList: [
-      { hash: 'h1', title: 'Document name 1', nickname: 'rust' }
-    ]
+    searchQuery: null
   }),
 
   computed: {
     ...mapState([
       'serviceList'
+    ]),
+    ...mapState('documentList', [
+      'headerList',
+      'documentList'
     ]),
     collectionTitle: function () {
       const indexService = this.$route.params.indexService
