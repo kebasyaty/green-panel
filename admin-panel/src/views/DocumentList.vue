@@ -95,9 +95,8 @@ export default {
     },
     breadcrumbs: function () {
       const indexService = this.$route.params.indexService
-      const indexCollection = this.$route.params.indexCollection
-      const service = this.serviceList[indexService]
-      return `${service.service.title} > ${service.collections[indexCollection].title}`
+      const serviceTitle = this.serviceList[indexService].service.title
+      return `${serviceTitle} > ${this.collectionTitle}`
     },
     // Document url without hash.
     docUrlNoIndex: function () {

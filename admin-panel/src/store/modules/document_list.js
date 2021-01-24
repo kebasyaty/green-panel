@@ -4,7 +4,9 @@ export default {
   state: {
     headers: [{ title: 'Title' }, { nickname: 'Nickname' }],
     documents: [
-      { hash: 'h1', title: 'Document name 1', nickname: 'rust' }
+      { hash: 'h1', title: 'Название документа 1', nickname: 'rust' },
+      { hash: 'h2', title: 'Document name 2', nickname: 'rust2' },
+      { hash: 'h3', title: 'Document name 3', nickname: 'rust3' }
     ]
   },
 
