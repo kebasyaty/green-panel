@@ -39,13 +39,13 @@
                 <!-- Header list. -->
                 <th
                   class="text-left"
-                  v-for="header in headerList"
+                  v-for="header in headers"
                   :key="Object.keys(header)[0]"
                 >{{ Object.values(header)[0] }}</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(document, idxDoc) in documentList" :key="idxDoc">
+              <tr v-for="(document, idxDoc) in documents" :key="idxDoc">
                 <!-- Delete document. -->
                 <td width="76" class="pr-0">
                   <v-checkbox></v-checkbox>
@@ -53,7 +53,7 @@
                 <!-- Number of the document in the table. -->
                 <td width="76" class="pr-0">{{ idxDoc + 1 }}</td>
                 <!-- Document list. -->
-                <td v-for="(header, idxHead) in headerList" :key="Object.keys(header)[0]">
+                <td v-for="(header, idxHead) in headers" :key="Object.keys(header)[0]">
                   <router-link
                     v-if="idxHead === 0"
                     :to="createDocumentUrl(document.hash)"
@@ -85,8 +85,8 @@ export default {
       'serviceList'
     ]),
     ...mapState('documentList', [
-      'headerList',
-      'documentList'
+      'headers',
+      'documents'
     ]),
     collectionTitle: function () {
       const indexService = this.$route.params.indexService

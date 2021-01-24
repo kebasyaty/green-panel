@@ -2,8 +2,8 @@ export default {
   namespaced: true,
 
   state: {
-    headerList: [{ title: 'Title' }, { nickname: 'Nickname' }],
-    documentList: [
+    headers: [{ title: 'Title' }, { nickname: 'Nickname' }],
+    documents: [
       { hash: 'h1', title: 'Document name 1', nickname: 'rust' }
     ]
   },
@@ -11,11 +11,11 @@ export default {
   getters: {},
 
   mutations: {
-    setHeaderList(state, payload) {
-      state.headerList = payload
+    setHeaders(state, payload) {
+      state.headers = payload
     },
-    setDocumentList(state, payload) {
-      state.documentList = payload
+    setDocuments(state, payload) {
+      state.documents = payload
     }
   },
 
