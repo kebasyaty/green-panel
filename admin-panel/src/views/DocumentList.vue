@@ -1,9 +1,14 @@
 <template>
   <v-container fluid>
     <v-card class="mt-1">
-      <v-card-title>{{ collectionTitle }}</v-card-title>
-      <v-card-subtitle class="pb-0">{{ breadcrumbs }}</v-card-subtitle>
-      <v-card-text class="pt-4">
+      <v-toolbar dense flat>
+        <v-btn icon @click="goBack">
+          <v-icon>mdi-arrow-left</v-icon>
+        </v-btn>
+      </v-toolbar>
+      <v-card-title class="pt-0">{{ collectionTitle }}</v-card-title>
+      <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
+      <v-card-text>
         <v-row>
           <v-col cols="6">
             <!-- Search query field. -->
@@ -108,6 +113,9 @@ export default {
   },
 
   methods: {
+    goBack() {
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+    },
     // Documents search.
     documentSearch: function () {
       if (this.searchQuery !== null) {
