@@ -21,7 +21,7 @@
           </v-col>
         </v-row>
         <!-- Document table. -->
-        <v-simple-table fixed-header class="mt-4">
+        <v-simple-table fixed-header class="mt-4 table-document-list">
           <template v-slot:default>
             <thead>
               <tr>
@@ -40,7 +40,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(document, index) in documentList" :key="index">
+              <tr
+                v-for="(document, index) in documentList"
+                :key="index"
+                class="table-document-list__tr-doc"
+              >
                 <!-- Delete document. -->
                 <td width="76" class="pr-0">
                   <v-checkbox></v-checkbox>
@@ -72,7 +76,7 @@ export default {
     searchQuery: null,
     headerList: [{ title: 'Title' }],
     documentList: [
-      { title: 'Document name 1' }
+      { hash: 'h1', title: 'Document name 1' }
     ]
   }),
 
@@ -103,3 +107,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.table-document-list__tr-doc {
+  cursor: pointer;
+}
+</style>
