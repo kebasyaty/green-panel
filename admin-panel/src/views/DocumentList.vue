@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-card class="mt-5">
+  <v-container fluid>
+    <v-card class="mt-1">
       <v-card-title>{{ collectionTitle }}</v-card-title>
       <v-card-subtitle class="pb-0">{{ breadcrumbs }}</v-card-subtitle>
       <v-card-text class="pt-4">
