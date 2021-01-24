@@ -25,20 +25,27 @@
           <template v-slot:default>
             <thead>
               <tr>
-                <th class="text-left">
+                <th width="76" class="text-left">
                   <v-checkbox></v-checkbox>
                 </th>
-                <th class="text-left">&#8470;</th>
-                <th class="text-left">Title</th>
+                <th width="76" class="text-left">&#8470;</th>
+                <th
+                  class="text-left"
+                  v-for="header in headerList"
+                  :key="Object.keys(header)[0]"
+                >{{ Object.values(header)[0] }}</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(document, index) in documentList" :key="document.title">
+              <tr v-for="(document, index) in documentList" :key="index">
                 <td width="76" class="pr-0">
                   <v-checkbox></v-checkbox>
                 </td>
                 <td width="76" class="pr-0">{{ index + 1 }}</td>
-                <td>{{ document.title }}</td>
+                <td
+                  v-for="header in headerList"
+                  :key="Object.keys(header)[0]"
+                >{{ document[Object.keys(header)[0]] }}</td>
               </tr>
             </tbody>
           </template>
@@ -57,10 +64,9 @@ export default {
   data: () => ({
     // Search query.
     searchQuery: null,
+    headerList: [{ title: 'Title' }],
     documentList: [
-      {
-        title: 'Document name 1'
-      }
+      { title: 'Document name 1' }
     ]
   }),
 
