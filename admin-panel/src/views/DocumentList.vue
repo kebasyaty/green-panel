@@ -28,6 +28,7 @@
                 <th width="76" class="text-left">
                   <v-checkbox></v-checkbox>
                 </th>
+                <!-- Symbol - № -->
                 <th width="76" class="text-left">&#8470;</th>
                 <th
                   class="text-left"
