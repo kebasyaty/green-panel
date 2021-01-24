@@ -11,21 +11,18 @@ const routes = [
     name: 'Home',
     component: Home
   },
-
   // Document list
   {
     path: '/:service/:indexService/:collection/:indexCollection/document-list',
     name: 'DocumentList',
     component: () => import('../views/DocumentList.vue')
   },
-
-  // Document list
+  // Document form
   {
     path: '/:service/:indexService/:collection/:indexCollection/document/:hash',
     name: 'DocumentForm',
     component: () => import('../views/DocumentForm.vue')
   },
-
   // Error 404 - Page not found.
   {
     path: '*',

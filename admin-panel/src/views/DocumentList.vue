@@ -108,7 +108,7 @@ export default {
       const service = this.serviceList[indexService]
       const slugServiceTitle = slug(service.service.title, { locale: currentUserLocale })
       const slugCollectionTitle = slug(service.collections[indexCollection].title, { locale: currentUserLocale })
-      return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document/`
+      return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document`
     }
   },
 
@@ -124,7 +124,7 @@ export default {
     },
     // Create Url for Document.
     createDocumentUrl: function (hash) {
-      return this.docUrlNoHash + hash
+      return `${this.docUrlNoHash}/${hash}`
     }
   }
 }

@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 
 export default {
   name: 'DocumentForm',
@@ -22,6 +23,9 @@ export default {
   }),
 
   computed: {
+    ...mapState([
+      'serviceList'
+    ])
   },
 
   methods: {
