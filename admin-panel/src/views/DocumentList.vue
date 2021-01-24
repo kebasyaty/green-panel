@@ -11,7 +11,7 @@
       <v-card-text class="pt-4">
         <v-container fluid class="pa-0">
           <v-row>
-            <v-col cols="6">
+            <v-col cols="12" sm="6">
               <!-- Search query field. -->
               <v-text-field
                 dense
@@ -69,7 +69,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-pagination v-model="pageNumber" :length="countPage" :total-visible="7" circle></v-pagination>
+        <v-pagination v-model="pageNumber" :length="countPage" :total-visible="5" circle></v-pagination>
         <v-spacer></v-spacer>
       </v-card-actions>
     </v-card>
@@ -86,7 +86,7 @@ export default {
   data: () => ({
     searchQuery: null,
     pageNumber: 1,
-    countPage: 8
+    countPage: 6
   }),
 
   computed: {
