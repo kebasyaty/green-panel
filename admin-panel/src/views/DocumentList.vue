@@ -51,10 +51,10 @@
                 <th width="76" class="text-left">
                   <v-checkbox
                     hide-details
-                    v-model="docsToBeDeleted"
-                    value="all"
+                    v-model="deleteAllDocsFlag"
                     color="red darken-3"
                     class="mt-0 pt-0"
+                    @change="markAllDocsForDeletion"
                   ></v-checkbox>
                 </th>
                 <!-- Symbol - № -->
@@ -114,6 +114,7 @@ export default {
     searchQuery: null,
     pageNumber: 1,
     countPage: 6,
+    deleteAllDocsFlag: false,
     docsToBeDeleted: []
   }),
 
@@ -160,6 +161,14 @@ export default {
     // Create Url for Document.
     createDocumentUrl: function (indexDoc) {
       return `${this.docUrlNoIndex}/${indexDoc}`
+    },
+    // Mark all documents for deletion.
+    markAllDocsForDeletion: function () {
+      if (this.deleteAllDocsFlag) {
+        //
+      } else {
+        //
+      }
     },
     // Delete selected documents.
     deleteDoc: function () {
