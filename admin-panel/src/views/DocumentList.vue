@@ -174,11 +174,7 @@ export default {
     },
     // Mark all documents for deletion.
     markAllDocsForDeletion: function () {
-      if (this.deleteAllDocsFlag) {
-        this.docsToBeDeleted = fillRange(0, this.documents.length - 1)
-      } else {
-        this.docsToBeDeleted = []
-      }
+      this.docsToBeDeleted = this.deleteAllDocsFlag ? fillRange(0, this.documents.length - 1) : []
     },
     // Check the status of the list of selected documents to be deleted.
     checkStatusListSelectedDocsDeleted: function () {
