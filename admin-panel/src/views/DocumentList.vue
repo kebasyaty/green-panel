@@ -114,7 +114,7 @@ export default {
       const indexCollection = this.$route.params.indexCollection
       const service = this.serviceList[indexService]
       const slugServiceTitle = slug(service.service.title, { locale: currentUserLocale })
-      const slugCollectionTitle = slug(service.collections[indexCollection].title, { locale: currentUserLocale })
+      const slugCollectionTitle = slug(this.collectionTitle, { locale: currentUserLocale })
       return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document`
     }
   },
