@@ -7,42 +7,41 @@
           <v-icon>mdi-arrow-left</v-icon>
         </v-btn>
       </v-toolbar>
+      <!-- Show collection name -->
       <v-card-title class="pt-0">{{ collectionTitle }}</v-card-title>
       <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
       <v-card-text class="pt-4">
-        <v-container fluid class="pa-0">
-          <v-row>
-            <v-col cols="12" md="6">
-              <!-- Search query field. -->
-              <v-text-field
-                dense
-                rounded
-                outlined
-                clearable
-                hide-details
-                v-model="searchQuery"
-                placeholder="Search"
-                append-icon="mdi-magnify"
-                @click:append="documentSearch"
-              ></v-text-field>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="12">
-              <!-- Button - Delete all selected documents. -->
-              <v-btn
-                dark
-                tile
-                depressed
-                v-if="docsToBeDeleted.length > 0"
-                color="red darken-3"
-                @click="deleteDoc"
-              >
-                <v-icon left>mdi-close-thick</v-icon>Is delete selected documents ?
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-container>
+        <v-row>
+          <v-col cols="12" md="6">
+            <!-- Search query field. -->
+            <v-text-field
+              dense
+              rounded
+              outlined
+              clearable
+              hide-details
+              v-model="searchQuery"
+              placeholder="Search"
+              append-icon="mdi-magnify"
+              @click:append="documentSearch"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12">
+            <!-- Button - Delete all selected documents. -->
+            <v-btn
+              dark
+              tile
+              depressed
+              v-if="docsToBeDeleted.length > 0"
+              color="red darken-3"
+              @click="deleteDoc"
+            >
+              <v-icon left>mdi-close-thick</v-icon>Is delete selected documents ?
+            </v-btn>
+          </v-col>
+        </v-row>
         <!-- Document table. -->
         <v-simple-table fixed-header class="mt-4">
           <template v-slot:default>
