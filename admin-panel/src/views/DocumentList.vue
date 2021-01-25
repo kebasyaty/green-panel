@@ -106,6 +106,7 @@
 <script>
 import { mapState } from 'vuex'
 import slug from 'slug'
+import fillRange from 'fill-range'
 
 export default {
   name: 'DocumentList',
@@ -165,9 +166,9 @@ export default {
     // Mark all documents for deletion.
     markAllDocsForDeletion: function () {
       if (this.deleteAllDocsFlag) {
-        //
+        this.docsToBeDeleted = fillRange(0, this.documents.length - 1)
       } else {
-        //
+        this.docsToBeDeleted = []
       }
     },
     // Delete selected documents.
