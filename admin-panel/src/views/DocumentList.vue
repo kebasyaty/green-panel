@@ -97,7 +97,13 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-pagination circle v-model="pageNumber" :length="countPage" :total-visible="5"></v-pagination>
+        <v-pagination
+          circle
+          v-model="pageNumber"
+          :length="countPage"
+          :total-visible="5"
+          :input="docsTablePagination()"
+        ></v-pagination>
         <v-spacer></v-spacer>
       </v-card-actions>
     </v-card>
@@ -183,6 +189,10 @@ export default {
     // Delete selected documents.
     deleteDocs: function () {
       window.console.log(this.docsToBeDeleted)
+    },
+    // Page navigation through the table of documents.
+    docsTablePagination: function () {
+      window.console.log(this.pageNumber)
     }
   }
 }
