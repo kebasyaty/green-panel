@@ -99,10 +99,10 @@
         <v-spacer></v-spacer>
         <v-pagination
           circle
-          v-model="pageNumber"
+          v-model="currentPageNumber"
           :length="countPage"
           :total-visible="5"
-          :input="docsTablePagination()"
+          @input="docsTablePagination"
         ></v-pagination>
         <v-spacer></v-spacer>
       </v-card-actions>
@@ -120,7 +120,8 @@ export default {
 
   data: () => ({
     searchQuery: null,
-    pageNumber: 1,
+    currentPageNumber: 1,
+    previousPageNumber: 1,
     countPage: 6,
     deleteAllDocsFlag: false,
     docsToBeDeleted: []
@@ -192,7 +193,14 @@ export default {
     },
     // Page navigation through the table of documents.
     docsTablePagination: function () {
-      window.console.log(this.pageNumber)
+      // Eliminate duplication.
+      if (this.currentPageNumber === this.previousPageNumber) { return }
+      // Determine the direction of the selection.
+      const preOrNext = this.currentPageNumber < this.previousPageNumber ? 'pre' : 'next'
+      // Balance the states of the variables.
+      this.previousPageNumber = this.currentPageNumber
+      //
+      window.console.log(preOrNext, this.currentPageNumber)
     }
   }
 }
