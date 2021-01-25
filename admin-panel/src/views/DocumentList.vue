@@ -47,7 +47,7 @@
           <template v-slot:default>
             <thead>
               <tr>
-                <!-- Delete all documents. -->
+                <!-- Mark all documents for deletion. -->
                 <th width="76" class="text-left">
                   <v-checkbox
                     hide-details
