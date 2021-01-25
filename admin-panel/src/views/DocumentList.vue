@@ -2,6 +2,7 @@
   <v-container fluid>
     <v-card class="mt-1">
       <v-toolbar dense flat>
+        <!-- Button - A step back in the history of the router. -->
         <v-btn icon @click="goBack">
           <v-icon>mdi-arrow-left</v-icon>
         </v-btn>
