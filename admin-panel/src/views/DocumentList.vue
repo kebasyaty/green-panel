@@ -28,14 +28,16 @@
           </v-row>
           <v-row>
             <v-col cols="12">
+              <!-- Button - Delete all selected documents. -->
               <v-btn
                 dark
-                rounded
+                tile
+                depressed
                 v-if="docsToBeDeleted.length > 0"
                 color="red darken-3"
                 @click="deleteDoc"
               >
-                <v-icon left>mdi-pencil</v-icon>Delete selected documents
+                <v-icon left>mdi-close-thick</v-icon>Is delete selected documents ?
               </v-btn>
             </v-col>
           </v-row>
@@ -94,7 +96,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-pagination v-model="pageNumber" :length="countPage" :total-visible="5" circle></v-pagination>
+        <v-pagination circle v-model="pageNumber" :length="countPage" :total-visible="5"></v-pagination>
         <v-spacer></v-spacer>
       </v-card-actions>
     </v-card>
