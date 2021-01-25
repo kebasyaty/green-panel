@@ -7,8 +7,8 @@
         <!-- Delete button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn rounded small depressed color="error" v-bind="attrs" v-on="on">
-              <v-icon color="white">mdi-close-thick</v-icon>
+            <v-btn dark rounded small depressed color="error" v-bind="attrs" v-on="on">
+              <v-icon>mdi-close-thick</v-icon>
             </v-btn>
           </template>
           <span>Delete document</span>
@@ -17,10 +17,10 @@
         <!-- Save button and create a new document. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn rounded small depressed color="success" v-bind="attrs" v-on="on">
-              <v-icon color="white">mdi-content-save</v-icon>
-              <v-icon color="white">mdi-ampersand</v-icon>
-              <v-icon color="white">mdi-file-outline</v-icon>
+            <v-btn dark rounded small depressed color="success" v-bind="attrs" v-on="on">
+              <v-icon>mdi-content-save</v-icon>
+              <v-icon>mdi-ampersand</v-icon>
+              <v-icon>mdi-file-outline</v-icon>
             </v-btn>
           </template>
           <span>Save and create a new document</span>
@@ -28,10 +28,19 @@
         <!-- Save button and continue editing the document. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn rounded small depressed color="warning" class="mx-4" v-bind="attrs" v-on="on">
-              <v-icon color="white">mdi-content-save</v-icon>
-              <v-icon color="white">mdi-ampersand</v-icon>
-              <v-icon color="white">mdi-file-document-edit-outline</v-icon>
+            <v-btn
+              dark
+              rounded
+              small
+              depressed
+              color="warning"
+              class="mx-4"
+              v-bind="attrs"
+              v-on="on"
+            >
+              <v-icon>mdi-content-save</v-icon>
+              <v-icon>mdi-ampersand</v-icon>
+              <v-icon>mdi-file-document-edit-outline</v-icon>
             </v-btn>
           </template>
           <span>Save and continue editing the document</span>
@@ -39,8 +48,8 @@
         <!-- Save button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn rounded small depressed color="primary" v-bind="attrs" v-on="on">
-              <v-icon color="white">mdi-content-save</v-icon>
+            <v-btn dark rounded small depressed color="primary" v-bind="attrs" v-on="on">
+              <v-icon>mdi-content-save</v-icon>
             </v-btn>
           </template>
           <span>Save document</span>

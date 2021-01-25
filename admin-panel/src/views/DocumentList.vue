@@ -26,6 +26,19 @@
               ></v-text-field>
             </v-col>
           </v-row>
+          <v-row>
+            <v-col cols="12">
+              <v-btn
+                dark
+                rounded
+                v-if="docsToBeDeleted.length > 0"
+                color="red darken-3"
+                @click="deleteDoc"
+              >
+                <v-icon left>mdi-pencil</v-icon>Delete selected documents
+              </v-btn>
+            </v-col>
+          </v-row>
         </v-container>
         <!-- Document table. -->
         <v-simple-table fixed-header class="mt-4">
@@ -34,7 +47,13 @@
               <tr>
                 <!-- Delete all documents. -->
                 <th width="76" class="text-left">
-                  <v-checkbox></v-checkbox>
+                  <v-checkbox
+                    hide-details
+                    v-model="docsToBeDeleted"
+                    value="all"
+                    color="red darken-3"
+                    class="mt-0 pt-0"
+                  ></v-checkbox>
                 </th>
                 <!-- Symbol - № -->
                 <th width="76" class="text-left">&#8470;</th>
@@ -50,7 +69,13 @@
               <tr v-for="(document, idxDoc) in documents" :key="idxDoc">
                 <!-- Delete document. -->
                 <td width="76" class="pr-0">
-                  <v-checkbox></v-checkbox>
+                  <v-checkbox
+                    hide-details
+                    v-model="docsToBeDeleted"
+                    :value="idxDoc"
+                    color="red darken-3"
+                    class="mt-0 pt-0"
+                  ></v-checkbox>
                 </td>
                 <!-- Number of the document in the table. -->
                 <td width="76" class="pr-0">{{ idxDoc + 1 }}</td>
@@ -86,7 +111,8 @@ export default {
   data: () => ({
     searchQuery: null,
     pageNumber: 1,
-    countPage: 6
+    countPage: 6,
+    docsToBeDeleted: []
   }),
 
   computed: {
@@ -132,6 +158,10 @@ export default {
     // Create Url for Document.
     createDocumentUrl: function (indexDoc) {
       return `${this.docUrlNoIndex}/${indexDoc}`
+    },
+    // Delete selected documents.
+    deleteDoc: function () {
+      window.console.log(this.docsToBeDeleted)
     }
   }
 }
