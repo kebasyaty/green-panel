@@ -36,7 +36,7 @@
               depressed
               v-if="docsToBeDeleted.length > 0"
               color="red darken-3"
-              @click="deleteDoc"
+              @click="deleteDocs"
             >
               <v-icon left>mdi-close-thick</v-icon>Is delete selected documents ?
             </v-btn>
@@ -77,6 +77,7 @@
                     :value="idxDoc"
                     color="red darken-3"
                     class="mt-0 pt-0"
+                    @change="checkStatusListSelectedDocsDeleted"
                   ></v-checkbox>
                 </td>
                 <!-- Number of the document in the table. -->
@@ -171,8 +172,16 @@ export default {
         this.docsToBeDeleted = []
       }
     },
+    // Check the status of the list of selected documents to be deleted.
+    checkStatusListSelectedDocsDeleted: function () {
+      if (this.docsToBeDeleted.length === this.documents.length) {
+        this.deleteAllDocsFlag = true
+      } else {
+        this.deleteAllDocsFlag = false
+      }
+    },
     // Delete selected documents.
-    deleteDoc: function () {
+    deleteDocs: function () {
       window.console.log(this.docsToBeDeleted)
     }
   }
