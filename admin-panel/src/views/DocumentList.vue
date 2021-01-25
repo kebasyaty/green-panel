@@ -21,7 +21,7 @@
               clearable
               hide-details
               v-model="searchQuery"
-              placeholder="Search"
+              :placeholder="$t('message.3')"
               append-icon="mdi-magnify"
               @click:append="documentSearch"
             ></v-text-field>
@@ -38,7 +38,8 @@
               color="red darken-3"
               @click="deleteDocs"
             >
-              <v-icon left>mdi-close-thick</v-icon>Is delete selected documents ?
+              <v-icon left>mdi-close-thick</v-icon>
+              {{ $t('message.4') }}
             </v-btn>
           </v-col>
         </v-row>
