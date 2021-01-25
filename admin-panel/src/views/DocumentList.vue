@@ -182,11 +182,7 @@ export default {
     },
     // Check the status of the list of selected documents to be deleted.
     checkStatusListSelectedDocsDeleted: function () {
-      if (this.docsToBeDeleted.length === this.documents.length) {
-        this.deleteAllDocsFlag = true
-      } else {
-        this.deleteAllDocsFlag = false
-      }
+      this.deleteAllDocsFlag = this.docsToBeDeleted.length === this.documents.length
     },
     // Delete selected documents.
     deleteDocs: function () {
