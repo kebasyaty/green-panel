@@ -23,7 +23,8 @@ export default {
 
   computed: {
     ...mapState([
-      'isStart'
+      'isStart',
+      'isAuthenticated'
     ])
   },
 
