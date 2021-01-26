@@ -8,6 +8,7 @@ import vuetify from '@/plugins/vuetify'
 import '@/assets/css/helpers.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueSession from 'vue-session'
 
 // Disable debug to production.
 if (process.env.NODE_ENV.trim() === 'production') {
@@ -17,10 +18,10 @@ if (process.env.NODE_ENV.trim() === 'production') {
   Vue.config.silent = true
 }
 
-Vue.use(VueAxios, axios)
-
-// Add support for language translation.
 Vue.use(VueI18n)
+Vue.use(VueAxios, axios)
+Vue.use(VueSession)
+
 // Create VueI18n instance with options.
 const i18n = new VueI18n({
   locale: 'en',
