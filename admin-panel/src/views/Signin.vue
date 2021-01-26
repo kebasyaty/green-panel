@@ -27,8 +27,8 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn class="mr-4" @click="submit">submit</v-btn>
-              <v-btn @click="clear">clear</v-btn>
+              <v-btn dark depressed color="green" class="mr-4" @click="submit">Sign in</v-btn>
+              <v-btn dark depressed color="red" @click="clear">Clear</v-btn>
             </v-card-actions>
           </form>
         </v-card>
