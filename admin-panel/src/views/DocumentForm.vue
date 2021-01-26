@@ -1,18 +1,20 @@
 <template>
-  <v-container fluid>
-    <v-card class="mt-1">
-      <v-toolbar dense flat>
-        <v-btn icon @click="goBack">
-          <v-icon>mdi-arrow-left</v-icon>
-        </v-btn>
-      </v-toolbar>
-      <v-card-title class="pt-0">{{ docTitle }}</v-card-title>
-      <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
-      <v-card-text class="pt-4">
-        <!-- -->
-      </v-card-text>
-    </v-card>
-  </v-container>
+  <v-main>
+    <v-container fluid>
+      <v-card class="mt-1">
+        <v-toolbar dense flat>
+          <v-btn icon @click="goBack">
+            <v-icon>mdi-arrow-left</v-icon>
+          </v-btn>
+        </v-toolbar>
+        <v-card-title class="pt-0">{{ docTitle }}</v-card-title>
+        <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
+        <v-card-text class="pt-4">
+          <!-- -->
+        </v-card-text>
+      </v-card>
+    </v-container>
+  </v-main>
 </template>
 
 <script>

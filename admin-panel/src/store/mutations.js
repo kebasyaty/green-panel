@@ -5,6 +5,9 @@ export default {
   setIsAuthenticated(state, payload) {
     state.isAuthenticated = payload
   },
+  setPanelServiceList(state, payload) {
+    state.panelServiceList = payload
+  },
   setSelectedService(state, payload) {
     state.selectedService = payload
   },

@@ -1,7 +1,9 @@
 <template>
-  <v-container fluid fill-height>
-    <div class="text-h1">Signin</div>
-  </v-container>
+  <v-main>
+    <v-container fluid fill-height>
+      <div class="text-h1">Signin</div>
+    </v-container>
+  </v-main>
 </template>
 
 <script>

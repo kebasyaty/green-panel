@@ -10,6 +10,8 @@ export default new Vuex.Store({
   state: {
     isStart: true,
     isAuthenticated: false,
+    // Open and close service list panel (navigation-drawer).
+    panelServiceList: null,
     // List of services (applications) with nested list of collections.
     selectedService: [undefined, undefined, undefined],
     serviceList: [
