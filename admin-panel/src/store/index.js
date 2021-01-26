@@ -8,6 +8,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    isStart: true,
+    isAuthenticated: false,
     // List of services (applications) with nested list of collections.
     selectedService: [undefined, undefined, undefined],
     serviceList: [

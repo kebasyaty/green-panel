@@ -5,7 +5,28 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
-  name: 'Signin'
+  name: 'Signin',
+
+  data: () => ({
+    email: '',
+    password: ''
+  }),
+
+  methods: {
+    ...mapMutations([
+      'setIsAuthenticated'
+    ]),
+    submit() {
+      if (this.$refs.loginForm.validate()) {
+        window.console.log(this.email, this.password)
+        //
+        this.setIsAuthenticated(true)
+        this.$router.push('/')
+      }
+    }
+  }
 }
 </script>

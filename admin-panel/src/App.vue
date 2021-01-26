@@ -116,10 +116,6 @@ import slug from 'slug'
 export default {
   name: 'App',
 
-  components: {
-    //
-  },
-
   data: () => ({
     // Panel width for list of services (Drawer).
     panelWidthServiceList: 360,
@@ -129,14 +125,31 @@ export default {
 
   computed: {
     ...mapState([
+      'isStart',
       'selectedService',
       'serviceList'
     ])
   },
 
+  watch: {
+    isAuthenticated: function (flag) {
+      if (!this.isStart) {
+        if (flag) {
+          this.$session.start()
+        } else {
+          this.$session.destroy()
+        }
+      } else {
+        this.setIsStart(false)
+      }
+    }
+  },
+
   methods: {
     ...mapMutations([
-      'setSelectedService'
+      'setIsStart',
+      'setSelectedService',
+      'setIsAuthenticated'
     ]),
     // List of services - Resetting previously activated items.
     resetPreActivatedService: function (currIndex) {
@@ -153,6 +166,14 @@ export default {
       const slugServiceTitle = slug(serviceTitle, { locale: currentUserLocale })
       const slugCollectionTitle = slug(collectionTitle, { locale: currentUserLocale })
       return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document-list`
+    }
+  },
+
+  created() {
+    if (this.$session.exists()) {
+      this.setIsAuthenticated(true)
+    } else {
+      this.setIsStart(false)
     }
   }
 }
