@@ -22,8 +22,8 @@
               :counter="256"
               label="Password"
               required
-              @input="$v.email.$touch()"
-              @blur="$v.email.$touch()"
+              @input="$v.password.$touch()"
+              @blur="$v.password.$touch()"
             ></v-text-field>
           </v-card-text>
           <v-card-actions>
