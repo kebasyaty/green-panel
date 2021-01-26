@@ -1,5 +1,7 @@
 <template>
-  <div class="text-h1">Signin</div>
+  <v-container fluid fill-height>
+    <div class="text-h1">Signin</div>
+  </v-container>
 </template>
 
 <script>
