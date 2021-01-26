@@ -86,13 +86,18 @@ export default {
         window.console.log(this.username, this.password)
         //
         this.setIsAuthenticated(true)
-        this.$router.push('/')
       }
     },
     clear() {
       this.$v.$reset()
       this.username = ''
       this.password = ''
+    }
+  },
+
+  created() {
+    if (this.$session.exists()) {
+      this.$router.push('/')
     }
   }
 }

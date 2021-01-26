@@ -33,8 +33,10 @@ export default {
       if (!this.isStart) {
         if (flag) {
           this.$session.start()
+          this.$router.push('/')
         } else {
           this.$session.destroy()
+          this.$router.push('/sign-in')
         }
       } else {
         this.setIsStart(false)
