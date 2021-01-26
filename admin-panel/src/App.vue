@@ -1,14 +1,25 @@
 <template>
   <v-app>
+    <template v-if="isAuthenticated">
+      <NavigationBar />
+      <AppBar />
+    </template>
     <router-view></router-view>
   </v-app>
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex'
+import NavigationBar from '@/components/NavigationBar.vue'
+import AppBar from '@/components/AppBar.vue'
 
 export default {
   name: 'App',
+
+  components: {
+    NavigationBar,
+    AppBar
+  },
 
   computed: {
     ...mapState([
