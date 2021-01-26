@@ -20,7 +20,7 @@ if (process.env.NODE_ENV.trim() === 'production') {
 
 Vue.use(VueI18n)
 Vue.use(VueAxios, axios)
-Vue.use(VueSession)
+Vue.use(VueSession, { persist: true })
 
 // Create VueI18n instance with options.
 const i18n = new VueI18n({
