@@ -6,6 +6,8 @@ import store from '@/store'
 import messages from '@/i18n/messages'
 import vuetify from '@/plugins/vuetify'
 import '@/assets/css/helpers.css'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 // Disable debug to production.
 if (process.env.NODE_ENV.trim() === 'production') {
@@ -14,6 +16,8 @@ if (process.env.NODE_ENV.trim() === 'production') {
   Vue.config.debug = false
   Vue.config.silent = true
 }
+
+Vue.use(VueAxios, axios)
 
 // Add support for language translation.
 Vue.use(VueI18n)
