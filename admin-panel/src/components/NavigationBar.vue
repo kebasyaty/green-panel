@@ -1,5 +1,10 @@
 <template>
-  <v-navigation-drawer app v-model="panelServiceList" :width="panelWidthServiceList" class="pa-1">
+  <v-navigation-drawer
+    app
+    v-model="openPanelServiceList"
+    :width="panelWidthServiceList"
+    class="pa-1"
+  >
     <!-- Company name and short description. -->
     <v-list-item>
       <v-list-item-content>
@@ -67,14 +72,10 @@ import slug from 'slug'
 export default {
   name: 'NavigationBar',
 
-  data: () => ({
-    // Panel width for list of services (Drawer).
-    panelWidthServiceList: 360
-  }),
-
   computed: {
     ...mapState([
-      'panelServiceList',
+      'openPanelServiceList',
+      'panelWidthServiceList',
       'selectedService',
       'serviceList'
     ])
@@ -82,6 +83,7 @@ export default {
 
   methods: {
     ...mapMutations([
+      'setPanelWidthServiceList',
       'setSelectedService'
     ]),
     // List of services - Resetting previously activated items.

@@ -5,8 +5,11 @@ export default {
   setIsAuthenticated(state, payload) {
     state.isAuthenticated = payload
   },
-  setPanelServiceList(state, payload) {
-    state.panelServiceList = payload
+  setOpenPanelServiceList(state, payload) {
+    state.openPanelServiceList = payload
+  },
+  setPanelWidthServiceList(state, payload) {
+    state.panelWidthServiceList = payload
   },
   setSelectedService(state, payload) {
     state.selectedService = payload

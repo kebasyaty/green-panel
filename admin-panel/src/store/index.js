@@ -11,7 +11,9 @@ export default new Vuex.Store({
     isStart: true,
     isAuthenticated: false,
     // Open and close service list panel (navigation-drawer).
-    panelServiceList: null,
+    openPanelServiceList: null,
+    // Panel width for list of services (Drawer).
+    panelWidthServiceList: 360,
     // List of services (applications) with nested list of collections.
     selectedService: [undefined, undefined, undefined],
     serviceList: [

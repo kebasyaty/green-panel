@@ -1,7 +1,7 @@
 <template>
   <v-app-bar app dense fixed>
     <!-- Menu button. -->
-    <v-app-bar-nav-icon @click="setPanelServiceList(!panelServiceList)"></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon @click="setOpenPanelServiceList(!openPanelServiceList)"></v-app-bar-nav-icon>
     <v-spacer></v-spacer>
     <!-- Reload panel button. -->
     <v-tooltip bottom>
@@ -47,13 +47,13 @@ export default {
 
   computed: {
     ...mapState([
-      'panelServiceList'
+      'openPanelServiceList'
     ])
   },
 
   methods: {
     ...mapMutations([
-      'setPanelServiceList'
+      'setOpenPanelServiceList'
     ])
   }
 }
