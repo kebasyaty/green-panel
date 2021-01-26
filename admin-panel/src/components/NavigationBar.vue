@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer
     app
-    v-model="openPanelServiceList"
+    v-model="updatePanelWidthServiceList"
     :width="panelWidthServiceList"
     class="pa-1"
   >
@@ -78,7 +78,15 @@ export default {
       'panelWidthServiceList',
       'selectedService',
       'serviceList'
-    ])
+    ]),
+    updatePanelWidthServiceList: {
+      get: function () {
+        return this.panelWidthServiceList
+      },
+      set: function (num) {
+        this.setPanelWidthServiceList(num)
+      }
+    }
   },
 
   methods: {
