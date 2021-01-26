@@ -1,8 +1,8 @@
 <template>
   <v-navigation-drawer
     app
-    v-model="updatePanelWidthServiceList"
-    :width="panelWidthServiceList"
+    v-model="updateOpenPanelServiceList"
+    :width="updatePanelWidthServiceList"
     class="pa-1"
   >
     <!-- Company name and short description. -->
@@ -18,7 +18,7 @@
         <v-slider
           dense
           hide-details
-          v-model="panelWidthServiceList"
+          v-model="updatePanelWidthServiceList"
           prepend-icon="mdi-arrow-split-vertical"
           min="256"
           max="600"
@@ -79,6 +79,14 @@ export default {
       'selectedService',
       'serviceList'
     ]),
+    updateOpenPanelServiceList: {
+      get: function () {
+        return this.openPanelServiceList
+      },
+      set: function (flag) {
+        this.setOpenPanelServiceList(flag)
+      }
+    },
     updatePanelWidthServiceList: {
       get: function () {
         return this.panelWidthServiceList
@@ -91,6 +99,7 @@ export default {
 
   methods: {
     ...mapMutations([
+      'setOpenPanelServiceList',
       'setPanelWidthServiceList',
       'setSelectedService'
     ]),
