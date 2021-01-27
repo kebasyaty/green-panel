@@ -7,7 +7,7 @@
         </v-col>
 
         <v-col cols="12">
-          <h1 class="text-h4 font-weight-bold mb-3" v-text="`${$t('message.11')}, root.`"></h1>
+          <h1 class="text-h4 font-weight-bold mb-3" v-text="`${$t('message.11')}, ${username}.`"></h1>
           <p class="text-h5 font-weight-regular orange--text" v-text="$t('message.12')"></p>
         </v-col>
       </v-row>
@@ -16,7 +16,15 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  name: 'Home'
+  name: 'Home',
+
+  computed: {
+    ...mapState([
+      'username'
+    ])
+  }
 }
 </script>

@@ -10,6 +10,7 @@ export default new Vuex.Store({
   state: {
     isStart: true,
     isAuthenticated: false,
+    username: 'admin',
     // Open and close service list panel (navigation-drawer).
     openPanelServiceList: null,
     // Panel width for list of services (Drawer).

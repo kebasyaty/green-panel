@@ -5,6 +5,9 @@ export default {
   setIsAuthenticated(state, payload) {
     state.isAuthenticated = payload
   },
+  setUsername(state, payload) {
+    state.username = payload
+  },
   setOpenPanelServiceList(state, payload) {
     state.openPanelServiceList = payload
   },
