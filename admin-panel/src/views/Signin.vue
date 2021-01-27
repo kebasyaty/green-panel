@@ -8,7 +8,7 @@
             <v-text-field
               v-model="username"
               :error-messages="usernameErrors"
-              label="Username"
+              :label="$t('message.5')"
               required
               @input="$v.username.$touch()"
               @blur="$v.username.$touch()"
@@ -16,7 +16,7 @@
             <v-text-field
               v-model="password"
               :error-messages="passwordErrors"
-              label="Password"
+              :label="$t('message.6')"
               required
               @input="$v.password.$touch()"
               @blur="$v.password.$touch()"
@@ -24,8 +24,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark outlined color="success" class="mr-4" @click="submit">Sign in</v-btn>
-            <v-btn dark outlined color="error" @click="clear">Clear</v-btn>
+            <v-btn dark outlined color="success" class="mr-4" @click="submit">{{ $t('message.9') }}</v-btn>
+            <v-btn dark outlined color="error" @click="clear">{{ $t('message.10') }}</v-btn>
           </v-card-actions>
         </form>
       </v-card>
@@ -57,13 +57,13 @@ export default {
     usernameErrors() {
       const errors = []
       if (!this.$v.username.$dirty) return errors
-      !this.$v.username.required && errors.push('Username is required.')
+      !this.$v.username.required && errors.push(this.$t('message.7'))
       return errors
     },
     passwordErrors() {
       const errors = []
       if (!this.$v.password.$dirty) return errors
-      !this.$v.password.required && errors.push('Password is required.')
+      !this.$v.password.required && errors.push(this.$t('message.8'))
       return errors
     }
   },
