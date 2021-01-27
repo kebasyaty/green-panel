@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <!-- Form for document. -->
     <v-card class="mt-1">
       <v-toolbar dense flat>
         <v-btn icon @click="goBack">
@@ -8,40 +9,39 @@
       </v-toolbar>
       <v-card-title class="pt-0">{{ docTitle }}</v-card-title>
       <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
+      <!-- Form fields. -->
       <v-card-text class="px-4 py-2">
-        <!-- Form for document. -->
-        <form>
-          <template v-for="field in fields">
-            <div :key="field.name">
-              <v-alert
-                v-if="field.common_msg.length > 0"
-                text
-                outlined
-                color="deep-orange"
-                icon="mdi-fire"
-              >{{ field.common_msg }}</v-alert>
-              <v-text-field
-                dense
-                solo
-                clearable
-                v-if="['inputColor'].includes(field.widget)"
-                :id="field.id"
-                :label="field.label"
-                :type="field.input_type"
-                :name="field.name"
-                :value="field.value"
-                :placeholder="field.placeholder"
-                :disabled="field.disabled"
-                :readonly="field.readonly"
-                :class="field.css_classes"
-                :hint="field.hint"
-                :messages="field.warning"
-                :error-messages="field.error"
-                :error="field.error.length > 0"
-              ></v-text-field>
-            </div>
-          </template>
-        </form>
+        <template v-for="field in fields">
+          <div :key="field.name">
+            <v-alert
+              v-if="field.common_msg.length > 0"
+              text
+              outlined
+              color="deep-orange"
+              icon="mdi-fire"
+              class="mb-10"
+            >{{ field.common_msg }}</v-alert>
+            <v-text-field
+              dense
+              shaped
+              clearable
+              v-if="['inputColor'].includes(field.widget)"
+              :id="field.id"
+              :label="field.label"
+              :type="field.input_type"
+              :name="field.name"
+              :value="field.value"
+              :placeholder="field.placeholder"
+              :disabled="field.disabled"
+              :readonly="field.readonly"
+              :class="field.css_classes"
+              :hint="field.hint"
+              :messages="field.warning"
+              :error-messages="field.error"
+              :error="field.error.length > 0"
+            ></v-text-field>
+          </div>
+        </template>
       </v-card-text>
       <!-- Form control buttons. -->
       <v-card-actions class="pa-4">
