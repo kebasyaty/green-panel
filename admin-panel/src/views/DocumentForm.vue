@@ -8,7 +8,7 @@
       </v-toolbar>
       <v-card-title class="pt-0">{{ docTitle }}</v-card-title>
       <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
-      <v-card-text class="mt-2 pa-2">
+      <v-card-text class="px-4 py-2">
         <!-- Form for document. -->
         <form>
           <template v-for="field in fields">
@@ -21,6 +21,8 @@
                 icon="mdi-fire"
               >{{ field.common_msg }}</v-alert>
               <v-text-field
+                dense
+                solo
                 clearable
                 v-if="['inputColor'].includes(field.widget)"
                 :id="field.id"
@@ -35,6 +37,7 @@
                 :hint="field.hint"
                 :messages="field.warning"
                 :error-messages="field.error"
+                :error="field.error.length > 0"
               ></v-text-field>
             </div>
           </template>
@@ -95,7 +98,9 @@ export default {
   name: 'DocumentForm',
 
   data: () => ({
-    fields: {}
+    fields: {
+      field_name: { widget: 'inputColor', id: 'id-field_name', label: 'Label name', input_type: 'color', name: 'field_name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: 'Nulla in metus id lorem scelerisque condimentum.', error: 'Donec iaculis nunc at risus pretium.', common_msg: 'Proin dolor nibh, imperdiet in odio ac, porttitor blandit ipsum. Etiam sit amet porttitor sapien.' }
+    }
   }),
 
   computed: {
