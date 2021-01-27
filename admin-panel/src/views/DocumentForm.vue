@@ -25,7 +25,7 @@
               dense
               shaped
               clearable
-              v-if="['inputColor'].includes(field.widget)"
+              v-if="['inputText', 'inputColor'].includes(field.widget)"
               :id="field.id"
               :label="field.label"
               :type="field.input_type"
@@ -39,6 +39,7 @@
               :messages="field.warning"
               :error-messages="field.error"
               :error="field.error.length > 0"
+              class="mt-5"
             ></v-text-field>
           </div>
         </template>
@@ -48,7 +49,7 @@
         <!-- Delete button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark outlined small color="red" v-bind="attrs" v-on="on">
+            <v-btn dark rounded outlined small color="red" v-bind="attrs" v-on="on">
               <v-icon>mdi-close-thick</v-icon>
             </v-btn>
           </template>
@@ -99,7 +100,8 @@ export default {
 
   data: () => ({
     fields: {
-      field_name: { widget: 'inputColor', id: 'id-field_name', label: 'Label name', input_type: 'color', name: 'field_name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: 'Proin dolor nibh, imperdiet in odio ac, porttitor blandit ipsum. Etiam sit amet porttitor sapien.' }
+      field_name: { widget: 'inputText', id: 'id-field-name', label: 'Label name', input_type: 'text', name: 'field_name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: 'Proin dolor nibh, imperdiet in odio ac, porttitor blandit ipsum. Etiam sit amet porttitor sapien.' },
+      field_name_2: { widget: 'inputColor', id: 'id-field-name-2', label: 'Label name 2', input_type: 'color', name: 'field_name_2', value: '#000000', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' }
     }
   }),
 
