@@ -13,6 +13,10 @@ export default {
     9: 'Sign in',
     10: 'Clear',
     11: 'Welcome',
-    12: 'Good luck on your business !'
+    12: 'Good luck on your business !',
+    13: 'Delete document',
+    14: 'Save and create a new document',
+    15: 'Save and continue editing the document',
+    16: 'Save document'
   }
 }

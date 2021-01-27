@@ -21,7 +21,7 @@
               <v-icon>mdi-close-thick</v-icon>
             </v-btn>
           </template>
-          <span>Delete document</span>
+          <span v-text="$t('message.13')"></span>
         </v-tooltip>
         <v-spacer></v-spacer>
         <!-- Save button and create a new document. -->
@@ -33,7 +33,7 @@
               <v-icon>mdi-file-outline</v-icon>
             </v-btn>
           </template>
-          <span>Save and create a new document</span>
+          <span v-text="$t('message.14')"></span>
         </v-tooltip>
         <!-- Save button and continue editing the document. -->
         <v-tooltip top>
@@ -44,7 +44,7 @@
               <v-icon>mdi-file-document-edit-outline</v-icon>
             </v-btn>
           </template>
-          <span>Save and continue editing the document</span>
+          <span v-text="$t('message.15')"></span>
         </v-tooltip>
         <!-- Save button. -->
         <v-tooltip top>
@@ -53,7 +53,7 @@
               <v-icon>mdi-content-save</v-icon>
             </v-btn>
           </template>
-          <span>Save document</span>
+          <span v-text="$t('message.16')"></span>
         </v-tooltip>
       </v-card-actions>
     </v-card>
