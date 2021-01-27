@@ -12,14 +12,31 @@
         <!-- Form for document. -->
         <form>
           <template v-for="field in fields">
-            <v-text-field
-              v-if="['inputColor'].includes(field.widget)"
-              :key="field.name"
-              :id="field.id"
-              :label="field.label"
-              :type="field.input_type"
-              :name="field.name"
-            ></v-text-field>
+            <div :key="field.name">
+              <v-alert
+                v-if="field.common_msg.length > 0"
+                text
+                outlined
+                color="deep-orange"
+                icon="mdi-fire"
+              >{{ field.common_msg }}</v-alert>
+              <v-text-field
+                clearable
+                v-if="['inputColor'].includes(field.widget)"
+                :id="field.id"
+                :label="field.label"
+                :type="field.input_type"
+                :name="field.name"
+                :value="field.value"
+                :placeholder="field.placeholder"
+                :disabled="field.disabled"
+                :readonly="field.readonly"
+                :class="field.css_classes"
+                :hint="field.hint"
+                :messages="field.warning"
+                :error-messages="field.error"
+              ></v-text-field>
+            </div>
           </template>
         </form>
       </v-card-text>
