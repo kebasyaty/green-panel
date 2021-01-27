@@ -1,40 +1,38 @@
 <template>
-  <v-main>
-    <v-container fluid fill-height>
-      <v-row justify="space-around">
-        <v-card width="400" class="pa-4">
-          <v-img :src="require('../assets/logo.svg')" contain height="100" />
-          <form>
-            <v-card-text>
-              <v-text-field
-                v-model="username"
-                :error-messages="usernameErrors"
-                :counter="40"
-                label="Username"
-                required
-                @input="$v.username.$touch()"
-                @blur="$v.username.$touch()"
-              ></v-text-field>
-              <v-text-field
-                v-model="password"
-                :error-messages="passwordErrors"
-                :counter="256"
-                label="Password"
-                required
-                @input="$v.password.$touch()"
-                @blur="$v.password.$touch()"
-              ></v-text-field>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn dark outlined color="success" class="mr-4" @click="submit">Sign in</v-btn>
-              <v-btn dark outlined color="error" @click="clear">Clear</v-btn>
-            </v-card-actions>
-          </form>
-        </v-card>
-      </v-row>
-    </v-container>
-  </v-main>
+  <v-container fluid fill-height>
+    <v-row justify="space-around">
+      <v-card width="400" class="pa-4">
+        <v-img :src="require('../assets/logo.svg')" contain height="100" />
+        <form>
+          <v-card-text>
+            <v-text-field
+              v-model="username"
+              :error-messages="usernameErrors"
+              :counter="40"
+              label="Username"
+              required
+              @input="$v.username.$touch()"
+              @blur="$v.username.$touch()"
+            ></v-text-field>
+            <v-text-field
+              v-model="password"
+              :error-messages="passwordErrors"
+              :counter="256"
+              label="Password"
+              required
+              @input="$v.password.$touch()"
+              @blur="$v.password.$touch()"
+            ></v-text-field>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn dark outlined color="success" class="mr-4" @click="submit">Sign in</v-btn>
+            <v-btn dark outlined color="error" @click="clear">Clear</v-btn>
+          </v-card-actions>
+        </form>
+      </v-card>
+    </v-row>
+  </v-container>
 </template>
 
 <script>

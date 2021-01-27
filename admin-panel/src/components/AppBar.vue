@@ -25,7 +25,7 @@
     <!-- Logout button. -->
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs" v-on="on">
+        <v-btn icon v-bind="attrs" v-on="on" @click="logout">
           <v-icon>mdi-logout</v-icon>
         </v-btn>
       </template>
@@ -53,8 +53,12 @@ export default {
 
   methods: {
     ...mapMutations([
+      'setIsAuthenticated',
       'setOpenPanelServiceList'
-    ])
+    ]),
+    logout() {
+      this.setIsAuthenticated(false)
+    }
   }
 }
 </script>
