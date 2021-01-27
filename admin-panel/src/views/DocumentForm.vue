@@ -10,7 +10,18 @@
       <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
       <v-card-text class="mt-2 pa-2">
         <!-- Form for document. -->
-        <form></form>
+        <form>
+          <template v-for="field in fields">
+            <v-text-field
+              v-if="['inputColor'].includes(field.widget)"
+              :key="field.name"
+              :id="field.id"
+              :label="field.label"
+              :type="field.input_type"
+              :name="field.name"
+            ></v-text-field>
+          </template>
+        </form>
       </v-card-text>
       <!-- Form control buttons. -->
       <v-card-actions class="pa-4">
@@ -67,6 +78,7 @@ export default {
   name: 'DocumentForm',
 
   data: () => ({
+    fields: {}
   }),
 
   computed: {
