@@ -24,7 +24,7 @@ Vue.use(VueSession, { persist: true })
 
 // Create VueI18n instance with options.
 const i18n = new VueI18n({
-  locale: 'en',
+  locale: 'ru',
   fallbackLocale: 'en',
   messages
 })

@@ -11,6 +11,8 @@ export default {
     7: 'Username is required.',
     8: 'Password is required.',
     9: 'Sign in',
-    10: 'Clear'
+    10: 'Clear',
+    11: 'Welcome',
+    12: 'Good luck on your business !'
   }
 }
