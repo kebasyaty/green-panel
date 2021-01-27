@@ -8,7 +8,6 @@
             <v-text-field
               v-model="username"
               :error-messages="usernameErrors"
-              :counter="40"
               label="Username"
               required
               @input="$v.username.$touch()"
@@ -17,7 +16,6 @@
             <v-text-field
               v-model="password"
               :error-messages="passwordErrors"
-              :counter="256"
               label="Password"
               required
               @input="$v.password.$touch()"
@@ -38,14 +36,14 @@
 <script>
 import { mapMutations } from 'vuex'
 import { validationMixin } from 'vuelidate'
-import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+import { required } from 'vuelidate/lib/validators'
 
 export default {
   mixins: [validationMixin],
 
   validations: {
-    username: { required, maxLength: maxLength(40) },
-    password: { required, minLength: minLength(8) }
+    username: { required },
+    password: { required }
   },
 
   name: 'Signin',
@@ -59,14 +57,12 @@ export default {
     usernameErrors() {
       const errors = []
       if (!this.$v.username.$dirty) return errors
-      !this.$v.username.maxLength && errors.push('Username must be at most 40 characters long.')
       !this.$v.username.required && errors.push('Username is required.')
       return errors
     },
     passwordErrors() {
       const errors = []
       if (!this.$v.password.$dirty) return errors
-      !this.$v.password.minLength && errors.push('Password must be at least 8 characters long.')
       !this.$v.password.required && errors.push('Password is required.')
       return errors
     }
