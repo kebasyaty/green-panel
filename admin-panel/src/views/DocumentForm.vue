@@ -99,7 +99,7 @@ export default {
 
   data: () => ({
     fields: {
-      field_name: { widget: 'inputColor', id: 'id-field_name', label: 'Label name', input_type: 'color', name: 'field_name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: 'Nulla in metus id lorem scelerisque condimentum.', error: 'Donec iaculis nunc at risus pretium.', common_msg: 'Proin dolor nibh, imperdiet in odio ac, porttitor blandit ipsum. Etiam sit amet porttitor sapien.' }
+      field_name: { widget: 'inputColor', id: 'id-field_name', label: 'Label name', input_type: 'color', name: 'field_name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: 'Proin dolor nibh, imperdiet in odio ac, porttitor blandit ipsum. Etiam sit amet porttitor sapien.' }
     }
   }),
 
