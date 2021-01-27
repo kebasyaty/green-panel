@@ -38,14 +38,14 @@
 <script>
 import { mapMutations } from 'vuex'
 import { validationMixin } from 'vuelidate'
-import { required, maxLength } from 'vuelidate/lib/validators'
+import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 
 export default {
   mixins: [validationMixin],
 
   validations: {
     username: { required, maxLength: maxLength(40) },
-    password: { required, maxLength: maxLength(256) }
+    password: { required, minLength: minLength(8) }
   },
 
   name: 'Signin',
@@ -66,7 +66,7 @@ export default {
     passwordErrors() {
       const errors = []
       if (!this.$v.password.$dirty) return errors
-      !this.$v.password.maxLength && errors.push('Password must be at most 256 characters long')
+      !this.$v.password.minLength && errors.push('Password must be at least 8 characters long.')
       !this.$v.password.required && errors.push('Password is required.')
       return errors
     }
