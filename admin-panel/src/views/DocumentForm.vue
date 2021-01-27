@@ -9,8 +9,10 @@
       <v-card-title class="pt-0">{{ docTitle }}</v-card-title>
       <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
       <v-card-text class="mt-2 pa-2">
+        <!-- Form for document. -->
         <form></form>
       </v-card-text>
+      <!-- Form control buttons. -->
       <v-card-actions class="pa-4">
         <!-- Delete button. -->
         <v-tooltip top>
