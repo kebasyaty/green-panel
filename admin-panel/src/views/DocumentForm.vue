@@ -30,6 +30,7 @@
                   shaped
                   clearable
                   hide-details
+                  v-model="models[field.name]"
                   v-if="['inputText', 'inputColor', 'inputDate', 'inputDateTime'].includes(field.widget)"
                   :id="field.id"
                   :type="field.input_type"
@@ -108,11 +109,12 @@ export default {
   name: 'DocumentForm',
 
   data: () => ({
+    models: { field_text: '', field_color: '', field_date: '', field_datetime: '' },
     fields: [
-      { widget: 'inputText', id: 'id-field-name', label: 'Label Text', input_type: 'text', name: 'field_name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', placeholder: 'Enter text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: 'Praesent in ligula maximus, viverra nulla sed, aliquam est.', error: 'Pellentesque sit amet lorem sed leo pharetra pretium.', common_msg: 'Proin dolor nibh, imperdiet in odio ac, porttitor blandit ipsum. Etiam sit amet porttitor sapien.' },
-      { widget: 'inputColor', id: 'id-field-name-2', label: 'Label Color', input_type: 'color', name: 'field_name_2', value: '#3BE40C', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
-      { widget: 'inputDate', id: 'id-field-name-3', label: 'Label Date', input_type: 'date', name: 'field_name_3', value: '', placeholder: 'Enter date', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
-      { widget: 'inputDateTime', id: 'id-field-name-4', label: 'Label DateTime', input_type: 'datetime', name: 'field_name_4', value: '', placeholder: 'Enter date and time', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' }
+      { widget: 'inputText', id: 'id-field-name', label: 'Label Text', input_type: 'text', name: 'field_text', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', placeholder: 'Enter text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: 'Praesent in ligula maximus, viverra nulla sed, aliquam est.', error: 'Pellentesque sit amet lorem sed leo pharetra pretium.', common_msg: 'Proin dolor nibh, imperdiet in odio ac, porttitor blandit ipsum. Etiam sit amet porttitor sapien.' },
+      { widget: 'inputColor', id: 'id-field-name-2', label: 'Label Color', input_type: 'color', name: 'field_color', value: '#3BE40C', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
+      { widget: 'inputDate', id: 'id-field-name-3', label: 'Label Date', input_type: 'date', name: 'field_date', value: '', placeholder: 'Enter date', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
+      { widget: 'inputDateTime', id: 'id-field-name-4', label: 'Label DateTime', input_type: 'datetime', name: 'field_datetime', value: '', placeholder: 'Enter date and time', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' }
     ]
   }),
 
