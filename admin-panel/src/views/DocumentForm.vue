@@ -12,35 +12,37 @@
       <!-- Form fields. -->
       <v-card-text class="px-4 py-2">
         <template v-for="field in fields">
-          <div :key="field.name">
-            <v-alert
-              v-if="field.common_msg.length > 0"
-              text
-              outlined
-              color="deep-orange"
-              icon="mdi-fire"
-              class="mb-10"
-            >{{ field.common_msg }}</v-alert>
-            <v-text-field
-              dense
-              shaped
-              clearable
-              v-if="['inputText', 'inputColor', 'inputDate', 'inputDateTime'].includes(field.widget)"
-              :id="field.id"
-              :label="field.label"
-              :type="field.input_type"
-              :name="field.name"
-              :value="field.value"
-              :placeholder="field.placeholder"
-              :disabled="field.disabled"
-              :readonly="field.readonly"
-              :class="field.css_classes"
-              :hint="field.hint"
-              :messages="field.warning"
-              :error-messages="field.error"
-              :error="field.error.length > 0"
-              class="mt-5"
-            ></v-text-field>
+          <div :key="field.name" class="rounded-lg">
+            <div>
+              <v-alert
+                v-if="field.common_msg.length > 0"
+                dark
+                color="pink darken-4"
+                icon="mdi-alert"
+              >{{ field.common_msg }}</v-alert>
+            </div>
+            <div class="field-block mt-8 pa-4">
+              <v-text-field
+                dense
+                shaped
+                clearable
+                hide-details
+                v-if="['inputText', 'inputColor', 'inputDate', 'inputDateTime'].includes(field.widget)"
+                :id="field.id"
+                :label="field.label"
+                :type="field.input_type"
+                :name="field.name"
+                :value="field.value"
+                :placeholder="field.placeholder"
+                :disabled="field.disabled"
+                :readonly="field.readonly"
+                :class="field.css_classes"
+                :hint="field.hint"
+                :messages="field.warning"
+                :error-messages="field.error"
+                :error="field.error.length > 0"
+              ></v-text-field>
+            </div>
           </div>
         </template>
       </v-card-text>
@@ -135,3 +137,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.field-block {
+  border: thin solid rgba(0, 0, 0, 0.42);
+  border-radius: 4px;
+}
+</style>
