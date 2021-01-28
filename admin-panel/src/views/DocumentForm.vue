@@ -32,7 +32,7 @@
                   shaped
                   clearable
                   hide-details
-                  v-model="models[field.name]"
+                  v-model="fieldData[field.name]"
                   v-if="['inputText', 'inputColor'].includes(field.widget)"
                   :id="field.id"
                   :type="field.input_type"
@@ -46,7 +46,7 @@
                 <!-- Date fields -->
                 <v-menu
                   v-model="menu[field.name]"
-                  v-if="['inputDate', 'inputDateTime'].includes(field.widget)"
+                  v-if="['inputDate'].includes(field.widget)"
                   :close-on-content-click="false"
                   :nudge-right="40"
                   transition="scale-transition"
@@ -60,7 +60,7 @@
                       clearable
                       hide-details
                       prepend-icon="mdi-calendar"
-                      v-model="models[field.name]"
+                      v-model="fieldData[field.name]"
                       :id="field.id"
                       :type="field.input_type"
                       :name="field.name"
@@ -73,7 +73,7 @@
                     ></v-text-field>
                   </template>
                   <v-date-picker
-                    v-model="models[field.name]"
+                    v-model="fieldData[field.name]"
                     @input="menu[field.name] = false"
                     no-title
                     scrollable
@@ -82,6 +82,87 @@
                     :max="field.max"
                   ></v-date-picker>
                 </v-menu>
+
+                <!-- Date and Time fields -->
+                <v-row v-if="['inputDateTime'].includes(field.widget)">
+                  <v-col cols="6">
+                    <v-menu
+                      v-model="menu[field.name]"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="auto"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          dense
+                          shaped
+                          clearable
+                          hide-details
+                          prepend-icon="mdi-calendar"
+                          v-model="fieldData[field.name]"
+                          :id="field.id"
+                          :type="field.input_type"
+                          :name="field.name"
+                          :placeholder="field.placeholder"
+                          :disabled="field.disabled"
+                          readonly
+                          :class="field.css_classes"
+                          v-bind="attrs"
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker
+                        v-model="fieldData[field.name]"
+                        @input="menu[field.name] = false"
+                        no-title
+                        scrollable
+                        color="primary"
+                        :min="field.min"
+                        :max="field.max"
+                      ></v-date-picker>
+                    </v-menu>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-menu
+                      v-model="menu[`${field.name}__time`]"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      :return-value.sync="fieldData[`${field.name}__time`]"
+                      transition="scale-transition"
+                      offset-y
+                      max-width="290px"
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          dense
+                          shaped
+                          clearable
+                          hide-details
+                          prepend-icon="mdi-clock-time-four-outline"
+                          v-model="fieldData[field.name]"
+                          :id="field.id"
+                          :type="field.input_type"
+                          :name="field.name"
+                          :placeholder="field.placeholder"
+                          :disabled="field.disabled"
+                          readonly
+                          :class="field.css_classes"
+                          v-bind="attrs"
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-time-picker
+                        v-if="menu[`${field.name}__time`]"
+                        v-model="fieldData[`${field.name}__time`]"
+                        full-width
+                        @click:minute="$refs.menu.save(time)"
+                      ></v-time-picker>
+                    </v-menu>
+                  </v-col>
+                </v-row>
 
                 <!-- Messages for field. -->
                 <v-card-subtitle
@@ -152,8 +233,8 @@ export default {
   name: 'DocumentForm',
 
   data: () => ({
-    menu: { field_date: false, field_datetime: false },
-    models: { field_text: 'Lorem ipsum dolor sit amet', field_color: '#3BE40C', field_date: new Date().toISOString().substr(0, 10), field_datetime: new Date().toISOString().substr(0, 10), field_datetime__time: '' },
+    menu: { field_date: false, field_datetime: false, field_datetime__time: false },
+    fieldData: { field_text: 'Lorem ipsum dolor sit amet', field_color: '#3BE40C', field_date: new Date().toISOString().substr(0, 10), field_datetime: new Date().toISOString().substr(0, 10), field_datetime__time: null },
     fields: [
       { widget: 'inputText', id: 'id-field-name', label: 'Label Text', input_type: 'text', name: 'field_text', value: 'Lorem ipsum dolor sit amet', placeholder: 'Enter text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: 'Praesent in ligula maximus, viverra nulla sed, aliquam est.', error: 'Pellentesque sit amet lorem sed leo pharetra pretium.', common_msg: 'Proin dolor nibh, imperdiet in odio ac, porttitor blandit ipsum. Etiam sit amet porttitor sapien.' },
       { widget: 'inputColor', id: 'id-field-name-2', label: 'Label Color', input_type: 'color', name: 'field_color', value: '#3BE40C', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
