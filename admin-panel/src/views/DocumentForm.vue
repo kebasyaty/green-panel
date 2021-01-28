@@ -23,6 +23,8 @@
             </div>
             <v-card flat outlined class="mt-8">
               <v-card-text>
+                <v-card-title class="pa-0">{{ field.label }}</v-card-title>
+                <v-card-subtitle class="pl-0 pb-1 pt-3">{{ field.hint }}</v-card-subtitle>
                 <v-text-field
                   dense
                   shaped
@@ -30,7 +32,6 @@
                   hide-details
                   v-if="['inputText', 'inputColor', 'inputDate', 'inputDateTime'].includes(field.widget)"
                   :id="field.id"
-                  :label="field.label"
                   :type="field.input_type"
                   :name="field.name"
                   :value="field.value"
@@ -38,11 +39,15 @@
                   :disabled="field.disabled"
                   :readonly="field.readonly"
                   :class="field.css_classes"
-                  :hint="field.hint"
-                  :messages="field.warning"
-                  :error-messages="field.error"
-                  :error="field.error.length > 0"
                 ></v-text-field>
+                <v-card-subtitle
+                  v-if="field.warning.length > 0"
+                  class="pl-0 pb-0 pt-2 warning--text"
+                >{{ field.warning }}</v-card-subtitle>
+                <v-card-subtitle
+                  v-if="field.error.length > 0"
+                  class="pl-0 pb-0 pt-2 error--text"
+                >{{ field.error }}</v-card-subtitle>
               </v-card-text>
             </v-card>
           </div>
@@ -104,7 +109,7 @@ export default {
 
   data: () => ({
     fields: [
-      { widget: 'inputText', id: 'id-field-name', label: 'Label Text', input_type: 'text', name: 'field_name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', placeholder: 'Enter text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: 'Proin dolor nibh, imperdiet in odio ac, porttitor blandit ipsum. Etiam sit amet porttitor sapien.' },
+      { widget: 'inputText', id: 'id-field-name', label: 'Label Text', input_type: 'text', name: 'field_name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', placeholder: 'Enter text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: 'Praesent in ligula maximus, viverra nulla sed, aliquam est.', error: 'Pellentesque sit amet lorem sed leo pharetra pretium.', common_msg: 'Proin dolor nibh, imperdiet in odio ac, porttitor blandit ipsum. Etiam sit amet porttitor sapien.' },
       { widget: 'inputColor', id: 'id-field-name-2', label: 'Label Color', input_type: 'color', name: 'field_name_2', value: '#3BE40C', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
       { widget: 'inputDate', id: 'id-field-name-3', label: 'Label Date', input_type: 'date', name: 'field_name_3', value: '', placeholder: 'Enter date', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
       { widget: 'inputDateTime', id: 'id-field-name-4', label: 'Label DateTime', input_type: 'datetime', name: 'field_name_4', value: '', placeholder: 'Enter date and time', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' }
