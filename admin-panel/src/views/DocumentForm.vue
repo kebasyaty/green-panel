@@ -77,9 +77,13 @@
                     @input="menu[field.name] = false"
                     no-title
                     scrollable
+                    color="primary"
+                    :min="field.min"
+                    :max="field.max"
                   ></v-date-picker>
                 </v-menu>
 
+                <!-- Messages for field. -->
                 <v-card-subtitle
                   v-if="field.warning.length > 0"
                   class="pl-0 pb-0 pt-1 warning--text"
@@ -98,7 +102,7 @@
         <!-- Delete button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark rounded outlined small color="red" v-bind="attrs" v-on="on">
+            <v-btn dark rounded outlined small color="error" v-bind="attrs" v-on="on">
               <v-icon>mdi-close-thick</v-icon>
             </v-btn>
           </template>
@@ -108,7 +112,7 @@
         <!-- Save button and create a new document. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark rounded outlined small color="green" v-bind="attrs" v-on="on">
+            <v-btn dark rounded outlined small color="success" v-bind="attrs" v-on="on">
               <v-icon>mdi-content-save</v-icon>
               <v-icon>mdi-ampersand</v-icon>
               <v-icon>mdi-file-outline</v-icon>
@@ -119,7 +123,16 @@
         <!-- Save button and continue editing the document. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark rounded outlined small color="orange" class="mx-4" v-bind="attrs" v-on="on">
+            <v-btn
+              dark
+              rounded
+              outlined
+              small
+              color="warning"
+              class="mx-4"
+              v-bind="attrs"
+              v-on="on"
+            >
               <v-icon>mdi-content-save</v-icon>
               <v-icon>mdi-ampersand</v-icon>
               <v-icon>mdi-file-document-edit-outline</v-icon>
@@ -130,7 +143,7 @@
         <!-- Save button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark rounded outlined small color="blue" v-bind="attrs" v-on="on">
+            <v-btn dark rounded outlined small color="primary" v-bind="attrs" v-on="on">
               <v-icon>mdi-content-save</v-icon>
             </v-btn>
           </template>
@@ -148,10 +161,8 @@ export default {
   name: 'DocumentForm',
 
   data: () => ({
-    date: new Date().toISOString().substr(0, 10),
-    datetime: new Date().toISOString().substr(0, 16),
     menu: { field_date: false, field_datetime: false },
-    models: { field_text: 'Lorem ipsum dolor sit amet', field_color: '#3BE40C', field_date: '', field_datetime: '' },
+    models: { field_text: 'Lorem ipsum dolor sit amet', field_color: '#3BE40C', field_date: new Date().toISOString().substr(0, 10), field_datetime: new Date().toISOString().substr(0, 16) },
     fields: [
       { widget: 'inputText', id: 'id-field-name', label: 'Label Text', input_type: 'text', name: 'field_text', value: 'Lorem ipsum dolor sit amet', placeholder: 'Enter text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: 'Praesent in ligula maximus, viverra nulla sed, aliquam est.', error: 'Pellentesque sit amet lorem sed leo pharetra pretium.', common_msg: 'Proin dolor nibh, imperdiet in odio ac, porttitor blandit ipsum. Etiam sit amet porttitor sapien.' },
       { widget: 'inputColor', id: 'id-field-name-2', label: 'Label Color', input_type: 'color', name: 'field_color', value: '#3BE40C', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
