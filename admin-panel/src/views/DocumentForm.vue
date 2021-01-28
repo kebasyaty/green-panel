@@ -23,7 +23,7 @@
             </div>
             <v-card flat outlined class="mt-8">
               <v-card-text>
-                <v-card-title class="pa-0">{{ field.label }}</v-card-title>
+                <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">{{ field.label }}</v-card-title>
                 <v-card-subtitle class="pl-0 pb-1 pt-3">{{ field.hint }}</v-card-subtitle>
                 <v-text-field
                   dense
@@ -42,11 +42,11 @@
                 ></v-text-field>
                 <v-card-subtitle
                   v-if="field.warning.length > 0"
-                  class="pl-0 pb-0 pt-2 warning--text"
+                  class="pl-0 pb-0 pt-1 warning--text"
                 >{{ field.warning }}</v-card-subtitle>
                 <v-card-subtitle
                   v-if="field.error.length > 0"
-                  class="pl-0 pb-0 pt-2 error--text"
+                  class="pl-0 pb-0 pt-1 error--text"
                 >{{ field.error }}</v-card-subtitle>
               </v-card-text>
             </v-card>
