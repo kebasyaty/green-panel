@@ -54,7 +54,7 @@
         </template>
       </v-card-text>
       <!-- Form control buttons. -->
-      <v-card-actions class="pa-4">
+      <v-card-actions class="pt-6 px-4 pb-4">
         <!-- Delete button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
