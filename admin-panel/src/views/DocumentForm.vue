@@ -117,13 +117,14 @@
                         ></v-text-field>
                       </template>
                       <v-date-picker
+                        scrollable
                         v-model="fieldData[field.name]"
                         @input="menu[field.name] = false"
-                        no-title
-                        scrollable
+                        year-icon="mdi-calendar-blank"
                         color="primary"
                         :min="field.min"
                         :max="field.max"
+                        :locale="$i18n.locale"
                       ></v-date-picker>
                     </v-menu>
                   </v-col>
@@ -149,7 +150,7 @@
                           v-model="fieldData[`${field.name}__time`]"
                           :id="field.id"
                           :type="field.input_type"
-                          :name="field.name"
+                          :name="`${field.name}__time`"
                           :placeholder="field.placeholder"
                           :disabled="field.disabled"
                           readonly
@@ -159,9 +160,9 @@
                         ></v-text-field>
                       </template>
                       <v-time-picker
+                        full-width
                         v-if="menu[`${field.name}__time`]"
                         v-model="fieldData[`${field.name}__time`]"
-                        full-width
                         @click:minute="$refs[`${field.name}__time`].save(fieldData[`${field.name}__time`])"
                       ></v-time-picker>
                     </v-menu>
