@@ -21,28 +21,30 @@
                 icon="mdi-alert"
               >{{ field.common_msg }}</v-alert>
             </div>
-            <div class="field-block mt-8 pa-4">
-              <v-text-field
-                dense
-                shaped
-                clearable
-                hide-details
-                v-if="['inputText', 'inputColor', 'inputDate', 'inputDateTime'].includes(field.widget)"
-                :id="field.id"
-                :label="field.label"
-                :type="field.input_type"
-                :name="field.name"
-                :value="field.value"
-                :placeholder="field.placeholder"
-                :disabled="field.disabled"
-                :readonly="field.readonly"
-                :class="field.css_classes"
-                :hint="field.hint"
-                :messages="field.warning"
-                :error-messages="field.error"
-                :error="field.error.length > 0"
-              ></v-text-field>
-            </div>
+            <v-card flat outlined class="mt-8">
+              <v-card-text>
+                <v-text-field
+                  dense
+                  shaped
+                  clearable
+                  hide-details
+                  v-if="['inputText', 'inputColor', 'inputDate', 'inputDateTime'].includes(field.widget)"
+                  :id="field.id"
+                  :label="field.label"
+                  :type="field.input_type"
+                  :name="field.name"
+                  :value="field.value"
+                  :placeholder="field.placeholder"
+                  :disabled="field.disabled"
+                  :readonly="field.readonly"
+                  :class="field.css_classes"
+                  :hint="field.hint"
+                  :messages="field.warning"
+                  :error-messages="field.error"
+                  :error="field.error.length > 0"
+                ></v-text-field>
+              </v-card-text>
+            </v-card>
           </div>
         </template>
       </v-card-text>
@@ -137,10 +139,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.field-block {
-  border: thin solid rgba(0, 0, 0, 0.42);
-  border-radius: 4px;
-}
-</style>
