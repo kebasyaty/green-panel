@@ -98,7 +98,6 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-pagination
-          circle
           v-model="currentPageNumber"
           :length="countPage"
           :total-visible="5"
