@@ -72,7 +72,12 @@
                       v-on="on"
                     ></v-text-field>
                   </template>
-                  <v-date-picker v-model="models[field.name]" @input="menu[field.name] = false"></v-date-picker>
+                  <v-date-picker
+                    v-model="models[field.name]"
+                    @input="menu[field.name] = false"
+                    no-title
+                    scrollable
+                  ></v-date-picker>
                 </v-menu>
 
                 <v-card-subtitle
