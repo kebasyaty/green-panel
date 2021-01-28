@@ -99,10 +99,10 @@ export default {
   name: 'DocumentForm',
 
   data: () => ({
-    fields: {
-      field_name: { widget: 'inputText', id: 'id-field-name', label: 'Label name', input_type: 'text', name: 'field_name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: 'Proin dolor nibh, imperdiet in odio ac, porttitor blandit ipsum. Etiam sit amet porttitor sapien.' },
-      field_name_2: { widget: 'inputColor', id: 'id-field-name-2', label: 'Label name 2', input_type: 'color', name: 'field_name_2', value: '#000000', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' }
-    }
+    fields: [
+      { widget: 'inputText', id: 'id-field-name', label: 'Label name', input_type: 'text', name: 'field_name', value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: 'Proin dolor nibh, imperdiet in odio ac, porttitor blandit ipsum. Etiam sit amet porttitor sapien.' },
+      { widget: 'inputColor', id: 'id-field-name-2', label: 'Label name 2', input_type: 'color', name: 'field_name_2', value: '#000000', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' }
+    ]
   }),
 
   computed: {
