@@ -24,7 +24,10 @@
             <v-card flat outlined class="mt-8">
               <v-card-text>
                 <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">{{ field.label }}</v-card-title>
-                <v-card-subtitle class="pl-0 pb-1 pt-3">{{ field.hint }}</v-card-subtitle>
+                <v-card-subtitle
+                  v-if="field.hint.length > 0"
+                  class="pl-0 pb-1 pt-3"
+                >{{ field.hint }}</v-card-subtitle>
 
                 <!-- Text fields -->
                 <v-text-field
@@ -126,6 +129,7 @@
                   </v-col>
                   <v-col cols="6">
                     <v-menu
+                      :ref="`${field.name}__time`"
                       v-model="menu[`${field.name}__time`]"
                       :close-on-content-click="false"
                       :nudge-right="40"
@@ -142,7 +146,7 @@
                           clearable
                           hide-details
                           prepend-icon="mdi-clock-time-four-outline"
-                          v-model="fieldData[field.name]"
+                          v-model="fieldData[`${field.name}__time`]"
                           :id="field.id"
                           :type="field.input_type"
                           :name="field.name"
@@ -158,7 +162,7 @@
                         v-if="menu[`${field.name}__time`]"
                         v-model="fieldData[`${field.name}__time`]"
                         full-width
-                        @click:minute="$refs.menu.save(time)"
+                        @click:minute="$refs[`${field.name}__time`].save(fieldData[`${field.name}__time`])"
                       ></v-time-picker>
                     </v-menu>
                   </v-col>
@@ -234,7 +238,7 @@ export default {
 
   data: () => ({
     menu: { field_date: false, field_datetime: false, field_datetime__time: false },
-    fieldData: { field_text: 'Lorem ipsum dolor sit amet', field_color: '#3BE40C', field_date: new Date().toISOString().substr(0, 10), field_datetime: new Date().toISOString().substr(0, 10), field_datetime__time: null },
+    fieldData: { field_text: 'Lorem ipsum dolor sit amet', field_color: '#3BE40C', field_date: new Date().toISOString().substr(0, 10), field_datetime: new Date().toISOString().substr(0, 10), field_datetime__time: '00:00' },
     fields: [
       { widget: 'inputText', id: 'id-field-name', label: 'Label Text', input_type: 'text', name: 'field_text', value: 'Lorem ipsum dolor sit amet', placeholder: 'Enter text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: 'Praesent in ligula maximus, viverra nulla sed, aliquam est.', error: 'Pellentesque sit amet lorem sed leo pharetra pretium.', common_msg: 'Proin dolor nibh, imperdiet in odio ac, porttitor blandit ipsum. Etiam sit amet porttitor sapien.' },
       { widget: 'inputColor', id: 'id-field-name-2', label: 'Label Color', input_type: 'color', name: 'field_color', value: '#3BE40C', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
