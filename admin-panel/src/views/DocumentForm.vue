@@ -138,6 +138,7 @@
                     color="primary"
                     :min="field.min"
                     :max="field.max"
+                    :locale="$i18n.locale"
                   ></v-date-picker>
                 </v-menu>
 
