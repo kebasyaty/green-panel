@@ -342,7 +342,13 @@ export default {
         inputColor: 'palette-outline',
         inputDate: 'calendar',
         inputDateTime: 'calendar',
-        inputEmail: 'email-outline'
+        inputEmail: 'email-outline',
+        inputPassword: 'lock-outline',
+        inputPhone: 'phone',
+        inputUrl: 'wan',
+        inputIP: 'account-network',
+        inputIPv4: 'account-network',
+        inputIPv6: 'account-network'
       }[widget]
     }
   }
