@@ -36,7 +36,7 @@
                   clearable
                   hide-details
                   v-model="fieldData[field.name]"
-                  v-if="['inputText', 'inputColor', 'inputEmail', 'inputPassword', 'inputPhone', 'inputUrl'].includes(field.widget)"
+                  v-if="['inputText', 'inputColor', 'inputEmail', 'inputPassword', 'inputPhone', 'inputUrl', 'inputIP'].includes(field.widget)"
                   :id="field.id"
                   :type="field.input_type"
                   :name="field.name"
@@ -240,7 +240,7 @@ export default {
 
   data: () => ({
     menu: { field_date: false, field_datetime: false, field_datetime__time: false },
-    fieldData: { field_text: 'Lorem ipsum dolor sit amet', field_color: '#3BE40C', field_date: new Date().toISOString().substr(0, 10), field_datetime: new Date().toISOString().substr(0, 10), field_datetime__time: '00:00', field_email: '', field_password: '', field_phone: '', field_url: '' },
+    fieldData: { field_text: 'Lorem ipsum dolor sit amet', field_color: '#3BE40C', field_date: new Date().toISOString().substr(0, 10), field_datetime: new Date().toISOString().substr(0, 10), field_datetime__time: '00:00', field_email: '', field_password: '', field_phone: '', field_url: '', field_ip: '' },
     fields: [
       { widget: 'inputText', id: 'id-text', label: 'Label Text', input_type: 'text', name: 'field_text', value: 'Lorem ipsum dolor sit amet', placeholder: 'Enter text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
       { widget: 'inputColor', id: 'id-color', label: 'Label Color', input_type: 'color', name: 'field_color', value: '#3BE40C', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
@@ -249,7 +249,8 @@ export default {
       { widget: 'inputEmail', id: 'id-email', label: 'Label E-mail', input_type: 'email', name: 'field_email', value: '', placeholder: 'Enter email', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
       { widget: 'inputPassword', id: 'id-passwordl', label: 'Label Password', input_type: 'password', name: 'field_password', value: '', placeholder: 'Enter password', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
       { widget: 'inputPhone', id: 'id-phone', label: 'Label Phone', input_type: 'tel', name: 'field_phone', value: '', placeholder: 'Enter phone', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
-      { widget: 'inputUrl', id: 'id-url', label: 'Label Url', input_type: 'url', name: 'field_url', value: '', placeholder: 'Enter url', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' }
+      { widget: 'inputUrl', id: 'id-url', label: 'Label Url', input_type: 'url', name: 'field_url', value: '', placeholder: 'Enter url', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
+      { widget: 'inputIP', id: 'id-ip', label: 'Label IP', input_type: 'text', name: 'field_ip', value: '', placeholder: 'Enter ip', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' }
     ]
   }),
 
