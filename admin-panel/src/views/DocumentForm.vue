@@ -46,6 +46,22 @@
                   :class="field.css_classes"
                 ></v-text-field>
 
+                <!-- Textarea fields -->
+                <v-textarea
+                  dense
+                  shaped
+                  clearable
+                  hide-details
+                  v-model="fieldData[field.name]"
+                  v-if="['textArea'].includes(field.widget)"
+                  :id="field.id"
+                  :name="field.name"
+                  :placeholder="field.placeholder"
+                  :disabled="field.disabled"
+                  :readonly="field.readonly"
+                  :class="field.css_classes"
+                ></v-textarea>
+
                 <!-- Date fields -->
                 <v-menu
                   v-model="menu[field.name]"
@@ -240,19 +256,20 @@ export default {
 
   data: () => ({
     menu: { field_date: false, field_datetime: false, field_datetime__time: false },
-    fieldData: { field_text: 'Lorem ipsum dolor sit amet', field_color: '#3BE40C', field_date: new Date().toISOString().substr(0, 10), field_datetime: new Date().toISOString().substr(0, 10), field_datetime__time: '00:00', field_email: '', field_password: '', field_phone: '', field_url: '', field_ip: '', field_ipv4: '', field_ipv6: '' },
+    fieldData: { field_text: 'Lorem ipsum dolor sit amet', field_color: '#3BE40C', field_date: new Date().toISOString().substr(0, 10), field_datetime: new Date().toISOString().substr(0, 10), field_datetime__time: '00:00', field_email: '', field_password: '', field_phone: '', field_url: '', field_ip: '', field_ipv4: '', field_ipv6: '', field_textarea: '', required: true },
     fields: [
-      { widget: 'inputText', id: 'id-text', label: 'Label Text', input_type: 'text', name: 'field_text', value: 'Lorem ipsum dolor sit amet', placeholder: 'Enter text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
+      { widget: 'inputText', id: 'id-text', label: 'Label Text', input_type: 'text', name: 'field_text', value: 'Lorem ipsum dolor sit amet', placeholder: 'Enter text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
       { widget: 'inputColor', id: 'id-color', label: 'Label Color', input_type: 'color', name: 'field_color', value: '#3BE40C', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
       { widget: 'inputDate', id: 'id-date', label: 'Label Date', input_type: 'date', name: 'field_date', value: '', placeholder: 'Enter date', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', min: '', max: '' },
-      { widget: 'inputDateTime', id: 'id-datetime', label: 'Label Date and Time', input_type: 'datetime', name: 'field_datetime', value: '', placeholder: 'Enter date and time', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', min: '', max: '' },
-      { widget: 'inputEmail', id: 'id-email', label: 'Label E-mail', input_type: 'email', name: 'field_email', value: '', placeholder: 'Enter email', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
-      { widget: 'inputPassword', id: 'id-passwordl', label: 'Label Password', input_type: 'password', name: 'field_password', value: '', placeholder: 'Enter password', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
-      { widget: 'inputPhone', id: 'id-phone', label: 'Label Phone', input_type: 'tel', name: 'field_phone', value: '', placeholder: 'Enter phone', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
-      { widget: 'inputUrl', id: 'id-url', label: 'Label Url', input_type: 'url', name: 'field_url', value: '', placeholder: 'Enter url', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
-      { widget: 'inputIP', id: 'id-ip', label: 'Label IP', input_type: 'text', name: 'field_ip', value: '', placeholder: 'Enter ip', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
-      { widget: 'inputIPv4', id: 'id-ip-v4', label: 'Label IPv4', input_type: 'text', name: 'field_ipv4', value: '', placeholder: 'Enter ipv4', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
-      { widget: 'inputIPv6', id: 'id-ip-v6', label: 'Label IPv6', input_type: 'text', name: 'field_ipv6', value: '', placeholder: 'Enter ipv6', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' }
+      { widget: 'inputDateTime', id: 'id-datetime', label: 'Label Date and Time', input_type: 'datetime', name: 'field_datetime', value: '', placeholder: 'Enter date and time', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', min: '', max: '', required: true },
+      { widget: 'inputEmail', id: 'id-email', label: 'Label E-mail', input_type: 'email', name: 'field_email', value: '', placeholder: 'Enter email', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
+      { widget: 'inputPassword', id: 'id-passwordl', label: 'Label Password', input_type: 'password', name: 'field_password', value: '', placeholder: 'Enter password', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
+      { widget: 'inputPhone', id: 'id-phone', label: 'Label Phone', input_type: 'tel', name: 'field_phone', value: '', placeholder: 'Enter phone', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
+      { widget: 'inputUrl', id: 'id-url', label: 'Label Url', input_type: 'url', name: 'field_url', value: '', placeholder: 'Enter url', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
+      { widget: 'inputIP', id: 'id-ip', label: 'Label IP', input_type: 'text', name: 'field_ip', value: '', placeholder: 'Enter ip', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
+      { widget: 'inputIPv4', id: 'id-ip-v4', label: 'Label IPv4', input_type: 'text', name: 'field_ipv4', value: '', placeholder: 'Enter ipv4', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
+      { widget: 'inputIPv6', id: 'id-ip-v6', label: 'Label IPv6', input_type: 'text', name: 'field_ipv6', value: '', placeholder: 'Enter ipv6', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
+      { widget: 'textArea', id: 'id-textarea', label: 'Label Textarea', input_type: 'textarea', name: 'field_textarea', value: '', placeholder: 'Enter textarea', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true }
     ]
   }),
 
