@@ -35,8 +35,9 @@
                   shaped
                   clearable
                   hide-details
+                  prepend-icon="mdi-note-text-outline"
                   v-model="fieldData[field.name]"
-                  v-if="['inputText', 'inputColor', 'inputEmail', 'inputPassword', 'inputPhone', 'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6'].includes(field.widget)"
+                  v-if="['inputText', 'inputEmail', 'inputPassword', 'inputPhone', 'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6'].includes(field.widget)"
                   :id="field.id"
                   :type="field.input_type"
                   :name="field.name"
@@ -46,12 +47,49 @@
                   :class="field.css_classes"
                 ></v-text-field>
 
+                <!-- Color fields -->
+                <v-menu
+                  v-model="menu[field.name]"
+                  v-if="['inputColor'].includes(field.widget)"
+                  :close-on-content-click="false"
+                  :nudge-right="40"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="auto"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                      dense
+                      shaped
+                      clearable
+                      hide-details
+                      prepend-icon="mdi-palette-outline"
+                      v-model="fieldData[field.name]"
+                      :id="field.id"
+                      type="text"
+                      :name="field.name"
+                      :placeholder="field.placeholder"
+                      :disabled="field.disabled"
+                      readonly
+                      :class="field.css_classes"
+                      v-bind="attrs"
+                      v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-color-picker
+                    show-swatches
+                    v-model="fieldData[field.name]"
+                    @input="menu[field.name] = false"
+                  ></v-color-picker>
+                </v-menu>
+
                 <!-- Textarea fields -->
                 <v-textarea
                   dense
                   shaped
                   clearable
                   hide-details
+                  prepend-icon="mdi-script-text-outline"
                   v-model="fieldData[field.name]"
                   v-if="['textArea'].includes(field.widget)"
                   :id="field.id"
@@ -255,7 +293,7 @@ export default {
   name: 'DocumentForm',
 
   data: () => ({
-    menu: { field_date: false, field_datetime: false, field_datetime__time: false },
+    menu: { field_date: false, field_color: false, field_datetime: false, field_datetime__time: false },
     fieldData: { field_text: 'Lorem ipsum dolor sit amet', field_color: '#3BE40C', field_date: new Date().toISOString().substr(0, 10), field_datetime: new Date().toISOString().substr(0, 10), field_datetime__time: '00:00', field_email: '', field_password: '', field_phone: '', field_url: '', field_ip: '', field_ipv4: '', field_ipv6: '', field_textarea: '', required: true },
     fields: [
       { widget: 'inputText', id: 'id-text', label: 'Label Text', input_type: 'text', name: 'field_text', value: 'Lorem ipsum dolor sit amet', placeholder: 'Enter text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
