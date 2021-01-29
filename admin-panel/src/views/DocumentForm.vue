@@ -35,7 +35,7 @@
                   shaped
                   clearable
                   hide-details
-                  prepend-icon="mdi-note-text-outline"
+                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                   v-model="fieldData[field.name]"
                   v-if="['inputText', 'inputEmail', 'inputPassword', 'inputPhone', 'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6'].includes(field.widget)"
                   :id="field.id"
@@ -63,7 +63,7 @@
                       shaped
                       clearable
                       hide-details
-                      prepend-icon="mdi-palette-outline"
+                      :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                       v-model="fieldData[field.name]"
                       :id="field.id"
                       type="text"
@@ -89,7 +89,7 @@
                   shaped
                   clearable
                   hide-details
-                  prepend-icon="mdi-script-text-outline"
+                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                   v-model="fieldData[field.name]"
                   v-if="['textArea'].includes(field.widget)"
                   :id="field.id"
@@ -116,7 +116,7 @@
                       shaped
                       clearable
                       hide-details
-                      prepend-icon="mdi-calendar"
+                      :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                       v-model="fieldData[field.name]"
                       :id="field.id"
                       :type="field.input_type"
@@ -157,7 +157,7 @@
                           shaped
                           clearable
                           hide-details
-                          prepend-icon="mdi-calendar"
+                          :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                           v-model="fieldData[field.name]"
                           :id="field.id"
                           :type="field.input_type"
@@ -335,6 +335,15 @@ export default {
   methods: {
     goBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+    },
+    getFieldIcon(widget) {
+      return {
+        inputText: 'note-text-outline',
+        inputColor: 'palette-outline',
+        inputDate: 'calendar',
+        inputDateTime: 'calendar',
+        inputEmail: 'email-outline'
+      }[widget]
     }
   }
 }
