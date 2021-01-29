@@ -60,10 +60,18 @@
                   min-width="auto"
                 >
                   <template v-slot:activator="{ on, attrs }">
+                    <div class="pl-8">
+                      <v-card
+                        v-if="['inputColor'].includes(field.widget)"
+                        :color="fieldData[field.name]"
+                        width="100%"
+                        height="10px"
+                        @click="menu[field.name] = true"
+                      ></v-card>
+                    </div>
                     <v-text-field
                       dense
                       shaped
-                      clearable
                       hide-details
                       :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                       v-model="fieldData[field.name]"
