@@ -49,9 +49,11 @@
 
                 <!-- Color fields -->
                 <v-menu
+                  :ref="field.name"
                   v-model="menu[field.name]"
                   v-if="['inputColor'].includes(field.widget)"
                   :close-on-content-click="false"
+                  :return-value.sync="fieldData[field.name]"
                   :nudge-right="40"
                   transition="scale-transition"
                   offset-y
@@ -76,12 +78,18 @@
                       v-on="on"
                     ></v-text-field>
                   </template>
-                  <v-color-picker
-                    show-swatches
-                    mode="hexa"
-                    v-model="fieldData[field.name]"
-                    @input="menu[field.name] = false"
-                  ></v-color-picker>
+                  <v-card>
+                    <v-color-picker show-swatches mode="hexa" v-model="fieldData[field.name]"></v-color-picker>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn text color="primary" @click="menu[field.name] = false">Cancel</v-btn>
+                      <v-btn
+                        text
+                        color="primary"
+                        @click="$refs[field.name][0].save(fieldData[field.name])"
+                      >OK</v-btn>
+                    </v-card-actions>
+                  </v-card>
                 </v-menu>
 
                 <!-- Textarea fields -->
