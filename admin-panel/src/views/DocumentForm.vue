@@ -312,7 +312,7 @@ export default {
 
   data: () => ({
     menu: { field_date: false, field_color: false, field_datetime: false, field_datetime__time: false },
-    fieldData: { field_text: 'Lorem ipsum dolor sit amet', field_color: '#3BE40C', field_date: new Date().toISOString().substr(0, 10), field_datetime: new Date().toISOString().substr(0, 10), field_datetime__time: '00:00', field_email: '', field_password: '', field_phone: '', field_url: '', field_ip: '', field_ipv4: '', field_ipv6: '', field_textarea: '', required: true },
+    fieldData: { field_text: 'Lorem ipsum dolor sit amet', field_color: '#3BE40CFF', field_date: new Date().toISOString().substr(0, 10), field_datetime: new Date().toISOString().substr(0, 10), field_datetime__time: '00:00', field_email: '', field_password: '', field_phone: '', field_url: '', field_ip: '', field_ipv4: '', field_ipv6: '', field_textarea: '', required: true },
     fields: [
       { widget: 'inputText', id: 'id-text', label: 'Label Text', input_type: 'text', name: 'field_text', value: 'Lorem ipsum dolor sit amet', placeholder: 'Enter text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
       { widget: 'inputColor', id: 'id-color', label: 'Label Color', input_type: 'color', name: 'field_color', value: '#3BE40C', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
