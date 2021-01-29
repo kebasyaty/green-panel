@@ -348,7 +348,8 @@ export default {
         inputUrl: 'wan',
         inputIP: 'account-network',
         inputIPv4: 'account-network',
-        inputIPv6: 'account-network'
+        inputIPv6: 'account-network',
+        textArea: 'script-text-outline'
       }[widget]
     }
   }
