@@ -161,6 +161,7 @@
                       </template>
                       <v-time-picker
                         full-width
+                        scrollable
                         v-if="menu[`${field.name}__time`]"
                         v-model="fieldData[`${field.name}__time`]"
                         @click:minute="$refs[`${field.name}__time`].save(fieldData[`${field.name}__time`])"
