@@ -78,6 +78,7 @@
                   </template>
                   <v-color-picker
                     show-swatches
+                    mode="hexa"
                     v-model="fieldData[field.name]"
                     @input="menu[field.name] = false"
                   ></v-color-picker>
