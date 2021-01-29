@@ -139,10 +139,10 @@
                     ></v-text-field>
                   </template>
                   <v-date-picker
+                    scrollable
                     v-model="fieldData[field.name]"
                     @input="menu[field.name] = false"
-                    no-title
-                    scrollable
+                    year-icon="mdi-calendar-blank"
                     color="primary"
                     :min="field.min"
                     :max="field.max"
