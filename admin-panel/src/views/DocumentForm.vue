@@ -347,6 +347,10 @@ export default {
         textArea: 'script-text-outline'
       }[widget]
     }
+  },
+
+  created() {
+    //
   }
 }
 </script>
