@@ -36,8 +36,8 @@
               :required="field.required"
               :disabled="field.disabled"
               :readonly="field.readonly"
-              :step="field.step || 1"
-              :min="field.min || 0"
+              :step="field.step"
+              :min="field.min"
               :max="field.max"
               :class="field.css_classes"
               :hint="field.hint"
@@ -59,9 +59,9 @@
               :required="field.required"
               :disabled="field.disabled"
               :readonly="field.readonly"
-              :step="field.step || 1"
-              :min="field.min || 0"
-              :max="field.max || 0"
+              :step="field.step"
+              :min="field.min"
+              :max="field.max"
               :class="field.css_classes"
               :hint="field.hint"
               :messages="field.warning"
@@ -112,7 +112,7 @@
                 ></v-text-field>
               </template>
               <v-card>
-                <v-color-picker show-swatches mode="hexa" v-model="field.value"></v-color-picker>
+                <v-color-picker show-swatches mode="hexa" v-model="fieldData[field.name]"></v-color-picker>
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn text color="primary" @click="menu[field.name] = false">Cancel</v-btn>
@@ -472,12 +472,14 @@ export default {
           case 'numberI64':
           case 'numberF64':
             // this.fieldData[item.name] = item.value
+            item.step = item.step || 1
             break
           case 'rangeI32':
           case 'rangeU32':
           case 'rangeI64':
           case 'rangeF64':
             item.value = item.value || 0
+            item.step = item.step || 1
             break
         }
       })
