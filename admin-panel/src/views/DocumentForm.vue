@@ -24,7 +24,6 @@
 
             <!-- Text fields -->
             <v-text-field
-              shaped
               clearable
               :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
               v-model="fieldData[field.name]"
@@ -87,7 +86,6 @@
 
             <!-- Textarea fields -->
             <v-textarea
-              shaped
               clearable
               :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
               v-model="fieldData[field.name]"
@@ -113,7 +111,6 @@
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
-                  shaped
                   clearable
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                   v-model="fieldData[field.name]"
@@ -154,7 +151,6 @@
                 >
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field
-                      shaped
                       clearable
                       :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                       v-model="fieldData[field.name]"
@@ -196,7 +192,6 @@
                 >
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field
-                      shaped
                       clearable
                       prepend-icon="mdi-clock-time-four-outline"
                       v-model="fieldData[`${field.name}__time`]"
