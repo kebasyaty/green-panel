@@ -45,6 +45,28 @@
               :error-messages="field.error"
             ></v-text-field>
 
+            <!-- Slider fields -->
+            <v-slider
+              :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+              v-model="fieldData[field.name]"
+              v-if="['rangeI32', 'rangeU32', 'rangeI64', 'rangeF64'].includes(field.widget)"
+              :label="field.label"
+              :id="field.id"
+              :type="field.input_type"
+              :name="field.name"
+              :placeholder="field.placeholder"
+              :required="field.required"
+              :disabled="field.disabled"
+              :readonly="field.readonly"
+              :step="field.step"
+              :min="field.min"
+              :max="field.max"
+              :class="field.css_classes"
+              :hint="field.hint"
+              :messages="field.warning"
+              :error-messages="field.error"
+            ></v-slider>
+
             <!-- Hidden fields -->
             <input
               :label="field.label"
@@ -337,20 +359,52 @@ export default {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
     },
     getFieldIcon(widget) {
-      return {
-        inputText: 'note-text-outline',
-        inputColor: 'palette-outline',
-        inputDate: 'calendar',
-        inputDateTime: 'calendar',
-        inputEmail: 'email-outline',
-        inputPassword: 'lock-outline',
-        inputPhone: 'phone',
-        inputUrl: 'wan',
-        inputIP: 'account-network',
-        inputIPv4: 'account-network',
-        inputIPv6: 'account-network',
-        textArea: 'script-text-outline'
-      }[widget]
+      let result = ''
+      switch (widget) {
+        case 'inputText':
+          result = 'note-text-outline'
+          break
+        case 'inputColor':
+          result = 'palette-outline'
+          break
+        case 'inputDate':
+        case 'inputDateTime':
+          result = 'calendar'
+          break
+        case 'inputEmail':
+          result = 'email-outline'
+          break
+        case 'inputPassword':
+          result = 'lock-outline'
+          break
+        case 'inputPhone':
+          result = 'phone'
+          break
+        case 'inputUrl':
+          result = 'wan'
+          break
+        case 'inputIP':
+        case 'inputIPv4':
+        case 'inputIPv6':
+          result = 'account-network'
+          break
+        case 'textArea':
+          result = 'script-text-outline'
+          break
+        case 'numberI32':
+        case 'numberU32':
+        case 'numberI64':
+        case 'numberF64':
+          result = 'numeric-0-box-outline'
+          break
+        case 'rangeI32':
+        case 'rangeU32':
+        case 'rangeI64':
+        case 'rangeF64':
+          result = 'rrow-split-vertical'
+          break
+      }
+      return result
     },
     getFornData() {
       const fields = [
@@ -374,7 +428,11 @@ export default {
         { widget: 'numberI32', id: 'id-number-i32', label: 'Label Number I32', input_type: 'number', name: 'field_number_i32', value: '', placeholder: 'Enter number i32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
         { widget: 'numberU32', id: 'id-number-u32', label: 'Label Number U32', input_type: 'number', name: 'field_number_u32', value: '', placeholder: 'Enter number u32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
         { widget: 'numberI64', id: 'id-number-i64', label: 'Label Number I64', input_type: 'number', name: 'field_number_i64', value: '', placeholder: 'Enter number i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
-        { widget: 'numberF64', id: 'id-number-f64', label: 'Label Number F64', input_type: 'number', name: 'field_number_f64', value: '', placeholder: 'Enter number f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true }
+        { widget: 'numberF64', id: 'id-number-f64', label: 'Label Number F64', input_type: 'number', name: 'field_number_f64', value: '', placeholder: 'Enter number f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
+        { widget: 'rangeI32', id: 'id-range-i32', label: 'Label Range I32', input_type: 'range', name: 'field_range_i32', value: '', placeholder: 'Enter range i32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
+        { widget: 'rangeU32', id: 'id-range-u32', label: 'Label Range U32', input_type: 'range', name: 'field_range_u32', value: '', placeholder: 'Enter range u32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
+        { widget: 'rangeI64', id: 'id-range-i64', label: 'Label Range I64', input_type: 'range', name: 'field_range_i64', value: '', placeholder: 'Enter range i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
+        { widget: 'rangeF64', id: 'id-ranger-f64', label: 'Label Range F64', input_type: 'range', name: 'field_range_f64', value: '', placeholder: 'Enter range f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true }
       ]
 
       fields.forEach(item => {
@@ -415,6 +473,12 @@ export default {
           case 'numberU32':
           case 'numberI64':
           case 'numberF64':
+            this.fieldData[item.name] = item.value
+            break
+          case 'rangeI32':
+          case 'rangeU32':
+          case 'rangeI64':
+          case 'rangeF64':
             this.fieldData[item.name] = item.value
             break
         }
