@@ -41,6 +41,15 @@
               :error-messages="field.error"
             ></v-text-field>
 
+            <!-- Hidden fields -->
+            <input
+              :label="field.label"
+              :id="field.id"
+              :type="field.input_type"
+              :name="field.name"
+              v-if="['hiddenText', 'hiddenI32', 'hiddenU32', 'hiddenI64', 'hiddenF64'].includes(field.widget)"
+            />
+
             <!-- Color fields -->
             <v-menu
               :ref="field.name"
@@ -349,7 +358,9 @@ export default {
         { widget: 'inputIPv6', id: 'id-ip-v6', label: 'Label IPv6', input_type: 'text', name: 'field_ipv6', value: '', placeholder: 'Enter ipv6', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
         { widget: 'textArea', id: 'id-textarea', label: 'Label Textarea', input_type: 'textarea', name: 'field_textarea', value: '', placeholder: 'Enter textarea', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
         { widget: 'hiddenText', id: 'id-hidden-text', label: 'Label Hidden Text', input_type: 'hidden', name: 'field_hidden_text', value: '', placeholder: 'Enter hidden text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
-        { widget: 'hiddenI32', id: 'id-hidden-i32', label: 'Label Hidden I32', input_type: 'hidden', name: 'field_hidden_i32', value: '', placeholder: 'Enter hidden i32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true }
+        { widget: 'hiddenI32', id: 'id-hidden-i32', label: 'Label Hidden I32', input_type: 'hidden', name: 'field_hidden_i32', value: '', placeholder: 'Enter hidden i32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
+        { widget: 'hiddenU32', id: 'id-hidden-u32', label: 'Label Hidden U32', input_type: 'hidden', name: 'field_hidden_u32', value: '', placeholder: 'Enter hidden u32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
+        { widget: 'hiddenI64', id: 'id-hidden-i64', label: 'Label Hidden I64', input_type: 'hidden', name: 'field_hidden_i64', value: '', placeholder: 'Enter hidden i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true }
       ]
 
       fields.forEach(item => {
@@ -363,7 +374,6 @@ export default {
           case 'inputIPv4':
           case 'inputIPv6':
           case 'textArea':
-          case 'hiddenText':
             this.fieldData[item.name] = item.value
             break
           case 'inputColor':
@@ -380,7 +390,10 @@ export default {
             this.fieldData[item.name] = item.value.length > 0 ? item.value : new Date().toISOString().substr(0, 10)
             this.fieldData[`${item.name}__time`] = item.value.length > 0 ? item.value : '00:00'
             break
+          case 'hiddenText':
           case 'hiddenI32':
+          case 'hiddenU32':
+          case 'hiddenI64':
             this.fieldData[item.name] = item.value
             break
         }
