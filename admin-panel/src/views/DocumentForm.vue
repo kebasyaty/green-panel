@@ -12,7 +12,7 @@
       <!-- Form fields. -->
       <v-card-text class="px-4 py-2">
         <template v-for="field in fields">
-          <div :key="field.name" class="rounded-lg">
+          <div :key="field.name">
             <div>
               <v-alert
                 v-if="field.common_msg.length > 0"
@@ -21,106 +21,140 @@
                 icon="mdi-alert"
               >{{ field.common_msg }}</v-alert>
             </div>
-            <v-card flat outlined class="mt-8">
-              <v-card-text>
-                <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">{{ field.label }}</v-card-title>
-                <v-card-subtitle
-                  v-if="field.hint.length > 0"
-                  class="pl-0 pb-1 pt-3"
-                >{{ field.hint }}</v-card-subtitle>
 
-                <!-- Text fields -->
+            <!-- Text fields -->
+            <v-text-field
+              shaped
+              clearable
+              :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+              v-model="fieldData[field.name]"
+              v-if="['inputText', 'inputEmail', 'inputPassword', 'inputPhone', 'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6'].includes(field.widget)"
+              :label="field.label"
+              :id="field.id"
+              :type="field.input_type"
+              :name="field.name"
+              :placeholder="field.placeholder"
+              :disabled="field.disabled"
+              :readonly="field.readonly"
+              :class="field.css_classes"
+              :hint="field.hint"
+              :messages="field.warning"
+              :error-messages="field.error"
+            ></v-text-field>
+
+            <!-- Color fields -->
+            <v-menu
+              :ref="field.name"
+              v-model="menu[field.name]"
+              v-if="['inputColor'].includes(field.widget)"
+              :close-on-content-click="false"
+              :return-value.sync="fieldData[field.name]"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="auto"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <div class="pl-8">
+                  <v-card
+                    v-if="['inputColor'].includes(field.widget)"
+                    :color="fieldData[field.name]"
+                    width="100%"
+                    height="10px"
+                    @click="menu[field.name] = true"
+                  ></v-card>
+                </div>
                 <v-text-field
-                  dense
                   shaped
-                  clearable
-                  hide-details
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                   v-model="fieldData[field.name]"
-                  v-if="['inputText', 'inputEmail', 'inputPassword', 'inputPhone', 'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6'].includes(field.widget)"
+                  :label="field.label"
+                  :id="field.id"
+                  type="text"
+                  :name="field.name"
+                  :placeholder="field.placeholder"
+                  :disabled="field.disabled"
+                  readonly
+                  :class="field.css_classes"
+                  v-bind="attrs"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-card>
+                <v-color-picker show-swatches mode="hexa" v-model="fieldData[field.name]"></v-color-picker>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn text color="primary" @click="menu[field.name] = false">Cancel</v-btn>
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="$refs[field.name][0].save(fieldData[field.name])"
+                  >OK</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-menu>
+
+            <!-- Textarea fields -->
+            <v-textarea
+              shaped
+              clearable
+              :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+              v-model="fieldData[field.name]"
+              v-if="['textArea'].includes(field.widget)"
+              :label="field.label"
+              :id="field.id"
+              :name="field.name"
+              :placeholder="field.placeholder"
+              :disabled="field.disabled"
+              :readonly="field.readonly"
+              :class="field.css_classes"
+            ></v-textarea>
+
+            <!-- Date fields -->
+            <v-menu
+              v-model="menu[field.name]"
+              v-if="['inputDate'].includes(field.widget)"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="auto"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  shaped
+                  clearable
+                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+                  v-model="fieldData[field.name]"
+                  :label="field.label"
                   :id="field.id"
                   :type="field.input_type"
                   :name="field.name"
                   :placeholder="field.placeholder"
                   :disabled="field.disabled"
-                  :readonly="field.readonly"
+                  readonly
                   :class="field.css_classes"
+                  v-bind="attrs"
+                  v-on="on"
                 ></v-text-field>
+              </template>
+              <v-date-picker
+                scrollable
+                v-model="fieldData[field.name]"
+                @input="menu[field.name] = false"
+                year-icon="mdi-calendar-blank"
+                color="primary"
+                :min="field.min"
+                :max="field.max"
+                :locale="$i18n.locale"
+              ></v-date-picker>
+            </v-menu>
 
-                <!-- Color fields -->
-                <v-menu
-                  :ref="field.name"
-                  v-model="menu[field.name]"
-                  v-if="['inputColor'].includes(field.widget)"
-                  :close-on-content-click="false"
-                  :return-value.sync="fieldData[field.name]"
-                  :nudge-right="40"
-                  transition="scale-transition"
-                  offset-y
-                  min-width="auto"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <div class="pl-8">
-                      <v-card
-                        v-if="['inputColor'].includes(field.widget)"
-                        :color="fieldData[field.name]"
-                        width="100%"
-                        height="10px"
-                        @click="menu[field.name] = true"
-                      ></v-card>
-                    </div>
-                    <v-text-field
-                      dense
-                      shaped
-                      hide-details
-                      :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                      v-model="fieldData[field.name]"
-                      :id="field.id"
-                      type="text"
-                      :name="field.name"
-                      :placeholder="field.placeholder"
-                      :disabled="field.disabled"
-                      readonly
-                      :class="field.css_classes"
-                      v-bind="attrs"
-                      v-on="on"
-                    ></v-text-field>
-                  </template>
-                  <v-card>
-                    <v-color-picker show-swatches mode="hexa" v-model="fieldData[field.name]"></v-color-picker>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn text color="primary" @click="menu[field.name] = false">Cancel</v-btn>
-                      <v-btn
-                        text
-                        color="primary"
-                        @click="$refs[field.name][0].save(fieldData[field.name])"
-                      >OK</v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-menu>
-
-                <!-- Textarea fields -->
-                <v-textarea
-                  dense
-                  shaped
-                  clearable
-                  hide-details
-                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                  v-model="fieldData[field.name]"
-                  v-if="['textArea'].includes(field.widget)"
-                  :id="field.id"
-                  :name="field.name"
-                  :placeholder="field.placeholder"
-                  :disabled="field.disabled"
-                  :readonly="field.readonly"
-                  :class="field.css_classes"
-                ></v-textarea>
-
-                <!-- Date fields -->
+            <!-- Date and Time fields -->
+            <v-row v-if="['inputDateTime'].includes(field.widget)">
+              <v-col cols="6">
                 <v-menu
                   v-model="menu[field.name]"
-                  v-if="['inputDate'].includes(field.widget)"
                   :close-on-content-click="false"
                   :nudge-right="40"
                   transition="scale-transition"
@@ -129,12 +163,11 @@
                 >
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field
-                      dense
                       shaped
                       clearable
-                      hide-details
                       :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                       v-model="fieldData[field.name]"
+                      :label="field.label"
                       :id="field.id"
                       :type="field.input_type"
                       :name="field.name"
@@ -157,102 +190,47 @@
                     :locale="$i18n.locale"
                   ></v-date-picker>
                 </v-menu>
-
-                <!-- Date and Time fields -->
-                <v-row v-if="['inputDateTime'].includes(field.widget)">
-                  <v-col cols="6">
-                    <v-menu
-                      v-model="menu[field.name]"
-                      :close-on-content-click="false"
-                      :nudge-right="40"
-                      transition="scale-transition"
-                      offset-y
-                      min-width="auto"
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          dense
-                          shaped
-                          clearable
-                          hide-details
-                          :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                          v-model="fieldData[field.name]"
-                          :id="field.id"
-                          :type="field.input_type"
-                          :name="field.name"
-                          :placeholder="field.placeholder"
-                          :disabled="field.disabled"
-                          readonly
-                          :class="field.css_classes"
-                          v-bind="attrs"
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker
-                        scrollable
-                        v-model="fieldData[field.name]"
-                        @input="menu[field.name] = false"
-                        year-icon="mdi-calendar-blank"
-                        color="primary"
-                        :min="field.min"
-                        :max="field.max"
-                        :locale="$i18n.locale"
-                      ></v-date-picker>
-                    </v-menu>
-                  </v-col>
-                  <v-col cols="6">
-                    <v-menu
-                      :ref="`${field.name}__time`"
-                      v-model="menu[`${field.name}__time`]"
-                      :close-on-content-click="false"
-                      :nudge-right="40"
-                      :return-value.sync="fieldData[`${field.name}__time`]"
-                      transition="scale-transition"
-                      offset-y
-                      max-width="290px"
-                      min-width="290px"
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          dense
-                          shaped
-                          clearable
-                          hide-details
-                          prepend-icon="mdi-clock-time-four-outline"
-                          v-model="fieldData[`${field.name}__time`]"
-                          :id="field.id"
-                          :type="field.input_type"
-                          :name="`${field.name}__time`"
-                          :placeholder="field.placeholder"
-                          :disabled="field.disabled"
-                          readonly
-                          :class="field.css_classes"
-                          v-bind="attrs"
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-time-picker
-                        full-width
-                        scrollable
-                        v-if="menu[`${field.name}__time`]"
-                        v-model="fieldData[`${field.name}__time`]"
-                        @click:minute="$refs[`${field.name}__time`][0].save(fieldData[`${field.name}__time`])"
-                      ></v-time-picker>
-                    </v-menu>
-                  </v-col>
-                </v-row>
-
-                <!-- Messages for field. -->
-                <v-card-subtitle
-                  v-if="field.warning.length > 0"
-                  class="pl-0 pb-0 pt-1 warning--text"
-                >{{ field.warning }}</v-card-subtitle>
-                <v-card-subtitle
-                  v-if="field.error.length > 0"
-                  class="pl-0 pb-0 pt-1 error--text"
-                >{{ field.error }}</v-card-subtitle>
-              </v-card-text>
-            </v-card>
+              </v-col>
+              <v-col cols="6">
+                <v-menu
+                  :ref="`${field.name}__time`"
+                  v-model="menu[`${field.name}__time`]"
+                  :close-on-content-click="false"
+                  :nudge-right="40"
+                  :return-value.sync="fieldData[`${field.name}__time`]"
+                  transition="scale-transition"
+                  offset-y
+                  max-width="290px"
+                  min-width="290px"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                      shaped
+                      clearable
+                      prepend-icon="mdi-clock-time-four-outline"
+                      v-model="fieldData[`${field.name}__time`]"
+                      label="Time"
+                      :id="field.id"
+                      :type="field.input_type"
+                      :name="`${field.name}__time`"
+                      :placeholder="field.placeholder"
+                      :disabled="field.disabled"
+                      readonly
+                      :class="field.css_classes"
+                      v-bind="attrs"
+                      v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-time-picker
+                    full-width
+                    scrollable
+                    v-if="menu[`${field.name}__time`]"
+                    v-model="fieldData[`${field.name}__time`]"
+                    @click:minute="$refs[`${field.name}__time`][0].save(fieldData[`${field.name}__time`])"
+                  ></v-time-picker>
+                </v-menu>
+              </v-col>
+            </v-row>
           </div>
         </template>
       </v-card-text>
