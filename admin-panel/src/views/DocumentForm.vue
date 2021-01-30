@@ -21,11 +21,11 @@
 
           <!-- Text fields -->
           <v-text-field
+            v-if="['inputText', 'inputEmail', 'inputPassword', 'inputPhone',
+                  'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6'].includes(field.widget)"
             clearable
             :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
             v-model="fieldData[field.name]"
-            v-if="['inputText', 'inputEmail', 'inputPassword', 'inputPhone',
-                      'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6'].includes(field.widget)"
             :label="field.label"
             :id="field.id"
             :type="field.input_type"
@@ -42,10 +42,10 @@
 
           <!-- Number fields -->
           <v-text-field
+            v-if="['numberI32', 'numberU32', 'numberI64', 'numberF64'].includes(field.widget)"
             clearable
             :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
             v-model="fieldData[field.name]"
-            v-if="['numberI32', 'numberU32', 'numberI64', 'numberF64'].includes(field.widget)"
             :label="field.label"
             :id="field.id"
             :type="field.input_type"
@@ -65,10 +65,10 @@
 
           <!-- Slider fields -->
           <v-slider
+            v-if="['rangeI32', 'rangeU32', 'rangeI64', 'rangeF64'].includes(field.widget)"
             thumb-label
             :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
             v-model="fieldData[field.name]"
-            v-if="['rangeI32', 'rangeU32', 'rangeI64', 'rangeF64'].includes(field.widget)"
             :label="field.label"
             :id="field.id"
             :type="field.input_type"
@@ -88,20 +88,20 @@
 
           <!-- Hidden fields -->
           <input
+            v-if="['hiddenText', 'hiddenI32', 'hiddenU32',
+                      'hiddenI64', 'hiddenF64'].includes(field.widget)"
             v-model="fieldData[field.name]"
             :label="field.label"
             :id="field.id"
             :type="field.input_type"
             :name="field.name"
-            v-if="['hiddenText', 'hiddenI32', 'hiddenU32',
-                      'hiddenI64', 'hiddenF64'].includes(field.widget)"
           />
 
           <!-- Color fields -->
           <v-menu
+            v-if="['inputColor'].includes(field.widget)"
             :ref="field.name"
             v-model="vMenu[field.name]"
-            v-if="['inputColor'].includes(field.widget)"
             :close-on-content-click="false"
             :return-value.sync="fieldData[field.name]"
             :nudge-right="40"
@@ -147,10 +147,10 @@
 
           <!-- Textarea fields -->
           <v-textarea
+            v-if="['textArea'].includes(field.widget)"
             clearable
             :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
             v-model="fieldData[field.name]"
-            v-if="['textArea'].includes(field.widget)"
             :label="field.label"
             :id="field.id"
             :name="field.name"
@@ -166,8 +166,8 @@
 
           <!-- Date fields -->
           <v-menu
-            v-model="vMenu[field.name]"
             v-if="['inputDate'].includes(field.widget)"
+            v-model="vMenu[field.name]"
             :close-on-content-click="false"
             :nudge-right="40"
             transition="scale-transition"
