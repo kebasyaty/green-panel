@@ -11,7 +11,11 @@
       <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
       <!-- Form fields. -->
       <v-card-text class="px-4 pt-8">
-        <div v-for="field in fields" :key="field.name">
+        <div
+          v-for="field in fields"
+          :key="field.name"
+          :class="field.widget.includes('range') ? 'mt-4' : 'mt-2'"
+        >
           <v-alert
             v-if="field.common_msg.length > 0"
             dark
