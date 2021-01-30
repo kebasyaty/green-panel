@@ -427,7 +427,7 @@ export default {
       }
       return result
     },
-    getFornData() {
+    getFormData() {
       const fields = [
         { widget: 'inputText', id: 'id-text', label: 'Label Text', input_type: 'text', name: 'field_text', value: 'Lorem ipsum dolor sit amet', placeholder: 'Enter text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
         { widget: 'inputColor', id: 'id-color', label: 'Label Color', input_type: 'color', name: 'field_color', value: '#3BE40CFF', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
@@ -521,7 +521,7 @@ export default {
   },
 
   created() {
-    this.getFornData()
+    this.getFormData()
   }
 }
 </script>
