@@ -22,14 +22,33 @@
               >{{ field.common_msg }}</v-alert>
             </div>
 
-            <!-- Text and Number fields -->
+            <!-- Text fields -->
             <v-text-field
               clearable
               :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
               v-model="fieldData[field.name]"
               v-if="['inputText', 'inputEmail', 'inputPassword', 'inputPhone',
-                      'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6', 'numberI32',
-                      'numberU32', 'numberI64', 'numberF64'].includes(field.widget)"
+                      'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6'].includes(field.widget)"
+              :label="field.label"
+              :id="field.id"
+              :type="field.input_type"
+              :name="field.name"
+              :placeholder="field.placeholder"
+              :required="field.required"
+              :disabled="field.disabled"
+              :readonly="field.readonly"
+              :class="field.css_classes"
+              :hint="field.hint"
+              :messages="field.warning"
+              :error-messages="field.error"
+            ></v-text-field>
+
+            <!-- Number fields -->
+            <v-text-field
+              clearable
+              :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+              v-model="fieldData[field.name]"
+              v-if="['numberI32', 'numberU32', 'numberI64', 'numberF64'].includes(field.widget)"
               :label="field.label"
               :id="field.id"
               :type="field.input_type"
