@@ -347,7 +347,9 @@ export default {
         { widget: 'inputIP', id: 'id-ip', label: 'Label IP', input_type: 'text', name: 'field_ip', value: '', placeholder: 'Enter ip', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
         { widget: 'inputIPv4', id: 'id-ip-v4', label: 'Label IPv4', input_type: 'text', name: 'field_ipv4', value: '', placeholder: 'Enter ipv4', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
         { widget: 'inputIPv6', id: 'id-ip-v6', label: 'Label IPv6', input_type: 'text', name: 'field_ipv6', value: '', placeholder: 'Enter ipv6', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
-        { widget: 'textArea', id: 'id-textarea', label: 'Label Textarea', input_type: 'textarea', name: 'field_textarea', value: '', placeholder: 'Enter textarea', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true }
+        { widget: 'textArea', id: 'id-textarea', label: 'Label Textarea', input_type: 'textarea', name: 'field_textarea', value: '', placeholder: 'Enter textarea', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
+        { widget: 'hiddenText', id: 'id-hidden-text', label: 'Label Hidden Text', input_type: 'hidden', name: 'field_hidden_text', value: '', placeholder: 'Enter hidden text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
+        { widget: 'hiddenI32', id: 'id-hidden-i32', label: 'Label Hidden I32', input_type: 'hidden', name: 'field_hidden_i32', value: '', placeholder: 'Enter hidden i32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true }
       ]
 
       fields.forEach(item => {
@@ -361,6 +363,7 @@ export default {
           case 'inputIPv4':
           case 'inputIPv6':
           case 'textArea':
+          case 'hiddenText':
             this.fieldData[item.name] = item.value
             break
           case 'inputColor':
@@ -376,6 +379,9 @@ export default {
             this.menu[`${item.name}__time`] = false
             this.fieldData[item.name] = item.value.length > 0 ? item.value : new Date().toISOString().substr(0, 10)
             this.fieldData[`${item.name}__time`] = item.value.length > 0 ? item.value : '00:00'
+            break
+          case 'hiddenI32':
+            this.fieldData[item.name] = item.value
             break
         }
       })
