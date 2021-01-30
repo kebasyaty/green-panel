@@ -22,19 +22,23 @@
               >{{ field.common_msg }}</v-alert>
             </div>
 
-            <!-- Text fields -->
+            <!-- Text and Number fields -->
             <v-text-field
               clearable
               :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
               v-model="fieldData[field.name]"
-              v-if="['inputText', 'inputEmail', 'inputPassword', 'inputPhone', 'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6'].includes(field.widget)"
+              v-if="['inputText', 'inputEmail', 'inputPassword', 'inputPhone', 'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6', 'numberI32', 'numberU32', 'numberI64', 'numberF64'].includes(field.widget)"
               :label="field.label"
               :id="field.id"
               :type="field.input_type"
               :name="field.name"
               :placeholder="field.placeholder"
+              :required="field.required"
               :disabled="field.disabled"
               :readonly="field.readonly"
+              :step="field.step"
+              :min="field.min"
+              :max="field.max"
               :class="field.css_classes"
               :hint="field.hint"
               :messages="field.warning"
@@ -72,6 +76,7 @@
                   type="text"
                   :name="field.name"
                   :placeholder="field.placeholder"
+                  :required="field.required"
                   :disabled="field.disabled"
                   readonly
                   :class="field.css_classes"
@@ -106,6 +111,7 @@
               :id="field.id"
               :name="field.name"
               :placeholder="field.placeholder"
+              :required="field.required"
               :disabled="field.disabled"
               :readonly="field.readonly"
               :class="field.css_classes"
@@ -134,6 +140,7 @@
                   :type="field.input_type"
                   :name="field.name"
                   :placeholder="field.placeholder"
+                  :required="field.required"
                   :disabled="field.disabled"
                   readonly
                   :class="field.css_classes"
@@ -177,6 +184,7 @@
                       :type="field.input_type"
                       :name="field.name"
                       :placeholder="field.placeholder"
+                      :required="field.required"
                       :disabled="field.disabled"
                       readonly
                       :class="field.css_classes"
@@ -221,6 +229,7 @@
                       :type="field.input_type"
                       :name="`${field.name}__time`"
                       :placeholder="field.placeholder"
+                      :required="field.required"
                       :disabled="field.disabled"
                       readonly
                       :class="field.css_classes"
@@ -361,7 +370,11 @@ export default {
         { widget: 'hiddenI32', id: 'id-hidden-i32', label: 'Label Hidden I32', input_type: 'hidden', name: 'field_hidden_i32', value: '', placeholder: 'Enter hidden i32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
         { widget: 'hiddenU32', id: 'id-hidden-u32', label: 'Label Hidden U32', input_type: 'hidden', name: 'field_hidden_u32', value: '', placeholder: 'Enter hidden u32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
         { widget: 'hiddenI64', id: 'id-hidden-i64', label: 'Label Hidden I64', input_type: 'hidden', name: 'field_hidden_i64', value: '', placeholder: 'Enter hidden i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
-        { widget: 'hiddenF64', id: 'id-hidden-f64', label: 'Label Hidden F64', input_type: 'hidden', name: 'field_hidden_f64', value: '', placeholder: 'Enter hidden f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true }
+        { widget: 'hiddenF64', id: 'id-hidden-f64', label: 'Label Hidden F64', input_type: 'hidden', name: 'field_hidden_f64', value: '', placeholder: 'Enter hidden f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
+        { widget: 'numberI32', id: 'id-number-i32', label: 'Label Number I32', input_type: 'number', name: 'field_number_i32', value: '', placeholder: 'Enter number i32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
+        { widget: 'numberU32', id: 'id-number-u32', label: 'Label Number U32', input_type: 'number', name: 'field_number_u32', value: '', placeholder: 'Enter number u32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
+        { widget: 'numberI64', id: 'id-number-i64', label: 'Label Number I64', input_type: 'number', name: 'field_number_i64', value: '', placeholder: 'Enter number i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
+        { widget: 'numberF64', id: 'id-number-f64', label: 'Label Number F64', input_type: 'number', name: 'field_number_f64', value: '', placeholder: 'Enter number f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true }
       ]
 
       fields.forEach(item => {
@@ -396,6 +409,12 @@ export default {
           case 'hiddenU32':
           case 'hiddenI64':
           case 'hiddenF64':
+            this.fieldData[item.name] = item.value
+            break
+          case 'numberI32':
+          case 'numberU32':
+          case 'numberI64':
+          case 'numberF64':
             this.fieldData[item.name] = item.value
             break
         }
