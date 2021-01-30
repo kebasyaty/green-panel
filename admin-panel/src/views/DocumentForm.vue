@@ -118,9 +118,10 @@
                 <v-color-picker show-swatches mode="hexa" v-model="fieldData[field.name]"></v-color-picker>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn text color="primary" @click="menu[field.name] = false">Cancel</v-btn>
+                  <v-btn text small color="primary" @click="menu[field.name] = false">Cancel</v-btn>
                   <v-btn
                     text
+                    small
                     color="primary"
                     @click="$refs[field.name][0].save(fieldData[field.name])"
                   >OK</v-btn>
