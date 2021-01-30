@@ -95,7 +95,7 @@
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
-                  :background-color="field.value"
+                  :background-color="fieldData[field.name]"
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                   v-model="fieldData[field.name]"
                   :label="field.label"
