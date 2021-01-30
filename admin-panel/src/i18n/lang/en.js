@@ -17,6 +17,7 @@ export default {
     13: 'Delete document',
     14: 'Save and create a new document',
     15: 'Save and continue editing the document',
-    16: 'Save document'
+    16: 'Save document',
+    17: 'Time'
   }
 }

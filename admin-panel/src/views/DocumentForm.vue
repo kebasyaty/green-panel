@@ -207,7 +207,7 @@
                       clearable
                       prepend-icon="mdi-clock-time-four-outline"
                       v-model="fieldData[`${field.name}__time`]"
-                      label="Time"
+                      :label="$t('message.17')"
                       :id="field.id"
                       :type="field.input_type"
                       :name="`${field.name}__time`"
