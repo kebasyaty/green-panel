@@ -112,7 +112,7 @@
                 ></v-text-field>
               </template>
               <v-card>
-                <v-color-picker show-swatches mode="hexa" v-model="fieldData[field.name]"></v-color-picker>
+                <v-color-picker show-swatches mode="hexa" v-model="field.value"></v-color-picker>
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn text color="primary" @click="menu[field.name] = false">Cancel</v-btn>
@@ -480,6 +480,8 @@ export default {
           case 'rangeF64':
             item.value = item.value || 0
             item.step = item.step || 1
+            item.min = item.min || 0
+            item.max = item.max || 0
             break
         }
       })
