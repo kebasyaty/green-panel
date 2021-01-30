@@ -66,6 +66,9 @@
                   :disabled="field.disabled"
                   readonly
                   :class="field.css_classes"
+                  :hint="field.hint"
+                  :messages="field.warning"
+                  :error-messages="field.error"
                   v-bind="attrs"
                   v-on="on"
                 ></v-text-field>
@@ -97,6 +100,9 @@
               :disabled="field.disabled"
               :readonly="field.readonly"
               :class="field.css_classes"
+              :hint="field.hint"
+              :messages="field.warning"
+              :error-messages="field.error"
             ></v-textarea>
 
             <!-- Date fields -->
@@ -122,6 +128,9 @@
                   :disabled="field.disabled"
                   readonly
                   :class="field.css_classes"
+                  :hint="field.hint"
+                  :messages="field.warning"
+                  :error-messages="field.error"
                   v-bind="attrs"
                   v-on="on"
                 ></v-text-field>
@@ -162,6 +171,9 @@
                       :disabled="field.disabled"
                       readonly
                       :class="field.css_classes"
+                      :hint="field.hint"
+                      :messages="field.warning"
+                      :error-messages="field.error"
                       v-bind="attrs"
                       v-on="on"
                     ></v-text-field>
