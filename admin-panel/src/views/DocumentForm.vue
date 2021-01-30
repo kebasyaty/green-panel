@@ -233,7 +233,7 @@
                   v-model="menu[`${field.name}__time`]"
                   :close-on-content-click="false"
                   :nudge-right="40"
-                  :return-value.sync="timeField[`${field.name}__time`]"
+                  :return-value.sync="timeFields[`${field.name}__time`]"
                   transition="scale-transition"
                   offset-y
                   max-width="290px"
@@ -243,10 +243,10 @@
                     <v-text-field
                       clearable
                       prepend-icon="mdi-clock-time-four-outline"
-                      v-model="timeField[`${field.name}__time`]"
+                      v-model="timeFields[`${field.name}__time`]"
                       :label="$t('message.17')"
                       :id="field.id"
-                      :type="field.input_type"
+                      type="time"
                       :name="`${field.name}__time`"
                       :placeholder="field.placeholder"
                       :required="field.required"
@@ -261,8 +261,8 @@
                     full-width
                     scrollable
                     v-if="menu[`${field.name}__time`]"
-                    v-model="timeField[`${field.name}__time`]"
-                    @click:minute="$refs[`${field.name}__time`][0].save(timeField[`${field.name}__time`])"
+                    v-model="timeFields[`${field.name}__time`]"
+                    @click:minute="$refs[`${field.name}__time`][0].save(timeFields[`${field.name}__time`])"
                   ></v-time-picker>
                 </v-menu>
               </v-col>
@@ -327,7 +327,7 @@ export default {
 
   data: () => ({
     menu: {},
-    timeField: {},
+    timeFields: {},
     fields: []
   }),
 
@@ -457,7 +457,7 @@ export default {
             this.menu[item.name] = false
             this.menu[`${item.name}__time`] = false
             item.value = item.value.length > 0 ? item.value : new Date().toISOString().substr(0, 10)
-            this.timeField[`${item.name}__time`] = '00:00'
+            this.timeFields[`${item.name}__time`] = '00:00'
             break
           case 'hiddenText':
           case 'hiddenI32':
