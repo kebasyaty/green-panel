@@ -77,8 +77,6 @@ export default {
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR'
       } else {
-        window.console.log(this.username, this.password)
-        //
         this.setIsAuthenticated(true)
       }
     },
