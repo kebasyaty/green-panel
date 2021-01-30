@@ -12,14 +12,12 @@
       <!-- Form fields. -->
       <v-card-text class="px-4 pt-8">
         <div v-for="field in fields" :key="field.name">
-          <div>
-            <v-alert
-              v-if="field.common_msg.length > 0"
-              dark
-              color="pink darken-4"
-              icon="mdi-alert"
-            >{{ field.common_msg }}</v-alert>
-          </div>
+          <v-alert
+            v-if="field.common_msg.length > 0"
+            dark
+            color="pink darken-4"
+            icon="mdi-alert"
+          >{{ field.common_msg }}</v-alert>
 
           <!-- Text fields -->
           <v-text-field
