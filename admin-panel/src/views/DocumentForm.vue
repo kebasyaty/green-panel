@@ -47,6 +47,7 @@
 
             <!-- Slider fields -->
             <v-slider
+              thumb-label
               :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
               v-model="fieldData[field.name]"
               v-if="['rangeI32', 'rangeU32', 'rangeI64', 'rangeF64'].includes(field.widget)"
@@ -401,7 +402,7 @@ export default {
         case 'rangeU32':
         case 'rangeI64':
         case 'rangeF64':
-          result = 'rrow-split-vertical'
+          result = 'arrow-split-vertical'
           break
       }
       return result
@@ -479,7 +480,10 @@ export default {
           case 'rangeU32':
           case 'rangeI64':
           case 'rangeF64':
-            this.fieldData[item.name] = item.value
+            this.fieldData[item.name] = item.value || 0
+            item.step = item.step || 0
+            item.min = item.min || 0
+            item.max = item.max || 0
             break
         }
       })
