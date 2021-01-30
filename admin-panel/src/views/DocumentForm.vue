@@ -360,7 +360,8 @@ export default {
         { widget: 'hiddenText', id: 'id-hidden-text', label: 'Label Hidden Text', input_type: 'hidden', name: 'field_hidden_text', value: '', placeholder: 'Enter hidden text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
         { widget: 'hiddenI32', id: 'id-hidden-i32', label: 'Label Hidden I32', input_type: 'hidden', name: 'field_hidden_i32', value: '', placeholder: 'Enter hidden i32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
         { widget: 'hiddenU32', id: 'id-hidden-u32', label: 'Label Hidden U32', input_type: 'hidden', name: 'field_hidden_u32', value: '', placeholder: 'Enter hidden u32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
-        { widget: 'hiddenI64', id: 'id-hidden-i64', label: 'Label Hidden I64', input_type: 'hidden', name: 'field_hidden_i64', value: '', placeholder: 'Enter hidden i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true }
+        { widget: 'hiddenI64', id: 'id-hidden-i64', label: 'Label Hidden I64', input_type: 'hidden', name: 'field_hidden_i64', value: '', placeholder: 'Enter hidden i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
+        { widget: 'hiddenF64', id: 'id-hidden-f64', label: 'Label Hidden F64', input_type: 'hidden', name: 'field_hidden_f64', value: '', placeholder: 'Enter hidden f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true }
       ]
 
       fields.forEach(item => {
@@ -394,6 +395,7 @@ export default {
           case 'hiddenI32':
           case 'hiddenU32':
           case 'hiddenI64':
+          case 'hiddenF64':
             this.fieldData[item.name] = item.value
             break
         }
