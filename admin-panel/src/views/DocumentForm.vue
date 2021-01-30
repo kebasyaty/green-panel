@@ -27,7 +27,9 @@
               clearable
               :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
               v-model="field.value"
-              v-if="['inputText', 'inputEmail', 'inputPassword', 'inputPhone', 'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6', 'numberI32', 'numberU32', 'numberI64', 'numberF64'].includes(field.widget)"
+              v-if="['inputText', 'inputEmail', 'inputPassword', 'inputPhone',
+                      'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6', 'numberI32',
+                      'numberU32', 'numberI64', 'numberF64'].includes(field.widget)"
               :label="field.label"
               :id="field.id"
               :type="field.input_type"
@@ -75,7 +77,8 @@
               :id="field.id"
               :type="field.input_type"
               :name="field.name"
-              v-if="['hiddenText', 'hiddenI32', 'hiddenU32', 'hiddenI64', 'hiddenF64'].includes(field.widget)"
+              v-if="['hiddenText', 'hiddenI32', 'hiddenU32',
+                      'hiddenI64', 'hiddenF64'].includes(field.widget)"
             />
 
             <!-- Color fields -->
