@@ -444,7 +444,6 @@ export default {
           case 'inputIPv4':
           case 'inputIPv6':
           case 'textArea':
-            // this.fieldData[item.name] = item.value
             break
           case 'inputColor':
             this.menu[item.name] = false
@@ -465,16 +464,13 @@ export default {
           case 'hiddenU32':
           case 'hiddenI64':
           case 'hiddenF64':
-            // this.fieldData[item.name] = item.value
             break
           case 'numberI32':
           case 'numberU32':
           case 'numberI64':
-            // this.fieldData[item.name] = item.value
             item.step = parseInt(item.step) || 1
             break
           case 'numberF64':
-            // this.fieldData[item.name] = item.value
             item.step = parseFloat(item.step) || 1.0
             break
           case 'rangeI32':
