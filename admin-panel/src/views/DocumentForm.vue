@@ -470,18 +470,26 @@ export default {
           case 'numberI32':
           case 'numberU32':
           case 'numberI64':
+            // this.fieldData[item.name] = item.value
+            item.step = parseInt(item.step) || 1
+            break
           case 'numberF64':
             // this.fieldData[item.name] = item.value
-            item.step = item.step || 1
+            item.step = parseFloat(item.step) || 1.0
             break
           case 'rangeI32':
           case 'rangeU32':
           case 'rangeI64':
+            item.value = parseInt(item.value) || 0
+            item.step = parseInt(item.step) || 1
+            item.min = parseInt(item.min) || 0
+            item.max = parseInt(item.max) || 0
+            break
           case 'rangeF64':
-            item.value = item.value || 0
-            item.step = item.step || 1
-            item.min = item.min || 0
-            item.max = item.max || 0
+            item.value = parseFloat(item.value) || 0.0
+            item.step = parseFloat(item.step) || 1.0
+            item.min = parseFloat(item.min) || 0.0
+            item.max = parseFloat(item.max) || 0.0
             break
         }
       })
