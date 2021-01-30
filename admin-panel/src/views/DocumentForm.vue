@@ -26,7 +26,7 @@
             <v-text-field
               clearable
               :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-              v-model="field.value"
+              v-model="fieldData[field.name]"
               v-if="['inputText', 'inputEmail', 'inputPassword', 'inputPhone',
                       'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6', 'numberI32',
                       'numberU32', 'numberI64', 'numberF64'].includes(field.widget)"
@@ -51,7 +51,7 @@
             <v-slider
               thumb-label
               :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-              v-model="field.value"
+              v-model="fieldData[field.name]"
               v-if="['rangeI32', 'rangeU32', 'rangeI64', 'rangeF64'].includes(field.widget)"
               :label="field.label"
               :id="field.id"
@@ -72,7 +72,7 @@
 
             <!-- Hidden fields -->
             <input
-              v-model="field.value"
+              v-model="fieldData[field.name]"
               :label="field.label"
               :id="field.id"
               :type="field.input_type"
@@ -87,7 +87,7 @@
               v-model="menu[field.name]"
               v-if="['inputColor'].includes(field.widget)"
               :close-on-content-click="false"
-              :return-value.sync="field.value"
+              :return-value.sync="fieldData[field.name]"
               :nudge-right="40"
               transition="scale-transition"
               offset-y
@@ -97,7 +97,7 @@
                 <v-text-field
                   :background-color="field.value"
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                  v-model="field.value"
+                  v-model="fieldData[field.name]"
                   :label="field.label"
                   :id="field.id"
                   type="text"
@@ -115,11 +115,15 @@
                 ></v-text-field>
               </template>
               <v-card>
-                <v-color-picker show-swatches mode="hexa" v-model="field.value"></v-color-picker>
+                <v-color-picker show-swatches mode="hexa" v-model="fieldData[field.name]"></v-color-picker>
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn text color="primary" @click="menu[field.name] = false">Cancel</v-btn>
-                  <v-btn text color="primary" @click="$refs[field.name][0].save(field.value)">OK</v-btn>
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="$refs[field.name][0].save(fieldData[field.name])"
+                  >OK</v-btn>
                 </v-card-actions>
               </v-card>
             </v-menu>
@@ -128,7 +132,7 @@
             <v-textarea
               clearable
               :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-              v-model="field.value"
+              v-model="fieldData[field.name]"
               v-if="['textArea'].includes(field.widget)"
               :label="field.label"
               :id="field.id"
@@ -157,7 +161,7 @@
                 <v-text-field
                   clearable
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                  v-model="field.value"
+                  v-model="fieldData[field.name]"
                   :label="field.label"
                   :id="field.id"
                   :type="field.input_type"
@@ -176,7 +180,7 @@
               </template>
               <v-date-picker
                 scrollable
-                v-model="field.value"
+                v-model="fieldData[field.name]"
                 @input="menu[field.name] = false"
                 year-icon="mdi-calendar-blank"
                 color="primary"
@@ -201,7 +205,7 @@
                     <v-text-field
                       clearable
                       :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                      v-model="field.value"
+                      v-model="fieldData[field.name]"
                       :label="field.label"
                       :id="field.id"
                       :type="field.input_type"
@@ -220,7 +224,7 @@
                   </template>
                   <v-date-picker
                     scrollable
-                    v-model="field.value"
+                    v-model="fieldData[field.name]"
                     @input="menu[field.name] = false"
                     year-icon="mdi-calendar-blank"
                     color="primary"
@@ -236,7 +240,7 @@
                   v-model="menu[`${field.name}__time`]"
                   :close-on-content-click="false"
                   :nudge-right="40"
-                  :return-value.sync="timeFields[`${field.name}__time`]"
+                  :return-value.sync="fieldData[`${field.name}__time`]"
                   transition="scale-transition"
                   offset-y
                   max-width="290px"
@@ -246,7 +250,7 @@
                     <v-text-field
                       clearable
                       prepend-icon="mdi-clock-time-four-outline"
-                      v-model="timeFields[`${field.name}__time`]"
+                      v-model="fieldData[`${field.name}__time`]"
                       :label="$t('message.17')"
                       :id="field.id"
                       type="time"
@@ -264,8 +268,8 @@
                     full-width
                     scrollable
                     v-if="menu[`${field.name}__time`]"
-                    v-model="timeFields[`${field.name}__time`]"
-                    @click:minute="$refs[`${field.name}__time`][0].save(timeFields[`${field.name}__time`])"
+                    v-model="fieldData[`${field.name}__time`]"
+                    @click:minute="$refs[`${field.name}__time`][0].save(fieldData[`${field.name}__time`])"
                   ></v-time-picker>
                 </v-menu>
               </v-col>
@@ -330,7 +334,7 @@ export default {
 
   data: () => ({
     menu: {},
-    timeFields: {},
+    fieldData: {},
     fields: []
   }),
 
@@ -447,45 +451,49 @@ export default {
           case 'inputIPv4':
           case 'inputIPv6':
           case 'textArea':
+            this.fieldData[item.name] = item.value
             break
           case 'inputColor':
             this.menu[item.name] = false
-            item.value = item.value.length > 0 ? item.value : '#00000000'
+            this.fieldData[item.name] = item.value.length > 0 ? item.value : '#00000000'
             break
           case 'inputDate':
             this.menu[item.name] = false
-            item.value = item.value.length > 0 ? item.value : new Date().toISOString().substr(0, 10)
+            this.fieldData[item.name] = item.value.length > 0 ? item.value : new Date().toISOString().substr(0, 10)
             break
           case 'inputDateTime':
             this.menu[item.name] = false
             this.menu[`${item.name}__time`] = false
-            item.value = item.value.length > 0 ? item.value : new Date().toISOString().substr(0, 10)
-            this.timeFields[`${item.name}__time`] = '00:00'
+            this.fieldData[item.name] = item.value.length > 0 ? item.value : new Date().toISOString().substr(0, 10)
+            this.fieldData[`${item.name}__time`] = '00:00'
             break
           case 'hiddenText':
           case 'hiddenI32':
           case 'hiddenU32':
           case 'hiddenI64':
           case 'hiddenF64':
+            this.fieldData[item.name] = item.value
             break
           case 'numberI32':
           case 'numberU32':
           case 'numberI64':
+            this.fieldData[item.name] = item.value
             item.step = parseInt(item.step) || 1
             break
           case 'numberF64':
+            this.fieldData[item.name] = item.value
             item.step = parseFloat(item.step) || 1.0
             break
           case 'rangeI32':
           case 'rangeU32':
           case 'rangeI64':
-            item.value = parseInt(item.value) || 0
+            this.fieldData[item.name] = parseInt(item.value) || 0
             item.step = parseInt(item.step) || 1
             item.min = parseInt(item.min) || 0
             item.max = parseInt(item.max) || 0
             break
           case 'rangeF64':
-            item.value = parseFloat(item.value) || 0.0
+            this.fieldData[item.name] = parseFloat(item.value) || 0.0
             item.step = parseFloat(item.step) || 1.0
             item.min = parseFloat(item.min) || 0.0
             item.max = parseFloat(item.max) || 0.0
