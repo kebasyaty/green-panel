@@ -10,7 +10,7 @@
       <v-card-title class="pt-0">{{ docTitle }}</v-card-title>
       <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
       <!-- Form fields. -->
-      <v-card-text class="px-4 py-2">
+      <v-card-text class="px-4 pt-8">
         <template v-for="field in fields">
           <div :key="field.name">
             <div>
@@ -232,8 +232,9 @@
           </div>
         </template>
       </v-card-text>
+
       <!-- Form control buttons. -->
-      <v-card-actions class="pt-8 px-4 pb-4">
+      <v-card-actions class="pa-4">
         <!-- Delete button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
@@ -290,7 +291,7 @@ export default {
     menu: { field_date: false, field_color: false, field_datetime: false, field_datetime__time: false },
     fieldData: { field_text: 'Lorem ipsum dolor sit amet', field_color: '#3BE40CFF', field_date: new Date().toISOString().substr(0, 10), field_datetime: new Date().toISOString().substr(0, 10), field_datetime__time: '00:00', field_email: '', field_password: '', field_phone: '', field_url: '', field_ip: '', field_ipv4: '', field_ipv6: '', field_textarea: '', required: true },
     fields: [
-      { widget: 'inputText', id: 'id-text', label: 'Label Text', input_type: 'text', name: 'field_text', value: 'Lorem ipsum dolor sit amet', placeholder: 'Enter text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', required: true },
+      { widget: 'inputText', id: 'id-text', label: 'Label Text', input_type: 'text', name: 'field_text', value: 'Lorem ipsum dolor sit amet', placeholder: 'Enter text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: 'Aliquam non finibus nisl. Suspendisse cursus ipsum ultrices augue egestas commodo.', required: true },
       { widget: 'inputColor', id: 'id-color', label: 'Label Color', input_type: 'color', name: 'field_color', value: '#3BE40C', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '' },
       { widget: 'inputDate', id: 'id-date', label: 'Label Date', input_type: 'date', name: 'field_date', value: '', placeholder: 'Enter date', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', min: '', max: '' },
       { widget: 'inputDateTime', id: 'id-datetime', label: 'Label Date and Time', input_type: 'datetime', name: 'field_datetime', value: '', placeholder: 'Enter date and time', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', min: '', max: '', required: true },
