@@ -27,6 +27,7 @@
           <v-text-field
             v-if="['inputText', 'inputEmail', 'inputPassword', 'inputPhone',
                   'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6'].includes(field.widget)"
+            outlined
             clearable
             :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
             v-model="fieldData[field.name]"
@@ -47,6 +48,7 @@
           <!-- Number fields -->
           <v-text-field
             v-if="['numberI32', 'numberU32', 'numberI64', 'numberF64'].includes(field.widget)"
+            outlined
             clearable
             :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
             v-model="fieldData[field.name]"
@@ -115,6 +117,7 @@
           >
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
+                outlined
                 :background-color="fieldData[field.name]"
                 :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                 v-model="fieldData[field.name]"
@@ -152,6 +155,7 @@
           <!-- Textarea fields -->
           <v-textarea
             v-if="['textArea'].includes(field.widget)"
+            outlined
             clearable
             :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
             v-model="fieldData[field.name]"
@@ -180,6 +184,7 @@
           >
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
+                outlined
                 clearable
                 :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                 v-model="fieldData[field.name]"
@@ -224,6 +229,7 @@
               >
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
+                    outlined
                     clearable
                     :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                     v-model="fieldData[field.name]"
@@ -269,6 +275,7 @@
               >
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
+                    outlined
                     clearable
                     prepend-icon="mdi-clock-time-four-outline"
                     v-model="fieldData[`${field.name}__time`]"
