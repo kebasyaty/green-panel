@@ -103,7 +103,7 @@
             <!-- Color fields -->
             <v-menu
               :ref="field.name"
-              v-model="menu[field.name]"
+              v-model="vMenu[field.name]"
               v-if="['inputColor'].includes(field.widget)"
               :close-on-content-click="false"
               :return-value.sync="fieldData[field.name]"
@@ -137,7 +137,7 @@
                 <v-color-picker show-swatches mode="hexa" v-model="fieldData[field.name]"></v-color-picker>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn text small color="primary" @click="menu[field.name] = false">Cancel</v-btn>
+                  <v-btn text small color="primary" @click="vMenu[field.name] = false">Cancel</v-btn>
                   <v-btn
                     text
                     small
@@ -169,7 +169,7 @@
 
             <!-- Date fields -->
             <v-menu
-              v-model="menu[field.name]"
+              v-model="vMenu[field.name]"
               v-if="['inputDate'].includes(field.widget)"
               :close-on-content-click="false"
               :nudge-right="40"
@@ -201,7 +201,7 @@
               <v-date-picker
                 scrollable
                 v-model="fieldData[field.name]"
-                @input="menu[field.name] = false"
+                @input="vMenu[field.name] = false"
                 year-icon="mdi-calendar-blank"
                 color="primary"
                 :min="field.min"
@@ -214,7 +214,7 @@
             <v-row v-if="['inputDateTime'].includes(field.widget)">
               <v-col cols="6">
                 <v-menu
-                  v-model="menu[field.name]"
+                  v-model="vMenu[field.name]"
                   :close-on-content-click="false"
                   :nudge-right="40"
                   transition="scale-transition"
@@ -245,7 +245,7 @@
                   <v-date-picker
                     scrollable
                     v-model="fieldData[field.name]"
-                    @input="menu[field.name] = false"
+                    @input="vMenu[field.name] = false"
                     year-icon="mdi-calendar-blank"
                     color="primary"
                     :min="field.min"
@@ -257,7 +257,7 @@
               <v-col cols="6">
                 <v-menu
                   :ref="`${field.name}__time`"
-                  v-model="menu[`${field.name}__time`]"
+                  v-model="vMenu[`${field.name}__time`]"
                   :close-on-content-click="false"
                   :nudge-right="40"
                   :return-value.sync="fieldData[`${field.name}__time`]"
@@ -287,7 +287,7 @@
                   <v-time-picker
                     full-width
                     scrollable
-                    v-if="menu[`${field.name}__time`]"
+                    v-if="vMenu[`${field.name}__time`]"
                     v-model="fieldData[`${field.name}__time`]"
                     @click:minute="$refs[`${field.name}__time`][0].save(fieldData[`${field.name}__time`])"
                   ></v-time-picker>
@@ -353,7 +353,7 @@ export default {
   name: 'DocumentForm',
 
   data: () => ({
-    menu: {},
+    vMenu: {},
     fieldData: {},
     fields: []
   }),
@@ -474,16 +474,16 @@ export default {
             this.fieldData[item.name] = item.value
             break
           case 'inputColor':
-            this.menu[item.name] = false
+            this.vMenu[item.name] = false
             this.fieldData[item.name] = item.value || '#00000000'
             break
           case 'inputDate':
-            this.menu[item.name] = false
+            this.vMenu[item.name] = false
             this.fieldData[item.name] = item.value || new Date().toISOString().substr(0, 10)
             break
           case 'inputDateTime':
-            this.menu[item.name] = false
-            this.menu[`${item.name}__time`] = false
+            this.vMenu[item.name] = false
+            this.vMenu[`${item.name}__time`] = false
             this.fieldData[item.name] = item.value || new Date().toISOString().substr(0, 10)
             this.fieldData[`${item.name}__time`] = '00:00'
             break
