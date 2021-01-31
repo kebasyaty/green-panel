@@ -476,9 +476,9 @@ export default {
         { widget: 'hiddenI64', id: 'id-hidden-i64', label: 'Label Hidden I64', input_type: 'hidden', name: 'field_hidden_i64', value: '', placeholder: 'Enter hidden i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
         { widget: 'hiddenF64', id: 'id-hidden-f64', label: 'Label Hidden F64', input_type: 'hidden', name: 'field_hidden_f64', value: '', placeholder: 'Enter hidden f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
         { widget: 'numberI32', id: 'id-number-i32', label: 'Label Number I32', input_type: 'number', name: 'field_number_i32', value: '', placeholder: 'Enter number i32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
-        { widget: 'numberU32', id: 'id-number-u32', label: 'Label Number U32', input_type: 'number', name: 'field_number_u32', value: '', placeholder: 'Enter number u32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
-        { widget: 'numberI64', id: 'id-number-i64', label: 'Label Number I64', input_type: 'number', name: 'field_number_i64', value: '', placeholder: 'Enter number i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
-        { widget: 'numberF64', id: 'id-number-f64', label: 'Label Number F64', input_type: 'number', name: 'field_number_f64', value: '', placeholder: 'Enter number f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
+        { widget: 'numberU32', id: 'id-number-u32', label: 'Label Number U32', input_type: 'number', name: 'field_number_u32', value: '0', placeholder: 'Enter number u32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
+        { widget: 'numberI64', id: 'id-number-i64', label: 'Label Number I64', input_type: 'number', name: 'field_number_i64', value: '-1', placeholder: 'Enter number i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
+        { widget: 'numberF64', id: 'id-number-f64', label: 'Label Number F64', input_type: 'number', name: 'field_number_f64', value: '0.0', placeholder: 'Enter number f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
         { widget: 'rangeI32', id: 'id-range-i32', label: 'Label Range I32', input_type: 'range', name: 'field_range_i32', value: '0', placeholder: 'Enter range i32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '1', min: '0', max: '10', required: true },
         { widget: 'rangeU32', id: 'id-range-u32', label: 'Label Range U32', input_type: 'range', name: 'field_range_u32', value: '0', placeholder: 'Enter range u32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '1', min: '10', max: '100', required: true },
         { widget: 'rangeI64', id: 'id-range-i64', label: 'Label Range I64', input_type: 'range', name: 'field_range_i64', value: '75', placeholder: 'Enter range i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '1', min: '-100', max: '100', required: true },
@@ -527,16 +527,20 @@ export default {
           case 'numberI32':
           case 'numberU32':
           case 'numberI64':
-            fieldData[item.name] = item.value
+            tmp = parseInt(item.value)
+            fieldData[item.name] = !Number.isNaN(tmp) ? tmp : ''
             item.step = parseInt(item.step) || 1
             item.min = parseInt(item.min) || ''
             item.max = parseInt(item.max) || ''
+            tmp = undefined
             break
           case 'numberF64':
-            fieldData[item.name] = item.value
+            tmp = parseFloat(item.value)
+            fieldData[item.name] = !Number.isNaN(tmp) ? tmp : ''
             item.step = parseFloat(item.step) || 1
             item.min = parseInt(item.min) || ''
             item.max = parseInt(item.max) || ''
+            tmp = undefined
             break
           case 'rangeI32':
           case 'rangeU32':
@@ -559,7 +563,7 @@ export default {
           case 'radioU32':
           case 'radioI64':
             tmp = parseInt(item.value)
-            fieldData[item.name] = !tmp.isNaN ? tmp : ''
+            fieldData[item.name] = !Number.isNaN(tmp) ? tmp : ''
             item.options.forEach(function (item) {
               item[0] = parseInt(item[0])
             })
@@ -567,7 +571,7 @@ export default {
             break
           case 'radioF64':
             tmp = parseFloat(item.value)
-            fieldData[item.name] = !tmp.isNaN ? tmp : ''
+            fieldData[item.name] = !Number.isNaN(tmp) ? tmp : ''
             item.options.forEach(function (item) {
               item[0] = parseFloat(item[0])
             })
