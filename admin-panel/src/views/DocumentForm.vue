@@ -448,7 +448,7 @@ export default {
         case 'radioU32':
         case 'radioI64':
         case 'radioF64':
-          result = 'radiobox-marked'
+          result = 'checkbox-marked-circle-outline'
           break
       }
       return result
