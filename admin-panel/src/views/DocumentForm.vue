@@ -499,7 +499,7 @@ export default {
           case 'numberI32':
           case 'numberU32':
           case 'numberI64':
-            this.fieldData[item.name] = item.value
+            fieldData[item.name] = item.value
             item.step = parseInt(item.step) || 1
             break
           case 'numberF64':
