@@ -353,7 +353,6 @@ export default {
   name: 'DocumentForm',
 
   data: () => ({
-    // vMenu: { field_color: false, field_date: false, field_datetime: false, field_datetime__time: false },
     vMenu: {},
     fieldData: {},
     fields: []
@@ -433,6 +432,8 @@ export default {
       return result
     },
     getFormData() {
+      const vMenu = {}
+      const fieldData = {}
       const fields = [
         { widget: 'inputText', id: 'id-text', label: 'Label Text', input_type: 'text', name: 'field_text', value: 'Lorem ipsum dolor sit amet', placeholder: 'Enter text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
         { widget: 'inputColor', id: 'id-color', label: 'Label Color', input_type: 'color', name: 'field_color', value: '#3BE40CFF', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
@@ -472,28 +473,28 @@ export default {
           case 'inputIPv4':
           case 'inputIPv6':
           case 'textArea':
-            this.fieldData[item.name] = item.value
+            fieldData[item.name] = item.value
             break
           case 'inputColor':
-            this.vMenu[item.name] = false
-            this.fieldData[item.name] = item.value || '#00000000'
+            vMenu[item.name] = false
+            fieldData[item.name] = item.value || '#00000000'
             break
           case 'inputDate':
-            this.vMenu[item.name] = false
-            this.fieldData[item.name] = item.value || new Date().toISOString().substr(0, 10)
+            vMenu[item.name] = false
+            fieldData[item.name] = item.value || new Date().toISOString().substr(0, 10)
             break
           case 'inputDateTime':
-            this.vMenu[item.name] = false
-            this.vMenu[`${item.name}__time`] = false
-            this.fieldData[item.name] = item.value || new Date().toISOString().substr(0, 10)
-            this.fieldData[`${item.name}__time`] = '00:00'
+            vMenu[item.name] = false
+            vMenu[`${item.name}__time`] = false
+            fieldData[item.name] = item.value || new Date().toISOString().substr(0, 10)
+            fieldData[`${item.name}__time`] = '00:00'
             break
           case 'hiddenText':
           case 'hiddenI32':
           case 'hiddenU32':
           case 'hiddenI64':
           case 'hiddenF64':
-            this.fieldData[item.name] = item.value
+            fieldData[item.name] = item.value
             break
           case 'numberI32':
           case 'numberU32':
@@ -502,25 +503,27 @@ export default {
             item.step = parseInt(item.step) || 1
             break
           case 'numberF64':
-            this.fieldData[item.name] = item.value
+            fieldData[item.name] = item.value
             item.step = parseFloat(item.step) || 1.0
             break
           case 'rangeI32':
           case 'rangeU32':
           case 'rangeI64':
-            this.fieldData[item.name] = parseInt(item.value) || 0
+            fieldData[item.name] = parseInt(item.value) || 0
             item.step = parseInt(item.step) || 1
             item.min = parseInt(item.min) || 0
             item.max = parseInt(item.max) || 0
             break
           case 'rangeF64':
-            this.fieldData[item.name] = parseFloat(item.value) || 0.0
+            fieldData[item.name] = parseFloat(item.value) || 0.0
             item.step = parseFloat(item.step) || 1.0
             item.min = parseFloat(item.min) || 0.0
             item.max = parseFloat(item.max) || 0.0
             break
         }
       })
+      this.vMenu = vMenu
+      this.fieldData = fieldData
       this.fields = fields
     }
   },
