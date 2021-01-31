@@ -456,6 +456,7 @@ export default {
     getFormData() {
       const vMenu = {}
       const fieldData = {}
+      let tmp
       const fields = [
         { widget: 'inputText', id: 'id-text', label: 'Label Text', input_type: 'text', name: 'field_text', value: 'Lorem ipsum dolor sit amet', placeholder: 'Enter text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
         { widget: 'inputColor', id: 'id-color', label: 'Label Color', input_type: 'color', name: 'field_color', value: '#3BE40CFF', placeholder: 'Enter color', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
@@ -483,9 +484,9 @@ export default {
         { widget: 'rangeI64', id: 'id-range-i64', label: 'Label Range I64', input_type: 'range', name: 'field_range_i64', value: '75', placeholder: 'Enter range i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '1', min: '-100', max: '100', required: true },
         { widget: 'rangeF64', id: 'id-ranger-f64', label: 'Label Range F64', input_type: 'range', name: 'field_range_f64', value: '0.5', placeholder: 'Enter range f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '0.1', min: '0.0', max: '1.0', required: true },
         { widget: 'radioText', id: 'id-radio-text', label: 'Label Radio Text', input_type: 'radio', name: 'field_radio_text', value: 'volvo', placeholder: 'Enter radio text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['volvo', 'Volvo'], ['saab', 'Saab'], ['mercedes', 'Mercedes'], ['audi', 'Audi']] },
-        { widget: 'radioI32', id: 'id-radio-i32', label: 'Label Radio I32', input_type: 'radio', name: 'field_radio_i32', value: '-2', placeholder: 'Enter radio i32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['-1', 'Volvo'], ['-2', 'Saab'], ['-3', 'Mercedes'], ['-4', 'Audi']] },
-        { widget: 'radioU32', id: 'id-radio-u32', label: 'Label Radio U32', input_type: 'radio', name: 'field_radio_u32', value: '3', placeholder: 'Enter radio u32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['1', 'Volvo'], ['2', 'Saab'], ['3', 'Mercedes'], ['4', 'Audi']] },
-        { widget: 'radioI64', id: 'id-radio-i64', label: 'Label Radio I64', input_type: 'radio', name: 'field_radio_i64', value: '-4', placeholder: 'Enter radio i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['-1', 'Volvo'], ['-2', 'Saab'], ['-3', 'Mercedes'], ['-4', 'Audi']] },
+        { widget: 'radioI32', id: 'id-radio-i32', label: 'Label Radio I32', input_type: 'radio', name: 'field_radio_i32', value: '0', placeholder: 'Enter radio i32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0', 'Volvo'], ['-1', 'Saab'], ['-2', 'Mercedes'], ['-3', 'Audi']] },
+        { widget: 'radioU32', id: 'id-radio-u32', label: 'Label Radio U32', input_type: 'radio', name: 'field_radio_u32', value: '1', placeholder: 'Enter radio u32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0', 'Volvo'], ['1', 'Saab'], ['2', 'Mercedes'], ['3', 'Audi']] },
+        { widget: 'radioI64', id: 'id-radio-i64', label: 'Label Radio I64', input_type: 'radio', name: 'field_radio_i64', value: '-2', placeholder: 'Enter radio i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0', 'Volvo'], ['-1', 'Saab'], ['-2', 'Mercedes'], ['-3', 'Audi']] },
         { widget: 'radioF64', id: 'id-radio-f64', label: 'Label Radio F64', input_type: 'radio', name: 'field_radio_f64', value: '0.0', placeholder: 'Enter radio f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0.0', 'Volvo'], ['1.1', 'Saab'], ['2.2', 'Mercedes'], ['3.3', 'Audi']] }
       ]
 
@@ -559,16 +560,20 @@ export default {
           case 'radioI32':
           case 'radioU32':
           case 'radioI64':
-            fieldData[item.name] = parseInt(item.value) || ''
+            tmp = parseInt(item.value)
+            fieldData[item.name] = !tmp.isNaN ? tmp : ''
             item.options.forEach(function (item) {
               item[0] = parseInt(item[0])
             })
+            tmp = undefined
             break
           case 'radioF64':
-            fieldData[item.name] = parseFloat(item.value) || ''
+            tmp = parseFloat(item.value)
+            fieldData[item.name] = !tmp.isNaN ? tmp : ''
             item.options.forEach(function (item) {
               item[0] = parseFloat(item[0])
             })
+            tmp = undefined
             break
         }
       })
