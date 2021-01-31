@@ -518,8 +518,6 @@ export default {
             fieldData[`${item.name}__time`] = '00:00'
             break
           case 'hiddenText':
-            fieldData[item.name] = item.value || ''
-            break
           case 'hiddenI32':
           case 'hiddenU32':
           case 'hiddenI64':
