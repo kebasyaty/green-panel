@@ -103,6 +103,28 @@
                   :error-messages="field.error"
                 ></v-slider>
 
+                <!-- Radio buttons fields -->
+                <v-radio-group
+                  v-if="['radioText', 'radioI32', 'radioU32', 'radioI64', 'radioF64'].includes(field.widget)"
+                  v-model="fieldData[field.name]"
+                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+                  :messages="field.warning"
+                  :error-messages="field.error"
+                >
+                  <v-radio
+                    v-for="(item, idx) in field.options"
+                    :key="item[1]"
+                    :id="`${field.id}-${idx}`"
+                    :label="item[1]"
+                    :type="field.input_type"
+                    :name="field.name"
+                    :value="item[0]"
+                    :disabled="field.disabled"
+                    :readonly="field.readonly"
+                    :class="field.css_classes"
+                  ></v-radio>
+                </v-radio-group>
+
                 <!-- Color fields -->
                 <v-menu
                   v-if="['inputColor'].includes(field.widget)"
@@ -428,6 +450,13 @@ export default {
         case 'rangeF64':
           result = 'arrow-split-vertical'
           break
+        case 'radioText':
+        case 'radioI32':
+        case 'radioU32':
+        case 'radioI64':
+        case 'radioF64':
+          result = 'radiobox-marked'
+          break
       }
       return result
     },
@@ -459,7 +488,12 @@ export default {
         { widget: 'rangeI32', id: 'id-range-i32', label: 'Label Range I32', input_type: 'range', name: 'field_range_i32', value: '0', placeholder: 'Enter range i32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '1', min: '0', max: '10', required: true },
         { widget: 'rangeU32', id: 'id-range-u32', label: 'Label Range U32', input_type: 'range', name: 'field_range_u32', value: '0', placeholder: 'Enter range u32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '1', min: '10', max: '100', required: true },
         { widget: 'rangeI64', id: 'id-range-i64', label: 'Label Range I64', input_type: 'range', name: 'field_range_i64', value: '75', placeholder: 'Enter range i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '1', min: '-100', max: '100', required: true },
-        { widget: 'rangeF64', id: 'id-ranger-f64', label: 'Label Range F64', input_type: 'range', name: 'field_range_f64', value: '0.5', placeholder: 'Enter range f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '0.1', min: '0.0', max: '1.0', required: true }
+        { widget: 'rangeF64', id: 'id-ranger-f64', label: 'Label Range F64', input_type: 'range', name: 'field_range_f64', value: '0.5', placeholder: 'Enter range f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '0.1', min: '0.0', max: '1.0', required: true },
+        { widget: 'radioText', id: 'id-radio-text', label: 'Label Radio Text', input_type: 'radio', name: 'field_radio_text', value: '', placeholder: 'Enter radio text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
+        { widget: 'radioI32', id: 'id-radio-i32', label: 'Label Radio I32', input_type: 'radio', name: 'field_radio_i32', value: '', placeholder: 'Enter radio i32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [] },
+        { widget: 'radioU32', id: 'id-radio-u32', label: 'Label Radio U32', input_type: 'radio', name: 'field_radio_u32', value: '', placeholder: 'Enter radio u32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [] },
+        { widget: 'radioI64', id: 'id-radio-i64', label: 'Label Radio I64', input_type: 'radio', name: 'field_radio_i64', value: '', placeholder: 'Enter radio i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [] },
+        { widget: 'radioF64', id: 'id-radio-f64', label: 'Label Radio F64', input_type: 'radio', name: 'field_radio_f64', value: '', placeholder: 'Enter radio f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [] }
       ]
 
       fields.forEach(item => {
@@ -473,7 +507,7 @@ export default {
           case 'inputIPv4':
           case 'inputIPv6':
           case 'textArea':
-            fieldData[item.name] = item.value
+            fieldData[item.name] = item.value || ''
             break
           case 'inputColor':
             vMenu[item.name] = false
@@ -490,21 +524,27 @@ export default {
             fieldData[`${item.name}__time`] = '00:00'
             break
           case 'hiddenText':
+            fieldData[item.name] = item.value || ''
+            break
           case 'hiddenI32':
           case 'hiddenU32':
           case 'hiddenI64':
           case 'hiddenF64':
-            fieldData[item.name] = item.value
+            fieldData[item.name] = item.value || ''
             break
           case 'numberI32':
           case 'numberU32':
           case 'numberI64':
             fieldData[item.name] = item.value
             item.step = parseInt(item.step) || 1
+            item.min = parseInt(item.min) || ''
+            item.max = parseInt(item.max) || ''
             break
           case 'numberF64':
             fieldData[item.name] = item.value
-            item.step = parseFloat(item.step) || 1.0
+            item.step = parseFloat(item.step) || 1
+            item.min = parseInt(item.min) || ''
+            item.max = parseInt(item.max) || ''
             break
           case 'rangeI32':
           case 'rangeU32':
@@ -519,6 +559,17 @@ export default {
             item.step = parseFloat(item.step) || 1.0
             item.min = parseFloat(item.min) || 0.0
             item.max = parseFloat(item.max) || 0.0
+            break
+          case 'radioText':
+            fieldData[item.name] = item.value || ''
+            break
+          case 'radioI32':
+          case 'radioU32':
+          case 'radioI64':
+            fieldData[item.name] = parseInt(item.value) || ''
+            break
+          case 'radioF64':
+            fieldData[item.name] = parseFloat(item.value) || ''
             break
         }
       })
