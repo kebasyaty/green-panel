@@ -514,8 +514,11 @@ export default {
           case 'inputDateTime':
             vMenu[item.name] = false
             vMenu[`${item.name}__time`] = false
-            fieldData[item.name] = item.value.substr(0, 10) || new Date().toISOString().substr(0, 10)
-            fieldData[`${item.name}__time`] = '00:00'
+            tmp = item.value || new Date().toISOString()
+            fieldData[item.name] = tmp.substr(0, 10)
+            fieldData[`${item.name}__time`] = new Date(tmp).toLocaleTimeString(this.$i18n.locale,
+              { timeStyle: 'short', hour12: false, timeZone: 'UTC' })
+            tmp = undefined
             break
           case 'hiddenText':
           case 'hiddenI32':
