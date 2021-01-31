@@ -420,7 +420,7 @@ export default {
         case 'numberU32':
         case 'numberI64':
         case 'numberF64':
-          result = 'numeric-0-box-outline'
+          result = 'numeric-1-box-multiple-outline'
           break
         case 'rangeI32':
         case 'rangeU32':
