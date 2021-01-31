@@ -54,7 +54,6 @@
                   :disabled="field.disabled"
                   :readonly="field.readonly"
                   :class="field.css_classes"
-                  :hint="field.hint"
                   :messages="field.warning"
                   :error-messages="field.error"
                 ></v-text-field>
@@ -76,7 +75,6 @@
                   :min="field.min"
                   :max="field.max"
                   :class="field.css_classes"
-                  :hint="field.hint"
                   :messages="field.warning"
                   :error-messages="field.error"
                 ></v-text-field>
@@ -98,7 +96,6 @@
                   :min="field.min"
                   :max="field.max"
                   :class="field.css_classes"
-                  :hint="field.hint"
                   :messages="field.warning"
                   :error-messages="field.error"
                 ></v-slider>
@@ -150,7 +147,6 @@
                       :disabled="field.disabled"
                       readonly
                       :class="field.css_classes"
-                      :hint="field.hint"
                       :messages="field.warning"
                       :error-messages="field.error"
                       v-bind="attrs"
@@ -185,7 +181,6 @@
                   :disabled="field.disabled"
                   :readonly="field.readonly"
                   :class="field.css_classes"
-                  :hint="field.hint"
                   :messages="field.warning"
                   :error-messages="field.error"
                 ></v-textarea>
@@ -213,7 +208,6 @@
                       :disabled="field.disabled"
                       readonly
                       :class="field.css_classes"
-                      :hint="field.hint"
                       :messages="field.warning"
                       :error-messages="field.error"
                       v-bind="attrs"
@@ -256,7 +250,6 @@
                           :disabled="field.disabled"
                           readonly
                           :class="field.css_classes"
-                          :hint="field.hint"
                           :messages="field.warning"
                           :error-messages="field.error"
                           v-bind="attrs"
