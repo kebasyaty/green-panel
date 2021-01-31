@@ -353,7 +353,7 @@ export default {
   name: 'DocumentForm',
 
   data: () => ({
-    vMenu: { field_date: false, field_datetime: false, field_datetime__time: false },
+    vMenu: { field_color: false, field_date: false, field_datetime: false, field_datetime__time: false },
     fieldData: {},
     fields: []
   }),
