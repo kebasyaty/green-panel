@@ -364,10 +364,10 @@
 
                 <!-- Selection fields -->
                 <v-select
-                  class="mt-0 pt-0"
+                  class="pt-0"
                   v-if="['selectText', 'selectI32', 'selectU32', 'selectI64', 'selectF64'].includes(field.widget)"
                   clearable
-                  prepend-icon="mdi-clock-time-four-outline"
+                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                   :items="field.options"
                   item-text="title"
                   item-value="value"
@@ -391,7 +391,7 @@
         <!-- Delete button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark outlined depressed small color="error" v-bind="attrs" v-on="on">
+            <v-btn dark outlined depressed small color="red" v-bind="attrs" v-on="on">
               <v-icon>mdi-close-thick</v-icon>
             </v-btn>
           </template>
@@ -401,7 +401,7 @@
         <!-- Save button and create a new document. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark outlined depressed small color="success" v-bind="attrs" v-on="on">
+            <v-btn dark outlined depressed small color="green" v-bind="attrs" v-on="on">
               <v-icon>mdi-content-save</v-icon>
               <v-icon>mdi-ampersand</v-icon>
               <v-icon>mdi-file-outline</v-icon>
@@ -417,7 +417,7 @@
               outlined
               depressed
               small
-              color="warning"
+              color="orange"
               class="mx-4"
               v-bind="attrs"
               v-on="on"
@@ -432,7 +432,7 @@
         <!-- Save button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark outlined depressed small color="primary" v-bind="attrs" v-on="on">
+            <v-btn dark outlined depressed small color="blue" v-bind="attrs" v-on="on">
               <v-icon>mdi-content-save</v-icon>
             </v-btn>
           </template>
