@@ -624,9 +624,6 @@ export default {
           case 'checkBox':
             fieldData[item.name] = item.value === 'true'
             break
-          case 'inputFile':
-            fieldData[item.name] = ''
-            break
         }
       })
       this.vMenu = vMenu
