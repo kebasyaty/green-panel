@@ -625,32 +625,20 @@ export default {
           case 'numberI64':
             tmp = parseInt(field.value)
             fieldData[field.name] = !Number.isNaN(tmp) ? tmp : ''
-            field.step = parseInt(field.step) || 1
-            field.min = parseInt(field.min) || ''
-            field.max = parseInt(field.max) || ''
             tmp = undefined
             break
           case 'numberF64':
             tmp = parseFloat(field.value)
             fieldData[field.name] = !Number.isNaN(tmp) ? tmp : ''
-            field.step = parseFloat(field.step) || 1
-            field.min = parseInt(field.min) || ''
-            field.max = parseInt(field.max) || ''
             tmp = undefined
             break
           case 'rangeI32':
           case 'rangeU32':
           case 'rangeI64':
-            fieldData[field.name] = parseInt(field.value) || 0
-            field.step = parseInt(field.step) || 1
-            field.min = parseInt(field.min) || 0
-            field.max = parseInt(fields.max) || 0
+            fieldData[field.name] = parseInt(field.value)
             break
           case 'rangeF64':
-            fieldData[field.name] = parseFloat(field.value) || 0.0
-            field.step = parseFloat(field.step) || 1.0
-            field.min = parseFloat(field.min) || 0.0
-            field.max = parseFloat(field.max) || 0.0
+            fieldData[field.name] = parseFloat(field.value)
             break
           case 'radioText':
             fieldData[field.name] = field.value || ''
