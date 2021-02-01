@@ -361,6 +361,26 @@
                     </v-menu>
                   </v-col>
                 </v-row>
+
+                <!-- Selection fields -->
+                <v-select
+                  class="mt-0 pt-0"
+                  v-if="['selectText', 'selectI32', 'selectU32', 'selectI64', 'selectF64'].includes(field.widget)"
+                  clearable
+                  prepend-icon="mdi-clock-time-four-outline"
+                  :items="field.options"
+                  item-text="title"
+                  item-value="value"
+                  v-model="fieldData[field.name]"
+                  :id="field.id"
+                  :name="field.name"
+                  :placeholder="field.placeholder"
+                  :required="field.required"
+                  :disabled="field.disabled"
+                  :readonly="field.readonly"
+                  :class="field.css_classes"
+                  :messages="field.warning"
+                ></v-select>
               </v-card-text>
             </v-card>
           </div>
@@ -508,6 +528,13 @@ export default {
         case 'inputImage':
           result = 'camera-outline'
           break
+        case 'selectText':
+        case 'selectI32':
+        case 'selectU32':
+        case 'selectI64':
+        case 'selectF64':
+          result = 'form-select'
+          break
       }
       return result
     },
@@ -548,11 +575,16 @@ export default {
         { widget: 'radioF64', id: 'id-radio-f64', label: 'Label Radio F64', input_type: 'radio', name: 'field_radio_f64', value: '0.0', placeholder: 'Enter radio f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0.0', 'Volvo'], ['1.1', 'Saab'], ['2.2', 'Mercedes'], ['3.3', 'Audi']] },
         { widget: 'checkBox', id: 'id-checkbox', label: 'Label Checkbox', input_type: 'checkbox', name: 'field_checkbox', value: '', placeholder: 'Enter checkbox', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, checked: true },
         { widget: 'inputFile', id: 'id-file', label: 'Label File', input_type: 'file', name: 'field_file', value: '', placeholder: 'Enter file', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, accept: '' },
-        { widget: 'inputImage', id: 'id-image', label: 'Label Image', input_type: 'file', name: 'field_image', value: '', placeholder: 'Enter image', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, accept: '' }
+        { widget: 'inputImage', id: 'id-image', label: 'Label Image', input_type: 'file', name: 'field_image', value: '', placeholder: 'Enter image', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, accept: '' },
+        { widget: 'selectText', id: 'id-select-text', label: 'Label Select Text', input_type: 'select', name: 'field_select_text', value: 'volvo', placeholder: 'Enter radio text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['volvo', 'Volvo'], ['saab', 'Saab'], ['mercedes', 'Mercedes'], ['audi', 'Audi']] },
+        { widget: 'selectI32', id: 'id-select-i32', label: 'Label Select I32', input_type: 'select', name: 'field_select_i32', value: '0', placeholder: 'Enter radio i32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0', 'Volvo'], ['-1', 'Saab'], ['-2', 'Mercedes'], ['-3', 'Audi']] },
+        { widget: 'selectU32', id: 'id-select-u32', label: 'Label Select U32', input_type: 'select', name: 'field_select_u32', value: '1', placeholder: 'Enter radio u32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0', 'Volvo'], ['1', 'Saab'], ['2', 'Mercedes'], ['3', 'Audi']] },
+        { widget: 'selectI64', id: 'id-select-i64', label: 'Label Select I64', input_type: 'select', name: 'field_select_i64', value: '-2', placeholder: 'Enter radio i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0', 'Volvo'], ['-1', 'Saab'], ['-2', 'Mercedes'], ['-3', 'Audi']] },
+        { widget: 'selectF64', id: 'id-select-f64', label: 'Label Select F64', input_type: 'select', name: 'field_select_f64', value: '0.0', placeholder: 'Enter radio f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0.0', 'Volvo'], ['1.1', 'Saab'], ['2.2', 'Mercedes'], ['3.3', 'Audi']] }
       ]
 
-      fields.forEach(item => {
-        switch (item.widget) {
+      fields.forEach(field => {
+        switch (field.widget) {
           case 'inputText':
           case 'inputEmail':
           case 'inputPassword':
@@ -562,22 +594,22 @@ export default {
           case 'inputIPv4':
           case 'inputIPv6':
           case 'textArea':
-            fieldData[item.name] = item.value || ''
+            fieldData[field.name] = field.value || ''
             break
           case 'inputColor':
-            vMenu[item.name] = false
-            fieldData[item.name] = item.value || '#00000000'
+            vMenu[field.name] = false
+            fieldData[field.name] = field.value || '#00000000'
             break
           case 'inputDate':
-            vMenu[item.name] = false
-            fieldData[item.name] = item.value.substr(0, 10) || new Date().toISOString().substr(0, 10)
+            vMenu[field.name] = false
+            fieldData[field.name] = field.value.substr(0, 10) || new Date().toISOString().substr(0, 10)
             break
           case 'inputDateTime':
-            vMenu[item.name] = false
-            vMenu[`${item.name}__time`] = false
-            tmp = item.value || new Date().toISOString()
-            fieldData[item.name] = tmp.substr(0, 10)
-            fieldData[`${item.name}__time`] = new Date(tmp).toLocaleTimeString(this.$i18n.locale,
+            vMenu[field.name] = false
+            vMenu[`${field.name}__time`] = false
+            tmp = field.value || new Date().toISOString()
+            fieldData[field.name] = tmp.substr(0, 10)
+            fieldData[`${field.name}__time`] = new Date(tmp).toLocaleTimeString(this.$i18n.locale,
               { timeStyle: 'short', hour12: false })
             tmp = undefined
             break
@@ -586,63 +618,87 @@ export default {
           case 'hiddenU32':
           case 'hiddenI64':
           case 'hiddenF64':
-            fieldData[item.name] = item.value || ''
+            fieldData[field.name] = field.value || ''
             break
           case 'numberI32':
           case 'numberU32':
           case 'numberI64':
-            tmp = parseInt(item.value)
-            fieldData[item.name] = !Number.isNaN(tmp) ? tmp : ''
-            item.step = parseInt(item.step) || 1
-            item.min = parseInt(item.min) || ''
-            item.max = parseInt(item.max) || ''
+            tmp = parseInt(field.value)
+            fieldData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+            field.step = parseInt(field.step) || 1
+            field.min = parseInt(field.min) || ''
+            field.max = parseInt(field.max) || ''
             tmp = undefined
             break
           case 'numberF64':
-            tmp = parseFloat(item.value)
-            fieldData[item.name] = !Number.isNaN(tmp) ? tmp : ''
-            item.step = parseFloat(item.step) || 1
-            item.min = parseInt(item.min) || ''
-            item.max = parseInt(item.max) || ''
+            tmp = parseFloat(field.value)
+            fieldData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+            field.step = parseFloat(field.step) || 1
+            field.min = parseInt(field.min) || ''
+            field.max = parseInt(field.max) || ''
             tmp = undefined
             break
           case 'rangeI32':
           case 'rangeU32':
           case 'rangeI64':
-            fieldData[item.name] = parseInt(item.value) || 0
-            item.step = parseInt(item.step) || 1
-            item.min = parseInt(item.min) || 0
-            item.max = parseInt(item.max) || 0
+            fieldData[field.name] = parseInt(field.value) || 0
+            field.step = parseInt(field.step) || 1
+            field.min = parseInt(field.min) || 0
+            field.max = parseInt(fields.max) || 0
             break
           case 'rangeF64':
-            fieldData[item.name] = parseFloat(item.value) || 0.0
-            item.step = parseFloat(item.step) || 1.0
-            item.min = parseFloat(item.min) || 0.0
-            item.max = parseFloat(item.max) || 0.0
+            fieldData[field.name] = parseFloat(field.value) || 0.0
+            field.step = parseFloat(field.step) || 1.0
+            field.min = parseFloat(field.min) || 0.0
+            field.max = parseFloat(field.max) || 0.0
             break
           case 'radioText':
-            fieldData[item.name] = item.value || ''
+            fieldData[field.name] = field.value || ''
             break
           case 'radioI32':
           case 'radioU32':
           case 'radioI64':
-            tmp = parseInt(item.value)
-            fieldData[item.name] = !Number.isNaN(tmp) ? tmp : ''
-            item.options.forEach(function (item) {
+            tmp = parseInt(field.value)
+            fieldData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+            field.options.forEach(function (item) {
               item[0] = parseInt(item[0])
             })
             tmp = undefined
             break
           case 'radioF64':
-            tmp = parseFloat(item.value)
-            fieldData[item.name] = !Number.isNaN(tmp) ? tmp : ''
-            item.options.forEach(function (item) {
+            tmp = parseFloat(field.value)
+            fieldData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+            field.options.forEach(function (item) {
               item[0] = parseFloat(item[0])
             })
             tmp = undefined
             break
           case 'checkBox':
-            fieldData[item.name] = item.checked
+            fieldData[field.name] = field.checked
+            break
+          case 'selectText':
+            fieldData[field.name] = field.value || ''
+            field.options = field.options.map(function (item) {
+              return { value: item[0], title: item[1] }
+            })
+            break
+          case 'selectI32':
+          case 'selectU32':
+          case 'selectI64':
+            tmp = parseInt(field.value)
+            fieldData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+            field.options = field.options.map(function (item) {
+              return { value: parseInt(item[0]), title: item[1] }
+            })
+            tmp = undefined
+            break
+          case 'selectF64':
+            tmp = parseFloat(field.value)
+            fieldData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+            field.options = field.options.map(function (item) {
+              return { value: parseFloat(item[0]), title: item[1] }
+            })
+            tmp = undefined
             break
         }
       })
