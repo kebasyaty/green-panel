@@ -318,7 +318,7 @@
         <!-- Delete button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark depressed small color="error" v-bind="attrs" v-on="on">
+            <v-btn dark outlined depressed small color="error" v-bind="attrs" v-on="on">
               <v-icon>mdi-close-thick</v-icon>
             </v-btn>
           </template>
@@ -328,7 +328,7 @@
         <!-- Save button and create a new document. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark depressed small color="success" v-bind="attrs" v-on="on">
+            <v-btn dark outlined depressed small color="success" v-bind="attrs" v-on="on">
               <v-icon>mdi-content-save</v-icon>
               <v-icon>mdi-ampersand</v-icon>
               <v-icon>mdi-file-outline</v-icon>
@@ -339,7 +339,16 @@
         <!-- Save button and continue editing the document. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark depressed small color="warning" class="mx-4" v-bind="attrs" v-on="on">
+            <v-btn
+              dark
+              outlined
+              depressed
+              small
+              color="warning"
+              class="mx-4"
+              v-bind="attrs"
+              v-on="on"
+            >
               <v-icon>mdi-content-save</v-icon>
               <v-icon>mdi-ampersand</v-icon>
               <v-icon>mdi-file-document-edit-outline</v-icon>
@@ -350,7 +359,7 @@
         <!-- Save button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark depressed small color="primary" v-bind="attrs" v-on="on">
+            <v-btn dark outlined depressed small color="primary" v-bind="attrs" v-on="on">
               <v-icon>mdi-content-save</v-icon>
             </v-btn>
           </template>
@@ -450,6 +459,14 @@ export default {
         case 'radioF64':
           result = 'checkbox-marked-circle-outline'
           break
+        case 'checkBoxBool':
+        case 'checkBoxText':
+        case 'checkBoxI32':
+        case 'checkBoxU32':
+        case 'checkBoxI64':
+        case 'checkBoxF64':
+          result = 'checkbox-marked-outline'
+          break
       }
       return result
     },
@@ -487,7 +504,14 @@ export default {
         { widget: 'radioI32', id: 'id-radio-i32', label: 'Label Radio I32', input_type: 'radio', name: 'field_radio_i32', value: '0', placeholder: 'Enter radio i32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0', 'Volvo'], ['-1', 'Saab'], ['-2', 'Mercedes'], ['-3', 'Audi']] },
         { widget: 'radioU32', id: 'id-radio-u32', label: 'Label Radio U32', input_type: 'radio', name: 'field_radio_u32', value: '1', placeholder: 'Enter radio u32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0', 'Volvo'], ['1', 'Saab'], ['2', 'Mercedes'], ['3', 'Audi']] },
         { widget: 'radioI64', id: 'id-radio-i64', label: 'Label Radio I64', input_type: 'radio', name: 'field_radio_i64', value: '-2', placeholder: 'Enter radio i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0', 'Volvo'], ['-1', 'Saab'], ['-2', 'Mercedes'], ['-3', 'Audi']] },
-        { widget: 'radioF64', id: 'id-radio-f64', label: 'Label Radio F64', input_type: 'radio', name: 'field_radio_f64', value: '0.0', placeholder: 'Enter radio f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0.0', 'Volvo'], ['1.1', 'Saab'], ['2.2', 'Mercedes'], ['3.3', 'Audi']] }
+        { widget: 'radioF64', id: 'id-radio-f64', label: 'Label Radio F64', input_type: 'radio', name: 'field_radio_f64', value: '0.0', placeholder: 'Enter radio f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0.0', 'Volvo'], ['1.1', 'Saab'], ['2.2', 'Mercedes'], ['3.3', 'Audi']] },
+        { widget: 'checkBoxBool', id: 'id-checkbox-bool', label: 'Label Checkbox Bool', input_type: 'checkbox', name: 'field_checkbox_bool', value: '', placeholder: 'Enter checkbox bool', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
+        { widget: 'checkBoxText', id: 'id-checkbox-text', label: 'Label Checkbox Text', input_type: 'checkbox', name: 'field_checkbox_text', value: 'rust', placeholder: 'Enter checkbox text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
+        { widget: 'checkBoxI32', id: 'id-checkbox-i32', label: 'Label Checkbox I32', input_type: 'checkbox', name: 'field_checkbox_i32', value: '-32', placeholder: 'Enter checkbox i32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
+        { widget: 'checkBoxU32', id: 'id-checkbox-u32', label: 'Label Checkbox U32', input_type: 'checkbox', name: 'field_checkbox_u32', value: '32', placeholder: 'Enter checkbox u32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
+        { widget: 'checkBoxI64', id: 'id-checkbox-i64', label: 'Label Checkbox I64', input_type: 'checkbox', name: 'field_checkbox_i64', value: '-64', placeholder: 'Enter checkbox i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
+        { widget: 'checkBoxF64', id: 'id-checkbox-f64', label: 'Label Checkbox F64', input_type: 'checkbox', name: 'field_checkbox_f64', value: '-64.64', placeholder: 'Enter checkbox f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true }
+
       ]
 
       fields.forEach(item => {
@@ -517,7 +541,7 @@ export default {
             tmp = item.value || new Date().toISOString()
             fieldData[item.name] = tmp.substr(0, 10)
             fieldData[`${item.name}__time`] = new Date(tmp).toLocaleTimeString(this.$i18n.locale,
-              { timeStyle: 'short', hour12: false, timeZone: 'UTC' })
+              { timeStyle: 'short', hour12: false })
             tmp = undefined
             break
           case 'hiddenText':
@@ -578,6 +602,24 @@ export default {
             item.options.forEach(function (item) {
               item[0] = parseFloat(item[0])
             })
+            tmp = undefined
+            break
+          case 'checkBoxBool':
+            fieldData[item.name] = ''
+            break
+          case 'checkBoxText':
+            fieldData[item.name] = item.value || ''
+            break
+          case 'checkBoxI32':
+          case 'checkBoxU32':
+          case 'checkBoxI64':
+            tmp = parseInt(item.value)
+            fieldData[item.name] = !Number.isNaN(tmp) ? tmp : ''
+            tmp = undefined
+            break
+          case 'checkBoxF64':
+            tmp = parseFloat(item.value)
+            fieldData[item.name] = !Number.isNaN(tmp) ? tmp : ''
             tmp = undefined
             break
         }
