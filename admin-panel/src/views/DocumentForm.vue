@@ -381,6 +381,28 @@
                   :class="field.css_classes"
                   :messages="field.warning"
                 ></v-select>
+
+                <!-- Selection fields
+                     (Dynamic)
+                -->
+                <v-select
+                  class="pt-0"
+                  v-if="['selectTextDyn', 'selectI32Dyn', 'selectU32Dyn', 'selectI64Dyn', 'selectF64Dyn'].includes(field.widget)"
+                  clearable
+                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+                  :items="field.options"
+                  item-text="title"
+                  item-value="value"
+                  v-model="fieldData[field.name]"
+                  :id="field.id"
+                  :name="field.name"
+                  :placeholder="field.placeholder"
+                  :required="field.required"
+                  :disabled="field.disabled"
+                  :readonly="field.readonly"
+                  :class="field.css_classes"
+                  :messages="field.warning"
+                ></v-select>
               </v-card-text>
             </v-card>
           </div>
@@ -535,6 +557,13 @@ export default {
         case 'selectF64':
           result = 'form-select'
           break
+        case 'selectTextDyn':
+        case 'selectI32Dyn':
+        case 'selectU32Dyn':
+        case 'selectI64Dyn':
+        case 'selectF64Dyn':
+          result = 'playlist-plus'
+          break
       }
       return result
     },
@@ -681,6 +710,7 @@ export default {
             fieldData[field.name] = field.checked
             break
           case 'selectText':
+          case 'selectTextDyn':
             fieldData[field.name] = field.value || ''
             field.options = field.options.map(function (item) {
               return { value: item[0], title: item[1] }
@@ -689,6 +719,9 @@ export default {
           case 'selectI32':
           case 'selectU32':
           case 'selectI64':
+          case 'selectI32Dyn':
+          case 'selectU32Dyn':
+          case 'selectI64Dyn':
             tmp = parseInt(field.value)
             fieldData[field.name] = !Number.isNaN(tmp) ? tmp : ''
             field.options = field.options.map(function (item) {
@@ -697,6 +730,7 @@ export default {
             tmp = undefined
             break
           case 'selectF64':
+          case 'selectF64Dyn':
             tmp = parseFloat(field.value)
             fieldData[field.name] = !Number.isNaN(tmp) ? tmp : ''
             field.options = field.options.map(function (item) {
