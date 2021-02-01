@@ -137,6 +137,19 @@
                   :class="field.css_classes"
                 ></v-checkbox>
 
+                <!-- File fields -->
+                <v-file-input
+                  class="mt-0"
+                  v-if="['inputFile'].includes(field.widget)"
+                  v-model="fieldData[field.name]"
+                  :id="field.id"
+                  :type="field.input_type"
+                  :name="field.name"
+                  :disabled="field.disabled"
+                  :readonly="field.readonly"
+                  :class="field.css_classes"
+                ></v-file-input>
+
                 <!-- Color fields -->
                 <v-menu
                   v-if="['inputColor'].includes(field.widget)"
@@ -472,6 +485,9 @@ export default {
         case 'rangeF64':
           result = 'arrow-split-vertical'
           break
+        case 'inputImage':
+          result = 'camera'
+          break
       }
       return result
     },
@@ -510,8 +526,8 @@ export default {
         { widget: 'radioU32', id: 'id-radio-u32', label: 'Label Radio U32', input_type: 'radio', name: 'field_radio_u32', value: '1', placeholder: 'Enter radio u32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0', 'Volvo'], ['1', 'Saab'], ['2', 'Mercedes'], ['3', 'Audi']] },
         { widget: 'radioI64', id: 'id-radio-i64', label: 'Label Radio I64', input_type: 'radio', name: 'field_radio_i64', value: '-2', placeholder: 'Enter radio i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0', 'Volvo'], ['-1', 'Saab'], ['-2', 'Mercedes'], ['-3', 'Audi']] },
         { widget: 'radioF64', id: 'id-radio-f64', label: 'Label Radio F64', input_type: 'radio', name: 'field_radio_f64', value: '0.0', placeholder: 'Enter radio f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0.0', 'Volvo'], ['1.1', 'Saab'], ['2.2', 'Mercedes'], ['3.3', 'Audi']] },
-        { widget: 'checkBox', id: 'id-checkbox', label: 'Label Checkbox', input_type: 'checkbox', name: 'field_checkbox', value: 'true', placeholder: 'Enter checkbox', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true }
-
+        { widget: 'checkBox', id: 'id-checkbox', label: 'Label Checkbox', input_type: 'checkbox', name: 'field_checkbox', value: 'true', placeholder: 'Enter checkbox', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
+        { widget: 'inputFile', id: 'id-file', label: 'Label File', input_type: 'file', name: 'field_file', value: '', placeholder: 'Enter file', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true }
       ]
 
       fields.forEach(item => {
@@ -606,6 +622,9 @@ export default {
             break
           case 'checkBox':
             fieldData[item.name] = item.value === 'true'
+            break
+          case 'inputFile':
+            fieldData[item.name] = ''
             break
         }
       })
