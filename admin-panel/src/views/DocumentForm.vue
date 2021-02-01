@@ -122,6 +122,8 @@
                   ></v-radio>
                 </v-radio-group>
 
+                <!-- Checkbox fields -->
+
                 <!-- Color fields -->
                 <v-menu
                   v-if="['inputColor'].includes(field.widget)"
@@ -605,7 +607,7 @@ export default {
             tmp = undefined
             break
           case 'checkBoxBool':
-            fieldData[item.name] = ''
+            fieldData[item.name] = item.value === 'true'
             break
           case 'checkBoxText':
             fieldData[item.name] = item.value || ''
