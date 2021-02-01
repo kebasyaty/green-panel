@@ -32,7 +32,7 @@
             >{{ field.common_msg }}</v-alert>
 
             <v-card flat outlined class="mt-8">
-              <v-card-text>
+              <v-card-text class="pt-2 pb-0">
                 <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">{{ field.label }}</v-card-title>
                 <v-card-subtitle
                   v-if="field.hint.length > 0"
@@ -41,6 +41,7 @@
 
                 <!-- Text fields -->
                 <v-text-field
+                  class="mt-0 pt-0"
                   v-if="['inputText', 'inputEmail', 'inputPassword', 'inputPhone',
                   'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6'].includes(field.widget)"
                   clearable
@@ -60,6 +61,7 @@
 
                 <!-- Number fields -->
                 <v-text-field
+                  class="mt-0 pt-1"
                   v-if="['numberI32', 'numberU32', 'numberI64', 'numberF64'].includes(field.widget)"
                   clearable
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
@@ -102,9 +104,9 @@
 
                 <!-- Radio buttons fields -->
                 <v-radio-group
+                  class="mt-0"
                   v-if="['radioText', 'radioI32', 'radioU32', 'radioI64', 'radioF64'].includes(field.widget)"
                   v-model="fieldData[field.name]"
-                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                   :messages="field.warning"
                   :error-messages="field.error"
                 >
@@ -124,8 +126,8 @@
 
                 <!-- Checkbox fields -->
                 <v-checkbox
+                  class="mt-0"
                   v-if="['checkBox'].includes(field.widget)"
-                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                   v-model="fieldData[field.name]"
                   :id="field.id"
                   :type="field.input_type"
@@ -149,6 +151,7 @@
                 >
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field
+                      class="mt-0 pt-1"
                       :background-color="fieldData[field.name]"
                       :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                       v-model="fieldData[field.name]"
@@ -183,6 +186,7 @@
 
                 <!-- Textarea fields -->
                 <v-textarea
+                  class="mt-0 pt-1"
                   v-if="['textArea'].includes(field.widget)"
                   clearable
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
@@ -210,6 +214,7 @@
                 >
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field
+                      class="mt-0 pt-1"
                       clearable
                       :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                       v-model="fieldData[field.name]"
@@ -252,6 +257,7 @@
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
+                          class="mt-0 pt-1"
                           clearable
                           :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                           v-model="fieldData[field.name]"
@@ -295,6 +301,7 @@
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
+                          class="mt-0 pt-1"
                           clearable
                           prepend-icon="mdi-clock-time-four-outline"
                           v-model="fieldData[`${field.name}__time`]"
