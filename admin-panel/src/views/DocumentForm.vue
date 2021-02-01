@@ -472,16 +472,6 @@ export default {
         case 'rangeF64':
           result = 'arrow-split-vertical'
           break
-        case 'radioText':
-        case 'radioI32':
-        case 'radioU32':
-        case 'radioI64':
-        case 'radioF64':
-          result = 'checkbox-marked-circle-outline'
-          break
-        case 'checkBox':
-          result = 'checkbox-marked-outline'
-          break
       }
       return result
     },
