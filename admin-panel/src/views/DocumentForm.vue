@@ -123,6 +123,17 @@
                 </v-radio-group>
 
                 <!-- Checkbox fields -->
+                <v-checkbox
+                  v-if="['checkBox'].includes(field.widget)"
+                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+                  v-model="fieldData[field.name]"
+                  :id="field.id"
+                  :type="field.input_type"
+                  :name="field.name"
+                  :disabled="field.disabled"
+                  :readonly="field.readonly"
+                  :class="field.css_classes"
+                ></v-checkbox>
 
                 <!-- Color fields -->
                 <v-menu
