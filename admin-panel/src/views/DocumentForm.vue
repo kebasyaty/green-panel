@@ -140,8 +140,9 @@
                 <!-- File fields -->
                 <v-file-input
                   class="mt-0"
+                  show-size
+                  :ref="field.name"
                   v-if="['inputFile'].includes(field.widget)"
-                  v-model="fieldData[field.name]"
                   :id="field.id"
                   :type="field.input_type"
                   :name="field.name"
