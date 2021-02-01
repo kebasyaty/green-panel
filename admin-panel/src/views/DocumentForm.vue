@@ -546,7 +546,7 @@ export default {
         { widget: 'radioU32', id: 'id-radio-u32', label: 'Label Radio U32', input_type: 'radio', name: 'field_radio_u32', value: '1', placeholder: 'Enter radio u32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0', 'Volvo'], ['1', 'Saab'], ['2', 'Mercedes'], ['3', 'Audi']] },
         { widget: 'radioI64', id: 'id-radio-i64', label: 'Label Radio I64', input_type: 'radio', name: 'field_radio_i64', value: '-2', placeholder: 'Enter radio i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0', 'Volvo'], ['-1', 'Saab'], ['-2', 'Mercedes'], ['-3', 'Audi']] },
         { widget: 'radioF64', id: 'id-radio-f64', label: 'Label Radio F64', input_type: 'radio', name: 'field_radio_f64', value: '0.0', placeholder: 'Enter radio f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0.0', 'Volvo'], ['1.1', 'Saab'], ['2.2', 'Mercedes'], ['3.3', 'Audi']] },
-        { widget: 'checkBox', id: 'id-checkbox', label: 'Label Checkbox', input_type: 'checkbox', name: 'field_checkbox', value: 'true', placeholder: 'Enter checkbox', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
+        { widget: 'checkBox', id: 'id-checkbox', label: 'Label Checkbox', input_type: 'checkbox', name: 'field_checkbox', value: '', placeholder: 'Enter checkbox', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, checked: true },
         { widget: 'inputFile', id: 'id-file', label: 'Label File', input_type: 'file', name: 'field_file', value: '', placeholder: 'Enter file', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, accept: '' },
         { widget: 'inputImage', id: 'id-image', label: 'Label Image', input_type: 'file', name: 'field_image', value: '', placeholder: 'Enter image', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, accept: '' }
       ]
@@ -642,7 +642,7 @@ export default {
             tmp = undefined
             break
           case 'checkBox':
-            fieldData[item.name] = item.value === 'true'
+            fieldData[item.name] = item.checked
             break
         }
       })
