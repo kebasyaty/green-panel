@@ -91,7 +91,7 @@
                         <v-btn
                           text
                           color="primary"
-                          @click="[delDynItems = [], dynamicSelectionDialog[field.name] = false]"
+                          @click="[saveNewDynItem(), dynamicSelectionDialog[field.name] = false, delDynItems = []]"
                         >{{ $t('message.19') }}</v-btn>
                       </v-card-actions>
                     </v-card>
@@ -938,6 +938,10 @@ export default {
       this.fieldData = fieldData
       this.dynamicSelectionDialog = dynamicSelectionDialog
       this.fields = fields
+    },
+
+    saveNewDynItem() {
+      window.console.log(this.delDynItems)
     }
   },
 
