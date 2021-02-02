@@ -64,6 +64,23 @@
                     </template>
                     <v-card>
                       <v-card-text>
+                        <v-card-subtitle>{{ $t('message.22') }}</v-card-subtitle>
+                      </v-card-text>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          text
+                          color="primary"
+                          @click="[delDynItems = [], dynamicSelectionDialog[field.name] = false]"
+                        >{{ $t('message.18') }}</v-btn>
+                        <v-btn
+                          text
+                          color="primary"
+                          @click="[saveNewDynItem(), dynamicSelectionDialog[field.name] = false, delDynItems = []]"
+                        >{{ $t('message.19') }}</v-btn>
+                      </v-card-actions>
+                      <v-divider></v-divider>
+                      <v-card-text>
                         <v-list subheader two-line flat>
                           <v-subheader>{{ $t('message.20') }}</v-subheader>
                           <v-list-item-group v-model="delDynItems" multiple>
@@ -91,8 +108,9 @@
                         <v-btn
                           text
                           color="primary"
-                          @click="[saveNewDynItem(), dynamicSelectionDialog[field.name] = false, delDynItems = []]"
-                        >{{ $t('message.19') }}</v-btn>
+                          :disabled="delDynItems.length === 0"
+                          @click="[removeDynItem(), dynamicSelectionDialog[field.name] = false, delDynItems = []]"
+                        >{{ $t('message.21') }}</v-btn>
                       </v-card-actions>
                     </v-card>
                   </v-dialog>
@@ -941,6 +959,10 @@ export default {
     },
 
     saveNewDynItem() {
+      window.console.log(this.delDynItems)
+    },
+
+    removeDynItem() {
       window.console.log(this.delDynItems)
     }
   },

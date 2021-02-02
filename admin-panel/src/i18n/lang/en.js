@@ -21,6 +21,8 @@ export default {
     17: 'Time',
     18: 'Close',
     19: 'Save',
-    20: 'Remove irrelevant items'
+    20: 'Remove irrelevant items',
+    21: 'Delete',
+    22: 'Add new list item'
   }
 }
