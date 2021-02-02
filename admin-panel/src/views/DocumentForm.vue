@@ -64,22 +64,35 @@
                     </template>
                     <v-card>
                       <v-card-text>
-                        <v-card-title>
-                          <span class="headline">User Profile</span>
-                        </v-card-title>
+                        <v-list subheader two-line flat>
+                          <v-subheader>{{ $t('message.20') }}</v-subheader>
+                          <v-list-item-group v-model="delDynItems" multiple>
+                            <v-list-item v-for="item in field.options" :key="item.title">
+                              <template v-slot:default="{ active, }">
+                                <v-list-item-action>
+                                  <v-checkbox :input-value="active" color="primary"></v-checkbox>
+                                </v-list-item-action>
+                                <v-list-item-content>
+                                  <v-list-item-title>{{ item.title }}</v-list-item-title>
+                                  <v-list-item-subtitle>{{ item.value }}</v-list-item-subtitle>
+                                </v-list-item-content>
+                              </template>
+                            </v-list-item>
+                          </v-list-item-group>
+                        </v-list>
                       </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn
                           text
                           color="primary"
-                          @click="dynamicSelectionDialog[field.name] = false"
-                        >Close</v-btn>
+                          @click="[delDynItems = [], dynamicSelectionDialog[field.name] = false]"
+                        >{{ $t('message.18') }}</v-btn>
                         <v-btn
                           text
                           color="primary"
-                          @click="dynamicSelectionDialog[field.name] = false"
-                        >Save</v-btn>
+                          @click="[delDynItems = [], dynamicSelectionDialog[field.name] = false]"
+                        >{{ $t('message.19') }}</v-btn>
                       </v-card-actions>
                     </v-card>
                   </v-dialog>
@@ -567,7 +580,8 @@ export default {
     vMenu: {},
     fieldData: {},
     fields: [],
-    dynamicSelectionDialog: {}
+    dynamicSelectionDialog: {},
+    delDynItems: []
   }),
 
   computed: {
@@ -653,8 +667,6 @@ export default {
         case 'selectU32Dyn':
         case 'selectI64Dyn':
         case 'selectF64Dyn':
-          result = 'form-select'
-          break
         case 'selectTextMult':
         case 'selectI32Mult':
         case 'selectU32Mult':
@@ -665,7 +677,7 @@ export default {
         case 'selectU32MultDyn':
         case 'selectI64MultDyn':
         case 'selectF64MultDyn':
-          result = 'text-box-multiple-outline'
+          result = 'form-select'
           break
       }
       return result

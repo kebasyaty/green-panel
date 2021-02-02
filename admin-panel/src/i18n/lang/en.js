@@ -18,6 +18,9 @@ export default {
     14: 'Save and create a new document',
     15: 'Save and continue editing the document',
     16: 'Save document',
-    17: 'Time'
+    17: 'Time',
+    18: 'Close',
+    19: 'Save',
+    20: 'Remove irrelevant items'
   }
 }
