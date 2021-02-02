@@ -41,6 +41,15 @@
                     v-if="field.hint.length > 0"
                     class="pl-0 pb-1 pt-3"
                   >{{ field.hint }}</v-card-subtitle>
+                  <v-btn
+                    small
+                    v-if="field.widget.includes('Dyn')"
+                    color="orange lighten-2"
+                    class="mb-2"
+                  >
+                    <v-icon>mdi-plus</v-icon>/
+                    <v-icon>mdi-minus</v-icon>
+                  </v-btn>
                 </div>
 
                 <!-- Text fields -->
@@ -614,28 +623,24 @@ export default {
         case 'selectU32':
         case 'selectI64':
         case 'selectF64':
-          result = 'form-select'
-          break
         case 'selectTextDyn':
         case 'selectI32Dyn':
         case 'selectU32Dyn':
         case 'selectI64Dyn':
         case 'selectF64Dyn':
-          result = 'playlist-plus'
+          result = 'form-select'
           break
         case 'selectTextMult':
         case 'selectI32Mult':
         case 'selectU32Mult':
         case 'selectI64Mult':
         case 'selectF64Mult':
-          result = 'text-box-multiple-outline'
-          break
         case 'selectTextMultDyn':
         case 'selectI32MultDyn':
         case 'selectU32MultDyn':
         case 'selectI64MultDyn':
         case 'selectF64MultDyn':
-          result = 'plus-box-multiple-outline'
+          result = 'text-box-multiple-outline'
           break
       }
       return result
