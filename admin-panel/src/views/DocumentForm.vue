@@ -42,7 +42,8 @@
                     class="pl-0 pb-1 pt-3"
                   >{{ field.hint }}</v-card-subtitle>
                   <v-btn
-                    small
+                    x-small
+                    depressed
                     v-if="field.widget.includes('Dyn')"
                     color="orange lighten-2"
                     class="mb-2"
@@ -482,7 +483,7 @@
         <!-- Delete button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark small color="red" v-bind="attrs" v-on="on">
+            <v-btn dark small depressed color="red" v-bind="attrs" v-on="on">
               <v-icon>mdi-close-thick</v-icon>
             </v-btn>
           </template>
@@ -492,7 +493,7 @@
         <!-- Save button and create a new document. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark small color="green" v-bind="attrs" v-on="on">
+            <v-btn dark small depressed color="green" v-bind="attrs" v-on="on">
               <v-icon>mdi-content-save</v-icon>
               <v-icon>mdi-ampersand</v-icon>
               <v-icon>mdi-file-outline</v-icon>
@@ -503,7 +504,7 @@
         <!-- Save button and continue editing the document. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark small color="orange" class="mx-4" v-bind="attrs" v-on="on">
+            <v-btn dark small depressed color="orange" class="mx-4" v-bind="attrs" v-on="on">
               <v-icon>mdi-content-save</v-icon>
               <v-icon>mdi-ampersand</v-icon>
               <v-icon>mdi-file-document-edit-outline</v-icon>
@@ -514,7 +515,7 @@
         <!-- Save button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark small color="blue" v-bind="attrs" v-on="on">
+            <v-btn dark small depressed color="blue" v-bind="attrs" v-on="on">
               <v-icon>mdi-content-save</v-icon>
             </v-btn>
           </template>
