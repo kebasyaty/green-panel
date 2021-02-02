@@ -31,7 +31,7 @@
               icon="mdi-alert"
             >{{ field.common_msg }}</v-alert>
 
-            <v-card flat outlined class="mt-8">
+            <v-card flat outlined class="mt-4">
               <v-card-text class="pt-2 pb-0">
                 <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">{{ field.label }}</v-card-title>
                 <v-card-subtitle
