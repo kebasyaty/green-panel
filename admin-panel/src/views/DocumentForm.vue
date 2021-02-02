@@ -365,7 +365,8 @@
                 <!-- Selection fields -->
                 <v-select
                   class="pt-0"
-                  v-if="['selectText', 'selectI32', 'selectU32', 'selectI64', 'selectF64'].includes(field.widget)"
+                  v-if="['selectText', 'selectI32', 'selectU32',
+                         'selectI64', 'selectF64'].includes(field.widget)"
                   clearable
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                   :items="field.options"
@@ -387,7 +388,8 @@
                 -->
                 <v-select
                   class="pt-0"
-                  v-if="['selectTextDyn', 'selectI32Dyn', 'selectU32Dyn', 'selectI64Dyn', 'selectF64Dyn'].includes(field.widget)"
+                  v-if="['selectTextDyn', 'selectI32Dyn', 'selectU32Dyn',
+                         'selectI64Dyn', 'selectF64Dyn'].includes(field.widget)"
                   clearable
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                   :items="field.options"
@@ -405,11 +407,37 @@
                 ></v-select>
 
                 <!-- Selection fields
-                     (Dynamic)
+                     (multiple)
                 -->
                 <v-select
                   class="pt-0"
-                  v-if="['selectTextMult', 'selectI32Mult', 'selectU32Mult', 'selectI64Mult', 'selectF64Mult'].includes(field.widget)"
+                  v-if="['selectTextMult', 'selectI32Mult', 'selectU32Mult',
+                         'selectI64Mult', 'selectF64Mult'].includes(field.widget)"
+                  clearable
+                  chips
+                  multiple
+                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+                  :items="field.options"
+                  item-text="title"
+                  item-value="value"
+                  v-model="fieldData[field.name]"
+                  :id="field.id"
+                  :name="field.name"
+                  :placeholder="field.placeholder"
+                  :required="field.required"
+                  :disabled="field.disabled"
+                  :readonly="field.readonly"
+                  :class="field.css_classes"
+                  :messages="field.warning"
+                ></v-select>
+
+                <!-- Selection fields
+                     (multiple, dynamic)
+                -->
+                <v-select
+                  class="pt-0"
+                  v-if="['selectTextMultDyn', 'selectI32MultDyn', 'selectU32MultDyn',
+                         'selectI64MultDyn', 'selectF64MultDyn'].includes(field.widget)"
                   clearable
                   chips
                   multiple
@@ -595,6 +623,13 @@ export default {
         case 'selectF64Mult':
           result = 'text-box-multiple-outline'
           break
+        case 'selectTextMultDyn':
+        case 'selectI32MultDyn':
+        case 'selectU32MultDyn':
+        case 'selectI64MultDyn':
+        case 'selectF64MultDyn':
+          result = 'plus-box-multiple-outline'
+          break
       }
       return result
     },
@@ -662,7 +697,13 @@ export default {
         { widget: 'selectI32Mult', id: 'id-select-i32-mult', label: 'Label Select I32 Mult', input_type: 'select', name: 'field_select_i32_mult', value: '', placeholder: 'Enter radio i32 mult', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0', 'Volvo'], ['-1', 'Saab'], ['-2', 'Mercedes'], ['-3', 'Audi']] },
         { widget: 'selectU32Mult', id: 'id-select-u32-mult', label: 'Label Select U32 Mult', input_type: 'select', name: 'field_select_u32_mult', value: '', placeholder: 'Enter radio u32 mult', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0', 'Volvo'], ['1', 'Saab'], ['2', 'Mercedes'], ['3', 'Audi']] },
         { widget: 'selectI64Mult', id: 'id-select-i64-mult', label: 'Label Select I64 Mult', input_type: 'select', name: 'field_select_i64_mult', value: '', placeholder: 'Enter radio i64 mult', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0', 'Volvo'], ['-1', 'Saab'], ['-2', 'Mercedes'], ['-3', 'Audi']] },
-        { widget: 'selectF64Mult', id: 'id-select-f64-mult', label: 'Label Select F64 Mult', input_type: 'select', name: 'field_select_f64_mult', value: '', placeholder: 'Enter radio f64 mult', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0.0', 'Volvo'], ['1.1', 'Saab'], ['2.2', 'Mercedes'], ['3.3', 'Audi']] }
+        { widget: 'selectF64Mult', id: 'id-select-f64-mult', label: 'Label Select F64 Mult', input_type: 'select', name: 'field_select_f64_mult', value: '', placeholder: 'Enter radio f64 mult', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0.0', 'Volvo'], ['1.1', 'Saab'], ['2.2', 'Mercedes'], ['3.3', 'Audi']] },
+
+        { widget: 'selectTextMultDyn', id: 'id-select-text-mult-dyn', label: 'Label Select Text Mult Dyn', input_type: 'select', name: 'field_select_text_mult_dyn', value: '', placeholder: 'Enter radio text mult dyn', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['volvo', 'Volvo'], ['saab', 'Saab'], ['mercedes', 'Mercedes'], ['audi', 'Audi']] },
+        { widget: 'selectI32MultDyn', id: 'id-select-i32-mult-dyn', label: 'Label Select I32 Mult Dyn', input_type: 'select', name: 'field_select_i32_mult_dyn', value: '', placeholder: 'Enter radio i32 mult dyn', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0', 'Volvo'], ['-1', 'Saab'], ['-2', 'Mercedes'], ['-3', 'Audi']] },
+        { widget: 'selectU32MultDyn', id: 'id-select-u32-mult-dyn', label: 'Label Select U32 Mult Dyn', input_type: 'select', name: 'field_select_u32_mult_dyn', value: '', placeholder: 'Enter radio u32 mult dyn', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0', 'Volvo'], ['1', 'Saab'], ['2', 'Mercedes'], ['3', 'Audi']] },
+        { widget: 'selectI64MultDyn', id: 'id-select-i64-mult-dyn', label: 'Label Select I64 Mult Dyn', input_type: 'select', name: 'field_select_i64_mult_dyn', value: '', placeholder: 'Enter radio i64 mult dyn', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0', 'Volvo'], ['-1', 'Saab'], ['-2', 'Mercedes'], ['-3', 'Audi']] },
+        { widget: 'selectF64MultDyn', id: 'id-select-f64-mult-dyn', label: 'Label Select F64 Mult Dyn', input_type: 'select', name: 'field_select_f64_mult_dyn', value: '', placeholder: 'Enter radio f64 mult dyn', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true, options: [['0.0', 'Volvo'], ['1.1', 'Saab'], ['2.2', 'Mercedes'], ['3.3', 'Audi']] }
       ]
 
       fields.forEach(field => {
@@ -776,6 +817,7 @@ export default {
             tmp = undefined
             break
           case 'selectTextMult':
+          case 'selectTextMultDyn':
             fieldData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : []
             field.options = field.options.map(function (item) {
               return { value: item[0], title: item[1] }
@@ -784,12 +826,17 @@ export default {
           case 'selectI32Mult':
           case 'selectU32Mult':
           case 'selectI64Mult':
+          case 'selectI32MultDyn':
+          case 'selectU32MultDyn':
+          case 'selectI64MultDyn':
+
             fieldData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : []
             field.options = field.options.map(function (item) {
               return { value: parseInt(item[0]), title: item[1] }
             })
             break
           case 'selectF64Mult':
+          case 'selectF64MultDyn':
             fieldData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : []
             field.options = field.options.map(function (item) {
               return { value: parseFloat(item[0]), title: item[1] }
