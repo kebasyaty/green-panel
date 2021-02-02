@@ -32,12 +32,16 @@
             >{{ field.common_msg }}</v-alert>
 
             <v-card flat outlined class="mt-4">
-              <v-card-text class="pt-2 pb-0">
-                <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">{{ field.label }}</v-card-title>
-                <v-card-subtitle
-                  v-if="field.hint.length > 0"
-                  class="pl-0 pb-1 pt-3"
-                >{{ field.hint }}</v-card-subtitle>
+              <v-card-text
+                :class="!['checkBox'].includes(field.widget) ? 'pt-2 pb-0' : 'pt-2 pb-4'"
+              >
+                <div v-if="!['checkBox'].includes(field.widget)">
+                  <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">{{ field.label }}</v-card-title>
+                  <v-card-subtitle
+                    v-if="field.hint.length > 0"
+                    class="pl-0 pb-1 pt-3"
+                  >{{ field.hint }}</v-card-subtitle>
+                </div>
 
                 <!-- Text fields -->
                 <v-text-field
@@ -127,11 +131,14 @@
                 <!-- Checkbox fields -->
                 <v-checkbox
                   class="mt-0"
+                  persistent-hint
                   v-if="['checkBox'].includes(field.widget)"
                   v-model="fieldData[field.name]"
                   :id="field.id"
+                  :label="field.label"
                   :type="field.input_type"
                   :name="field.name"
+                  :hint="field.hint"
                   :disabled="field.disabled"
                   :readonly="field.readonly"
                   :class="field.css_classes"
@@ -662,8 +669,8 @@ export default {
 
         { widget: 'numberI32', id: 'id-number-i32', label: 'Label Number I32', input_type: 'number', name: 'field_number_i32', value: '', placeholder: 'Enter number i32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
         { widget: 'numberU32', id: 'id-number-u32', label: 'Label Number U32', input_type: 'number', name: 'field_number_u32', value: '0', placeholder: 'Enter number u32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
-        { widget: 'numberI64', id: 'id-number-i64', label: 'Label Number I64', input_type: 'number', name: 'field_number_i64', value: '-1', placeholder: 'Enter number i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
-        { widget: 'numberF64', id: 'id-number-f64', label: 'Label Number F64', input_type: 'number', name: 'field_number_f64', value: '0.0', placeholder: 'Enter number f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
+        { widget: 'numberI64', id: 'id-number-i64', label: 'Label Number I64', input_type: 'number', name: 'field_number_i64', value: '-1', placeholder: 'Enter number i64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '1', min: '', max: '', required: true },
+        { widget: 'numberF64', id: 'id-number-f64', label: 'Label Number F64', input_type: 'number', name: 'field_number_f64', value: '0.0', placeholder: 'Enter number f64', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '0.1', min: '', max: '', required: true },
 
         { widget: 'rangeI32', id: 'id-range-i32', label: 'Label Range I32', input_type: 'range', name: 'field_range_i32', value: '0', placeholder: 'Enter range i32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '1', min: '0', max: '10', required: true },
         { widget: 'rangeU32', id: 'id-range-u32', label: 'Label Range U32', input_type: 'range', name: 'field_range_u32', value: '0', placeholder: 'Enter range u32', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '1', min: '10', max: '100', required: true },
