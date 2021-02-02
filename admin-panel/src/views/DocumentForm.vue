@@ -42,15 +42,16 @@
                     class="pl-0 pb-1 pt-3"
                   >{{ field.hint }}</v-card-subtitle>
                   <v-btn
+                    dark
                     x-small
                     depressed
                     v-if="field.widget.includes('Dyn')"
-                    color="orange lighten-2"
+                    color="orange darken-1"
                     class="mb-2"
                   >
-                    <v-icon color="black">mdi-plus</v-icon>
-                    <span class="black--text">/</span>
-                    <v-icon color="black">mdi-minus</v-icon>
+                    <v-icon>mdi-plus</v-icon>
+                    <span>/</span>
+                    <v-icon>mdi-minus</v-icon>
                   </v-btn>
                 </div>
 
