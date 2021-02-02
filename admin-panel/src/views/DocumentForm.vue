@@ -47,8 +47,9 @@
                     color="orange lighten-2"
                     class="mb-2"
                   >
-                    <v-icon>mdi-plus</v-icon>/
-                    <v-icon>mdi-minus</v-icon>
+                    <v-icon color="black">mdi-plus</v-icon>
+                    <span class="black--text">/</span>
+                    <v-icon color="black">mdi-minus</v-icon>
                   </v-btn>
                 </div>
 
@@ -481,7 +482,7 @@
         <!-- Delete button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark outlined depressed small color="red" v-bind="attrs" v-on="on">
+            <v-btn dark small color="red" v-bind="attrs" v-on="on">
               <v-icon>mdi-close-thick</v-icon>
             </v-btn>
           </template>
@@ -491,7 +492,7 @@
         <!-- Save button and create a new document. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark outlined depressed small color="green" v-bind="attrs" v-on="on">
+            <v-btn dark small color="green" v-bind="attrs" v-on="on">
               <v-icon>mdi-content-save</v-icon>
               <v-icon>mdi-ampersand</v-icon>
               <v-icon>mdi-file-outline</v-icon>
@@ -502,16 +503,7 @@
         <!-- Save button and continue editing the document. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              dark
-              outlined
-              depressed
-              small
-              color="orange"
-              class="mx-4"
-              v-bind="attrs"
-              v-on="on"
-            >
+            <v-btn dark small color="orange" class="mx-4" v-bind="attrs" v-on="on">
               <v-icon>mdi-content-save</v-icon>
               <v-icon>mdi-ampersand</v-icon>
               <v-icon>mdi-file-document-edit-outline</v-icon>
@@ -522,7 +514,7 @@
         <!-- Save button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark outlined depressed small color="blue" v-bind="attrs" v-on="on">
+            <v-btn dark small color="blue" v-bind="attrs" v-on="on">
               <v-icon>mdi-content-save</v-icon>
             </v-btn>
           </template>
