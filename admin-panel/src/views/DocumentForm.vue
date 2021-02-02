@@ -41,18 +41,48 @@
                     v-if="field.hint.length > 0"
                     class="pl-0 pb-1 pt-3"
                   >{{ field.hint }}</v-card-subtitle>
-                  <v-btn
-                    dark
-                    x-small
-                    depressed
+                  <v-dialog
+                    persistent
+                    max-width="600px"
+                    v-model="dynamicSelectionDialog[field.name]"
                     v-if="field.widget.includes('Dyn')"
-                    color="orange darken-1"
-                    class="mb-2"
                   >
-                    <v-icon>mdi-plus</v-icon>
-                    <span>/</span>
-                    <v-icon>mdi-minus</v-icon>
-                  </v-btn>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        dark
+                        x-small
+                        depressed
+                        color="orange darken-1"
+                        class="mb-2"
+                        v-bind="attrs"
+                        v-on="on"
+                      >
+                        <v-icon>mdi-plus</v-icon>
+                        <span>/</span>
+                        <v-icon>mdi-minus</v-icon>
+                      </v-btn>
+                    </template>
+                    <v-card>
+                      <v-card-text>
+                        <v-card-title>
+                          <span class="headline">User Profile</span>
+                        </v-card-title>
+                      </v-card-text>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          text
+                          color="primary"
+                          @click="dynamicSelectionDialog[field.name] = false"
+                        >Close</v-btn>
+                        <v-btn
+                          text
+                          color="primary"
+                          @click="dynamicSelectionDialog[field.name] = false"
+                        >Save</v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
                 </div>
 
                 <!-- Text fields -->
@@ -536,7 +566,8 @@ export default {
   data: () => ({
     vMenu: {},
     fieldData: {},
-    fields: []
+    fields: [],
+    dynamicSelectionDialog: {}
   }),
 
   computed: {
@@ -642,6 +673,7 @@ export default {
     getFormData() {
       const vMenu = {}
       const fieldData = {}
+      const dynamicSelectionDialog = {}
       let tmp
       const fields = [
         { widget: 'inputText', id: 'id-text', label: 'Label Text', input_type: 'text', name: 'field_text', value: 'Lorem ipsum dolor sit amet', placeholder: 'Enter text', disabled: false, readonly: false, css_classes: 'class-name', hint: 'Quisque tristique magna tortor.', warning: '', error: '', common_msg: '', step: '', min: '', max: '', required: true },
@@ -794,7 +826,6 @@ export default {
             fieldData[field.name] = field.checked
             break
           case 'selectText':
-          case 'selectTextDyn':
             fieldData[field.name] = field.value || ''
             field.options = field.options.map(function (item) {
               return { value: item[0], title: item[1] }
@@ -803,9 +834,6 @@ export default {
           case 'selectI32':
           case 'selectU32':
           case 'selectI64':
-          case 'selectI32Dyn':
-          case 'selectU32Dyn':
-          case 'selectI64Dyn':
             tmp = parseInt(field.value)
             fieldData[field.name] = !Number.isNaN(tmp) ? tmp : ''
             field.options = field.options.map(function (item) {
@@ -814,7 +842,6 @@ export default {
             tmp = undefined
             break
           case 'selectF64':
-          case 'selectF64Dyn':
             tmp = parseFloat(field.value)
             fieldData[field.name] = !Number.isNaN(tmp) ? tmp : ''
             field.options = field.options.map(function (item) {
@@ -823,7 +850,6 @@ export default {
             tmp = undefined
             break
           case 'selectTextMult':
-          case 'selectTextMultDyn':
             fieldData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : []
             field.options = field.options.map(function (item) {
               return { value: item[0], title: item[1] }
@@ -832,26 +858,73 @@ export default {
           case 'selectI32Mult':
           case 'selectU32Mult':
           case 'selectI64Mult':
-          case 'selectI32MultDyn':
-          case 'selectU32MultDyn':
-          case 'selectI64MultDyn':
-
             fieldData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : []
             field.options = field.options.map(function (item) {
               return { value: parseInt(item[0]), title: item[1] }
             })
             break
           case 'selectF64Mult':
-          case 'selectF64MultDyn':
             fieldData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : []
             field.options = field.options.map(function (item) {
               return { value: parseFloat(item[0]), title: item[1] }
             })
             break
+
+          case 'selectTextDyn':
+            fieldData[field.name] = field.value || ''
+            field.options = field.options.map(function (item) {
+              return { value: item[0], title: item[1] }
+            })
+            dynamicSelectionDialog[field.name] = false
+            break
+          case 'selectI32Dyn':
+          case 'selectU32Dyn':
+          case 'selectI64Dyn':
+            tmp = parseInt(field.value)
+            fieldData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+            field.options = field.options.map(function (item) {
+              return { value: parseInt(item[0]), title: item[1] }
+            })
+            dynamicSelectionDialog[field.name] = false
+            tmp = undefined
+            break
+          case 'selectF64Dyn':
+            tmp = parseFloat(field.value)
+            fieldData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+            field.options = field.options.map(function (item) {
+              return { value: parseFloat(item[0]), title: item[1] }
+            })
+            dynamicSelectionDialog[field.name] = false
+            tmp = undefined
+            break
+          case 'selectTextMultDyn':
+            fieldData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : []
+            field.options = field.options.map(function (item) {
+              return { value: item[0], title: item[1] }
+            })
+            dynamicSelectionDialog[field.name] = false
+            break
+          case 'selectI32MultDyn':
+          case 'selectU32MultDyn':
+          case 'selectI64MultDyn':
+            fieldData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : []
+            field.options = field.options.map(function (item) {
+              return { value: parseInt(item[0]), title: item[1] }
+            })
+            dynamicSelectionDialog[field.name] = false
+            break
+          case 'selectF64MultDyn':
+            fieldData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : []
+            field.options = field.options.map(function (item) {
+              return { value: parseFloat(item[0]), title: item[1] }
+            })
+            dynamicSelectionDialog[field.name] = false
+            break
         }
       })
       this.vMenu = vMenu
       this.fieldData = fieldData
+      this.dynamicSelectionDialog = dynamicSelectionDialog
       this.fields = fields
     }
   },
