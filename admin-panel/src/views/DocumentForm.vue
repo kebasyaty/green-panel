@@ -593,7 +593,15 @@
         <!-- Save button and create a new document. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark small depressed color="green" v-bind="attrs" v-on="on" @click="saveDoc()">
+            <v-btn
+              dark
+              small
+              depressed
+              color="green"
+              v-bind="attrs"
+              v-on="on"
+              @click="saveDoc('and_new')"
+            >
               <v-icon>mdi-content-save</v-icon>
               <v-icon>mdi-ampersand</v-icon>
               <v-icon>mdi-file-outline</v-icon>
@@ -612,7 +620,7 @@
               class="mx-4"
               v-bind="attrs"
               v-on="on"
-              @click="saveDoc()"
+              @click="saveDoc('and_edit')"
             >
               <v-icon>mdi-content-save</v-icon>
               <v-icon>mdi-ampersand</v-icon>
@@ -1027,8 +1035,8 @@ export default {
     },
 
     // Save/Update the document.
-    saveDoc() {
-      window.console.log('Save document')
+    saveDoc(mode = 'save') {
+      window.console.log('Save document', mode)
     }
   },
 
