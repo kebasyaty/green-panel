@@ -23,7 +23,9 @@
             :name="field.name"
           />
 
+          <!-- Others fields. -->
           <div v-if="!field.widget.includes('hidden')">
+            <!-- Common messages for all fields. -->
             <v-alert
               v-if="field.common_msg.length > 0"
               dark
@@ -31,16 +33,20 @@
               icon="mdi-alert"
             >{{ field.common_msg }}</v-alert>
 
+            <!-- Wrapper for fields. -->
             <v-card flat outlined class="mt-4">
               <v-card-text
                 :class="!['checkBox'].includes(field.widget) ? 'pt-2 pb-0' : 'pt-2 pb-4'"
               >
                 <div v-if="!['checkBox'].includes(field.widget)">
+                  <!-- Title of field. -->
                   <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">{{ field.label }}</v-card-title>
+                  <!-- Hint for field. -->
                   <v-card-subtitle
                     v-if="field.hint.length > 0"
                     class="pl-0 pb-1 pt-3"
                   >{{ field.hint }}</v-card-subtitle>
+                  <!-- Dialogue for fields with dynamic widgets. -->
                   <v-dialog
                     persistent
                     max-width="600px"
@@ -48,6 +54,7 @@
                     v-if="field.widget.includes('Dyn')"
                   >
                     <template v-slot:activator="{ on, attrs }">
+                      <!-- Button - Open a dialog. -->
                       <v-btn
                         dark
                         x-small
@@ -63,16 +70,19 @@
                       </v-btn>
                     </template>
                     <v-card>
+                      <!-- Add new list item. -->
                       <v-card-text>
                         <v-card-subtitle>{{ $t('message.22') }}</v-card-subtitle>
                       </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
+                        <!-- Button - Close. -->
                         <v-btn
                           text
                           color="primary"
                           @click="[delDynItems = [], dynamicSelectionDialog[field.name] = false]"
                         >{{ $t('message.18') }}</v-btn>
+                        <!-- Button - Save. -->
                         <v-btn
                           text
                           color="primary"
@@ -80,6 +90,7 @@
                         >{{ $t('message.19') }}</v-btn>
                       </v-card-actions>
                       <v-divider></v-divider>
+                      <!-- Remove irrelevant items. -->
                       <v-card-text>
                         <v-list subheader two-line flat>
                           <v-subheader>{{ $t('message.20') }}</v-subheader>
@@ -100,11 +111,13 @@
                       </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
+                        <!-- Button - Close. -->
                         <v-btn
                           text
                           color="primary"
                           @click="[delDynItems = [], dynamicSelectionDialog[field.name] = false]"
                         >{{ $t('message.18') }}</v-btn>
+                        <!-- Button - Delete. -->
                         <v-btn
                           text
                           color="primary"
