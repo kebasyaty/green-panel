@@ -8,7 +8,7 @@ const routes = [
   // Home page.
   {
     path: '/',
-    name: 'Home',
+    name: 'home',
     component: Home,
     meta: {
       authRequired: true
@@ -20,10 +20,10 @@ const routes = [
     name: 'signin',
     component: () => import('../views/Signin.vue')
   },
-  // Document list.
+  // Document list
   {
     path: '/:service/:indexService/:collection/:indexCollection/document-list',
-    name: 'DocumentList',
+    name: 'documentList',
     component: () => import('../views/DocumentList.vue'),
     meta: {
       authRequired: true
@@ -32,7 +32,7 @@ const routes = [
   // Open a document in a form.
   {
     path: '/:service/:indexService/:collection/:indexCollection/document/:indexDoc',
-    name: 'DocumentForm',
+    name: 'documenForm',
     component: () => import('../views/DocumentForm.vue'),
     meta: {
       authRequired: true
@@ -40,8 +40,8 @@ const routes = [
   },
   // Form - Create a new document.
   {
-    path: '/:service/:indexService/:collection/:indexCollection/create-document',
-    name: 'DocumentForm',
+    path: '/:service/:indexService/:collection/:indexCollection/document/new',
+    name: 'createDocumentForm',
     component: () => import('../views/DocumentForm.vue'),
     meta: {
       authRequired: true
@@ -50,7 +50,7 @@ const routes = [
   // Error 404 - Page not found.
   {
     path: '*',
-    name: 'NotFound',
+    name: 'notFound',
     component: () => import('../views/NotFound.vue'),
     meta: {
       authRequired: true
