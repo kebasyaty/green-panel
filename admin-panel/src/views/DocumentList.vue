@@ -134,11 +134,13 @@ export default {
       'headers',
       'documents'
     ]),
+    // Get Title of collection.
     collectionTitle: function () {
       const indexService = this.$route.params.indexService
       const indexCollection = this.$route.params.indexCollection
       return this.serviceList[indexService].collections[indexCollection].title
     },
+    // Get the route scheme to the collection.
     breadcrumbs: function () {
       const indexService = this.$route.params.indexService
       const serviceTitle = this.serviceList[indexService].service.title
@@ -157,6 +159,7 @@ export default {
   },
 
   methods: {
+    // Router - Go back one step.
     goBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
     },

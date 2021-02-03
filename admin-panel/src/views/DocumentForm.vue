@@ -623,11 +623,13 @@ export default {
       'headers',
       'documents'
     ]),
+    // Get Title of document.
     docTitle: function () {
       const indexDoc = this.$route.params.indexDoc
       const docTitle = this.documents[indexDoc][Object.keys(this.headers[0])[0]]
       return docTitle
     },
+    // Get scheme route of document.
     breadcrumbs: function () {
       const indexService = this.$route.params.indexService
       const indexCollection = this.$route.params.indexCollection
@@ -637,9 +639,11 @@ export default {
   },
 
   methods: {
+    // Router - Go back one step.
     goBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
     },
+    // Get icon of field.
     getFieldIcon(widget) {
       let result = ''
       switch (widget) {
@@ -713,6 +717,7 @@ export default {
       }
       return result
     },
+    // Get data for fields of form.
     getFormData() {
       const vMenu = {}
       const fieldData = {}
