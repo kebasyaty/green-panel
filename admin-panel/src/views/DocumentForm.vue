@@ -75,10 +75,18 @@
                         <v-card-subtitle>{{ $t('message.22') }}</v-card-subtitle>
                         <v-row>
                           <v-col cols="12" sm="6">
-                            <v-text-field :label="$t('message.23')" clearable></v-text-field>
+                            <v-text-field
+                              clearable
+                              :label="$t('message.23')"
+                              v-model="currValDynItem.title"
+                            ></v-text-field>
                           </v-col>
                           <v-col cols="12" sm="6">
-                            <v-text-field :label="$t('message.24')" clearable></v-text-field>
+                            <v-text-field
+                              clearable
+                              :label="$t('message.24')"
+                              v-model="currValDynItem.value"
+                            ></v-text-field>
                           </v-col>
                         </v-row>
                       </v-card-text>
@@ -88,13 +96,14 @@
                         <v-btn
                           text
                           color="primary"
-                          @click="[delDynItems = [], dynamicSelectionDialog[field.name] = false]"
+                          @click="[dynamicSelectionDialog[field.name] = false], delDynItems = [], currValDynItem = {title: null, value: null}"
                         >{{ $t('message.18') }}</v-btn>
                         <!-- Button - Save. -->
                         <v-btn
                           text
                           color="green"
-                          @click="[saveNewDynItem(), dynamicSelectionDialog[field.name] = false, delDynItems = []]"
+                          :disabled="currValDynItem.title === null || currValDynItem.value === null"
+                          @click="[saveNewDynItem(field.name), dynamicSelectionDialog[field.name] = false, delDynItems = [], currValDynItem = {title: null, value: null}]"
                         >{{ $t('message.19') }}</v-btn>
                       </v-card-actions>
                       <v-divider></v-divider>
@@ -620,7 +629,8 @@ export default {
     fieldData: {},
     fields: [],
     dynamicSelectionDialog: {},
-    delDynItems: []
+    delDynItems: [],
+    currValDynItem: { title: null, value: null }
   }),
 
   computed: {
@@ -984,8 +994,8 @@ export default {
       this.fields = fields
     },
 
-    saveNewDynItem() {
-      window.console.log(this.delDynItems)
+    saveNewDynItem(fieldName) {
+      window.console.log(fieldName, this.currValDynItem)
     },
 
     removeDynItem(choice) {
