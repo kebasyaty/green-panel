@@ -96,14 +96,19 @@
                         <v-btn
                           text
                           color="primary"
-                          @click="[dynamicSelectionDialog[field.name] = false], delDynItems = [], currValDynItem = {title: null, value: null}"
+                          @click="[dynamicSelectionDialog[field.name] = false],
+                                   delDynItems = [],
+                                   currValDynItem = {title: null, value: null}"
                         >{{ $t('message.18') }}</v-btn>
                         <!-- Button - Save. -->
                         <v-btn
                           text
                           color="green"
                           :disabled="currValDynItem.title === null || currValDynItem.value === null"
-                          @click="[saveNewDynItem(field.name), dynamicSelectionDialog[field.name] = false, delDynItems = [], currValDynItem = {title: null, value: null}]"
+                          @click="[saveNewDynItem(field.name),
+                                   dynamicSelectionDialog[field.name] = false,
+                                   delDynItems = [],
+                                   currValDynItem = {title: null, value: null}]"
                         >{{ $t('message.19') }}</v-btn>
                       </v-card-actions>
                       <v-divider></v-divider>
@@ -132,14 +137,17 @@
                         <v-btn
                           text
                           color="primary"
-                          @click="[delDynItems = [], dynamicSelectionDialog[field.name] = false]"
+                          @click="[delDynItems = [],
+                                   dynamicSelectionDialog[field.name] = false]"
                         >{{ $t('message.18') }}</v-btn>
                         <!-- Button - Delete. -->
                         <v-btn
                           text
                           color="red"
                           :disabled="delDynItems.length === 0"
-                          @click="[removeDynItem(field.options), dynamicSelectionDialog[field.name] = false, delDynItems = []]"
+                          @click="[removeDynItem(field.options),
+                                   dynamicSelectionDialog[field.name] = false,
+                                   delDynItems = []]"
                         >{{ $t('message.21') }}</v-btn>
                       </v-card-actions>
                     </v-card>
