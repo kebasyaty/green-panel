@@ -122,7 +122,7 @@
                           text
                           color="red"
                           :disabled="delDynItems.length === 0"
-                          @click="[removeDynItem(), dynamicSelectionDialog[field.name] = false, delDynItems = []]"
+                          @click="[removeDynItem(field.options), dynamicSelectionDialog[field.name] = false, delDynItems = []]"
                         >{{ $t('message.21') }}</v-btn>
                       </v-card-actions>
                     </v-card>
@@ -980,8 +980,8 @@ export default {
       window.console.log(this.delDynItems)
     },
 
-    removeDynItem() {
-      window.console.log(this.delDynItems)
+    removeDynItem(options) {
+      window.console.log(this.delDynItems, options)
     }
   },
 
