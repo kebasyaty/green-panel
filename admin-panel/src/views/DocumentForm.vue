@@ -669,7 +669,7 @@ export default {
     // Get Title of document.
     docTitle: function () {
       const indexDoc = this.$route.params.indexDoc
-      let docTitle = 'New document'
+      let docTitle = this.$t('message.26')
       if (indexDoc !== 'new') {
         docTitle = this.documents[indexDoc][Object.keys(this.headers[0])[0]]
       }

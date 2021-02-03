@@ -26,6 +26,7 @@ export default {
     22: 'Add new list item',
     23: 'Title',
     24: 'Value',
-    25: 'Create a new document'
+    25: 'Create a new document',
+    26: 'New document'
   }
 }
