@@ -145,7 +145,7 @@
                           text
                           color="red"
                           :disabled="delDynItems.length === 0"
-                          @click="[removeDynItem(field.options),
+                          @click="[removeDynItems(field.options),
                                    dynamicSelectionDialog[field.name] = false,
                                    delDynItems = []]"
                         >{{ $t('message.21') }}</v-btn>
@@ -583,7 +583,7 @@
         <!-- Delete button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark small depressed color="red" v-bind="attrs" v-on="on">
+            <v-btn dark small depressed color="red" v-bind="attrs" v-on="on" @click="removeDoc()">
               <v-icon>mdi-close-thick</v-icon>
             </v-btn>
           </template>
@@ -1002,12 +1002,19 @@ export default {
       this.fields = fields
     },
 
+    // Add a new dynamic element.
     saveNewDynItem(fieldName) {
       window.console.log(fieldName, this.currValDynItem)
     },
 
-    removeDynItem(choice) {
+    // Remove selected dynamic elements.
+    removeDynItems(choice) {
       window.console.log(this.delDynItems, choice)
+    },
+
+    // Remove document from collection.
+    removeDoc() {
+      //
     }
   },
 
