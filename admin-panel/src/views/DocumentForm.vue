@@ -593,7 +593,7 @@
         <!-- Save button and create a new document. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark small depressed color="green" v-bind="attrs" v-on="on">
+            <v-btn dark small depressed color="green" v-bind="attrs" v-on="on" @click="saveDoc()">
               <v-icon>mdi-content-save</v-icon>
               <v-icon>mdi-ampersand</v-icon>
               <v-icon>mdi-file-outline</v-icon>
@@ -604,7 +604,16 @@
         <!-- Save button and continue editing the document. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark small depressed color="orange" class="mx-4" v-bind="attrs" v-on="on">
+            <v-btn
+              dark
+              small
+              depressed
+              color="orange"
+              class="mx-4"
+              v-bind="attrs"
+              v-on="on"
+              @click="saveDoc()"
+            >
               <v-icon>mdi-content-save</v-icon>
               <v-icon>mdi-ampersand</v-icon>
               <v-icon>mdi-file-document-edit-outline</v-icon>
@@ -615,7 +624,7 @@
         <!-- Save button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark small depressed color="blue" v-bind="attrs" v-on="on">
+            <v-btn dark small depressed color="blue" v-bind="attrs" v-on="on" @click="saveDoc()">
               <v-icon>mdi-content-save</v-icon>
             </v-btn>
           </template>
@@ -1014,7 +1023,12 @@ export default {
 
     // Remove document from collection.
     removeDoc() {
-      //
+      window.console.log('Remove document')
+    },
+
+    // Save/Update the document.
+    saveDoc() {
+      window.console.log('Save document')
     }
   },
 
