@@ -85,7 +85,7 @@
                         <!-- Button - Save. -->
                         <v-btn
                           text
-                          color="primary"
+                          color="green"
                           @click="[saveNewDynItem(), dynamicSelectionDialog[field.name] = false, delDynItems = []]"
                         >{{ $t('message.19') }}</v-btn>
                       </v-card-actions>
@@ -120,7 +120,7 @@
                         <!-- Button - Delete. -->
                         <v-btn
                           text
-                          color="primary"
+                          color="red"
                           :disabled="delDynItems.length === 0"
                           @click="[removeDynItem(), dynamicSelectionDialog[field.name] = false, delDynItems = []]"
                         >{{ $t('message.21') }}</v-btn>
