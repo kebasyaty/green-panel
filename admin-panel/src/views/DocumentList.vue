@@ -27,7 +27,7 @@
           </v-col>
           <v-col cols="12" md="6" class="text-md-right">
             <!-- Button - Create a new document. -->
-            <v-btn dark small depressed color="green">
+            <v-btn dark small depressed color="green" :to="docUrlNoIndex">
               <v-icon left>mdi-plus</v-icon>
               {{ $t('message.25') }}
             </v-btn>

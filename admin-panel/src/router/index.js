@@ -20,7 +20,7 @@ const routes = [
     name: 'signin',
     component: () => import('../views/Signin.vue')
   },
-  // Document list
+  // Document list.
   {
     path: '/:service/:indexService/:collection/:indexCollection/document-list',
     name: 'DocumentList',
@@ -29,9 +29,18 @@ const routes = [
       authRequired: true
     }
   },
-  // Document form
+  // Open a document in a form.
   {
     path: '/:service/:indexService/:collection/:indexCollection/document/:indexDoc',
+    name: 'DocumentForm',
+    component: () => import('../views/DocumentForm.vue'),
+    meta: {
+      authRequired: true
+    }
+  },
+  // Form - Create a new document.
+  {
+    path: '/:service/:indexService/:collection/:indexCollection/create-document',
     name: 'DocumentForm',
     component: () => import('../views/DocumentForm.vue'),
     meta: {
