@@ -669,8 +669,10 @@ export default {
     // Get Title of document.
     docTitle: function () {
       const indexDoc = this.$route.params.indexDoc
-      window.console.log(indexDoc)
-      const docTitle = this.documents[indexDoc][Object.keys(this.headers[0])[0]]
+      let docTitle = 'New document'
+      if (indexDoc !== 'new') {
+        docTitle = this.documents[indexDoc][Object.keys(this.headers[0])[0]]
+      }
       return docTitle
     },
     // Get scheme route of document.
