@@ -73,6 +73,14 @@
                       <!-- Add new list item. -->
                       <v-card-text>
                         <v-card-subtitle>{{ $t('message.22') }}</v-card-subtitle>
+                        <v-row>
+                          <v-col cols="12" sm="6">
+                            <v-text-field :label="$t('message.23')" clearable></v-text-field>
+                          </v-col>
+                          <v-col cols="12" sm="6">
+                            <v-text-field :label="$t('message.24')" clearable></v-text-field>
+                          </v-col>
+                        </v-row>
                       </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
@@ -980,8 +988,8 @@ export default {
       window.console.log(this.delDynItems)
     },
 
-    removeDynItem(options) {
-      window.console.log(this.delDynItems, options)
+    removeDynItem(choice) {
+      window.console.log(this.delDynItems, choice)
     }
   },
 

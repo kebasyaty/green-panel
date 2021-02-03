@@ -23,6 +23,8 @@ export default {
     19: 'Save',
     20: 'Remove irrelevant items',
     21: 'Delete',
-    22: 'Add new list item'
+    22: 'Add new list item',
+    23: 'Title',
+    24: 'Value'
   }
 }
