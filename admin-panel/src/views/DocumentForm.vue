@@ -669,6 +669,7 @@ export default {
     // Get Title of document.
     docTitle: function () {
       const indexDoc = this.$route.params.indexDoc
+      window.console.log(indexDoc)
       const docTitle = this.documents[indexDoc][Object.keys(this.headers[0])[0]]
       return docTitle
     },

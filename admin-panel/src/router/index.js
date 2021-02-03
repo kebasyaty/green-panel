@@ -38,15 +38,6 @@ const routes = [
       authRequired: true
     }
   },
-  // Form - Create a new document.
-  {
-    path: '/:service/:indexService/:collection/:indexCollection/document/new',
-    name: 'createDocumentForm',
-    component: () => import('../views/DocumentForm.vue'),
-    meta: {
-      authRequired: true
-    }
-  },
   // Error 404 - Page not found.
   {
     path: '*',
