@@ -1,9 +1,30 @@
 [package]
-name = "mango-panel"
-version = "0.1.0"
 authors = ["kebasyaty <kebasyaty@gmail.com>"]
+description = "An example of implementing the admin panel."
 edition = "2018"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+license = "MIT OR Apache-2.0"
+name = "mango-panel"
+readme = "README.md"
+version = "0.1.0"
 
 [dependencies]
+actix-cors = "0.5"
+actix-files = "0.4"
+actix-http = "2.1"
+actix-multipart = "0.3"
+actix-rt = "1.1"
+actix-session = "0.4"
+actix-web = "3"
+chrono = "0.4"
+env_logger = "0.8"
+futures = "0.3"
+sanitize-filename = "0.3"
+serde_json = "1.0"
+str_slug = "0.1"
+
+[dependencies.serde]
+features = ["derive"]
+version = "1.0"
+
+[dependencies.tera]
+version = "1.5"
