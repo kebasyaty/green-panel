@@ -3,11 +3,11 @@
 
 pub use application_state::*;
 pub use corrective_functions::*;
-pub use general_settings::*;
+pub use general::*;
 
 pub mod application_state;
 pub mod corrective_functions;
-pub mod general_settings;
+pub mod general;
 
 // TESTS
 // #################################################################################################

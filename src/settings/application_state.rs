@@ -1,7 +1,7 @@
 //! # APPLICATION STATE
 //!
 
-use crate::settings::general_settings::{
+use crate::settings::general::{
     DEBUG, MEDIA_ROOT, MEDIA_URL, PROJECT_NAME, STATIC_ROOT, STATIC_URL, TEMPLATES,
 };
 
