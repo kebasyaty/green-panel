@@ -1,7 +1,7 @@
 //! # CORRECTIVE FUNCTIONS
 //!
 
-use crate::settings::default_settings::{LOCAL_DOMAIN, PORT, SITE_DOMAIN};
+use crate::settings::general_settings::{LOCAL_DOMAIN, PORT, SITE_DOMAIN};
 
 pub fn local_domain() -> String {
     format!("{}:{}", LOCAL_DOMAIN, PORT)

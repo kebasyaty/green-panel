@@ -1,4 +1,4 @@
-//! # DEFAULT SETTINGS
+//! # GENERAL SETTINGS
 //!
 
 // Development status
