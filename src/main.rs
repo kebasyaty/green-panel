@@ -50,11 +50,25 @@ async fn main() -> std::io::Result<()> {
                     .header(http::header::X_CONTENT_TYPE_OPTIONS, "nosniff")
                     .header(
                         http::header::CONTENT_SECURITY_POLICY,
-                        concat!(
-                            "default-src 'none'; script-src 'self'; connect-src 'self';",
-                            " img-src 'self' data:; style-src 'self'; base-uri 'self';",
-                            " form-action 'self'; font-src 'self';"
-                        ),
+                        if settings::DEBUG {
+                            concat!(
+                                "default-src 'self'; connect-src http:; font-src http: data:;",
+                                " frame-src 'self'; frame-ancestors 'self';",
+                                " img-src http: data:; media-src http:; object-src http:;",
+                                " script-src 'unsafe-inline' 'unsafe-eval' http:;",
+                                " style-src 'unsafe-inline' http:;",
+                                " form-action 'self'; base-uri 'self';"
+                            )
+                        } else {
+                            concat!(
+                                "default-src 'self'; connect-src https:; font-src https: data:;",
+                                " frame-src 'self'; frame-ancestors 'self';",
+                                " img-src https: data:; media-src https:; object-src https:;",
+                                " script-src 'unsafe-inline' 'unsafe-eval' https:;",
+                                " style-src 'unsafe-inline' https:;",
+                                " form-action 'self'; base-uri 'self';"
+                            )
+                        },
                     )
                     .header(
                         http::header::STRICT_TRANSPORT_SECURITY,
