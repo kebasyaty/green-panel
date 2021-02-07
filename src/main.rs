@@ -96,9 +96,9 @@ async fn main() -> std::io::Result<()> {
             // Block `head` request
             .route("*", web::head().to(|| HttpResponse::MethodNotAllowed()))
             // Static files
-            .service(Files::new("/static", "./static"))
+            .service(Files::new("/static", settings::STATIC_ROOT.to_owned()))
             // Media files
-            .service(Files::new("/media", "./media"))
+            .service(Files::new("/media", settings::MEDIA_ROOT.to_owned()))
             // Specific handlers
             .route("/favicon.ico", web::route().to(specific::favicon))
             .route("/robots.txt", web::route().to(specific::robots))
