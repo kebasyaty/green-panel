@@ -1,5 +1,6 @@
 //! # Admin
 //! Service/Subapplication for administration.
+//!
 
 use actix_web::{web, HttpResponse, Responder};
 use tera::{Context, Tera};
