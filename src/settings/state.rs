@@ -37,20 +37,25 @@ impl AppState {
         self.app_name.clone()
     }
     // Get media file path
+    // Example inner_path: "images/photo.png"
     pub fn get_media_url(&self, inner_path: &str) -> String {
         format!("{}{}", self.media_url, inner_path)
     }
+    // Example inner_path: "images/photo.png"
     pub fn get_media_root(&self, inner_path: &str) -> String {
         format!("{}{}", self.media_root, inner_path)
     }
     // Get static file path
+    // Example inner_path: "favicons/favicon.ico"
     pub fn get_static_url(&self, inner_path: &str) -> String {
         format!("{}{}", self.static_url, inner_path)
     }
+    // Example inner_path: "favicons/favicon.ico"
     pub fn get_static_root(&self, inner_path: &str) -> String {
         format!("{}{}", self.static_root, inner_path)
     }
     // Get template file path
+    // Example inner_path: "index.html"
     pub fn get_template(&self, inner_path: &str) -> String {
         format!("{}{}", self.templates, inner_path)
     }

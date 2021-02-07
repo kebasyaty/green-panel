@@ -2,11 +2,10 @@
 //! Service/Subapplication for administration.
 //!
 
-use actix_web::{web, HttpResponse, Responder};
-use tera::{Context, Tera};
+use actix_files::NamedFile;
+use actix_web::{web, Result};
 
 use crate::settings;
-
 pub use configure_urls::*;
 pub use request_handlers::*;
 
@@ -27,17 +26,8 @@ pub mod request_handlers {
 
     // Admin panel
     // *********************************************************************************************
-    pub async fn admin_panel(
-        app_state: web::Data<settings::AppState>,
-        tmpl: web::Data<Tera>,
-    ) -> impl Responder {
-        let mut ctx = Context::new();
-        ctx.insert("title", &app_state.get_app_name());
-        ctx.insert(
-            "description",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        );
-        let rendered = tmpl.render("index.html", &ctx).unwrap();
-        HttpResponse::Ok().content_type("text/html").body(rendered)
+    pub async fn admin_panel(app_state: web::Data<settings::AppState>) -> Result<NamedFile> {
+        let path = app_state.get_template("sitemap.xml");
+        Ok(NamedFile::open(path)?)
     }
 }
