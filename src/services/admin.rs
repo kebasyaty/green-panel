@@ -8,6 +8,10 @@ use actix_web::{web, Result};
 pub use configure_urls::*;
 pub use request_handlers::*;
 
+fn admin_file_path(inner_path: &str) -> String {
+    format!("./admin/{}", inner_path)
+}
+
 // CONFIGURE URLs
 // #################################################################################################
 pub mod configure_urls {
@@ -26,7 +30,7 @@ pub mod request_handlers {
     // Admin panel
     // *********************************************************************************************
     pub async fn admin_panel() -> Result<NamedFile> {
-        let path = "./admin/index.html";
+        let path = admin_file_path("index.html");
         Ok(NamedFile::open(path)?)
     }
 }
