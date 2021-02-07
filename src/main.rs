@@ -7,7 +7,7 @@ use tera::Tera;
 
 // Application settings
 pub mod settings;
-// Specific request handlers (favicon, robots, sitemap, etc)
+// Specific request handlers (favicon, robots, sitemap, page_404)
 pub mod specific;
 // Services (sub-apps)
 pub mod services;
