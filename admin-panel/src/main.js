@@ -11,7 +11,7 @@ import VueAxios from 'vue-axios'
 import VueSession from 'vue-session'
 
 // Disable debug to production.
-if (process.env.NODE_ENV.trim() === 'production') {
+if (process.env.NODE_ENV === 'production') {
   Vue.config.productionTip = false
   Vue.config.devtools = false
   Vue.config.debug = false
