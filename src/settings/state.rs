@@ -1,4 +1,4 @@
-//! # APPLICATION STATE
+//! # Application state
 //!
 
 use crate::settings::general::{

@@ -1,4 +1,4 @@
-//! # GENERAL SETTINGS
+//! # General settings
 //!
 
 // Development status

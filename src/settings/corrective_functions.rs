@@ -1,4 +1,4 @@
-//! # CORRECTIVE FUNCTIONS
+//! # Corrective functions
 //!
 
 use crate::settings::general::{LOCAL_DOMAIN, PORT, SITE_DOMAIN};

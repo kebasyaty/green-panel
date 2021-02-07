@@ -1,4 +1,4 @@
-//! # APPLICATION SETTINGS
+//! # Application settings
 //!
 
 pub use corrective_functions::*;

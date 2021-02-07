@@ -1,4 +1,6 @@
-//! # SPECIFIC REQUEST HANDLERS
+//! # Specific request handlers
+//! (favicon, robots, sitemap, page_404).
+//!
 
 use actix_files::NamedFile;
 use actix_web::{http, web, HttpRequest, HttpResponse, Responder, Result};
