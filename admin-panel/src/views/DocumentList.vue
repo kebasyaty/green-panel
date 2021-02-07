@@ -16,7 +16,6 @@
             <!-- Search query field. -->
             <v-text-field
               dense
-              shaped
               clearable
               hide-details
               v-model="searchQuery"
