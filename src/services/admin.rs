@@ -5,7 +5,6 @@
 use actix_files::NamedFile;
 use actix_web::{web, Result};
 
-use crate::settings;
 pub use configure_urls::*;
 pub use request_handlers::*;
 
@@ -26,8 +25,8 @@ pub mod request_handlers {
 
     // Admin panel
     // *********************************************************************************************
-    pub async fn admin_panel(app_state: web::Data<settings::AppState>) -> Result<NamedFile> {
-        let path = app_state.get_template("sitemap.xml");
+    pub async fn admin_panel() -> Result<NamedFile> {
+        let path = "./admin/index.html";
         Ok(NamedFile::open(path)?)
     }
 }
