@@ -1,5 +1,8 @@
 //! # SERVICES
-//! (Module list)
-//! `primal` - The default app, presents the Home page.
+//!
+//! `primal` - Service/Subapplication by default.
+//! `admin` - Service/Subapplication for administration.
+//!
 
+pub mod admin;
 pub mod primal;

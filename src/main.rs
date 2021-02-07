@@ -90,8 +90,10 @@ async fn main() -> std::io::Result<()> {
             .route("/robots.txt", web::route().to(specific::robots))
             .route("/sitemap.xml", web::route().to(specific::sitemap))
             // ... <- Other services
-            // Primal service
-            .service(web::scope("*").configure(services::primal::config))
+            // Admin service
+            .service(web::scope("/admin").configure(services::admin::config))
+            // Primal service (Home page)
+            .service(web::scope("/*").configure(services::primal::config))
             // Page 404
             .default_service(web::route().to(specific::page_404))
     })
