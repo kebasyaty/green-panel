@@ -57,7 +57,7 @@
                       <!-- Button - Open a dialog. -->
                       <v-btn
                         x-small
-                        depressed
+                        elevation="1"
                         color="orange lighten-2"
                         class="mb-2"
                         v-bind="attrs"
@@ -582,7 +582,15 @@
         <!-- Delete button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark small depressed color="red" v-bind="attrs" v-on="on" @click="removeDoc()">
+            <v-btn
+              text
+              small
+              elevation="2"
+              color="red"
+              v-bind="attrs"
+              v-on="on"
+              @click="removeDoc()"
+            >
               <v-icon>mdi-close-thick</v-icon>
             </v-btn>
           </template>
@@ -593,9 +601,9 @@
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              dark
+              text
               small
-              depressed
+              elevation="2"
               color="green"
               v-bind="attrs"
               v-on="on"
@@ -612,9 +620,9 @@
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              dark
+              text
               small
-              depressed
+              elevation="2"
               color="orange"
               class="mx-4"
               v-bind="attrs"
@@ -631,7 +639,15 @@
         <!-- Save button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark small depressed color="blue" v-bind="attrs" v-on="on" @click="saveDoc()">
+            <v-btn
+              text
+              small
+              elevation="2"
+              color="blue"
+              v-bind="attrs"
+              v-on="on"
+              @click="saveDoc()"
+            >
               <v-icon>mdi-content-save</v-icon>
             </v-btn>
           </template>
