@@ -702,7 +702,8 @@ export default {
   methods: {
     // Router - Go back one step.
     goBack() {
-      window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+      const homeUrl = process.env.NODE_ENV === 'production' ? '/admin' : '/'
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push(homeUrl)
     },
     // Get icon of field.
     getFieldIcon(widget) {
