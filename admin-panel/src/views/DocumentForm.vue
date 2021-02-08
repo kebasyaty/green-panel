@@ -62,9 +62,23 @@
                       </v-btn>
                     </template>
                     <v-card>
+                      <v-card-actions class="pr-2">
+                        <v-spacer></v-spacer>
+                        <!-- Button - Close. -->
+                        <v-btn
+                          icon
+                          small
+                          color="primary"
+                          @click="[dynamicSelectionDialog[field.name] = false],
+                                   delDynItems = [],
+                                   currValDynItem = {title: null, value: null}"
+                        >
+                          <v-icon>mdi-close</v-icon>
+                        </v-btn>
+                      </v-card-actions>
                       <!-- Add new list item. -->
-                      <v-card-text>
-                        <v-card-subtitle>{{ $t('message.22') }}</v-card-subtitle>
+                      <v-card-text class="pb-0">
+                        <v-card-subtitle class="pt-0">{{ $t('message.22') }}</v-card-subtitle>
                         <v-row>
                           <v-col cols="12" sm="6">
                             <v-text-field
@@ -84,19 +98,9 @@
                       </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <!-- Button - Close. -->
-                        <v-btn
-                          text
-                          small
-                          color="primary"
-                          @click="[dynamicSelectionDialog[field.name] = false],
-                                   delDynItems = [],
-                                   currValDynItem = {title: null, value: null}"
-                        >{{ $t('message.18') }}</v-btn>
                         <!-- Button - Save. -->
                         <v-btn
                           text
-                          small
                           color="green"
                           :disabled="currValDynItem.title === null || currValDynItem.value === null"
                           @click="[saveNewDynItem(field.name),
@@ -107,7 +111,7 @@
                       </v-card-actions>
                       <v-divider></v-divider>
                       <!-- Remove irrelevant items. -->
-                      <v-card-text>
+                      <v-card-text class="pb-0">
                         <v-list subheader two-line flat>
                           <v-subheader>{{ $t('message.20') }}</v-subheader>
                           <v-list-item-group v-model="delDynItems" multiple>
@@ -127,18 +131,9 @@
                       </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <!-- Button - Close. -->
-                        <v-btn
-                          text
-                          small
-                          color="primary"
-                          @click="[delDynItems = [],
-                                   dynamicSelectionDialog[field.name] = false]"
-                        >{{ $t('message.18') }}</v-btn>
                         <!-- Button - Delete. -->
                         <v-btn
                           text
-                          small
                           color="red"
                           :disabled="delDynItems.length === 0"
                           @click="[removeDynItems(field.options),
@@ -320,7 +315,12 @@
                     <v-color-picker show-swatches mode="hexa" v-model="fieldData[field.name]"></v-color-picker>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn text small color="primary" @click="vMenu[field.name] = false">Cancel</v-btn>
+                      <v-btn
+                        text
+                        small
+                        color="primary"
+                        @click="vMenu[field.name] = false"
+                      >{{ $t('message.18') }}</v-btn>
                       <v-btn
                         text
                         small
@@ -674,7 +674,7 @@ export default {
   methods: {
     // Router - Go back one step.
     goBack() {
-      window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push({ name: 'home' })
     },
     // Get icon of field.
     getFieldIcon(widget) {

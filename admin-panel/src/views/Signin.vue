@@ -89,7 +89,7 @@ export default {
 
   created() {
     if (this.$session.exists()) {
-      this.$router.push('/')
+      this.$router.push({ name: 'home' })
     }
   }
 }

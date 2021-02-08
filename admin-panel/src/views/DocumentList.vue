@@ -167,7 +167,7 @@ export default {
   methods: {
     // Router - Go back one step.
     goBack() {
-      window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push({ name: 'home' })
     },
     // Documents search.
     documentSearch: function () {
