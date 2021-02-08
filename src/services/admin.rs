@@ -19,7 +19,6 @@ pub mod configure_urls {
 
     pub fn config(cfg: &mut web::ServiceConfig) {
         cfg.service(web::resource("/").route(web::get().to(admin_panel)));
-        cfg.service(web::resource("/sign-in").route(web::get().to(admin_panel)));
     }
 }
 
