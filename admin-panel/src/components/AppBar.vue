@@ -6,7 +6,7 @@
     <!-- Reload panel button. -->
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs" v-on="on" href="/">
+        <v-btn icon v-bind="attrs" v-on="on" :href="homeUrl">
           <v-icon>mdi-reload</v-icon>
         </v-btn>
       </template>
@@ -41,6 +41,7 @@ export default {
   name: 'AppBar',
 
   data: () => ({
+    homeUrl: process.env.NODE_ENV === 'production' ? '/admin' : '/',
     // Open and close service list panel (navigation-drawer).
     panelServiceList: null
   }),
