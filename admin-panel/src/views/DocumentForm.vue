@@ -56,17 +56,16 @@
                     <template v-slot:activator="{ on, attrs }">
                       <!-- Button - Open a dialog. -->
                       <v-btn
-                        dark
                         x-small
                         depressed
-                        color="orange darken-1"
+                        color="orange lighten-2"
                         class="mb-2"
                         v-bind="attrs"
                         v-on="on"
                       >
-                        <v-icon>mdi-plus</v-icon>
-                        <span>/</span>
-                        <v-icon>mdi-minus</v-icon>
+                        <v-icon color="black">mdi-plus</v-icon>
+                        <span class="black--text">/</span>
+                        <v-icon color="black">mdi-minus</v-icon>
                       </v-btn>
                     </template>
                     <v-card>
