@@ -87,6 +87,7 @@
                         <!-- Button - Close. -->
                         <v-btn
                           text
+                          small
                           color="primary"
                           @click="[dynamicSelectionDialog[field.name] = false],
                                    delDynItems = [],
@@ -95,6 +96,7 @@
                         <!-- Button - Save. -->
                         <v-btn
                           text
+                          small
                           color="green"
                           :disabled="currValDynItem.title === null || currValDynItem.value === null"
                           @click="[saveNewDynItem(field.name),
@@ -128,6 +130,7 @@
                         <!-- Button - Close. -->
                         <v-btn
                           text
+                          small
                           color="primary"
                           @click="[delDynItems = [],
                                    dynamicSelectionDialog[field.name] = false]"
@@ -135,6 +138,7 @@
                         <!-- Button - Delete. -->
                         <v-btn
                           text
+                          small
                           color="red"
                           :disabled="delDynItems.length === 0"
                           @click="[removeDynItems(field.options),

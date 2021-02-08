@@ -206,3 +206,19 @@ export default {
   }
 }
 </script>
+
+<style>
+.v-pagination__item--active,
+.v-pagination__item,
+.v-pagination__navigation {
+  box-shadow: none !important;
+}
+.v-pagination__item,
+.v-pagination__navigation {
+  border: 1px solid transparent !important;
+}
+.v-pagination__item:hover,
+.v-pagination__navigation:hover {
+  border: 1px solid #e0e0e0 !important;
+}
+</style>
