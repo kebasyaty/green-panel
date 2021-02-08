@@ -7,7 +7,7 @@ Vue.use(VueRouter)
 const routes = [
   // Home page.
   {
-    path: process.env.NODE_ENV === 'production' ? '/admin' : '/',
+    path: '/',
     name: 'home',
     component: Home,
     meta: {
