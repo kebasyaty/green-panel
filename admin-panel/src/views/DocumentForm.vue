@@ -55,15 +55,7 @@
                   >
                     <template v-slot:activator="{ on, attrs }">
                       <!-- Button - Open a dialog. -->
-                      <v-btn
-                        text
-                        x-small
-                        outlined
-                        color="orange"
-                        class="mb-2"
-                        v-bind="attrs"
-                        v-on="on"
-                      >
+                      <v-btn text x-small color="orange" class="mb-2" v-bind="attrs" v-on="on">
                         <v-icon>mdi-plus</v-icon>
                         <span>/</span>
                         <v-icon>mdi-minus</v-icon>
@@ -95,8 +87,6 @@
                         <!-- Button - Close. -->
                         <v-btn
                           text
-                          small
-                          outlined
                           color="primary"
                           @click="[dynamicSelectionDialog[field.name] = false],
                                    delDynItems = [],
@@ -105,8 +95,6 @@
                         <!-- Button - Save. -->
                         <v-btn
                           text
-                          small
-                          outlined
                           color="green"
                           :disabled="currValDynItem.title === null || currValDynItem.value === null"
                           @click="[saveNewDynItem(field.name),
@@ -140,8 +128,6 @@
                         <!-- Button - Close. -->
                         <v-btn
                           text
-                          small
-                          outlined
                           color="primary"
                           @click="[delDynItems = [],
                                    dynamicSelectionDialog[field.name] = false]"
@@ -149,8 +135,6 @@
                         <!-- Button - Delete. -->
                         <v-btn
                           text
-                          small
-                          outlined
                           color="red"
                           :disabled="delDynItems.length === 0"
                           @click="[removeDynItems(field.options),
@@ -591,7 +575,7 @@
         <!-- Delete button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn text small outlined color="red" v-bind="attrs" v-on="on" @click="removeDoc()">
+            <v-btn text small color="red" v-bind="attrs" v-on="on" @click="removeDoc()">
               <v-icon>mdi-close-thick</v-icon>
             </v-btn>
           </template>
@@ -601,15 +585,7 @@
         <!-- Save button and create a new document. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              text
-              small
-              outlined
-              color="green"
-              v-bind="attrs"
-              v-on="on"
-              @click="saveDoc('and_new')"
-            >
+            <v-btn text small color="green" v-bind="attrs" v-on="on" @click="saveDoc('and_new')">
               <v-icon>mdi-content-save</v-icon>
               <v-icon>mdi-ampersand</v-icon>
               <v-icon>mdi-file-outline</v-icon>
@@ -623,7 +599,6 @@
             <v-btn
               text
               small
-              outlined
               color="orange"
               class="mx-4"
               v-bind="attrs"
@@ -640,7 +615,7 @@
         <!-- Save button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn text small outlined color="blue" v-bind="attrs" v-on="on" @click="saveDoc()">
+            <v-btn text small color="blue" v-bind="attrs" v-on="on" @click="saveDoc()">
               <v-icon>mdi-content-save</v-icon>
             </v-btn>
           </template>
