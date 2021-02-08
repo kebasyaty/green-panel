@@ -89,8 +89,7 @@ export default {
 
   created() {
     if (this.$session.exists()) {
-      const homeUrl = process.env.NODE_ENV === 'production' ? '/admin' : '/'
-      this.$router.push(homeUrl)
+      this.$router.push('/')
     }
   }
 }

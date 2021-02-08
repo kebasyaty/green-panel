@@ -167,8 +167,7 @@ export default {
   methods: {
     // Router - Go back one step.
     goBack() {
-      const homeUrl = process.env.NODE_ENV === 'production' ? '/admin' : '/'
-      window.history.length > 1 ? this.$router.go(-1) : this.$router.push(homeUrl)
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
     },
     // Documents search.
     documentSearch: function () {
@@ -213,11 +212,11 @@ export default {
 .v-pagination__navigation {
   box-shadow: none !important;
 }
-.v-pagination__item,
+button:not(.v-pagination__item--active).v-pagination__item,
 .v-pagination__navigation {
   border: 1px solid transparent !important;
 }
-.v-pagination__item:hover,
+button:not(.v-pagination__item--active).v-pagination__item:hover,
 .v-pagination__navigation:hover {
   border: 1px solid #e0e0e0 !important;
 }

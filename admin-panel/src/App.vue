@@ -35,9 +35,8 @@ export default {
     isAuthenticated: function (flag) {
       if (!this.isStart) {
         if (flag) {
-          const homeUrl = process.env.NODE_ENV === 'production' ? '/admin' : '/'
           this.$session.start()
-          this.$router.push(homeUrl)
+          this.$router.push('/')
         } else {
           this.$session.destroy()
           this.$router.push('/sign-in')
