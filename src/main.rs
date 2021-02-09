@@ -52,7 +52,7 @@ async fn main() -> std::io::Result<()> {
                         http::header::CONTENT_SECURITY_POLICY,
                         if settings::DEBUG {
                             concat!(
-                                "default-src 'self'; connect-src http:; font-src http: data:;",
+                                "default-src http:; connect-src http:; font-src http: data:;",
                                 " frame-src 'self'; frame-ancestors 'self';",
                                 " img-src http: data:; media-src http:; object-src http:;",
                                 " script-src 'unsafe-inline' 'unsafe-eval' http:;",
@@ -61,7 +61,7 @@ async fn main() -> std::io::Result<()> {
                             )
                         } else {
                             concat!(
-                                "default-src 'self'; connect-src https:; font-src https: data:;",
+                                "default-src https:; connect-src https:; font-src https: data:;",
                                 " frame-src 'self'; frame-ancestors 'self';",
                                 " img-src https: data:; media-src https:; object-src https:;",
                                 " script-src 'unsafe-inline' 'unsafe-eval' https:;",
