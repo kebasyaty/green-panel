@@ -52,23 +52,19 @@ async fn main() -> std::io::Result<()> {
                         http::header::CONTENT_SECURITY_POLICY,
                         if settings::DEBUG {
                             concat!(
-                                "default-src http:; connect-src http:; font-src http: data:;",
-                                " frame-src 'self'; frame-ancestors 'self';",
+                                "default-src 'self'; connect-src http:; font-src http: data:;",
                                 " img-src http: data:; media-src http:; object-src http:;",
                                 " script-src 'unsafe-inline' 'unsafe-eval' http:;",
-                                " style-src 'unsafe-inline' http:;",
-                                " form-action 'self'; base-uri 'self';"
+                                " style-src 'unsafe-inline' http:;"
                             )
                         } else {
                             concat!(
-                                "default-src https:; connect-src https:; font-src https: data:;",
-                                " frame-src 'self'; frame-ancestors 'self';",
+                                "default-src 'self'; connect-src https:; font-src https: data:;",
                                 " img-src https: data:; media-src https:; object-src https:;",
                                 " script-src 'unsafe-inline' 'unsafe-eval' https:;",
-                                " style-src 'unsafe-inline' https:;",
-                                " form-action 'self'; base-uri 'self';"
+                                " style-src 'unsafe-inline' https:;"
                             )
-                        },
+                        }
                     )
                     .header(
                         http::header::STRICT_TRANSPORT_SECURITY,
