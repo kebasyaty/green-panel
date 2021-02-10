@@ -27,6 +27,28 @@ pub struct User {
     pub username: Option<String>,
     #[serde(default)]
     #[field_attrs(
+        widget = "inputText",
+        label = "First name",
+        placeholder = "Enter your first name",
+        unique = true,
+        required = true,
+        minlength = 3,
+        maxlength = 40
+    )]
+    pub first_name: Option<String>,
+    #[serde(default)]
+    #[field_attrs(
+        widget = "inputText",
+        label = "Last name",
+        placeholder = "Enter your last name",
+        unique = true,
+        required = true,
+        minlength = 3,
+        maxlength = 40
+    )]
+    pub last_name: Option<String>,
+    #[serde(default)]
+    #[field_attrs(
         widget = "inputEmail",
         label = "Email",
         placeholder = "Please enter your email",
@@ -52,8 +74,7 @@ pub struct User {
         label = "Confirm password",
         placeholder = "Repeat your password",
         required = true,
-        minlength = 8,
-        hint = "a-z A-Z 0-9 @#$%^&+=*!~)("
+        minlength = 8
     )]
     pub confirm_password: Option<String>,
 }
