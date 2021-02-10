@@ -11,6 +11,8 @@ pub mod settings;
 pub mod specific;
 // Services (sub-apps)
 pub mod services;
+// Mango-ORM Models
+pub mod models;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -64,7 +66,7 @@ async fn main() -> std::io::Result<()> {
                                 " script-src 'unsafe-inline' 'unsafe-eval' https:;",
                                 " style-src 'unsafe-inline' https:;"
                             )
-                        }
+                        },
                     )
                     .header(
                         http::header::STRICT_TRANSPORT_SECURITY,
