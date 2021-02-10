@@ -22,7 +22,8 @@ pub struct User {
         unique = true,
         required = true,
         minlength = 3,
-        maxlength = 40
+        maxlength = 40,
+        hint = ""
     )]
     pub username: Option<String>,
     #[serde(default)]
@@ -32,7 +33,8 @@ pub struct User {
         placeholder = "Please enter your email",
         required = true,
         unique = true,
-        maxlength = 74
+        maxlength = 74,
+        hint = ""
     )]
     pub email: Option<String>,
     #[serde(default)]
@@ -41,7 +43,8 @@ pub struct User {
         label = "Password",
         placeholder = "Enter your password",
         required = true,
-        minlength = 8
+        minlength = 8,
+        hint = ""
     )]
     pub password: Option<String>,
     #[serde(default)]
@@ -50,7 +53,8 @@ pub struct User {
         label = "Confirm password",
         placeholder = "Repeat your password",
         required = true,
-        minlength = 8
+        minlength = 8,
+        hint = ""
     )]
     pub confirm_password: Option<String>,
 }
