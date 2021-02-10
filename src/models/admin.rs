@@ -5,7 +5,6 @@ use mango_orm::*;
 use metamorphose::Model;
 use serde::{Deserialize, Serialize};
 
-// Get settings (service) of the application.
 use crate::settings::models::{
     admin::{DATABASE_NAME, DB_CLIENT_NAME, DB_QUERY_DOCS_LIMIT, SERVICE_NAME},
     KEYWORD,
@@ -23,7 +22,7 @@ pub struct User {
         required = true,
         minlength = 3,
         maxlength = 40,
-        hint = ""
+        hint = "Only letters and numbers without spaces"
     )]
     pub username: Option<String>,
     #[serde(default)]
@@ -34,7 +33,7 @@ pub struct User {
         required = true,
         unique = true,
         maxlength = 74,
-        hint = ""
+        hint = "Your actual email"
     )]
     pub email: Option<String>,
     #[serde(default)]
@@ -44,7 +43,7 @@ pub struct User {
         placeholder = "Enter your password",
         required = true,
         minlength = 8,
-        hint = ""
+        hint = "a-z A-Z 0-9 @#$%^&+=*!~)("
     )]
     pub password: Option<String>,
     #[serde(default)]
@@ -54,7 +53,7 @@ pub struct User {
         placeholder = "Repeat your password",
         required = true,
         minlength = 8,
-        hint = ""
+        hint = "a-z A-Z 0-9 @#$%^&+=*!~)("
     )]
     pub confirm_password: Option<String>,
 }
