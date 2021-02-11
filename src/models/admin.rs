@@ -73,6 +73,20 @@ pub struct User {
         minlength = 8
     )]
     pub confirm_password: Option<String>,
+    #[serde(default)]
+    #[field_attrs(
+        widget = "checkBox",
+        label = "is staff?",
+        hint = "User can access the admin site?"
+    )]
+    pub is_staff: Option<bool>,
+    #[serde(default)]
+    #[field_attrs(
+        widget = "checkBox",
+        label = "is active?",
+        hint = "Is this an active account?"
+    )]
+    pub is_active: Option<bool>,
 }
 
 impl AdditionalValidation for User {
