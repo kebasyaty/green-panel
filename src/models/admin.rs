@@ -114,6 +114,7 @@ impl AdditionalValidation for User {
         {
             error_map.insert("username", "Invalid characters present.");
         }
+
         Ok(error_map)
     }
 }

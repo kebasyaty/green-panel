@@ -31,3 +31,8 @@ version = "1.0"
 
 [dependencies.tera]
 version = "1.5"
+
+[dependencies.mongodb]
+default-features = false
+features = ["sync"]
+version = "1.1"
