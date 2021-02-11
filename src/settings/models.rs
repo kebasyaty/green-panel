@@ -5,7 +5,7 @@
 // Valid characters: _ a-z A-Z 0-9
 // Size: 6-52
 // Example: "PROJECT_NAME_7rzg_cfqQB3B7q7T"
-pub static KEYWORD: &str = "ADMIN_yQN_1sxRawj2v3Ea";
+pub const KEYWORD: &str = "ADMIN_yQN_1sxRawj2v3Ea";
 
 // For a test application.
 pub mod admin {
