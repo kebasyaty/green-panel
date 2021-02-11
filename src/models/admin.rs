@@ -3,6 +3,7 @@
 
 use mango_orm::*;
 use metamorphose::Model;
+use regex::RegexBuilder;
 use serde::{Deserialize, Serialize};
 
 use crate::settings::models::{
@@ -20,42 +21,37 @@ pub struct User {
         placeholder = "Enter your username",
         unique = true,
         required = true,
-        minlength = 3,
-        maxlength = 40,
-        hint = "Only letters and numbers without spaces"
+        maxlength = 150,
+        hint = "a-z A-Z 0-9 _ @ + ."
     )]
     pub username: Option<String>,
     #[serde(default)]
     #[field_attrs(
         widget = "inputText",
         label = "First name",
-        placeholder = "Enter your first name",
-        unique = true,
+        placeholder = "Enter your First name",
         required = true,
-        minlength = 3,
-        maxlength = 40
+        maxlength = 150
     )]
     pub first_name: Option<String>,
     #[serde(default)]
     #[field_attrs(
         widget = "inputText",
         label = "Last name",
-        placeholder = "Enter your last name",
-        unique = true,
+        placeholder = "Enter your Last name",
         required = true,
-        minlength = 3,
-        maxlength = 40
+        maxlength = 150
     )]
     pub last_name: Option<String>,
     #[serde(default)]
     #[field_attrs(
         widget = "inputEmail",
-        label = "Email",
+        label = "E-mail",
         placeholder = "Please enter your email",
         required = true,
         unique = true,
         maxlength = 74,
-        hint = "Your actual email"
+        hint = "Your actual E-mail"
     )]
     pub email: Option<String>,
     #[serde(default)]
@@ -65,7 +61,7 @@ pub struct User {
         placeholder = "Enter your password",
         required = true,
         minlength = 8,
-        hint = "a-z A-Z 0-9 @#$%^&+=*!~)("
+        hint = "a-z A-Z 0-9 @ # $ % ^ & + = * ! ~ ) ("
     )]
     pub password: Option<String>,
     #[serde(default)]
@@ -86,12 +82,23 @@ impl AdditionalValidation for User {
         // Hint: .insert("field_name", "Error message")
         let mut error_map: std::collections::HashMap<&'a str, &'a str> =
             std::collections::HashMap::new();
+
         // Get clean data
         let password = self.password.clone().unwrap();
         let confirm_password = self.confirm_password.clone().unwrap();
+        let username = self.username.clone().unwrap();
+
         // Validation of fields
         if password != confirm_password {
             error_map.insert("confirm_password", "Password confirmation does not match.");
+        }
+        if !RegexBuilder::new(r"^[a-z\d_@+.]+$")
+            .case_insensitive(true)
+            .build()
+            .unwrap()
+            .is_match(username.as_str())
+        {
+            error_map.insert("username", "Invalid characters present.");
         }
         Ok(error_map)
     }
