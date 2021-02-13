@@ -16,7 +16,7 @@ pub const KEYWORD: &str = "ADMIN_yQN_1sxRawj2v3Ea";
 // Service/Sub-Application for user profile management.
 pub mod admin {
     pub const SERVICE_NAME: &str = "admin";
-    pub const DATABASE_NAME: &str = "users_yQN_1sxRawj2v3Ea";
+    pub const DATABASE_NAME: &str = "user_yQN_1sxRawj2v3Ea";
     pub const DB_CLIENT_NAME: &str = "default";
     pub const DB_QUERY_DOCS_LIMIT: u32 = 1000;
 }
