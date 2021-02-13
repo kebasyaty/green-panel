@@ -70,7 +70,8 @@ pub struct User {
         label = "Confirm password",
         placeholder = "Repeat your password",
         required = true,
-        minlength = 8
+        minlength = 8,
+        hint = "Repeat your password"
     )]
     pub confirm_password: Option<String>,
     #[serde(default)]
