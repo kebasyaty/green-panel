@@ -94,7 +94,7 @@ impl AdditionalValidation for User {
     fn add_validation<'a>(
         &self,
     ) -> Result<std::collections::HashMap<&'a str, &'a str>, Box<dyn std::error::Error>> {
-        // Hint: .insert("field_name", "Error message.")
+        // Hint: error_map.insert("field_name", "Error message.")
         let mut error_map: std::collections::HashMap<&'a str, &'a str> =
             std::collections::HashMap::new();
 
