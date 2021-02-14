@@ -7,7 +7,6 @@ pub use state::*;
 
 pub mod corrective_functions;
 pub mod general;
-pub mod models;
 pub mod state;
 
 // TESTS
