@@ -68,7 +68,7 @@
                         <v-btn
                           icon
                           small
-                          color="primary"
+                          color="red"
                           @click="[dynamicSelectionDialog[field.name] = false],
                                    delDynItems = [],
                                    currValDynItem = {title: null, value: null}"
