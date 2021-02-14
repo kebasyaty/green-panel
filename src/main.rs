@@ -16,6 +16,8 @@ pub mod models;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    // Run migration.
+    models::migration::mango_migration().unwrap();
     // Init logger middleware (debug, error, info, trace)
     std::env::set_var("RUST_LOG", "actix_web=info,actix_server=info");
     env_logger::init();
