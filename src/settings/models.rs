@@ -4,6 +4,7 @@
 //!
 
 // Project name.
+// Hint: PROJECT_NAM it is recommended not to change.
 // Valid characters: _ a-z A-Z 0-9
 // Max size: 21
 // First character: a-z A-Z

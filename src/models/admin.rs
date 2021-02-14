@@ -103,7 +103,7 @@ impl AdditionalValidation for User {
         let confirm_password = self.confirm_password.clone().unwrap();
         let username = self.username.clone().unwrap();
 
-        // Validation of fields
+        // Fields validation
         if password != confirm_password {
             error_map.insert("confirm_password", "Password confirmation does not match.");
         }
