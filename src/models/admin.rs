@@ -8,7 +8,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::settings::models::{
     admin::{DATABASE_NAME, DB_CLIENT_NAME, DB_QUERY_DOCS_LIMIT, SERVICE_NAME},
-    KEYWORD,
+    PROJECT_NAME, UNIQUE_PROJECT_KEY,
 };
 
 #[Model(is_use_add_valid = true, ignore_fields = "confirm_password")]
