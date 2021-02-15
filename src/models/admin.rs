@@ -22,7 +22,7 @@ pub struct User {
         unique = true,
         required = true,
         maxlength = 150,
-        hint = "a-z A-Z 0-9 _ @ + ."
+        hint = "Valid characters: a-z A-Z 0-9 _ @ + ."
     )]
     pub username: Option<String>,
     #[serde(default)]
@@ -61,7 +61,7 @@ pub struct User {
         placeholder = "Enter your password",
         required = true,
         minlength = 8,
-        hint = "a-z A-Z 0-9 @ # $ % ^ & + = * ! ~ ) ("
+        hint = "Valid characters: a-z A-Z 0-9 @ # $ % ^ & + = * ! ~ ) ("
     )]
     pub password: Option<String>,
     #[serde(default)]
@@ -113,7 +113,11 @@ impl AdditionalValidation for User {
             .unwrap()
             .is_match(username.as_str())
         {
-            error_map.insert("username", "Invalid characters present.");
+            error_map.insert(
+                "username",
+                "Invalid characters present.</br>\
+                    Valid characters: a-z A-Z 0-9 _ @ + .",
+            );
         }
 
         Ok(error_map)
