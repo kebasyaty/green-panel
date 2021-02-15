@@ -85,7 +85,7 @@ async fn main() -> std::io::Result<()> {
             // Enable Sessions
             .wrap(
                 CookieSession::signed(settings::SESSION_KEY)
-                    .domain(settings::site_domain(settings::DEBUG).as_str())
+                    .domain(settings::site_domain(settings::DEBUG))
                     .name(settings::session_name(settings::PROJECT_NAME))
                     .path("/")
                     .max_age(86_400) // 86_400 sec = 1 day
@@ -114,7 +114,7 @@ async fn main() -> std::io::Result<()> {
             .default_service(web::route().to(specific::page_404))
     })
     // .keep_alive(5)
-    .bind(settings::local_domain().as_str())?
+    .bind(settings::local_domain())?
     // .shutdown_timeout(30)
     // .workers(4)
     .run()
