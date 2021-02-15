@@ -50,7 +50,10 @@ pub mod request_handlers {
             };
             let result = first_user.save(None, None, None).unwrap();
             if !result.bool() {
-                panic!("Model: `User` : Error while creating the first user.")
+                panic!(
+                    "Model: `User` : Error while creating the first user. In detail: {}.",
+                    result.hash().unwrap()
+                )
             }
         }
         // Provide admin page
