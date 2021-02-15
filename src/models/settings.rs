@@ -17,8 +17,8 @@ pub const PROJECT_NAME: &str = "project_name";
 // Example: "7rzgacfqQB3B7q7T"
 pub const UNIQUE_PROJECT_KEY: &str = "WjsDYzy4VvhHCda9";
 
-// Service/Sub-Application for user profile management.
-pub mod admin {
+// Default settings.
+pub mod default {
     // Valid characters: _ a-z A-Z 0-9
     // Max size: 31
     // First character: a-z A-Z

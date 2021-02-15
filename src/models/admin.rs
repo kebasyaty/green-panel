@@ -7,7 +7,7 @@ use regex::RegexBuilder;
 use serde::{Deserialize, Serialize};
 
 use crate::models::settings::{
-    admin::{DATABASE_NAME, DB_CLIENT_NAME, DB_QUERY_DOCS_LIMIT, SERVICE_NAME},
+    default::{DATABASE_NAME, DB_CLIENT_NAME, DB_QUERY_DOCS_LIMIT, SERVICE_NAME},
     PROJECT_NAME, UNIQUE_PROJECT_KEY,
 };
 
