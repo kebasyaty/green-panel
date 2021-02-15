@@ -30,7 +30,6 @@ pub struct User {
         widget = "inputText",
         label = "First name",
         placeholder = "Enter your First name",
-        required = true,
         maxlength = 150
     )]
     pub first_name: Option<String>,
@@ -39,7 +38,6 @@ pub struct User {
         widget = "inputText",
         label = "Last name",
         placeholder = "Enter your Last name",
-        required = true,
         maxlength = 150
     )]
     pub last_name: Option<String>,
@@ -69,8 +67,6 @@ pub struct User {
         widget = "inputPassword",
         label = "Confirm password",
         placeholder = "Repeat your password",
-        required = true,
-        minlength = 8,
         hint = "Repeat your password"
     )]
     pub confirm_password: Option<String>,
