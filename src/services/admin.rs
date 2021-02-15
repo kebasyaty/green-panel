@@ -36,10 +36,14 @@ pub mod request_handlers {
         // Create first user (administrator)
         if admin::User::estimated_document_count(None).unwrap() == 0_i64 {
             let mut first_user = admin::User {
+                // Valid characters: a-z A-Z 0-9 _ @ + .
+                // Max size: 150
                 username: Some("admin".into()),
                 email: Some("no_reply@email.net".into()),
-                password: Some("123".into()),
-                confirm_password: Some("123".into()),
+                // Valid characters: a-z A-Z 0-9 @ # $ % ^ & + = * ! ~ ) (
+                // Min size: 8
+                password: Some("12345678".into()),
+                confirm_password: Some("12345678".into()),
                 is_staff: Some(true),
                 is_active: Some(true),
                 ..Default::default()
