@@ -3,13 +3,18 @@
 //!
 
 use actix_files::NamedFile;
-use actix_web::{web, Result};
+use actix_session::Session;
+use actix_web::{web, HttpResponse, Responder, Result};
+
+use serde::{Deserialize, Serialize};
+
+use mongodb::bson::doc;
+
+use crate::models::users;
+use mango_orm::{QCommon, QPaladins};
 
 pub use configure_urls::*;
 pub use request_handlers::*;
-
-use crate::models::admin;
-use mango_orm::{QCommon, QPaladins};
 
 fn admin_file_path(inner_path: &str) -> String {
     format!("./admin/{}", inner_path)
@@ -21,7 +26,8 @@ pub mod configure_urls {
     use super::*;
 
     pub fn config(cfg: &mut web::ServiceConfig) {
-        cfg.service(web::resource("/").route(web::get().to(admin_panel)));
+        cfg.service(web::resource("/login").route(web::post().to(login)));
+        cfg.service(web::resource("/logout").route(web::post().to(logout)));
     }
 }
 
@@ -34,8 +40,8 @@ pub mod request_handlers {
     // *********************************************************************************************
     pub async fn admin_panel() -> Result<NamedFile> {
         // Create first user (administrator)
-        if admin::User::estimated_document_count(None).unwrap() == 0_i64 {
-            let mut first_user = admin::User {
+        if users::User::estimated_document_count(None).unwrap() == 0_i64 {
+            let mut first_user = users::User {
                 // Valid characters: a-z A-Z 0-9 _ @ + .
                 // Max size: 150
                 username: Some("admin".into()),
@@ -59,5 +65,56 @@ pub mod request_handlers {
         // Provide admin page
         let path = admin_file_path("index.html");
         Ok(NamedFile::open(path)?)
+    }
+
+    // Login
+    // *********************************************************************************************
+    #[derive(Deserialize)]
+    pub struct LoginForm {
+        username: String,
+        password: String,
+    }
+
+    #[derive(Serialize)]
+    pub struct LoginResult {
+        msg: String,
+    }
+
+    pub async fn login(session: Session, login_form: web::Path<LoginForm>) -> impl Responder {
+        let username = login_form.username.to_string();
+        let password = login_form.password.to_string();
+        let filter = Some(doc! {"username": username});
+        let output_data = users::User::find_one(filter, None).unwrap();
+
+        let msg: String = if output_data.bool() {
+            "Successа".to_string()
+        } else {
+            "Access denied".to_string()
+        };
+
+        HttpResponse::Ok()
+            .content_type("application/json")
+            .json(LoginResult { msg })
+    }
+
+    // Logout
+    // *********************************************************************************************
+    #[derive(Deserialize)]
+    pub struct LogoutForm {
+        username: String,
+        password: String,
+    }
+
+    #[derive(Serialize)]
+    pub struct LogoutResult {
+        msg: String,
+    }
+
+    pub async fn logout(session: Session, logout_form: web::Path<LogoutForm>) -> impl Responder {
+        HttpResponse::Ok()
+            .content_type("application/json")
+            .json(LogoutResult {
+                msg: "???".to_string(),
+            })
     }
 }
