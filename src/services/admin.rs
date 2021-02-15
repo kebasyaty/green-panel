@@ -8,6 +8,9 @@ use actix_web::{web, Result};
 pub use configure_urls::*;
 pub use request_handlers::*;
 
+use crate::models::admin;
+use mango_orm::{QCommon, QPaladins};
+
 fn admin_file_path(inner_path: &str) -> String {
     format!("./admin/{}", inner_path)
 }
@@ -30,6 +33,23 @@ pub mod request_handlers {
     // Admin panel
     // *********************************************************************************************
     pub async fn admin_panel() -> Result<NamedFile> {
+        // Create first user (administrator)
+        if admin::User::estimated_document_count(None).unwrap() == 0_i64 {
+            let mut first_user = admin::User {
+                username: Some("admin".into()),
+                email: Some("no_reply@email.net".into()),
+                password: Some("123".into()),
+                confirm_password: Some("123".into()),
+                is_staff: Some(true),
+                is_active: Some(true),
+                ..Default::default()
+            };
+            let result = first_user.save(None, None, None).unwrap();
+            if !result.bool() {
+                panic!("Model: `User` : Error while creating the first user.")
+            }
+        }
+        // Provide admin page
         let path = admin_file_path("index.html");
         Ok(NamedFile::open(path)?)
     }
