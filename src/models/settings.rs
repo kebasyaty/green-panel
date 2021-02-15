@@ -1,6 +1,6 @@
 //! # Mango-ORM model settings
 //!
-//! `admin` - Service/Sub-Application for user profile management.
+//! `default` - Default settings.
 //!
 
 // Project name.
