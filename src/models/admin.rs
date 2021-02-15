@@ -61,7 +61,7 @@ pub struct User {
         placeholder = "Enter your password",
         required = true,
         minlength = 8,
-        hint = "Valid characters: a-z A-Z 0-9 @ # $ % ^ & + = * ! ~ ) ("
+        hint = "Valid characters: a-z A-Z 0-9 @ # $ % ^ & + = * ! ~ ) ( ; Min size: 8"
     )]
     pub password: Option<String>,
     #[serde(default)]
