@@ -95,15 +95,11 @@ export default {
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR'
       } else {
-        const config = {
-          method: 'post',
-          url: '/admin/login',
-          data: {
-            username: this.username,
-            password: this.password
-          }
+        const payload = {
+          username: this.username,
+          password: this.password
         }
-        this.axios(config)
+        this.axios.post('/admin/login', payload)
           .then(response => {
             const data = response.data
             this.msg_success = this.$t('message.28')
