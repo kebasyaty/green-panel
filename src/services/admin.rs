@@ -87,14 +87,12 @@ pub mod request_handlers {
         session: Session,
         login_form: web::Json<LoginForm>,
     ) -> Result<HttpResponse, Error> {
-        let mut username = String::new();
+        let username = login_form.username.clone();
         let mut is_authenticated = false;
 
-        if let Some(curr_username) = session.get::<String>("username")? {
-            username = curr_username;
+        if let Some(_username) = session.get::<String>("username")? {
             is_authenticated = true;
         } else {
-            username = login_form.username.clone();
             let password = login_form.password.clone();
             let filter = Some(doc! {"username": username.clone()});
             let output_data = users::User::find_one(filter, None).unwrap();
