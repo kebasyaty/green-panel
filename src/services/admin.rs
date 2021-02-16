@@ -84,7 +84,7 @@ pub mod request_handlers {
 
     pub async fn login(
         session: Session,
-        login_form: web::Path<LoginForm>,
+        login_form: web::Json<LoginForm>,
     ) -> Result<HttpResponse, Error> {
         let mut is_authenticated = false;
 
@@ -105,7 +105,7 @@ pub mod request_handlers {
                 }
             }
         }
-
+        // send json response
         if is_authenticated {
             Ok(HttpResponse::Ok()
                 .content_type("application/json")
@@ -131,7 +131,7 @@ pub mod request_handlers {
         msg: String,
     }
 
-    pub async fn logout(session: Session, logout_form: web::Path<LogoutForm>) -> impl Responder {
+    pub async fn logout(session: Session, logout_form: web::Json<LogoutForm>) -> impl Responder {
         HttpResponse::Ok()
             .content_type("application/json")
             .json(LogoutResult {
