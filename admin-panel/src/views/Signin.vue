@@ -4,6 +4,22 @@
       <v-card width="400" class="pa-4">
         <v-img :src="require('../assets/logo.svg')" contain height="100" />
         <form>
+          <v-card-text class="pb-0">
+            <v-alert
+              v-if="msg_error.length > 0"
+              dense
+              text
+              type="error"
+              class="mb-0"
+            >{{ msg_error }}</v-alert>
+            <v-alert
+              v-if="msg_success.length > 0"
+              dense
+              text
+              type="success"
+              class="mb-0"
+            >{{ msg_success }}</v-alert>
+          </v-card-text>
           <v-card-text>
             <v-text-field
               v-model="username"
