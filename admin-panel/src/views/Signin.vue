@@ -50,7 +50,9 @@ export default {
 
   data: () => ({
     username: '',
-    password: ''
+    password: '',
+    msg_error: '',
+    msg_success: ''
   }),
 
   computed: {
@@ -77,13 +79,34 @@ export default {
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR'
       } else {
-        this.setIsAuthenticated(true)
+        const url = '/admin/ajax/login'
+        const params = () => {
+          return {
+            username: this.username,
+            password: this.password
+          }
+        }
+        this.axios
+          .get(url, { params })
+          .then(response => {
+            const data = response.data
+            this.msg_success = this.$t('message.28')
+            if (data.is_authenticated) {
+              this.setIsAuthenticated(true)
+            }
+          })
+          .catch(error => {
+            this.msg_error = this.$t('message.27')
+            console.log(error)
+          })
       }
     },
     clear() {
       this.$v.$reset()
       this.username = ''
       this.password = ''
+      this.msg_error = ''
+      this.msg_success = ''
     }
   },
 
