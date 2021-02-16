@@ -54,11 +54,19 @@ export default {
 
   methods: {
     ...mapMutations([
+      'setUsername',
       'setIsAuthenticated',
       'setOpenPanelServiceList'
     ]),
     logout() {
-      this.setIsAuthenticated(false)
+      this.axios.post('/admin/logout', {})
+        .then(response => {
+          this.setUsername('...')
+          this.setIsAuthenticated(false)
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   }
 }
