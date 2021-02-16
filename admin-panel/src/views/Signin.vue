@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import { validationMixin } from 'vuelidate'
 import { required } from 'vuelidate/lib/validators'
 
@@ -72,6 +72,9 @@ export default {
   }),
 
   computed: {
+    ...mapState([
+      'username'
+    ]),
     usernameErrors() {
       const errors = []
       if (!this.$v.username.$dirty) return errors
@@ -88,6 +91,7 @@ export default {
 
   methods: {
     ...mapMutations([
+      'setUsername',
       'setIsAuthenticated'
     ]),
     submit() {
@@ -104,6 +108,7 @@ export default {
             const data = response.data
             this.msg_success = this.$t('message.28')
             if (data.is_authenticated) {
+              this.setUsername(data.username)
               this.setIsAuthenticated(true)
             } else {
               this.msg_error = this.$t('message.27')
