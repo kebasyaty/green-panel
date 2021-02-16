@@ -93,6 +93,9 @@ export default {
             this.msg_success = this.$t('message.28')
             if (data.is_authenticated) {
               this.setIsAuthenticated(true)
+            } else {
+              this.msg_error = this.$t('message.27')
+              console.log('No data available')
             }
           })
           .catch(error => {
