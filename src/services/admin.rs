@@ -26,7 +26,7 @@ pub mod configure_urls {
     use super::*;
 
     pub fn config(cfg: &mut web::ServiceConfig) {
-        cfg.service(web::resource("/login").route(web::get().to(login)));
+        cfg.service(web::resource("/login").route(web::post().to(login)));
         // cfg.service(web::resource("/logout").route(web::post().to(logout)));
         cfg.service(web::resource("").route(web::get().to(admin_panel)));
     }
