@@ -27,7 +27,7 @@ pub mod configure_urls {
 
     pub fn config(cfg: &mut web::ServiceConfig) {
         cfg.service(web::resource("/login").route(web::post().to(login)));
-        cfg.service(web::resource("/logout").route(web::post().to(logout)));
+        // cfg.service(web::resource("/logout").route(web::post().to(logout)));
     }
 }
 
@@ -77,28 +77,43 @@ pub mod request_handlers {
 
     #[derive(Serialize)]
     pub struct LoginResult {
-        msg: String,
+        message: String,
+        is_authenticated: bool,
     }
 
     pub async fn login(session: Session, login_form: web::Path<LoginForm>) -> impl Responder {
-        let username = login_form.username.to_string();
-        let password = login_form.password.to_string();
-        let filter = Some(doc! {"username": username});
-        let output_data = users::User::find_one(filter, None).unwrap();
+        let mut message = "Access is denied".to_string();
+        let mut is_authenticated = false;
 
-        let msg: String = if output_data.bool() {
-            "Successа".to_string()
+        if let Some(access) = session.get::<bool>("is_authenticated").unwrap() {
+            message = "Success".to_string();
+            is_authenticated = access;
         } else {
-            "Access denied".to_string()
-        };
+            let username = login_form.username.to_string();
+            let password = login_form.password.to_string();
+            let filter = Some(doc! {"username": username});
+            let output_data = users::User::find_one(filter, None).unwrap();
+
+            if output_data.bool() {
+                let user = output_data.model::<users::User>().unwrap();
+                if user.verify_password(password.as_str(), None).unwrap() {
+                    message = "Success".to_string();
+                    is_authenticated = true;
+                }
+            }
+        }
 
         HttpResponse::Ok()
             .content_type("application/json")
-            .json(LoginResult { msg })
+            .json(LoginResult {
+                message,
+                is_authenticated,
+            })
     }
 
     // Logout
     // *********************************************************************************************
+    /*
     #[derive(Deserialize)]
     pub struct LogoutForm {
         username: String,
@@ -117,4 +132,5 @@ pub mod request_handlers {
                 msg: "???".to_string(),
             })
     }
+    */
 }
