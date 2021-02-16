@@ -27,7 +27,7 @@ pub mod configure_urls {
 
     pub fn config(cfg: &mut web::ServiceConfig) {
         cfg.service(web::resource("/login").route(web::post().to(login)));
-        // cfg.service(web::resource("/logout").route(web::post().to(logout)));
+        cfg.service(web::resource("/logout").route(web::post().to(logout)));
         cfg.service(web::resource("/sign-in").route(web::get().to(admin_panel)));
         cfg.service(web::resource("").route(web::get().to(admin_panel)));
     }
@@ -94,8 +94,8 @@ pub mod request_handlers {
             username = curr_username;
             is_authenticated = true;
         } else {
-            username = login_form.username.to_string();
-            let password = login_form.password.to_string();
+            username = login_form.username.clone();
+            let password = login_form.password.clone();
             let filter = Some(doc! {"username": username.clone()});
             let output_data = users::User::find_one(filter, None).unwrap();
 
@@ -128,24 +128,20 @@ pub mod request_handlers {
 
     // Logout
     // *********************************************************************************************
-    #[derive(Deserialize)]
-    pub struct LogoutForm {
-        username: String,
-    }
-
     #[derive(Serialize)]
     pub struct LogoutResult {
         msg: String,
     }
 
-    pub async fn logout(
-        session: Session,
-        logout_form: web::Json<LogoutForm>,
-    ) -> Result<HttpResponse, Error> {
+    pub async fn logout(session: Session) -> Result<HttpResponse, Error> {
+        if let Some(_username) = session.get::<String>("username")? {
+            session.purge();
+        }
+        // send json response
         Ok(HttpResponse::Ok()
             .content_type("application/json")
-            .json(LoginResult {
-                is_authenticated: false,
+            .json(LogoutResult {
+                msg: "Goodbye!".to_string(),
             }))
     }
 }
