@@ -95,7 +95,7 @@ export default {
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR'
       } else {
-        const url = '/admin/ajax/login'
+        const url = '/admin/login'
         const params = () => {
           return {
             username: this.username,
@@ -103,7 +103,7 @@ export default {
           }
         }
         this.axios
-          .get(url, { params })
+          .post(url, { params })
           .then(response => {
             const data = response.data
             this.msg_success = this.$t('message.28')

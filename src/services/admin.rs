@@ -28,6 +28,7 @@ pub mod configure_urls {
     pub fn config(cfg: &mut web::ServiceConfig) {
         cfg.service(web::resource("/login").route(web::post().to(login)));
         // cfg.service(web::resource("/logout").route(web::post().to(logout)));
+        cfg.service(web::resource("").route(web::get().to(admin_panel)));
     }
 }
 
@@ -77,7 +78,6 @@ pub mod request_handlers {
 
     #[derive(Serialize)]
     pub struct LoginResult {
-        message: String,
         is_authenticated: bool,
     }
 
@@ -85,11 +85,9 @@ pub mod request_handlers {
         session: Session,
         login_form: web::Path<LoginForm>,
     ) -> Result<HttpResponse, Error> {
-        let mut message = "Access is denied".to_string();
         let mut is_authenticated = false;
 
         if let Some(access) = session.get::<bool>("is_authenticated")? {
-            message = "Success".to_string();
             is_authenticated = access;
         } else {
             let username = login_form.username.to_string();
@@ -102,18 +100,20 @@ pub mod request_handlers {
                 if user.verify_password(password.as_str(), None).unwrap() {
                     session.set("username", username)?;
                     session.set("is_authenticated", true)?;
-                    message = "Success".to_string();
                     is_authenticated = true;
                 }
             }
         }
 
-        Ok(HttpResponse::Ok()
-            .content_type("application/json")
-            .json(LoginResult {
-                message,
-                is_authenticated,
-            }))
+        if is_authenticated {
+            Ok(HttpResponse::Ok()
+                .content_type("application/json")
+                .json(LoginResult { is_authenticated }))
+        } else {
+            Ok(HttpResponse::BadRequest()
+                .content_type("application/json")
+                .json(LoginResult { is_authenticated }))
+        }
     }
 
     // Logout
