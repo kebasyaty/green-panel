@@ -79,6 +79,7 @@ pub mod request_handlers {
 
     #[derive(Serialize)]
     pub struct LoginResult {
+        username: String,
         is_authenticated: bool,
     }
 
@@ -86,12 +87,14 @@ pub mod request_handlers {
         session: Session,
         login_form: web::Json<LoginForm>,
     ) -> Result<HttpResponse, Error> {
+        let mut username = String::new();
         let mut is_authenticated = false;
 
-        if let Some(access) = session.get::<bool>("is_authenticated")? {
-            is_authenticated = access;
+        if let Some(curr_username) = session.get::<String>("username")? {
+            username = curr_username;
+            is_authenticated = true;
         } else {
-            let username = login_form.username.to_string();
+            username = login_form.username.to_string();
             let password = login_form.password.to_string();
             let filter = Some(doc! {"username": username.clone()});
             let output_data = users::User::find_one(filter, None).unwrap();
@@ -99,7 +102,7 @@ pub mod request_handlers {
             if output_data.bool() {
                 let user = output_data.model::<users::User>().unwrap();
                 if user.verify_password(password.as_str(), None).unwrap() {
-                    session.set("username", username)?;
+                    session.set("username", username.clone())?;
                     session.set("is_authenticated", true)?;
                     is_authenticated = true;
                 }
@@ -109,21 +112,25 @@ pub mod request_handlers {
         if is_authenticated {
             Ok(HttpResponse::Ok()
                 .content_type("application/json")
-                .json(LoginResult { is_authenticated }))
+                .json(LoginResult {
+                    username,
+                    is_authenticated,
+                }))
         } else {
             Ok(HttpResponse::BadRequest()
                 .content_type("application/json")
-                .json(LoginResult { is_authenticated }))
+                .json(LoginResult {
+                    username,
+                    is_authenticated,
+                }))
         }
     }
 
     // Logout
     // *********************************************************************************************
-    /*
     #[derive(Deserialize)]
     pub struct LogoutForm {
         username: String,
-        password: String,
     }
 
     #[derive(Serialize)]
@@ -131,12 +138,14 @@ pub mod request_handlers {
         msg: String,
     }
 
-    pub async fn logout(session: Session, logout_form: web::Json<LogoutForm>) -> impl Responder {
-        HttpResponse::Ok()
+    pub async fn logout(
+        session: Session,
+        logout_form: web::Json<LogoutForm>,
+    ) -> Result<HttpResponse, Error> {
+        Ok(HttpResponse::Ok()
             .content_type("application/json")
-            .json(LogoutResult {
-                msg: "???".to_string(),
-            })
+            .json(LoginResult {
+                is_authenticated: false,
+            }))
     }
-    */
 }
