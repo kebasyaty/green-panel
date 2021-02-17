@@ -36,8 +36,8 @@ pub mod request_handlers {
     ) -> Result<HttpResponse, Error> {
         // access request identity
         let welcome: String;
-        if let Some(username) = session.get::<String>("username")? {
-            welcome = format!("Welcome! {}", username);
+        if let Some(id_user) = session.get::<String>("username")? {
+            welcome = format!("Welcome! {}", id_user);
         } else {
             welcome = "Welcome Anonymous!".to_string();
         }
