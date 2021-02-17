@@ -3,7 +3,7 @@
 //!
 
 use actix_files::NamedFile;
-use actix_identity::Identity;
+use actix_session::Session;
 use actix_web::{web, Error, HttpResponse, Result};
 
 use serde::{Deserialize, Serialize};
@@ -85,13 +85,13 @@ pub mod request_handlers {
     }
 
     pub async fn login(
-        id: Identity,
+        session: Session,
         login_form: web::Json<LoginForm>,
     ) -> Result<HttpResponse, Error> {
         let username: String;
         let mut is_authenticated = false;
 
-        if let Some(id_user) = id.identity() {
+        if let Some(id_user) = session.get::<String>("username")? {
             username = id_user;
             is_authenticated = true;
         } else {
@@ -104,7 +104,7 @@ pub mod request_handlers {
             if output_data.bool() {
                 let user = output_data.model::<users::User>().unwrap();
                 if user.verify_password(password.as_str(), None).unwrap() {
-                    id.remember(username.clone()); // <- Remember identity
+                    session.set("username", username.clone())?; // Set id user
                     is_authenticated = true;
                 }
             }
@@ -134,9 +134,9 @@ pub mod request_handlers {
         msg: String,
     }
 
-    pub async fn logout(id: Identity) -> Result<HttpResponse, Error> {
-        // Remove identity
-        id.forget();
+    pub async fn logout(session: Session) -> Result<HttpResponse, Error> {
+        // Clear session
+        session.clear();
         // Send json response
         Ok(HttpResponse::Ok()
             .content_type("application/json")
