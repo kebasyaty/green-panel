@@ -2,8 +2,8 @@
 //! Service/Subapplication by default.
 //!
 
-use actix_identity::Identity;
-use actix_web::{web, HttpResponse, Responder};
+use actix_session::Session;
+use actix_web::{web, Error, HttpResponse};
 
 use tera::{Context, Tera};
 
@@ -30,14 +30,14 @@ pub mod request_handlers {
     // Home page
     // *********************************************************************************************
     pub async fn index(
-        id: Identity,
+        session: Session,
         app_state: web::Data<settings::AppState>,
         tmpl: web::Data<Tera>,
-    ) -> impl Responder {
+    ) -> Result<HttpResponse, Error> {
         // access request identity
         let welcome: String;
-        if let Some(id) = id.identity() {
-            welcome = format!("Welcome! {}", id);
+        if let Some(username) = session.get::<String>("username")? {
+            welcome = format!("Welcome! {}", username);
         } else {
             welcome = "Welcome Anonymous!".to_string();
         }
@@ -49,7 +49,7 @@ pub mod request_handlers {
         );
         ctx.insert("welcome", welcome.as_str());
         let rendered = tmpl.render("index.html", &ctx).unwrap();
-        HttpResponse::Ok().content_type("text/html").body(rendered)
+        Ok(HttpResponse::Ok().content_type("text/html").body(rendered))
     }
 }
 
