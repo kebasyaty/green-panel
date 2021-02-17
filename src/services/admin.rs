@@ -4,7 +4,6 @@
 
 use actix_files::NamedFile;
 use actix_identity::Identity;
-use actix_session::Session;
 use actix_web::{web, Error, HttpResponse, Result};
 
 use serde::{Deserialize, Serialize};
@@ -86,15 +85,17 @@ pub mod request_handlers {
     }
 
     pub async fn login(
-        session: Session,
+        id: Identity,
         login_form: web::Json<LoginForm>,
     ) -> Result<HttpResponse, Error> {
-        let username = login_form.username.clone();
+        let mut username = String::new();
         let mut is_authenticated = false;
 
-        if let Some(_username) = session.get::<String>("username")? {
+        if let Some(id) = id.identity() {
+            username = id;
             is_authenticated = true;
         } else {
+            username = login_form.username.clone();
             let password = login_form.password.clone();
             let filter = Some(doc! {"username": username.clone()});
             let output_data = users::User::find_one(filter, None).unwrap();
@@ -102,8 +103,7 @@ pub mod request_handlers {
             if output_data.bool() {
                 let user = output_data.model::<users::User>().unwrap();
                 if user.verify_password(password.as_str(), None).unwrap() {
-                    session.set("username", username.clone())?;
-                    session.set("is_authenticated", true)?;
+                    id.remember(username.clone()); // remember identity
                     is_authenticated = true;
                 }
             }
@@ -133,10 +133,9 @@ pub mod request_handlers {
         msg: String,
     }
 
-    pub async fn logout(session: Session) -> Result<HttpResponse, Error> {
-        if let Some(_username) = session.get::<String>("username")? {
-            session.purge();
-        }
+    pub async fn logout(id: Identity) -> Result<HttpResponse, Error> {
+        // remove identity
+        id.forget();
         // send json response
         Ok(HttpResponse::Ok()
             .content_type("application/json")
