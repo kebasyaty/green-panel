@@ -2,7 +2,9 @@
 //! Service/Subapplication by default.
 //!
 
+use actix_identity::Identity;
 use actix_web::{web, HttpResponse, Responder};
+
 use tera::{Context, Tera};
 
 use crate::settings;
@@ -28,15 +30,24 @@ pub mod request_handlers {
     // Home page
     // *********************************************************************************************
     pub async fn index(
+        id: Identity,
         app_state: web::Data<settings::AppState>,
         tmpl: web::Data<Tera>,
     ) -> impl Responder {
+        // access request identity
+        let welcome: String;
+        if let Some(id) = id.identity() {
+            welcome = format!("Welcome! {}", id);
+        } else {
+            welcome = "Welcome Anonymous!".to_string();
+        }
         let mut ctx = Context::new();
-        ctx.insert("title", &app_state.get_app_name());
+        ctx.insert("title", app_state.get_app_name().as_str());
         ctx.insert(
             "description",
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         );
+        ctx.insert("welcome", welcome.as_str());
         let rendered = tmpl.render("index.html", &ctx).unwrap();
         HttpResponse::Ok().content_type("text/html").body(rendered)
     }

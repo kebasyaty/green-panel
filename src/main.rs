@@ -3,6 +3,7 @@ use actix_files::Files;
 use actix_identity::{CookieIdentityPolicy, IdentityService};
 use actix_session::CookieSession;
 use actix_web::{http, middleware, web, App, HttpResponse, HttpServer};
+
 use env_logger;
 use tera::Tera;
 
@@ -43,15 +44,6 @@ async fn main() -> std::io::Result<()> {
             .app_data(app_state.clone())
             // Enable Tera (template engine)
             .data(tera)
-            // Enable Identity
-            .wrap(IdentityService::new(
-                CookieIdentityPolicy::new(settings::SESSION_KEY)
-                    .domain(settings::site_domain(settings::DEBUG))
-                    .name(settings::session_name(settings::PROJECT_NAME))
-                    .path("/")
-                    .max_age(86_400) // 86_400 sec = 1 day
-                    .secure(!settings::DEBUG),
-            ))
             // Enable Compress
             .wrap(middleware::Compress::default())
             // Enable Logger
@@ -92,6 +84,15 @@ async fn main() -> std::io::Result<()> {
                         "strict-origin-when-cross-origin",
                     ),
             )
+            // Enable Identity
+            .wrap(IdentityService::new(
+                CookieIdentityPolicy::new(settings::SESSION_KEY)
+                    .domain(settings::site_domain(settings::DEBUG))
+                    .name(settings::session_name(settings::PROJECT_NAME))
+                    .path("/")
+                    .max_age(86_400) // 86_400 sec = 1 day
+                    .secure(!settings::DEBUG),
+            ))
             // Enable Sessions
             .wrap(
                 CookieSession::signed(settings::SESSION_KEY)
