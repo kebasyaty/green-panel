@@ -29,6 +29,7 @@ pub mod configure_urls {
         cfg.service(web::resource("/login").route(web::post().to(login)));
         cfg.service(web::resource("/logout").route(web::post().to(logout)));
         cfg.service(web::resource("/sign-in").route(web::get().to(admin_panel)));
+        cfg.service(web::resource("/*").route(web::get().to(admin_panel)));
         cfg.service(web::resource("").route(web::get().to(admin_panel)));
     }
 }
