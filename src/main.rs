@@ -86,10 +86,10 @@ async fn main() -> std::io::Result<()> {
             // Enable Sessions
             .wrap(
                 CookieSession::signed(settings::SESSION_KEY)
-                    // .domain(settings::site_domain(settings::DEBUG))
-                    // .name(settings::session_name(settings::PROJECT_NAME))
-                    // .path("/")
-                    // .max_age(86_400) // 86_400 sec = 1 day
+                    .domain(settings::site_domain(settings::DEBUG))
+                    .name(settings::session_name(settings::PROJECT_NAME))
+                    .path("/")
+                    .max_age(86_400) // 86_400 sec = 1 day
                     .secure(!settings::DEBUG),
             )
             // Enable CORS

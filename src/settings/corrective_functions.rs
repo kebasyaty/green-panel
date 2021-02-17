@@ -13,7 +13,7 @@ pub fn local_url() -> String {
 
 pub fn site_domain(debug: bool) -> String {
     match debug {
-        true => local_domain(),
+        true => LOCAL_DOMAIN.to_string(),
         false => SITE_DOMAIN.to_string(),
     }
 }
