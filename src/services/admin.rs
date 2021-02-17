@@ -97,7 +97,8 @@ pub mod request_handlers {
         } else {
             username = login_form.username.clone();
             let password = login_form.password.clone();
-            let filter = Some(doc! {"username": username.clone()});
+            let filter =
+                Some(doc! {"username": username.clone(), "is_staff": true, "is_active": true});
             let output_data = users::User::find_one(filter, None).unwrap();
 
             if output_data.bool() {
