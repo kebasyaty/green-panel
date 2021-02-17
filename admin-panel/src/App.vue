@@ -27,6 +27,7 @@ export default {
   computed: {
     ...mapState([
       'isStart',
+      'username',
       'isAuthenticated'
     ])
   },
@@ -36,6 +37,7 @@ export default {
       if (!this.isStart) {
         if (flag) {
           this.$session.start()
+          this.$session.set('username', this.username)
           this.$router.push({ name: 'home' })
         } else {
           this.$session.destroy()
@@ -50,15 +52,18 @@ export default {
   methods: {
     ...mapMutations([
       'setIsStart',
+      'setUsername',
       'setIsAuthenticated'
     ])
   },
 
   created() {
     if (this.$session.exists()) {
+      this.setUsername(this.$session.get('username'))
       this.setIsAuthenticated(true)
     } else {
       this.setIsStart(false)
+      this.setUsername('..')
     }
   }
 }
