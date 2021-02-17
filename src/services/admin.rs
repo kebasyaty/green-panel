@@ -135,8 +135,8 @@ pub mod request_handlers {
     }
 
     pub async fn logout(session: Session) -> Result<HttpResponse, Error> {
-        // Removes session, both client and server side
-        session.purge();
+        // Clear session
+        session.clear();
         // Send json response
         Ok(HttpResponse::Ok()
             .content_type("application/json")
