@@ -88,7 +88,7 @@ pub mod request_handlers {
         id: Identity,
         login_form: web::Json<LoginForm>,
     ) -> Result<HttpResponse, Error> {
-        let mut username = String::new();
+        let username;
         let mut is_authenticated = false;
 
         if let Some(id) = id.identity() {
