@@ -61,7 +61,7 @@ export default {
     logout() {
       this.axios.post('/admin/logout', {})
         .then(response => {
-          this.setUsername('...')
+          this.setUsername('..')
           this.setIsAuthenticated(false)
         })
         .catch(error => {
