@@ -3,6 +3,7 @@
 //!
 
 use actix_files::NamedFile;
+use actix_identity::Identity;
 use actix_session::Session;
 use actix_web::{web, Error, HttpResponse, Result};
 
