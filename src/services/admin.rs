@@ -65,8 +65,9 @@ pub mod request_handlers {
                 )
             }
         }
-        // Provide admin page
+        // Get path to admin page
         let path = admin_file_path("index.html");
+        // Return response
         Ok(NamedFile::open(path)?)
     }
 
@@ -90,26 +91,30 @@ pub mod request_handlers {
     ) -> Result<HttpResponse, Error> {
         let username: String;
         let mut is_authenticated = false;
-
-        if let Some(id_user) = session.get::<String>("username")? {
-            username = id_user;
+        // Access request identity
+        if let Some(user) = session.get::<String>("user")? {
+            username = user;
             is_authenticated = true;
         } else {
             username = login_form.username.clone();
             let password = login_form.password.clone();
             let filter =
                 Some(doc! {"username": username.clone(), "is_staff": true, "is_active": true});
+            // Search for a user in the database
             let output_data = users::User::find_one(filter, None).unwrap();
-
+            // Check search result
             if output_data.bool() {
                 let user = output_data.model::<users::User>().unwrap();
+                // Check password
                 if user.verify_password(password.as_str(), None).unwrap() {
-                    session.set("username", username.clone())?; // Set id user
+                    // Add user identity to session
+                    session.set("user", user.username.clone())?; // Set id user
+                    session.set("hash", user.hash.clone())?; // Set hash
                     is_authenticated = true;
                 }
             }
         }
-        // Send json response
+        // Return json response
         if is_authenticated {
             Ok(HttpResponse::Ok()
                 .content_type("application/json")
@@ -137,7 +142,7 @@ pub mod request_handlers {
     pub async fn logout(session: Session) -> Result<HttpResponse, Error> {
         // Clear session
         session.clear();
-        // Send json response
+        // Return json response
         Ok(HttpResponse::Ok()
             .content_type("application/json")
             .json(LogoutResult {
