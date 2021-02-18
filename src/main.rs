@@ -106,7 +106,6 @@ async fn main() -> std::io::Result<()> {
             .route("/sitemap.xml", web::route().to(specific::sitemap))
             // ... <- Other services
             // Admin service
-            .service(Files::new("/admin-contrib", "./admin"))
             .service(web::scope("/admin").configure(services::admin::config))
             // Primal service (Home page)
             .service(web::scope("*").configure(services::primal::config))
