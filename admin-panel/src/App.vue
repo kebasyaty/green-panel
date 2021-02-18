@@ -53,7 +53,9 @@ export default {
     ...mapMutations([
       'setIsStart',
       'setUsername',
-      'setIsAuthenticated'
+      'setIsAuthenticated',
+      'setSelectedService',
+      'setServiceList'
     ])
   },
 
@@ -61,6 +63,19 @@ export default {
     if (this.$session.exists()) {
       this.setUsername(this.$session.get('username'))
       this.setIsAuthenticated(true)
+      // Get a list of services and collections
+      this.axios.get('/admin/service-list')
+        .then(response => {
+          const data = response.data
+          if (data.is_authenticated) {
+            //
+          } else {
+            console.log('No data available')
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
     } else {
       this.setIsStart(false)
       this.setUsername('..')
