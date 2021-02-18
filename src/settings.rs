@@ -30,11 +30,11 @@ mod tests {
     #[test]
     fn test_site_domain() {
         // DEBUG = true
-        assert_eq!(site_domain(true), "127.0.0.1:8088");
+        assert_eq!(site_domain(true), "127.0.0.1");
         assert_ne!(site_domain(true), "www.site-name.net");
         // DEBUG = false
         assert_eq!(site_domain(false), "www.site-name.net");
-        assert_ne!(site_domain(false), "127.0.0.1:8088");
+        assert_ne!(site_domain(false), "127.0.0.1");
     }
 
     #[test]
