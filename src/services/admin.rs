@@ -41,28 +41,31 @@ pub mod request_handlers {
 
     // Admin panel
     // *********************************************************************************************
-    pub async fn admin_panel() -> Result<NamedFile> {
-        // Create first user (administrator)
-        if users::User::estimated_document_count(None).unwrap() == 0_i64 {
-            let mut first_user = users::User {
-                // Valid characters: a-z A-Z 0-9 _ @ + .
-                // Max size: 150
-                username: Some("admin".into()),
-                email: Some("no_reply@email.net".into()),
-                // Valid characters: a-z A-Z 0-9 @ # $ % ^ & + = * ! ~ ) (
-                // Min size: 8
-                password: Some("12345678".into()),
-                confirm_password: Some("12345678".into()),
-                is_staff: Some(true),
-                is_active: Some(true),
-                ..Default::default()
-            };
-            let result = first_user.save(None, None, None).unwrap();
-            if !result.bool() {
-                panic!(
-                    "Model: `User` : Error while creating the first user. In detail: {}.",
-                    result.hash().unwrap()
-                )
+    pub async fn admin_panel(session: Session) -> Result<NamedFile, Error> {
+        // Access request identity
+        if session.get::<String>("user")?.is_none() {
+            // Create first user (administrator)
+            if users::User::estimated_document_count(None).unwrap() == 0_i64 {
+                let mut first_user = users::User {
+                    // Valid characters: a-z A-Z 0-9 _ @ + .
+                    // Max size: 150
+                    username: Some("admin".into()),
+                    email: Some("no_reply@email.net".into()),
+                    // Valid characters: a-z A-Z 0-9 @ # $ % ^ & + = * ! ~ ) (
+                    // Min size: 8
+                    password: Some("12345678".into()),
+                    confirm_password: Some("12345678".into()),
+                    is_staff: Some(true),
+                    is_active: Some(true),
+                    ..Default::default()
+                };
+                let result = first_user.save(None, None, None).unwrap();
+                if !result.bool() {
+                    panic!(
+                        "Model: `User` : Error while creating the first user. In detail: {}.",
+                        result.hash().unwrap()
+                    )
+                }
             }
         }
         // Get path to admin page
