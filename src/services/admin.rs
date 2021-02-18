@@ -109,6 +109,7 @@ pub mod request_handlers {
             let output_data = users::User::find_one(filter, None).unwrap();
             // Check search result
             if output_data.bool() {
+                // Get an instance of a User model
                 let user = output_data.model::<users::User>().unwrap();
                 // Check password
                 if user.verify_password(password.as_str(), None).unwrap() {
