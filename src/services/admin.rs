@@ -115,7 +115,7 @@ pub mod request_handlers {
                 if user.verify_password(password.as_str(), None).unwrap() {
                     // Add user identity to session
                     session.set("user", user.username.clone())?; // Set id user
-                    session.set("hash", user.hash.clone())?; // Set hash
+                    session.set("hash", user.hash.clone())?; // Set document hash
                     is_authenticated = true;
                 }
             }
