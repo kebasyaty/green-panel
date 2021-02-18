@@ -67,8 +67,14 @@ export default {
       this.axios.get('/admin/service-list')
         .then(response => {
           const data = response.data
-          if (data.is_authenticated) {
-            //
+          const listLength = data.service_list.length
+          if (listLength > 0) {
+            const selectedServiceList = []
+            for (let idx = 0; idx < listLength; idx++) {
+              selectedServiceList.push(undefined)
+            }
+            this.setSelectedService(selectedServiceList)
+            this.setServiceList(data.service_list)
           } else {
             console.log('No data available')
           }
