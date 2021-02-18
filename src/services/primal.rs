@@ -34,13 +34,14 @@ pub mod request_handlers {
         app_state: web::Data<settings::AppState>,
         tmpl: web::Data<Tera>,
     ) -> Result<HttpResponse, Error> {
-        // access request identity
+        // Access request identity
         let welcome: String;
-        if let Some(id_user) = session.get::<String>("username")? {
-            welcome = format!("Welcome! {}", id_user);
+        if let Some(user) = session.get::<String>("user")? {
+            welcome = format!("Welcome! {}", user);
         } else {
             welcome = "Welcome Anonymous!".to_string();
         }
+        // Get page from template
         let mut ctx = Context::new();
         ctx.insert("title", app_state.get_app_name().as_str());
         ctx.insert(
@@ -49,6 +50,7 @@ pub mod request_handlers {
         );
         ctx.insert("welcome", welcome.as_str());
         let rendered = tmpl.render("index.html", &ctx).unwrap();
+        // Return response
         Ok(HttpResponse::Ok().content_type("text/html").body(rendered))
     }
 }
