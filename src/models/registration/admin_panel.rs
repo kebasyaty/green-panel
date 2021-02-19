@@ -8,8 +8,8 @@ use crate::models::services::admin::users;
 
 // Register models.
 // Hint: get icon names - https://materialdesignicons.com/
-pub fn collection_list() -> Value {
-    json!({ "collection_list": [
+pub fn service_list() -> Value {
+    json!({ "service_list": [
             {
                 "service": {"title": "Users", "icon": "account-multiple"},
                 "collections": [

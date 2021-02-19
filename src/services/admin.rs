@@ -32,7 +32,7 @@ pub mod configure_urls {
         cfg.service(web::resource("/login").route(web::post().to(login)));
         cfg.service(web::resource("/logout").route(web::post().to(logout)));
         cfg.service(web::resource("/sign-in").route(web::get().to(admin_panel)));
-        cfg.service(web::resource("/collection-list").route(web::get().to(collection_list)));
+        cfg.service(web::resource("/service-list").route(web::get().to(service_list)));
         cfg.service(web::resource("/document-list").route(web::get().to(document_list)));
         cfg.service(web::resource("/*").route(web::get().to(admin_panel)));
         cfg.service(web::resource("").route(web::get().to(admin_panel)));
@@ -149,7 +149,7 @@ pub mod request_handlers {
 
     // Service list
     // *********************************************************************************************
-    pub async fn collection_list(session: Session) -> Result<HttpResponse, Error> {
+    pub async fn service_list(session: Session) -> Result<HttpResponse, Error> {
         // Access request identity
         if session.get::<String>("user")?.is_none() {
             return Ok(HttpResponse::BadRequest()
@@ -161,7 +161,7 @@ pub mod request_handlers {
         // Return json response
         Ok(HttpResponse::Ok()
             .content_type("application/json")
-            .json(admin_panel::collection_list()))
+            .json(admin_panel::service_list()))
     }
 
     // Document list
