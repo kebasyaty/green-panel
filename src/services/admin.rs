@@ -157,7 +157,7 @@ pub mod request_handlers {
         Ok(HttpResponse::Ok()
             .content_type("application/json")
             .json(json!( {
-                "service-list": []
+                "service_list": []
             })))
     }
 }
