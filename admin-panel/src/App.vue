@@ -28,7 +28,8 @@ export default {
     ...mapState([
       'isStart',
       'username',
-      'isAuthenticated'
+      'isAuthenticated',
+      'serviceList'
     ])
   },
 
@@ -40,24 +41,9 @@ export default {
           this.$session.set('username', this.username)
           this.$router.push({ name: 'home' })
           // Get a list of services and collections
-          this.axios.get('/admin/service-list')
-            .then(response => {
-              const data = response.data
-              const listLength = data.service_list.length
-              if (listLength > 0) {
-                const selectedServiceList = []
-                for (let idx = 0; idx < listLength; idx++) {
-                  selectedServiceList.push(undefined)
-                }
-                this.setSelectedService(selectedServiceList)
-                this.setServiceList(data.service_list)
-              } else {
-                console.log('No data available')
-              }
-            })
-            .catch(error => {
-              console.log(error)
-            })
+          if (this.serviceList.length === 0) {
+            this.getServiceList()
+          }
         } else {
           this.setSelectedService([])
           this.setServiceList([])
@@ -77,16 +63,41 @@ export default {
       'setIsAuthenticated',
       'setSelectedService',
       'setServiceList'
-    ])
+    ]),
+    getServiceList() {
+      // Get a list of services and collections
+      this.axios.get('/admin/service-list')
+        .then(response => {
+          const data = response.data
+          const listLength = data.service_list.length
+          if (listLength > 0) {
+            const selectedServiceList = []
+            for (let idx = 0; idx < listLength; idx++) {
+              selectedServiceList.push(undefined)
+            }
+            this.setSelectedService(selectedServiceList)
+            this.setServiceList(data.service_list)
+          } else {
+            console.log('No data available')
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
   },
 
   created() {
     if (this.$session.exists()) {
       this.setUsername(this.$session.get('username'))
       this.setIsAuthenticated(true)
+      // Get a list of services and collections
+      this.getServiceList()
     } else {
       this.setIsStart(false)
       this.setUsername('..')
+      this.setSelectedService([])
+      this.setServiceList([])
     }
   }
 }

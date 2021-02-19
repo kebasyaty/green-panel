@@ -16,7 +16,7 @@ export default new Vuex.Store({
     // Panel width for list of services (Drawer).
     panelWidthServiceList: 360,
     // The current service in which the collection is selected.
-    selectedService: [undefined, undefined, undefined],
+    selectedService: [],
     // List of services (sub-applications) with nested list of collections.
     serviceList: []
   },
