@@ -12,7 +12,7 @@ use serde_json::json;
 
 use mongodb::bson::doc;
 
-use crate::models::users;
+use crate::models::services::admin::users;
 use mango_orm::{QCommon, QPaladins};
 
 pub use configure_urls::*;

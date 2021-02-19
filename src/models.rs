@@ -2,5 +2,5 @@
 //!
 
 pub mod registration;
+pub mod services;
 pub mod settings;
-pub mod users;

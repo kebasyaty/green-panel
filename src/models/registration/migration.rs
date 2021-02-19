@@ -1,7 +1,7 @@
 //! # Registering models for migration.
 //!
 
-use crate::models::{settings, users};
+use crate::models::{services::admin::users, settings};
 use mango_orm::{Monitor, ToModel, DB_MAP_CLIENT_NAMES};
 
 // Migration Service `Mango`.
