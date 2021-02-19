@@ -7,7 +7,7 @@ use actix_files::NamedFile;
 use actix_session::Session;
 use actix_web::{web, Error, HttpResponse, Result};
 
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 use serde_json::json;
 
 use mongodb::bson::doc;
@@ -86,12 +86,6 @@ pub mod request_handlers {
         password: String,
     }
 
-    #[derive(Serialize)]
-    pub struct LoginResult {
-        username: String,
-        is_authenticated: bool,
-    }
-
     pub async fn login(
         session: Session,
         login_form: web::Json<LoginForm>,
@@ -126,10 +120,10 @@ pub mod request_handlers {
         if is_authenticated {
             Ok(HttpResponse::Ok()
                 .content_type("application/json")
-                .json(LoginResult {
-                    username,
-                    is_authenticated,
-                }))
+                .json(json!( {
+                    "username": username,
+                    "is_authenticated": is_authenticated
+                })))
         } else {
             Ok(HttpResponse::BadRequest()
                 .content_type("application/json")
@@ -163,7 +157,7 @@ pub mod request_handlers {
         Ok(HttpResponse::Ok()
             .content_type("application/json")
             .json(json!( {
-                "msg": "Goodbye!"
+                "service-list": []
             })))
     }
 }
