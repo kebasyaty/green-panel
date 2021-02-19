@@ -39,7 +39,28 @@ export default {
           this.$session.start()
           this.$session.set('username', this.username)
           this.$router.push({ name: 'home' })
+          // Get a list of services and collections
+          this.axios.get('/admin/service-list')
+            .then(response => {
+              const data = response.data
+              const listLength = data.service_list.length
+              if (listLength > 0) {
+                const selectedServiceList = []
+                for (let idx = 0; idx < listLength; idx++) {
+                  selectedServiceList.push(undefined)
+                }
+                this.setSelectedService(selectedServiceList)
+                this.setServiceList(data.service_list)
+              } else {
+                console.log('No data available')
+              }
+            })
+            .catch(error => {
+              console.log(error)
+            })
         } else {
+          this.setSelectedService([])
+          this.setServiceList([])
           this.$session.destroy()
           this.$router.push('/sign-in')
         }
@@ -63,25 +84,6 @@ export default {
     if (this.$session.exists()) {
       this.setUsername(this.$session.get('username'))
       this.setIsAuthenticated(true)
-      // Get a list of services and collections
-      this.axios.get('/admin/service-list')
-        .then(response => {
-          const data = response.data
-          const listLength = data.service_list.length
-          if (listLength > 0) {
-            const selectedServiceList = []
-            for (let idx = 0; idx < listLength; idx++) {
-              selectedServiceList.push(undefined)
-            }
-            this.setSelectedService(selectedServiceList)
-            this.setServiceList(data.service_list)
-          } else {
-            console.log('No data available')
-          }
-        })
-        .catch(error => {
-          console.log(error)
-        })
     } else {
       this.setIsStart(false)
       this.setUsername('..')
