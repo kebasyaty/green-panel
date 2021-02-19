@@ -3,6 +3,8 @@
 //! `default` - Default settings.
 //!
 
+// General settings for the project.
+// *************************************************************************************************
 // Project name.
 // Hint: PROJECT_NAM it is recommended not to change.
 // Valid characters: _ a-z A-Z 0-9
@@ -18,6 +20,7 @@ pub const PROJECT_NAME: &str = "project_name";
 pub const UNIQUE_PROJECT_KEY: &str = "WjsDYzy4VvhHCda9";
 
 // Default settings.
+// *************************************************************************************************
 pub mod default {
     // Valid characters: _ a-z A-Z 0-9
     // Max size: 31
