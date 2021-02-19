@@ -1,8 +1,8 @@
 //! # Models registration
 //!
 //! `migration` - Registering models for migration.
-//! `admin` - Registering models for the admin panel.
+//! `admin_panel` - Registering models for the admin panel.
 //!
 
-pub mod admin;
+pub mod admin_panel;
 pub mod migration;
