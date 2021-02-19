@@ -12,7 +12,7 @@ use serde_json::json;
 
 use mongodb::bson::doc;
 
-use crate::models::services::admin::users;
+use crate::models::{registration::admin_panel, services::admin::users};
 use mango_orm::{QCommon, QPaladins};
 
 pub use configure_urls::*;
@@ -150,14 +150,16 @@ pub mod request_handlers {
     // *********************************************************************************************
     pub async fn service_list(session: Session) -> Result<HttpResponse, Error> {
         // Access request identity
-        if session.get::<String>("user")?.is_some() {
-            //
+        if session.get::<String>("user")?.is_none() {
+            return Ok(HttpResponse::BadRequest()
+                .content_type("application/json")
+                .json(json!( {
+                    "error": "Authentication failed."
+                })));
         }
         // Return json response
         Ok(HttpResponse::Ok()
             .content_type("application/json")
-            .json(json!( {
-                "service_list": []
-            })))
+            .json(admin_panel::service_list()))
     }
 }
