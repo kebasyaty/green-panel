@@ -45,10 +45,10 @@ export default {
             this.getServiceList()
           }
         } else {
-          this.$session.destroy()
-          this.$router.push('/sign-in')
           this.setSelectedService([])
           this.setServiceList([])
+          this.$session.destroy()
+          this.$router.push('/sign-in')
         }
       } else {
         this.setIsStart(false)
