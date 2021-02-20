@@ -201,7 +201,12 @@ export default {
     },
     getDocumentList() {
       // Get a list of documents.
-      this.axios.get('/admin/document-list')
+      const collection = this.serviceList[this.$route.params.indexService].collections[this.$route.params.indexCollection]
+      const payload = {
+        model_key: collection.model_key,
+        doc_name: { field: collection.doc_name.field, title: collection.doc_name.title }
+      }
+      this.axios.get('/admin/document-list', payload)
         .then(response => {
           const data = response.data
           if (data.documents.length > 0) {
