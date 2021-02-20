@@ -72,6 +72,7 @@
               </tr>
             </thead>
             <tbody>
+              <!-- Document list. -->
               <tr v-for="(document, idxDoc) in documents" :key="idxDoc">
                 <!-- Delete document. -->
                 <td width="76" class="pr-0">
@@ -86,13 +87,9 @@
                 </td>
                 <!-- Number of the document in the table. -->
                 <td width="76" class="pr-0">{{ idxDoc + 1 }}</td>
-                <!-- Document list. -->
-                <td v-for="(header, idxHead) in headers" :key="Object.keys(header)[0]">
-                  <router-link
-                    v-if="idxHead === 0"
-                    :to="createDocumentUrl(idxDoc)"
-                  >{{ document[Object.keys(header)[0]] }}</router-link>
-                  <template v-else>{{ document[Object.keys(header)[0]] }}</template>
+                <!-- Link to document. -->
+                <td>
+                  <router-link :to="createDocumentUrl(idxDoc)">{{ document }}</router-link>
                 </td>
               </tr>
             </tbody>
