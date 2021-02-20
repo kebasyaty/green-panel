@@ -7,10 +7,10 @@ use actix_files::NamedFile;
 use actix_session::Session;
 use actix_web::{web, Error, HttpResponse, Result};
 
+use mongodb::bson::doc;
 use serde::Deserialize;
 use serde_json::json;
-
-use mongodb::bson::doc;
+use std::collections::HashMap;
 
 use crate::models::{registration::admin_panel, services::admin::users};
 use mango_orm::{QCommon, QPaladins};
@@ -166,7 +166,16 @@ pub mod request_handlers {
 
     // Document list
     // *********************************************************************************************
-    pub async fn document_list(session: Session) -> Result<HttpResponse, Error> {
+    #[derive(Deserialize)]
+    pub struct DocListRequest {
+        model_key: String,
+        doc_name: HashMap<String, String>,
+    }
+
+    pub async fn document_list(
+        session: Session,
+        doc_list_req: web::Json<DocListRequest>,
+    ) -> Result<HttpResponse, Error> {
         // Access request identity
         if session.get::<String>("user")?.is_none() {
             return Ok(HttpResponse::BadRequest()

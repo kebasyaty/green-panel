@@ -13,11 +13,11 @@ use crate::models::services::admin::users;
 pub fn service_list() -> Value {
     json!({ "service_list": [
             {
-                "service": {"title": "Users", "icon": "account-multiple"},
+                "service": { "title": "Users", "icon": "account-multiple" },
                 "collections": [
                     { "title": "User",
                       "model_key": users::User::key(),
-                      "doc_name": {"field": "username", "title": "Nickname"} },
+                      "doc_name": { "field": "username", "title": "Nickname" } },
                 ]
             },
         ]
