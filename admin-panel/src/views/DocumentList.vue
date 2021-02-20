@@ -198,6 +198,27 @@ export default {
       this.previousPageNumber = this.currentPageNumber
       //
       window.console.log(preOrNext, this.currentPageNumber)
+    },
+    getDocumentList() {
+      // Get a list of documents.
+      this.axios.get('/admin/document-list')
+        .then(response => {
+          const data = response.data
+          if (data.documents.length > 0) {
+            this.setDocuments(data.documents)
+          } else {
+            console.log('No data available')
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
+  },
+
+  created() {
+    if (this.serviceList.length > 0) {
+      this.getDocumentList()
     }
   }
 }
