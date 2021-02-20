@@ -111,7 +111,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import slug from 'slug'
 import fillRange from 'fill-range'
 
@@ -159,6 +159,9 @@ export default {
   },
 
   methods: {
+    ...mapMutations('documentList', [
+      'setDocuments'
+    ]),
     // Router - Go back one step.
     goBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push({ name: 'home' })
