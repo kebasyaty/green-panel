@@ -10,7 +10,6 @@ use actix_web::{web, Error, HttpResponse, Result};
 use mongodb::bson::doc;
 use serde::Deserialize;
 use serde_json::json;
-use std::collections::HashMap;
 
 use crate::models::{registration::admin_panel, services::admin::users};
 use mango_orm::{QCommon, QPaladins};
@@ -169,7 +168,7 @@ pub mod request_handlers {
     #[derive(Deserialize)]
     pub struct DocListRequest {
         model_key: String,
-        doc_name: HashMap<String, String>,
+        field_name: String,
     }
 
     pub async fn document_list(

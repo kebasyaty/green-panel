@@ -204,7 +204,7 @@ export default {
       const collection = this.serviceList[this.$route.params.indexService].collections[this.$route.params.indexCollection]
       const payload = {
         model_key: collection.model_key,
-        doc_name: { field: collection.doc_name.field, title: collection.doc_name.title }
+        field_name: collection.doc_name.field
       }
       this.axios.get('/admin/document-list', payload)
         .then(response => {
