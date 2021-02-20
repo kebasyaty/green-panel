@@ -7,6 +7,7 @@ use serde_json::{json, Value};
 use crate::models::services::admin::users;
 
 // Register models.
+// *************************************************************************************************
 // Hint: get icon names - https://materialdesignicons.com/
 // Hint: doc_name - {<field name>, <Table header>}
 pub fn service_list() -> Value {
