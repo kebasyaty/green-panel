@@ -10,7 +10,7 @@ use actix_web::{web, Error, HttpResponse, Result};
 use mongodb::bson::doc;
 use serde::Deserialize;
 use serde_json::json;
-// use std::collections::HashMap;
+use std::collections::HashMap;
 
 use crate::models::{registration::admin_panel, services::admin::users};
 use mango_orm::{QCommon, QPaladins};
@@ -33,7 +33,7 @@ pub mod configure_urls {
         cfg.service(web::resource("/logout").route(web::post().to(logout)));
         cfg.service(web::resource("/sign-in").route(web::get().to(admin_panel)));
         cfg.service(web::resource("/service-list").route(web::get().to(service_list)));
-        // cfg.service(web::resource("/document-list").route(web::get().to(document_list)));
+        cfg.service(web::resource("/document-list").route(web::get().to(document_list)));
         cfg.service(web::resource("/*").route(web::get().to(admin_panel)));
         cfg.service(web::resource("").route(web::get().to(admin_panel)));
     }
@@ -166,7 +166,6 @@ pub mod request_handlers {
 
     // Document list
     // *********************************************************************************************
-    /*
     #[derive(Deserialize)]
     pub struct DocListRequest {
         model_key: String,
@@ -190,5 +189,4 @@ pub mod request_handlers {
             .content_type("application/json")
             .json(json!({})))
     }
-    */
 }
