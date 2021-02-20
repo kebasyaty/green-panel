@@ -73,7 +73,7 @@
             </thead>
             <tbody>
               <!-- Document list. -->
-              <tr v-for="(document, idxDoc) in documents" :key="idxDoc">
+              <tr v-for="(document, idxDoc) in documents" :key="document.title">
                 <!-- Delete document. -->
                 <td width="76" class="pr-0">
                   <v-checkbox
@@ -89,7 +89,7 @@
                 <td width="76" class="pr-0">{{ idxDoc + 1 }}</td>
                 <!-- Link to document. -->
                 <td>
-                  <router-link :to="createDocumentUrl(idxDoc)">{{ document }}</router-link>
+                  <router-link :to="createDocumentUrl(idxDoc)">{{ document.title }}</router-link>
                 </td>
               </tr>
             </tbody>
