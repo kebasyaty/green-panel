@@ -68,9 +68,7 @@
                 <!-- Header list. -->
                 <th
                   class="text-left"
-                  v-for="header in headers"
-                  :key="Object.keys(header)[0]"
-                >{{ Object.values(header)[0] }}</th>
+                >{{ serviceList[$route.params.indexService].collections[$route.params.indexCollection].doc_name.title }}</th>
               </tr>
             </thead>
             <tbody>
@@ -137,7 +135,6 @@ export default {
       'serviceList'
     ]),
     ...mapState('documentList', [
-      'headers',
       'documents'
     ]),
     // Get Title of collection.
