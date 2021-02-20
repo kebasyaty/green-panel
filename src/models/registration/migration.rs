@@ -12,6 +12,7 @@ pub fn mango_migration() -> Result<(), Box<dyn std::error::Error>> {
         "default".to_string(),
         mongodb::sync::Client::with_uri_str("mongodb://localhost:27017")?,
     );
+
     // Monitor initialization.
     let monitor = Monitor {
         project_name: settings::PROJECT_NAME,
