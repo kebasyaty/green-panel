@@ -3,9 +3,9 @@ export default {
 
   state: {
     documents: [
-      { hash: 'h1', title: 'Название документа 1', nickname: 'rust' },
-      { hash: 'h2', title: 'Document name 2', nickname: 'rust2' },
-      { hash: 'h3', title: 'Document name 3', nickname: 'rust3' }
+      { title: 'Название документа 1', hash: 'h1' },
+      { title: 'Document name 2', hash: 'h2' },
+      { title: 'Document name 3', hash: 'h3' }
     ]
   },
 
