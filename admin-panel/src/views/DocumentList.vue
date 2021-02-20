@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid v-if="serviceList.length > 0">
     <v-card class="mt-1">
       <v-toolbar dense flat>
         <!-- Button - A step back in the history of the router. -->
