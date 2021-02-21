@@ -175,27 +175,32 @@ pub mod request_handlers {
         session: Session,
         json_req: web::Json<DocListRequest>,
     ) -> Result<HttpResponse, Error> {
+        let mut msg_err = String::new();
         // Access request identity
         if session.get::<String>("user")?.is_none() {
-            return Ok(HttpResponse::BadRequest()
-                .content_type("application/json")
-                .json(json!( {
-                    "error": "Authentication failed."
-                })));
+            msg_err = "Authentication failed.".to_string();
         }
         // Get doc list
-        let output_data = if json_req.model_key == users::User::key() {
-            //
+        let output_data;
+        if json_req.model_key == users::User::key() {
+            output_data = users::User::find(None, None)
         } else {
-            return Ok(HttpResponse::BadRequest()
-                .content_type("application/json")
-                .json(json!( {
-                    "error": "Undefined model key."
-                })));
+            output_data = Err("").unwrap(); // stub
+            msg_err = "Undefined model key.".to_string();
         };
+        // Check for output data
+        if output_data.is_err() {
+            msg_err = "No output data.".to_string();
+        }
         // Return json response
-        Ok(HttpResponse::Ok()
-            .content_type("application/json")
-            .json(json!({})))
+        if !msg_err.is_empty() {
+            Ok(HttpResponse::Ok()
+                .content_type("application/json")
+                .json(json!({})))
+        } else {
+            Ok(HttpResponse::BadRequest()
+                .content_type("application/json")
+                .json(json!({ "error": msg_err })))
+        }
     }
 }
