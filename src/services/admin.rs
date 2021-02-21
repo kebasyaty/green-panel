@@ -9,7 +9,7 @@ use actix_web::{web, Error, HttpResponse, Result};
 
 use mongodb::bson::doc;
 use serde::Deserialize;
-use serde_json::json;
+use serde_json::{json, Value};
 
 use crate::models::{registration::admin_panel, services::admin::users};
 use mango_orm::{models::output_data::OutputDataMany, QCommon, QPaladins, ToModel};
@@ -176,6 +176,7 @@ pub mod request_handlers {
         json_req: web::Json<DocListRequest>,
     ) -> Result<HttpResponse, Error> {
         let mut msg_err = String::new();
+        let mut documents: Vec<Value> = Vec::new();
         // Access request identity
         if session.get::<String>("user")?.is_none() {
             msg_err = "Authentication failed.".to_string();
@@ -190,7 +191,13 @@ pub mod request_handlers {
         };
         // Check for output data
         if output_data.is_ok() {
-            //
+            let docs = output_data.unwrap().raw_docs().unwrap();
+            for doc in docs {
+                documents.push(json!({
+                    "title": doc.get_str(json_req.field_name.as_str()).unwrap(),
+                    "hash": doc.get_str("hash").unwrap()
+                }))
+            }
         } else {
             msg_err = "No output data.".to_string();
         }
@@ -198,7 +205,7 @@ pub mod request_handlers {
         if !msg_err.is_empty() {
             Ok(HttpResponse::Ok()
                 .content_type("application/json")
-                .json(json!({})))
+                .json(json!({"documents": []})))
         } else {
             Ok(HttpResponse::BadRequest()
                 .content_type("application/json")
