@@ -175,6 +175,7 @@ pub mod request_handlers {
         session: Session,
         json_req: web::Json<DocListRequest>,
     ) -> Result<HttpResponse, Error> {
+        /*
         let mut msg_err = String::new();
         let mut documents: Vec<Value> = Vec::new();
         // Access request identity
@@ -202,14 +203,19 @@ pub mod request_handlers {
             msg_err = "No output data.".to_string();
         }
         // Return json response
-        if !msg_err.is_empty() {
+        if msg_err.is_empty() {
             Ok(HttpResponse::Ok()
                 .content_type("application/json")
-                .json(json!({"documents": []})))
+                .json(json!({ "documents": documents })))
         } else {
             Ok(HttpResponse::BadRequest()
                 .content_type("application/json")
                 .json(json!({ "error": msg_err })))
         }
+        */
+
+        Ok(HttpResponse::Ok()
+            .content_type("application/json")
+            .json(json!({ "documents": [] })))
     }
 }
