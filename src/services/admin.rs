@@ -173,9 +173,8 @@ pub mod request_handlers {
 
     pub async fn document_list(
         session: Session,
-        json_req: web::Json<DocListRequest>,
+        json_req: web::Query<DocListRequest>,
     ) -> Result<HttpResponse, Error> {
-        /*
         let mut msg_err = String::new();
         let mut documents: Vec<Value> = Vec::new();
         // Access request identity
@@ -212,11 +211,5 @@ pub mod request_handlers {
                 .content_type("application/json")
                 .json(json!({ "error": msg_err })))
         }
-        */
-
-        println!("\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n");
-        Ok(HttpResponse::Ok()
-            .content_type("application/json")
-            .json(json!({})))
     }
 }
