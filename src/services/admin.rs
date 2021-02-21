@@ -12,7 +12,7 @@ use serde::Deserialize;
 use serde_json::json;
 
 use crate::models::{registration::admin_panel, services::admin::users};
-use mango_orm::{QCommon, QPaladins, ToModel};
+use mango_orm::{models::output_data::OutputDataMany, QCommon, QPaladins, ToModel};
 
 pub use configure_urls::*;
 pub use request_handlers::*;
@@ -181,7 +181,7 @@ pub mod request_handlers {
             msg_err = "Authentication failed.".to_string();
         }
         // Get doc list
-        let output_data;
+        let output_data: std::result::Result<OutputDataMany, Box<dyn std::error::Error>>;
         if json_req.model_key == users::User::key() {
             output_data = users::User::find(None, None)
         } else {
