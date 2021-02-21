@@ -127,8 +127,10 @@ export default {
       if (this.serviceList.length > 0) {
         const collection = this.serviceList[indexService].collections[indexCollection]
         const payload = {
-          model_key: collection.model_key,
-          field_name: collection.doc_name.field
+          params: {
+            model_key: collection.model_key,
+            field_name: collection.doc_name.field
+          }
         }
         this.axios.get('/admin/document-list', payload)
           .then(response => {

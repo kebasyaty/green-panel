@@ -214,8 +214,9 @@ pub mod request_handlers {
         }
         */
 
+        println!("\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n");
         Ok(HttpResponse::Ok()
             .content_type("application/json")
-            .json(json!({ "documents": [] })))
+            .json(json!({})))
     }
 }
