@@ -189,7 +189,9 @@ pub mod request_handlers {
             msg_err = "Undefined model key.".to_string();
         };
         // Check for output data
-        if output_data.is_err() {
+        if output_data.is_ok() {
+            //
+        } else {
             msg_err = "No output data.".to_string();
         }
         // Return json response
