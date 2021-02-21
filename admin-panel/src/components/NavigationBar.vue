@@ -44,8 +44,8 @@
                 v-for="(collection, indexCollection) in item.collections"
                 :key="collection.model_key"
                 class="px-1"
-                @click="resetPreActivatedService(indexService)"
-                :to="[getDocumentList(indexService, indexCollection), createUrlDocumentList(item.service.title, collection.title, indexService, indexCollection)]"
+                @click="[getDocumentList(indexService, indexCollection), resetPreActivatedService(indexService)]"
+                :to="createUrlDocumentList(item.service.title, collection.title, indexService, indexCollection)"
               >
                 <v-list-item-icon class="mr-2">
                   <v-icon>mdi-circle-medium</v-icon>
