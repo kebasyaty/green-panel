@@ -183,6 +183,7 @@ pub mod request_handlers {
                     "error": "Authentication failed."
                 })));
         }
+        // Get doc list
         let output_data = if json_req.model_key == users::User::key() {
             //
         } else {
