@@ -12,7 +12,7 @@ use serde::Deserialize;
 use serde_json::json;
 
 use crate::models::{registration::admin_panel, services::admin::users};
-use mango_orm::{QCommon, QPaladins};
+use mango_orm::{QCommon, QPaladins, ToModel};
 
 pub use configure_urls::*;
 pub use request_handlers::*;
@@ -173,7 +173,7 @@ pub mod request_handlers {
 
     pub async fn document_list(
         session: Session,
-        doc_list_req: web::Json<DocListRequest>,
+        json_req: web::Json<DocListRequest>,
     ) -> Result<HttpResponse, Error> {
         // Access request identity
         if session.get::<String>("user")?.is_none() {
@@ -183,6 +183,15 @@ pub mod request_handlers {
                     "error": "Authentication failed."
                 })));
         }
+        let output_data = if json_req.model_key == users::User::key() {
+            //
+        } else {
+            return Ok(HttpResponse::BadRequest()
+                .content_type("application/json")
+                .json(json!( {
+                    "error": "Undefined model key."
+                })));
+        };
         // Return json response
         Ok(HttpResponse::Ok()
             .content_type("application/json")
