@@ -27,7 +27,7 @@
           <v-col cols="12" md="6" class="text-md-right">
             <!-- Button - Create a new document. -->
             <v-btn text color="green" :to="docUrlNoIndex + '/new'">
-              <v-icon left>mdi-plus</v-icon>
+              <v-icon left>mdi-file-plus-outline</v-icon>
               {{ $t('message.25') }}
             </v-btn>
           </v-col>
@@ -111,7 +111,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState } from 'vuex'
 import slug from 'slug'
 import fillRange from 'fill-range'
 
@@ -159,9 +159,6 @@ export default {
   },
 
   methods: {
-    ...mapMutations('documentList', [
-      'setDocuments'
-    ]),
     // Router - Go back one step.
     goBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push({ name: 'home' })
@@ -198,32 +195,6 @@ export default {
       this.previousPageNumber = this.currentPageNumber
       //
       window.console.log(preOrNext, this.currentPageNumber)
-    },
-    getDocumentList() {
-      // Get a list of documents.
-      const collection = this.serviceList[this.$route.params.indexService].collections[this.$route.params.indexCollection]
-      const payload = {
-        model_key: collection.model_key,
-        field_name: collection.doc_name.field
-      }
-      this.axios.get('/admin/document-list', payload)
-        .then(response => {
-          const data = response.data
-          if (data.documents.length > 0) {
-            this.setDocuments(data.documents)
-          } else {
-            console.log('No data available')
-          }
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    }
-  },
-
-  created() {
-    if (this.serviceList.length > 0) {
-      this.getDocumentList()
     }
   }
 }
