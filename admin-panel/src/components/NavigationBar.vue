@@ -44,7 +44,7 @@
                 v-for="(collection, indexCollection) in item.collections"
                 :key="collection.model_key"
                 class="px-1"
-                @click="[ajaxGetDocumentList(), resetPreActivatedService(indexService)]"
+                @click="[ajaxGetDocumentList({indexService, indexCollection}), resetPreActivatedService(indexService)]"
                 :to="createUrlDocumentList(item.service.title, collection.title, indexService, indexCollection)"
               >
                 <v-list-item-icon class="mr-2">
