@@ -183,6 +183,7 @@ pub mod request_handlers {
         }
         // Get doc list
         let output_data: std::result::Result<OutputDataMany, Box<dyn std::error::Error>>;
+        // Determine which Model to use
         if query.model_key == users::User::key() {
             output_data = users::User::find(None, None)
         } else {
@@ -192,6 +193,7 @@ pub mod request_handlers {
         // Check for output data
         if output_data.is_ok() {
             let docs = output_data.unwrap().raw_docs().unwrap();
+            // Filling in the `documents` array
             for doc in docs {
                 documents.push(json!({
                     "title": doc.get_str(query.field_name.as_str()).unwrap(),
