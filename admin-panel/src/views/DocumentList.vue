@@ -99,10 +99,10 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-pagination
-          v-model="updateUurrentPageNumber"
+          v-model="updateCurrentPageNumber"
           :length="countPage"
           :total-visible="5"
-          @input="docsTablePagination"
+          @input="docsTablePagination()"
         ></v-pagination>
         <v-spacer></v-spacer>
       </v-card-actions>
@@ -134,7 +134,7 @@ export default {
       'documents',
       'currentPageNumber'
     ]),
-    updateUurrentPageNumber: {
+    updateCurrentPageNumber: {
       get: function () {
         return this.currentPageNumber
       },
@@ -163,12 +163,6 @@ export default {
       const slugServiceTitle = slug(service.service.title, { locale: currentUserLocale })
       const slugCollectionTitle = slug(this.collectionTitle, { locale: currentUserLocale })
       return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document`
-    }
-  },
-
-  watch: {
-    currentPageNumber: function () {
-      this.ajaxGetDocumentList()
     }
   },
 
@@ -208,13 +202,11 @@ export default {
     // Page navigation through the table of documents.
     docsTablePagination: function () {
       // Eliminate duplication.
-      if (this.currentPageNumber === this.previousPageNumber) { return }
-      // Determine the direction of the selection.
-      const preOrNext = this.currentPageNumber < this.previousPageNumber ? 'pre' : 'next'
+      if (this.updateCurrentPageNumber === this.previousPageNumber) { return }
       // Balance the states of the variables.
-      this.previousPageNumber = this.currentPageNumber
-      //
-      window.console.log(preOrNext, this.currentPageNumber)
+      this.previousPageNumber = this.updateCurrentPageNumber
+      // Get a list of documents.
+      this.ajaxGetDocumentList()
     }
   },
 
