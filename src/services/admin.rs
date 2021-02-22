@@ -203,12 +203,13 @@ pub mod request_handlers {
         } else {
             msg_err = "No output data.".to_string();
         }
-        // Return json response
+        // Return json response (Error)
         if !msg_err.is_empty() {
             return Ok(HttpResponse::BadRequest()
                 .content_type("application/json")
                 .json(json!({ "error": msg_err })));
         }
+        // Return json response (Ok)
         Ok(HttpResponse::Ok()
             .content_type("application/json")
             .json(json!({ "documents": documents })))
