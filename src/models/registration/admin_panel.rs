@@ -9,7 +9,8 @@ use crate::models::services::admin::users;
 // Register models.
 // *************************************************************************************************
 // Hint: get icon names - https://materialdesignicons.com/
-// Hint: doc_name - {"field": "field_name, "title": "Table header"}
+// Hint: doc_name - {"field": "field_name", "title": "Table header"}
+// ( field_name - only text field )
 pub fn service_list() -> Value {
     json!({ "service_list": [
             {
