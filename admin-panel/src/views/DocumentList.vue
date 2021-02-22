@@ -195,7 +195,37 @@ export default {
       this.previousPageNumber = this.currentPageNumber
       //
       window.console.log(preOrNext, this.currentPageNumber)
+    },
+    // Get a list of documents.
+    getDocumentList() {
+      if (this.serviceList.length > 0) {
+        const collection = this.serviceList[this.$route.params.indexService]
+          .collections[this.$route.params.indexCollection]
+        const payload = {
+          params: {
+            model_key: collection.model_key,
+            field_name: collection.doc_name.field
+          }
+        }
+        this.axios.get('/admin/document-list', payload)
+          .then(response => {
+            const data = response.data
+            if (data.documents.length > 0) {
+              this.setDocuments(data.documents)
+            } else {
+              console.log('No data available')
+            }
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      }
     }
+  },
+
+  created() {
+    // Get a list of documents.
+    this.getDocumentList()
   }
 }
 </script>

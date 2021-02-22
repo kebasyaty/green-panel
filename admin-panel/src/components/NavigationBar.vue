@@ -44,7 +44,7 @@
                 v-for="(collection, indexCollection) in item.collections"
                 :key="collection.model_key"
                 class="px-1"
-                @click="[getDocumentList(indexService, indexCollection), resetPreActivatedService(indexService)]"
+                @click="resetPreActivatedService(indexService)"
                 :to="createUrlDocumentList(item.service.title, collection.title, indexService, indexCollection)"
               >
                 <v-list-item-icon class="mr-2">
@@ -121,30 +121,6 @@ export default {
       const slugServiceTitle = slug(serviceTitle, { locale: currentUserLocale })
       const slugCollectionTitle = slug(collectionTitle, { locale: currentUserLocale })
       return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document-list`
-    },
-    // Get a list of documents.
-    getDocumentList(indexService, indexCollection) {
-      if (this.serviceList.length > 0) {
-        const collection = this.serviceList[indexService].collections[indexCollection]
-        const payload = {
-          params: {
-            model_key: collection.model_key,
-            field_name: collection.doc_name.field
-          }
-        }
-        this.axios.get('/admin/document-list', payload)
-          .then(response => {
-            const data = response.data
-            if (data.documents.length > 0) {
-              this.setDocuments(data.documents)
-            } else {
-              console.log('No data available')
-            }
-          })
-          .catch(error => {
-            console.log(error)
-          })
-      }
     }
   }
 }
