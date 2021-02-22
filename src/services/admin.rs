@@ -166,14 +166,14 @@ pub mod request_handlers {
     // Document list
     // *********************************************************************************************
     #[derive(Deserialize)]
-    pub struct DocListRequest {
+    pub struct DocListQuery {
         model_key: String,
         field_name: String,
     }
 
     pub async fn document_list(
         session: Session,
-        json_req: web::Query<DocListRequest>,
+        query: web::Query<DocListQuery>,
     ) -> Result<HttpResponse, Error> {
         let mut msg_err = String::new();
         let mut documents: Vec<Value> = Vec::new();
@@ -183,7 +183,7 @@ pub mod request_handlers {
         }
         // Get doc list
         let output_data: std::result::Result<OutputDataMany, Box<dyn std::error::Error>>;
-        if json_req.model_key == users::User::key() {
+        if query.model_key == users::User::key() {
             output_data = users::User::find(None, None)
         } else {
             output_data = Err("").unwrap(); // stub
@@ -194,7 +194,7 @@ pub mod request_handlers {
             let docs = output_data.unwrap().raw_docs().unwrap();
             for doc in docs {
                 documents.push(json!({
-                    "title": doc.get_str(json_req.field_name.as_str()).unwrap(),
+                    "title": doc.get_str(query.field_name.as_str()).unwrap(),
                     "hash": doc.get_str("hash").unwrap()
                 }))
             }
@@ -202,14 +202,13 @@ pub mod request_handlers {
             msg_err = "No output data.".to_string();
         }
         // Return json response
-        if msg_err.is_empty() {
-            Ok(HttpResponse::Ok()
+        if !msg_err.is_empty() {
+            return Ok(HttpResponse::BadRequest()
                 .content_type("application/json")
-                .json(json!({ "documents": documents })))
-        } else {
-            Ok(HttpResponse::BadRequest()
-                .content_type("application/json")
-                .json(json!({ "error": msg_err })))
+                .json(json!({ "error": msg_err })));
         }
+        Ok(HttpResponse::Ok()
+            .content_type("application/json")
+            .json(json!({ "documents": documents })))
     }
 }
