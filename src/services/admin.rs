@@ -169,6 +169,7 @@ pub mod request_handlers {
     pub struct DocListQuery {
         model_key: String,
         field_name: String,
+        page_num: String,
     }
 
     pub async fn document_list(
