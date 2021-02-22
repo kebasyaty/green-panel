@@ -99,7 +99,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-pagination
-          v-model="currentPageNumber"
+          v-model="updateUurrentPageNumber"
           :length="countPage"
           :total-visible="5"
           @input="docsTablePagination"
@@ -111,7 +111,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import slug from 'slug'
 import fillRange from 'fill-range'
 
@@ -120,7 +120,6 @@ export default {
 
   data: () => ({
     searchQuery: null,
-    currentPageNumber: 1,
     previousPageNumber: 1,
     countPage: 6,
     deleteAllDocsFlag: false,
@@ -132,8 +131,17 @@ export default {
       'serviceList'
     ]),
     ...mapState('documentList', [
-      'documents'
+      'documents',
+      'currentPageNumber'
     ]),
+    updateUurrentPageNumber: {
+      get: function () {
+        return this.currentPageNumber
+      },
+      set: function () {
+        this.setCurrentPageNumber()
+      }
+    },
     // Get Title of collection.
     collectionTitle: function () {
       const indexService = this.$route.params.indexService
@@ -158,7 +166,16 @@ export default {
     }
   },
 
+  watch: {
+    currentPageNumber: function () {
+      this.ajaxGetDocumentList()
+    }
+  },
+
   methods: {
+    ...mapMutations('documentList', [
+      'setCurrentPageNumber'
+    ]),
     ...mapActions('documentList', [
       'ajaxGetDocumentList'
     ]),

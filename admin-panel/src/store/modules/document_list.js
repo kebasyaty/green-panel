@@ -6,6 +6,7 @@ export default {
 
   state: {
     documents: [],
+    currentPageNumber: 1,
     // block loading of documents
     blockLoadDocs: false
   },
@@ -15,6 +16,9 @@ export default {
   mutations: {
     setDocuments(state, payload) {
       state.documents = payload
+    },
+    setCurrentPageNumber(state, payload) {
+      state.currentPageNumber = payload
     },
     setBlockLoadDocs(state, payload) {
       state.blockLoadDocs = payload
