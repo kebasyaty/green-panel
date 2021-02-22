@@ -44,7 +44,7 @@
                 v-for="(collection, indexCollection) in item.collections"
                 :key="collection.model_key"
                 class="px-1"
-                @click="resetPreActivatedService(indexService)"
+                @click="[ajaxGetDocumentList(), resetPreActivatedService(indexService)]"
                 :to="createUrlDocumentList(item.service.title, collection.title, indexService, indexCollection)"
               >
                 <v-list-item-icon class="mr-2">
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import slug from 'slug'
 
 export default {
@@ -102,6 +102,9 @@ export default {
       'setOpenPanelServiceList',
       'setPanelWidthServiceList',
       'setSelectedService'
+    ]),
+    ...mapActions('documentList', [
+      'ajaxGetDocumentList'
     ]),
     // List of services - Resetting previously activated items.
     resetPreActivatedService: function (currIndex) {
