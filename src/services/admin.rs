@@ -197,7 +197,7 @@ pub mod request_handlers {
             for doc in docs {
                 documents.push(json!({
                     "title": doc.get_str(query.field_name.as_str()).unwrap(),
-                    "hash": doc.get_str("hash").unwrap()
+                    "hash": doc.get_object_id("_id").unwrap().to_hex()
                 }))
             }
         } else {
