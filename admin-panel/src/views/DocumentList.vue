@@ -102,7 +102,7 @@
           v-model="updateCurrentPageNumber"
           :length="countPage"
           :total-visible="5"
-          @input="docsTablePagination()"
+          @input="docsTablePagination"
         ></v-pagination>
         <v-spacer></v-spacer>
       </v-card-actions>
