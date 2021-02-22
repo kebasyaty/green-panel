@@ -103,9 +103,6 @@ export default {
       'setPanelWidthServiceList',
       'setSelectedService'
     ]),
-    ...mapMutations('documentList', [
-      'setDocuments'
-    ]),
     // List of services - Resetting previously activated items.
     resetPreActivatedService: function (currIndex) {
       this.setSelectedService(this.selectedService.map(function (item, idx) {
