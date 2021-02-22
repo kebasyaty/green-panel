@@ -7,7 +7,7 @@ use actix_files::NamedFile;
 use actix_session::Session;
 use actix_web::{web, Error, HttpResponse, Result};
 
-use mongodb::bson::doc;
+use mongodb::{bson::doc, options::FindOptions};
 use serde::Deserialize;
 use serde_json::{json, Value};
 
@@ -169,7 +169,7 @@ pub mod request_handlers {
     pub struct DocListQuery {
         model_key: String,
         field_name: String,
-        page_num: String,
+        page_num: i64,
     }
 
     pub async fn document_list(
@@ -184,9 +184,14 @@ pub mod request_handlers {
         }
         // Get doc list
         let output_data: std::result::Result<OutputDataMany, Box<dyn std::error::Error>>;
+        let options = FindOptions::builder()
+            .skip(0_i64)
+            .limit(50_i64)
+            .projection(Some(doc! {query.field_name.as_str(): 1}))
+            .build();
         // Determine which Model to use
         if query.model_key == users::User::key() {
-            output_data = users::User::find(None, None)
+            output_data = users::User::find(None, Some(options));
         } else {
             output_data = Err("").unwrap(); // stub
             msg_err = "Undefined model key.".to_string();
