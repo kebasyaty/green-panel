@@ -5,7 +5,9 @@ export default {
   namespaced: true,
 
   state: {
-    documents: []
+    documents: [],
+    // block loading of documents
+    blockLoadDocs: false
   },
 
   getters: {},
@@ -13,13 +15,17 @@ export default {
   mutations: {
     setDocuments(state, payload) {
       state.documents = payload
+    },
+    setBlockLoadDocs(state, payload) {
+      state.blockLoadDocs = payload
     }
   },
 
   actions: {
     // Get a list of documents.
-    async ajaxGetDocumentList({ commit, rootState }) {
-      if (rootState.serviceList.length > 0) {
+    async ajaxGetDocumentList({ state, commit, rootState }) {
+      if (!state.blockLoadDocs && rootState.serviceList.length > 0) {
+        commit('setBlockLoadDocs', true)
         const collection = rootState.serviceList[router.currentRoute.params.indexService]
           .collections[router.currentRoute.params.indexCollection]
         const payload = {
@@ -39,6 +45,9 @@ export default {
           })
           .catch(error => {
             console.log(error)
+          })
+          .then(() => {
+            commit('setBlockLoadDocs', false)
           })
       }
     }
