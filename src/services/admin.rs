@@ -184,9 +184,10 @@ pub mod request_handlers {
         }
         // Get doc list
         let output_data: std::result::Result<OutputDataMany, Box<dyn std::error::Error>>;
+        let limit = 50_i64 * query.page_num;
         let options = FindOptions::builder()
-            .skip(0_i64)
-            .limit(50_i64)
+            .skip(limit - 50_i64)
+            .limit(limit)
             .projection(Some(doc! {query.field_name.as_str(): 1}))
             .build();
         // Determine which Model to use
