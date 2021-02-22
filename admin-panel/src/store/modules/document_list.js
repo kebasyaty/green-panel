@@ -18,9 +18,9 @@ export default {
 
   actions: {
     // Get a list of documents.
-    async ajaxGetDocumentList({ commit }) {
-      if (this.serviceList.length > 0) {
-        const collection = this.serviceList[router.currentRoute.params.indexService]
+    async ajaxGetDocumentList({ commit, rootState }) {
+      if (rootState.serviceList.length > 0) {
+        const collection = rootState.serviceList[router.currentRoute.params.indexService]
           .collections[router.currentRoute.params.indexCollection]
         const payload = {
           params: {
