@@ -7,7 +7,10 @@ use actix_files::NamedFile;
 use actix_session::Session;
 use actix_web::{web, Error, HttpResponse, Result};
 
-use mongodb::{bson::doc, options::FindOptions};
+use mongodb::{
+    bson::{doc, Bson, Regex},
+    options::FindOptions,
+};
 use serde::Deserialize;
 use serde_json::{json, Value};
 
@@ -185,7 +188,10 @@ pub mod request_handlers {
         }
         // Get doc list
         let filter = if !query.search_query.is_empty() {
-            Some(doc! {query.field_name.as_str(): query.search_query.as_str()})
+            Some(doc! {
+                query.field_name.as_str():
+                Bson::RegularExpression(Regex{pattern: query.search_query.clone(), options: "im".to_string()})
+            })
         } else {
             None
         };
