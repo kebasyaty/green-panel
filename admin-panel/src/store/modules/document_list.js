@@ -27,7 +27,7 @@ export default {
 
   actions: {
     // Get a list of documents.
-    async ajaxGetDocumentList({ state, commit, rootState }, payload = {}) {
+    ajaxGetDocumentList({ state, commit, rootState }, payload = {}) {
       if (!state.blockLoadDocs && rootState.serviceList.length > 0) {
         commit('setBlockLoadDocs', true)
         let collection
