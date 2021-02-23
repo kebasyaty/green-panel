@@ -137,8 +137,8 @@ export default {
       get: function () {
         return this.currentPageNumber
       },
-      set: function () {
-        this.setCurrentPageNumber()
+      set: function (num) {
+        this.setCurrentPageNumber(num)
       }
     },
     // Get Title of collection.
@@ -205,9 +205,9 @@ export default {
     // Page navigation through the table of documents.
     docsTablePagination: function () {
       // Eliminate duplication.
-      if (this.currentPageNumber !== this.previousPageNumber) {
+      if (this.updateCurrentPageNumber !== this.previousPageNumber) {
         // Balance the states of the variables.
-        this.previousPageNumber = this.currentPageNumber
+        this.previousPageNumber = this.updateCurrentPageNumber
         // Get a list of documents.
         this.ajaxGetDocumentList()
       }
