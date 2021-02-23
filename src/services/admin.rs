@@ -190,7 +190,10 @@ pub mod request_handlers {
         let filter = if !query.search_query.is_empty() {
             Some(doc! {
                 query.field_name.as_str():
-                Bson::RegularExpression(Regex{pattern: query.search_query.clone(), options: "im".to_string()})
+                Bson::RegularExpression(
+                    Regex{pattern: query.search_query.clone(),
+                          options: "im".to_string()}
+                )
             })
         } else {
             None
