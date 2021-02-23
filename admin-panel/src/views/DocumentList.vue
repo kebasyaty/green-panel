@@ -100,7 +100,7 @@
         <v-spacer></v-spacer>
         <v-pagination
           v-model="updateCurrentPageNumber"
-          :length="countPage"
+          :length="countPages"
           :total-visible="5"
           @input="docsTablePagination"
         ></v-pagination>
@@ -121,7 +121,6 @@ export default {
   data: () => ({
     searchQuery: null,
     previousPageNumber: 1,
-    countPage: 6,
     deleteAllDocsFlag: false,
     docsToBeDeleted: []
   }),
@@ -163,6 +162,10 @@ export default {
       const slugServiceTitle = slug(service.service.title, { locale: currentUserLocale })
       const slugCollectionTitle = slug(this.collectionTitle, { locale: currentUserLocale })
       return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document`
+    },
+    // Get the number of pages
+    countPages: function () {
+      return Math.ceil(this.documents.length / 50)
     }
   },
 
