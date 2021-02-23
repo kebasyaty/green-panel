@@ -205,11 +205,12 @@ export default {
     // Page navigation through the table of documents.
     docsTablePagination: function () {
       // Eliminate duplication.
-      if (this.updateCurrentPageNumber === this.previousPageNumber) { return }
-      // Balance the states of the variables.
-      this.previousPageNumber = this.updateCurrentPageNumber
-      // Get a list of documents.
-      this.ajaxGetDocumentList()
+      if (this.updateCurrentPageNumber !== this.previousPageNumber) {
+        // Balance the states of the variables.
+        this.previousPageNumber = this.updateCurrentPageNumber
+        // Get a list of documents.
+        this.ajaxGetDocumentList()
+      }
     }
   },
 
