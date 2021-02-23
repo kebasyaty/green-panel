@@ -18,7 +18,7 @@
               dense
               clearable
               hide-details
-              v-model="searchQuery"
+              v-model="updateSearchQuery"
               :placeholder="$t('message.3')"
               append-icon="mdi-magnify"
               @click:append="documentSearch"
@@ -119,7 +119,6 @@ export default {
   name: 'DocumentList',
 
   data: () => ({
-    searchQuery: null,
     previousPageNumber: 1,
     deleteAllDocsFlag: false,
     docsToBeDeleted: []
@@ -131,7 +130,8 @@ export default {
     ]),
     ...mapState('documentList', [
       'documents',
-      'currentPageNumber'
+      'currentPageNumber',
+      'searchQuery'
     ]),
     updateCurrentPageNumber: {
       get: function () {
@@ -139,6 +139,14 @@ export default {
       },
       set: function (num) {
         this.setCurrentPageNumber(num)
+      }
+    },
+    updateSearchQuery: {
+      get: function () {
+        return this.searchQuery
+      },
+      set: function (text) {
+        this.setSearchQuery(text)
       }
     },
     // Get Title of collection.
@@ -171,7 +179,8 @@ export default {
 
   methods: {
     ...mapMutations('documentList', [
-      'setCurrentPageNumber'
+      'setCurrentPageNumber',
+      'setSearchQuery'
     ]),
     ...mapActions('documentList', [
       'ajaxGetDocumentList'
@@ -182,8 +191,9 @@ export default {
     },
     // Documents search.
     documentSearch: function () {
-      if (this.searchQuery !== null) {
-        window.console.log(this.searchQuery)
+      if (this.updateSearchQuery !== null) {
+        // Get a list of documents.
+        this.ajaxGetDocumentList()
       }
     },
     // Create Url for Document.
