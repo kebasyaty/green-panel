@@ -205,9 +205,9 @@ export default {
     // Page navigation through the table of documents.
     docsTablePagination: function () {
       // Eliminate duplication.
-      if (this.updateCurrentPageNumber !== this.previousPageNumber) {
+      if (this.currentPageNumber !== this.previousPageNumber) {
         // Balance the states of the variables.
-        this.previousPageNumber = this.updateCurrentPageNumber
+        this.previousPageNumber = this.currentPageNumber
         // Get a list of documents.
         this.ajaxGetDocumentList()
       }
