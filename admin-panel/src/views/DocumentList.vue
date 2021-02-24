@@ -102,8 +102,7 @@
           v-model="updateCurrentPageNumber"
           :length="pagesNumber"
           :total-visible="5"
-          @next="ajaxGetDocumentList()"
-          @previous="ajaxGetDocumentList()"
+          @input="ajaxGetDocumentList()"
         ></v-pagination>
         <v-spacer></v-spacer>
       </v-card-actions>
