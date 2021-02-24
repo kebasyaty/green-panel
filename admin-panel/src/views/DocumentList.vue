@@ -194,8 +194,6 @@ export default {
       if (this.updateSearchQuery !== null) {
         // Get a list of documents.
         this.ajaxGetDocumentList()
-        // Reset page number
-        this.setCurrentPageNumber(1)
       }
     },
     // Create Url for Document.
