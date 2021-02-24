@@ -9,6 +9,7 @@ export default {
     currentPageNumber: 1,
     pagesNumber: 0,
     searchQuery: null,
+    blockPagination: false,
     // block loading of documents
     blockLoadDocs: false
   },
@@ -27,6 +28,9 @@ export default {
     },
     setSearchQuery(state, payload) {
       state.searchQuery = payload
+    },
+    setBlockPagination(state, payload) {
+      state.blockPagination = payload
     },
     setBlockLoadDocs(state, payload) {
       state.blockLoadDocs = payload
@@ -70,6 +74,12 @@ export default {
             commit('setBlockLoadDocs', false)
           })
       }
+    },
+    // Reset page number to default.
+    resetPageNumberDefault({ commit }) {
+      commit('setBlockPagination', true)
+      commit('setCurrentPageNumber', 1)
+      commit('setBlockPagination', false)
     }
   }
 }

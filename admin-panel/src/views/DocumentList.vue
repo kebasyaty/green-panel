@@ -99,6 +99,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-pagination
+          v-if="!blockPagination"
           v-model="updateCurrentPageNumber"
           :length="pagesNumber"
           :total-visible="5"
@@ -131,7 +132,8 @@ export default {
       'documents',
       'currentPageNumber',
       'pagesNumber',
-      'searchQuery'
+      'searchQuery',
+      'blockPagination'
     ]),
     updateCurrentPageNumber: {
       get: function () {
