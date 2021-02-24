@@ -7,6 +7,7 @@ export default {
   state: {
     documents: [],
     currentPageNumber: 1,
+    pagesNumber: 0,
     searchQuery: null,
     // block loading of documents
     blockLoadDocs: false
@@ -20,6 +21,9 @@ export default {
     },
     setCurrentPageNumber(state, payload) {
       state.currentPageNumber = payload
+    },
+    setPagesNumber(state, payload) {
+      state.pagesNumber = payload
     },
     setSearchQuery(state, payload) {
       state.searchQuery = payload

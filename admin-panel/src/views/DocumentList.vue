@@ -100,9 +100,10 @@
         <v-spacer></v-spacer>
         <v-pagination
           v-model="updateCurrentPageNumber"
-          :length="countPages"
+          :length="pagesNumber"
           :total-visible="5"
-          @input="docsTablePagination"
+          @next="ajaxGetDocumentList()"
+          @previous="ajaxGetDocumentList()"
         ></v-pagination>
         <v-spacer></v-spacer>
       </v-card-actions>
@@ -119,7 +120,6 @@ export default {
   name: 'DocumentList',
 
   data: () => ({
-    previousPageNumber: 1,
     deleteAllDocsFlag: false,
     docsToBeDeleted: []
   }),
@@ -131,6 +131,7 @@ export default {
     ...mapState('documentList', [
       'documents',
       'currentPageNumber',
+      'pagesNumber',
       'searchQuery'
     ]),
     updateCurrentPageNumber: {
@@ -170,10 +171,6 @@ export default {
       const slugServiceTitle = slug(service.service.title, { locale: currentUserLocale })
       const slugCollectionTitle = slug(this.collectionTitle, { locale: currentUserLocale })
       return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document`
-    },
-    // Get the number of pages
-    countPages: function () {
-      return Math.ceil(this.documents.length / 50)
     }
   },
 
@@ -211,16 +208,6 @@ export default {
     // Delete selected documents.
     deleteDocs: function () {
       window.console.log(this.docsToBeDeleted)
-    },
-    // Page navigation through the table of documents.
-    docsTablePagination: function () {
-      // Eliminate duplication.
-      if (this.updateCurrentPageNumber !== this.previousPageNumber) {
-        // Balance the states of the variables.
-        this.previousPageNumber = this.updateCurrentPageNumber
-        // Get a list of documents.
-        this.ajaxGetDocumentList()
-      }
     }
   },
 
