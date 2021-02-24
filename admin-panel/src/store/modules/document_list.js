@@ -53,7 +53,9 @@ export default {
           .then(response => {
             const data = response.data
             if (data.documents.length > 0) {
-              commit('setCurrentPageNumber', 1)
+              if (state.searchQuery.length > 0) {
+                commit('setCurrentPageNumber', 1)
+              }
               commit('setDocuments', data.documents)
             }
           })
