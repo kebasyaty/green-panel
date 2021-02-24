@@ -184,10 +184,12 @@ pub mod request_handlers {
         let mut documents: Vec<Value> = Vec::new();
         let pages_number;
         // Access request identity
+        // -----------------------------------------------------------------------------------------
         if session.get::<String>("user")?.is_none() {
             msg_err = "Authentication failed.".to_string();
         }
         // Get doc list
+        // -----------------------------------------------------------------------------------------
         let filter = if !query.search_query.is_empty() {
             Some(doc! {
                 query.field_name.as_str():
@@ -210,6 +212,7 @@ pub mod request_handlers {
                 .build(),
         );
         // Determine which Model to use
+        // -----------------------------------------------------------------------------------------
         if query.model_key == users::User::key() {
             output_data = users::User::find(filter, options);
         } else {
@@ -217,6 +220,7 @@ pub mod request_handlers {
             msg_err = "Undefined model key.".to_string();
         };
         // Check for output data
+        // -----------------------------------------------------------------------------------------
         if output_data.is_ok() {
             let docs = output_data.unwrap().raw_docs().unwrap();
             // Filling in the `documents` array
@@ -229,6 +233,8 @@ pub mod request_handlers {
         } else {
             msg_err = "No output data.".to_string();
         }
+        // Return
+        // -----------------------------------------------------------------------------------------
         // Return json response (Error)
         if !msg_err.is_empty() {
             return Ok(HttpResponse::BadRequest()
