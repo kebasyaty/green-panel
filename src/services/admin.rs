@@ -172,7 +172,7 @@ pub mod request_handlers {
     pub struct DocListQuery {
         model_key: String,
         field_name: String,
-        page_num: i64,
+        page_num: u32,
         search_query: String,
     }
 
@@ -199,7 +199,7 @@ pub mod request_handlers {
             None
         };
         let output_data: std::result::Result<OutputDataMany, Box<dyn std::error::Error>>;
-        let limit = 50_i64 * query.page_num;
+        let limit = (50_u32 * query.page_num) as i64;
         let options = Some(
             FindOptions::builder()
                 .skip(limit - 50_i64)
