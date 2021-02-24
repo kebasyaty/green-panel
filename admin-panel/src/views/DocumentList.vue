@@ -190,7 +190,7 @@ export default {
     },
     // Documents search.
     documentSearch: function () {
-      if (this.updateSearchQuery !== null && this.updateSearchQuery.length > 1) {
+      if (this.updateSearchQuery === null || this.updateSearchQuery.length > 1) {
         // Reset page number to default.
         this.resetPageNumberDefault()
         // Get a list of documents.
