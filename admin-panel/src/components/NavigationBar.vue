@@ -45,6 +45,7 @@
                 :key="collection.model_key"
                 class="px-1"
                 @click="[ajaxGetDocumentList({indexService, indexCollection}),
+                         setCurrentPageNumber(1),
                          resetPreActivatedService(indexService)]"
                 :to="createUrlDocumentList(item.service.title, collection.title, indexService, indexCollection)"
               >
@@ -103,6 +104,9 @@ export default {
       'setOpenPanelServiceList',
       'setPanelWidthServiceList',
       'setSelectedService'
+    ]),
+    ...mapMutations('documentList', [
+      'setCurrentPageNumber'
     ]),
     ...mapActions('documentList', [
       'ajaxGetDocumentList'
