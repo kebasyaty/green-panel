@@ -96,6 +96,7 @@ pub mod request_handlers {
         let username: String;
         let mut is_authenticated = false;
         // Access request identity
+        // -----------------------------------------------------------------------------------------
         if let Some(user) = session.get::<String>("user")? {
             username = user;
             is_authenticated = true;
@@ -120,6 +121,7 @@ pub mod request_handlers {
             }
         }
         // Return json response
+        // -----------------------------------------------------------------------------------------
         if is_authenticated {
             Ok(HttpResponse::Ok()
                 .content_type("application/json")
