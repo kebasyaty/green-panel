@@ -21,8 +21,7 @@
               v-model="updateSearchQuery"
               :placeholder="$t('message.3')"
               append-icon="mdi-magnify"
-              @click:append="documentSearch()"
-              @input="resetPageNumberDefault()"
+              @input="documentSearch()"
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="6" class="text-md-right">
@@ -191,7 +190,9 @@ export default {
     },
     // Documents search.
     documentSearch: function () {
-      if (this.updateSearchQuery !== null) {
+      if (this.updateSearchQuery !== null && this.updateSearchQuery.length > 1) {
+        // Reset page number to default.
+        this.resetPageNumberDefault()
         // Get a list of documents.
         this.ajaxGetDocumentList()
       }
