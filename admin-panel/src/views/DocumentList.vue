@@ -216,6 +216,8 @@ export default {
   },
 
   created() {
+    // Reset page number to default.
+    this.resetPageNumberDefault()
     // Get a list of documents.
     this.ajaxGetDocumentList()
   }
