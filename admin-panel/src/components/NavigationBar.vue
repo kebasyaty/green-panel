@@ -44,7 +44,8 @@
                 v-for="(collection, indexCollection) in item.collections"
                 :key="collection.model_key"
                 class="px-1"
-                @click="[ajaxGetDocumentList({indexService, indexCollection}),
+                @click="[resetPageNumberDefault(),
+                         ajaxGetDocumentList({indexService, indexCollection}),
                          resetPreActivatedService(indexService)]"
                 :to="createUrlDocumentList(item.service.title, collection.title, indexService, indexCollection)"
               >
@@ -105,7 +106,8 @@ export default {
       'setSelectedService'
     ]),
     ...mapActions('documentList', [
-      'ajaxGetDocumentList'
+      'ajaxGetDocumentList',
+      'resetPageNumberDefault'
     ]),
     // List of services - Resetting previously activated items.
     resetPreActivatedService: function (currIndex) {
