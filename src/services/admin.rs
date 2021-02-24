@@ -182,6 +182,7 @@ pub mod request_handlers {
     ) -> Result<HttpResponse, Error> {
         let mut msg_err = String::new();
         let mut documents: Vec<Value> = Vec::new();
+        let pages_number;
         // Access request identity
         if session.get::<String>("user")?.is_none() {
             msg_err = "Authentication failed.".to_string();
@@ -198,6 +199,7 @@ pub mod request_handlers {
         } else {
             None
         };
+        pages_number = users::User::count_documents(filter.clone(), None).unwrap();
         let output_data: std::result::Result<OutputDataMany, Box<dyn std::error::Error>>;
         let limit = (50_u32 * query.page_num) as i64;
         let options = Some(
@@ -236,6 +238,6 @@ pub mod request_handlers {
         // Return json response (Ok)
         Ok(HttpResponse::Ok()
             .content_type("application/json")
-            .json(json!({ "documents": documents })))
+            .json(json!({ "documents": documents, "pages_number": pages_number })))
     }
 }
