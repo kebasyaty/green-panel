@@ -21,7 +21,8 @@
               v-model="updateSearchQuery"
               :placeholder="$t('message.3')"
               append-icon="mdi-magnify"
-              @click:append="documentSearch"
+              @click:append="documentSearch()"
+              @input="resetPageNumberDefault()"
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="6" class="text-md-right">
@@ -181,7 +182,8 @@ export default {
       'setSearchQuery'
     ]),
     ...mapActions('documentList', [
-      'ajaxGetDocumentList'
+      'ajaxGetDocumentList',
+      'resetPageNumberDefault'
     ]),
     // Router - Go back one step.
     goBack() {
