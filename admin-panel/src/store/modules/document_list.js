@@ -60,12 +60,8 @@ export default {
         })
           .then(response => {
             const data = response.data
-            if (data.documents.length > 0) {
-              commit('setPagesNumber', data.pages_number)
-              commit('setDocuments', data.documents)
-            } else {
-              console.log('No data available')
-            }
+            commit('setPagesNumber', data.pages_number)
+            commit('setDocuments', data.documents)
           })
           .catch(error => {
             console.log(error)
