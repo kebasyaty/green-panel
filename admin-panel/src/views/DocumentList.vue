@@ -19,7 +19,7 @@
               clearable
               hide-details
               v-model="updateSearchQuery"
-              :placeholder="$t('message.3')"
+              :placeholder="`${$t('message.3')} - (${$t('message.29')})`"
               append-icon="mdi-magnify"
               @input="documentSearch()"
             ></v-text-field>
