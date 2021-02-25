@@ -106,9 +106,9 @@ export default {
         this.axios.post('/admin/login', payload)
           .then(response => {
             const data = response.data
-            this.msg_success = this.$t('message.28')
             if (data.is_authenticated) {
               this.setUsername(data.username)
+              this.msg_success = this.$t('message.28')
               setTimeout(() => this.setIsAuthenticated(true), 1000)
             } else {
               this.setIsAuthenticated(false)
