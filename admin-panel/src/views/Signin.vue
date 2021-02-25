@@ -111,8 +111,8 @@ export default {
               this.setUsername(data.username)
               setTimeout(() => this.setIsAuthenticated(true), 1000)
             } else {
+              this.setIsAuthenticated(false)
               this.msg_error = this.$t('message.27')
-              console.log('No data available')
             }
           })
           .catch(error => {
