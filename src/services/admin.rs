@@ -154,18 +154,20 @@ pub mod request_handlers {
     // Service list
     // *********************************************************************************************
     pub async fn service_list(session: Session) -> Result<HttpResponse, Error> {
+        let mut is_authenticated = false;
+        let mut msg_err = String::new();
         // Access request identity
-        if session.get::<String>("user")?.is_none() {
-            return Ok(HttpResponse::BadRequest()
-                .content_type("application/json")
-                .json(json!( {
-                    "error": "Authentication failed."
-                })));
+        if session.get::<String>("user")?.is_some() {
+            is_authenticated = true;
+        } else {
+            msg_err = "Authentication failed.".to_string();
         }
         // Return json response
-        Ok(HttpResponse::Ok()
-            .content_type("application/json")
-            .json(admin_panel::service_list()))
+        Ok(HttpResponse::Ok().content_type("application/json").json(
+            json!({ "service_list": admin_panel::service_list(),
+                    "is_authenticated": is_authenticated,
+                    "msg_err": msg_err }),
+        ))
     }
 
     // Document list
