@@ -95,6 +95,7 @@ pub mod request_handlers {
     ) -> Result<HttpResponse, Error> {
         let username: String;
         let mut is_authenticated = false;
+        let mut msg_err = String::new();
         // Access request identity
         // -----------------------------------------------------------------------------------------
         if let Some(user) = session.get::<String>("user")? {
@@ -117,25 +118,20 @@ pub mod request_handlers {
                     session.set("user", user.username.clone())?; // Set id user
                     session.set("hash", user.hash.clone())?; // Set document hash
                     is_authenticated = true;
+                } else {
+                    msg_err = "Authentication failed.".to_string();
                 }
             }
         }
         // Return json response
         // -----------------------------------------------------------------------------------------
-        if is_authenticated {
-            Ok(HttpResponse::Ok()
-                .content_type("application/json")
-                .json(json!( {
-                    "username": username,
-                    "is_authenticated": is_authenticated
-                })))
-        } else {
-            Ok(HttpResponse::BadRequest()
-                .content_type("application/json")
-                .json(json!( {
-                    "error": "Authentication failed."
-                })))
-        }
+        Ok(HttpResponse::Ok()
+            .content_type("application/json")
+            .json(json!( {
+                "username": username,
+                "is_authenticated": is_authenticated,
+                "msg_err": msg_err
+            })))
     }
 
     // Logout
