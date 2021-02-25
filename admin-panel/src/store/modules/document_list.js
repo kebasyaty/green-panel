@@ -60,8 +60,12 @@ export default {
         })
           .then(response => {
             const data = response.data
-            commit('setPagesNumber', data.pages_number)
-            commit('setDocuments', data.documents)
+            if (data.is_authenticated) {
+              commit('setPagesNumber', data.pages_number)
+              commit('setDocuments', data.documents)
+            } else {
+              this.setIsAuthenticated(false)
+            }
           })
           .catch(error => {
             console.log(error)
