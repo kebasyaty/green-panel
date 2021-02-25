@@ -182,12 +182,15 @@ pub mod request_handlers {
         session: Session,
         query: web::Query<DocListQuery>,
     ) -> Result<HttpResponse, Error> {
+        let mut is_authenticated = false;
         let mut msg_err = String::new();
         let mut documents: Vec<Value> = Vec::new();
         let pages_number;
         // Access request identity
         // -----------------------------------------------------------------------------------------
-        if session.get::<String>("user")?.is_none() {
+        if session.get::<String>("user")?.is_some() {
+            is_authenticated = true;
+        } else {
             msg_err = "Authentication failed.".to_string();
         }
         // Get doc list
@@ -235,17 +238,13 @@ pub mod request_handlers {
         } else {
             msg_err = "No output data.".to_string();
         }
-        // Return
+        // Return json response
         // -----------------------------------------------------------------------------------------
-        // Return json response (Error)
-        if !msg_err.is_empty() {
-            return Ok(HttpResponse::BadRequest()
-                .content_type("application/json")
-                .json(json!({ "error": msg_err })));
-        }
-        // Return json response (Ok)
-        Ok(HttpResponse::Ok()
-            .content_type("application/json")
-            .json(json!({ "documents": documents, "pages_number": pages_number })))
+        Ok(HttpResponse::Ok().content_type("application/json").json(
+            json!({ "documents": documents,
+                    "pages_number": pages_number,
+                    "is_authenticated": is_authenticated,
+                    "msg_err": msg_err }),
+        ))
     }
 }
