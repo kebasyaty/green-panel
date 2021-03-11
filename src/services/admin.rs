@@ -156,7 +156,7 @@ pub mod request_handlers {
         let mut is_authenticated = false;
         let mut msg_err = String::new();
         // Access request identity
-        if session.get::<String>("user")?.is_some() {
+        if session.get::<String>("user")?.is_some() && session.get::<bool>("is_staff")?.unwrap() {
             is_authenticated = true;
         } else {
             msg_err = "Authentication failed.".to_string();
@@ -189,7 +189,7 @@ pub mod request_handlers {
         let mut pages_number: u64 = 0;
         // Access request identity
         // -----------------------------------------------------------------------------------------
-        if session.get::<String>("user")?.is_some() {
+        if session.get::<String>("user")?.is_some() && session.get::<bool>("is_staff")?.unwrap() {
             is_authenticated = true;
         } else {
             msg_err = "Authentication failed.".to_string();
@@ -269,7 +269,7 @@ pub mod request_handlers {
         let mut document = Value::Null;
         // Access request identity
         // -----------------------------------------------------------------------------------------
-        if session.get::<String>("user")?.is_some() {
+        if session.get::<String>("user")?.is_some() && session.get::<bool>("is_staff")?.unwrap() {
             is_authenticated = true;
         } else {
             msg_err = "Authentication failed.".to_string();
