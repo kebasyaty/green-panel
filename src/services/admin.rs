@@ -136,15 +136,17 @@ pub mod request_handlers {
 
     // Logout
     // *********************************************************************************************
-    pub async fn logout(session: Session) -> HttpResponse {
+    pub async fn logout(session: Session) -> Result<HttpResponse, Error> {
         // Clear session
-        session.clear();
+        if session.get::<String>("user")?.is_some() {
+            session.clear();
+        }
         // Return json response
-        HttpResponse::Ok()
+        Ok(HttpResponse::Ok()
             .content_type("application/json")
             .json(json!( {
                 "msg": "Goodbye!"
-            }))
+            })))
     }
 
     // Get service list
