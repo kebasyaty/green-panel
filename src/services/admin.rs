@@ -191,7 +191,7 @@ pub mod request_handlers {
         } else {
             msg_err = "Authentication failed.".to_string();
         }
-        // Get doc list
+        // Get doc list (database query)
         // -----------------------------------------------------------------------------------------
         let filter = if !query.search_query.is_empty() {
             Some(doc! {
@@ -204,7 +204,6 @@ pub mod request_handlers {
         } else {
             None
         };
-
         let output_data: std::result::Result<OutputDataMany, Box<dyn std::error::Error>>;
         let limit = (50_u32 * query.page_num) as i64;
         let options = Some(
@@ -218,10 +217,9 @@ pub mod request_handlers {
         // Determine which Model to use
         // -----------------------------------------------------------------------------------------
         if query.model_key == users::User::key() {
-            pages_number = (users::User::count_documents(filter.clone(), None).unwrap() as f64
-                / 50_f64)
-                .ceil() as u64;
-            output_data = users::User::find(filter, options);
+            output_data = users::User::find(filter.clone(), options);
+            pages_number =
+                (users::User::count_documents(filter, None).unwrap() as f64 / 50_f64).ceil() as u64;
         } else {
             output_data = Err("").unwrap(); // stub
             msg_err = "Undefined model key.".to_string();
