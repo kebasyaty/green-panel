@@ -183,7 +183,7 @@ pub mod request_handlers {
         let mut is_authenticated = false;
         let mut msg_err = String::new();
         let mut documents: Vec<Value> = Vec::new();
-        let pages_number;
+        let mut pages_number: u64 = 0;
         // Access request identity
         // -----------------------------------------------------------------------------------------
         if session.get::<String>("user")?.is_some() {
@@ -204,7 +204,7 @@ pub mod request_handlers {
         } else {
             None
         };
-        pages_number = users::User::count_documents(filter.clone(), None).unwrap();
+
         let output_data: std::result::Result<OutputDataMany, Box<dyn std::error::Error>>;
         let limit = (50_u32 * query.page_num) as i64;
         let options = Some(
@@ -218,6 +218,9 @@ pub mod request_handlers {
         // Determine which Model to use
         // -----------------------------------------------------------------------------------------
         if query.model_key == users::User::key() {
+            pages_number = (users::User::count_documents(filter.clone(), None).unwrap() as f64
+                / 50_f64)
+                .ceil() as u64;
             output_data = users::User::find(filter, options);
         } else {
             output_data = Err("").unwrap(); // stub
