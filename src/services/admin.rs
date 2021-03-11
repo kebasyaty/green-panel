@@ -115,8 +115,9 @@ pub mod request_handlers {
                 // Check password
                 if user.verify_password(password.as_str(), None).unwrap() {
                     // Add user identity to session
-                    session.set("user", user.username.clone())?; // Set id user
-                    session.set("hash", user.hash.clone())?; // Set document hash
+                    session.set("user", user.username.clone())?; // Set `id user`
+                    session.set("hash", user.hash.clone())?; // Set `hash`
+                    session.set("is_staff", user.is_staff.clone())?; // Set `is staff`
                     is_authenticated = true;
                 } else {
                     msg_err = "Authentication failed.".to_string();
