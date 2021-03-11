@@ -147,7 +147,7 @@ pub mod request_handlers {
             }))
     }
 
-    // Service list
+    // Get service list
     // *********************************************************************************************
     pub async fn service_list(session: Session) -> Result<HttpResponse, Error> {
         let mut is_authenticated = false;
@@ -166,7 +166,7 @@ pub mod request_handlers {
         ))
     }
 
-    // Document list
+    // Get document list
     // *********************************************************************************************
     #[derive(Deserialize)]
     pub struct DocListQuery {
