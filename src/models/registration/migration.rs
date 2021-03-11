@@ -8,11 +8,13 @@ use mango_orm::{Monitor, ToModel, DB_MAP_CLIENT_NAMES};
 // *************************************************************************************************
 pub fn mango_migration() -> Result<(), Box<dyn std::error::Error>> {
     // Caching MongoDB clients.
-    DB_MAP_CLIENT_NAMES.lock()?.insert(
-        "default".to_string(),
-        mongodb::sync::Client::with_uri_str("mongodb://localhost:27017")?,
-    );
-
+    {
+        let mut client_store = DB_MAP_CLIENT_NAMES.write()?;
+        client_store.insert(
+            "default".to_string(),
+            mongodb::sync::Client::with_uri_str("mongodb://localhost:27017")?,
+        );
+    }
     // Monitor initialization.
     let monitor = Monitor {
         project_name: settings::PROJECT_NAME,
@@ -22,6 +24,6 @@ pub fn mango_migration() -> Result<(), Box<dyn std::error::Error>> {
         models: vec![users::User::meta()?],
     };
     monitor.migrat();
-
+    //
     Ok(())
 }
