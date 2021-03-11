@@ -214,6 +214,7 @@ pub mod request_handlers {
                 .projection(Some(doc! {query.field_name.as_str(): 1}))
                 .build(),
         );
+        // -----------------------------------------------------------------------------------------
         // Determine which Model to use
         // -----------------------------------------------------------------------------------------
         if query.model_key == users::User::key() {
@@ -245,4 +246,39 @@ pub mod request_handlers {
                     "msg_err": msg_err }),
         ))
     }
+
+    // Get document
+    // *********************************************************************************************
+    /*
+    #[derive(Deserialize)]
+    pub struct DocQuery {
+        model_key: String,
+        doc_hash: String,
+    }
+
+    pub async fn document(
+        session: Session,
+        json: web::Json<DocQuery>,
+    ) -> Result<HttpResponse, Error> {
+        let mut is_authenticated = false;
+        let mut msg_err = String::new();
+        let mut document = Value::Null;
+        // Access request identity
+        // -----------------------------------------------------------------------------------------
+        if session.get::<String>("user")?.is_some() {
+            is_authenticated = true;
+        } else {
+            msg_err = "Authentication failed.".to_string();
+        }
+        // Get doc
+        // -----------------------------------------------------------------------------------------
+        // Return json response
+        // -----------------------------------------------------------------------------------------
+        Ok(HttpResponse::Ok()
+            .content_type("application/json")
+            .json(json!({ "document": document,
+                    "is_authenticated": is_authenticated,
+                    "msg_err": msg_err })))
+    }
+    */
 }
