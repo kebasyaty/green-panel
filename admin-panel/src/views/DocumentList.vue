@@ -54,7 +54,7 @@
             <thead>
               <tr>
                 <!-- Mark all documents for deletion. -->
-                <th width="76" class="text-left">
+                <th width="76">
                   <v-checkbox
                     hide-details
                     v-model="deleteAllDocsFlag"
@@ -64,11 +64,11 @@
                   ></v-checkbox>
                 </th>
                 <!-- Symbol - № -->
-                <th width="76" class="text-left">&#8470;</th>
-                <!-- Header list. -->
-                <th
-                  class="text-left"
-                >{{ serviceList[$route.params.indexService].collections[$route.params.indexCollection].doc_name.title }}</th>
+                <th width="76">&#8470;</th>
+                <!-- Other headers. -->
+                <th>{{ serviceList[$route.params.indexService].collections[$route.params.indexCollection].doc_name.title }}</th>
+                <th>{{ $t('message.29') }}</th>
+                <th>{{ $t('message.30') }}</th>
               </tr>
             </thead>
             <tbody>
