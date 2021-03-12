@@ -183,10 +183,12 @@ pub mod request_handlers {
         session: Session,
         query: web::Query<DocListQuery>,
     ) -> Result<HttpResponse, Error> {
+        //
         let mut is_authenticated = false;
         let mut msg_err = String::new();
         let mut documents: Vec<Value> = Vec::new();
         let pages_number: u64;
+
         // Access request identity
         // -----------------------------------------------------------------------------------------
         if session.get::<String>("user")?.is_some() && session.get::<bool>("is_staff")?.unwrap() {
@@ -194,6 +196,7 @@ pub mod request_handlers {
         } else {
             msg_err = "Authentication failed.".to_string();
         }
+
         // Get doc list (database query)
         // -----------------------------------------------------------------------------------------
         let filter = if !query.search_query.is_empty() {
@@ -215,13 +218,15 @@ pub mod request_handlers {
                 .projection(Some(doc! {query.field_name.as_str(): 1}))
                 .build(),
         );
+
         // Get read access from cache.
         // -----------------------------------------------------------------------------------------
         let form_store = FORM_CACHE.read().unwrap();
         let form_cache = form_store.get(query.model_key.as_str()).unwrap();
         let meta = &form_cache.meta;
         let client_store = DB_MAP_CLIENT_NAMES.read().unwrap();
-        let client: &mongodb::sync::Client = client_store.get(&meta.db_client_name).unwrap();
+        let client: &mongodb::sync::Client =
+            client_store.get(meta.db_client_name.as_str()).unwrap();
         // Accessing the collection
         let coll = client
             .database(meta.database_name.as_str())
@@ -231,6 +236,7 @@ pub mod request_handlers {
             (coll.count_documents(filter.clone(), None).unwrap() as f64 / 50_f64).ceil() as u64;
         // Get cursor for selecting documents.
         let mut cursor = coll.find(filter, options).unwrap();
+
         // Selecting documents.
         // -----------------------------------------------------------------------------------------
         while let Some(doc) = cursor.next() {
@@ -239,14 +245,17 @@ pub mod request_handlers {
             documents.push(json!({
                 "title": doc.get_str(query.field_name.as_str()).unwrap(),
                 "hash": doc.get_object_id("_id").unwrap().to_hex(),
+                /*
                 "created_at": mongodb::bson::Bson::String(
                     doc.get_datetime("created_at").unwrap().to_rfc3339()[..16].into(),
                 ),
                 "updated_at": mongodb::bson::Bson::String(
                     doc.get_datetime("updated_at").unwrap().to_rfc3339()[..16].into(),
                 )
+                */
             }))
         }
+
         // Return json response
         // -----------------------------------------------------------------------------------------
         Ok(HttpResponse::Ok().content_type("application/json").json(
