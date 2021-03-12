@@ -117,6 +117,7 @@ pub mod request_handlers {
                     // Add user identity to session
                     session.set("user", user.username.clone())?; // Set `id user`
                     session.set("hash", user.hash.clone())?; // Set `hash`
+                    session.set("is_active", user.is_staff.clone())?; // Set `is active`
                     session.set("is_staff", user.is_staff.clone())?; // Set `is staff`
                     is_authenticated = true;
                 } else {
@@ -156,7 +157,10 @@ pub mod request_handlers {
         let mut is_authenticated = false;
         let mut msg_err = String::new();
         // Access request identity
-        if session.get::<String>("user")?.is_some() && session.get::<bool>("is_staff")?.unwrap() {
+        if session.get::<String>("user")?.is_some()
+            && session.get::<bool>("is_active")?.unwrap()
+            && session.get::<bool>("is_staff")?.unwrap()
+        {
             is_authenticated = true;
         } else {
             msg_err = "Authentication failed.".to_string();
@@ -191,7 +195,10 @@ pub mod request_handlers {
 
         // Access request identity
         // -----------------------------------------------------------------------------------------
-        if session.get::<String>("user")?.is_some() && session.get::<bool>("is_staff")?.unwrap() {
+        if session.get::<String>("user")?.is_some()
+            && session.get::<bool>("is_active")?.unwrap()
+            && session.get::<bool>("is_staff")?.unwrap()
+        {
             is_authenticated = true;
         } else {
             msg_err = "Authentication failed.".to_string();
@@ -282,7 +289,10 @@ pub mod request_handlers {
         let mut document = Value::Null;
         // Access request identity
         // -----------------------------------------------------------------------------------------
-        if session.get::<String>("user")?.is_some() && session.get::<bool>("is_staff")?.unwrap() {
+        if session.get::<String>("user")?.is_some()
+            && session.get::<bool>("is_active")?.unwrap()
+            && session.get::<bool>("is_staff")?.unwrap()
+        {
             is_authenticated = true;
         } else {
             msg_err = "Authentication failed.".to_string();
