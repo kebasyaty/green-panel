@@ -204,7 +204,7 @@ pub mod request_handlers {
             msg_err = "Authentication failed.".to_string();
         }
 
-        // Get doc list (database query)
+        // Define filter and options for database query.
         // -----------------------------------------------------------------------------------------
         let filter = if !query.search_query.is_empty() {
             Some(doc! {
