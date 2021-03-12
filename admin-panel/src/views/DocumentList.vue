@@ -54,7 +54,7 @@
             <thead>
               <tr>
                 <!-- Mark all documents for deletion. -->
-                <th width="76">
+                <th>
                   <v-checkbox
                     hide-details
                     v-model="deleteAllDocsFlag"
@@ -64,7 +64,7 @@
                   ></v-checkbox>
                 </th>
                 <!-- Symbol - № -->
-                <th width="76">&#8470;</th>
+                <th>&#8470;</th>
                 <!-- Other headers. -->
                 <th>{{ serviceList[$route.params.indexService].collections[$route.params.indexCollection].doc_name.title }}</th>
                 <th>{{ $t('message.29') }}</th>
@@ -91,8 +91,8 @@
                 <td>
                   <router-link :to="createDocumentUrl(idxDoc)">{{ document.title }}</router-link>
                 </td>
-                <td>{{ formatDate(document.created_at) }}</td>
-                <td>{{ formatDate(document.updated_at) }}</td>
+                <td width="160" v-html="formatDate(document.created_at)"></td>
+                <td width="160" v-html="formatDate(document.updated_at)"></td>
               </tr>
             </tbody>
           </template>
@@ -215,10 +215,10 @@ export default {
     deleteDocs: function () {
       window.console.log(this.docsToBeDeleted)
     },
-    // Formatting of date.
+    // Formatting date.
     formatDate: function (date) {
-      const modDate = date.replace('T', ` ${this.$t('message.17')} `)
-      return `Date: ${modDate}`
+      const dateParsing = date.split('T')
+      return `<span class="cyan--text text--darken-2">${dateParsing[0]}</span> <span class="orange--text text--darken-2">${dateParsing[1]}</span>`
     }
   },
 
