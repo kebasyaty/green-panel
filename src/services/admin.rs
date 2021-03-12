@@ -222,7 +222,9 @@ pub mod request_handlers {
             FindOptions::builder()
                 .skip(limit - 50_i64)
                 .limit(limit)
-                .projection(Some(doc! {query.field_name.as_str(): 1}))
+                .projection(Some(
+                    doc! {query.field_name.as_str(): 1, "created_at": 1, "updated_at": 1},
+                ))
                 .build(),
         );
 
