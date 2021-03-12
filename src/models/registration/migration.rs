@@ -25,7 +25,7 @@ pub fn mango_migration() -> Result<(), Box<dyn std::error::Error>> {
     };
     monitor.migrat();
 
-    // Add Models metadata to cache.
+    // Add metadata and widgects map to cache.
     // ---------------------------------------------------------------------------------------------
     users::User::meta_to_cache()?;
     //
