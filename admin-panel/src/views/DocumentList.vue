@@ -91,8 +91,8 @@
                 <td>
                   <router-link :to="createDocumentUrl(idxDoc)">{{ document.title }}</router-link>
                 </td>
-                <td>{{ document.created_at }}</td>
-                <td>{{ document.updated_at }}</td>
+                <td>{{ formatDate(document.created_at) }}</td>
+                <td>{{ formatDate(document.updated_at) }}</td>
               </tr>
             </tbody>
           </template>
@@ -214,6 +214,11 @@ export default {
     // Delete selected documents.
     deleteDocs: function () {
       window.console.log(this.docsToBeDeleted)
+    },
+    // Formatting of date.
+    formatDate: function (date) {
+      const modDate = date.replace('T', ` ${this.$t('message.17')} `)
+      return `Date: ${modDate}`
     }
   },
 
