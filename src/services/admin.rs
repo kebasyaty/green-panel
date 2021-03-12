@@ -99,8 +99,13 @@ pub mod request_handlers {
         // Access request identity
         // -----------------------------------------------------------------------------------------
         if let Some(user) = session.get::<String>("user")? {
-            username = user;
-            is_authenticated = true;
+            if user == login_form.username && session.get::<bool>("is_active")?.unwrap() {
+                username = user;
+                is_authenticated = true;
+            } else {
+                username = login_form.username.clone();
+                msg_err = "Authentication failed.".to_string();
+            }
         } else {
             username = login_form.username.clone();
             let password = login_form.password.clone();
