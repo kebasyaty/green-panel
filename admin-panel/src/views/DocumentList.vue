@@ -91,6 +91,8 @@
                 <td>
                   <router-link :to="createDocumentUrl(idxDoc)">{{ document.title }}</router-link>
                 </td>
+                <td>{{ document.created_at }}</td>
+                <td>{{ document.updated_at }}</td>
               </tr>
             </tbody>
           </template>
