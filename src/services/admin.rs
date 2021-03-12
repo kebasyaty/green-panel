@@ -15,7 +15,7 @@ use serde::Deserialize;
 use serde_json::{json, Value};
 
 use crate::models::{registration::admin_panel, services::admin::users};
-use mango_orm::{models::output_data::OutputDataMany, QCommon, QPaladins, ToModel};
+use mango_orm::{QCommon, QPaladins, DB_MAP_CLIENT_NAMES, FORM_CACHE};
 
 pub use configure_urls::*;
 pub use request_handlers::*;
@@ -186,7 +186,7 @@ pub mod request_handlers {
         let mut is_authenticated = false;
         let mut msg_err = String::new();
         let mut documents: Vec<Value> = Vec::new();
-        let mut pages_number: u64 = 0;
+        let pages_number: u64;
         // Access request identity
         // -----------------------------------------------------------------------------------------
         if session.get::<String>("user")?.is_some() && session.get::<bool>("is_staff")?.unwrap() {
@@ -207,7 +207,6 @@ pub mod request_handlers {
         } else {
             None
         };
-        let output_data: std::result::Result<OutputDataMany, Box<dyn std::error::Error>>;
         let limit = (50_u32 * query.page_num) as i64;
         let options = Some(
             FindOptions::builder()
@@ -216,30 +215,37 @@ pub mod request_handlers {
                 .projection(Some(doc! {query.field_name.as_str(): 1}))
                 .build(),
         );
+        // Get read access from cache.
         // -----------------------------------------------------------------------------------------
-        // Determine which Model to use
+        let form_store = FORM_CACHE.read().unwrap();
+        let form_cache = form_store.get(query.model_key.as_str()).unwrap();
+        let meta = &form_cache.meta;
+        let client_store = DB_MAP_CLIENT_NAMES.read().unwrap();
+        let client: &mongodb::sync::Client = client_store.get(&meta.db_client_name).unwrap();
+        // Accessing the collection
+        let coll = client
+            .database(meta.database_name.as_str())
+            .collection(meta.collection_name.as_str());
+        // Get the number of pages (50 documents per page).
+        pages_number =
+            (coll.count_documents(filter.clone(), None).unwrap() as f64 / 50_f64).ceil() as u64;
+        // Get cursor for selecting documents.
+        let mut cursor = coll.find(filter, options).unwrap();
+        // Selecting documents.
         // -----------------------------------------------------------------------------------------
-        if query.model_key == users::User::key() {
-            output_data = users::User::find(filter.clone(), options);
-            pages_number =
-                (users::User::count_documents(filter, None).unwrap() as f64 / 50_f64).ceil() as u64;
-        } else {
-            output_data = Err("").unwrap(); // stub
-            msg_err = "Undefined model key.".to_string();
-        };
-        // Check for output data
-        // -----------------------------------------------------------------------------------------
-        if output_data.is_ok() {
-            let docs = output_data.unwrap().raw_docs().unwrap();
+        while let Some(doc) = cursor.next() {
+            let doc = doc.unwrap();
             // Filling in the `documents` array
-            for doc in docs {
-                documents.push(json!({
-                    "title": doc.get_str(query.field_name.as_str()).unwrap(),
-                    "hash": doc.get_object_id("_id").unwrap().to_hex()
-                }))
-            }
-        } else {
-            msg_err = "No output data.".to_string();
+            documents.push(json!({
+                "title": doc.get_str(query.field_name.as_str()).unwrap(),
+                "hash": doc.get_object_id("_id").unwrap().to_hex(),
+                "created_at": mongodb::bson::Bson::String(
+                    doc.get_datetime("created_at").unwrap().to_rfc3339()[..16].into(),
+                ),
+                "updated_at": mongodb::bson::Bson::String(
+                    doc.get_datetime("updated_at").unwrap().to_rfc3339()[..16].into(),
+                )
+            }))
         }
         // Return json response
         // -----------------------------------------------------------------------------------------
