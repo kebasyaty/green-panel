@@ -2,7 +2,7 @@
 //!
 
 use crate::models::{services::admin::users, settings};
-use mango_orm::{Monitor, ToModel, DB_MAP_CLIENT_NAMES};
+use mango_orm::{CachingModel, Monitor, ToModel, DB_MAP_CLIENT_NAMES};
 
 // Migration Service `Mango`.
 // *************************************************************************************************
@@ -24,6 +24,10 @@ pub fn mango_migration() -> Result<(), Box<dyn std::error::Error>> {
         models: vec![users::User::meta()?],
     };
     monitor.migrat();
+
+    // Add Models metadata to cache.
+    // ---------------------------------------------------------------------------------------------
+    users::User::meta_to_cache()?;
     //
     Ok(())
 }
