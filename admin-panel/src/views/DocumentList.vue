@@ -19,7 +19,7 @@
               clearable
               hide-details
               v-model="updateSearchQuery"
-              :placeholder="`${$t('message.3')} - (${$t('message.29')})`"
+              :placeholder="$t('message.3')"
               append-icon="mdi-magnify"
               @input="documentSearch()"
             ></v-text-field>
@@ -190,7 +190,7 @@ export default {
     },
     // Documents search.
     documentSearch: function () {
-      if (this.updateSearchQuery === null || this.updateSearchQuery.length > 1) {
+      if (this.updateSearchQuery !== null) {
         // Reset page number to default.
         this.resetPageNumberDefault()
         // Get a list of documents.

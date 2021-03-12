@@ -29,7 +29,6 @@ export default {
     25: 'Create a new document',
     26: 'New document',
     27: 'Access denied',
-    28: 'Access allowed',
-    29: 'min two characters'
+    28: 'Access allowed'
   }
 }
