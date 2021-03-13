@@ -974,7 +974,7 @@ export default {
       this.axios.post('/admin/document', payload)
         .then(response => {
           const data = response.data
-          if (data.is_authenticated) {
+          if (data.is_authenticated && data.msg_err.length === 0) {
             this.getFormData(data.document)
           } else {
             console.log(data.msg_err)
