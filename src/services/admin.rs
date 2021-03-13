@@ -287,7 +287,7 @@ pub mod request_handlers {
 
     pub async fn document(
         session: Session,
-        json: web::Json<DocQuery>,
+        query: web::Json<DocQuery>,
     ) -> Result<HttpResponse, Error> {
         let mut is_authenticated = false;
         let mut msg_err = String::new();
