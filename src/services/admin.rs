@@ -36,6 +36,7 @@ pub mod configure_urls {
         cfg.service(web::resource("/sign-in").route(web::get().to(admin_panel)));
         cfg.service(web::resource("/service-list").route(web::get().to(service_list)));
         cfg.service(web::resource("/document-list").route(web::get().to(document_list)));
+        cfg.service(web::resource("/document").route(web::post().to(document)));
         cfg.service(web::resource("/*").route(web::get().to(admin_panel)));
         cfg.service(web::resource("").route(web::get().to(admin_panel)));
     }
@@ -278,7 +279,6 @@ pub mod request_handlers {
 
     // Get document
     // *********************************************************************************************
-    /*
     #[derive(Deserialize)]
     pub struct DocQuery {
         model_key: String,
@@ -304,7 +304,7 @@ pub mod request_handlers {
         }
         // Get doc
         // -----------------------------------------------------------------------------------------
-        ???
+        //
         // Return json response
         // -----------------------------------------------------------------------------------------
         Ok(HttpResponse::Ok()
@@ -313,5 +313,4 @@ pub mod request_handlers {
                     "is_authenticated": is_authenticated,
                     "msg_err": msg_err })))
     }
-    */
 }
