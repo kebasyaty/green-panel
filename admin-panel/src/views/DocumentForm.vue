@@ -650,7 +650,6 @@ export default {
       'serviceList'
     ]),
     ...mapState('documentList', [
-      'headers',
       'documents'
     ]),
     // Get Title of document.
