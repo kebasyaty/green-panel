@@ -103,7 +103,7 @@
         <v-pagination
           v-if="!blockPagination"
           v-model="updateCurrentPageNumber"
-          :length="pagesNumber"
+          :length="pageCount"
           :total-visible="5"
           @input="ajaxGetDocumentList()"
         ></v-pagination>
@@ -133,7 +133,7 @@ export default {
     ...mapState('documentList', [
       'documents',
       'currentPageNumber',
-      'pagesNumber',
+      'pageCount',
       'searchQuery',
       'blockPagination'
     ]),

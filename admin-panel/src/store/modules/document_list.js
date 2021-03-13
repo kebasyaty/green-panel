@@ -7,7 +7,7 @@ export default {
   state: {
     documents: [],
     currentPageNumber: 1,
-    pagesNumber: 0,
+    pageCount: 0,
     searchQuery: null,
     blockPagination: false,
     // block loading of documents
@@ -23,8 +23,8 @@ export default {
     setCurrentPageNumber(state, payload) {
       state.currentPageNumber = payload
     },
-    setPagesNumber(state, payload) {
-      state.pagesNumber = payload
+    setPageCount(state, payload) {
+      state.pageCount = payload
     },
     setSearchQuery(state, payload) {
       state.searchQuery = payload
@@ -61,7 +61,7 @@ export default {
           .then(response => {
             const data = response.data
             if (data.is_authenticated) {
-              commit('setPagesNumber', data.pages_number)
+              commit('setPageCount', data.page_count)
               commit('setDocuments', data.documents)
             } else {
               this.setIsAuthenticated(false)
