@@ -11,7 +11,7 @@
       <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
       <!-- Form fields. -->
       <v-card-text class="pa-4">
-        <div v-for="field in document" :key="field.name" class="rounded-lg">
+        <div v-for="field in fields" :key="field.name" class="rounded-lg">
           <!-- Hidden fields -->
           <input
             v-if="['hiddenText', 'hiddenI32', 'hiddenU32',
@@ -639,7 +639,7 @@ export default {
   data: () => ({
     vMenu: {},
     fieldData: {},
-    document: [],
+    fields: [],
     dynamicSelectionDialog: {},
     delDynItems: [],
     currValDynItem: { title: null, value: null }
@@ -755,6 +755,7 @@ export default {
       const vMenu = {}
       const fieldData = {}
       const dynamicSelectionDialog = {}
+      const fields = []
       let tmp
 
       for (const fieldName in document) {
@@ -935,11 +936,12 @@ export default {
             dynamicSelectionDialog[field.name] = false
             break
         }
+        fields.push(field)
       }
       this.vMenu = vMenu
       this.fieldData = fieldData
       this.dynamicSelectionDialog = dynamicSelectionDialog
-      this.document = document
+      this.fields = document
     },
 
     // Add a new dynamic element.
