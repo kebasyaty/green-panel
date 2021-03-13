@@ -307,7 +307,7 @@ pub mod request_handlers {
             msg_err = "Authentication failed.".to_string();
         }
 
-        // Get doc
+        // Get json
         // -----------------------------------------------------------------------------------------
         if query.model_key == users::User::key() {
             let object_id = users::User::hash_to_id(query.doc_hash.as_str()).unwrap();
