@@ -260,9 +260,9 @@ pub mod request_handlers {
                 "title": doc.get_str(query.field_name.as_str()).unwrap(),
                 "hash": doc.get_object_id("_id").unwrap().to_hex(),
                 "created_at":
-                    doc.get_datetime("created_at").unwrap().to_rfc3339()[..16].to_string(),
+                    doc.get_datetime("created_at").unwrap().to_rfc3339()[..16],
                 "updated_at":
-                    doc.get_datetime("updated_at").unwrap().to_rfc3339()[..16].to_string()
+                    doc.get_datetime("updated_at").unwrap().to_rfc3339()[..16]
             }))
         }
 
