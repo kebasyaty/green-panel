@@ -757,7 +757,8 @@ export default {
       const dynamicSelectionDialog = {}
       let tmp
 
-      document.forEach(field => {
+      for (const fieldName in document) {
+        const field = document[fieldName]
         switch (field.widget) {
           case 'inputText':
           case 'inputEmail':
@@ -934,7 +935,7 @@ export default {
             dynamicSelectionDialog[field.name] = false
             break
         }
-      })
+      }
       this.vMenu = vMenu
       this.fieldData = fieldData
       this.dynamicSelectionDialog = dynamicSelectionDialog
