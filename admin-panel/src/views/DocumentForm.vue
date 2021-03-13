@@ -941,7 +941,7 @@ export default {
       this.vMenu = vMenu
       this.fieldData = fieldData
       this.dynamicSelectionDialog = dynamicSelectionDialog
-      this.fields = document
+      this.fields = fields
     },
 
     // Add a new dynamic element.
