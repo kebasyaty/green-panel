@@ -196,7 +196,7 @@ pub mod request_handlers {
         let mut is_authenticated = false;
         let mut msg_err = String::new();
         let mut documents: Vec<Value> = Vec::new();
-        let pages_number: u64;
+        let page_count: u64;
 
         // Access request identity
         // -----------------------------------------------------------------------------------------
@@ -246,7 +246,7 @@ pub mod request_handlers {
             .database(meta.database_name.as_str())
             .collection(meta.collection_name.as_str());
         // Get the number of pages (50 documents per page).
-        pages_number =
+        page_count =
             (coll.count_documents(filter.clone(), None).unwrap() as f64 / 50_f64).ceil() as u64;
         // Get cursor for selecting documents.
         let mut cursor = coll.find(filter, options).unwrap();
@@ -270,7 +270,7 @@ pub mod request_handlers {
         // -----------------------------------------------------------------------------------------
         Ok(HttpResponse::Ok().content_type("application/json").json(
             json!({ "documents": documents,
-                    "pages_number": pages_number,
+                    "page_count": page_count,
                     "is_authenticated": is_authenticated,
                     "msg_err": msg_err }),
         ))
