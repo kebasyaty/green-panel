@@ -966,9 +966,10 @@ export default {
       const indexService = this.$route.params.indexService
       const service = this.serviceList[indexService]
       const indexCollection = this.$route.params.indexCollection
+      const indexDoc = this.$route.params.indexDoc
       const payload = {
         model_key: service.collections[indexCollection].model_key,
-        doc_hash: this.password
+        doc_hash: this.documents[indexDoc].hash
       }
       this.axios.post('/admin/document', payload)
         .then(response => {
