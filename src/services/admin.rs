@@ -15,7 +15,7 @@ use serde::Deserialize;
 use serde_json::{json, Value};
 
 use crate::models::{registration::admin_panel, services::admin::users};
-use mango_orm::{QCommon, QPaladins, DB_MAP_CLIENT_NAMES, FORM_CACHE};
+use mango_orm::{QCommon, QPaladins, ToModel, DB_MAP_CLIENT_NAMES, FORM_CACHE};
 
 pub use configure_urls::*;
 pub use request_handlers::*;
@@ -309,7 +309,18 @@ pub mod request_handlers {
 
         // Get doc
         // -----------------------------------------------------------------------------------------
-        //
+        if query.model_key == users::User::key() {
+            let object_id = users::User::hash_to_id(query.doc_hash.as_str()).unwrap();
+            let filter = doc! {"_id": object_id};
+            let output_data = users::User::find_one(Some(filter), None);
+            if let Ok(output_data) = output_data {
+                if output_data.bool() {
+                    document = serde_json::to_value(output_data.json().unwrap())?;
+                }
+            } else {
+                msg_err = "Error in the output data.".to_string();
+            }
+        }
 
         // Return json response
         // -----------------------------------------------------------------------------------------
