@@ -959,30 +959,36 @@ export default {
     // Save/Update the document.
     saveDoc(mode = 'save') {
       window.console.log('Save document', mode)
+    },
+
+    // Get document
+    getDoc() {
+      const indexService = this.$route.params.indexService
+      const service = this.serviceList[indexService]
+      const indexCollection = this.$route.params.indexCollection
+      const payload = {
+        model_key: service.collections[indexCollection].model_key,
+        doc_hash: this.password
+      }
+      this.axios.post('/admin/document', payload)
+        .then(response => {
+          const data = response.data
+          if (data.is_authenticated) {
+            this.getFormData(data.document)
+          } else {
+            console.log(data.msg_err)
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
+
   },
 
   created() {
     // Get document
-    const indexService = this.$route.params.indexService
-    const service = this.serviceList[indexService]
-    const indexCollection = this.$route.params.indexCollection
-    const payload = {
-      model_key: service.collections[indexCollection].model_key,
-      doc_hash: this.password
-    }
-    this.axios.post('/admin/document', payload)
-      .then(response => {
-        const data = response.data
-        if (data.is_authenticated) {
-          this.getFormData(data.document)
-        } else {
-          console.log(data.msg_err)
-        }
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    this.getDoc()
   }
 
 }
