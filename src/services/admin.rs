@@ -94,9 +94,11 @@ pub mod request_handlers {
         session: Session,
         login_form: web::Json<LoginForm>,
     ) -> Result<HttpResponse, Error> {
+        //
         let username: String;
         let mut is_authenticated = false;
         let mut msg_err = String::new();
+
         // Access request identity
         // -----------------------------------------------------------------------------------------
         if let Some(user) = session.get::<String>("user")? {
@@ -131,6 +133,7 @@ pub mod request_handlers {
                 }
             }
         }
+
         // Return json response
         // -----------------------------------------------------------------------------------------
         Ok(HttpResponse::Ok()
@@ -292,6 +295,7 @@ pub mod request_handlers {
         let mut is_authenticated = false;
         let mut msg_err = String::new();
         let mut document = Value::Null;
+
         // Access request identity
         // -----------------------------------------------------------------------------------------
         if session.get::<String>("user")?.is_some()
@@ -302,9 +306,11 @@ pub mod request_handlers {
         } else {
             msg_err = "Authentication failed.".to_string();
         }
+
         // Get doc
         // -----------------------------------------------------------------------------------------
         //
+
         // Return json response
         // -----------------------------------------------------------------------------------------
         Ok(HttpResponse::Ok()
