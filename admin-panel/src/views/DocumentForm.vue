@@ -964,6 +964,30 @@ export default {
 
   created() {
     this.getFormData()
+    // Get document
+    const indexService = this.$route.params.indexService
+    const service = this.serviceList[indexService]
+    const indexCollection = this.$route.params.indexCollection
+    const payload = {
+      model_key: service.collections[indexCollection].model_key,
+      doc_hash: this.password
+    }
+    this.axios.post('/admin/document', payload)
+      .then(response => {
+        const data = response.data
+        if (data.is_authenticated) {
+          this.setUsername(data.username)
+          this.msg_success = this.$t('message.28')
+          setTimeout(() => this.setIsAuthenticated(true), 1000)
+        } else {
+          this.setIsAuthenticated(false)
+          this.msg_error = this.$t('message.27')
+        }
+      })
+      .catch(error => {
+        this.msg_error = this.$t('message.27')
+        console.log(error)
+      })
   }
 
 }
