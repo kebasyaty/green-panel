@@ -12,13 +12,6 @@
               type="error"
               class="mb-0"
             >{{ msg_error }}</v-alert>
-            <v-alert
-              v-if="msg_success.length > 0"
-              dense
-              text
-              type="success"
-              class="mb-0"
-            >{{ msg_success }}</v-alert>
           </v-card-text>
           <v-card-text>
             <v-text-field
@@ -67,8 +60,7 @@ export default {
   data: () => ({
     username: '',
     password: '',
-    msg_error: '',
-    msg_success: ''
+    msg_error: ''
   }),
 
   computed: {
@@ -108,7 +100,6 @@ export default {
             const data = response.data
             if (data.is_authenticated) {
               this.setUsername(data.username)
-              this.msg_success = this.$t('message.28')
               setTimeout(() => this.setIsAuthenticated(true), 1000)
             } else {
               this.setIsAuthenticated(false)
@@ -126,7 +117,6 @@ export default {
       this.username = ''
       this.password = ''
       this.msg_error = ''
-      this.msg_success = ''
     }
   },
 

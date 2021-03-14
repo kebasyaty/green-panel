@@ -315,12 +315,23 @@ pub mod request_handlers {
             let output_data = users::User::find_one(Some(filter), None);
             if let Ok(output_data) = output_data {
                 if output_data.bool() {
-                    document = serde_json::to_value(output_data.json().unwrap())?;
+                    document = serde_json::to_value(
+                        output_data
+                            .model::<users::User>()
+                            .unwrap()
+                            .check()
+                            .unwrap()
+                            .json()
+                            .unwrap(),
+                    )
+                    .unwrap();
                 }
             } else {
                 msg_err = "Error in the output data.".to_string();
             }
         }
+
+        println!("\n\n{:?}\n\n", document);
 
         // Return json response
         // -----------------------------------------------------------------------------------------
