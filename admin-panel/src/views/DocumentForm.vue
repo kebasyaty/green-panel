@@ -755,18 +755,13 @@ export default {
         return
       }
 
-      document = JSON.parse(document)
-
-      window.console.log(document)
-
       const vMenu = {}
       const fieldData = {}
       const dynamicSelectionDialog = {}
-      const fields = []
+      const fields = JSON.parse(document)
       let tmp
 
-      for (const fieldName in document) {
-        const field = document[fieldName]
+      fields.forEach(field => {
         switch (field.widget) {
           case 'inputText':
           case 'inputEmail':
@@ -943,10 +938,7 @@ export default {
             dynamicSelectionDialog[field.name] = false
             break
         }
-        fields.push(field)
-      }
-
-      window.console.log(fields)
+      })
 
       this.vMenu = vMenu
       this.fieldData = fieldData
