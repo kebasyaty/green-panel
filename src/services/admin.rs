@@ -318,9 +318,7 @@ pub mod request_handlers {
                     document = output_data
                         .model::<users::User>()
                         .unwrap()
-                        .check()
-                        .unwrap()
-                        .json()
+                        .json_for_admin()
                         .unwrap();
                 }
             } else {
