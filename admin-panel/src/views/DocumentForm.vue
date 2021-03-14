@@ -758,10 +758,11 @@ export default {
       const vMenu = {}
       const fieldData = {}
       const dynamicSelectionDialog = {}
-      const fields = Object.values(document)
+      const fields = []
       let tmp
 
-      fields.forEach(field => {
+      for (const fieldName in document) {
+        const field = document[fieldName]
         switch (field.widget) {
           case 'inputText':
           case 'inputEmail':
@@ -939,7 +940,7 @@ export default {
             break
         }
         fields.push(field)
-      })
+      }
 
       this.vMenu = vMenu
       this.fieldData = fieldData
