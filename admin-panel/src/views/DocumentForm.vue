@@ -751,6 +751,10 @@ export default {
     },
     // Get data for fields of form.
     getFormData(document) {
+      if (document === null) {
+        return
+      }
+
       const vMenu = {}
       const fieldData = {}
       const dynamicSelectionDialog = {}
