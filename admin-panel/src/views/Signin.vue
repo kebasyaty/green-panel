@@ -100,7 +100,7 @@ export default {
             const data = response.data
             if (data.is_authenticated) {
               this.setUsername(data.username)
-              setTimeout(() => this.setIsAuthenticated(true), 1000)
+              this.setIsAuthenticated(true)
             } else {
               this.setIsAuthenticated(false)
               this.msg_error = this.$t('message.27')
