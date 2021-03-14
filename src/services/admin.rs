@@ -294,7 +294,7 @@ pub mod request_handlers {
     ) -> Result<HttpResponse, Error> {
         let mut is_authenticated = false;
         let mut msg_err = String::new();
-        let mut document = Value::Null;
+        let mut document = String::new();
 
         // Access request identity
         // -----------------------------------------------------------------------------------------
@@ -315,16 +315,13 @@ pub mod request_handlers {
             let output_data = users::User::find_one(Some(filter), None);
             if let Ok(output_data) = output_data {
                 if output_data.bool() {
-                    document = serde_json::to_value(
-                        output_data
-                            .model::<users::User>()
-                            .unwrap()
-                            .check()
-                            .unwrap()
-                            .json()
-                            .unwrap(),
-                    )
-                    .unwrap();
+                    document = output_data
+                        .model::<users::User>()
+                        .unwrap()
+                        .check()
+                        .unwrap()
+                        .json()
+                        .unwrap();
                 }
             } else {
                 msg_err = "Error in the output data.".to_string();
