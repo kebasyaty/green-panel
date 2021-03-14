@@ -942,6 +942,8 @@ export default {
         fields.push(field)
       }
 
+      window.console.log(fields)
+
       this.vMenu = vMenu
       this.fieldData = fieldData
       this.dynamicSelectionDialog = dynamicSelectionDialog
