@@ -45,7 +45,8 @@
                   <v-card-subtitle
                     v-if="field.hint.length > 0"
                     class="pl-0 pb-1 pt-3"
-                  >{{ field.hint }}</v-card-subtitle>
+                    v-html="field.hint"
+                  ></v-card-subtitle>
                   <!-- Dialogue for fields with dynamic widgets. -->
                   <v-dialog
                     persistent
