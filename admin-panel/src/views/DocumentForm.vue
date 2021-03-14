@@ -751,9 +751,13 @@ export default {
     },
     // Get data for fields of form.
     getFormData(document) {
-      if (document === null) {
+      if (document.length === 0) {
         return
       }
+
+      document = JSON.parse(document)
+
+      window.console.log(document)
 
       const vMenu = {}
       const fieldData = {}
