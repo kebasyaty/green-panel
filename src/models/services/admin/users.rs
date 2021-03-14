@@ -95,9 +95,9 @@ impl AdditionalValidation for User {
             std::collections::HashMap::new();
 
         // Get clean data
-        let password = self.password.clone().unwrap();
-        let confirm_password = self.confirm_password.clone().unwrap();
-        let username = self.username.clone().unwrap();
+        let password = self.password.clone().unwrap_or_default();
+        let confirm_password = self.confirm_password.clone().unwrap_or_default();
+        let username = self.username.clone().unwrap_or_default();
 
         // Fields validation
         if password != confirm_password {

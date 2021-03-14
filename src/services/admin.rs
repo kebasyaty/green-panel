@@ -331,8 +331,6 @@ pub mod request_handlers {
             }
         }
 
-        println!("\n\n{:?}\n\n", document);
-
         // Return json response
         // -----------------------------------------------------------------------------------------
         Ok(HttpResponse::Ok()
