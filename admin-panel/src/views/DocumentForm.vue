@@ -15,7 +15,7 @@
           <!-- Hidden fields -->
           <input
             v-if="['hiddenText', 'hiddenI32', 'hiddenU32',
-                      'hiddenI64', 'hiddenF64'].includes(field.widget)"
+                   'hiddenI64', 'hiddenF64'].includes(field.widget)"
             v-model="fieldData[field.name]"
             :label="field.label"
             :id="field.id"
@@ -758,11 +758,10 @@ export default {
       const vMenu = {}
       const fieldData = {}
       const dynamicSelectionDialog = {}
-      const fields = []
+      const fields = Object.values(document)
       let tmp
 
-      for (const fieldName in document) {
-        const field = document[fieldName]
+      fields.forEach(field => {
         switch (field.widget) {
           case 'inputText':
           case 'inputEmail':
@@ -940,7 +939,8 @@ export default {
             break
         }
         fields.push(field)
-      }
+      })
+
       this.vMenu = vMenu
       this.fieldData = fieldData
       this.dynamicSelectionDialog = dynamicSelectionDialog
