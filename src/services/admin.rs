@@ -384,9 +384,16 @@ pub mod request_handlers {
             body.extend_from_slice(&chunk);
         }
 
-        //
+        // Define the desired model with `model_key` and save/update in the database
+        // -----------------------------------------------------------------------------------------
         if query.model_key == users::User::key() {
-            let model = serde_json::from_slice::<users::User>(&body)?;
+            let mut model = serde_json::from_slice::<users::User>(&body)?;
+            let output_data = model.save(None, None, None);
+            if output_data.is_err() {
+                msg_err = ".".to_string();
+            } else if !output_data.unwrap().bool() {
+                msg_err = ".".to_string();
+            }
         }
 
         // Return json response
