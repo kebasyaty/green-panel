@@ -638,6 +638,7 @@ export default {
   name: 'DocumentForm',
 
   data: () => ({
+    docTitle: '',
     vMenu: {},
     fieldData: {},
     fields: [],
@@ -653,15 +654,6 @@ export default {
     ...mapState('documentList', [
       'documents'
     ]),
-    // Get Title of document.
-    docTitle: function () {
-      const indexDoc = this.$route.params.indexDoc
-      let docTitle = this.$t('message.26')
-      if (indexDoc !== 'new') {
-        docTitle = this.documents[indexDoc].title
-      }
-      return docTitle
-    },
     // Get scheme route of document.
     breadcrumbs: function () {
       const indexService = this.$route.params.indexService
@@ -970,6 +962,18 @@ export default {
       window.console.log('Save document', mode)
     },
 
+    // Get Title of document.
+    getDocTitle() {
+      const indexDoc = this.$route.params.indexDoc
+      let title = ''
+      if (indexDoc !== 'new') {
+        title = this.documents[indexDoc].title
+      } else {
+        title = this.$t('message.26')
+      }
+      this.docTitle = title
+    },
+
     // Get document
     ajaxGetDoc(indexes) {
       const service = this.serviceList[indexes.indexService]
@@ -981,6 +985,7 @@ export default {
         .then(response => {
           const data = response.data
           if (data.is_authenticated && data.msg_err.length === 0) {
+            this.docTitle = this.getDocTitle()
             this.getFormData(data.document)
           } else {
             console.log(data.msg_err)
