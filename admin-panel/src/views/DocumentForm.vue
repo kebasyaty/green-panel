@@ -632,7 +632,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'DocumentForm',
@@ -672,6 +672,9 @@ export default {
   },
 
   methods: {
+    ...mapActions('documentList', [
+      'ajaxGetDocumentList'
+    ]),
     // Router - Go back one step.
     goBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push({ name: 'home' })
@@ -977,18 +980,24 @@ export default {
         model_key: service.collections[indexCollection].model_key,
         doc_hash: this.documents[indexDoc].hash
       }
-      this.axios.post('/admin/document', payload)
-        .then(response => {
-          const data = response.data
-          if (data.is_authenticated && data.msg_err.length === 0) {
-            this.getFormData(data.document)
-          } else {
-            console.log(data.msg_err)
-          }
+      if (this.documents.length > 0) {
+        this.axios.post('/admin/document', payload)
+          .then(response => {
+            const data = response.data
+            if (data.is_authenticated && data.msg_err.length === 0) {
+              this.getFormData(data.document)
+            } else {
+              console.log(data.msg_err)
+            }
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      } else {
+        this.ajaxGetDocumentList({ indexService, indexCollection }).then(() => {
+          // ...
         })
-        .catch(error => {
-          console.log(error)
-        })
+      }
     }
 
   },

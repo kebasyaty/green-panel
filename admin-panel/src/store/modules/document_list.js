@@ -40,40 +40,42 @@ export default {
   actions: {
     // Get a list of documents.
     ajaxGetDocumentList({ state, commit, rootState }, payload = {}) {
-      if (!state.blockLoadDocs && rootState.serviceList.length > 0) {
-        commit('setBlockLoadDocs', true)
-        let collection
-        if (Object.keys(payload).length > 0) {
-          collection = rootState.serviceList[payload.indexService]
-            .collections[payload.indexCollection]
-        } else {
-          collection = rootState.serviceList[router.currentRoute.params.indexService]
-            .collections[router.currentRoute.params.indexCollection]
-        }
-        Vue.axios.get('/admin/document-list', {
-          params: {
-            model_key: collection.model_key,
-            field_name: collection.doc_name.field,
-            page_num: state.currentPageNumber,
-            search_query: state.searchQuery || ''
+      return new Promise((resolve, reject) => {
+        if (!state.blockLoadDocs && rootState.serviceList.length > 0) {
+          commit('setBlockLoadDocs', true)
+          let collection
+          if (Object.keys(payload).length > 0) {
+            collection = rootState.serviceList[payload.indexService]
+              .collections[payload.indexCollection]
+          } else {
+            collection = rootState.serviceList[router.currentRoute.params.indexService]
+              .collections[router.currentRoute.params.indexCollection]
           }
-        })
-          .then(response => {
-            const data = response.data
-            if (data.is_authenticated) {
-              commit('setPageCount', data.page_count)
-              commit('setDocuments', data.documents)
-            } else {
-              this.setIsAuthenticated(false)
+          Vue.axios.get('/admin/document-list', {
+            params: {
+              model_key: collection.model_key,
+              field_name: collection.doc_name.field,
+              page_num: state.currentPageNumber,
+              search_query: state.searchQuery || ''
             }
           })
-          .catch(error => {
-            console.log(error)
-          })
-          .then(() => {
-            commit('setBlockLoadDocs', false)
-          })
-      }
+            .then(response => {
+              const data = response.data
+              if (data.is_authenticated) {
+                commit('setPageCount', data.page_count)
+                commit('setDocuments', data.documents)
+              } else {
+                this.setIsAuthenticated(false)
+              }
+            })
+            .catch(error => {
+              console.log(error)
+            })
+            .then(() => {
+              commit('setBlockLoadDocs', false)
+            })
+        }
+      })
     },
     // Reset page number to default.
     resetPageNumberDefault({ commit }) {
