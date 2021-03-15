@@ -971,6 +971,20 @@ export default {
     },
 
     // Get document
+    ajaxGetDoc(payload) {
+      this.axios.post('/admin/document', payload)
+        .then(response => {
+          const data = response.data
+          if (data.is_authenticated && data.msg_err.length === 0) {
+            this.getFormData(data.document)
+          } else {
+            console.log(data.msg_err)
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
     getDoc() {
       const indexService = this.$route.params.indexService
       const indexCollection = this.$route.params.indexCollection
@@ -981,21 +995,10 @@ export default {
         doc_hash: this.documents[indexDoc].hash
       }
       if (this.documents.length > 0) {
-        this.axios.post('/admin/document', payload)
-          .then(response => {
-            const data = response.data
-            if (data.is_authenticated && data.msg_err.length === 0) {
-              this.getFormData(data.document)
-            } else {
-              console.log(data.msg_err)
-            }
-          })
-          .catch(error => {
-            console.log(error)
-          })
+        this.ajaxGetDoc(payload)
       } else {
         this.ajaxGetDocumentList({ indexService, indexCollection }).then(() => {
-          // ...
+          this.ajaxGetDoc(payload)
         })
       }
     }
