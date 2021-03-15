@@ -972,6 +972,11 @@ export default {
 
     // Get document
     ajaxGetDoc(payload) {
+      const service = this.serviceList[payload.indexService]
+      const payload = {
+        model_key: service.collections[payload.indexCollection].model_key,
+        doc_hash: this.documents[payload.indexDoc].hash
+      }
       this.axios.post('/admin/document', payload)
         .then(response => {
           const data = response.data
@@ -989,16 +994,11 @@ export default {
       const indexService = this.$route.params.indexService
       const indexCollection = this.$route.params.indexCollection
       const indexDoc = this.$route.params.indexDoc
-      const service = this.serviceList[indexService]
-      const payload = {
-        model_key: service.collections[indexCollection].model_key,
-        doc_hash: this.documents[indexDoc].hash
-      }
       if (this.documents.length > 0) {
-        this.ajaxGetDoc(payload)
+        this.ajaxGetDoc({ indexService, indexCollection, indexDoc })
       } else {
         this.ajaxGetDocumentList({ indexService, indexCollection }).then(() => {
-          this.ajaxGetDoc(payload)
+          this.ajaxGetDoc({ indexService, indexCollection, indexDoc })
         })
       }
     }
