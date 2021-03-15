@@ -360,6 +360,7 @@ pub mod request_handlers {
     ) -> Result<HttpResponse, Error> {
         let mut is_authenticated = false;
         let mut msg_err = String::new();
+        let mut document = String::new();
 
         // Access request identity
         // -----------------------------------------------------------------------------------------
@@ -388,11 +389,13 @@ pub mod request_handlers {
         // -----------------------------------------------------------------------------------------
         if query.model_key == users::User::key() {
             let mut model = serde_json::from_slice::<users::User>(&body)?;
-            let output_data = model.save(None, None, None);
-            if output_data.is_err() {
+            if let Ok(output_data) = model.save(None, None, None) {
+                if !output_data.bool() {
+                    msg_err = "Document was not validated.".to_string();
+                }
+                document = output_data.json().unwrap();
+            } else {
                 msg_err = "Failed to save document to database.".to_string();
-            } else if !output_data.unwrap().bool() {
-                msg_err = "Document was not validated.".to_string();
             }
         }
 
@@ -401,6 +404,7 @@ pub mod request_handlers {
         Ok(HttpResponse::Ok()
             .content_type("application/json")
             .json(json!({
+                "document": document,
                 "is_authenticated": is_authenticated,
                 "msg_err": msg_err
             })))
