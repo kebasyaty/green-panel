@@ -36,7 +36,8 @@ pub mod configure_urls {
         cfg.service(web::resource("/sign-in").route(web::get().to(admin_panel)));
         cfg.service(web::resource("/service-list").route(web::get().to(service_list)));
         cfg.service(web::resource("/document-list").route(web::get().to(document_list)));
-        cfg.service(web::resource("/document").route(web::post().to(document)));
+        cfg.service(web::resource("/get-document").route(web::post().to(get_document)));
+        cfg.service(web::resource("/save-document").route(web::post().to(save_document)));
         cfg.service(web::resource("/*").route(web::get().to(admin_panel)));
         cfg.service(web::resource("").route(web::get().to(admin_panel)));
     }
@@ -288,7 +289,7 @@ pub mod request_handlers {
         doc_hash: String,
     }
 
-    pub async fn document(
+    pub async fn get_document(
         session: Session,
         query: web::Json<DocQuery>,
     ) -> Result<HttpResponse, Error> {

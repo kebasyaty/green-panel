@@ -981,7 +981,7 @@ export default {
         model_key: service.collections[indexes.indexCollection].model_key,
         doc_hash: this.documents[indexes.indexDoc].hash
       }
-      this.axios.post('/admin/document', payload)
+      this.axios.post('/admin/get-document', payload)
         .then(response => {
           const data = response.data
           if (data.is_authenticated && data.msg_err.length === 0) {
