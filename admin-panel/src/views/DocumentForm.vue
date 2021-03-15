@@ -969,7 +969,12 @@ export default {
         .then(response => {
           const data = response.data
           if (data.is_authenticated && data.msg_err.length === 0) {
-            this.docTitle = this.getDocTitle()
+            self.vMenu = {}
+            self.fieldData = {}
+            self.fields = []
+            self.dynamicSelectionDialog = {}
+            self.delDynItems = []
+            self.currValDynItem = { title: null, value: null }
             this.getFormData(data.document)
           } else {
             console.log(data.msg_err)
