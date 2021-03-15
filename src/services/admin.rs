@@ -390,9 +390,9 @@ pub mod request_handlers {
             let mut model = serde_json::from_slice::<users::User>(&body)?;
             let output_data = model.save(None, None, None);
             if output_data.is_err() {
-                msg_err = ".".to_string();
+                msg_err = "Failed to save document to database.".to_string();
             } else if !output_data.unwrap().bool() {
-                msg_err = ".".to_string();
+                msg_err = "Document was not validated.".to_string();
             }
         }
 
