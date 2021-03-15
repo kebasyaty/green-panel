@@ -176,11 +176,13 @@ pub mod request_handlers {
             msg_err = "Authentication failed.".to_string();
         }
         // Return json response
-        Ok(HttpResponse::Ok().content_type("application/json").json(
-            json!({ "service_list": admin_panel::service_list(),
-                    "is_authenticated": is_authenticated,
-                    "msg_err": msg_err }),
-        ))
+        Ok(HttpResponse::Ok()
+            .content_type("application/json")
+            .json(json!({
+                "service_list": admin_panel::service_list(),
+                "is_authenticated": is_authenticated,
+                "msg_err": msg_err
+            })))
     }
 
     // Get document list
@@ -273,12 +275,14 @@ pub mod request_handlers {
 
         // Return json response
         // -----------------------------------------------------------------------------------------
-        Ok(HttpResponse::Ok().content_type("application/json").json(
-            json!({ "documents": documents,
-                    "page_count": page_count,
-                    "is_authenticated": is_authenticated,
-                    "msg_err": msg_err }),
-        ))
+        Ok(HttpResponse::Ok()
+            .content_type("application/json")
+            .json(json!({
+                "documents": documents,
+                "page_count": page_count,
+                "is_authenticated": is_authenticated,
+                "msg_err": msg_err
+            })))
     }
 
     // Get document
@@ -331,14 +335,16 @@ pub mod request_handlers {
         // -----------------------------------------------------------------------------------------
         Ok(HttpResponse::Ok()
             .content_type("application/json")
-            .json(json!({ "document": document,
-                    "is_authenticated": is_authenticated,
-                    "msg_err": msg_err })))
+            .json(json!({
+                "document": document,
+                "is_authenticated": is_authenticated,
+                "msg_err": msg_err
+            })))
     }
 
     // Save document
     // *********************************************************************************************
-        pub async fn save_document(
+    pub async fn save_document(
         session: Session,
         query: web::Json<DocQuery>,
     ) -> Result<HttpResponse, Error> {
@@ -356,12 +362,13 @@ pub mod request_handlers {
             msg_err = "Authentication failed.".to_string();
         }
 
-                // Return json response
+        // Return json response
         // -----------------------------------------------------------------------------------------
         Ok(HttpResponse::Ok()
             .content_type("application/json")
-            .json(json!({ "document": document,
-                    "is_authenticated": is_authenticated,
-                    "msg_err": msg_err })))
+            .json(json!({
+                "is_authenticated": is_authenticated,
+                "msg_err": msg_err
+            })))
     }
 }
