@@ -959,7 +959,25 @@ export default {
 
     // Save/Update the document.
     saveDoc(mode = 'save') {
-      window.console.log('Save document', mode)
+      const indexService = this.$route.params.indexService
+      const indexCollection = this.$route.params.indexCollection
+      const service = this.serviceList[indexService]
+      const payload = {
+        model_key: service.collections[indexCollection].model_key
+      }
+      this.axios.post('/admin/save-document', payload)
+        .then(response => {
+          const data = response.data
+          if (data.is_authenticated && data.msg_err.length === 0) {
+            this.docTitle = this.getDocTitle()
+            this.getFormData(data.document)
+          } else {
+            console.log(data.msg_err)
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
 
     // Get Title of document.
