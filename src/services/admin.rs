@@ -312,7 +312,7 @@ pub mod request_handlers {
             msg_err = "Authentication failed.".to_string();
         }
 
-        // Get json
+        // Get doc ( json for admin )
         // -----------------------------------------------------------------------------------------
         if query.model_key == users::User::key() {
             let object_id = users::User::hash_to_id(query.doc_hash.as_str()).unwrap();
@@ -344,10 +344,7 @@ pub mod request_handlers {
 
     // Save document
     // *********************************************************************************************
-    pub async fn save_document(
-        session: Session,
-        query: web::Json<DocQuery>,
-    ) -> Result<HttpResponse, Error> {
+    pub async fn save_document(session: Session) -> Result<HttpResponse, Error> {
         let mut is_authenticated = false;
         let mut msg_err = String::new();
 
