@@ -346,7 +346,7 @@ pub mod request_handlers {
             })))
     }
 
-    // Save document
+    // Save/update document
     // *********************************************************************************************
     #[derive(Deserialize)]
     pub struct SaveDocQuery {
