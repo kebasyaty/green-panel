@@ -5,8 +5,9 @@
 use actix_files::Files;
 use actix_files::NamedFile;
 use actix_session::Session;
-use actix_web::{web, Error, HttpResponse, Result};
+use actix_web::{error, web, Error, HttpResponse, Result};
 
+use futures::StreamExt;
 use mongodb::{
     bson::{doc, Bson, Regex},
     options::FindOptions,
@@ -23,6 +24,8 @@ pub use request_handlers::*;
 fn admin_file_path(inner_path: &str) -> String {
     format!("./admin/{}", inner_path)
 }
+
+const MAX_SIZE: usize = 262_144; // max payload size is 256k
 
 // CONFIGURE URLs
 // #################################################################################################
@@ -288,14 +291,14 @@ pub mod request_handlers {
     // Get document
     // *********************************************************************************************
     #[derive(Deserialize)]
-    pub struct DocQuery {
+    pub struct GetDocQuery {
         model_key: String,
         doc_hash: String,
     }
 
     pub async fn get_document(
         session: Session,
-        query: web::Json<DocQuery>,
+        query: web::Json<GetDocQuery>,
     ) -> Result<HttpResponse, Error> {
         let mut is_authenticated = false;
         let mut msg_err = String::new();
@@ -344,7 +347,16 @@ pub mod request_handlers {
 
     // Save document
     // *********************************************************************************************
-    pub async fn save_document(session: Session) -> Result<HttpResponse, Error> {
+    #[derive(Deserialize)]
+    pub struct SaveDocQuery {
+        model_key: String,
+    }
+
+    pub async fn save_document(
+        session: Session,
+        query: web::Json<SaveDocQuery>,
+        mut payload: web::Payload,
+    ) -> Result<HttpResponse, Error> {
         let mut is_authenticated = false;
         let mut msg_err = String::new();
 
@@ -357,6 +369,23 @@ pub mod request_handlers {
             is_authenticated = true;
         } else {
             msg_err = "Authentication failed.".to_string();
+        }
+
+        // Load the request body
+        // -----------------------------------------------------------------------------------------
+        let mut body = web::BytesMut::new();
+        while let Some(chunk) = payload.next().await {
+            let chunk = chunk?;
+            // limit max size of in-memory payload
+            if (body.len() + chunk.len()) > MAX_SIZE {
+                return Err(error::ErrorBadRequest("overflow"));
+            }
+            body.extend_from_slice(&chunk);
+        }
+
+        //
+        if query.model_key == users::User::key() {
+            //
         }
 
         // Return json response
