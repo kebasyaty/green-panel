@@ -962,7 +962,7 @@ export default {
       const indexService = this.$route.params.indexService
       const indexCollection = this.$route.params.indexCollection
       const service = this.serviceList[indexService]
-      const payload = this.fieldData
+      const payload = Object.assign({}, this.fieldData)
       payload.model_key = service.collections[indexCollection].model_key
       this.axios.post('/admin/save-document', payload)
         .then(response => {
