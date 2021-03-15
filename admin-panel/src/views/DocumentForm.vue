@@ -971,11 +971,11 @@ export default {
     },
 
     // Get document
-    ajaxGetDoc(payload) {
-      const service = this.serviceList[payload.indexService]
+    ajaxGetDoc(indexes) {
+      const service = this.serviceList[indexes.indexService]
       const payload = {
-        model_key: service.collections[payload.indexCollection].model_key,
-        doc_hash: this.documents[payload.indexDoc].hash
+        model_key: service.collections[indexes.indexCollection].model_key,
+        doc_hash: this.documents[indexes.indexDoc].hash
       }
       this.axios.post('/admin/document', payload)
         .then(response => {
