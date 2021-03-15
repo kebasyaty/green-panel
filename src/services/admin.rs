@@ -315,7 +315,8 @@ pub mod request_handlers {
             msg_err = "Authentication failed.".to_string();
         }
 
-        // Get doc ( json for admin )
+        // Define the desired model by `model_key` and
+        // get an instance of the model in json format (for the administrator)
         // -----------------------------------------------------------------------------------------
         if query.model_key == users::User::key() {
             let object_id = users::User::hash_to_id(query.doc_hash.as_str()).unwrap();
@@ -385,7 +386,7 @@ pub mod request_handlers {
 
         //
         if query.model_key == users::User::key() {
-            //
+            let model = serde_json::from_slice::<users::User>(&body)?;
         }
 
         // Return json response
