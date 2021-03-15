@@ -5,7 +5,7 @@
 use actix_files::Files;
 use actix_files::NamedFile;
 use actix_session::Session;
-use actix_web::{error, web, Error, HttpResponse, Result};
+use actix_web::{error, web, Error, HttpRequest, HttpResponse, Result};
 
 use futures::StreamExt;
 use mongodb::{
@@ -348,19 +348,15 @@ pub mod request_handlers {
 
     // Save/update document
     // *********************************************************************************************
-    #[derive(Deserialize)]
-    pub struct SaveDocQuery {
-        model_key: String,
-    }
-
     pub async fn save_document(
         session: Session,
-        query: web::Json<SaveDocQuery>,
+        req: HttpRequest,
         mut payload: web::Payload,
     ) -> Result<HttpResponse, Error> {
         let mut is_authenticated = false;
         let mut msg_err = String::new();
         let mut document = String::new();
+        let model_key = req.match_info().get("model_key").unwrap().to_string();
 
         // Access request identity
         // -----------------------------------------------------------------------------------------
@@ -387,7 +383,11 @@ pub mod request_handlers {
 
         // Define the desired model with `model_key` and save/update in the database
         // -----------------------------------------------------------------------------------------
-        if query.model_key == users::User::key() {
+        if model_key == users::User::key() {
+            document = "[]".to_string();
+            let model = serde_json::from_slice::<users::User>(&body)?;
+            println!("\n\n{:?}\n\n", model);
+            /*
             let mut model = serde_json::from_slice::<users::User>(&body)?;
             if let Ok(output_data) = model.save(None, None, None) {
                 if !output_data.bool() {
@@ -397,6 +397,7 @@ pub mod request_handlers {
             } else {
                 msg_err = "Failed to save document to database.".to_string();
             }
+            */
         }
 
         // Return json response
