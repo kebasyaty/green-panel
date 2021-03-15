@@ -970,9 +970,9 @@ export default {
     // Get document
     getDoc() {
       const indexService = this.$route.params.indexService
-      const service = this.serviceList[indexService]
       const indexCollection = this.$route.params.indexCollection
       const indexDoc = this.$route.params.indexDoc
+      const service = this.serviceList[indexService]
       const payload = {
         model_key: service.collections[indexCollection].model_key,
         doc_hash: this.documents[indexDoc].hash
