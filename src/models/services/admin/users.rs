@@ -95,12 +95,13 @@ impl AdditionalValidation for User {
             std::collections::HashMap::new();
 
         // Get clean data
+        let hash = self.hash.clone().unwrap_or_default();
         let password = self.password.clone().unwrap_or_default();
         let confirm_password = self.confirm_password.clone().unwrap_or_default();
         let username = self.username.clone().unwrap_or_default();
 
         // Fields validation
-        if password != confirm_password {
+        if hash.is_empty() && password != confirm_password {
             error_map.insert("confirm_password", "Password confirmation does not match.");
         }
         if !RegexBuilder::new(r"^[a-z\d_@+.]+$")

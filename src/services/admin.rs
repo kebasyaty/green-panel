@@ -25,8 +25,6 @@ fn admin_file_path(inner_path: &str) -> String {
     format!("./admin/{}", inner_path)
 }
 
-const MAX_SIZE: usize = 262_144; // max payload size is 256k
-
 // CONFIGURE URLs
 // #################################################################################################
 pub mod configure_urls {
@@ -40,7 +38,9 @@ pub mod configure_urls {
         cfg.service(web::resource("/service-list").route(web::get().to(service_list)));
         cfg.service(web::resource("/document-list").route(web::get().to(document_list)));
         cfg.service(web::resource("/get-document").route(web::post().to(get_document)));
-        cfg.service(web::resource("/save-document").route(web::post().to(save_document)));
+        cfg.service(
+            web::resource("/{model_key}/save-document").route(web::post().to(save_document)),
+        );
         cfg.service(web::resource("/*").route(web::get().to(admin_panel)));
         cfg.service(web::resource("").route(web::get().to(admin_panel)));
     }
@@ -300,6 +300,7 @@ pub mod request_handlers {
         session: Session,
         query: web::Json<GetDocQuery>,
     ) -> Result<HttpResponse, Error> {
+        //
         let mut is_authenticated = false;
         let mut msg_err = String::new();
         let mut document = String::new();
@@ -356,7 +357,10 @@ pub mod request_handlers {
     pub async fn save_document(
         session: Session,
         mut payload: web::Payload,
+        query: web::Path<SaveDocQuery>,
     ) -> Result<HttpResponse, Error> {
+        //
+        const MAX_SIZE: usize = 262_144; // max payload size is 256k
         let mut is_authenticated = false;
         let mut msg_err = String::new();
         let mut document = String::new();
@@ -386,8 +390,7 @@ pub mod request_handlers {
 
         // Define the desired model with `model_key` and save/update in the database
         // -----------------------------------------------------------------------------------------
-        let model_key = serde_json::from_slice::<SaveDocQuery>(&body)?.model_key;
-        if model_key == users::User::key() {
+        if query.model_key == users::User::key() {
             let mut model = serde_json::from_slice::<users::User>(&body)?;
             if let Ok(output_data) = model.save(None, None, None) {
                 if !output_data.bool() {
