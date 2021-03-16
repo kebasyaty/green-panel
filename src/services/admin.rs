@@ -334,6 +334,8 @@ pub mod request_handlers {
             } else {
                 msg_err = "Error in the output data.".to_string();
             }
+        } else {
+            msg_err = "No match for `model_key`.".to_string();
         }
 
         // Return json response
@@ -390,13 +392,22 @@ pub mod request_handlers {
 
         // Define the desired model with `model_key` and save/update in the database
         // -----------------------------------------------------------------------------------------
+        let model;
         if query.model_key == users::User::key() {
-            let mut model = serde_json::from_slice::<users::User>(&body)?;
-            if let Ok(output_data) = model.save(None, None, None) {
+            model = serde_json::from_slice::<users::User>(&body);
+        } else {
+            model = Err("No match for `model_key`.").unwrap();
+        }
+        // General actions for all models.
+        // ( get json-line of Model for admin panel )
+        if model.is_ok() {
+            if let Ok(output_data) = model?.save(None, None, None) {
                 document = output_data.json_for_admin().unwrap();
             } else {
                 msg_err = "Failed to save document to database.".to_string();
             }
+        } else {
+            msg_err = "No match for `model_key`.".to_string();
         }
 
         // Return json response
