@@ -962,12 +962,11 @@ export default {
       const indexService = this.$route.params.indexService
       const indexCollection = this.$route.params.indexCollection
       const service = this.serviceList[indexService]
-      const payload = Object.assign({}, this.fieldData)
       const modelKey = service.collections[indexCollection].model_key
       const options = {
         method: 'POST',
         headers: { 'Content-Type': 'multipart/form-data' },
-        data: payload,
+        data: this.fieldData,
         url: `/admin/${modelKey}/save-document`
       }
       this.axios(options)
