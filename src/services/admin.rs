@@ -399,7 +399,7 @@ pub mod request_handlers {
             model = Err("No match for `model_key`.").unwrap();
         }
         // General actions for all models.
-        // ( get json-line of Model for admin panel )
+        // ( seve data and get json-line of Model for admin panel )
         if model.is_ok() {
             if let Ok(output_data) = model?.save(None, None, None) {
                 document = output_data.json_for_admin().unwrap();
