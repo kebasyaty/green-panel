@@ -963,8 +963,8 @@ export default {
       const indexCollection = this.$route.params.indexCollection
       const service = this.serviceList[indexService]
       const payload = Object.assign({}, this.fieldData)
-      payload.model_key = service.collections[indexCollection].model_key
-      this.axios.post('/admin/save-document', payload)
+      const modelKey = service.collections[indexCollection].model_key
+      this.axios.post(`/admin/${modelKey}/save-document`, payload)
         .then(response => {
           const data = response.data
           if (data.is_authenticated && data.msg_err.length === 0) {
