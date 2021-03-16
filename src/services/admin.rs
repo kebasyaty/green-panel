@@ -303,6 +303,7 @@ pub mod request_handlers {
         //
         let mut is_authenticated = false;
         let mut msg_err = String::new();
+        let model_key = query.model_key.clone();
         let mut document = String::new();
 
         // Access request identity
@@ -319,7 +320,7 @@ pub mod request_handlers {
         // Define the desired model by `model_key` and
         // get an instance of the model in json format (for the administrator)
         // -----------------------------------------------------------------------------------------
-        if query.model_key == users::User::key() {
+        if model_key == users::User::key() {
             let object_id = users::User::hash_to_id(query.doc_hash.as_str()).unwrap();
             let filter = doc! {"_id": object_id};
             let output_data = users::User::find_one(Some(filter), None);
@@ -365,6 +366,7 @@ pub mod request_handlers {
         const PAYLOAD_MAX_SIZE: usize = 262_144; // max payload size is 256k
         let mut is_authenticated = false;
         let mut msg_err = String::new();
+        let model_key = query.model_key.clone();
         let mut document = String::new();
 
         // Access request identity
@@ -393,7 +395,7 @@ pub mod request_handlers {
         // Define the desired model with `model_key` and save/update in the database
         // -----------------------------------------------------------------------------------------
         let model;
-        if query.model_key == users::User::key() {
+        if model_key == users::User::key() {
             model = serde_json::from_slice::<users::User>(&body);
         } else {
             model = Err("No match for `model_key`.").unwrap();
