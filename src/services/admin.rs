@@ -407,7 +407,7 @@ pub mod request_handlers {
                 msg_err = "Failed to save document to database.".to_string();
             }
         } else {
-            msg_err = "No match for `model_key`.".to_string();
+            msg_err = model.unwrap_err().to_string();
         }
 
         // Return json response
