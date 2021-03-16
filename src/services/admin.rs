@@ -393,9 +393,6 @@ pub mod request_handlers {
         if query.model_key == users::User::key() {
             let mut model = serde_json::from_slice::<users::User>(&body)?;
             if let Ok(output_data) = model.save(None, None, None) {
-                if !output_data.bool() {
-                    msg_err = "Document was not validated.".to_string();
-                }
                 document = output_data.json_for_admin().unwrap();
             } else {
                 msg_err = "Failed to save document to database.".to_string();
