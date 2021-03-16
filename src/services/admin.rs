@@ -396,7 +396,7 @@ pub mod request_handlers {
                 if !output_data.bool() {
                     msg_err = "Document was not validated.".to_string();
                 }
-                document = output_data.json().unwrap();
+                document = output_data.json_for_admin().unwrap();
             } else {
                 msg_err = "Failed to save document to database.".to_string();
             }
