@@ -964,7 +964,13 @@ export default {
       const service = this.serviceList[indexService]
       const payload = Object.assign({}, this.fieldData)
       const modelKey = service.collections[indexCollection].model_key
-      this.axios.post(`/admin/${modelKey}/save-document`, payload)
+      const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'multipart/form-data' },
+        data: payload,
+        url: `/admin/${modelKey}/save-document`
+      }
+      this.axios(options)
         .then(response => {
           const data = response.data
           if (data.is_authenticated && data.msg_err.length === 0) {
