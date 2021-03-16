@@ -360,7 +360,7 @@ pub mod request_handlers {
         query: web::Path<SaveDocQuery>,
     ) -> Result<HttpResponse, Error> {
         //
-        const MAX_SIZE: usize = 262_144; // max payload size is 256k
+        const PAYLOAD_MAX_SIZE: usize = 262_144; // max payload size is 256k
         let mut is_authenticated = false;
         let mut msg_err = String::new();
         let mut document = String::new();
@@ -382,7 +382,7 @@ pub mod request_handlers {
         while let Some(chunk) = payload.next().await {
             let chunk = chunk?;
             // limit max size of in-memory payload
-            if (body.len() + chunk.len()) > MAX_SIZE {
+            if (body.len() + chunk.len()) > PAYLOAD_MAX_SIZE {
                 return Err(error::ErrorBadRequest("overflow"));
             }
             body.extend_from_slice(&chunk);
