@@ -633,8 +633,6 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import FormData from 'form-data'
-import fs from 'fs'
 
 export default {
   name: 'DocumentForm',
@@ -965,12 +963,12 @@ export default {
           form.append(field.name, this.fieldData[field.name])
         } else {
           const path = this.fieldData[field.name]
-          form.append(field.name, fs.createReadStream(path))
+          form.append(field.name, path)
         }
       })
       const options = {
         method: 'POST',
-        headers: form.getHeaders(),
+        headers: { 'Content-Type': 'multipart/form-data' },
         data: form,
         url: `/admin/${modelKey}/save-document`
       }
