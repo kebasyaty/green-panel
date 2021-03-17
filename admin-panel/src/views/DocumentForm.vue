@@ -962,8 +962,9 @@ export default {
         if (field.input_type !== 'file') {
           form.append(field.name, this.fieldData[field.name])
         } else {
-          const path = this.fieldData[field.name]
-          form.append(field.name, path)
+          const element = document.getElementById(field.id)
+          const file = element.files[0]
+          form.append(`${field.name}[]`, file, file.name)
         }
       })
       const options = {
