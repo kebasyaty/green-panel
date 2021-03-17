@@ -633,6 +633,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import FormData from 'form-data'
 
 export default {
   name: 'DocumentForm',
@@ -957,11 +958,11 @@ export default {
       const indexCollection = this.$route.params.indexCollection
       const service = this.serviceList[indexService]
       const modelKey = service.collections[indexCollection].model_key
-      const formData = new FormData(document.forms.docForm)
+      const form = new FormData()
       const options = {
         method: 'POST',
-        headers: { 'Content-Type': 'multipart/form-data' },
-        data: formData,
+        headers: form.getHeaders(),
+        data: form,
         url: `/admin/${modelKey}/save-document`
       }
       this.axios(options)
