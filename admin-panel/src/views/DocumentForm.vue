@@ -957,26 +957,29 @@ export default {
       const indexCollection = this.$route.params.indexCollection
       const service = this.serviceList[indexService]
       const modelKey = service.collections[indexCollection].model_key
-      const form = new FormData()
+
+      const formData = new FormData()
       this.fields.forEach(field => {
         if (field.input_type === 'file') {
           const element = document.getElementById(field.id)
           const file = element.files[0]
-          form.append(`${field.name}[]`, file, file.name)
+          formData.append(`${field.name}[]`, file, file.name)
         } else {
-          form.append(field.name, this.fieldData[field.name])
+          formData.append(field.name, this.fieldData[field.name])
         }
       })
+      /*
       const options = {
         method: 'POST',
         headers: {
-          responseType: 'json',
           'Content-Type': 'multipart/form-data'
         },
-        data: form,
+        data: this.fieldData,
         url: `/admin/${modelKey}/save-document`
       }
-      this.axios(options)
+      */
+      // this.axios(options)
+      this.axios.post(`/admin/${modelKey}/save-document`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
         .then(response => {
           const data = response.data
           if (data.is_authenticated && data.msg_err.length === 0) {
