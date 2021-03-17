@@ -957,8 +957,8 @@ export default {
       const indexCollection = this.$route.params.indexCollection
       const service = this.serviceList[indexService]
       const modelKey = service.collections[indexCollection].model_key
-
       const formData = new FormData()
+
       this.fields.forEach(field => {
         if (field.input_type === 'file') {
           const element = document.getElementById(field.id)
