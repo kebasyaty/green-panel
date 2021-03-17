@@ -641,6 +641,7 @@ export default {
 
   data: () => ({
     docTitle: '',
+    breadcrumbs: '',
     vMenu: {},
     fieldData: {},
     fields: [],
@@ -655,14 +656,7 @@ export default {
     ]),
     ...mapState('documentList', [
       'documents'
-    ]),
-    // Get scheme route of document.
-    breadcrumbs: function () {
-      const indexService = this.$route.params.indexService
-      const indexCollection = this.$route.params.indexCollection
-      const service = this.serviceList[indexService]
-      return `${service.service.title} > ${service.collections[indexCollection].title} > ${this.docTitle}`
-    }
+    ])
   },
 
   methods: {
@@ -1004,6 +998,14 @@ export default {
       this.docTitle = title
     },
 
+    // Get scheme route of document.
+    getBreadcrumbs() {
+      const indexService = this.$route.params.indexService
+      const indexCollection = this.$route.params.indexCollection
+      const service = this.serviceList[indexService]
+      this.breadcrumbs = `${service.service.title} > ${service.collections[indexCollection].title} > ${this.docTitle}`
+    },
+
     // Get document
     ajaxGetDoc(indexes) {
       const service = this.serviceList[indexes.indexService]
@@ -1016,6 +1018,7 @@ export default {
           const data = response.data
           if (data.is_authenticated && data.msg_err.length === 0) {
             this.docTitle = this.getDocTitle()
+            this.getBreadcrumbs()
             this.getFormData(data.document)
           } else {
             console.log(data.msg_err)
