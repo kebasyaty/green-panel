@@ -7,576 +7,574 @@
           <v-icon>mdi-arrow-left</v-icon>
         </v-btn>
       </v-toolbar>
-      <v-card-title class="pt-0">{{ compDocTitle }}</v-card-title>
+      <v-card-title class="pt-0">{{ docTitle }}</v-card-title>
       <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
-      <form name="docForm" enctype="multipart/form-data">
-        <!-- Form fields. -->
-        <v-card-text class="pa-4">
-          <div v-for="field in fields" :key="field.name" class="rounded-lg">
-            <!-- Hidden fields -->
-            <input
-              v-if="['hiddenText', 'hiddenI32', 'hiddenU32',
+      <!-- Form fields. -->
+      <v-card-text class="pa-4">
+        <div v-for="field in fields" :key="field.name" class="rounded-lg">
+          <!-- Hidden fields -->
+          <input
+            v-if="['hiddenText', 'hiddenI32', 'hiddenU32',
                    'hiddenI64', 'hiddenF64'].includes(field.widget)"
-              v-model="fieldData[field.name]"
-              :label="field.label"
-              :id="field.id"
-              :type="field.input_type"
-              :name="field.name"
-            />
+            v-model="fieldData[field.name]"
+            :label="field.label"
+            :id="field.id"
+            :type="field.input_type"
+            :name="field.name"
+          />
 
-            <!-- Others fields. -->
-            <div v-if="!field.widget.includes('hidden')">
-              <!-- Common messages for all fields. -->
-              <v-alert
-                v-if="field.common_msg.length > 0"
-                dark
-                color="pink darken-4"
-                icon="mdi-alert"
-              >{{ field.common_msg }}</v-alert>
+          <!-- Others fields. -->
+          <div v-if="!field.widget.includes('hidden')">
+            <!-- Common messages for all fields. -->
+            <v-alert
+              v-if="field.common_msg.length > 0"
+              dark
+              color="pink darken-4"
+              icon="mdi-alert"
+            >{{ field.common_msg }}</v-alert>
 
-              <!-- Wrapper for fields. -->
-              <v-card flat outlined class="mt-4">
-                <v-card-text
-                  :class="!['checkBox'].includes(field.widget) ? 'pt-2 pb-0' : 'pt-2 pb-4'"
-                >
-                  <div v-if="!['checkBox'].includes(field.widget)">
-                    <!-- Title of field. -->
-                    <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">{{ field.label }}</v-card-title>
-                    <!-- Hint for field. -->
-                    <v-card-subtitle
-                      v-if="field.hint.length > 0"
-                      class="pl-0 pb-1 pt-3"
-                      v-html="field.hint"
-                    ></v-card-subtitle>
-                    <!-- Dialogue for fields with dynamic widgets. -->
-                    <v-dialog
-                      persistent
-                      max-width="600px"
-                      v-model="dynamicSelectionDialog[field.name]"
-                      v-if="field.widget.includes('Dyn')"
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <!-- Button - Open a dialog. -->
-                        <v-btn text x-small color="orange" class="mb-2" v-bind="attrs" v-on="on">
-                          <v-icon>mdi-plus</v-icon>
-                          <span>/</span>
-                          <v-icon>mdi-minus</v-icon>
-                        </v-btn>
-                      </template>
-                      <v-card>
-                        <v-card-actions class="pr-3 pt-2">
-                          <v-spacer></v-spacer>
-                          <!-- Button - Close. -->
-                          <v-btn
-                            icon
-                            small
-                            color="red"
-                            @click="[dynamicSelectionDialog[field.name] = false],
+            <!-- Wrapper for fields. -->
+            <v-card flat outlined class="mt-4">
+              <v-card-text
+                :class="!['checkBox'].includes(field.widget) ? 'pt-2 pb-0' : 'pt-2 pb-4'"
+              >
+                <div v-if="!['checkBox'].includes(field.widget)">
+                  <!-- Title of field. -->
+                  <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">{{ field.label }}</v-card-title>
+                  <!-- Hint for field. -->
+                  <v-card-subtitle
+                    v-if="field.hint.length > 0"
+                    class="pl-0 pb-1 pt-3"
+                    v-html="field.hint"
+                  ></v-card-subtitle>
+                  <!-- Dialogue for fields with dynamic widgets. -->
+                  <v-dialog
+                    persistent
+                    max-width="600px"
+                    v-model="dynamicSelectionDialog[field.name]"
+                    v-if="field.widget.includes('Dyn')"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <!-- Button - Open a dialog. -->
+                      <v-btn text x-small color="orange" class="mb-2" v-bind="attrs" v-on="on">
+                        <v-icon>mdi-plus</v-icon>
+                        <span>/</span>
+                        <v-icon>mdi-minus</v-icon>
+                      </v-btn>
+                    </template>
+                    <v-card>
+                      <v-card-actions class="pr-3 pt-2">
+                        <v-spacer></v-spacer>
+                        <!-- Button - Close. -->
+                        <v-btn
+                          icon
+                          small
+                          color="red"
+                          @click="[dynamicSelectionDialog[field.name] = false],
                                    delDynItems = [],
                                    currValDynItem = {title: null, value: null}"
-                          >
-                            <v-icon>mdi-close</v-icon>
-                          </v-btn>
-                        </v-card-actions>
-                        <!-- Add new list item. -->
-                        <v-card-text class="pb-0">
-                          <v-card-subtitle class="pt-0">{{ $t('message.22') }}</v-card-subtitle>
-                          <v-row>
-                            <v-col cols="12" sm="6">
-                              <v-text-field
-                                clearable
-                                :label="$t('message.23')"
-                                v-model="currValDynItem.title"
-                              ></v-text-field>
-                            </v-col>
-                            <v-col cols="12" sm="6">
-                              <v-text-field
-                                clearable
-                                :label="$t('message.24')"
-                                v-model="currValDynItem.value"
-                              ></v-text-field>
-                            </v-col>
-                          </v-row>
-                        </v-card-text>
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <!-- Button - Save. -->
-                          <v-btn
-                            text
-                            color="green"
-                            :disabled="currValDynItem.title === null || currValDynItem.value === null"
-                            @click="[saveNewDynItem(field.name),
+                        >
+                          <v-icon>mdi-close</v-icon>
+                        </v-btn>
+                      </v-card-actions>
+                      <!-- Add new list item. -->
+                      <v-card-text class="pb-0">
+                        <v-card-subtitle class="pt-0">{{ $t('message.22') }}</v-card-subtitle>
+                        <v-row>
+                          <v-col cols="12" sm="6">
+                            <v-text-field
+                              clearable
+                              :label="$t('message.23')"
+                              v-model="currValDynItem.title"
+                            ></v-text-field>
+                          </v-col>
+                          <v-col cols="12" sm="6">
+                            <v-text-field
+                              clearable
+                              :label="$t('message.24')"
+                              v-model="currValDynItem.value"
+                            ></v-text-field>
+                          </v-col>
+                        </v-row>
+                      </v-card-text>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <!-- Button - Save. -->
+                        <v-btn
+                          text
+                          color="green"
+                          :disabled="currValDynItem.title === null || currValDynItem.value === null"
+                          @click="[saveNewDynItem(field.name),
                                    dynamicSelectionDialog[field.name] = false,
                                    delDynItems = [],
                                    currValDynItem = {title: null, value: null}]"
-                          >{{ $t('message.19') }}</v-btn>
-                        </v-card-actions>
-                        <v-divider></v-divider>
-                        <!-- Remove irrelevant items. -->
-                        <v-card-text class="pb-0">
-                          <v-list subheader two-line flat>
-                            <v-subheader>{{ $t('message.20') }}</v-subheader>
-                            <v-list-item-group v-model="delDynItems" multiple>
-                              <v-list-item v-for="item in field.options" :key="item.title">
-                                <template v-slot:default="{ active, }">
-                                  <v-list-item-action>
-                                    <v-checkbox :input-value="active" color="primary"></v-checkbox>
-                                  </v-list-item-action>
-                                  <v-list-item-content>
-                                    <v-list-item-title>{{ item.title }}</v-list-item-title>
-                                    <v-list-item-subtitle>{{ item.value }}</v-list-item-subtitle>
-                                  </v-list-item-content>
-                                </template>
-                              </v-list-item>
-                            </v-list-item-group>
-                          </v-list>
-                        </v-card-text>
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <!-- Button - Delete. -->
-                          <v-btn
-                            text
-                            color="red"
-                            :disabled="delDynItems.length === 0"
-                            @click="[removeDynItems(field.options),
-                                   dynamicSelectionDialog[field.name] = false,
-                                   delDynItems = []]"
-                          >{{ $t('message.21') }}</v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
-                  </div>
-
-                  <!-- Text fields -->
-                  <v-text-field
-                    class="mt-0 pt-0"
-                    v-if="['inputText', 'inputEmail', 'inputPassword', 'inputPhone',
-                  'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6'].includes(field.widget)"
-                    clearable
-                    :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                    v-model="fieldData[field.name]"
-                    :id="field.id"
-                    :type="field.input_type"
-                    :name="field.name"
-                    :placeholder="field.placeholder"
-                    :required="field.required"
-                    :disabled="field.disabled"
-                    :readonly="field.readonly"
-                    :class="field.css_classes"
-                    :messages="field.warning"
-                    :error-messages="field.error"
-                  ></v-text-field>
-
-                  <!-- Number fields -->
-                  <v-text-field
-                    class="mt-0 pt-1"
-                    v-if="['numberI32', 'numberU32', 'numberI64', 'numberF64'].includes(field.widget)"
-                    clearable
-                    :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                    v-model="fieldData[field.name]"
-                    :id="field.id"
-                    :type="field.input_type"
-                    :name="field.name"
-                    :placeholder="field.placeholder"
-                    :required="field.required"
-                    :disabled="field.disabled"
-                    :readonly="field.readonly"
-                    :step="field.step"
-                    :min="field.min"
-                    :max="field.max"
-                    :class="field.css_classes"
-                    :messages="field.warning"
-                    :error-messages="field.error"
-                  ></v-text-field>
-
-                  <!-- Slider fields -->
-                  <v-slider
-                    v-if="['rangeI32', 'rangeU32', 'rangeI64', 'rangeF64'].includes(field.widget)"
-                    thumb-label
-                    :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                    v-model="fieldData[field.name]"
-                    :id="field.id"
-                    :type="field.input_type"
-                    :name="field.name"
-                    :placeholder="field.placeholder"
-                    :required="field.required"
-                    :disabled="field.disabled"
-                    :readonly="field.readonly"
-                    :step="field.step"
-                    :min="field.min"
-                    :max="field.max"
-                    :class="field.css_classes"
-                    :messages="field.warning"
-                    :error-messages="field.error"
-                  ></v-slider>
-
-                  <!-- Radio buttons fields -->
-                  <v-radio-group
-                    class="mt-1"
-                    v-if="['radioText', 'radioI32', 'radioU32', 'radioI64', 'radioF64'].includes(field.widget)"
-                    v-model="fieldData[field.name]"
-                    :messages="field.warning"
-                    :error-messages="field.error"
-                  >
-                    <v-radio
-                      v-for="(item, idx) in field.options"
-                      :key="item[1]"
-                      :id="`${field.id}-${idx}`"
-                      :label="item[1]"
-                      :type="field.input_type"
-                      :name="field.name"
-                      :value="item[0]"
-                      :disabled="field.disabled"
-                      :readonly="field.readonly"
-                      :class="field.css_classes"
-                    ></v-radio>
-                  </v-radio-group>
-
-                  <!-- Checkbox fields -->
-                  <v-checkbox
-                    class="mt-0"
-                    persistent-hint
-                    v-if="['checkBox'].includes(field.widget)"
-                    v-model="fieldData[field.name]"
-                    :id="field.id"
-                    :label="field.label"
-                    :type="field.input_type"
-                    :name="field.name"
-                    :hint="field.hint"
-                    :disabled="field.disabled"
-                    :readonly="field.readonly"
-                    :class="field.css_classes"
-                  ></v-checkbox>
-
-                  <!-- File fields -->
-                  <v-file-input
-                    class="mt-0 pt-1"
-                    show-size
-                    :ref="field.name"
-                    v-if="['inputFile'].includes(field.widget)"
-                    :id="field.id"
-                    :type="field.input_type"
-                    :name="field.name"
-                    :accept="field.accept"
-                    :placeholder="field.placeholder"
-                    :disabled="field.disabled"
-                    :readonly="field.readonly"
-                    :class="field.css_classes"
-                  ></v-file-input>
-
-                  <!-- Image fields -->
-                  <v-file-input
-                    class="mt-0 pt-1"
-                    show-size
-                    :ref="field.name"
-                    v-if="['inputImage'].includes(field.widget)"
-                    :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                    :id="field.id"
-                    :type="field.input_type"
-                    :name="field.name"
-                    :accept="field.accept"
-                    :placeholder="field.placeholder"
-                    :disabled="field.disabled"
-                    :readonly="field.readonly"
-                    :class="field.css_classes"
-                  ></v-file-input>
-
-                  <!-- Color fields -->
-                  <v-menu
-                    v-if="['inputColor'].includes(field.widget)"
-                    :ref="field.name"
-                    v-model="vMenu[field.name]"
-                    :close-on-content-click="false"
-                    :return-value.sync="fieldData[field.name]"
-                    :nudge-right="40"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="auto"
-                  >
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-text-field
-                        class="mt-0 pt-1"
-                        :background-color="fieldData[field.name]"
-                        :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                        v-model="fieldData[field.name]"
-                        :id="field.id"
-                        type="text"
-                        :name="field.name"
-                        :placeholder="field.placeholder"
-                        :required="field.required"
-                        :disabled="field.disabled"
-                        readonly
-                        :class="field.css_classes"
-                        :messages="field.warning"
-                        :error-messages="field.error"
-                        v-bind="attrs"
-                        v-on="on"
-                      ></v-text-field>
-                    </template>
-                    <v-card>
-                      <v-color-picker show-swatches mode="hexa" v-model="fieldData[field.name]"></v-color-picker>
+                        >{{ $t('message.19') }}</v-btn>
+                      </v-card-actions>
+                      <v-divider></v-divider>
+                      <!-- Remove irrelevant items. -->
+                      <v-card-text class="pb-0">
+                        <v-list subheader two-line flat>
+                          <v-subheader>{{ $t('message.20') }}</v-subheader>
+                          <v-list-item-group v-model="delDynItems" multiple>
+                            <v-list-item v-for="item in field.options" :key="item.title">
+                              <template v-slot:default="{ active, }">
+                                <v-list-item-action>
+                                  <v-checkbox :input-value="active" color="primary"></v-checkbox>
+                                </v-list-item-action>
+                                <v-list-item-content>
+                                  <v-list-item-title>{{ item.title }}</v-list-item-title>
+                                  <v-list-item-subtitle>{{ item.value }}</v-list-item-subtitle>
+                                </v-list-item-content>
+                              </template>
+                            </v-list-item>
+                          </v-list-item-group>
+                        </v-list>
+                      </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
+                        <!-- Button - Delete. -->
                         <v-btn
                           text
-                          small
-                          color="primary"
-                          @click="vMenu[field.name] = false"
-                        >{{ $t('message.18') }}</v-btn>
-                        <v-btn
-                          text
-                          small
-                          color="primary"
-                          @click="$refs[field.name][0].save(fieldData[field.name])"
-                        >OK</v-btn>
+                          color="red"
+                          :disabled="delDynItems.length === 0"
+                          @click="[removeDynItems(field.options),
+                                   dynamicSelectionDialog[field.name] = false,
+                                   delDynItems = []]"
+                        >{{ $t('message.21') }}</v-btn>
                       </v-card-actions>
                     </v-card>
-                  </v-menu>
+                  </v-dialog>
+                </div>
 
-                  <!-- Textarea fields -->
-                  <v-textarea
-                    class="mt-0 pt-1"
-                    v-if="['textArea'].includes(field.widget)"
-                    clearable
-                    :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                    v-model="fieldData[field.name]"
-                    :id="field.id"
+                <!-- Text fields -->
+                <v-text-field
+                  class="mt-0 pt-0"
+                  v-if="['inputText', 'inputEmail', 'inputPassword', 'inputPhone',
+                  'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6'].includes(field.widget)"
+                  clearable
+                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+                  v-model="fieldData[field.name]"
+                  :id="field.id"
+                  :type="field.input_type"
+                  :name="field.name"
+                  :placeholder="field.placeholder"
+                  :required="field.required"
+                  :disabled="field.disabled"
+                  :readonly="field.readonly"
+                  :class="field.css_classes"
+                  :messages="field.warning"
+                  :error-messages="field.error"
+                ></v-text-field>
+
+                <!-- Number fields -->
+                <v-text-field
+                  class="mt-0 pt-1"
+                  v-if="['numberI32', 'numberU32', 'numberI64', 'numberF64'].includes(field.widget)"
+                  clearable
+                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+                  v-model="fieldData[field.name]"
+                  :id="field.id"
+                  :type="field.input_type"
+                  :name="field.name"
+                  :placeholder="field.placeholder"
+                  :required="field.required"
+                  :disabled="field.disabled"
+                  :readonly="field.readonly"
+                  :step="field.step"
+                  :min="field.min"
+                  :max="field.max"
+                  :class="field.css_classes"
+                  :messages="field.warning"
+                  :error-messages="field.error"
+                ></v-text-field>
+
+                <!-- Slider fields -->
+                <v-slider
+                  v-if="['rangeI32', 'rangeU32', 'rangeI64', 'rangeF64'].includes(field.widget)"
+                  thumb-label
+                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+                  v-model="fieldData[field.name]"
+                  :id="field.id"
+                  :type="field.input_type"
+                  :name="field.name"
+                  :placeholder="field.placeholder"
+                  :required="field.required"
+                  :disabled="field.disabled"
+                  :readonly="field.readonly"
+                  :step="field.step"
+                  :min="field.min"
+                  :max="field.max"
+                  :class="field.css_classes"
+                  :messages="field.warning"
+                  :error-messages="field.error"
+                ></v-slider>
+
+                <!-- Radio buttons fields -->
+                <v-radio-group
+                  class="mt-1"
+                  v-if="['radioText', 'radioI32', 'radioU32', 'radioI64', 'radioF64'].includes(field.widget)"
+                  v-model="fieldData[field.name]"
+                  :messages="field.warning"
+                  :error-messages="field.error"
+                >
+                  <v-radio
+                    v-for="(item, idx) in field.options"
+                    :key="item[1]"
+                    :id="`${field.id}-${idx}`"
+                    :label="item[1]"
+                    :type="field.input_type"
                     :name="field.name"
-                    :placeholder="field.placeholder"
-                    :required="field.required"
+                    :value="item[0]"
                     :disabled="field.disabled"
                     :readonly="field.readonly"
                     :class="field.css_classes"
-                    :messages="field.warning"
-                    :error-messages="field.error"
-                  ></v-textarea>
+                  ></v-radio>
+                </v-radio-group>
 
-                  <!-- Date fields -->
-                  <v-menu
-                    v-if="['inputDate'].includes(field.widget)"
-                    v-model="vMenu[field.name]"
-                    :close-on-content-click="false"
-                    :nudge-right="40"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="auto"
-                  >
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-text-field
-                        class="mt-0 pt-1"
-                        clearable
-                        :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                        v-model="fieldData[field.name]"
-                        :id="field.id"
-                        :type="field.input_type"
-                        :name="field.name"
-                        :placeholder="field.placeholder"
-                        :required="field.required"
-                        :disabled="field.disabled"
-                        readonly
-                        :class="field.css_classes"
-                        :messages="field.warning"
-                        :error-messages="field.error"
-                        v-bind="attrs"
-                        v-on="on"
-                      ></v-text-field>
-                    </template>
-                    <v-date-picker
-                      scrollable
+                <!-- Checkbox fields -->
+                <v-checkbox
+                  class="mt-0"
+                  persistent-hint
+                  v-if="['checkBox'].includes(field.widget)"
+                  v-model="fieldData[field.name]"
+                  :id="field.id"
+                  :label="field.label"
+                  :type="field.input_type"
+                  :name="field.name"
+                  :hint="field.hint"
+                  :disabled="field.disabled"
+                  :readonly="field.readonly"
+                  :class="field.css_classes"
+                ></v-checkbox>
+
+                <!-- File fields -->
+                <v-file-input
+                  class="mt-0 pt-1"
+                  show-size
+                  :ref="field.name"
+                  v-if="['inputFile'].includes(field.widget)"
+                  :id="field.id"
+                  :type="field.input_type"
+                  :name="field.name"
+                  :accept="field.accept"
+                  :placeholder="field.placeholder"
+                  :disabled="field.disabled"
+                  :readonly="field.readonly"
+                  :class="field.css_classes"
+                ></v-file-input>
+
+                <!-- Image fields -->
+                <v-file-input
+                  class="mt-0 pt-1"
+                  show-size
+                  :ref="field.name"
+                  v-if="['inputImage'].includes(field.widget)"
+                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+                  :id="field.id"
+                  :type="field.input_type"
+                  :name="field.name"
+                  :accept="field.accept"
+                  :placeholder="field.placeholder"
+                  :disabled="field.disabled"
+                  :readonly="field.readonly"
+                  :class="field.css_classes"
+                ></v-file-input>
+
+                <!-- Color fields -->
+                <v-menu
+                  v-if="['inputColor'].includes(field.widget)"
+                  :ref="field.name"
+                  v-model="vMenu[field.name]"
+                  :close-on-content-click="false"
+                  :return-value.sync="fieldData[field.name]"
+                  :nudge-right="40"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="auto"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                      class="mt-0 pt-1"
+                      :background-color="fieldData[field.name]"
+                      :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                       v-model="fieldData[field.name]"
-                      @input="vMenu[field.name] = false"
-                      year-icon="mdi-calendar-blank"
-                      color="primary"
-                      :min="field.min"
-                      :max="field.max"
-                      :locale="$i18n.locale"
-                    ></v-date-picker>
-                  </v-menu>
+                      :id="field.id"
+                      type="text"
+                      :name="field.name"
+                      :placeholder="field.placeholder"
+                      :required="field.required"
+                      :disabled="field.disabled"
+                      readonly
+                      :class="field.css_classes"
+                      :messages="field.warning"
+                      :error-messages="field.error"
+                      v-bind="attrs"
+                      v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-card>
+                    <v-color-picker show-swatches mode="hexa" v-model="fieldData[field.name]"></v-color-picker>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        text
+                        small
+                        color="primary"
+                        @click="vMenu[field.name] = false"
+                      >{{ $t('message.18') }}</v-btn>
+                      <v-btn
+                        text
+                        small
+                        color="primary"
+                        @click="$refs[field.name][0].save(fieldData[field.name])"
+                      >OK</v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-menu>
 
-                  <!-- Date and Time fields -->
-                  <v-row v-if="['inputDateTime'].includes(field.widget)">
-                    <v-col cols="6">
-                      <v-menu
-                        v-model="vMenu[field.name]"
-                        :close-on-content-click="false"
-                        :nudge-right="40"
-                        transition="scale-transition"
-                        offset-y
-                        min-width="auto"
-                      >
-                        <template v-slot:activator="{ on, attrs }">
-                          <v-text-field
-                            class="mt-0 pt-1"
-                            clearable
-                            :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                            v-model="fieldData[field.name]"
-                            :id="field.id"
-                            :type="field.input_type"
-                            :name="field.name"
-                            :placeholder="field.placeholder"
-                            :required="field.required"
-                            :disabled="field.disabled"
-                            readonly
-                            :class="field.css_classes"
-                            :messages="field.warning"
-                            :error-messages="field.error"
-                            v-bind="attrs"
-                            v-on="on"
-                          ></v-text-field>
-                        </template>
-                        <v-date-picker
-                          scrollable
+                <!-- Textarea fields -->
+                <v-textarea
+                  class="mt-0 pt-1"
+                  v-if="['textArea'].includes(field.widget)"
+                  clearable
+                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+                  v-model="fieldData[field.name]"
+                  :id="field.id"
+                  :name="field.name"
+                  :placeholder="field.placeholder"
+                  :required="field.required"
+                  :disabled="field.disabled"
+                  :readonly="field.readonly"
+                  :class="field.css_classes"
+                  :messages="field.warning"
+                  :error-messages="field.error"
+                ></v-textarea>
+
+                <!-- Date fields -->
+                <v-menu
+                  v-if="['inputDate'].includes(field.widget)"
+                  v-model="vMenu[field.name]"
+                  :close-on-content-click="false"
+                  :nudge-right="40"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="auto"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                      class="mt-0 pt-1"
+                      clearable
+                      :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+                      v-model="fieldData[field.name]"
+                      :id="field.id"
+                      :type="field.input_type"
+                      :name="field.name"
+                      :placeholder="field.placeholder"
+                      :required="field.required"
+                      :disabled="field.disabled"
+                      readonly
+                      :class="field.css_classes"
+                      :messages="field.warning"
+                      :error-messages="field.error"
+                      v-bind="attrs"
+                      v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker
+                    scrollable
+                    v-model="fieldData[field.name]"
+                    @input="vMenu[field.name] = false"
+                    year-icon="mdi-calendar-blank"
+                    color="primary"
+                    :min="field.min"
+                    :max="field.max"
+                    :locale="$i18n.locale"
+                  ></v-date-picker>
+                </v-menu>
+
+                <!-- Date and Time fields -->
+                <v-row v-if="['inputDateTime'].includes(field.widget)">
+                  <v-col cols="6">
+                    <v-menu
+                      v-model="vMenu[field.name]"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="auto"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          class="mt-0 pt-1"
+                          clearable
+                          :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                           v-model="fieldData[field.name]"
-                          @input="vMenu[field.name] = false"
-                          year-icon="mdi-calendar-blank"
-                          color="primary"
-                          :min="field.min"
-                          :max="field.max"
-                          :locale="$i18n.locale"
-                        ></v-date-picker>
-                      </v-menu>
-                    </v-col>
-                    <v-col cols="6">
-                      <v-menu
-                        :ref="`${field.name}__time`"
-                        v-model="vMenu[`${field.name}__time`]"
-                        :close-on-content-click="false"
-                        :nudge-right="40"
-                        :return-value.sync="fieldData[`${field.name}__time`]"
-                        transition="scale-transition"
-                        offset-y
-                        max-width="290px"
-                        min-width="290px"
-                      >
-                        <template v-slot:activator="{ on, attrs }">
-                          <v-text-field
-                            class="mt-0 pt-1"
-                            clearable
-                            prepend-icon="mdi-clock-time-four-outline"
-                            v-model="fieldData[`${field.name}__time`]"
-                            :label="$t('message.17')"
-                            :id="field.id"
-                            type="time"
-                            :name="`${field.name}__time`"
-                            :placeholder="field.placeholder"
-                            :required="field.required"
-                            :disabled="field.disabled"
-                            readonly
-                            :class="field.css_classes"
-                            v-bind="attrs"
-                            v-on="on"
-                          ></v-text-field>
-                        </template>
-                        <v-time-picker
-                          full-width
-                          scrollable
-                          v-if="vMenu[`${field.name}__time`]"
+                          :id="field.id"
+                          :type="field.input_type"
+                          :name="field.name"
+                          :placeholder="field.placeholder"
+                          :required="field.required"
+                          :disabled="field.disabled"
+                          readonly
+                          :class="field.css_classes"
+                          :messages="field.warning"
+                          :error-messages="field.error"
+                          v-bind="attrs"
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker
+                        scrollable
+                        v-model="fieldData[field.name]"
+                        @input="vMenu[field.name] = false"
+                        year-icon="mdi-calendar-blank"
+                        color="primary"
+                        :min="field.min"
+                        :max="field.max"
+                        :locale="$i18n.locale"
+                      ></v-date-picker>
+                    </v-menu>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-menu
+                      :ref="`${field.name}__time`"
+                      v-model="vMenu[`${field.name}__time`]"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      :return-value.sync="fieldData[`${field.name}__time`]"
+                      transition="scale-transition"
+                      offset-y
+                      max-width="290px"
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          class="mt-0 pt-1"
+                          clearable
+                          prepend-icon="mdi-clock-time-four-outline"
                           v-model="fieldData[`${field.name}__time`]"
-                          @click:minute="$refs[`${field.name}__time`][0].save(fieldData[`${field.name}__time`])"
-                        ></v-time-picker>
-                      </v-menu>
-                    </v-col>
-                  </v-row>
+                          :label="$t('message.17')"
+                          :id="field.id"
+                          type="time"
+                          :name="`${field.name}__time`"
+                          :placeholder="field.placeholder"
+                          :required="field.required"
+                          :disabled="field.disabled"
+                          readonly
+                          :class="field.css_classes"
+                          v-bind="attrs"
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-time-picker
+                        full-width
+                        scrollable
+                        v-if="vMenu[`${field.name}__time`]"
+                        v-model="fieldData[`${field.name}__time`]"
+                        @click:minute="$refs[`${field.name}__time`][0].save(fieldData[`${field.name}__time`])"
+                      ></v-time-picker>
+                    </v-menu>
+                  </v-col>
+                </v-row>
 
-                  <!-- Selection fields -->
-                  <v-select
-                    class="pt-0"
-                    v-if="['selectText', 'selectI32', 'selectU32',
+                <!-- Selection fields -->
+                <v-select
+                  class="pt-0"
+                  v-if="['selectText', 'selectI32', 'selectU32',
                          'selectI64', 'selectF64'].includes(field.widget)"
-                    clearable
-                    :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                    :items="field.options"
-                    item-text="title"
-                    item-value="value"
-                    v-model="fieldData[field.name]"
-                    :id="field.id"
-                    :name="field.name"
-                    :placeholder="field.placeholder"
-                    :required="field.required"
-                    :disabled="field.disabled"
-                    :readonly="field.readonly"
-                    :class="field.css_classes"
-                    :messages="field.warning"
-                  ></v-select>
+                  clearable
+                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+                  :items="field.options"
+                  item-text="title"
+                  item-value="value"
+                  v-model="fieldData[field.name]"
+                  :id="field.id"
+                  :name="field.name"
+                  :placeholder="field.placeholder"
+                  :required="field.required"
+                  :disabled="field.disabled"
+                  :readonly="field.readonly"
+                  :class="field.css_classes"
+                  :messages="field.warning"
+                ></v-select>
 
-                  <!-- Selection fields
+                <!-- Selection fields
                      (Dynamic)
-                  -->
-                  <v-select
-                    class="pt-0"
-                    v-if="['selectTextDyn', 'selectI32Dyn', 'selectU32Dyn',
+                -->
+                <v-select
+                  class="pt-0"
+                  v-if="['selectTextDyn', 'selectI32Dyn', 'selectU32Dyn',
                          'selectI64Dyn', 'selectF64Dyn'].includes(field.widget)"
-                    clearable
-                    :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                    :items="field.options"
-                    item-text="title"
-                    item-value="value"
-                    v-model="fieldData[field.name]"
-                    :id="field.id"
-                    :name="field.name"
-                    :placeholder="field.placeholder"
-                    :required="field.required"
-                    :disabled="field.disabled"
-                    :readonly="field.readonly"
-                    :class="field.css_classes"
-                    :messages="field.warning"
-                  ></v-select>
+                  clearable
+                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+                  :items="field.options"
+                  item-text="title"
+                  item-value="value"
+                  v-model="fieldData[field.name]"
+                  :id="field.id"
+                  :name="field.name"
+                  :placeholder="field.placeholder"
+                  :required="field.required"
+                  :disabled="field.disabled"
+                  :readonly="field.readonly"
+                  :class="field.css_classes"
+                  :messages="field.warning"
+                ></v-select>
 
-                  <!-- Selection fields
+                <!-- Selection fields
                      (multiple)
-                  -->
-                  <v-select
-                    class="pt-0"
-                    v-if="['selectTextMult', 'selectI32Mult', 'selectU32Mult',
+                -->
+                <v-select
+                  class="pt-0"
+                  v-if="['selectTextMult', 'selectI32Mult', 'selectU32Mult',
                          'selectI64Mult', 'selectF64Mult'].includes(field.widget)"
-                    clearable
-                    chips
-                    multiple
-                    :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                    :items="field.options"
-                    item-text="title"
-                    item-value="value"
-                    v-model="fieldData[field.name]"
-                    :id="field.id"
-                    :name="field.name"
-                    :placeholder="field.placeholder"
-                    :required="field.required"
-                    :disabled="field.disabled"
-                    :readonly="field.readonly"
-                    :class="field.css_classes"
-                    :messages="field.warning"
-                  ></v-select>
+                  clearable
+                  chips
+                  multiple
+                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+                  :items="field.options"
+                  item-text="title"
+                  item-value="value"
+                  v-model="fieldData[field.name]"
+                  :id="field.id"
+                  :name="field.name"
+                  :placeholder="field.placeholder"
+                  :required="field.required"
+                  :disabled="field.disabled"
+                  :readonly="field.readonly"
+                  :class="field.css_classes"
+                  :messages="field.warning"
+                ></v-select>
 
-                  <!-- Selection fields
+                <!-- Selection fields
                      (multiple, dynamic)
-                  -->
-                  <v-select
-                    class="pt-0"
-                    v-if="['selectTextMultDyn', 'selectI32MultDyn', 'selectU32MultDyn',
+                -->
+                <v-select
+                  class="pt-0"
+                  v-if="['selectTextMultDyn', 'selectI32MultDyn', 'selectU32MultDyn',
                          'selectI64MultDyn', 'selectF64MultDyn'].includes(field.widget)"
-                    clearable
-                    chips
-                    multiple
-                    :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                    :items="field.options"
-                    item-text="title"
-                    item-value="value"
-                    v-model="fieldData[field.name]"
-                    :id="field.id"
-                    :name="field.name"
-                    :placeholder="field.placeholder"
-                    :required="field.required"
-                    :disabled="field.disabled"
-                    :readonly="field.readonly"
-                    :class="field.css_classes"
-                    :messages="field.warning"
-                  ></v-select>
-                </v-card-text>
-              </v-card>
-            </div>
+                  clearable
+                  chips
+                  multiple
+                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+                  :items="field.options"
+                  item-text="title"
+                  item-value="value"
+                  v-model="fieldData[field.name]"
+                  :id="field.id"
+                  :name="field.name"
+                  :placeholder="field.placeholder"
+                  :required="field.required"
+                  :disabled="field.disabled"
+                  :readonly="field.readonly"
+                  :class="field.css_classes"
+                  :messages="field.warning"
+                ></v-select>
+              </v-card-text>
+            </v-card>
           </div>
-        </v-card-text>
-      </form>
+        </div>
+      </v-card-text>
       <!-- Form control buttons. -->
       <v-card-actions class="pt-8 px-4 pb-4">
         <!-- Delete button. -->
@@ -640,8 +638,8 @@ export default {
   name: 'DocumentForm',
 
   data: () => ({
-    docTitle: '',
-    breadcrumbs: '',
+    docTitle: '...',
+    breadcrumbs: '... > ... > ...',
     vMenu: {},
     fieldData: {},
     fields: [],
@@ -656,15 +654,7 @@ export default {
     ]),
     ...mapState('documentList', [
       'documents'
-    ]),
-    compDocTitle: {
-      get: function () {
-        return this.docTitle
-      },
-      set: function (text) {
-        this.docTitle = text
-      }
-    }
+    ])
   },
 
   methods: {
@@ -1003,7 +993,7 @@ export default {
       } else {
         title = this.$t('message.26')
       }
-      this.compDocTitle(title)
+      this.docTitle = title
     },
 
     // Get scheme route of document.
@@ -1025,7 +1015,7 @@ export default {
         .then(response => {
           const data = response.data
           if (data.is_authenticated && data.msg_err.length === 0) {
-            this.docTitle = this.getDocTitle()
+            this.getDocTitle()
             this.getBreadcrumbs()
             this.getFormData(data.document)
           } else {
