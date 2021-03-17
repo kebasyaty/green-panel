@@ -968,7 +968,7 @@ export default {
           formData.append(field.name, this.fieldData[field.name])
         }
       })
-      /*
+
       const options = {
         method: 'POST',
         headers: {
@@ -977,9 +977,8 @@ export default {
         data: this.fieldData,
         url: `/admin/${modelKey}/save-document`
       }
-      */
-      // this.axios(options)
-      this.axios.post(`/admin/${modelKey}/save-document`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+
+      this.axios(options)
         .then(response => {
           const data = response.data
           if (data.is_authenticated && data.msg_err.length === 0) {
