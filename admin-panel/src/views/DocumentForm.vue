@@ -959,12 +959,12 @@ export default {
       const modelKey = service.collections[indexCollection].model_key
       const form = new FormData()
       this.fields.forEach(field => {
-        if (field.input_type !== 'file') {
-          form.append(field.name, this.fieldData[field.name])
-        } else {
+        if (field.input_type === 'file') {
           const element = document.getElementById(field.id)
           const file = element.files[0]
           form.append(`${field.name}[]`, file, file.name)
+        } else {
+          form.append(field.name, this.fieldData[field.name])
         }
       })
       const options = {
