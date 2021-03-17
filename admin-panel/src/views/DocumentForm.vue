@@ -969,7 +969,10 @@ export default {
       })
       const options = {
         method: 'POST',
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers: {
+          responseType: 'json',
+          'Content-Type': 'multipart/form-data'
+        },
         data: form,
         url: `/admin/${modelKey}/save-document`
       }
