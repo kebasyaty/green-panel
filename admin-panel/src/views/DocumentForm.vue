@@ -970,8 +970,7 @@ export default {
       const options = {
         method: 'POST',
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'multipart/form-data'
+          'content-type': 'multipart/form-data'
         },
         data: form,
         url: `/admin/${modelKey}/save-document`
