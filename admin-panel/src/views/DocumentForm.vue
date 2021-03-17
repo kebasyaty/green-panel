@@ -7,7 +7,7 @@
           <v-icon>mdi-arrow-left</v-icon>
         </v-btn>
       </v-toolbar>
-      <v-card-title class="pt-0">{{ docTitle }}</v-card-title>
+      <v-card-title class="pt-0">{{ compDocTitle }}</v-card-title>
       <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
       <form name="docForm" enctype="multipart/form-data">
         <!-- Form fields. -->
@@ -656,7 +656,15 @@ export default {
     ]),
     ...mapState('documentList', [
       'documents'
-    ])
+    ]),
+    compDocTitle: {
+      get: function () {
+        return this.docTitle
+      },
+      set: function (text) {
+        this.docTitle = text
+      }
+    }
   },
 
   methods: {
@@ -995,7 +1003,7 @@ export default {
       } else {
         title = this.$t('message.26')
       }
-      this.docTitle = title
+      this.compDocTitle(title)
     },
 
     // Get scheme route of document.
