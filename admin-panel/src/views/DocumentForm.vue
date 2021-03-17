@@ -958,6 +958,7 @@ export default {
       const service = this.serviceList[indexService]
       const modelKey = service.collections[indexCollection].model_key
       const formData = new FormData()
+      const newFieldData = {}
 
       this.fields.forEach(field => {
         if (field.input_type === 'file') {
@@ -969,12 +970,16 @@ export default {
         }
       })
 
+      for (const key of formData.keys()) {
+        newFieldData[key] = formData.get(key)
+      }
+
       const options = {
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data'
         },
-        data: this.fieldData,
+        data: newFieldData,
         url: `/admin/${modelKey}/save-document`
       }
 
