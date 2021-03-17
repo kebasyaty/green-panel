@@ -360,13 +360,13 @@ pub mod request_handlers {
     pub async fn save_document(
         session: Session,
         mut payload: web::Payload,
-        query: web::Path<SaveDocQuery>,
+        path: web::Path<SaveDocQuery>,
     ) -> Result<HttpResponse, Error> {
         //
         const PAYLOAD_MAX_SIZE: usize = 262_144; // max payload size is 256k
         let mut is_authenticated = false;
         let mut msg_err = String::new();
-        let model_key = query.model_key.clone();
+        let model_key = path.model_key.clone();
         let mut document = String::new();
 
         // Access request identity
