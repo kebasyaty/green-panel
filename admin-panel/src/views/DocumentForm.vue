@@ -957,27 +957,22 @@ export default {
       const indexCollection = this.$route.params.indexCollection
       const service = this.serviceList[indexService]
       const modelKey = service.collections[indexCollection].model_key
-      const formData = new FormData()
-      // const newFieldData = {}
+      const newFieldData = Object.assign({}, this.fieldData)
 
       this.fields.forEach(field => {
         if (field.input_type === 'file') {
           const element = document.getElementById(field.id)
           const file = element.files[0]
-          formData.append(`${field.name}[]`, file, file.name)
-        } else {
-          formData.append(field.name, this.fieldData[field.name])
+          newFieldData[field.name] = file
         }
       })
-
-      // formData.forEach((value, key) => { newFieldData[key] = value })
 
       const options = {
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data'
         },
-        data: formData,
+        data: newFieldData,
         url: `/admin/${modelKey}/save-document`
       }
 
