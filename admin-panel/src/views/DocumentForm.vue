@@ -979,7 +979,10 @@ export default {
         if (field.input_type === 'file') {
           const files = document.getElementById(field.id).files
           if (files.length > 0) {
-            newFieldData[field.name] = self.toBase64(files[0])
+            const file = files[0]
+            const fileName = file.name
+            const base64 = self.toBase64(file)
+            newFieldData[field.name] = JSON.stringify({ name: fileName, base64: base64 })
           } else {
             newFieldData[field.name] = ''
           }
