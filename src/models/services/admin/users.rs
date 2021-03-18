@@ -31,7 +31,7 @@ pub struct User {
         label = "Photo",
         placeholder = "Upload your photo",
         accept = "image/jpeg,image/png",
-        hint = "Please enter a picture in JPEG or PNG format"
+        hint = "Image in JPEG or PNG format"
     )]
     pub photo: Option<String>,
     #[serde(default)]
