@@ -352,6 +352,8 @@ pub mod request_handlers {
 
     // Save/update document
     // *********************************************************************************************
+    const PAYLOAD_MAX_SIZE: usize = 262_144; // max payload size is 256k
+
     #[derive(Deserialize)]
     pub struct SaveDocQuery {
         model_key: String,
@@ -363,7 +365,6 @@ pub mod request_handlers {
         path: web::Path<SaveDocQuery>,
     ) -> Result<HttpResponse, Error> {
         //
-        const PAYLOAD_MAX_SIZE: usize = 262_144; // max payload size is 256k
         let mut is_authenticated = false;
         let mut msg_err = String::new();
         let model_key = path.model_key.clone();
@@ -382,21 +383,21 @@ pub mod request_handlers {
 
         // Load the request body
         // -----------------------------------------------------------------------------------------
-        let mut body = web::BytesMut::new();
+        let mut bytes = web::BytesMut::new();
         while let Some(chunk) = payload.next().await {
             let chunk = chunk?;
             // limit max size of in-memory payload
-            if (body.len() + chunk.len()) > PAYLOAD_MAX_SIZE {
+            if (bytes.len() + chunk.len()) > PAYLOAD_MAX_SIZE {
                 return Err(error::ErrorBadRequest("overflow"));
             }
-            body.extend_from_slice(&chunk);
+            bytes.extend_from_slice(&chunk);
         }
 
         // Define the desired model with `model_key` and save/update in the database
         // -----------------------------------------------------------------------------------------
         let model;
         if model_key == users::User::key() {
-            model = serde_json::from_slice::<users::User>(&body);
+            model = serde_json::from_slice::<users::User>(&bytes);
         } else {
             model = Err("No match for `model_key`.").unwrap();
         }

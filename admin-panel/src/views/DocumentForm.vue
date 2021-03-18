@@ -961,8 +961,7 @@ export default {
 
       this.fields.forEach(field => {
         if (field.input_type === 'file') {
-          const element = document.getElementById(field.id)
-          const file = element.files[0]
+          const file = document.getElementById(field.id).files[0]
           newFieldData[field.name] = file
         }
       })
