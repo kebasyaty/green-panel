@@ -953,18 +953,18 @@ export default {
 
     // Converte File to base64.
     toBase64(file) {
-      var reader = new FileReader()
-      reader.readAsDataURL(file)
-      reader.onload = function () {
-        let encoded = reader.result.toString().replace(/^data:(.*,)?/, '')
-        if ((encoded.length % 4) > 0) {
-          encoded += '='.repeat(4 - (encoded.length % 4))
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = () => {
+          let encoded = reader.result.toString().replace(/^data:(.*,)?/, '')
+          if ((encoded.length % 4) > 0) {
+            encoded += '='.repeat(4 - (encoded.length % 4))
+          }
+          resolve(encoded)
         }
-        return encoded
-      }
-      reader.onerror = function (error) {
-        console.log('Error: ', error)
-      }
+        reader.onerror = error => reject(error)
+      })
     },
 
     // Save/Update the document.
@@ -981,15 +981,19 @@ export default {
           if (files.length > 0) {
             const file = files[0]
             const fileName = file.name
-            const base64 = this.toBase64(file)
-            newFieldData[field.name] = JSON.stringify({ name: fileName, base64: base64 })
+            this.toBase64(file).then(
+              data => {
+                newFieldData[field.name] = JSON.stringify({ name: fileName, base64: data })
+              }
+            ).catch(error => {
+              console.log(error)
+            })
           } else {
             newFieldData[field.name] = ''
           }
         }
       })
 
-      window.console.log(newFieldData)
       window.console.log(newFieldData.photo)
 
       const options = {
