@@ -952,7 +952,7 @@ export default {
     },
 
     // Converte File to base64.
-    fileToBase64(file) {
+    toBase64(file) {
       var reader = new FileReader()
       reader.readAsDataURL(file)
       reader.onload = function () {
@@ -979,7 +979,7 @@ export default {
         if (field.input_type === 'file') {
           const files = document.getElementById(field.id).files
           if (files.length > 0) {
-            newFieldData[field.name] = self.fileToBase64(files[0])
+            newFieldData[field.name] = self.toBase64(files[0])
           } else {
             newFieldData[field.name] = ''
           }
