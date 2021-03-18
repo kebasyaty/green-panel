@@ -27,6 +27,14 @@ pub struct User {
     pub username: Option<String>,
     #[serde(default)]
     #[field_attrs(
+        widget = "inputImage",
+        label = "Photo",
+        placeholder = "Upload your photo",
+        accept = "image/jpeg,image/png"
+    )]
+    pub photo: Option<String>,
+    #[serde(default)]
+    #[field_attrs(
         widget = "inputText",
         label = "First name",
         placeholder = "Enter your First name",
