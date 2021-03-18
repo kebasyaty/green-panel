@@ -981,13 +981,16 @@ export default {
           if (files.length > 0) {
             const file = files[0]
             const fileName = file.name
-            const base64 = self.toBase64(file)
+            const base64 = this.toBase64(file)
             newFieldData[field.name] = JSON.stringify({ name: fileName, base64: base64 })
           } else {
             newFieldData[field.name] = ''
           }
         }
       })
+
+      window.console.log(newFieldData)
+      window.console.log(newFieldData.photo)
 
       const options = {
         method: 'POST',
