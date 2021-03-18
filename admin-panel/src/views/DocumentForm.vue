@@ -974,52 +974,74 @@ export default {
       const service = this.serviceList[indexService]
       const modelKey = service.collections[indexCollection].model_key
       const newFieldData = Object.assign({}, this.fieldData)
-
-      this.fields.forEach(field => {
-        if (field.input_type === 'file') {
-          const files = document.getElementById(field.id).files
-          if (files.length > 0) {
-            const file = files[0]
-            const fileName = file.name
-            this.toBase64(file).then(
-              data => {
-                newFieldData[field.name] = JSON.stringify({ name: fileName, base64: data })
+      const addFiles = () => {
+        return new Promise((resolve, reject) => {
+          const countFileType = this.fields.reduce((sum, field) => {
+            if (field.input_type === 'file') {
+              ++sum
+            }
+            return sum
+          }, 0)
+          let counter = 0
+          setInterval(() => {
+            if (countFileType === counter) {
+              resolve()
+            }
+          }, 500)
+          this.fields.forEach(field => {
+            if (field.input_type === 'file') {
+              const files = document.getElementById(field.id).files
+              if (files.length > 0) {
+                const file = files[0]
+                const fileName = file.name
+                this.toBase64(file).then(
+                  data => {
+                    newFieldData[field.name] = JSON.stringify({ name: fileName, base64: data })
+                    ++counter
+                  }
+                ).catch(error => {
+                  reject(error)
+                })
+              } else {
+                newFieldData[field.name] = ''
               }
-            ).catch(error => {
-              console.log(error)
-            })
-          } else {
-            newFieldData[field.name] = ''
-          }
-        }
-      })
-
-      window.console.log(newFieldData.photo)
-
-      const options = {
-        method: 'POST',
-        data: newFieldData,
-        url: `/admin/${modelKey}/save-document`
+            }
+          })
+        })
       }
 
-      this.axios(options)
-        .then(response => {
-          const data = response.data
-          if (data.is_authenticated && data.msg_err.length === 0) {
-            self.vMenu = {}
-            self.fieldData = {}
-            self.fields = []
-            self.dynamicSelectionDialog = {}
-            self.delDynItems = []
-            self.currValDynItem = { title: null, value: null }
-            this.getFormData(data.document)
-          } else {
-            console.log(data.msg_err)
+      addFiles().then(
+        () => {
+          window.console.log(newFieldData.photo)
+
+          const options = {
+            method: 'POST',
+            data: newFieldData,
+            url: `/admin/${modelKey}/save-document`
           }
-        })
-        .catch(error => {
-          console.log(error)
-        })
+
+          this.axios(options)
+            .then(response => {
+              const data = response.data
+              if (data.is_authenticated && data.msg_err.length === 0) {
+                self.vMenu = {}
+                self.fieldData = {}
+                self.fields = []
+                self.dynamicSelectionDialog = {}
+                self.delDynItems = []
+                self.currValDynItem = { title: null, value: null }
+                this.getFormData(data.document)
+              } else {
+                console.log(data.msg_err)
+              }
+            })
+            .catch(error => {
+              console.log(error)
+            })
+        }
+      ).catch(error => {
+        console.log(error)
+      })
     },
 
     // Get Title of document.
