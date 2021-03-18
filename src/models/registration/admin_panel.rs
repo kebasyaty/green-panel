@@ -16,7 +16,7 @@ pub fn service_list() -> Value {
             {
                 "service": { "title": "Users", "icon": "account-multiple" },
                 "collections": [
-                    { "title": "Users",
+                    { "title": "Profiles",
                       "model_key": users::User::key(),
                       "doc_name": { "field": "username", "title": "Nickname" } },
                 ]
