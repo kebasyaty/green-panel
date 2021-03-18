@@ -956,7 +956,11 @@ export default {
       var reader = new FileReader()
       reader.readAsDataURL(file)
       reader.onload = function () {
-        return reader.result
+        let encoded = reader.result.toString().replace(/^data:(.*,)?/, '')
+        if ((encoded.length % 4) > 0) {
+          encoded += '='.repeat(4 - (encoded.length % 4))
+        }
+        return encoded
       }
       reader.onerror = function (error) {
         console.log('Error: ', error)
@@ -976,6 +980,8 @@ export default {
           const files = document.getElementById(field.id).files
           if (files.length > 0) {
             newFieldData[field.name] = self.fileToBase64(files[0])
+          } else {
+            newFieldData[field.name] = ''
           }
         }
       })
