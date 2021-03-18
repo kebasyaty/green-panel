@@ -984,7 +984,7 @@ export default {
           }, 0)
           let counter = 0
           setInterval(() => {
-            if (countFileType === counter) {
+            if (counter === countFileType) {
               resolve()
             }
           }, 500)
