@@ -30,7 +30,8 @@ pub struct User {
         widget = "inputImage",
         label = "Photo",
         placeholder = "Upload your photo",
-        accept = "image/jpeg,image/png"
+        accept = "image/jpeg,image/png",
+        hint = "Please enter a picture in JPEG or PNG format"
     )]
     pub photo: Option<String>,
     #[serde(default)]
