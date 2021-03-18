@@ -951,6 +951,18 @@ export default {
       window.console.log('Remove document')
     },
 
+    // Converte File to base64.
+    getBase64(file) {
+      var reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = function () {
+        return reader.result
+      }
+      reader.onerror = function (error) {
+        console.log('Error: ', error)
+      }
+    },
+
     // Save/Update the document.
     saveDoc(mode = 'save') {
       const indexService = this.$route.params.indexService
@@ -961,8 +973,10 @@ export default {
 
       this.fields.forEach(field => {
         if (field.input_type === 'file') {
-          const file = document.getElementById(field.id).files[0]
-          newFieldData[field.name] = file
+          const files = document.getElementById(field.id).files
+          if (files.length > 0) {
+            newFieldData[field.name] = self.getBase64(files[0])
+          }
         }
       })
 
