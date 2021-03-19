@@ -628,6 +628,19 @@
         </v-tooltip>
       </v-card-actions>
     </v-card>
+
+    <!-- Pop-up error message -->
+    <v-snackbar v-model="snackbarErrMsg">
+      {{ textErrMsg }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="pink"
+          text
+          v-bind="attrs"
+          @click="snackbarErrMsg = false"
+        >{{ $t('message.16') }}</v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -645,7 +658,9 @@ export default {
     fields: [],
     dynamicSelectionDialog: {},
     delDynItems: [],
-    currValDynItem: { title: null, value: null }
+    currValDynItem: { title: null, value: null },
+    snackbarErrMsg: false,
+    textErrMsg: ''
   }),
 
   computed: {
