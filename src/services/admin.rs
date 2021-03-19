@@ -388,7 +388,7 @@ pub mod request_handlers {
             let chunk = chunk?;
             // limit max size of in-memory payload
             if (bytes.len() + chunk.len()) > PAYLOAD_MAX_SIZE {
-                return Err(error::ErrorBadRequest("overflow"));
+                return Err(error::ErrorBadRequest("Payload overflow."));
             }
             bytes.extend_from_slice(&chunk);
         }
