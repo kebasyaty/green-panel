@@ -1004,7 +1004,7 @@ export default {
                   reject(error)
                 })
               } else {
-                newFieldData[field.name] = ''
+                newFieldData[field.name] = null
                 checkResolve(++counter)
               }
             }
