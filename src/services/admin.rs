@@ -355,14 +355,14 @@ pub mod request_handlers {
     const PAYLOAD_MAX_SIZE: usize = 262_144; // max payload size is 256k
 
     #[derive(Deserialize)]
-    pub struct SaveDocQuery {
+    pub struct QuerySaveDoc {
         model_key: String,
     }
 
     pub async fn save_document(
         session: Session,
         mut payload: web::Payload,
-        path: web::Path<SaveDocQuery>,
+        path: web::Path<QuerySaveDoc>,
     ) -> Result<HttpResponse, Error> {
         //
         let mut is_authenticated = false;
