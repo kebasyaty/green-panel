@@ -982,6 +982,9 @@ export default {
             }
             return sum
           }, 0)
+          if (countFileType === 0) {
+            resolve()
+          }
           let counter = 0
           this.fields.forEach(field => {
             if (field.input_type === 'file') {
