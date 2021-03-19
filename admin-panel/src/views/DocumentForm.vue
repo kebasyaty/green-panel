@@ -653,14 +653,14 @@ export default {
     fields: [],
     dynamicSelectionDialog: {},
     delDynItems: [],
-    currValDynItem: { title: null, value: null },
-    showErrMsg: false,
-    textErrMsg: ''
+    currValDynItem: { title: null, value: null }
   }),
 
   computed: {
     ...mapState([
-      'serviceList'
+      'serviceList',
+      'showErrMsg',
+      'textErrMsg'
     ]),
     ...mapState('documentList', [
       'documents'

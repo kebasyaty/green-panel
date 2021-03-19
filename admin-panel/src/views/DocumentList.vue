@@ -136,16 +136,16 @@ export default {
 
   computed: {
     ...mapState([
-      'serviceList'
+      'serviceList',
+      'showErrMsg',
+      'textErrMsg'
     ]),
     ...mapState('documentList', [
       'documents',
       'currentPageNumber',
       'pageCount',
       'searchQuery',
-      'blockPagination',
-      'showErrMsg',
-      'textErrMsg'
+      'blockPagination'
     ]),
     updateCurrentPageNumber: {
       get: function () {
@@ -188,6 +188,10 @@ export default {
   },
 
   methods: {
+    ...mapMutations([
+      'setSearchQuery',
+      'setShowErrMsg'
+    ]),
     ...mapMutations('documentList', [
       'setCurrentPageNumber',
       'setSearchQuery',
