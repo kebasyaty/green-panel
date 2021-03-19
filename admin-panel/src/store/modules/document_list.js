@@ -68,6 +68,8 @@ export default {
                 commit('setDocuments', data.documents)
               } else {
                 console.log(data.msg_err)
+                commit('setTextErrMsg', data.msg_err, { root: true })
+                commit('setShowErrMsg', true, { root: true })
               }
             })
             .catch(error => {
