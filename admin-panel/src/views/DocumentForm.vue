@@ -1052,6 +1052,7 @@ export default {
                 this.getFormData(data.document)
               } else {
                 console.log(data.msg_err)
+                this.showErrMsg(data.msg_err)
               }
             })
             .catch(error => {
@@ -1099,6 +1100,7 @@ export default {
             this.getFormData(data.document)
           } else {
             console.log(data.msg_err)
+            this.showErrMsg(data.msg_err)
           }
         })
         .catch(error => {
