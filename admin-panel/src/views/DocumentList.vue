@@ -112,7 +112,7 @@
     </v-card>
 
     <!-- Pop-up error message -->
-    <v-snackbar app top dark color="red darken-4" v-model="compShowErrMsg">
+    <v-snackbar app top dark color="red accent-4" v-model="compShowErrMsg">
       {{ textErrMsg }}
       <template v-slot:action="{ attrs }">
         <v-btn
