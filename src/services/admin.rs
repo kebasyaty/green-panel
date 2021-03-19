@@ -322,28 +322,30 @@ pub mod request_handlers {
         // Define the desired model by `model_key` and
         // get an instance of the model in json format (for the administrator)
         // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ADD A MODEL TO HANDLE THE REQUEST
-        if model_key == users::User::key() {
-            // Model `users::User`
-            // -------------------------------------------------------------------------------------
-            let object_id = users::User::hash_to_id(query.doc_hash.as_str()).unwrap();
-            let filter = doc! {"_id": object_id};
-            let output_data = users::User::find_one(Some(filter), None);
-            if let Ok(output_data) = output_data {
-                if output_data.bool() {
-                    document = output_data
-                        .model::<users::User>()
-                        .unwrap()
-                        .json_for_admin()
-                        .unwrap();
+        if msg_err.is_empty() {
+            if model_key == users::User::key() {
+                // Model `users::User`
+                // ---------------------------------------------------------------------------------
+                let object_id = users::User::hash_to_id(query.doc_hash.as_str()).unwrap();
+                let filter = doc! {"_id": object_id};
+                let output_data = users::User::find_one(Some(filter), None);
+                if let Ok(output_data) = output_data {
+                    if output_data.bool() {
+                        document = output_data
+                            .model::<users::User>()
+                            .unwrap()
+                            .json_for_admin()
+                            .unwrap();
+                    }
+                } else {
+                    msg_err = "Error in the output data.".to_string();
                 }
-            } else {
-                msg_err = "Error in the output data.".to_string();
-            }
 
-            // Other Models ...
-            // -------------------------------------------------------------------------------------
-        } else {
-            msg_err = "No match for `model_key`.".to_string();
+                // Other Models ...
+                // ---------------------------------------------------------------------------------
+            } else {
+                msg_err = "No match for `model_key`.".to_string();
+            }
         }
 
         // Return json response
@@ -407,7 +409,7 @@ pub mod request_handlers {
         if msg_err.is_empty() {
             if model_key == users::User::key() {
                 // Model `users::User`
-                // -------------------------------------------------------------------------------------
+                // ---------------------------------------------------------------------------------
                 let model = serde_json::from_slice::<users::User>(&bytes);
                 if model.is_ok() {
                     if let Ok(output_data) = model?.save(None, None, None) {
@@ -420,7 +422,7 @@ pub mod request_handlers {
                 }
 
                 // Other Models ...
-                // -------------------------------------------------------------------------------------
+                // ---------------------------------------------------------------------------------
             } else {
                 msg_err = "No match for `model_key`.".to_string();
             }
