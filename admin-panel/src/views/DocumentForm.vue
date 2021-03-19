@@ -645,7 +645,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'DocumentForm',
@@ -673,6 +673,9 @@ export default {
   },
 
   methods: {
+    ...mapMutations([
+      'setIsAuthenticated'
+    ]),
     ...mapActions('documentList', [
       'ajaxGetDocumentList'
     ]),
