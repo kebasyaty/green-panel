@@ -21,6 +21,8 @@ use mango_orm::{QCommon, QPaladins, ToModel, DB_MAP_CLIENT_NAMES, FORM_CACHE};
 pub use configure_urls::*;
 pub use request_handlers::*;
 
+const PAYLOAD_MAX_SIZE: usize = 2048_000; // max payload size is 2mb
+
 fn admin_file_path(inner_path: &str) -> String {
     format!("./admin/{}", inner_path)
 }
@@ -357,8 +359,6 @@ pub mod request_handlers {
 
     // Save/update document
     // *********************************************************************************************
-    const PAYLOAD_MAX_SIZE: usize = 262_144; // max payload size is 256k
-
     #[derive(Deserialize)]
     pub struct QuerySaveDoc {
         model_key: String,
