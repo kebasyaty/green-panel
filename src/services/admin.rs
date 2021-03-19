@@ -291,14 +291,14 @@ pub mod request_handlers {
     // Get document
     // *********************************************************************************************
     #[derive(Deserialize)]
-    pub struct GetDocQuery {
+    pub struct QueryGetDoc {
         model_key: String,
         doc_hash: String,
     }
 
     pub async fn get_document(
         session: Session,
-        query: web::Json<GetDocQuery>,
+        query: web::Json<QueryGetDoc>,
     ) -> Result<HttpResponse, Error> {
         //
         let mut is_authenticated = false;
