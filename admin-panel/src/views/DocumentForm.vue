@@ -1099,7 +1099,9 @@ export default {
       this.axios.post('/admin/get-document', payload)
         .then(response => {
           const data = response.data
-          if (data.is_authenticated && data.msg_err.length === 0) {
+          if (!data.is_authenticated) {
+            this.setIsAuthenticated(false)
+          } else if (data.msg_err.length === 0) {
             this.getDocTitle()
             this.getBreadcrumbs()
             this.getFormData(data.document)
