@@ -116,7 +116,7 @@
       <span class="font-weight-medium">{{ textErrMsg }}</span>
       <template v-slot:action="{ attrs }">
         <v-btn
-          color="pink"
+          color="black"
           text
           v-bind="attrs"
           @click="compShowErrMsg = false"
