@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   transpileDependencies: [
     'vuetify'
@@ -5,5 +7,5 @@ module.exports = {
   publicPath: process.env.NODE_ENV === 'production'
     ? '/admin/contrib/'
     : '/',
-  outputDir: '../admin'
+  outputDir: path.resolve(__dirname, '../admin')
 }
