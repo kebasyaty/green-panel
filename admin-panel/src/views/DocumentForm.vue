@@ -690,8 +690,8 @@ export default {
       }
     },
     // Show error message
-    showErrMsg(msg) {
-      this.setShowErrMsg(msg)
+    runShowErrMsg(msg) {
+      this.setTextErrMsg(msg)
       this.compShowErrMsg = true
     },
     // Router - Go back one step.
@@ -1067,7 +1067,7 @@ export default {
                 this.getFormData(data.document)
               } else {
                 console.log(data.msg_err)
-                this.showErrMsg(data.msg_err)
+                this.runShowErrMsg(data.msg_err)
               }
             })
             .catch(error => {
@@ -1117,7 +1117,7 @@ export default {
             this.getFormData(data.document)
           } else {
             console.log(data.msg_err)
-            this.showErrMsg(data.msg_err)
+            this.runShowErrMsg(data.msg_err)
           }
         })
         .catch(error => {
