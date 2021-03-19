@@ -113,14 +113,14 @@
 
     <!-- Pop-up error message -->
     <v-snackbar app top dark color="red accent-4" v-model="compShowErrMsg">
-      {{ textErrMsg }}
+      <span class="font-weight-medium">{{ textErrMsg }}</span>
       <template v-slot:action="{ attrs }">
         <v-btn
           color="pink"
           text
           v-bind="attrs"
           @click="compShowErrMsg = false"
-        >{{ $t('message.16') }}</v-btn>
+        >{{ $t('message.18') }}</v-btn>
       </template>
     </v-snackbar>
   </v-container>
