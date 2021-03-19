@@ -1008,6 +1008,8 @@ export default {
       }
       addFiles().then(
         () => {
+          window.console.log(newFieldData.photo)
+
           const options = {
             method: 'POST',
             data: newFieldData,

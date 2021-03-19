@@ -399,7 +399,7 @@ pub mod request_handlers {
         if model_key == users::User::key() {
             model = serde_json::from_slice::<users::User>(&bytes);
         } else {
-            model = Err("No match for `model_key`.").unwrap();
+            return Err(error::ErrorBadRequest("No match for `model_key`"));
         }
         // General actions for all models.
         // ( seve data and get json-line of Model for admin panel )
@@ -410,7 +410,7 @@ pub mod request_handlers {
                 msg_err = "Failed to save document to database.".to_string();
             }
         } else {
-            msg_err = model.unwrap_err().to_string();
+            msg_err = "Model initialization error.".to_string();
         }
 
         // Return json response
