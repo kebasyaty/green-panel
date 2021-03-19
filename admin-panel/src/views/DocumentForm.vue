@@ -630,10 +630,15 @@
     </v-card>
 
     <!-- Pop-up error message -->
-    <v-snackbar v-model="showErrMsg">
+    <v-snackbar v-model="compShowErrMsg">
       {{ textErrMsg }}
       <template v-slot:action="{ attrs }">
-        <v-btn color="pink" text v-bind="attrs" @click="showErrMsg = false">{{ $t('message.16') }}</v-btn>
+        <v-btn
+          color="pink"
+          text
+          v-bind="attrs"
+          @click="compShowErrMsg = false"
+        >{{ $t('message.16') }}</v-btn>
       </template>
     </v-snackbar>
   </v-container>
@@ -676,10 +681,18 @@ export default {
     ...mapActions('documentList', [
       'ajaxGetDocumentList'
     ]),
+    compShowErrMsg: {
+      get: function () {
+        return this.showErrMsg
+      },
+      set: function (flag) {
+        this.setShowErrMsg(flag)
+      }
+    },
     // Show error message
     showErrMsg(msg) {
       this.setShowErrMsg(msg)
-      this.setShowErrMsg(true)
+      this.compShowErrMsg = true
     },
     // Router - Go back one step.
     goBack() {
