@@ -319,8 +319,10 @@ pub mod request_handlers {
 
         // Define the desired model by `model_key` and
         // get an instance of the model in json format (for the administrator)
-        // -----------------------------------------------------------------------------------------
+        // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ADD A MODEL TO HANDLE THE REQUEST
         if model_key == users::User::key() {
+            // Model `users::User`
+            // -------------------------------------------------------------------------------------
             let object_id = users::User::hash_to_id(query.doc_hash.as_str()).unwrap();
             let filter = doc! {"_id": object_id};
             let output_data = users::User::find_one(Some(filter), None);
@@ -335,6 +337,9 @@ pub mod request_handlers {
             } else {
                 msg_err = "Error in the output data.".to_string();
             }
+
+            // Other Models ...
+            // -------------------------------------------------------------------------------------
         } else {
             msg_err = "No match for `model_key`.".to_string();
         }
@@ -394,23 +399,25 @@ pub mod request_handlers {
         }
 
         // Define the desired model with `model_key` and save/update in the database
-        // -----------------------------------------------------------------------------------------
-        let model;
+        // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ADD A MODEL TO HANDLE THE REQUEST
         if model_key == users::User::key() {
-            model = serde_json::from_slice::<users::User>(&bytes);
+            // Model `users::User`
+            // -------------------------------------------------------------------------------------
+            let model = serde_json::from_slice::<users::User>(&bytes);
+            if model.is_ok() {
+                if let Ok(output_data) = model?.save(None, None, None) {
+                    document = output_data.json_for_admin().unwrap();
+                } else {
+                    msg_err = "Failed to save document to database.".to_string();
+                }
+            } else {
+                msg_err = "Model initialization error.".to_string();
+            }
+
+            // Other Models ...
+            // -------------------------------------------------------------------------------------
         } else {
             return Err(error::ErrorBadRequest("No match for `model_key`"));
-        }
-        // General actions for all models.
-        // ( seve data and get json-line of Model for admin panel )
-        if model.is_ok() {
-            if let Ok(output_data) = model?.save(None, None, None) {
-                document = output_data.json_for_admin().unwrap();
-            } else {
-                msg_err = "Failed to save document to database.".to_string();
-            }
-        } else {
-            msg_err = "Model initialization error.".to_string();
         }
 
         // Return json response
