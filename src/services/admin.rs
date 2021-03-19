@@ -393,7 +393,10 @@ pub mod request_handlers {
             let chunk = chunk?;
             // limit max size of in-memory payload
             if (bytes.len() + chunk.len()) > PAYLOAD_MAX_SIZE {
-                return Err(error::ErrorBadRequest("Payload OVERFLOW."));
+                return Err(error::ErrorBadRequest(format!(
+                    "Data volume exceeds the {} mb limit.",
+                    PAYLOAD_MAX_SIZE as f64 / 1024000_f64
+                )));
             }
             bytes.extend_from_slice(&chunk);
         }
