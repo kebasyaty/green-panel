@@ -61,11 +61,11 @@ export default {
           })
             .then(response => {
               const data = response.data
-              if (data.is_authenticated && data.msg_err.length === 0) {
+              if (data.is_authenticated) {
                 commit('setPageCount', data.page_count)
                 commit('setDocuments', data.documents)
               } else {
-                console.log(data.msg_err)
+                if (data.msg_err.length === 0) { console.log(data.msg_err) }
                 this.setIsAuthenticated(false)
               }
             })

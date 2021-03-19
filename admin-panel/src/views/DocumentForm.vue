@@ -1042,7 +1042,9 @@ export default {
           this.axios(options)
             .then(response => {
               const data = response.data
-              if (data.is_authenticated && data.msg_err.length === 0) {
+              if (!data.is_authenticated) {
+                this.setIsAuthenticated(false)
+              } else if (data.msg_err.length === 0) {
                 self.vMenu = {}
                 self.fieldData = {}
                 self.fields = []
