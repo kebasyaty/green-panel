@@ -66,7 +66,7 @@ export default {
                 commit('setDocuments', data.documents)
               } else {
                 if (data.msg_err.length === 0) { console.log(data.msg_err) }
-                this.setIsAuthenticated(false)
+                commit('setIsAuthenticated', false, { root: true })
               }
             })
             .catch(error => {
