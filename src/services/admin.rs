@@ -208,7 +208,7 @@ pub mod request_handlers {
         let mut is_authenticated = false;
         let mut msg_err = String::new();
         let mut documents: Vec<Value> = Vec::new();
-        let mut page_count: u64 = 0;
+        let mut page_count: u64 = 1;
 
         // Access request identity
         // -----------------------------------------------------------------------------------------
