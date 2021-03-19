@@ -393,34 +393,37 @@ pub mod request_handlers {
             let chunk = chunk?;
             // limit max size of in-memory payload
             if (bytes.len() + chunk.len()) > PAYLOAD_MAX_SIZE {
-                return Err(error::ErrorBadRequest(format!(
+                msg_err = format!(
                     "Data volume exceeds the {} mb limit.",
                     PAYLOAD_MAX_SIZE as f64 / 1024000_f64
-                )));
+                );
+                break;
             }
             bytes.extend_from_slice(&chunk);
         }
 
         // Define the desired model with `model_key` and save/update in the database
         // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ADD A MODEL TO HANDLE THE REQUEST
-        if model_key == users::User::key() {
-            // Model `users::User`
-            // -------------------------------------------------------------------------------------
-            let model = serde_json::from_slice::<users::User>(&bytes);
-            if model.is_ok() {
-                if let Ok(output_data) = model?.save(None, None, None) {
-                    document = output_data.json_for_admin().unwrap();
+        if msg_err.is_empty() {
+            if model_key == users::User::key() {
+                // Model `users::User`
+                // -------------------------------------------------------------------------------------
+                let model = serde_json::from_slice::<users::User>(&bytes);
+                if model.is_ok() {
+                    if let Ok(output_data) = model?.save(None, None, None) {
+                        document = output_data.json_for_admin().unwrap();
+                    } else {
+                        msg_err = "Failed to save document to database.".to_string();
+                    }
                 } else {
-                    msg_err = "Failed to save document to database.".to_string();
+                    msg_err = "Model initialization error.".to_string();
                 }
-            } else {
-                msg_err = "Model initialization error.".to_string();
-            }
 
-            // Other Models ...
-            // -------------------------------------------------------------------------------------
-        } else {
-            return Err(error::ErrorBadRequest("No match for `model_key`"));
+                // Other Models ...
+                // -------------------------------------------------------------------------------------
+            } else {
+                msg_err = "No match for `model_key`.".to_string();
+            }
         }
 
         // Return json response
