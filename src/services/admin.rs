@@ -5,7 +5,7 @@
 use actix_files::Files;
 use actix_files::NamedFile;
 use actix_session::Session;
-use actix_web::{error, web, Error, HttpResponse, Result};
+use actix_web::{web, Error, HttpResponse, Result};
 
 use futures::StreamExt;
 use mongodb::{
@@ -208,7 +208,7 @@ pub mod request_handlers {
         let mut is_authenticated = false;
         let mut msg_err = String::new();
         let mut documents: Vec<Value> = Vec::new();
-        let page_count: u64;
+        let mut page_count: u64 = 0;
 
         // Access request identity
         // -----------------------------------------------------------------------------------------
@@ -221,61 +221,63 @@ pub mod request_handlers {
             msg_err = "Authentication failed.".to_string();
         }
 
-        // Define filter and options for database query.
-        // -----------------------------------------------------------------------------------------
-        let filter = if !query.search_query.is_empty() {
-            Some(doc! {
-                query.field_name.as_str():
-                Bson::RegularExpression(
-                    Regex{pattern: query.search_query.clone(),
-                          options: "im".to_string()}
-                )
-            })
-        } else {
-            None
-        };
-        let limit = (50_u32 * query.page_num) as i64;
-        let options = Some(
-            FindOptions::builder()
-                .skip(limit - 50_i64)
-                .limit(limit)
-                .projection(Some(
-                    doc! {query.field_name.as_str(): 1, "created_at": 1, "updated_at": 1},
-                ))
-                .build(),
-        );
+        if msg_err.is_empty() {
+            // Define filter and options for database query.
+            // -------------------------------------------------------------------------------------
+            let filter = if !query.search_query.is_empty() {
+                Some(doc! {
+                    query.field_name.as_str():
+                    Bson::RegularExpression(
+                        Regex{pattern: query.search_query.clone(),
+                              options: "im".to_string()}
+                    )
+                })
+            } else {
+                None
+            };
+            let limit = (50_u32 * query.page_num) as i64;
+            let options = Some(
+                FindOptions::builder()
+                    .skip(limit - 50_i64)
+                    .limit(limit)
+                    .projection(Some(
+                        doc! {query.field_name.as_str(): 1, "created_at": 1, "updated_at": 1},
+                    ))
+                    .build(),
+            );
 
-        // Get read access from cache.
-        // -----------------------------------------------------------------------------------------
-        let form_store = FORM_CACHE.read().unwrap();
-        let form_cache = form_store.get(query.model_key.as_str()).unwrap();
-        let meta = &form_cache.meta;
-        let client_store = DB_MAP_CLIENT_NAMES.read().unwrap();
-        let client: &mongodb::sync::Client =
-            client_store.get(meta.db_client_name.as_str()).unwrap();
-        // Accessing the collection
-        let coll = client
-            .database(meta.database_name.as_str())
-            .collection(meta.collection_name.as_str());
-        // Get the number of pages (50 documents per page).
-        page_count =
-            (coll.count_documents(filter.clone(), None).unwrap() as f64 / 50_f64).ceil() as u64;
-        // Get cursor for selecting documents.
-        let mut cursor = coll.find(filter, options).unwrap();
+            // Get read access from cache.
+            // -------------------------------------------------------------------------------------
+            let form_store = FORM_CACHE.read().unwrap();
+            let form_cache = form_store.get(query.model_key.as_str()).unwrap();
+            let meta = &form_cache.meta;
+            let client_store = DB_MAP_CLIENT_NAMES.read().unwrap();
+            let client: &mongodb::sync::Client =
+                client_store.get(meta.db_client_name.as_str()).unwrap();
+            // Accessing the collection
+            let coll = client
+                .database(meta.database_name.as_str())
+                .collection(meta.collection_name.as_str());
+            // Get the number of pages (50 documents per page).
+            page_count =
+                (coll.count_documents(filter.clone(), None).unwrap() as f64 / 50_f64).ceil() as u64;
+            // Get cursor for selecting documents.
+            let mut cursor = coll.find(filter, options).unwrap();
 
-        // Selecting documents.
-        // -----------------------------------------------------------------------------------------
-        while let Some(doc) = cursor.next() {
-            let doc = doc.unwrap();
-            // Filling in the `documents` array
-            documents.push(json!({
-                "title": doc.get_str(query.field_name.as_str()).unwrap(),
-                "hash": doc.get_object_id("_id").unwrap().to_hex(),
-                "created_at":
-                    doc.get_datetime("created_at").unwrap().to_rfc3339()[..16],
-                "updated_at":
-                    doc.get_datetime("updated_at").unwrap().to_rfc3339()[..16]
-            }))
+            // Selecting documents.
+            // -------------------------------------------------------------------------------------
+            while let Some(doc) = cursor.next() {
+                let doc = doc.unwrap();
+                // Filling in the `documents` array
+                documents.push(json!({
+                    "title": doc.get_str(query.field_name.as_str()).unwrap(),
+                    "hash": doc.get_object_id("_id").unwrap().to_hex(),
+                    "created_at":
+                        doc.get_datetime("created_at").unwrap().to_rfc3339()[..16],
+                    "updated_at":
+                        doc.get_datetime("updated_at").unwrap().to_rfc3339()[..16]
+                }))
+            }
         }
 
         // Return json response
