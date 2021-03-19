@@ -983,11 +983,6 @@ export default {
             return sum
           }, 0)
           let counter = 0
-          setInterval(() => {
-            if (counter === countFileType) {
-              resolve()
-            }
-          }, 500)
           this.fields.forEach(field => {
             if (field.input_type === 'file') {
               const files = document.getElementById(field.id).files
@@ -997,7 +992,9 @@ export default {
                 this.toBase64(file).then(
                   data => {
                     newFieldData[field.name] = JSON.stringify({ name: fileName, base64: data })
-                    ++counter
+                    if (++counter === countFileType) {
+                      resolve()
+                    }
                   }
                 ).catch(error => {
                   reject(error)
