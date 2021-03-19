@@ -112,11 +112,11 @@
     </v-card>
 
     <!-- Pop-up error message -->
-    <v-snackbar app top dark timeout="-1" color="red accent-4" v-model="compShowErrMsg">
+    <v-snackbar app top dark timeout="-1" v-model="compShowErrMsg">
       <span class="font-weight-medium">{{ textErrMsg }}</span>
       <template v-slot:action="{ attrs }">
         <v-btn
-          color="black"
+          color="pink"
           text
           v-bind="attrs"
           @click="compShowErrMsg = false"
