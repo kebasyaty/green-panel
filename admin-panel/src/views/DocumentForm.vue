@@ -669,7 +669,9 @@ export default {
 
   methods: {
     ...mapMutations([
-      'setIsAuthenticated'
+      'setIsAuthenticated',
+      'setShowErrMsg',
+      'setTextErrMsg'
     ]),
     ...mapActions('documentList', [
       'ajaxGetDocumentList'

@@ -190,12 +190,12 @@ export default {
   methods: {
     ...mapMutations([
       'setSearchQuery',
-      'setShowErrMsg'
+      'setShowErrMsg',
+      'setTextErrMsg'
     ]),
     ...mapMutations('documentList', [
       'setCurrentPageNumber',
-      'setSearchQuery',
-      'setShowErrMsg'
+      'setSearchQuery'
     ]),
     ...mapActions('documentList', [
       'ajaxGetDocumentList',
