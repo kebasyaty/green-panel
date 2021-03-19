@@ -191,7 +191,7 @@ pub mod request_handlers {
     // Get document list
     // *********************************************************************************************
     #[derive(Deserialize)]
-    pub struct DocListQuery {
+    pub struct QueryGetDocList {
         model_key: String,
         field_name: String,
         page_num: u32,
@@ -200,7 +200,7 @@ pub mod request_handlers {
 
     pub async fn document_list(
         session: Session,
-        query: web::Query<DocListQuery>,
+        query: web::Query<QueryGetDocList>,
     ) -> Result<HttpResponse, Error> {
         //
         let mut is_authenticated = false;
