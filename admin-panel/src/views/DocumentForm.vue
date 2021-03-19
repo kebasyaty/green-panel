@@ -678,8 +678,8 @@ export default {
     ]),
     // Show error message
     showErrMsg(msg) {
-      this.textErrMsg = msg
-      this.showErrMsg = true
+      this.setShowErrMsg(msg)
+      this.setShowErrMsg(true)
     },
     // Router - Go back one step.
     goBack() {
