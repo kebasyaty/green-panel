@@ -19,5 +19,11 @@ export default {
   },
   setServiceList(state, payload) {
     state.serviceList = payload
+  },
+  setShowErrMsg(state, payload) {
+    state.showErrMsg = payload
+  },
+  setTextErrMsg(state, payload) {
+    state.textErrMsg = payload
   }
 }

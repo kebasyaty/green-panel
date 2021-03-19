@@ -110,6 +110,14 @@
         <v-spacer></v-spacer>
       </v-card-actions>
     </v-card>
+
+    <!-- Pop-up error message -->
+    <v-snackbar v-model="showErrMsg">
+      {{ textErrMsg }}
+      <template v-slot:action="{ attrs }">
+        <v-btn color="pink" text v-bind="attrs" @click="setShowErrMsg(false)">{{ $t('message.16') }}</v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -135,7 +143,9 @@ export default {
       'currentPageNumber',
       'pageCount',
       'searchQuery',
-      'blockPagination'
+      'blockPagination',
+      'showErrMsg',
+      'textErrMsg'
     ]),
     updateCurrentPageNumber: {
       get: function () {
@@ -180,7 +190,8 @@ export default {
   methods: {
     ...mapMutations('documentList', [
       'setCurrentPageNumber',
-      'setSearchQuery'
+      'setSearchQuery',
+      'setShowErrMsg'
     ]),
     ...mapActions('documentList', [
       'ajaxGetDocumentList',

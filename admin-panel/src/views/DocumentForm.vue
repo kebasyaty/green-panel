@@ -630,15 +630,10 @@
     </v-card>
 
     <!-- Pop-up error message -->
-    <v-snackbar v-model="snackbarErrMsg">
+    <v-snackbar v-model="showErrMsg">
       {{ textErrMsg }}
       <template v-slot:action="{ attrs }">
-        <v-btn
-          color="pink"
-          text
-          v-bind="attrs"
-          @click="snackbarErrMsg = false"
-        >{{ $t('message.16') }}</v-btn>
+        <v-btn color="pink" text v-bind="attrs" @click="showErrMsg = false">{{ $t('message.16') }}</v-btn>
       </template>
     </v-snackbar>
   </v-container>
@@ -659,7 +654,7 @@ export default {
     dynamicSelectionDialog: {},
     delDynItems: [],
     currValDynItem: { title: null, value: null },
-    snackbarErrMsg: false,
+    showErrMsg: false,
     textErrMsg: ''
   }),
 
@@ -682,7 +677,7 @@ export default {
     // Show error message
     showErrMsg(msg) {
       this.textErrMsg = msg
-      this.snackbarErrMsg = true
+      this.showErrMsg = true
     },
     // Router - Go back one step.
     goBack() {

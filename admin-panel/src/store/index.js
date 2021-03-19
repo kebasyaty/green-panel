@@ -18,7 +18,10 @@ export default new Vuex.Store({
     // The current service in which the collection is selected.
     selectedService: [],
     // List of services (sub-applications) with nested list of collections.
-    serviceList: []
+    serviceList: [],
+    // Pop-up error message.
+    showErrMsg: false,
+    textErrMsg: ''
   },
 
   mutations,
