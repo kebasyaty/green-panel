@@ -110,9 +110,6 @@
         <v-spacer></v-spacer>
       </v-card-actions>
     </v-card>
-
-    <!-- Pop-up messages. -->
-    <PopUpMsgs />
   </v-container>
 </template>
 
@@ -120,14 +117,9 @@
 import { mapState, mapMutations, mapActions } from 'vuex'
 import slug from 'slug'
 import fillRange from 'fill-range'
-import PopUpMsgs from '@/components/PopUpMsgs.vue'
 
 export default {
   name: 'DocumentList',
-
-  components: {
-    PopUpMsgs
-  },
 
   data: () => ({
     deleteAllDocsFlag: false,

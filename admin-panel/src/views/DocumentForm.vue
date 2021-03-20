@@ -628,22 +628,14 @@
         </v-tooltip>
       </v-card-actions>
     </v-card>
-
-    <!-- Pop-up messages. -->
-    <PopUpMsgs />
   </v-container>
 </template>
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
-import PopUpMsgs from '@/components/PopUpMsgs.vue'
 
 export default {
   name: 'DocumentForm',
-
-  components: {
-    PopUpMsgs
-  },
 
   data: () => ({
     docTitle: '...',

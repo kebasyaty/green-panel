@@ -3,6 +3,7 @@
     <template v-if="isAuthenticated">
       <NavigationBar />
       <AppBar />
+      <PopUpMsgs />
     </template>
 
     <v-main>
@@ -15,13 +16,16 @@
 import { mapState, mapMutations } from 'vuex'
 import NavigationBar from '@/components/NavigationBar.vue'
 import AppBar from '@/components/AppBar.vue'
+import PopUpMsgs from '@/components/PopUpMsgs.vue'
 
 export default {
   name: 'App',
 
   components: {
     NavigationBar,
-    AppBar
+    AppBar,
+    PopUpMsgs
+
   },
 
   computed: {
