@@ -4,7 +4,7 @@
     <span class="font-weight-medium" v-html="textMsg"></span>
     <template v-slot:action="{ attrs }">
       <v-btn icon color="deep-orange" text v-bind="attrs" @click="compShowMsg = false">
-        <v-icon>mdi-close-thick</v-icon>
+        <v-icon>mdi-close</v-icon>
       </v-btn>
     </template>
   </v-snackbar>
