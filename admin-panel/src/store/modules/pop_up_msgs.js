@@ -18,7 +18,7 @@ export default {
   },
 
   actions: {
-    runShowMsg({ state, commit }, text) {
+    runShowMsg({ commit }, text) {
       commit('setTextMsg', text)
       commit('setShowMsg', true)
     }
