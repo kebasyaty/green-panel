@@ -22,9 +22,10 @@ export default {
   },
 
   actions: {
-    runShowMsg({ commit }, text) {
-      commit('setTextMsg', text)
+    runShowMsg({ commit }, payload) {
+      commit('setTextMsg', payload.text)
       commit('setShowMsg', true)
+      commit('setMsgStatus', payload.status)
     }
   }
 }
