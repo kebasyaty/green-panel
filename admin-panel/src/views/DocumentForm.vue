@@ -647,7 +647,7 @@ export default {
     dynamicSelectionDialog: {},
     delDynItems: [],
     currValDynItem: { title: null, value: null },
-    dataMaxSize: 0
+    maxTotalFilesSize: 0
   }),
 
   computed: {
@@ -993,10 +993,10 @@ export default {
           let dataSumSize = 0
           const response = (counter) => {
             if (counter === countFileType) {
-              if (dataSumSize <= this.dataMaxSize) {
+              if (dataSumSize <= this.maxTotalFilesSize) {
                 resolve()
               } else {
-                const msg = `The total data size exceeds the ${byteSize(this.dataMaxSize)} limit.`
+                const msg = `The total data size exceeds the ${byteSize(this.maxTotalFilesSize)} limit.`
                 reject(msg)
               }
             }
@@ -1098,7 +1098,7 @@ export default {
             this.getBreadcrumbs()
             this.getFormData(data.document)
             // 16384 = ~16 Kb (default data size for the form)
-            this.dataMaxSize = data.max_size - 16384
+            this.maxTotalFilesSize = data.max_size - 16384
           } else {
             console.log(data.msg_err)
             this.runShowMsg({ text: data.msg_err, status: 'error' })
