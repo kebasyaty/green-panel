@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import NavigationBar from '@/components/NavigationBar.vue'
 import AppBar from '@/components/AppBar.vue'
 import PopUpMsgs from '@/components/PopUpMsgs.vue'
@@ -68,6 +68,9 @@ export default {
       'setSelectedService',
       'setServiceList'
     ]),
+    ...mapActions('popUpMsgs', [
+      'runShowMsg'
+    ]),
     // Get a list of services and collections
     getServiceList() {
       this.axios.get('/admin/service-list')
@@ -84,6 +87,7 @@ export default {
               this.setServiceList(data.service_list)
             } else {
               console.log('No data available')
+              this.runShowMsg({ text: 'No data available', status: 'warning' })
             }
           } else {
             this.setIsAuthenticated(false)
