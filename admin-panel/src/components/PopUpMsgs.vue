@@ -3,7 +3,7 @@
   <v-snackbar app top timeout="-1" v-model="compShowMsg">
     <span :class="`${msgStatus} font-weight-medium`" v-html="textMsg"></span>
     <template v-slot:action="{ attrs }">
-      <v-btn icon color="deep-orange" text v-bind="attrs" @click="compShowMsg = false">
+      <v-btn icon color="red" text v-bind="attrs" @click="compShowMsg = false">
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </template>
