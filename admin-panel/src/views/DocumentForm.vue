@@ -1058,6 +1058,7 @@ export default {
         }
       ).catch(error => {
         console.log(error)
+        this.runShowMsg({ text: error, status: 'error' })
       })
     },
 
