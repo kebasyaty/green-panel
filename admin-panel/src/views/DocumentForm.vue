@@ -1099,7 +1099,6 @@ export default {
             this.setIsAuthenticated(false)
           } else if (data.msg_err.length === 0) {
             // 16384 = ~16 Kb (default data size for the form)
-            window.console.log(data.max_size)
             this.maxTotalFilesSize = data.max_size - 16384
             this.getDocTitle()
             this.getBreadcrumbs()
