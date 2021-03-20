@@ -442,7 +442,8 @@ pub mod request_handlers {
             .json(json!({
                 "document": document,
                 "is_authenticated": is_authenticated,
-                "msg_err": msg_err
+                "msg_err": msg_err,
+                "max_size": PAYLOAD_MAX_SIZE
             })))
     }
 }
