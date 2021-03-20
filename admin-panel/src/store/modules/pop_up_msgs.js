@@ -3,7 +3,8 @@ export default {
 
   state: {
     showMsg: false,
-    textMsg: ''
+    textMsg: '',
+    msgStatus: 'info' // error | info | success | warning
   },
 
   getters: {},
@@ -14,6 +15,9 @@ export default {
     },
     setTextMsg(state, text) {
       state.textMsg = text
+    },
+    setMsgStatus(state, status) {
+      state.msgStatus = status
     }
   },
 
