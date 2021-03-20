@@ -633,7 +633,7 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
-import byteSize from 'byte-size'
+import filesize from 'filesize'
 
 export default {
   name: 'DocumentForm',
@@ -997,7 +997,7 @@ export default {
               if (dataSumSize <= this.maxTotalFilesSize) {
                 resolve()
               } else {
-                const msg = `The total data size exceeds the ${byteSize(this.maxTotalFilesSize)} limit.`
+                const msg = `The total data size exceeds the ${filesize(this.maxTotalFilesSize)} limit.`
                 reject(msg)
               }
             }

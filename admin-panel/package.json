@@ -9,8 +9,8 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "byte-size": "^7.0.1",
     "core-js": "^3.8.3",
+    "filesize": "^3.6.1",
     "fill-range": "^7.0.1",
     "slug": "^4.0.2",
     "vue": "^2.6.11",
