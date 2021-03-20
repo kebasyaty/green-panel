@@ -672,11 +672,9 @@ export default {
     ...mapActions('documentList', [
       'ajaxGetDocumentList'
     ]),
-    // Show error message
-    runShowErrMsg(msg) {
-      this.setTextErrMsg(msg)
-      this.compShowErrMsg = true
-    },
+    ...mapActions('popUpMsgs', [
+      'runShowMsg'
+    ]),
     // Router - Go back one step.
     goBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push({ name: 'home' })
@@ -1050,7 +1048,7 @@ export default {
                 this.getFormData(data.document)
               } else {
                 console.log(data.msg_err)
-                this.runShowErrMsg(data.msg_err)
+                this.runShowMsg(data.msg_err)
               }
             })
             .catch(error => {
@@ -1100,7 +1098,7 @@ export default {
             this.getFormData(data.document)
           } else {
             console.log(data.msg_err)
-            this.runShowErrMsg(data.msg_err)
+            this.runShowMsg(data.msg_err)
           }
         })
         .catch(error => {
