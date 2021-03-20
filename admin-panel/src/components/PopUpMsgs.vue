@@ -3,7 +3,9 @@
   <v-snackbar app top timeout="-1" v-model="compShowMsg">
     <span class="font-weight-medium" v-html="textMsg"></span>
     <template v-slot:action="{ attrs }">
-      <v-btn color="red" text v-bind="attrs" @click="compShowMsg = false">{{ $t('message.18') }}</v-btn>
+      <v-btn icon color="deep-orange" text v-bind="attrs" @click="compShowMsg = false">
+        <v-icon>mdi-close-thick</v-icon>
+      </v-btn>
     </template>
   </v-snackbar>
 </template>
