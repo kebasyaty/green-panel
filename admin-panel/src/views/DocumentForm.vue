@@ -647,7 +647,7 @@ export default {
     dynamicSelectionDialog: {},
     delDynItems: [],
     currValDynItem: { title: null, value: null },
-    maxTotalFilesSize: 0
+    maxTotalFilesSize: 16384 // 16384 = ~16 Kb (default data size for the form)
   }),
 
   computed: {
@@ -1098,11 +1098,12 @@ export default {
           if (!data.is_authenticated) {
             this.setIsAuthenticated(false)
           } else if (data.msg_err.length === 0) {
+            // 16384 = ~16 Kb (default data size for the form)
+            window.console.log(data.max_size)
+            this.maxTotalFilesSize = data.max_size - 16384
             this.getDocTitle()
             this.getBreadcrumbs()
             this.getFormData(data.document)
-            // 16384 = ~16 Kb (default data size for the form)
-            this.maxTotalFilesSize = data.max_size - 16384
           } else {
             console.log(data.msg_err)
             this.runShowMsg({ text: data.msg_err, status: 'error' })
