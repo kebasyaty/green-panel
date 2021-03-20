@@ -1097,7 +1097,8 @@ export default {
             this.getDocTitle()
             this.getBreadcrumbs()
             this.getFormData(data.document)
-            this.dataMaxSize = data.max_size - 16384 // 16384 = 16 kb
+            // 16384 = ~16 Kb (default data size for the form)
+            this.dataMaxSize = data.max_size - 16384
           } else {
             console.log(data.msg_err)
             this.runShowMsg({ text: data.msg_err, status: 'error' })
