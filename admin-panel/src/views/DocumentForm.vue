@@ -995,7 +995,8 @@ export default {
               if (dataSumSize <= this.dataMaxSize) {
                 resolve()
               } else {
-                // reject(`x ${this.dataMaxSize}`)
+                const msg = `The total data size exceeds the ${this.dataMaxSize} limit.`
+                reject(msg)
               }
             }
           }
