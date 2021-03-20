@@ -16,10 +16,6 @@ import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'PopUpMsgs',
 
-  data: () => ({
-    //
-  }),
-
   computed: {
     ...mapState('popUpMsgs', [
       'showMsg',
