@@ -633,6 +633,7 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
+import byteSize from 'byte-size'
 
 export default {
   name: 'DocumentForm',
@@ -995,7 +996,7 @@ export default {
               if (dataSumSize <= this.dataMaxSize) {
                 resolve()
               } else {
-                const msg = `The total data size exceeds the ${this.dataMaxSize} limit.`
+                const msg = `The total data size exceeds the ${byteSize(this.dataMaxSize)} limit.`
                 reject(msg)
               }
             }
@@ -1096,7 +1097,7 @@ export default {
             this.getDocTitle()
             this.getBreadcrumbs()
             this.getFormData(data.document)
-            this.dataMaxSize = data.max_size
+            this.dataMaxSize = data.max_size - 16384 // 16384 = 16 kb
           } else {
             console.log(data.msg_err)
             this.runShowMsg({ text: data.msg_err, status: 'error' })
