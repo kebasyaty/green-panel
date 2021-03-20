@@ -39,7 +39,7 @@ export default {
 
   actions: {
     // Get a list of documents.
-    ajaxGetDocumentList({ state, commit, rootState }, payload = {}) {
+    ajaxGetDocumentList({ state, commit, dispatch, rootState }, payload = {}) {
       return new Promise((resolve, reject) => {
         if (!state.blockLoadDocs && rootState.serviceList.length > 0) {
           commit('setBlockLoadDocs', true)
@@ -68,8 +68,8 @@ export default {
                 commit('setDocuments', data.documents)
               } else {
                 console.log(data.msg_err)
-                commit('setTextMsg', data.msg_err)
-                commit('setShowMsg', true)
+                dispatch('setTextMsg', data.msg_err)
+                dispatch('setShowMsg', true)
               }
             })
             .catch(error => {
