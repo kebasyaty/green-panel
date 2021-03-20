@@ -1040,7 +1040,7 @@ export default {
                 this.getFormData(data.document)
               } else {
                 console.log(data.msg_err)
-                this.runShowMsg(data.msg_err)
+                this.runShowMsg({ text: data.msg_err, status: 'error' })
               }
             })
             .catch(error => {
@@ -1090,7 +1090,7 @@ export default {
             this.getFormData(data.document)
           } else {
             console.log(data.msg_err)
-            this.runShowMsg(data.msg_err)
+            this.runShowMsg({ text: data.msg_err, status: 'error' })
           }
         })
         .catch(error => {
