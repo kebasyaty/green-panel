@@ -24,7 +24,9 @@ pub use request_handlers::*;
 
 const BRAND: &str = "Сompany Name";
 const SLOGAN: &str = "Brief description of the company.";
-const PAYLOAD_MAX_SIZE: usize = 2097_152; // max payload size is 2mb
+// Default data size for the form - 16384 = ~16 Kb
+// (max payload size is 2097152 = ~2mb)
+const PAYLOAD_MAX_SIZE: usize = 2097_152;
 
 fn admin_file_path(inner_path: &str) -> String {
     format!("./admin/{}", inner_path)
@@ -447,8 +449,7 @@ pub mod request_handlers {
                 "document": document,
                 "is_authenticated": is_authenticated,
                 "msg_err": msg_err,
-                // // 16384 = ~16 Kb (default data size for the form)
-                "max_size": PAYLOAD_MAX_SIZE
+                "max_size": PAYLOAD_MAX_SIZE.clone()
             })))
     }
 }
