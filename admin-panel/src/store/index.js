@@ -9,6 +9,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    brand: '',
+    slogan: '',
     isStart: true,
     isAuthenticated: false,
     username: '..',
