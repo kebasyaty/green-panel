@@ -997,7 +997,8 @@ export default {
               if (dataSumSize <= this.maxTotalFilesSize) {
                 resolve()
               } else {
-                const msg = `The total data size exceeds the ${byteSize(this.maxTotalFilesSize)} limit.`
+                const size = byteSize(this.maxTotalFilesSize)
+                const msg = `The total data size exceeds the ${size.value}${size.unit} limit.`
                 reject(msg)
               }
             }
