@@ -1,7 +1,7 @@
 <template>
   <!-- Pop-up messages -->
   <v-snackbar app top timeout="-1" v-model="compShowMsg">
-    <span class="font-weight-medium" v-html="textMsg"></span>
+    <span :class="`${msgStatus} font-weight-medium`" v-html="textMsg"></span>
     <template v-slot:action="{ attrs }">
       <v-btn icon color="deep-orange" text v-bind="attrs" @click="compShowMsg = false">
         <v-icon>mdi-close</v-icon>
@@ -19,7 +19,8 @@ export default {
   computed: {
     ...mapState('popUpMsgs', [
       'showMsg',
-      'textMsg'
+      'textMsg',
+      'msgStatus'
     ]),
     compShowMsg: {
       get: function () {
@@ -33,8 +34,7 @@ export default {
 
   methods: {
     ...mapMutations('popUpMsgs', [
-      'setShowMsg',
-      'setTextMsg'
+      'setShowMsg'
     ])
   }
 }
