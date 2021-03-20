@@ -34,7 +34,7 @@ export default {
     ]),
     compShowMsg: {
       get: function () {
-        return this.showErrMsg
+        return this.showMsg
       },
       set: function (flag) {
         this.setShowMsg(flag)
