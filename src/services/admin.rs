@@ -449,7 +449,7 @@ pub mod request_handlers {
                 "document": document,
                 "is_authenticated": is_authenticated,
                 "msg_err": msg_err,
-                "max_size": PAYLOAD_MAX_SIZE.clone()
+                "max_size": PAYLOAD_MAX_SIZE
             })))
     }
 }
