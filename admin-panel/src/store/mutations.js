@@ -1,4 +1,10 @@
 export default {
+  setBrand(state, payload) {
+    state.brand = payload
+  },
+  setSlogan(state, payload) {
+    state.slogan = payload
+  },
   setIsStart(state, payload) {
     state.isStart = payload
   },
