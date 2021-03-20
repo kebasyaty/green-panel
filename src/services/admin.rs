@@ -323,6 +323,7 @@ pub mod request_handlers {
 
         // Define the desired model by `model_key` and
         // get an instance of the model in json format (for the administrator)
+        //
         // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ADD A MODEL TO HANDLE THE REQUEST
         if msg_err.is_empty() {
             if model_key == users::User::key() {
@@ -407,6 +408,7 @@ pub mod request_handlers {
         }
 
         // Define the desired model with `model_key` and save/update in the database
+        //
         // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ADD A MODEL TO HANDLE THE REQUEST
         if msg_err.is_empty() {
             if model_key == users::User::key() {
