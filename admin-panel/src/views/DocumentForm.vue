@@ -989,30 +989,36 @@ export default {
             }
             return sum
           }, 0)
-          const checkResolve = (counter) => {
+          let dataSumSize = 0
+          const response = (counter) => {
             if (counter === countFileType) {
-              resolve()
+              if (dataSumSize <= this.dataMaxSize) {
+                resolve()
+              } else {
+                // reject(`x ${this.dataMaxSize}`)
+              }
             }
           }
           let counter = 0
-          checkResolve(counter)
+          response(counter)
           this.fields.forEach(field => {
             if (field.input_type === 'file') {
               const files = document.getElementById(field.id).files
               if (files.length > 0) {
                 const file = files[0]
                 const fileName = file.name
+                dataSumSize += file.size
                 this.toBase64(file).then(
                   data => {
                     newFieldData[field.name] = JSON.stringify({ name: fileName, base64: data })
-                    checkResolve(++counter)
+                    response(++counter)
                   }
                 ).catch(error => {
                   reject(error)
                 })
               } else {
                 newFieldData[field.name] = null
-                checkResolve(++counter)
+                response(++counter)
               }
             }
           })
