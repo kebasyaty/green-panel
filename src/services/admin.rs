@@ -8,6 +8,7 @@ use actix_session::Session;
 use actix_web::{web, Error, HttpResponse, Result};
 
 use futures::StreamExt;
+use humansize::{file_size_opts, FileSize};
 use mongodb::{
     bson::{doc, Bson, Regex},
     options::FindOptions,
@@ -21,7 +22,7 @@ use mango_orm::{QCommon, QPaladins, ToModel, DB_MAP_CLIENT_NAMES, FORM_CACHE};
 pub use configure_urls::*;
 pub use request_handlers::*;
 
-const PAYLOAD_MAX_SIZE: usize = 2048_000; // max payload size is 2mb
+const PAYLOAD_MAX_SIZE: usize = 2097_152; // max payload size is 2mb
 
 fn admin_file_path(inner_path: &str) -> String {
     format!("./admin/{}", inner_path)
@@ -399,8 +400,10 @@ pub mod request_handlers {
             // limit max size of in-memory payload
             if (bytes.len() + chunk.len()) > PAYLOAD_MAX_SIZE {
                 msg_err = format!(
-                    "Data volume exceeds the {} mb limit.",
-                    PAYLOAD_MAX_SIZE as f64 / 1024000_f64
+                    "Data volume exceeds the {} limit.",
+                    PAYLOAD_MAX_SIZE
+                        .file_size(file_size_opts::CONVENTIONAL)
+                        .unwrap()
                 );
                 break;
             }
