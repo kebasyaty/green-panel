@@ -982,6 +982,7 @@ export default {
       const service = this.serviceList[indexService]
       const modelKey = service.collections[indexCollection].model_key
       const newFieldData = Object.assign({}, this.fieldData)
+
       const addFiles = () => {
         return new Promise((resolve, reject) => {
           const countFileType = this.fields.reduce((sum, field) => {
@@ -1026,6 +1027,7 @@ export default {
           })
         })
       }
+
       addFiles().then(
         () => {
           const options = {
