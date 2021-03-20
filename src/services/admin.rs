@@ -447,6 +447,7 @@ pub mod request_handlers {
                 "document": document,
                 "is_authenticated": is_authenticated,
                 "msg_err": msg_err,
+                // // 16384 = ~16 Kb (default data size for the form)
                 "max_size": PAYLOAD_MAX_SIZE
             })))
     }
