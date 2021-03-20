@@ -645,7 +645,8 @@ export default {
     fields: [],
     dynamicSelectionDialog: {},
     delDynItems: [],
-    currValDynItem: { title: null, value: null }
+    currValDynItem: { title: null, value: null },
+    dataMaxSize: 0
   }),
 
   computed: {
@@ -1088,6 +1089,7 @@ export default {
             this.getDocTitle()
             this.getBreadcrumbs()
             this.getFormData(data.document)
+            this.dataMaxSize = data.max_size
           } else {
             console.log(data.msg_err)
             this.runShowMsg({ text: data.msg_err, status: 'error' })
