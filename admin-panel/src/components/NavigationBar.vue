@@ -8,8 +8,8 @@
     <!-- Company name and short description. -->
     <v-list-item>
       <v-list-item-content>
-        <v-list-item-title class="text-h6">Сompany Name</v-list-item-title>
-        <v-list-item-subtitle>Brief description of the company.</v-list-item-subtitle>
+        <v-list-item-title class="text-h6">{{ brand }}</v-list-item-title>
+        <v-list-item-subtitle>{{ slogan }}</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
     <!-- Change the width of the panel. -->
@@ -76,6 +76,8 @@ export default {
 
   computed: {
     ...mapState([
+      'brand',
+      'slogan',
       'openPanelServiceList',
       'panelWidthServiceList',
       'selectedService',
