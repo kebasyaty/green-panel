@@ -111,18 +111,7 @@
       </v-card-actions>
     </v-card>
 
-    <!-- Pop-up error message -->
-    <v-snackbar app top dark timeout="-1" v-model="compShowErrMsg">
-      <span class="font-weight-medium">{{ textErrMsg }}</span>
-      <template v-slot:action="{ attrs }">
-        <v-btn
-          color="pink"
-          text
-          v-bind="attrs"
-          @click="compShowErrMsg = false"
-        >{{ $t('message.18') }}</v-btn>
-      </template>
-    </v-snackbar>
+    <!-- Pop-up messages -->
   </v-container>
 </template>
 
@@ -141,9 +130,7 @@ export default {
 
   computed: {
     ...mapState([
-      'serviceList',
-      'showErrMsg',
-      'textErrMsg'
+      'serviceList'
     ]),
     ...mapState('documentList', [
       'documents',
@@ -166,14 +153,6 @@ export default {
       },
       set: function (text) {
         this.setSearchQuery(text)
-      }
-    },
-    compShowErrMsg: {
-      get: function () {
-        return this.showErrMsg
-      },
-      set: function (flag) {
-        this.setShowErrMsg(flag)
       }
     },
     // Get Title of collection.
@@ -202,8 +181,7 @@ export default {
 
   methods: {
     ...mapMutations([
-      'setSearchQuery',
-      'setShowErrMsg'
+      'setSearchQuery'
     ]),
     ...mapMutations('documentList', [
       'setCurrentPageNumber',
