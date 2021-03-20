@@ -22,6 +22,8 @@ use mango_orm::{QCommon, QPaladins, ToModel, DB_MAP_CLIENT_NAMES, FORM_CACHE};
 pub use configure_urls::*;
 pub use request_handlers::*;
 
+const BRAND: &str = "Сompany Name";
+const SLOGAN: &str = "Brief description of the company.";
 const PAYLOAD_MAX_SIZE: usize = 2097_152; // max payload size is 2mb
 
 fn admin_file_path(inner_path: &str) -> String {
@@ -187,7 +189,9 @@ pub mod request_handlers {
             .json(json!({
                 "service_list": admin_panel::service_list(),
                 "is_authenticated": is_authenticated,
-                "msg_err": msg_err
+                "msg_err": msg_err,
+                "brand": BRAND,
+                "slogan": SLOGAN
             })))
     }
 
