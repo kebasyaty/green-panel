@@ -68,8 +68,7 @@ export default {
                 commit('setDocuments', data.documents)
               } else {
                 console.log(data.msg_err)
-                dispatch('popUpMsgs/setTextMsg', data.msg_err)
-                dispatch('popUpMsgs/setShowMsg', true)
+                dispatch('popUpMsgs/runShowMsg', data.msg_err)
               }
             })
             .catch(error => {
