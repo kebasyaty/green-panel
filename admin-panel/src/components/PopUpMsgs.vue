@@ -20,13 +20,6 @@ export default {
     ...mapState('popUpMsgs', [
       'showMsg',
       'textMsg'
-    ])
-  },
-
-  methods: {
-    ...mapMutations('popUpMsgs', [
-      'setShowMsg',
-      'setTextMsg'
     ]),
     compShowMsg: {
       get: function () {
@@ -36,6 +29,13 @@ export default {
         this.setShowMsg(flag)
       }
     }
+  },
+
+  methods: {
+    ...mapMutations('popUpMsgs', [
+      'setShowMsg',
+      'setTextMsg'
+    ])
   }
 }
 </script>
