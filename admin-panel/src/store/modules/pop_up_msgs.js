@@ -9,15 +9,18 @@ export default {
   getters: {},
 
   mutations: {
-    setShowMsg(state, payload) {
-      state.showMsg = payload
+    setShowMsg(state, flag) {
+      state.showMsg = flag
     },
-    setTextMsg(state, payload) {
-      state.textMsg = payload
+    setTextMsg(state, text) {
+      state.textMsg = text
     }
   },
 
   actions: {
-    //
+    runShowMsg({ state, commit }, text) {
+      commit('setTextMsg', text)
+      commit('setShowMsg', true)
+    }
   }
 }
