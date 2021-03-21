@@ -430,7 +430,7 @@ pub mod request_handlers {
                 let model = serde_json::from_slice::<users::User>(&bytes);
                 if model.is_ok() {
                     let mut model = model?;
-                    model.photo = app_state.to_file(model.photo.clone(), "users");
+                    model.photo = app_state.to_file(model.photo, "admin/users");
                     if let Ok(output_data) = model.save(None, None, None) {
                         document = output_data.json_for_admin().unwrap();
                     } else {
