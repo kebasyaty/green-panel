@@ -433,8 +433,6 @@ pub mod request_handlers {
             let extension = Path::new(name).extension().unwrap().to_str().unwrap();
             let name = format!("{}.{}", Uuid::new_v4(), extension);
             let inner_path = &format!("uploads/users/{}", name)[..];
-            // let path = app_state.get_media_root(inner_path);
-            let url = app_state.get_media_url(inner_path);
             let file_path = Path::new("./media/uploads").join("users").join(name);
             let mut file = File::create(file_path.as_path()).unwrap();
             let dec_base64 = base64::decode(base64).unwrap();
@@ -442,7 +440,7 @@ pub mod request_handlers {
 
             serde_json::to_string(&json!({
                 "path": file_path.to_str().unwrap(),
-                "url": url
+                "url": app_state.get_media_url(inner_path)
             }))
             .unwrap()
         };
