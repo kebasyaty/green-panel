@@ -16,6 +16,7 @@ use mongodb::{
 };
 use serde::Deserialize;
 use serde_json::{json, Value};
+use std::fs;
 use std::fs::File;
 use std::io::Write;
 use std::path::Path;
@@ -436,6 +437,7 @@ pub mod request_handlers {
                 let extension = Path::new(name).extension().unwrap().to_str().unwrap();
                 let name = format!("{}.{}", Uuid::new_v4(), extension);
                 let total_dir = &app_state.get_media_root("uploads")[..];
+                fs::create_dir_all(format!("{}/{}", total_dir, target_dir)).unwrap();
                 let file_path = Path::new(total_dir).join(target_dir).join(name.as_str());
                 let mut file = File::create(file_path.as_path()).unwrap();
                 let base64 = base64::decode(base64).unwrap();
