@@ -36,27 +36,48 @@ impl AppState {
     pub fn get_app_name(&self) -> String {
         self.app_name.clone()
     }
-    // Get media file path
+    // Get url address of directory for media files
+    pub fn get_media_url(&self) -> String {
+        self.media_url.clone()
+    }
+    // Get local address of directory for media files
+    pub fn get_media_root(&self) -> String {
+        self.media_root.clone()
+    }
+    // Get url address of directory for static files
+    pub fn get_static_url(&self) -> String {
+        self.static_url.clone()
+    }
+    // Get local address of directory for static files
+    pub fn get_static_root(&self) -> String {
+        self.static_root.clone()
+    }
+    // Get local address of directory for html files
+    pub fn get_template(&self) -> String {
+        self.templates.clone()
+    }
+
+    // Get media dir/file path
     // Example inner_path: "images/photo.png"
-    pub fn get_media_url(&self, inner_path: &str) -> String {
+    pub fn format_media_url(&self, inner_path: &str) -> String {
         format!("{}{}", self.media_url, inner_path)
     }
     // Example inner_path: "images/photo.png"
-    pub fn get_media_root(&self, inner_path: &str) -> String {
+    pub fn format_media_root(&self, inner_path: &str) -> String {
         format!("{}{}", self.media_root, inner_path)
     }
-    // Get static file path
+    // Get static dir/file path
     // Example inner_path: "favicons/favicon.ico"
-    pub fn get_static_url(&self, inner_path: &str) -> String {
+    pub fn format_static_url(&self, inner_path: &str) -> String {
         format!("{}{}", self.static_url, inner_path)
     }
     // Example inner_path: "favicons/favicon.ico"
-    pub fn get_static_root(&self, inner_path: &str) -> String {
+    pub fn format_static_root(&self, inner_path: &str) -> String {
         format!("{}{}", self.static_root, inner_path)
     }
-    // Get template file path
+    // Get template dir/file path
     // Example inner_path: "index.html"
-    pub fn get_template(&self, inner_path: &str) -> String {
+    pub fn format_template(&self, inner_path: &str) -> String {
         format!("{}{}", self.templates, inner_path)
     }
 }
