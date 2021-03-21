@@ -444,7 +444,7 @@ pub mod request_handlers {
                 return Some(
                     serde_json::to_string(&json!({
                         "path": file_path.to_str().unwrap(),
-                        "url": app_state.get_media_url(&format!("uploads/users/{}", name)[..])
+                        "url": app_state.get_media_url(&format!("uploads/{}/{}", target_dir, name)[..])
                     }))
                     .unwrap(),
                 );
