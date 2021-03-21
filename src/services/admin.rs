@@ -457,7 +457,7 @@ pub mod request_handlers {
                 // ---------------------------------------------------------------------------------
                 let model = serde_json::from_slice::<users::User>(&bytes);
                 if model.is_ok() {
-                    let mut model = model.unwrap();
+                    let mut model = model?;
                     model.photo = to_img(model.photo);
                     if let Ok(output_data) = model.save(None, None, None) {
                         document = output_data.json_for_admin().unwrap();
