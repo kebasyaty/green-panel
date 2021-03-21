@@ -7,7 +7,6 @@ use actix_files::NamedFile;
 use actix_session::Session;
 use actix_web::{web, Error, HttpResponse, Result};
 
-use base64;
 use futures::StreamExt;
 use humansize::{file_size_opts, FileSize};
 use mongodb::{
@@ -16,11 +15,6 @@ use mongodb::{
 };
 use serde::Deserialize;
 use serde_json::{json, Value};
-use std::fs;
-use std::fs::File;
-use std::io::Write;
-use std::path::Path;
-use uuid::Uuid;
 
 use crate::models::{registration::admin_panel, services::admin::users};
 use mango_orm::{QCommon, QPaladins, ToModel, DB_MAP_CLIENT_NAMES, FORM_CACHE};
@@ -426,37 +420,6 @@ pub mod request_handlers {
             bytes.extend_from_slice(&chunk);
         }
 
-        // Preparing data for file field
-        let to_file = |source: Option<String>, target_dir: &str| -> Option<String> {
-            if let Some(source) = source {
-                let data =
-                    serde_json::from_str::<serde_json::map::Map<String, Value>>(source.as_str())
-                        .unwrap();
-                let file_name = data.get("name").unwrap().as_str().unwrap();
-                let base64 = data.get("base64").unwrap().as_str().unwrap();
-                let extension = Path::new(file_name).extension().unwrap().to_str().unwrap();
-                let file_name = format!("{}.{}", Uuid::new_v4(), extension);
-                let total_dir = &app_state.format_media_root("uploads")[..];
-                fs::create_dir_all(format!("{}/{}", total_dir, target_dir)).unwrap();
-                let file_path = Path::new(total_dir)
-                    .join(target_dir)
-                    .join(file_name.as_str());
-                let mut file = File::create(file_path.as_path()).unwrap();
-                let base64 = base64::decode(base64).unwrap();
-                file.write_all(&base64[..]).unwrap();
-
-                return Some(
-                    serde_json::to_string(&json!({
-                        "path": file_path.to_str().unwrap(),
-                        "url": app_state.format_media_url(&format!("uploads/{}/{}", target_dir, file_name)[..])
-                    }))
-                    .unwrap(),
-                );
-            }
-            None
-        };
-        //
-
         // Define the desired model with `model_key` and save/update in the database
         //
         // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ADD A MODEL TO HANDLE THE REQUEST
@@ -467,7 +430,7 @@ pub mod request_handlers {
                 let model = serde_json::from_slice::<users::User>(&bytes);
                 if model.is_ok() {
                     let mut model = model?;
-                    model.photo = to_file(model.photo.clone(), "users");
+                    model.photo = app_state.to_file(model.photo.clone(), "users");
                     if let Ok(output_data) = model.save(None, None, None) {
                         document = output_data.json_for_admin().unwrap();
                     } else {

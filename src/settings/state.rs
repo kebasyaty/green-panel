@@ -1,6 +1,14 @@
 //! # Application state
 //!
 
+use base64;
+use serde_json::{json, Value};
+use std::fs;
+use std::fs::File;
+use std::io::Write;
+use std::path::Path;
+use uuid::Uuid;
+
 use crate::settings::general::{
     DEBUG, MEDIA_ROOT, MEDIA_URL, PROJECT_NAME, STATIC_ROOT, STATIC_URL, TEMPLATES,
 };
@@ -28,6 +36,7 @@ impl AppState {
             templates: TEMPLATES.to_string(),
         }
     }
+
     // Get status debug
     pub fn get_debug(&self) -> bool {
         self.debug
@@ -79,5 +88,34 @@ impl AppState {
     // Example inner_path: "index.html"
     pub fn format_template(&self, inner_path: &str) -> String {
         format!("{}{}", self.templates, inner_path)
+    }
+
+    // Preparing data for file field
+    pub fn to_file(&self, source: Option<String>, target_dir: &str) -> Option<String> {
+        if let Some(source) = source {
+            let data = serde_json::from_str::<serde_json::map::Map<String, Value>>(source.as_str())
+                .unwrap();
+            let file_name = data.get("name").unwrap().as_str().unwrap();
+            let base64 = data.get("base64").unwrap().as_str().unwrap();
+            let extension = Path::new(file_name).extension().unwrap().to_str().unwrap();
+            let file_name = format!("{}.{}", Uuid::new_v4(), extension);
+            let total_dir = &self.format_media_root("uploads")[..];
+            fs::create_dir_all(format!("{}/{}", total_dir, target_dir)).unwrap();
+            let file_path = Path::new(total_dir)
+                .join(target_dir)
+                .join(file_name.as_str());
+            let mut file = File::create(file_path.as_path()).unwrap();
+            let base64 = base64::decode(base64).unwrap();
+            file.write_all(&base64[..]).unwrap();
+
+            return Some(
+                    serde_json::to_string(&json!({
+                        "path": file_path.to_str().unwrap(),
+                        "url": self.format_media_url(&format!("uploads/{}/{}", target_dir, file_name)[..])
+                    }))
+                    .unwrap(),
+                );
+        }
+        None
     }
 }
