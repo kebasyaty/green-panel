@@ -426,7 +426,7 @@ pub mod request_handlers {
         }
 
         //
-        let to_img = |source: Option<String>| -> String {
+        let to_img = |source: Option<String>| -> Option<String> {
             let data = serde_json::to_value(source.unwrap()).unwrap();
             let name = data.get("name").unwrap().as_str().unwrap();
             let base64 = data.get("base64").unwrap().as_str().unwrap();
@@ -438,11 +438,13 @@ pub mod request_handlers {
             let dec_base64 = base64::decode(base64).unwrap();
             file.write_all(&dec_base64[..]).unwrap();
 
-            serde_json::to_string(&json!({
-                "path": file_path.to_str().unwrap(),
-                "url": app_state.get_media_url(inner_path)
-            }))
-            .unwrap()
+            Some(
+                serde_json::to_string(&json!({
+                    "path": file_path.to_str().unwrap(),
+                    "url": app_state.get_media_url(inner_path)
+                }))
+                .unwrap(),
+            )
         };
         //
 
@@ -455,7 +457,9 @@ pub mod request_handlers {
                 // ---------------------------------------------------------------------------------
                 let model = serde_json::from_slice::<users::User>(&bytes);
                 if model.is_ok() {
-                    if let Ok(output_data) = model?.save(None, None, None) {
+                    let mut model = model.unwrap();
+                    model.photo = to_img(model.photo);
+                    if let Ok(output_data) = model.save(None, None, None) {
                         document = output_data.json_for_admin().unwrap();
                     } else {
                         msg_err = "Failed to save document to database.".to_string();
