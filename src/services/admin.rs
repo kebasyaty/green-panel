@@ -436,7 +436,7 @@ pub mod request_handlers {
                 let base64 = data.get("base64").unwrap().as_str().unwrap();
                 let extension = Path::new(file_name).extension().unwrap().to_str().unwrap();
                 let file_name = format!("{}.{}", Uuid::new_v4(), extension);
-                let total_dir = &app_state.get_media_root("uploads")[..];
+                let total_dir = &app_state.format_media_root("uploads")[..];
                 fs::create_dir_all(format!("{}/{}", total_dir, target_dir)).unwrap();
                 let file_path = Path::new(total_dir)
                     .join(target_dir)
@@ -448,7 +448,7 @@ pub mod request_handlers {
                 return Some(
                     serde_json::to_string(&json!({
                         "path": file_path.to_str().unwrap(),
-                        "url": app_state.get_media_url(&format!("uploads/{}/{}", target_dir, file_name)[..])
+                        "url": app_state.format_media_url(&format!("uploads/{}/{}", target_dir, file_name)[..])
                     }))
                     .unwrap(),
                 );

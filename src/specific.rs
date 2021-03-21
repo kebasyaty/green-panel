@@ -15,7 +15,7 @@ pub mod request_handlers {
     use super::*;
     // Favicon
     pub async fn favicon(app_state: web::Data<settings::AppState>) -> Result<NamedFile> {
-        let path = app_state.get_static_root("favicons/favicon.ico");
+        let path = app_state.format_static_root("favicons/favicon.ico");
         Ok(NamedFile::open(path)?)
     }
     // Robots
@@ -28,12 +28,12 @@ pub mod request_handlers {
     }
     // Sitemap
     pub async fn sitemap(app_state: web::Data<settings::AppState>) -> Result<NamedFile> {
-        let path = app_state.get_template("sitemap.xml");
+        let path = app_state.format_template("sitemap.xml");
         Ok(NamedFile::open(path)?)
     }
     // Page 404
     pub async fn page_404(app_state: web::Data<settings::AppState>) -> Result<NamedFile> {
-        let path = app_state.get_template("404.html");
+        let path = app_state.format_template("404.html");
         Ok(NamedFile::open(path)?.set_status_code(http::StatusCode::NOT_FOUND))
     }
 }

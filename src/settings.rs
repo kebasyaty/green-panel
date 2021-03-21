@@ -62,18 +62,18 @@ mod tests {
         // Testing of methods
         assert_eq!(app_state.get_debug(), DEBUG);
         assert_eq!(app_state.get_app_name(), "Project Name");
-        assert_eq!(app_state.get_media_url("img.jpg"), "/media/img.jpg");
-        assert_eq!(app_state.get_media_root("img.jpg"), "./media/img.jpg");
+        assert_eq!(app_state.format_media_url("img.jpg"), "/media/img.jpg");
+        assert_eq!(app_state.format_media_root("img.jpg"), "./media/img.jpg");
         assert_eq!(
-            app_state.get_static_url("css/style.css"),
+            app_state.format_static_url("css/style.css"),
             "/static/css/style.css"
         );
         assert_eq!(
-            app_state.get_static_root("css/style.css"),
+            app_state.format_static_root("css/style.css"),
             "./static/css/style.css"
         );
         assert_eq!(
-            app_state.get_template("index.html"),
+            app_state.format_template("index.html"),
             "./templates/index.html"
         );
     }
