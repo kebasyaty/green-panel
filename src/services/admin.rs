@@ -15,12 +15,16 @@ use mongodb::{
 };
 use serde::Deserialize;
 use serde_json::{json, Value};
+use std::path::Path;
+use uuid::Uuid;
 
 use crate::models::{registration::admin_panel, services::admin::users};
 use mango_orm::{QCommon, QPaladins, ToModel, DB_MAP_CLIENT_NAMES, FORM_CACHE};
 
 pub use configure_urls::*;
 pub use request_handlers::*;
+
+use crate::settings;
 
 const BRAND: &str = "Сompany Name";
 const SLOGAN: &str = "Brief description of the company.";
@@ -381,6 +385,7 @@ pub mod request_handlers {
         session: Session,
         mut payload: web::Payload,
         path: web::Path<QuerySaveDoc>,
+        app_state: web::Data<settings::AppState>,
     ) -> Result<HttpResponse, Error> {
         //
         let mut is_authenticated = false;
@@ -416,6 +421,25 @@ pub mod request_handlers {
             }
             bytes.extend_from_slice(&chunk);
         }
+
+        //
+        let to_img = |source: Option<String>| -> String {
+            let data = serde_json::to_value(source.unwrap()).unwrap();
+            let name = data.get("name").unwrap().as_str().unwrap();
+            let base64 = data.get("base64").unwrap().as_str().unwrap();
+            let extension = Path::new(name).extension().unwrap().to_str().unwrap();
+            let name = format!("{}.{}", Uuid::new_v4(), extension);
+            let inner_path = &format!("uploads/users/{}", name)[..];
+            let path = app_state.get_media_root(inner_path);
+            let url = app_state.get_media_url(inner_path);
+
+            serde_json::to_string(&json!({
+                "path": path,
+                "url": url
+            }))
+            .unwrap()
+        };
+        //
 
         // Define the desired model with `model_key` and save/update in the database
         //
