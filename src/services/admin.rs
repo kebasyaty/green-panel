@@ -7,6 +7,7 @@ use actix_files::NamedFile;
 use actix_session::Session;
 use actix_web::{web, Error, HttpResponse, Result};
 
+use base64;
 use futures::StreamExt;
 use humansize::{file_size_opts, FileSize};
 use mongodb::{
@@ -15,6 +16,8 @@ use mongodb::{
 };
 use serde::Deserialize;
 use serde_json::{json, Value};
+use std::fs::File;
+use std::io::Write;
 use std::path::Path;
 use uuid::Uuid;
 
@@ -432,6 +435,10 @@ pub mod request_handlers {
             let inner_path = &format!("uploads/users/{}", name)[..];
             let path = app_state.get_media_root(inner_path);
             let url = app_state.get_media_url(inner_path);
+            let file_path = Path::new("./media/uploads").join("users").join(name);
+            let mut file = File::create(file_path.as_path()).unwrap();
+            let dec_base64 = base64::decode(base64).unwrap();
+            file.write_all(&dec_base64[..]).unwrap();
 
             serde_json::to_string(&json!({
                 "path": path,
