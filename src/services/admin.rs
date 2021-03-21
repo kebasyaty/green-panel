@@ -427,7 +427,7 @@ pub mod request_handlers {
         }
 
         //
-        let to_img = |source: Option<String>, target_dir: &str| -> Option<String> {
+        let to_file = |source: Option<String>, target_dir: &str| -> Option<String> {
             if let Some(source) = source {
                 let data =
                     serde_json::from_str::<serde_json::map::Map<String, Value>>(source.as_str())
@@ -467,7 +467,7 @@ pub mod request_handlers {
                 let model = serde_json::from_slice::<users::User>(&bytes);
                 if model.is_ok() {
                     let mut model = model?;
-                    model.photo = to_img(model.photo.clone(), "users");
+                    model.photo = to_file(model.photo.clone(), "users");
                     if let Ok(output_data) = model.save(None, None, None) {
                         document = output_data.json_for_admin().unwrap();
                     } else {
