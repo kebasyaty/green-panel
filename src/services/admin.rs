@@ -432,13 +432,15 @@ pub mod request_handlers {
                 let data =
                     serde_json::from_str::<serde_json::map::Map<String, Value>>(source.as_str())
                         .unwrap();
-                let name = data.get("name").unwrap().as_str().unwrap();
+                let file_name = data.get("name").unwrap().as_str().unwrap();
                 let base64 = data.get("base64").unwrap().as_str().unwrap();
-                let extension = Path::new(name).extension().unwrap().to_str().unwrap();
-                let name = format!("{}.{}", Uuid::new_v4(), extension);
+                let extension = Path::new(file_name).extension().unwrap().to_str().unwrap();
+                let file_name = format!("{}.{}", Uuid::new_v4(), extension);
                 let total_dir = &app_state.get_media_root("uploads")[..];
                 fs::create_dir_all(format!("{}/{}", total_dir, target_dir)).unwrap();
-                let file_path = Path::new(total_dir).join(target_dir).join(name.as_str());
+                let file_path = Path::new(total_dir)
+                    .join(target_dir)
+                    .join(file_name.as_str());
                 let mut file = File::create(file_path.as_path()).unwrap();
                 let base64 = base64::decode(base64).unwrap();
                 file.write_all(&base64[..]).unwrap();
@@ -446,7 +448,7 @@ pub mod request_handlers {
                 return Some(
                     serde_json::to_string(&json!({
                         "path": file_path.to_str().unwrap(),
-                        "url": app_state.get_media_url(&format!("uploads/{}/{}", target_dir, name)[..])
+                        "url": app_state.get_media_url(&format!("uploads/{}/{}", target_dir, file_name)[..])
                     }))
                     .unwrap(),
                 );
