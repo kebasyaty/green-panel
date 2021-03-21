@@ -428,7 +428,9 @@ pub mod request_handlers {
         //
         let to_img = |source: Option<String>| -> Option<String> {
             if let Some(source) = source {
-                let data = serde_json::to_value(source).unwrap();
+                let data =
+                    serde_json::from_str::<serde_json::map::Map<String, Value>>(source.as_str())
+                        .unwrap();
                 let name = data.get("name").unwrap().as_str().unwrap();
                 let base64 = data.get("base64").unwrap().as_str().unwrap();
                 let extension = Path::new(name).extension().unwrap().to_str().unwrap();
