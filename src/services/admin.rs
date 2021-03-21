@@ -438,8 +438,8 @@ pub mod request_handlers {
                 let total_dir = &app_state.get_media_root("uploads")[..];
                 let file_path = Path::new(total_dir).join(target_dir).join(name.as_str());
                 let mut file = File::create(file_path.as_path()).unwrap();
-                let dec_base64 = base64::decode(base64).unwrap();
-                file.write_all(&dec_base64[..]).unwrap();
+                let base64 = base64::decode(base64).unwrap();
+                file.write_all(&base64[..]).unwrap();
 
                 return Some(
                     serde_json::to_string(&json!({
