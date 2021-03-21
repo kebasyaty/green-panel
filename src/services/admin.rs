@@ -426,7 +426,7 @@ pub mod request_handlers {
         }
 
         //
-        let to_img = |source: Option<String>| -> Option<String> {
+        let to_img = |source: Option<String>, target_dir: &str| -> Option<String> {
             if let Some(source) = source {
                 let data =
                     serde_json::from_str::<serde_json::map::Map<String, Value>>(source.as_str())
@@ -435,8 +435,8 @@ pub mod request_handlers {
                 let base64 = data.get("base64").unwrap().as_str().unwrap();
                 let extension = Path::new(name).extension().unwrap().to_str().unwrap();
                 let name = format!("{}.{}", Uuid::new_v4(), extension);
-                let inner_path = &format!("uploads/users/{}", name)[..];
-                let file_path = Path::new("./media/uploads").join("users").join(name);
+                let total_dir = &app_state.get_media_root("uploads")[..];
+                let file_path = Path::new(total_dir).join(target_dir).join(name.as_str());
                 let mut file = File::create(file_path.as_path()).unwrap();
                 let dec_base64 = base64::decode(base64).unwrap();
                 file.write_all(&dec_base64[..]).unwrap();
@@ -444,7 +444,7 @@ pub mod request_handlers {
                 return Some(
                     serde_json::to_string(&json!({
                         "path": file_path.to_str().unwrap(),
-                        "url": app_state.get_media_url(inner_path)
+                        "url": app_state.get_media_url(&format!("uploads/users/{}", name)[..])
                     }))
                     .unwrap(),
                 );
@@ -463,7 +463,7 @@ pub mod request_handlers {
                 let model = serde_json::from_slice::<users::User>(&bytes);
                 if model.is_ok() {
                     let mut model = model?;
-                    model.photo = to_img(model.photo.clone());
+                    model.photo = to_img(model.photo.clone(), "users");
                     if let Ok(output_data) = model.save(None, None, None) {
                         document = output_data.json_for_admin().unwrap();
                     } else {
