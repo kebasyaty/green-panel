@@ -57,7 +57,7 @@ impl AppState {
         self.templates.clone()
     }
 
-    // Get media dir/file path
+    // Get media file path
     // Example inner_path: "images/photo.png"
     pub fn format_media_url(&self, inner_path: &str) -> String {
         format!("{}{}", self.media_url, inner_path)
@@ -66,7 +66,7 @@ impl AppState {
     pub fn format_media_root(&self, inner_path: &str) -> String {
         format!("{}{}", self.media_root, inner_path)
     }
-    // Get static dir/file path
+    // Get static file path
     // Example inner_path: "favicons/favicon.ico"
     pub fn format_static_url(&self, inner_path: &str) -> String {
         format!("{}{}", self.static_url, inner_path)
@@ -75,7 +75,7 @@ impl AppState {
     pub fn format_static_root(&self, inner_path: &str) -> String {
         format!("{}{}", self.static_root, inner_path)
     }
-    // Get template dir/file path
+    // Get template file path
     // Example inner_path: "index.html"
     pub fn format_template(&self, inner_path: &str) -> String {
         format!("{}{}", self.templates, inner_path)
