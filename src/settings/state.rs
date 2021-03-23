@@ -97,6 +97,8 @@ impl AppState {
                 .unwrap();
             let file_name = data.get("name").unwrap().as_str().unwrap();
             let base64 = data.get("base64").unwrap().as_str().unwrap();
+            let is_delete = data.get("is_delete").unwrap().as_bool().unwrap();
+            //
             let extension = Path::new(file_name).extension().unwrap().to_str().unwrap();
             let file_name = format!("{}.{}", Uuid::new_v4(), extension);
             let total_dir = &self.format_media_root("uploads")[..];
@@ -111,7 +113,8 @@ impl AppState {
             return Some(
                     serde_json::to_string(&json!({
                         "path": file_path.to_str().unwrap(),
-                        "url": self.format_media_url(&format!("uploads/{}/{}", target_dir, file_name)[..])
+                        "url": self.format_media_url(&format!("uploads/{}/{}", target_dir, file_name)[..]),
+                        "is_delete": is_delete
                     }))
                     .unwrap(),
                 );
