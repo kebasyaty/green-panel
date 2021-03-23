@@ -939,6 +939,10 @@ export default {
             })
             dynamicSelectionDialog[field.name] = false
             break
+          case 'inputFile':
+            break
+          case 'inputImage':
+            break
         }
       })
 
