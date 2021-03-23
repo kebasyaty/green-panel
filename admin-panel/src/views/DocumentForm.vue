@@ -719,6 +719,9 @@ export default {
         case 'rangeF64':
           result = 'arrow-split-vertical'
           break
+        case 'inputFile':
+          result = ''
+          break
         case 'inputImage':
           result = 'camera-outline'
           break
