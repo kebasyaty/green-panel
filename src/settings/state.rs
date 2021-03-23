@@ -91,6 +91,7 @@ impl AppState {
     }
 
     // Preparing data (json-line) for file field
+    // Example:
     // from "{"name":"name.jpg","base64":"...","is_delete":false}"
     // to "{"path":"./path/.name.jpg","url":"/path/name.jpg","is_delete":false}"
     pub fn to_file(&self, source: Option<String>, target_dir: &str) -> Option<String> {
