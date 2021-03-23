@@ -249,12 +249,19 @@
 
                 <!-- File information -->
                 <div v-if="['inputFile'].includes(field.widget)">
-                  <v-btn :href="fieldData[field.name].url" target="_blank"></v-btn>
+                  <v-btn
+                    :href="fieldData[field.name].url"
+                    target="_blank"
+                  >{{ fieldData[field.name].url }}</v-btn>
                 </div>
 
                 <!-- Image thumbnail -->
                 <div v-if="['inputImage'].includes(field.widget)">
-                  <v-btn :href="fieldData[field.name].url" target="_blank"></v-btn>
+                  <v-btn
+                    :href="fieldData[field.name].url"
+                    target="_blank"
+                  >{{ fieldData[field.name].url }}</v-btn>
+                </div>
                 </div>
 
                 <!-- File fields -->
