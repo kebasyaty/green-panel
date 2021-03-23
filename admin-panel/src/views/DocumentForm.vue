@@ -1013,7 +1013,11 @@ export default {
                 dataSumSize += file.size
                 this.toBase64(file).then(
                   data => {
-                    newFieldData[field.name] = JSON.stringify({ name: fileName, base64: data })
+                    newFieldData[field.name] = JSON.stringify({
+                      name: fileName,
+                      base64: data,
+                      is_delete: false
+                    })
                     response(++counter)
                   }
                 ).catch(error => {
