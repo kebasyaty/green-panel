@@ -253,7 +253,9 @@
                     :href="fieldData[field.name].url"
                     target="_blank"
                   >{{ fieldData[field.name].url }}</v-btn>
-                  <v-chip label>{{ `${$t('message.28')}: ${filesize(fieldData[field.name].size)}` }}</v-chip>
+                  <v-chip
+                    label
+                  >{{ `${$t('message.28')}: ${humanSize(fieldData[field.name].size)}` }}</v-chip>
                 </div>
 
                 <!-- Image thumbnail -->
@@ -263,7 +265,9 @@
                     :href="fieldData[field.name].url"
                     target="_blank"
                   >{{ fieldData[field.name].url }}</v-btn>
-                  <v-chip label>{{ `${$t('message.28')}: ${filesize(fieldData[field.name].size)}` }}</v-chip>
+                  <v-chip
+                    label
+                  >{{ `${$t('message.28')}: ${humanSize(fieldData[field.name].size)}` }}</v-chip>
                 </div>
 
                 <!-- File fields -->
@@ -692,6 +696,10 @@ export default {
     // Router - Go back one step.
     goBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push({ name: 'home' })
+    },
+    // Get human readable version of file size.
+    humanSize(size) {
+      return filesize(size)
     },
     // Get icon of field.
     getFieldIcon(widget) {
