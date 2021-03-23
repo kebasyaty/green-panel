@@ -3,10 +3,9 @@
 
 use base64;
 use serde_json::{json, Value};
-use std::fs;
-use std::fs::File;
 use std::io::Write;
 use std::path::Path;
+use std::{fs, fs::File};
 use uuid::Uuid;
 
 use crate::settings::general::{
@@ -96,12 +95,13 @@ impl AppState {
     // to "{"path":"./path/.name.jpg","url":"/path/name.jpg","is_delete":false}"
     pub fn to_file(&self, source: Option<String>, target_dir: &str) -> Option<String> {
         if let Some(source) = source {
+            // Extract data from json string.
             let data = serde_json::from_str::<serde_json::map::Map<String, Value>>(source.as_str())
                 .unwrap();
             let file_name = data.get("name").unwrap().as_str().unwrap();
             let base64 = data.get("base64").unwrap().as_str().unwrap();
             let is_delete = data.get("is_delete").unwrap().as_bool().unwrap();
-            //
+            // Create file from base64 and save it.
             let extension = Path::new(file_name).extension().unwrap().to_str().unwrap();
             let file_name = format!("{}.{}", Uuid::new_v4(), extension);
             let total_dir = &self.format_media_root("uploads")[..];
@@ -112,7 +112,7 @@ impl AppState {
             let mut file = File::create(file_path.as_path()).unwrap();
             let base64 = base64::decode(base64).unwrap();
             file.write_all(&base64[..]).unwrap();
-
+            //
             return Some(
                     serde_json::to_string(&json!({
                         "path": file_path.to_str().unwrap(),
@@ -122,6 +122,7 @@ impl AppState {
                     .unwrap(),
                 );
         }
+        //
         None
     }
 }
