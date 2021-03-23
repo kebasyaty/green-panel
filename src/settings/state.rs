@@ -93,11 +93,12 @@ impl AppState {
     // Example:
     // from "{"name":"name.jpg","base64":"...","is_delete":false}"
     // to "{"path":"./path/.name.jpg","url":"/path/name.jpg","is_delete":false}"
-    pub fn to_file(&self, source: Option<String>, target_dir: &str) -> Option<String> {
-        if let Some(source) = source {
+    pub fn to_file(&self, json_line: Option<String>, target_dir: &str) -> Option<String> {
+        if let Some(json_line) = json_line {
             // Extract data from json string.
-            let data = serde_json::from_str::<serde_json::map::Map<String, Value>>(source.as_str())
-                .unwrap();
+            let data =
+                serde_json::from_str::<serde_json::map::Map<String, Value>>(json_line.as_str())
+                    .unwrap();
             let file_name = data.get("name").unwrap().as_str().unwrap();
             let base64 = data.get("base64").unwrap().as_str().unwrap();
             let is_delete = data.get("is_delete").unwrap().as_bool().unwrap();
