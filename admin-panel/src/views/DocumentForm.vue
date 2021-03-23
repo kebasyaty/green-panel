@@ -253,6 +253,7 @@
                   show-size
                   :ref="field.name"
                   v-if="['inputFile'].includes(field.widget)"
+                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                   :id="field.id"
                   :type="field.input_type"
                   :name="field.name"
