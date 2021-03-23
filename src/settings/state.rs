@@ -90,7 +90,9 @@ impl AppState {
         format!("{}{}", self.templates, inner_path)
     }
 
-    // Preparing data for file field
+    // Preparing data (json-line) for file field
+    // from "{"name":"name.jpg","base64":"...","is_delete":false}"
+    // to "{"path":"./path/.name.jpg","url":"/path/name.jpg","is_delete":false}"
     pub fn to_file(&self, source: Option<String>, target_dir: &str) -> Option<String> {
         if let Some(source) = source {
             let data = serde_json::from_str::<serde_json::map::Map<String, Value>>(source.as_str())
