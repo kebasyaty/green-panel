@@ -720,7 +720,7 @@ export default {
           result = 'arrow-split-vertical'
           break
         case 'inputFile':
-          result = ''
+          result = 'file-document-outline'
           break
         case 'inputImage':
           result = 'camera-outline'
