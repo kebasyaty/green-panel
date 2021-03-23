@@ -258,6 +258,7 @@
 
                 <!-- Image thumbnail -->
                 <div v-if="['inputImage'].includes(field.widget)">
+                  <v-img height="60" :src="fieldData[field.name].url"></v-img>
                   <v-btn
                     :href="fieldData[field.name].url"
                     target="_blank"
