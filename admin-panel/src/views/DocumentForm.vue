@@ -940,8 +940,6 @@ export default {
             dynamicSelectionDialog[field.name] = false
             break
           case 'inputFile':
-            fieldData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : {}
-            break
           case 'inputImage':
             fieldData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : {}
             break
