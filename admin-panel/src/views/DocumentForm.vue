@@ -247,6 +247,12 @@
                   :class="field.css_classes"
                 ></v-checkbox>
 
+                <!-- File information -->
+                <div v-if="['inputFile'].includes(field.widget)"></div>
+
+                <!-- Image thumbnail -->
+                <div v-if="['inputImage'].includes(field.widget)"></div>
+
                 <!-- File fields -->
                 <v-file-input
                   class="mt-0 pt-1"
