@@ -253,6 +253,7 @@
                     :href="fieldData[field.name].url"
                     target="_blank"
                   >{{ fieldData[field.name].url }}</v-btn>
+                    <v-chip label>{{ `${$t('message.28')}: ${filesize(fieldData[field.name].size)}` }}</v-chip>
                 </div>
 
                 <!-- Image thumbnail -->
@@ -261,6 +262,7 @@
                     :href="fieldData[field.name].url"
                     target="_blank"
                   >{{ fieldData[field.name].url }}</v-btn>
+                  <v-chip label>{{ `${$t('message.28')}: ${filesize(fieldData[field.name].size)}` }}</v-chip>
                 </div>
                 </div>
 
