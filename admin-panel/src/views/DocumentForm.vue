@@ -1065,7 +1065,7 @@ export default {
                     newFieldData[field.name] = JSON.stringify({
                       name: fileName,
                       base64: data,
-                      is_delete: false
+                      is_delete: this.fieldData[field.name].is_delete
                     })
                     response(++counter)
                   }
