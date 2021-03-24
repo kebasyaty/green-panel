@@ -260,7 +260,7 @@
                   >{{ fieldData[field.name].url }}</v-btn>
                   <v-card-subtitle
                     class="pa-0"
-                  >{{ `${$t('message.28')}: ${humanSize(fieldData[field.name].size)}` }}</v-card-subtitle>
+                  >{{ `${$t('message.28')}: ${humanFileSize(fieldData[field.name].size)}` }}</v-card-subtitle>
                   <v-checkbox
                     dense
                     hide-details
@@ -285,7 +285,7 @@
                   >{{ fieldData[field.name].url }}</v-btn>
                   <v-card-subtitle
                     class="pa-0"
-                  >{{ `${$t('message.28')}: ${humanSize(fieldData[field.name].size)}` }}</v-card-subtitle>
+                  >{{ `${$t('message.28')}: ${humanFileSize(fieldData[field.name].size)}` }}</v-card-subtitle>
                   <v-checkbox
                     dense
                     hide-details
@@ -682,7 +682,6 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
-import filesize from 'filesize'
 
 export default {
   name: 'DocumentForm',
@@ -723,8 +722,9 @@ export default {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push({ name: 'home' })
     },
     // Get human readable version of file size.
-    humanSize(size) {
-      return filesize(size)
+    humanFileSize(size) {
+      var i = Math.floor(Math.log(size) / Math.log(1024))
+      return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i]
     },
     // Get icon of field.
     getFieldIcon(widget) {
@@ -1058,7 +1058,7 @@ export default {
               if (dataSumSize <= this.maxTotalFilesSize) {
                 resolve()
               } else {
-                const msg = `The total data size exceeds the ${this.humanSize(this.maxTotalFilesSize)} limit.`
+                const msg = `The total data size exceeds the ${this.humanFileSize(this.maxTotalFilesSize)} limit.`
                 reject(msg)
               }
             }
