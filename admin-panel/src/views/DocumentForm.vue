@@ -251,7 +251,7 @@
                 <div v-if="['inputFile'].includes(field.widget)">
                   <v-btn
                     text
-                    x-small
+                    small
                     class="text-lowercase px-0"
                     color="primary"
                     :href="fieldData[field.name].url"
@@ -268,7 +268,7 @@
                   <v-img contain :src="fieldData[field.name].url" height="60" position="left"></v-img>
                   <v-btn
                     text
-                    x-small
+                    small
                     class="text-lowercase px-0"
                     color="primary"
                     :href="fieldData[field.name].url"
