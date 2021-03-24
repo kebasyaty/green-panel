@@ -252,11 +252,14 @@
                   <v-btn
                     text
                     x-small
+                    class="px-0"
                     color="primary"
                     :href="fieldData[field.name].url"
                     target="_blank"
                   >{{ fieldData[field.name].url }}</v-btn>
-                  <v-card-subtitle>{{ `${$t('message.28')}: ${humanSize(fieldData[field.name].size)}` }}</v-card-subtitle>
+                  <v-card-subtitle
+                    class="pa-0"
+                  >{{ `${$t('message.28')}: ${humanSize(fieldData[field.name].size)}` }}</v-card-subtitle>
                 </div>
 
                 <!-- Image thumbnail -->
@@ -265,11 +268,14 @@
                   <v-btn
                     text
                     x-small
+                    class="px-0"
                     color="primary"
                     :href="fieldData[field.name].url"
                     target="_blank"
                   >{{ fieldData[field.name].url }}</v-btn>
-                  <v-card-subtitle>{{ `${$t('message.28')}: ${humanSize(fieldData[field.name].size)}` }}</v-card-subtitle>
+                  <v-card-subtitle
+                    class="pa-0"
+                  >{{ `${$t('message.28')}: ${humanSize(fieldData[field.name].size)}` }}</v-card-subtitle>
                 </div>
 
                 <!-- File fields -->
