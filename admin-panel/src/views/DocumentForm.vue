@@ -256,7 +256,7 @@
                     :href="fieldData[field.name].url"
                     target="_blank"
                   >{{ fieldData[field.name].url }}</v-btn>
-                  <v-subheader>{{ `${$t('message.28')}: ${humanSize(fieldData[field.name].size)}` }}</v-subheader>
+                  <v-card-subtitle>{{ `${$t('message.28')}: ${humanSize(fieldData[field.name].size)}` }}</v-card-subtitle>
                 </div>
 
                 <!-- Image thumbnail -->
@@ -269,7 +269,7 @@
                     :href="fieldData[field.name].url"
                     target="_blank"
                   >{{ fieldData[field.name].url }}</v-btn>
-                  <v-subheader>{{ `${$t('message.28')}: ${humanSize(fieldData[field.name].size)}` }}</v-subheader>
+                  <v-card-subtitle>{{ `${$t('message.28')}: ${humanSize(fieldData[field.name].size)}` }}</v-card-subtitle>
                 </div>
 
                 <!-- File fields -->
