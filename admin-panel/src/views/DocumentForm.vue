@@ -982,6 +982,7 @@ export default {
           case 'inputFile':
           case 'inputImage':
             fieldData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : {}
+            fieldData[field.name].is_delete = false
             break
         }
       })
