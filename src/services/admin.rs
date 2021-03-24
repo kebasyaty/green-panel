@@ -8,7 +8,6 @@ use actix_session::Session;
 use actix_web::{web, Error, HttpResponse, Result};
 
 use futures::StreamExt;
-use humansize::{file_size_opts, FileSize};
 use mongodb::{
     bson::{doc, Bson, Regex},
     options::FindOptions,
@@ -26,9 +25,6 @@ use crate::settings;
 
 const BRAND: &str = "Сompany Name";
 const SLOGAN: &str = "Brief description of the company.";
-// Default data size for the form - 16384 = ~16 Kb
-// (max payload size is 2097152 = ~2mb)
-const PAYLOAD_MAX_SIZE: usize = 2097_152;
 
 fn admin_file_path(inner_path: &str) -> String {
     format!("./admin/{}", inner_path)
@@ -315,6 +311,7 @@ pub mod request_handlers {
     ) -> Result<HttpResponse, Error> {
         //
         let mut is_authenticated = false;
+        let mut payload_max_size: usize = 16384; // Default data size for the form - 16384 = ~16 Kb
         let mut msg_err = String::new();
         let model_key = query.model_key.clone();
         let mut document = String::new();
@@ -338,6 +335,9 @@ pub mod request_handlers {
             if model_key == users::User::key() {
                 // Model `users::User`
                 // ---------------------------------------------------------------------------------
+                // Default data size for the form - 16384 = ~16 Kb
+                // (max payload size is 2097152 = ~2mb)
+                payload_max_size = 2097_152;
                 let object_id = users::User::hash_to_id(query.doc_hash.as_str()).unwrap();
                 let filter = doc! {"_id": object_id};
                 let output_data = users::User::find_one(Some(filter), None);
@@ -368,7 +368,7 @@ pub mod request_handlers {
                 "document": document,
                 "is_authenticated": is_authenticated,
                 "msg_err": msg_err,
-                "max_size": PAYLOAD_MAX_SIZE
+                "max_size": payload_max_size
             })))
     }
 
@@ -407,16 +407,6 @@ pub mod request_handlers {
         let mut bytes = web::BytesMut::new();
         while let Some(chunk) = payload.next().await {
             let chunk = chunk?;
-            // limit max size of in-memory payload
-            if (bytes.len() + chunk.len()) > PAYLOAD_MAX_SIZE {
-                msg_err = format!(
-                    "Data volume exceeds the {} limit.",
-                    PAYLOAD_MAX_SIZE
-                        .file_size(file_size_opts::CONVENTIONAL)
-                        .unwrap()
-                );
-                break;
-            }
             bytes.extend_from_slice(&chunk);
         }
 
