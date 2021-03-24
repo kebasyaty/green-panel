@@ -250,7 +250,9 @@
                 <!-- File information -->
                 <div v-if="['inputFile'].includes(field.widget)">
                   <v-btn
-                    link
+                    text
+                    small
+                    color="primary"
                     :href="fieldData[field.name].url"
                     target="_blank"
                   >{{ fieldData[field.name].url }}</v-btn>
@@ -261,7 +263,9 @@
                 <div v-if="['inputImage'].includes(field.widget)">
                   <v-img height="60" :src="fieldData[field.name].url"></v-img>
                   <v-btn
-                    link
+                    text
+                    small
+                    color="primary"
                     :href="fieldData[field.name].url"
                     target="_blank"
                   >{{ fieldData[field.name].url }}</v-btn>
