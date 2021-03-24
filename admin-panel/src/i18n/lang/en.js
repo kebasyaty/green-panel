@@ -31,6 +31,8 @@ export default {
     27: 'Access denied',
     28: 'Size',
     29: 'Created',
-    30: 'Updated'
+    30: 'Updated',
+    31: 'Delete file',
+    32: 'Delete image'
   }
 }

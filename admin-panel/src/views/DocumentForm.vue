@@ -260,6 +260,7 @@
                   <v-card-subtitle
                     class="pa-0"
                   >{{ `${$t('message.28')}: ${humanSize(fieldData[field.name].size)}` }}</v-card-subtitle>
+                  <v-checkbox dense hide-details :label="`${$t('message.31')} ?`"></v-checkbox>
                 </div>
 
                 <!-- Image thumbnail -->
@@ -276,6 +277,7 @@
                   <v-card-subtitle
                     class="pa-0"
                   >{{ `${$t('message.28')}: ${humanSize(fieldData[field.name].size)}` }}</v-card-subtitle>
+                  <v-checkbox dense hide-details :label="`${$t('message.32')} ?`"></v-checkbox>
                 </div>
 
                 <!-- File fields -->
