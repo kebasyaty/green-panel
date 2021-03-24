@@ -252,7 +252,7 @@
                   <v-btn
                     text
                     x-small
-                    class="px-0"
+                    class="text-lowercase px-0"
                     color="primary"
                     :href="fieldData[field.name].url"
                     target="_blank"
@@ -268,7 +268,7 @@
                   <v-btn
                     text
                     x-small
-                    class="px-0"
+                    class="text-lowercase px-0"
                     color="primary"
                     :href="fieldData[field.name].url"
                     target="_blank"
