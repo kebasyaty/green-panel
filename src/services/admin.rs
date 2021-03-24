@@ -335,9 +335,7 @@ pub mod request_handlers {
             if model_key == users::User::key() {
                 // Model `users::User`
                 // ---------------------------------------------------------------------------------
-                // Default data size for the form - 16384 = ~16 Kb
-                // (max payload size is 2097152 = ~2mb)
-                payload_max_size = 2097_152;
+                payload_max_size = 2097_152; // 2097152 = ~2mb
                 let object_id = users::User::hash_to_id(query.doc_hash.as_str()).unwrap();
                 let filter = doc! {"_id": object_id};
                 let output_data = users::User::find_one(Some(filter), None);
