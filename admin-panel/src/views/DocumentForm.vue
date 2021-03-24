@@ -256,7 +256,7 @@
                     color="primary"
                     :href="fieldData[field.name].url"
                     target="_blank"
-                  >{{ fieldData[field.name].url }}</v-btn>
+                  >{{ fieldData[field.name].url.toLowerCase() }}</v-btn>
                   <v-card-subtitle
                     class="pa-0"
                   >{{ `${$t('message.28')}: ${humanSize(fieldData[field.name].size)}` }}</v-card-subtitle>
@@ -272,7 +272,7 @@
                     color="primary"
                     :href="fieldData[field.name].url"
                     target="_blank"
-                  >{{ fieldData[field.name].url }}</v-btn>
+                  >{{ fieldData[field.name].url.toLowerCase() }}</v-btn>
                   <v-card-subtitle
                     class="pa-0"
                   >{{ `${$t('message.28')}: ${humanSize(fieldData[field.name].size)}` }}</v-card-subtitle>
