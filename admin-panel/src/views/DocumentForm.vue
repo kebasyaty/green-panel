@@ -254,9 +254,7 @@
                     :href="fieldData[field.name].url"
                     target="_blank"
                   >{{ fieldData[field.name].url }}</v-btn>
-                  <v-chip
-                    label
-                  >{{ `${$t('message.28')}: ${humanSize(fieldData[field.name].size)}` }}</v-chip>
+                  <v-subheader>{{ `${$t('message.28')}: ${humanSize(fieldData[field.name].size)}` }}</v-subheader>
                 </div>
 
                 <!-- Image thumbnail -->
@@ -267,9 +265,7 @@
                     :href="fieldData[field.name].url"
                     target="_blank"
                   >{{ fieldData[field.name].url }}</v-btn>
-                  <v-chip
-                    label
-                  >{{ `${$t('message.28')}: ${humanSize(fieldData[field.name].size)}` }}</v-chip>
+                  <v-subheader>{{ `${$t('message.28')}: ${humanSize(fieldData[field.name].size)}` }}</v-subheader>
                 </div>
 
                 <!-- File fields -->
