@@ -252,8 +252,9 @@
                   <v-btn
                     text
                     small
-                    class="text-lowercase px-0"
                     color="primary"
+                    class="text-lowercase px-0"
+                    v-model="fieldData[field.name].is_delete"
                     :href="fieldData[field.name].url"
                     target="_blank"
                   >{{ fieldData[field.name].url }}</v-btn>
@@ -269,8 +270,9 @@
                   <v-btn
                     text
                     small
-                    class="text-lowercase px-0"
                     color="primary"
+                    class="text-lowercase px-0"
+                    v-model="fieldData[field.name].is_delete"
                     :href="fieldData[field.name].url"
                     target="_blank"
                   >{{ fieldData[field.name].url }}</v-btn>
