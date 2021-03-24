@@ -266,6 +266,7 @@
 
                 <!-- Image thumbnail -->
                 <div v-if="['inputImage'].includes(field.widget)">
+                  <v-divider></v-divider>
                   <v-img contain :src="fieldData[field.name].url" height="60" position="left"></v-img>
                   <v-btn
                     text
