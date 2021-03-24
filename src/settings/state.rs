@@ -103,18 +103,19 @@ impl AppState {
             let base64 = data.get("base64").unwrap().as_str().unwrap();
             let is_delete = data.get("is_delete").unwrap().as_bool().unwrap();
             // Create file from base64 and save it.
-            let extension = Path::new(file_name).extension().unwrap().to_str().unwrap();
-            let file_name = format!("{}.{}", Uuid::new_v4(), extension);
-            let total_dir = &self.format_media_root("uploads")[..];
-            fs::create_dir_all(format!("{}/{}", total_dir, target_dir)).unwrap();
-            let file_path = Path::new(total_dir)
-                .join(target_dir)
-                .join(file_name.as_str());
-            let mut file = File::create(file_path.as_path()).unwrap();
-            let base64 = base64::decode(base64).unwrap();
-            file.write_all(&base64[..]).unwrap();
-            //
-            return Some(
+            if file_name.is_empty() || base64.is_empty() {
+                let extension = Path::new(file_name).extension().unwrap().to_str().unwrap();
+                let file_name = format!("{}.{}", Uuid::new_v4(), extension);
+                let total_dir = &self.format_media_root("uploads")[..];
+                fs::create_dir_all(format!("{}/{}", total_dir, target_dir)).unwrap();
+                let file_path = Path::new(total_dir)
+                    .join(target_dir)
+                    .join(file_name.as_str());
+                let mut file = File::create(file_path.as_path()).unwrap();
+                let base64 = base64::decode(base64).unwrap();
+                file.write_all(&base64[..]).unwrap();
+                //
+                return Some(
                     serde_json::to_string(&json!({
                         "path": file_path.to_str().unwrap(),
                         "url": self.format_media_url(&format!("uploads/{}/{}", target_dir, file_name)[..]),
@@ -122,6 +123,16 @@ impl AppState {
                     }))
                     .unwrap(),
                 );
+            } else {
+                return Some(
+                    serde_json::to_string(&json!({
+                        "path": "",
+                        "url": "",
+                        "is_delete": is_delete
+                    }))
+                    .unwrap(),
+                );
+            }
         }
         //
         None
