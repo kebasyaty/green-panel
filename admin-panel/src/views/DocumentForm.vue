@@ -1085,7 +1085,15 @@ export default {
                   reject(error)
                 })
               } else {
-                newFieldData[field.name] = null
+                if (this.fieldData[field.name].is_delete) {
+                  newFieldData[field.name] = {
+                    name: '',
+                    base64: '',
+                    is_delete: this.fieldData[field.name].is_delete
+                  }
+                } else {
+                  newFieldData[field.name] = null
+                }
                 response(++counter)
               }
             }
