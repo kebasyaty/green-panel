@@ -1133,7 +1133,6 @@ export default {
                 this.fields = []
                 this.getFormData(data.document)
                 this.showForm = true
-
               } else {
                 console.log(data.msg_err)
                 this.runShowMsg({ text: data.msg_err, status: 'error' })
