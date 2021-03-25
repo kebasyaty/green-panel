@@ -1123,12 +1123,12 @@ export default {
               if (!data.is_authenticated) {
                 this.setIsAuthenticated(false)
               } else if (data.msg_err.length === 0) {
-                self.vMenu = {}
-                self.fieldData = {}
-                self.fields = []
-                self.dynamicSelectionDialog = {}
-                self.delDynItems = []
-                self.currValDynItem = { title: null, value: null }
+                this.vMenu = {}
+                this.fieldData = {}
+                this.fields = []
+                this.dynamicSelectionDialog = {}
+                this.delDynItems = []
+                this.currValDynItem = { title: null, value: null }
                 this.getFormData(data.document)
               } else {
                 console.log(data.msg_err)
