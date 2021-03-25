@@ -727,6 +727,10 @@ export default {
     goBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push({ name: 'home' })
     },
+    // To Rerender Component.
+    reload() {
+      this.$forceUpdate()
+    },
     // Get human readable version of file size.
     humanFileSize(size) {
       var i = Math.floor(Math.log(size) / Math.log(1024))
@@ -1130,6 +1134,7 @@ export default {
                 this.fieldData = {}
                 this.fields = []
                 this.getFormData(data.document)
+                this.reload()
               } else {
                 console.log(data.msg_err)
                 this.runShowMsg({ text: data.msg_err, status: 'error' })
