@@ -248,7 +248,9 @@
                 ></v-checkbox>
 
                 <!-- File information -->
-                <div v-if="['inputFile'].includes(field.widget)">
+                <div
+                  v-if="['inputFile'].includes(field.widget) && fieldData[field.name].url.length > 0"
+                >
                   <v-btn
                     text
                     small
@@ -271,7 +273,9 @@
                 </div>
 
                 <!-- Image thumbnail -->
-                <div v-if="['inputImage'].includes(field.widget)">
+                <div
+                  v-if="['inputImage'].includes(field.widget) && fieldData[field.name].url.length > 0"
+                >
                   <v-divider class="mb-1"></v-divider>
                   <v-img contain :src="fieldData[field.name].url" height="60" position="left"></v-img>
                   <v-btn
