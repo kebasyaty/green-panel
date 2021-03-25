@@ -10,7 +10,7 @@
       <v-card-title class="pt-0">{{ docTitle }}</v-card-title>
       <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
       <!-- Form fields. -->
-      <v-card-text class="pa-4">
+      <v-card-text class="pa-4" v-if="showForm">
         <div v-for="field in fields" :key="field.name" class="rounded-lg">
           <!-- Hidden fields -->
           <input
@@ -701,7 +701,8 @@ export default {
     dynamicSelectionDialog: {},
     delDynItems: [],
     currValDynItem: { title: null, value: null },
-    maxTotalFilesSize: 16384 // 16384 = ~16 Kb (default data size for the form)
+    maxTotalFilesSize: 16384, // 16384 = ~16 Kb (default data size for the form),
+    showForm: true
   }),
 
   computed: {
@@ -1123,6 +1124,7 @@ export default {
               if (!data.is_authenticated) {
                 this.setIsAuthenticated(false)
               } else if (data.msg_err.length === 0) {
+                this.showForm = false
                 this.vMenu = {}
                 this.dynamicSelectionDialog = {}
                 this.delDynItems = []
@@ -1130,6 +1132,8 @@ export default {
                 this.fieldData = {}
                 this.fields = []
                 this.getFormData(data.document)
+                this.showForm = true
+
               } else {
                 console.log(data.msg_err)
                 this.runShowMsg({ text: data.msg_err, status: 'error' })
