@@ -254,7 +254,6 @@
                     small
                     color="primary"
                     class="text-lowercase px-0"
-                    v-model="fieldData[field.name].is_delete"
                     :href="fieldData[field.name].url"
                     target="_blank"
                   >{{ fieldData[field.name].url }}</v-btn>
@@ -265,6 +264,7 @@
                     dense
                     hide-details
                     class="mt-0"
+                    v-model="fieldData[field.name].is_delete"
                     :label="`${$t('message.31')} ?`"
                     :disabled="field.required"
                   ></v-checkbox>
@@ -279,7 +279,6 @@
                     small
                     color="primary"
                     class="text-lowercase px-0"
-                    v-model="fieldData[field.name].is_delete"
                     :href="fieldData[field.name].url"
                     target="_blank"
                   >{{ fieldData[field.name].url }}</v-btn>
@@ -290,6 +289,7 @@
                     dense
                     hide-details
                     class="mt-0"
+                    v-model="fieldData[field.name].is_delete"
                     :label="`${$t('message.32')} ?`"
                     :disabled="field.required"
                   ></v-checkbox>
