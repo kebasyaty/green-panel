@@ -332,9 +332,9 @@ pub mod request_handlers {
         //
         // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ADD A MODEL TO HANDLE THE REQUEST
         if msg_err.is_empty() {
+            // Model `users::User`
+            // -------------------------------------------------------------------------------------
             if model_key == users::User::key() {
-                // Model `users::User`
-                // ---------------------------------------------------------------------------------
                 payload_max_size = 2097_152; // 2097152 = ~2mb
                 let object_id = users::User::hash_to_id(query.doc_hash.as_str()).unwrap();
                 let filter = doc! {"_id": object_id};
@@ -412,9 +412,9 @@ pub mod request_handlers {
         //
         // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ADD A MODEL TO HANDLE THE REQUEST
         if msg_err.is_empty() {
+            // Model `users::User`
+            // -------------------------------------------------------------------------------------
             if model_key == users::User::key() {
-                // Model `users::User`
-                // ---------------------------------------------------------------------------------
                 let model = serde_json::from_slice::<users::User>(&bytes);
                 if model.is_ok() {
                     let mut model = model?;
