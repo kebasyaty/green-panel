@@ -303,6 +303,7 @@
                 <v-file-input
                   class="mt-0 pt-1"
                   show-size
+                  small-chips
                   :ref="field.name"
                   v-if="['inputFile'].includes(field.widget)"
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
@@ -320,6 +321,7 @@
                 <v-file-input
                   class="mt-0 pt-1"
                   show-size
+                  small-chips
                   :ref="field.name"
                   v-if="['inputImage'].includes(field.widget)"
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
