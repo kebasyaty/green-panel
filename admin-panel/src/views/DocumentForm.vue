@@ -10,7 +10,7 @@
       <v-card-title class="pt-0">{{ docTitle }}</v-card-title>
       <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
       <!-- Form fields. -->
-      <v-card-text class="pa-4">
+      <v-card-text class="pa-4" v-if="render">
         <div v-for="field in fields" :key="field.name" class="rounded-lg">
           <!-- Hidden fields -->
           <input
@@ -701,7 +701,8 @@ export default {
     dynamicSelectionDialog: {},
     delDynItems: [],
     currValDynItem: { title: null, value: null },
-    maxTotalFilesSize: 16384 // 16384 = ~16 Kb (default data size for the form),
+    maxTotalFilesSize: 16384, // 16384 = ~16 Kb (default data size for the form),
+    render: true
   }),
 
   computed: {
@@ -729,7 +730,10 @@ export default {
     },
     // To Rerender Component.
     reload() {
-      this.$forceUpdate()
+      this.render = false
+      this.$nextTick(() => {
+        this.render = true
+      })
     },
     // Get human readable version of file size.
     humanFileSize(size) {
