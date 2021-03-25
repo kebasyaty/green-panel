@@ -1123,7 +1123,13 @@ export default {
               if (!data.is_authenticated) {
                 this.setIsAuthenticated(false)
               } else if (data.msg_err.length === 0) {
-                document.location.reload()
+                self.vMenu = {}
+                self.fieldData = {}
+                self.fields = []
+                self.dynamicSelectionDialog = {}
+                self.delDynItems = []
+                self.currValDynItem = { title: null, value: null }
+                this.getFormData(data.document)
               } else {
                 console.log(data.msg_err)
                 this.runShowMsg({ text: data.msg_err, status: 'error' })
