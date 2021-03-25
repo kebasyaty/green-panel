@@ -1086,11 +1086,11 @@ export default {
                 })
               } else {
                 if (this.fieldData[field.name].is_delete) {
-                  newFieldData[field.name] = {
+                  newFieldData[field.name] = JSON.stringify({
                     name: '',
                     base64: '',
                     is_delete: this.fieldData[field.name].is_delete
-                  }
+                  })
                 } else {
                   newFieldData[field.name] = null
                 }
