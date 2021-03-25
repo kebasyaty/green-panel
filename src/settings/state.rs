@@ -103,7 +103,7 @@ impl AppState {
             let base64 = data.get("base64").unwrap().as_str().unwrap();
             let is_delete = data.get("is_delete").unwrap().as_bool().unwrap();
             // Create file from base64 and save it.
-            if file_name.is_empty() || base64.is_empty() {
+            if !file_name.is_empty() && !base64.is_empty() {
                 let extension = Path::new(file_name).extension().unwrap().to_str().unwrap();
                 let file_name = format!("{}.{}", Uuid::new_v4(), extension);
                 let total_dir = &self.format_media_root("uploads")[..];
