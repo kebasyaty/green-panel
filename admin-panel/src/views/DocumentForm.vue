@@ -1055,6 +1055,8 @@ export default {
 
     // Save/Update the document.
     saveDoc(mode = 'save') {
+      this.runShowOverlayPageLockout(true)
+
       const indexService = this.$route.params.indexService
       const indexCollection = this.$route.params.indexCollection
       const service = this.serviceList[indexService]
@@ -1150,9 +1152,11 @@ export default {
             .catch(error => {
               console.log(error)
             })
+            .then(() => this.runShowOverlayPageLockout(false))
         }
       ).catch(error => {
         console.log(error)
+        this.runShowOverlayPageLockout(false)
         this.runShowMsg({ text: error, status: 'error' })
       })
     },
@@ -1203,8 +1207,10 @@ export default {
         .catch(error => {
           console.log(error)
         })
+        .then(() => this.runShowOverlayPageLockout(false))
     },
     getDoc() {
+      this.runShowOverlayPageLockout(true)
       const indexService = this.$route.params.indexService
       const indexCollection = this.$route.params.indexCollection
       const indexDoc = this.$route.params.indexDoc
