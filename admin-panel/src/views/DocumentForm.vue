@@ -388,7 +388,7 @@
                 <!-- Textarea fields -->
                 <v-textarea
                   class="mt-0 pt-1"
-                  v-if="['textArea'].includes(field.widget)"
+                  v-if="field.widget === 'textArea'"
                   clearable
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                   v-model="fieldData[field.name]"
@@ -405,7 +405,7 @@
 
                 <!-- Date fields -->
                 <v-menu
-                  v-if="['inputDate'].includes(field.widget)"
+                  v-if="field.widget === 'inputDate'"
                   v-model="vMenu[field.name]"
                   :close-on-content-click="false"
                   :nudge-right="40"
@@ -446,7 +446,7 @@
                 </v-menu>
 
                 <!-- Date and Time fields -->
-                <v-row v-if="['inputDateTime'].includes(field.widget)">
+                <v-row v-if="field.widget === 'inputDateTime'">
                   <v-col cols="6">
                     <v-menu
                       v-model="vMenu[field.name]"
