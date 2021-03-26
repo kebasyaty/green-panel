@@ -803,7 +803,14 @@ export default {
           result = { color: 'purple darken-3', icon: 'microsoft-onenote' }
           break
         case 'pub':
-          result = { color: 'teal darken-3', icon: 'alpha-p-box-outline' }
+          result = { color: 'teal darken-3', icon: 'alpha-p-box' }
+          break
+        case 'xml':
+          result = { color: 'blue darken-3', icon: 'xml' }
+          break
+        case 'svg':
+        case 'svgz':
+          result = { color: 'amber darken-2', icon: 'svg' }
           break
         default:
           result = { color: 'grey darken-1', icon: 'file-question-outline' }
