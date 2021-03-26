@@ -802,6 +802,9 @@ export default {
         case 'one':
           result = { color: 'purple darken-3', icon: 'microsoft-onenote' }
           break
+        case 'pub':
+          result = { color: 'teal darken-3', icon: 'alpha-p-box-outline' }
+          break
         default:
           result = { color: 'grey darken-1', icon: 'file-question-outline' }
       }
