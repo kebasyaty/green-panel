@@ -35,10 +35,8 @@
 
             <!-- Wrapper for fields. -->
             <v-card flat outlined class="mt-4">
-              <v-card-text
-                :class="!['checkBox'].includes(field.widget) ? 'pt-2 pb-0' : 'pt-2 pb-4'"
-              >
-                <div v-if="!['checkBox'].includes(field.widget)">
+              <v-card-text :class="field.widget !== 'checkBox' ? 'pt-2 pb-0' : 'pt-2 pb-4'">
+                <div v-if="field.widget !== 'checkBox'">
                   <!-- Title of field. -->
                   <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">{{ field.label }}</v-card-title>
                   <!-- Hint for field. -->
@@ -235,7 +233,7 @@
                 <v-checkbox
                   class="mt-0"
                   persistent-hint
-                  v-if="['checkBox'].includes(field.widget)"
+                  v-if="field.widget === 'checkBox'"
                   v-model="fieldData[field.name]"
                   :id="field.id"
                   :label="field.label"
@@ -249,7 +247,7 @@
 
                 <!-- File information -->
                 <div
-                  v-if="['inputFile'].includes(field.widget) && fieldData[field.name].hasOwnProperty('url') && fieldData[field.name].url.length > 0"
+                  v-if="field.widget === 'inputFile' && fieldData[field.name].url !== undefined && fieldData[field.name].url.length > 0"
                 >
                   <v-btn
                     text
@@ -274,7 +272,7 @@
 
                 <!-- Image thumbnail -->
                 <div
-                  v-if="['inputImage'].includes(field.widget) && fieldData[field.name].hasOwnProperty('url') && fieldData[field.name].url.length > 0"
+                  v-if="field.widget === 'inputImage' && fieldData[field.name].url !== undefined && fieldData[field.name].url.length > 0"
                 >
                   <v-divider class="mb-1"></v-divider>
                   <v-img contain :src="fieldData[field.name].url" height="60" position="left"></v-img>
@@ -305,7 +303,7 @@
                   show-size
                   small-chips
                   :ref="field.name"
-                  v-if="['inputFile'].includes(field.widget)"
+                  v-if="field.widget === 'inputFile'"
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                   :id="field.id"
                   :type="field.input_type"
@@ -323,7 +321,7 @@
                   show-size
                   small-chips
                   :ref="field.name"
-                  v-if="['inputImage'].includes(field.widget)"
+                  v-if="field.widget === 'inputImage'"
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                   :id="field.id"
                   :type="field.input_type"
@@ -337,7 +335,7 @@
 
                 <!-- Color fields -->
                 <v-menu
-                  v-if="['inputColor'].includes(field.widget)"
+                  v-if="field.widget === 'inputColor'"
                   :ref="field.name"
                   v-model="vMenu[field.name]"
                   :close-on-content-click="false"
