@@ -15,7 +15,11 @@ export default {
 
   actions: {
     runShowOverlayPageLockout({ commit }, payload) {
-      setTimeout(() => commit('setOverlayPageLockout', payload), 500)
+      if (payload) {
+        setTimeout(() => commit('setOverlayPageLockout', payload), 1000)
+      } else {
+        commit('setOverlayPageLockout', payload)
+      }
     }
   }
 }
