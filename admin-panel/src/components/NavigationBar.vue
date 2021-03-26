@@ -45,7 +45,7 @@
                 :key="collection.model_key"
                 class="px-1"
                 @click="[resetPageNumberDefault(),
-                         ajaxGetDocumentList({indexService, indexCollection}).catch(error => window.console.log(error)),
+                         getDocumentList({indexService, indexCollection}),
                          resetPreActivatedService(indexService)]"
                 :to="createUrlDocumentList(item.service.title, collection.title, indexService, indexCollection)"
               >
@@ -111,6 +111,9 @@ export default {
       'ajaxGetDocumentList',
       'resetPageNumberDefault'
     ]),
+    ...mapActions('overlays', [
+      'runShowOverlayPageLockout'
+    ]),
     // List of services - Resetting previously activated items.
     resetPreActivatedService: function (currIndex) {
       this.setSelectedService(this.selectedService.map(function (item, idx) {
@@ -126,6 +129,15 @@ export default {
       const slugServiceTitle = slug(serviceTitle, { locale: currentUserLocale })
       const slugCollectionTitle = slug(collectionTitle, { locale: currentUserLocale })
       return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document-list`
+    },
+    // Get a list of documents.
+    getDocumentList: function (payload) {
+      this.runShowOverlayPageLockout(true)
+      this.ajaxGetDocumentList(payload)
+        .catch(error => {
+          window.console.log(error)
+        })
+        .then(() => this.runShowOverlayPageLockout(false))
     }
   }
 }
