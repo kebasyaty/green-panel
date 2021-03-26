@@ -749,8 +749,26 @@ export default {
       return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i]
     },
     // Get the associative icon for the file.
-    getFileIcon() {
-      //
+    getFileIcon(extension) {
+      let result
+      switch (extension) {
+        case 'txt':
+          result = { color: 'black', icon: 'note-text-outline' }
+          break
+        case 'doc':
+        case 'dot':
+        case 'wbk':
+        case 'docx':
+        case 'docm':
+        case 'dotx':
+        case 'dotm':
+        case 'docb':
+          result = { color: 'blue', icon: 'file-word-outline' }
+          break
+        default:
+          result = { color: 'black', icon: 'file-question-outline' }
+      }
+      return result
     },
     // Get icon of field.
     getFieldIcon(widget) {
