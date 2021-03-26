@@ -4,6 +4,7 @@
       <NavigationBar />
       <AppBar />
       <PopUpMsgs />
+      <Overlays />
     </template>
 
     <v-main>
@@ -17,6 +18,7 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 import NavigationBar from '@/components/NavigationBar.vue'
 import AppBar from '@/components/AppBar.vue'
 import PopUpMsgs from '@/components/PopUpMsgs.vue'
+import Overlays from '@/components/Overlays.vue'
 
 export default {
   name: 'App',
@@ -24,7 +26,8 @@ export default {
   components: {
     NavigationBar,
     AppBar,
-    PopUpMsgs
+    PopUpMsgs,
+    Overlays
 
   },
 
