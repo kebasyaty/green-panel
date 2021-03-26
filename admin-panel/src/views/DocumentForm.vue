@@ -799,8 +799,11 @@ export default {
         case 'accdr':
           result = { color: 'pink darken-3', icon: 'microsoft-access' }
           break
+        case 'one':
+          result = { color: 'purple darken-3', icon: 'microsoft-onenote' }
+          break
         default:
-          result = { color: 'black', icon: 'file-question-outline' }
+          result = { color: 'grey darken-1', icon: 'file-question-outline' }
       }
       return result
     },
