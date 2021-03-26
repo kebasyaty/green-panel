@@ -781,12 +781,17 @@ export default {
           break
         case 'ppt':
         case 'pot':
-        case '':
-        case '':
-        case '':
-        case '':
-        case '':
-          result = { color: '', icon: 'microsoft-powerpoint' }
+        case 'pps':
+        case 'pptx':
+        case 'pptm':
+        case 'potx':
+        case 'potm':
+        case 'ppam':
+        case 'ppsx':
+        case 'ppsm':
+        case 'sldx':
+        case 'sldm':
+          result = { color: 'orange darken-3', icon: 'microsoft-powerpoint' }
           break
         default:
           result = { color: 'black', icon: 'file-question-outline' }
