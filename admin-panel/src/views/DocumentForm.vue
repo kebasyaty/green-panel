@@ -793,6 +793,12 @@ export default {
         case 'sldm':
           result = { color: 'orange darken-3', icon: 'microsoft-powerpoint' }
           break
+        case 'accdb':
+        case 'accde':
+        case 'accdt':
+        case 'accdr':
+          result = { color: 'pink darken-3', icon: 'microsoft-access' }
+          break
         default:
           result = { color: 'black', icon: 'file-question-outline' }
       }
