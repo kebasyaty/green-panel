@@ -724,6 +724,9 @@ export default {
     ...mapActions('popUpMsgs', [
       'runShowMsg'
     ]),
+    ...mapActions('overlays', [
+      'runShowOverlayPageLockout'
+    ]),
     // Router - Go back one step.
     goBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push({ name: 'home' })
