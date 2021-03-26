@@ -4,6 +4,7 @@ import mutations from '@/store/mutations.js'
 import actions from '@/store/actions.js'
 import documentList from '@/store/modules/document_list.js'
 import popUpMsgs from '@/store/modules/pop_up_msgs.js'
+import overlays from '@/store/modules/overlays.js'
 
 Vue.use(Vuex)
 
@@ -28,6 +29,7 @@ export default new Vuex.Store({
   actions,
   modules: {
     documentList,
-    popUpMsgs
+    popUpMsgs,
+    overlays
   }
 })
