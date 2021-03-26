@@ -105,7 +105,7 @@
           v-model="updateCurrentPageNumber"
           :length="pageCount"
           :total-visible="5"
-          @input="ajaxGetDocumentList().catch(error =>  window.console.log(error))"
+          @input="getDocumentList()"
         ></v-pagination>
         <v-spacer></v-spacer>
       </v-card-actions>
@@ -189,9 +189,21 @@ export default {
       'ajaxGetDocumentList',
       'resetPageNumberDefault'
     ]),
+    ...mapActions('overlays', [
+      'runShowOverlayPageLockout'
+    ]),
     // Router - Go back one step.
     goBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push({ name: 'home' })
+    },
+    // Get a list of documents.
+    getDocumentList: function () {
+      this.runShowOverlayPageLockout(true)
+      this.ajaxGetDocumentList()
+        .catch(error => {
+          window.console.log(error)
+        })
+        .then(() => this.runShowOverlayPageLockout(false))
     },
     // Documents search.
     documentSearch: function () {
@@ -199,10 +211,7 @@ export default {
         // Reset page number to default.
         this.resetPageNumberDefault()
         // Get a list of documents.
-        this.ajaxGetDocumentList()
-          .catch(error => {
-            window.console.log(error)
-          })
+        this.getDocumentList()
       }
     },
     // Create Url for Document.
@@ -232,10 +241,7 @@ export default {
     // Reset page number to default.
     this.resetPageNumberDefault()
     // Get a list of documents.
-    this.ajaxGetDocumentList()
-      .catch(error => {
-        window.console.log(error)
-      })
+    this.getDocumentList()
   }
 }
 </script>
