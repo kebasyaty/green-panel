@@ -1219,6 +1219,8 @@ export default {
       } else {
         this.ajaxGetDocumentList({ indexService, indexCollection }).then(() => {
           this.ajaxGetDoc({ indexService, indexCollection, indexDoc })
+        }).catch(error => {
+          console.log(error)
         })
       }
     }

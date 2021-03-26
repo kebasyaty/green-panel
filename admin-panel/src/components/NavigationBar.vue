@@ -45,7 +45,7 @@
                 :key="collection.model_key"
                 class="px-1"
                 @click="[resetPageNumberDefault(),
-                         ajaxGetDocumentList({indexService, indexCollection}),
+                         ajaxGetDocumentList({indexService, indexCollection}).catch(error => window.console.log(error)),
                          resetPreActivatedService(indexService)]"
                 :to="createUrlDocumentList(item.service.title, collection.title, indexService, indexCollection)"
               >

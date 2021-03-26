@@ -42,7 +42,6 @@ export default {
     ajaxGetDocumentList({ state, commit, dispatch, rootState }, payload = {}) {
       return new Promise((resolve, reject) => {
         if (!state.blockLoadDocs && rootState.serviceList.length > 0) {
-          dispatch('overlays/runShowOverlayPageLockout', true)
           commit('setBlockLoadDocs', true)
           let collection
           if (Object.keys(payload).length > 0) {
@@ -73,11 +72,10 @@ export default {
               }
             })
             .catch(error => {
-              console.log(error)
+              reject(error)
             })
             .then(() => {
               commit('setBlockLoadDocs', false)
-              dispatch('overlays/runShowOverlayPageLockout', false)
               resolve()
             })
         }

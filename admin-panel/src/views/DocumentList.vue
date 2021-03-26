@@ -105,7 +105,7 @@
           v-model="updateCurrentPageNumber"
           :length="pageCount"
           :total-visible="5"
-          @input="ajaxGetDocumentList()"
+          @input="ajaxGetDocumentList().catch(error =>  window.console.log(error))"
         ></v-pagination>
         <v-spacer></v-spacer>
       </v-card-actions>
@@ -200,6 +200,9 @@ export default {
         this.resetPageNumberDefault()
         // Get a list of documents.
         this.ajaxGetDocumentList()
+          .catch(error => {
+            window.console.log(error)
+          })
       }
     },
     // Create Url for Document.
@@ -230,6 +233,9 @@ export default {
     this.resetPageNumberDefault()
     // Get a list of documents.
     this.ajaxGetDocumentList()
+      .catch(error => {
+        window.console.log(error)
+      })
   }
 }
 </script>
