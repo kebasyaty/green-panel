@@ -43,6 +43,7 @@ export default {
       return new Promise((resolve, reject) => {
         if (!state.blockLoadDocs && rootState.serviceList.length > 0) {
           commit('setBlockLoadDocs', true)
+          dispatch('overlays/runShowOverlayPageLockout', true)
           let collection
           if (Object.keys(payload).length > 0) {
             collection = rootState.serviceList[payload.indexService]
@@ -68,6 +69,7 @@ export default {
                 commit('setDocuments', data.documents)
               } else {
                 console.log(data.msg_err)
+                dispatch('overlays/runShowOverlayPageLockout', false)
                 dispatch('popUpMsgs/runShowMsg', { text: data.msg_err, status: 'error' })
               }
             })
@@ -76,6 +78,7 @@ export default {
             })
             .then(() => {
               commit('setBlockLoadDocs', false)
+              dispatch('overlays/runShowOverlayPageLockout', false)
               resolve()
             })
         }
