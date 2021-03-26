@@ -763,7 +763,7 @@ export default {
         case 'dotx':
         case 'dotm':
         case 'docb':
-          result = { color: 'blue', icon: 'file-word-outline' }
+          result = { color: 'blue darken-3', icon: 'file-word-outline' }
           break
         case 'xls':
         case 'xlt':
@@ -777,7 +777,16 @@ export default {
         case 'xlam':
         case 'xll':
         case 'xlw':
-          result = { color: 'black', icon: 'microsoft-excel' }
+          result = { color: 'green darken-3', icon: 'microsoft-excel' }
+          break
+        case 'ppt':
+        case 'pot':
+        case '':
+        case '':
+        case '':
+        case '':
+        case '':
+          result = { color: '', icon: 'microsoft-powerpoint' }
           break
         default:
           result = { color: 'black', icon: 'file-question-outline' }
