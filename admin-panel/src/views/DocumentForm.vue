@@ -765,6 +765,20 @@ export default {
         case 'docb':
           result = { color: 'blue', icon: 'file-word-outline' }
           break
+        case 'xls':
+        case 'xlt':
+        case 'xlm':
+        case 'xlsx':
+        case 'xlsm':
+        case 'xltx':
+        case 'xltm':
+        case 'xlsb':
+        case 'xla':
+        case 'xlam':
+        case 'xll':
+        case 'xlw':
+          result = { color: 'black', icon: 'microsoft-excel' }
+          break
         default:
           result = { color: 'black', icon: 'file-question-outline' }
       }
