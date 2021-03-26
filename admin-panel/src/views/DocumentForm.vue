@@ -815,6 +815,10 @@ export default {
         case 'pdf':
           result = { color: 'red darken-3', icon: 'file-pdf-box' }
           break
+        case 'html':
+        case 'htm':
+          result = { color: 'orange darken-3', icon: 'language-html5' }
+          break
         default:
           result = { color: 'grey darken-1', icon: 'file-question-outline' }
       }
