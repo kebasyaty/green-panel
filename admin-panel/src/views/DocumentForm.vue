@@ -249,6 +249,13 @@
                 <div
                   v-if="field.widget === 'inputFile' && fieldData[field.name].url !== undefined && fieldData[field.name].url.length > 0"
                 >
+                  <v-divider class="mb-1"></v-divider>
+                  <div>
+                    <v-icon
+                      color="red"
+                      size="60"
+                    >{{ `mdi-${getFileIcon(fieldData[field.name].name.split('.').pop())}` }}</v-icon>
+                  </div>
                   <v-btn
                     text
                     small
@@ -740,6 +747,10 @@ export default {
     humanFileSize(size) {
       var i = Math.floor(Math.log(size) / Math.log(1024))
       return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i]
+    },
+    // Get the associative icon for the file.
+    getFileIcon() {
+      //
     },
     // Get icon of field.
     getFieldIcon(widget) {
