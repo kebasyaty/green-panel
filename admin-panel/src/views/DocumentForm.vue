@@ -1221,6 +1221,7 @@ export default {
           this.ajaxGetDoc({ indexService, indexCollection, indexDoc })
         }).catch(error => {
           console.log(error)
+          this.runShowOverlayPageLockout(false)
         })
       }
     }
