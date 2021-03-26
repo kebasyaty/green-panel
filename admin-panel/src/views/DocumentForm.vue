@@ -751,7 +751,7 @@ export default {
     // Get the associative icon for the file.
     getFileIcon(extension) {
       let result
-      switch (extension) {
+      switch (extension.toLowerCase()) {
         case 'txt':
           result = { color: 'black', icon: 'note-text-outline' }
           break
