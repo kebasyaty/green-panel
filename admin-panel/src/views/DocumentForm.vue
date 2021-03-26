@@ -767,6 +767,12 @@ export default {
         case 'inputUrl':
           result = 'wan'
           break
+        case 'inputFile':
+          result = 'paperclip'
+          break
+        case 'inputImage':
+          result = 'camera-outline'
+          break
         case 'inputIP':
         case 'inputIPv4':
         case 'inputIPv6':
@@ -775,47 +781,16 @@ export default {
         case 'textArea':
           result = 'script-text-outline'
           break
-        case 'numberI32':
-        case 'numberU32':
-        case 'numberI64':
-        case 'numberF64':
-          result = 'numeric-1-box-multiple-outline'
-          break
-        case 'rangeI32':
-        case 'rangeU32':
-        case 'rangeI64':
-        case 'rangeF64':
-          result = 'arrow-split-vertical'
-          break
-        case 'inputFile':
-          result = 'paperclip'
-          break
-        case 'inputImage':
-          result = 'camera-outline'
-          break
-        case 'selectText':
-        case 'selectI32':
-        case 'selectU32':
-        case 'selectI64':
-        case 'selectF64':
-        case 'selectTextDyn':
-        case 'selectI32Dyn':
-        case 'selectU32Dyn':
-        case 'selectI64Dyn':
-        case 'selectF64Dyn':
-        case 'selectTextMult':
-        case 'selectI32Mult':
-        case 'selectU32Mult':
-        case 'selectI64Mult':
-        case 'selectF64Mult':
-        case 'selectTextMultDyn':
-        case 'selectI32MultDyn':
-        case 'selectU32MultDyn':
-        case 'selectI64MultDyn':
-        case 'selectF64MultDyn':
-          result = 'form-select'
-          break
+        default:
+          if (widget.includes('number')) {
+            result = 'numeric-1-box-multiple-outline'
+          } else if (widget.includes('range')) {
+            result = 'arrow-split-vertical'
+          } else if (widget.includes('select')) {
+            result = 'form-select'
+          }
       }
+      //
       return result
     },
     // Get data for fields of form.
