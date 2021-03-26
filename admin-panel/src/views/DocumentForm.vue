@@ -812,6 +812,9 @@ export default {
         case 'svgz':
           result = { color: 'amber darken-2', icon: 'svg' }
           break
+        case 'pdf':
+          result = { color: 'red darken-3', icon: 'file-pdf-box' }
+          break
         default:
           result = { color: 'grey darken-1', icon: 'file-question-outline' }
       }
