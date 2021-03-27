@@ -737,10 +737,12 @@ export default {
     ]),
     // Router - Go back one step.
     goBack() {
+      this.setShowMsg(false)
       this.$router.go(-1)
     },
     // To Rerender Component.
     reload() {
+      this.setShowMsg(false)
       this.render = false
       this.$nextTick(() => {
         this.render = true
@@ -1121,16 +1123,19 @@ export default {
 
     // Add a new dynamic element.
     saveNewDynItem(fieldName) {
+      this.setShowMsg(false)
       window.console.log(fieldName, this.currValDynItem)
     },
 
     // Remove selected dynamic elements.
     removeDynItems(choice) {
+      this.setShowMsg(false)
       window.console.log(this.delDynItems, choice)
     },
 
     // Remove document from collection.
     removeDoc() {
+      this.setShowMsg(false)
       window.console.log('Remove document')
     },
 
@@ -1308,6 +1313,7 @@ export default {
         .then(() => this.runShowOverlayPageLockout(false))
     },
     getDoc() {
+      this.setShowMsg(false)
       this.runShowOverlayPageLockout(true)
       const indexService = this.$route.params.indexService
       const indexCollection = this.$route.params.indexCollection
