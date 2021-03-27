@@ -850,6 +850,9 @@ export default {
         case 'djv':
           result = { color: 'grey darken-1', icon: 'text-box-multiple-outline' }
           break
+        case 'csv':
+          result = { color: 'grey darken-1', icon: 'file-delimited-outline' }
+          break
         default:
           result = { color: 'grey darken-1', icon: 'file-hidden' }
       }
