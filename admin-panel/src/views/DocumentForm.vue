@@ -835,6 +835,10 @@ export default {
         case 'stc':
           result = { color: 'lime', icon: 'table' }
           break
+        case 'sxd':
+        case 'std':
+          result = { color: 'amber darken-2', icon: 'draw' }
+          break
         default:
           result = { color: 'grey darken-1', icon: 'file-hidden' }
       }
