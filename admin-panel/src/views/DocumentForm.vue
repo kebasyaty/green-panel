@@ -820,7 +820,7 @@ export default {
           result = { color: 'orange darken-3', icon: 'language-html5' }
           break
         default:
-          result = { color: 'grey darken-1', icon: 'file-question-outline' }
+          result = { color: 'grey darken-1', icon: 'file-hidden' }
       }
       return result
     },
