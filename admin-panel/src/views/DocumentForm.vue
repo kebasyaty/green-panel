@@ -843,6 +843,9 @@ export default {
         case 'sti':
           result = { color: 'monitor-dashboard', icon: 'orange darken-2' }
           break
+        case 'sxm':
+          result = { color: 'blue-grey', icon: 'math-integral-box' }
+          break
         default:
           result = { color: 'grey darken-1', icon: 'file-hidden' }
       }
