@@ -754,7 +754,7 @@ export default {
       switch (extension.toLowerCase()) {
         case 'txt':
         case 'text':
-          result = { color: 'black', icon: 'note-text-outline' }
+          result = { color: 'blue', icon: 'note-text-outline' }
           break
         case 'doc':
         case 'dot':
@@ -819,6 +819,9 @@ export default {
         case 'html':
         case 'htm':
           result = { color: 'orange darken-3', icon: 'language-html5' }
+          break
+        case 'epub':
+          result = { color: 'lime', icon: 'book-open-page-variant-outline' }
           break
         default:
           result = { color: 'grey darken-1', icon: 'file-hidden' }
