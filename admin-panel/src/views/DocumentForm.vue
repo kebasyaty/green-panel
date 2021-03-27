@@ -742,7 +742,6 @@ export default {
     },
     // To Rerender Component.
     reload() {
-      this.setShowMsg(false)
       this.render = false
       this.$nextTick(() => {
         this.render = true
