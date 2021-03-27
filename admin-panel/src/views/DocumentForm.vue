@@ -250,11 +250,11 @@
                   v-if="field.widget === 'inputFile' && fieldData[field.name].url !== undefined && fieldData[field.name].url.length > 0"
                 >
                   <v-divider class="mb-1"></v-divider>
-                  <div>
-                    <v-icon
-                      color="red"
-                      size="60"
-                    >{{ `mdi-${getFileIcon(fieldData[field.name].name.split('.').pop())}` }}</v-icon>
+                  <div
+                    v-for="(item, index) in [getFileIcon(fieldData[field.name].name.split('.').pop())]"
+                    :key="`${item.icon}-${index}`"
+                  >
+                    <v-icon :color="item.color" size="60">{{ `mdi-${item.icon}` }}</v-icon>
                   </div>
                   <v-btn
                     text
