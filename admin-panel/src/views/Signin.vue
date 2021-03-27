@@ -33,7 +33,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn text color="green" @click="submit">{{ $t('message.9') }}</v-btn>
+            <v-btn text color="green" @click="submit" @keyup.enter="submit">{{ $t('message.9') }}</v-btn>
             <v-btn text color="red" class="ml-4" @click="clear">{{ $t('message.10') }}</v-btn>
           </v-card-actions>
         </form>
