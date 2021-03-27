@@ -1284,7 +1284,7 @@ export default {
       const service = this.serviceList[indexes.indexService]
       const payload = {
         model_key: service.collections[indexes.indexCollection].model_key,
-        doc_hash: this.documents[indexes.indexDoc].hash
+        doc_hash: this.documents[indexes.indexDoc] !== undefined ? this.documents[indexes.indexDoc].hash : ''
       }
       this.axios.post('/admin/get-document', payload)
         .then(response => {
