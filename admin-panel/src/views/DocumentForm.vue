@@ -3,7 +3,7 @@
     <!-- Form for document. -->
     <v-card class="mt-1">
       <v-toolbar dense flat>
-        <v-btn icon @click="goBack">
+        <v-btn icon @click="goBack()">
           <v-icon>mdi-arrow-left</v-icon>
         </v-btn>
       </v-toolbar>
