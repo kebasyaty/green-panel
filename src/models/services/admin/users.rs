@@ -126,7 +126,7 @@ impl AdditionalValidation for User {
             error_map.insert(
                 "username",
                 "Invalid characters present.<br>\
-                    Valid characters: a-z A-Z 0-9 _ @ + .",
+                 Valid characters: a-z A-Z 0-9 _ @ + .",
             );
         }
 
