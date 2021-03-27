@@ -764,7 +764,7 @@ export default {
         case 'dotx':
         case 'dotm':
         case 'docb':
-          result = { color: 'blue darken-3', icon: 'file-word-outline' }
+          result = { color: 'blue darken-3', icon: 'microsoft-word' }
           break
         case 'xls':
         case 'xlt':
@@ -822,6 +822,9 @@ export default {
           break
         case 'epub':
           result = { color: 'lime', icon: 'book-open-page-variant-outline' }
+          break
+        case 'odt':
+          result = { color: 'blue', icon: 'file-document-outline' }
           break
         default:
           result = { color: 'grey darken-1', icon: 'file-hidden' }
