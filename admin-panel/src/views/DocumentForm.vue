@@ -723,6 +723,9 @@ export default {
     ...mapMutations([
       'setIsAuthenticated'
     ]),
+    ...mapMutations('popUpMsgs', [
+      'setShowMsg'
+    ]),
     ...mapActions('documentList', [
       'ajaxGetDocumentList'
     ]),
@@ -1149,6 +1152,7 @@ export default {
 
     // Save/Update the document.
     saveDoc(mode = 'save') {
+      this.setShowMsg(false)
       this.runShowOverlayPageLockout(true)
 
       const indexService = this.$route.params.indexService
