@@ -846,6 +846,10 @@ export default {
         case 'sxm':
           result = { color: 'blue-grey', icon: 'math-integral-box' }
           break
+        case 'djvu':
+        case 'djv':
+          result = { color: 'grey darken-1', icon: 'text-box-multiple-outline' }
+          break
         default:
           result = { color: 'grey darken-1', icon: 'file-hidden' }
       }
