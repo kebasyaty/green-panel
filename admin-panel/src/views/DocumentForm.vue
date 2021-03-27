@@ -839,6 +839,10 @@ export default {
         case 'std':
           result = { color: 'amber darken-2', icon: 'draw' }
           break
+        case 'sxi':
+        case 'sti':
+          result = { color: 'monitor-dashboard', icon: 'orange darken-2' }
+          break
         default:
           result = { color: 'grey darken-1', icon: 'file-hidden' }
       }
