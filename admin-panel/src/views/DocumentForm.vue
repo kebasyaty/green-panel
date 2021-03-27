@@ -826,6 +826,15 @@ export default {
         case 'odt':
           result = { color: 'blue', icon: 'file-document-outline' }
           break
+        case 'sxw':
+        case 'stw':
+        case 'sxg':
+          result = { color: 'blue-grey', icon: 'file-document-outline' }
+          break
+        case 'sxc':
+        case 'stc':
+          result = { color: 'lime', icon: 'table' }
+          break
         default:
           result = { color: 'grey darken-1', icon: 'file-hidden' }
       }
