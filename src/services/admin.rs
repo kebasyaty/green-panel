@@ -16,7 +16,7 @@ use serde::Deserialize;
 use serde_json::{json, Value};
 
 use crate::models::{registration::admin_panel, services::admin::users};
-use mango_orm::{QCommon, QPaladins, ToModel, DB_MAP_CLIENT_NAMES, FORM_CACHE};
+use mango_orm::{CachingModel, QCommon, QPaladins, ToModel, DB_MAP_CLIENT_NAMES, FORM_CACHE};
 
 pub use configure_urls::*;
 pub use request_handlers::*;
@@ -353,7 +353,7 @@ pub mod request_handlers {
                         msg_err = "Error in the output data.".to_string();
                     }
                 } else {
-                    // users::User::
+                    users::User::form_json().unwrap();
                 }
 
                 // Other Models ...
