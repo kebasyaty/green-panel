@@ -11,7 +11,11 @@ use crate::models::settings::{
     PROJECT_NAME, UNIQUE_PROJECT_KEY,
 };
 
-#[Model(is_use_add_valid = true, ignore_fields = "confirm_password")]
+#[Model(
+    is_del_docs = false,
+    is_use_add_valid = true,
+    ignore_fields = "confirm_password"
+)]
 #[derive(Serialize, Deserialize, Default, Debug)]
 pub struct User {
     #[serde(default)]
