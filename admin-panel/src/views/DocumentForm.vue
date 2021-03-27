@@ -1254,14 +1254,14 @@ export default {
             })
             .catch(error => {
               console.log(error)
+              this.runShowMsg({ text: error, status: 'error' })
             })
             .then(() => this.runShowOverlayPageLockout(false))
         }
       ).catch(error => {
         console.log(error)
-        this.runShowOverlayPageLockout(false)
         this.runShowMsg({ text: error, status: 'error' })
-      })
+      }).then(() => this.runShowOverlayPageLockout(false))
     },
 
     // Get Title of document.
@@ -1309,6 +1309,7 @@ export default {
         })
         .catch(error => {
           console.log(error)
+          this.runShowMsg({ text: error, status: 'error' })
         })
         .then(() => this.runShowOverlayPageLockout(false))
     },
@@ -1326,6 +1327,7 @@ export default {
         }).catch(error => {
           console.log(error)
           this.runShowOverlayPageLockout(false)
+          this.runShowMsg({ text: error, status: 'error' })
         })
       }
     }
