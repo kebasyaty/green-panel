@@ -853,6 +853,10 @@ export default {
         case 'csv':
           result = { color: 'grey darken-1', icon: 'file-delimited-outline' }
           break
+        case 'tsv':
+        case 'tab':
+          result = { color: 'grey darken-1', icon: 'file-table-outline' }
+          break
         default:
           result = { color: 'grey darken-1', icon: 'file-hidden' }
       }
