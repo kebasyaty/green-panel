@@ -753,6 +753,7 @@ export default {
       let result
       switch (extension.toLowerCase()) {
         case 'txt':
+        case 'text':
           result = { color: 'black', icon: 'note-text-outline' }
           break
         case 'doc':
