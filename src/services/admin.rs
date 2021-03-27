@@ -337,19 +337,23 @@ pub mod request_handlers {
             // -------------------------------------------------------------------------------------
             if model_key == users::User::key() {
                 payload_max_size = 2097_152; // 2097152 = ~2mb
-                let object_id = users::User::hash_to_id(doc_hash.as_str()).unwrap();
-                let filter = doc! {"_id": object_id};
-                let output_data = users::User::find_one(Some(filter), None);
-                if let Ok(output_data) = output_data {
-                    if output_data.bool() {
-                        document = output_data
-                            .model::<users::User>()
-                            .unwrap()
-                            .json_for_admin()
-                            .unwrap();
+                if !doc_hash.is_empty() {
+                    let object_id = users::User::hash_to_id(doc_hash.as_str()).unwrap();
+                    let filter = doc! {"_id": object_id};
+                    let output_data = users::User::find_one(Some(filter), None);
+                    if let Ok(output_data) = output_data {
+                        if output_data.bool() {
+                            document = output_data
+                                .model::<users::User>()
+                                .unwrap()
+                                .json_for_admin()
+                                .unwrap();
+                        }
+                    } else {
+                        msg_err = "Error in the output data.".to_string();
                     }
                 } else {
-                    msg_err = "Error in the output data.".to_string();
+                    // users::User::
                 }
 
                 // Other Models ...
