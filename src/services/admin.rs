@@ -353,7 +353,7 @@ pub mod request_handlers {
                         msg_err = "Error in the output data.".to_string();
                     }
                 } else {
-                    users::User::form_json().unwrap();
+                    document = users::User::form_json().unwrap_or_default();
                 }
 
                 // Other Models ...
