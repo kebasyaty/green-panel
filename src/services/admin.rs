@@ -314,6 +314,7 @@ pub mod request_handlers {
         let mut payload_max_size: usize = 16384; // Default data size for the form - 16384 = ~16 Kb
         let mut msg_err = String::new();
         let model_key = query.model_key.clone();
+        let doc_hash = query.doc_hash.clone();
         let mut document = String::new();
 
         // Access request identity
@@ -336,7 +337,7 @@ pub mod request_handlers {
             // -------------------------------------------------------------------------------------
             if model_key == users::User::key() {
                 payload_max_size = 2097_152; // 2097152 = ~2mb
-                let object_id = users::User::hash_to_id(query.doc_hash.as_str()).unwrap();
+                let object_id = users::User::hash_to_id(doc_hash.as_str()).unwrap();
                 let filter = doc! {"_id": object_id};
                 let output_data = users::User::find_one(Some(filter), None);
                 if let Ok(output_data) = output_data {
