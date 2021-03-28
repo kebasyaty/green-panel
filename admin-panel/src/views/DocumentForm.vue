@@ -666,7 +666,7 @@
           <span v-text="$t('message.14')"></span>
         </v-tooltip>
         <!-- Save button and continue editing the document. -->
-        <v-tooltip top v-if="Number.isInteger($route.params.indexDoc)">
+        <v-tooltip top v-if="$route.params.indexDoc !== 'new'">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
               text
