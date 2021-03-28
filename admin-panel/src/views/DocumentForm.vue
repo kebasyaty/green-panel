@@ -1367,6 +1367,7 @@ export default {
     // Remove document from collection.
     deleteDoc() {
       this.setShowMsg(false)
+      this.runShowOverlayPageLockout(true)
       const indexService = this.$route.params.indexService
       const indexCollection = this.$route.params.indexCollection
       const indexDoc = this.$route.params.indexDoc
@@ -1379,6 +1380,22 @@ export default {
         return
       }
       this.axios.post('/admin/delete-document', payload)
+        .then(response => {
+          const data = response.data
+          if (!data.is_authenticated) {
+            this.setIsAuthenticated(false)
+          } else if (data.msg_err.length === 0) {
+            this.goBack()
+          } else {
+            console.log(data.msg_err)
+            this.runShowMsg({ text: data.msg_err, status: 'error' })
+          }
+        })
+        .catch(error => {
+          console.log(error)
+          this.runShowMsg({ text: error, status: 'error' })
+        })
+        .then(() => this.runShowOverlayPageLockout(false))
     }
 
   },
