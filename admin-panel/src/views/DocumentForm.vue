@@ -1253,6 +1253,12 @@ export default {
               if (!data.is_authenticated) {
                 this.setIsAuthenticated(false)
               } else if (data.msg_err.length === 0) {
+                for (let idx = 0, len = data.document.length; idx < len; idx++) {
+                  if (data.document[idx].error.length > 0) {
+                    mode = 'save_and_edit'
+                    break
+                  }
+                }
                 switch (mode) {
                   case 'save':
                     this.goBack()
