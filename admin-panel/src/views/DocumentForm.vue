@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <!-- Form for document. -->
-    <v-card class="mt-1">
+    <v-card class="mt-1" max-width="1000">
       <v-toolbar dense flat>
         <v-btn icon @click="goBack()">
           <v-icon>mdi-arrow-left</v-icon>
