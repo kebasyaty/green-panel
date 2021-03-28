@@ -650,7 +650,14 @@
         <!-- Save button and create a new document. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn text small color="green" v-bind="attrs" v-on="on" @click="saveDoc('and_new')">
+            <v-btn
+              text
+              small
+              color="green"
+              v-bind="attrs"
+              v-on="on"
+              @click="saveDoc('save_and_new')"
+            >
               <v-icon>mdi-content-save</v-icon>
               <v-icon>mdi-ampersand</v-icon>
               <v-icon>mdi-file-outline</v-icon>
@@ -668,7 +675,7 @@
               class="mx-4"
               v-bind="attrs"
               v-on="on"
-              @click="saveDoc('and_edit')"
+              @click="saveDoc('save_and_edit')"
             >
               <v-icon>mdi-content-save</v-icon>
               <v-icon>mdi-ampersand</v-icon>
@@ -1242,14 +1249,21 @@ export default {
               if (!data.is_authenticated) {
                 this.setIsAuthenticated(false)
               } else if (data.msg_err.length === 0) {
-                this.vMenu = {}
-                this.dynamicSelectionDialog = {}
-                this.delDynItems = []
-                this.currValDynItem = { title: null, value: null }
-                this.fieldData = {}
-                this.fields = []
-                this.getFormData(data.document)
-                this.reload()
+                switch (mode) {
+                  case 'save':
+                    this.goBack()
+                    break
+                  case 'save_and_edit':
+                    this.vMenu = {}
+                    this.dynamicSelectionDialog = {}
+                    this.delDynItems = []
+                    this.currValDynItem = { title: null, value: null }
+                    this.fieldData = {}
+                    this.fields = []
+                    this.getFormData(data.document)
+                    this.reload()
+                    break
+                }
               } else {
                 console.log(data.msg_err)
                 this.runShowMsg({ text: data.msg_err, status: 'error' })
