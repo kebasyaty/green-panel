@@ -931,7 +931,7 @@ export default {
       let tmp
 
       fields.forEach(field => {
-        const re = /<br>/gi
+        const re = /<br>/g
         field.warning = field.warning.replace(re, ' || ')
         field.error = field.error.replace(re, ' || ')
 
