@@ -1279,7 +1279,7 @@ export default {
                         indexCollection: this.$route.params.indexCollection,
                         indexDoc: 'new'
                       }
-                    }, () => window.document.location.reload())
+                    }, () => window.document.location.reload(), () => window.document.location.reload())
                     break
                 }
               } else {
