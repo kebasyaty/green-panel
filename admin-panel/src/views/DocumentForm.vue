@@ -1244,7 +1244,8 @@ export default {
               } else if (data.msg_err.length === 0) {
                 const document = JSON.parse(data.document)
                 for (let idx = 0, len = document.length; idx < len; idx++) {
-                  if (document[idx].error.length > 0) {
+                  const field = document[idx]
+                  if (field.error.length > 0 || field.common_msg.length > 0) {
                     mode = 'save_and_edit'
                     break
                   }
