@@ -488,32 +488,17 @@ pub mod request_handlers {
             msg_err = "Authentication failed.".to_string();
         }
 
-        // Define the desired model by `model_key` and
-        // get an instance of the model in json format (for the administrator)
-        //
-        // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ADD A MODEL TO HANDLE THE REQUEST
-        if msg_err.is_empty() {
-            // Model `users::User`
-            // -------------------------------------------------------------------------------------
-            if model_key == users::User::key() {
-                let object_id = users::User::hash_to_id(doc_hash.as_str()).unwrap();
-                let filter = doc! {"_id": object_id};
-                let output_data = users::User::find_one(Some(filter), None);
-                if let Ok(output_data) = output_data {
-                    if output_data.bool() {
-                        msg_err = output_data
-                            .model::<users::User>()
-                            .unwrap()
-                            .delete(None)
-                            .unwrap()
-                            .err_msg();
-                    }
-                } else {
-                    msg_err = "Error in the output data.".to_string();
-                }
-            }
+        // Get read access from cache.
+        // -------------------------------------------------------------------------------------
+        let form_store = FORM_CACHE.read().unwrap();
+        let form_cache = form_store.get(query.model_key.as_str()).unwrap();
+        let meta = &form_cache.meta;
+        if !meta.is_del_docs {
+            let client_store = DB_MAP_CLIENT_NAMES.read().unwrap();
+            let client: &mongodb::sync::Client =
+                client_store.get(meta.db_client_name.as_str()).unwrap();
         } else {
-            msg_err = "No match for `model_key`.".to_string();
+            msg_err = "It is forbidden to perform delete.".to_string();
         }
 
         // Return json response
