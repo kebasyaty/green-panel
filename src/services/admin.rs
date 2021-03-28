@@ -248,6 +248,7 @@ pub mod request_handlers {
                     .projection(Some(
                         doc! {query.field_name.as_str(): 1, "created_at": 1, "updated_at": 1},
                     ))
+                    .sort(Some(doc! {"created_at": -1}))
                     .build(),
             );
 
