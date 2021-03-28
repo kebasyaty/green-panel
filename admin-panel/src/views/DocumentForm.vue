@@ -931,6 +931,9 @@ export default {
       let tmp
 
       fields.forEach(field => {
+        field.warning = field.warning.replace('<br>', ' | ')
+        field.error = field.error.replace('<br>', ' | ')
+
         switch (field.widget) {
           case 'inputText':
           case 'inputEmail':
