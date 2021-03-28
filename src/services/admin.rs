@@ -46,6 +46,7 @@ pub mod configure_urls {
         cfg.service(
             web::resource("/{model_key}/save-document").route(web::post().to(save_document)),
         );
+        cfg.service(web::resource("/delete-document").route(web::post().to(delete_document)));
         cfg.service(web::resource("/*").route(web::get().to(admin_panel)));
         cfg.service(web::resource("").route(web::get().to(admin_panel)));
     }
@@ -455,6 +456,73 @@ pub mod request_handlers {
                 "document": document,
                 "is_authenticated": is_authenticated,
                 "msg_err": msg_err
+            })))
+    }
+
+    // Delete document
+    // *********************************************************************************************
+    #[derive(Deserialize)]
+    pub struct QueryDeleteDoc {
+        model_key: String,
+        doc_hash: String,
+    }
+
+    pub async fn delete_document(
+        session: Session,
+        query: web::Json<QueryDeleteDoc>,
+    ) -> Result<HttpResponse, Error> {
+        //
+        let mut is_authenticated = false;
+        let mut msg_err = String::new();
+        let model_key = query.model_key.clone();
+        let doc_hash = query.doc_hash.clone();
+
+        // Access request identity
+        // -----------------------------------------------------------------------------------------
+        if session.get::<String>("user")?.is_some()
+            && session.get::<bool>("is_active")?.unwrap()
+            && session.get::<bool>("is_staff")?.unwrap()
+        {
+            is_authenticated = true;
+        } else {
+            msg_err = "Authentication failed.".to_string();
+        }
+
+        // Define the desired model by `model_key` and
+        // get an instance of the model in json format (for the administrator)
+        //
+        // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ADD A MODEL TO HANDLE THE REQUEST
+        if msg_err.is_empty() {
+            // Model `users::User`
+            // -------------------------------------------------------------------------------------
+            if model_key == users::User::key() {
+                let object_id = users::User::hash_to_id(doc_hash.as_str()).unwrap();
+                let filter = doc! {"_id": object_id};
+                let output_data = users::User::find_one(Some(filter), None);
+                if let Ok(output_data) = output_data {
+                    if output_data.bool() {
+                        msg_err = output_data
+                            .model::<users::User>()
+                            .unwrap()
+                            .delete(None)
+                            .unwrap()
+                            .err_msg();
+                    }
+                } else {
+                    msg_err = "Error in the output data.".to_string();
+                }
+            }
+        } else {
+            msg_err = "No match for `model_key`.".to_string();
+        }
+
+        // Return json response
+        // -----------------------------------------------------------------------------------------
+        Ok(HttpResponse::Ok()
+            .content_type("application/json")
+            .json(json!({
+                    "is_authenticated": is_authenticated,
+                    "msg_err": msg_err
             })))
     }
 }
