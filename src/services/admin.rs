@@ -354,7 +354,11 @@ pub mod request_handlers {
                         msg_err = "Error in the output data.".to_string();
                     }
                 } else {
-                    document = users::User::form_json_for_admin().unwrap_or_default();
+                    if let Ok(form_json) = users::User::form_json_for_admin() {
+                        document = form_json;
+                    } else {
+                        msg_err = "Failed to get empty form.".to_string();
+                    }
                 }
 
                 // Other Models ...
