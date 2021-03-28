@@ -1261,6 +1261,16 @@ export default {
                     this.reload()
                     break
                   case 'save_and_new':
+                    this.$router.replace({
+                      name: 'documenForm',
+                      params: {
+                        service: this.$route.params.service,
+                        indexService: this.$route.params.indexService,
+                        collection: this.$route.params.collection,
+                        indexCollection: this.$route.params.indexCollection,
+                        indexDoc: 'new'
+                      }
+                    })
                     break
                   default:
                     this.goBack()
