@@ -1270,7 +1270,7 @@ export default {
                         indexCollection: this.$route.params.indexCollection,
                         indexDoc: 'new'
                       }
-                    }, () => document.location.reload())
+                    }, () => window.document.location.reload())
                     break
                   default:
                     this.goBack()
