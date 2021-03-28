@@ -363,6 +363,7 @@ pub mod request_handlers {
 
                 // Other Models ...
                 // ---------------------------------------------------------------------------------
+                // } else if model_key == users::ModelName::key() {}
             } else {
                 msg_err = "No match for `model_key`.".to_string();
             }
@@ -440,6 +441,7 @@ pub mod request_handlers {
 
                 // Other Models ...
                 // ---------------------------------------------------------------------------------
+                // } else if model_key == users::ModelName::key() {}
             } else {
                 msg_err = "No match for `model_key`.".to_string();
             }
