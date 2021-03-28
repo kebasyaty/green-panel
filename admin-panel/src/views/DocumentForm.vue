@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <v-spacer></v-spacer>
     <!-- Form for document. -->
     <v-card class="mt-1" max-width="1000">
       <v-toolbar dense flat>
@@ -695,6 +696,7 @@
         </v-tooltip>
       </v-card-actions>
     </v-card>
+    <v-spacer></v-spacer>
   </v-container>
 </template>
 
