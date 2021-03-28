@@ -1174,7 +1174,7 @@ export default {
       const indexCollection = this.$route.params.indexCollection
       const service = this.serviceList[indexService]
       const modelKey = service.collections[indexCollection].model_key
-      const newFieldData = Object.assign({}, this.fieldData)
+      const preparedFieldData = Object.assign({}, this.fieldData)
 
       const addFiles = () => {
         return new Promise((resolve, reject) => {
@@ -1206,7 +1206,7 @@ export default {
                 dataSumSize += file.size
                 this.toBase64(file).then(
                   data => {
-                    newFieldData[field.name] = JSON.stringify({
+                    preparedFieldData[field.name] = JSON.stringify({
                       name: fileName,
                       base64: data,
                       is_delete: this.fieldData[field.name].url !== undefined &&
@@ -1220,13 +1220,13 @@ export default {
                 })
               } else {
                 if (this.fieldData[field.name].is_delete) {
-                  newFieldData[field.name] = JSON.stringify({
+                  preparedFieldData[field.name] = JSON.stringify({
                     name: '',
                     base64: '',
                     is_delete: this.fieldData[field.name].is_delete
                   })
                 } else {
-                  newFieldData[field.name] = null
+                  preparedFieldData[field.name] = null
                 }
                 response(++counter)
               }
@@ -1239,7 +1239,7 @@ export default {
         () => {
           const options = {
             method: 'POST',
-            data: newFieldData,
+            data: preparedFieldData,
             url: `/admin/${modelKey}/save-document`
           }
 
