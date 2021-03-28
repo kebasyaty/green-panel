@@ -756,8 +756,7 @@ export default {
     },
     // Determine if the document was previously created.
     isCreatedDoc() {
-      // return Number.isInteger(this.$route.params.indexDoc)
-      return this.$route.params.indexDoc !== 'new'
+      return !isNaN(parseInt(this.$route.params.indexDoc))
     },
     // Get human readable version of file size.
     humanFileSize(size) {
