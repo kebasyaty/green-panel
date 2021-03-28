@@ -640,7 +640,7 @@
         <!-- Delete button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn text small color="red" v-bind="attrs" v-on="on" @click="removeDoc()">
+            <v-btn text small color="red" v-bind="attrs" v-on="on" @click="deleteDoc()">
               <v-icon>mdi-close-thick</v-icon>
             </v-btn>
           </template>
@@ -1142,12 +1142,6 @@ export default {
       window.console.log(this.delDynItems, choice)
     },
 
-    // Remove document from collection.
-    removeDoc() {
-      this.setShowMsg(false)
-      window.console.log('Remove document')
-    },
-
     // Converte File to base64.
     toBase64(file) {
       return new Promise((resolve, reject) => {
@@ -1368,6 +1362,23 @@ export default {
           this.runShowMsg({ text: error, status: 'error' })
         })
       }
+    },
+
+    // Remove document from collection.
+    deleteDoc() {
+      this.setShowMsg(false)
+      const indexService = this.$route.params.indexService
+      const indexCollection = this.$route.params.indexCollection
+      const indexDoc = this.$route.params.indexDoc
+      const service = this.serviceList[indexService]
+      const payload = {
+        model_key: service.collections[indexCollection].model_key,
+        doc_hash: this.documents[indexDoc] !== undefined ? this.documents[indexDoc].hash : ''
+      }
+      if (payload.doc_hash.length === 0) {
+        return
+      }
+      this.axios.post('/admin/delete-document', payload)
     }
 
   },
