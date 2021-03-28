@@ -931,17 +931,12 @@ export default {
     },
     // Get data for fields of form.
     getFormData(document) {
-      if (document.length === 0) {
-        return
-      }
-
       const vMenu = {}
       const fieldData = {}
       const dynamicSelectionDialog = {}
-      const fields = JSON.parse(document)
       let tmp
 
-      fields.forEach(field => {
+      document.forEach(field => {
         const re = /<br>/g
         field.warning = field.warning.replace(re, ' || ')
         field.error = field.error.replace(re, ' || ')
@@ -1132,7 +1127,7 @@ export default {
       this.vMenu = vMenu
       this.fieldData = fieldData
       this.dynamicSelectionDialog = dynamicSelectionDialog
-      this.fields = fields
+      this.fields = document
     },
 
     // Add a new dynamic element.
@@ -1253,8 +1248,9 @@ export default {
               if (!data.is_authenticated) {
                 this.setIsAuthenticated(false)
               } else if (data.msg_err.length === 0) {
-                for (let idx = 0, len = data.document.length; idx < len; idx++) {
-                  if (data.document[idx].error.length > 0) {
+                const document = JSON.parse(data.document)
+                for (let idx = 0, len = document.length; idx < len; idx++) {
+                  if (document[idx].error.length > 0) {
                     mode = 'save_and_edit'
                     break
                   }
@@ -1270,7 +1266,7 @@ export default {
                     this.currValDynItem = { title: null, value: null }
                     this.fieldData = {}
                     this.fields = []
-                    this.getFormData(data.document)
+                    this.getFormData(document)
                     this.reload()
                     break
                   case 'save_and_new':
@@ -1340,7 +1336,10 @@ export default {
             this.maxTotalFilesSize = data.max_size - 16384
             this.getDocTitle()
             this.getBreadcrumbs()
-            this.getFormData(data.document)
+            if (data.document.length > 0) {
+              const document = JSON.parse(data.document)
+              this.getFormData(document)
+            }
           } else {
             console.log(data.msg_err)
             this.runShowMsg({ text: data.msg_err, status: 'error' })
