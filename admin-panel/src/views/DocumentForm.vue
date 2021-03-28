@@ -647,43 +647,6 @@
           <span v-text="$t('message.13')"></span>
         </v-tooltip>
         <v-spacer></v-spacer>
-        <!-- Save button and create a new document. -->
-        <v-tooltip top>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              text
-              small
-              color="green"
-              v-bind="attrs"
-              v-on="on"
-              @click="saveDoc('save_and_new')"
-            >
-              <v-icon>mdi-content-save</v-icon>
-              <v-icon>mdi-ampersand</v-icon>
-              <v-icon>mdi-file-outline</v-icon>
-            </v-btn>
-          </template>
-          <span v-text="$t('message.14')"></span>
-        </v-tooltip>
-        <!-- Save button and continue editing the document. -->
-        <v-tooltip top v-if="isCreatedDoc()">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              text
-              small
-              color="orange"
-              class="mx-4"
-              v-bind="attrs"
-              v-on="on"
-              @click="saveDoc('save_and_edit')"
-            >
-              <v-icon>mdi-content-save</v-icon>
-              <v-icon>mdi-ampersand</v-icon>
-              <v-icon>mdi-file-document-edit-outline</v-icon>
-            </v-btn>
-          </template>
-          <span v-text="$t('message.15')"></span>
-        </v-tooltip>
         <!-- Save button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
@@ -753,10 +716,6 @@ export default {
       this.$nextTick(() => {
         this.render = true
       })
-    },
-    // Determine if the document was previously created.
-    isCreatedDoc() {
-      return Number.isInteger(this.$route.params.indexDoc)
     },
     // Get human readable version of file size.
     humanFileSize(size) {
@@ -1253,32 +1212,14 @@ export default {
               if (!data.is_authenticated) {
                 this.setIsAuthenticated(false)
               } else if (data.msg_err.length === 0) {
-                switch (mode) {
-                  case 'save_and_edit':
-                    this.vMenu = {}
-                    this.dynamicSelectionDialog = {}
-                    this.delDynItems = []
-                    this.currValDynItem = { title: null, value: null }
-                    this.fieldData = {}
-                    this.fields = []
-                    this.getFormData(data.document)
-                    this.reload()
-                    break
-                  case 'save_and_new':
-                    this.$router.replace({
-                      name: 'documenForm',
-                      params: {
-                        service: this.$route.params.service,
-                        indexService: this.$route.params.indexService,
-                        collection: this.$route.params.collection,
-                        indexCollection: this.$route.params.indexCollection,
-                        indexDoc: 'new'
-                      }
-                    }, () => window.document.location.reload())
-                    break
-                  default:
-                    this.goBack()
-                }
+                this.vMenu = {}
+                this.dynamicSelectionDialog = {}
+                this.delDynItems = []
+                this.currValDynItem = { title: null, value: null }
+                this.fieldData = {}
+                this.fields = []
+                this.getFormData(data.document)
+                this.reload()
               } else {
                 console.log(data.msg_err)
                 this.runShowMsg({ text: data.msg_err, status: 'error' })
