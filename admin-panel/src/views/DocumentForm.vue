@@ -666,7 +666,7 @@
           <span v-text="$t('message.14')"></span>
         </v-tooltip>
         <!-- Save button and continue editing the document. -->
-        <v-tooltip top v-if="$route.params.indexDoc !== 'new'">
+        <v-tooltip top v-if="isCreatedDoc()">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
               text
@@ -753,6 +753,10 @@ export default {
       this.$nextTick(() => {
         this.render = true
       })
+    },
+    // Determine if the document was previously created.
+    isCreatedDoc() {
+      return Number.isInteger(this.$route.params.indexDoc)
     },
     // Get human readable version of file size.
     humanFileSize(size) {
