@@ -1250,9 +1250,6 @@ export default {
                 this.setIsAuthenticated(false)
               } else if (data.msg_err.length === 0) {
                 switch (mode) {
-                  case 'save':
-                    this.goBack()
-                    break
                   case 'save_and_edit':
                     this.vMenu = {}
                     this.dynamicSelectionDialog = {}
@@ -1263,6 +1260,10 @@ export default {
                     this.getFormData(data.document)
                     this.reload()
                     break
+                  case 'save_and_new':
+                    break
+                  default:
+                    this.goBack()
                 }
               } else {
                 console.log(data.msg_err)
