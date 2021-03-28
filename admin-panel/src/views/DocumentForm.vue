@@ -1129,7 +1129,7 @@ export default {
     },
 
     // Save/Update the document.
-    saveDoc(mode = 'save') {
+    saveDoc() {
       this.setShowMsg(false)
       this.runShowOverlayPageLockout(true)
 
