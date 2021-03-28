@@ -474,8 +474,6 @@ pub mod request_handlers {
         //
         let mut is_authenticated = false;
         let mut msg_err = String::new();
-        let model_key = query.model_key.clone();
-        let doc_hash = query.doc_hash.clone();
 
         // Access request identity
         // -----------------------------------------------------------------------------------------
@@ -489,11 +487,11 @@ pub mod request_handlers {
         }
 
         // Get read access from cache.
-        // -------------------------------------------------------------------------------------
+        // -----------------------------------------------------------------------------------------
         let form_store = FORM_CACHE.read().unwrap();
         let form_cache = form_store.get(query.model_key.as_str()).unwrap();
         let meta = &form_cache.meta;
-        if !meta.is_del_docs {
+        if meta.is_del_docs {
             let client_store = DB_MAP_CLIENT_NAMES.read().unwrap();
             let client: &mongodb::sync::Client =
                 client_store.get(meta.db_client_name.as_str()).unwrap();
