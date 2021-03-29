@@ -114,6 +114,9 @@ export default {
       'ajaxGetDocumentList',
       'resetPageNumberDefault'
     ]),
+    ...mapActions('popUpMsgs', [
+      'runShowMsg'
+    ]),
     ...mapActions('overlays', [
       'runShowOverlayPageLockout'
     ]),
@@ -137,9 +140,11 @@ export default {
     getDocumentList: function (payload) {
       this.setShowMsg(false)
       this.runShowOverlayPageLockout(true)
+      this.resetPageNumberDefault()
       this.ajaxGetDocumentList(payload)
         .catch(error => {
           window.console.log(error)
+          this.runShowMsg({ text: error, status: 'error' })
         })
         .then(() => this.runShowOverlayPageLockout(false))
     }
