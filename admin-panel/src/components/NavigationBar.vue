@@ -144,7 +144,6 @@ export default {
     getDocumentList: function (payload) {
       this.setShowMsg(false)
       this.setSearchQuery(null)
-      this.setIsWasChoiceService(true)
       this.runShowOverlayPageLockout(true)
       this.resetPageNumberDefault()
       this.ajaxGetDocumentList(payload)
@@ -152,7 +151,10 @@ export default {
           window.console.log(error)
           this.runShowMsg({ text: error, status: 'error' })
         })
-        .then(() => this.runShowOverlayPageLockout(false))
+        .then(() => {
+          this.setIsWasChoiceService(true)
+          this.runShowOverlayPageLockout(false)
+        })
     }
   }
 }
