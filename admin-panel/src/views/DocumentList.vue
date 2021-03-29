@@ -55,7 +55,7 @@
                 <th>
                   <v-checkbox
                     hide-details
-                    v-model="deleteAllDocsFlag"
+                    v-model="updateDeleteAllDocsFlag"
                     color="red darken-3"
                     class="mt-0 pt-0"
                     @change="markAllDocsForDeletion()"
@@ -141,7 +141,7 @@ export default {
         return this.currentPageNumber
       },
       set: function (num) {
-        this.deleteAllDocsFlag = false
+        this.updateDeleteAllDocsFlag = false
         this.docsToBeDeleted = []
         this.setCurrentPageNumber(num)
       }
@@ -246,7 +246,7 @@ export default {
     },
     // Check the status of the list of selected documents to be deleted.
     checkStatusListSelectedDocsDeleted: function () {
-      this.deleteAllDocsFlag = this.docsToBeDeleted.length === this.documents.length
+      this.updateDeleteAllDocsFlag = this.docsToBeDeleted.length === this.documents.length
     },
     // Delete selected documents.
     deleteDocs: function () {
