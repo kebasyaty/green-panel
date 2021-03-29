@@ -107,6 +107,9 @@ export default {
       'setPanelWidthServiceList',
       'setSelectedService'
     ]),
+    ...mapMutations('documentList', [
+      'setSearchQuery'
+    ]),
     ...mapMutations('popUpMsgs', [
       'setShowMsg'
     ]),
@@ -139,6 +142,7 @@ export default {
     // Get a list of documents.
     getDocumentList: function (payload) {
       this.setShowMsg(false)
+      this.setSearchQuery(null)
       this.runShowOverlayPageLockout(true)
       this.resetPageNumberDefault()
       this.ajaxGetDocumentList(payload)
