@@ -222,12 +222,10 @@ export default {
     },
     // Documents search.
     documentSearch: function () {
-      if (this.updateSearchQuery !== null) {
-        // Reset page number to default.
-        this.resetPageNumberDefault()
-        // Get a list of documents.
-        this.getDocumentList()
-      }
+      // Reset page number to default.
+      this.resetPageNumberDefault()
+      // Get a list of documents.
+      this.getDocumentList()
     },
     // Create Url for Document.
     createDocumentUrl: function (indexDoc) {
