@@ -540,5 +540,27 @@ pub mod request_handlers {
         query: web::Json<QueryDeleteManyDoc>,
     ) -> Result<HttpResponse, Error> {
         //
+        let mut is_authenticated = false;
+        let mut msg_err = String::new();
+
+        // Access request identity
+        // -----------------------------------------------------------------------------------------
+        if session.get::<String>("user")?.is_some()
+            && session.get::<bool>("is_active")?.unwrap()
+            && session.get::<bool>("is_staff")?.unwrap()
+        {
+            is_authenticated = true;
+        } else {
+            msg_err = "Authentication failed.".to_string();
+        }
+
+        // Return json response
+        // -----------------------------------------------------------------------------------------
+        Ok(HttpResponse::Ok()
+            .content_type("application/json")
+            .json(json!({
+                    "is_authenticated": is_authenticated,
+                    "msg_err": msg_err
+            })))
     }
 }
