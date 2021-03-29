@@ -554,6 +554,22 @@ pub mod request_handlers {
             msg_err = "Authentication failed.".to_string();
         }
 
+        // Get read access from cache.
+        // -----------------------------------------------------------------------------------------
+        if msg_err.is_empty() {
+            let form_store = FORM_CACHE.read().unwrap();
+            let form_cache = form_store.get(query.model_key.as_str()).unwrap();
+            let meta = &form_cache.meta;
+            //
+            if meta.is_del_docs {
+                let client_store = DB_MAP_CLIENT_NAMES.read().unwrap();
+                let client: &mongodb::sync::Client =
+                    client_store.get(meta.db_client_name.as_str()).unwrap();
+            }
+        } else {
+            msg_err = "It is forbidden to perform delete.".to_string();
+        }
+
         // Return json response
         // -----------------------------------------------------------------------------------------
         Ok(HttpResponse::Ok()
