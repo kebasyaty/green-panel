@@ -565,6 +565,10 @@ pub mod request_handlers {
                 let client_store = DB_MAP_CLIENT_NAMES.read().unwrap();
                 let client: &mongodb::sync::Client =
                     client_store.get(meta.db_client_name.as_str()).unwrap();
+                // Accessing the collection
+                let coll = client
+                    .database(meta.database_name.as_str())
+                    .collection(meta.collection_name.as_str());
             }
         } else {
             msg_err = "It is forbidden to perform delete.".to_string();
