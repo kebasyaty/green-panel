@@ -271,7 +271,6 @@ export default {
             this.setIsAuthenticated(false)
           } else if (data.msg_err.length === 0) {
             this.setShowMsg(false)
-            this.updateSearchQuery = null
             this.resetPageNumberDefault()
             this.getDocumentList()
           } else {
