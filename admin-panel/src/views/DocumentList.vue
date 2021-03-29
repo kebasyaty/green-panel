@@ -212,6 +212,7 @@ export default {
     },
     // Get a list of documents.
     getDocumentList: function () {
+      this.setShowMsg(false)
       this.runShowOverlayPageLockout(true)
       if (this.docsToBeDeleted.length > 0) {
         this.deleteAllDocsFlag = false
