@@ -141,6 +141,8 @@ export default {
         return this.currentPageNumber
       },
       set: function (num) {
+        this.deleteAllDocsFlag = false
+        this.docsToBeDeleted = []
         this.setCurrentPageNumber(num)
       }
     },
