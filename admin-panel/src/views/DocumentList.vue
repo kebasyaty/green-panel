@@ -41,7 +41,7 @@
               depressed
               v-if="docsToBeDeleted.length > 0"
               color="red darken-3"
-              @click="deleteDocs"
+              @click="deleteDocs()"
             >
               <v-icon left>mdi-close-thick</v-icon>
               {{ $t('message.4') }}
@@ -60,7 +60,7 @@
                     v-model="deleteAllDocsFlag"
                     color="red darken-3"
                     class="mt-0 pt-0"
-                    @change="markAllDocsForDeletion"
+                    @change="markAllDocsForDeletion()"
                   ></v-checkbox>
                 </th>
                 <!-- Symbol - № -->
@@ -82,7 +82,7 @@
                     :value="idxDoc"
                     color="red darken-3"
                     class="mt-0 pt-0"
-                    @change="checkStatusListSelectedDocsDeleted"
+                    @change="checkStatusListSelectedDocsDeleted()"
                   ></v-checkbox>
                 </td>
                 <!-- Number of the document in the table. -->
