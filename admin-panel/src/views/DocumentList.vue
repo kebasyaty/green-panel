@@ -51,6 +51,8 @@
           <template v-slot:default>
             <thead>
               <tr>
+                <!-- Symbol - № -->
+                <th>&#8470;</th>
                 <!-- Mark all documents for deletion. -->
                 <th>
                   <v-checkbox
@@ -61,8 +63,6 @@
                     @change="markAllDocsForDeletion()"
                   ></v-checkbox>
                 </th>
-                <!-- Symbol - № -->
-                <th>&#8470;</th>
                 <!-- Other headers. -->
                 <th>{{ serviceList[$route.params.indexService].collections[$route.params.indexCollection].doc_name.title }}</th>
                 <th>{{ $t('message.29') }}</th>
@@ -72,6 +72,8 @@
             <tbody>
               <!-- Document list. -->
               <tr v-for="(document, idxDoc) in documents" :key="`${document.title}-${idxDoc}`">
+                <!-- Number of the document in the table. -->
+                <td width="76" class="pr-0">{{ idxDoc + 1 }}</td>
                 <!-- Delete document. -->
                 <td width="76" class="pr-0">
                   <v-checkbox
@@ -83,8 +85,6 @@
                     @change="checkStatusListSelectedDocsDeleted()"
                   ></v-checkbox>
                 </td>
-                <!-- Number of the document in the table. -->
-                <td width="76" class="pr-0">{{ idxDoc + 1 }}</td>
                 <!-- Link to document. -->
                 <td>
                   <router-link :to="createDocumentUrl(idxDoc)">{{ document.title }}</router-link>
@@ -127,7 +127,9 @@ export default {
 
   watch: {
     isWasChoiceService: function (value) {
+      window.console.log('isWasChoiceService - 1')
       if (value) {
+        window.console.log('isWasChoiceService - 2')
         this.deleteAllDocsFlag = false
         this.docsToBeDeleted = []
         this.setIsWasChoiceService(false)
