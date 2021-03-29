@@ -89,8 +89,8 @@
                 <td>
                   <router-link :to="createDocumentUrl(idxDoc)">{{ document.title }}</router-link>
                 </td>
-                <td width="160" v-html="formatDate(document.created_at)"></td>
-                <td width="160" v-html="formatDate(document.updated_at)"></td>
+                <td width="160" v-html="formattingDate(document.created_at)"></td>
+                <td width="160" v-html="formattingDate(document.updated_at)"></td>
               </tr>
             </tbody>
           </template>
@@ -224,7 +224,7 @@ export default {
       return `${this.docUrlNoIndex}/${indexDoc}`
     },
     // Formatting date.
-    formatDate: function (date) {
+    formattingDate: function (date) {
       const dateParsing = date.split('T')
       return `<span class="cyan--text text--darken-2">${dateParsing[0]}</span> <span class="orange--text text--darken-2">${dateParsing[1]}</span>`
     },
