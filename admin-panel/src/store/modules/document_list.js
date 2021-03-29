@@ -11,7 +11,6 @@ export default {
     searchQuery: null,
     blockPagination: false,
     deleteAllDocsFlag: false,
-    docsToBeDeleted: [],
     // block loading of documents
     blockLoadDocs: false
   },
@@ -36,9 +35,6 @@ export default {
     },
     setDeleteAllDocsFlag(state, payload) {
       state.deleteAllDocsFlag = payload
-    },
-    setDocsToBeDeleted(state, payload) {
-      state.docsToBeDeleted = payload
     },
     setBlockLoadDocs(state, payload) {
       state.blockLoadDocs = payload

@@ -109,8 +109,7 @@ export default {
     ]),
     ...mapMutations('documentList', [
       'setSearchQuery',
-      'setDeleteAllDocsFlag',
-      'setDocsToBeDeleted'
+      'setDeleteAllDocsFlag'
     ]),
     ...mapMutations('popUpMsgs', [
       'setShowMsg'
@@ -146,7 +145,6 @@ export default {
       this.setShowMsg(false)
       this.setSearchQuery(null)
       this.setDeleteAllDocsFlag(false)
-      this.setDocsToBeDeleted([])
       this.runShowOverlayPageLockout(true)
       this.resetPageNumberDefault()
       this.ajaxGetDocumentList(payload)
