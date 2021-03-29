@@ -37,8 +37,6 @@
             <!-- Button - Delete all selected documents. -->
             <v-btn
               dark
-              tile
-              depressed
               v-if="docsToBeDeleted.length > 0"
               color="red darken-3"
               @click="deleteDocs()"
