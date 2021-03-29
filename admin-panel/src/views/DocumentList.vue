@@ -186,9 +186,15 @@ export default {
       'setCurrentPageNumber',
       'setSearchQuery'
     ]),
+    ...mapMutations('popUpMsgs', [
+      'setShowMsg'
+    ]),
     ...mapActions('documentList', [
       'ajaxGetDocumentList',
       'resetPageNumberDefault'
+    ]),
+    ...mapActions('popUpMsgs', [
+      'runShowMsg'
     ]),
     ...mapActions('overlays', [
       'runShowOverlayPageLockout'
@@ -229,6 +235,8 @@ export default {
     },
     // Delete selected documents.
     deleteDocs: function () {
+      this.setShowMsg(false)
+      this.runShowOverlayPageLockout(true)
       window.console.log(this.docsToBeDeleted)
     },
     // Formatting date.
