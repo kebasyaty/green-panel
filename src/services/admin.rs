@@ -569,6 +569,12 @@ pub mod request_handlers {
                 let coll = client
                     .database(meta.database_name.as_str())
                     .collection(meta.collection_name.as_str());
+                let mut bson_has_list: Vec<mongodb::bson::oid::ObjectId> = Vec::new();
+                for hash in query.doc_hash_list.iter() {
+                    let object_id = mongodb::bson::oid::ObjectId::with_string(hash).unwrap();
+                    bson_has_list.push(object_id);
+                }
+                let filter = doc! {"_id": {"$in": bson_has_list}};
             }
         } else {
             msg_err = "It is forbidden to perform delete.".to_string();
