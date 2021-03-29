@@ -251,6 +251,7 @@ export default {
     // Delete selected documents.
     deleteDocs: function () {
       this.setShowMsg(false)
+      this.setSearchQuery(null)
       this.runShowOverlayPageLockout(true)
       const indexService = this.$route.params.indexService
       const indexCollection = this.$route.params.indexCollection
