@@ -10,7 +10,6 @@ export default {
     pageCount: 0,
     searchQuery: null,
     blockPagination: false,
-    deleteAllDocsFlag: false,
     // block loading of documents
     blockLoadDocs: false
   },
@@ -32,9 +31,6 @@ export default {
     },
     setBlockPagination(state, payload) {
       state.blockPagination = payload
-    },
-    setDeleteAllDocsFlag(state, payload) {
-      state.deleteAllDocsFlag = payload
     },
     setBlockLoadDocs(state, payload) {
       state.blockLoadDocs = payload

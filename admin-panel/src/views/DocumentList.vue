@@ -55,7 +55,7 @@
                 <th>
                   <v-checkbox
                     hide-details
-                    v-model="updateDeleteAllDocsFlag"
+                    v-model="deleteAllDocsFlag"
                     color="red darken-3"
                     class="mt-0 pt-0"
                     @change="markAllDocsForDeletion()"
@@ -121,6 +121,7 @@ export default {
   name: 'DocumentList',
 
   data: () => ({
+    deleteAllDocsFlag: false,
     docsToBeDeleted: []
   }),
 
@@ -133,15 +134,14 @@ export default {
       'currentPageNumber',
       'pageCount',
       'searchQuery',
-      'blockPagination',
-      'deleteAllDocsFlag'
+      'blockPagination'
     ]),
     updateCurrentPageNumber: {
       get: function () {
         return this.currentPageNumber
       },
       set: function (num) {
-        this.updateDeleteAllDocsFlag = false
+        this.deleteAllDocsFlag = false
         this.docsToBeDeleted = []
         this.setCurrentPageNumber(num)
       }
@@ -152,14 +152,6 @@ export default {
       },
       set: function (text) {
         this.setSearchQuery(text)
-      }
-    },
-    updateDeleteAllDocsFlag: {
-      get: function () {
-        return this.deleteAllDocsFlag
-      },
-      set: function (flag) {
-        this.setDeleteAllDocsFlag(flag)
       }
     },
     // Get Title of collection.
@@ -192,8 +184,7 @@ export default {
     ]),
     ...mapMutations('documentList', [
       'setCurrentPageNumber',
-      'setSearchQuery',
-      'setDeleteAllDocsFlag'
+      'setSearchQuery'
     ]),
     ...mapMutations('popUpMsgs', [
       'setShowMsg'
@@ -246,7 +237,7 @@ export default {
     },
     // Check the status of the list of selected documents to be deleted.
     checkStatusListSelectedDocsDeleted: function () {
-      this.updateDeleteAllDocsFlag = this.docsToBeDeleted.length === this.documents.length
+      this.deleteAllDocsFlag = this.docsToBeDeleted.length === this.documents.length
     },
     // Delete selected documents.
     deleteDocs: function () {

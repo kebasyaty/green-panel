@@ -108,8 +108,7 @@ export default {
       'setSelectedService'
     ]),
     ...mapMutations('documentList', [
-      'setSearchQuery',
-      'setDeleteAllDocsFlag'
+      'setSearchQuery'
     ]),
     ...mapMutations('popUpMsgs', [
       'setShowMsg'
@@ -144,7 +143,6 @@ export default {
     getDocumentList: function (payload) {
       this.setShowMsg(false)
       this.setSearchQuery(null)
-      this.setDeleteAllDocsFlag(false)
       this.runShowOverlayPageLockout(true)
       this.resetPageNumberDefault()
       this.ajaxGetDocumentList(payload)
