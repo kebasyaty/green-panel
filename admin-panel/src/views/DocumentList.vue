@@ -121,7 +121,6 @@ export default {
   name: 'DocumentList',
 
   data: () => ({
-    deleteAllDocsFlag: false,
     docsToBeDeleted: []
   }),
 
@@ -134,7 +133,8 @@ export default {
       'currentPageNumber',
       'pageCount',
       'searchQuery',
-      'blockPagination'
+      'blockPagination',
+      'deleteAllDocsFlag'
     ]),
     updateCurrentPageNumber: {
       get: function () {
@@ -152,6 +152,14 @@ export default {
       },
       set: function (text) {
         this.setSearchQuery(text)
+      }
+    },
+    updateDeleteAllDocsFlag: {
+      get: function () {
+        return this.deleteAllDocsFlag
+      },
+      set: function (flag) {
+        this.setDeleteAllDocsFlag(flag)
       }
     },
     // Get Title of collection.
@@ -184,7 +192,8 @@ export default {
     ]),
     ...mapMutations('documentList', [
       'setCurrentPageNumber',
-      'setSearchQuery'
+      'setSearchQuery',
+      'setDeleteAllDocsFlag'
     ]),
     ...mapMutations('popUpMsgs', [
       'setShowMsg'
