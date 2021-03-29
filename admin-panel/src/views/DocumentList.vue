@@ -240,9 +240,13 @@ export default {
       const indexService = this.$route.params.indexService
       const indexCollection = this.$route.params.indexCollection
       const service = this.serviceList[indexService]
+      const docHashList = []
+      this.docsToBeDeleted.forEach(idx => {
+        docHashList.push(this.documents[idx].hash)
+      })
       const payload = {
         model_key: service.collections[indexCollection].model_key,
-        doc_hash: this.documents[indexDoc] !== undefined ? this.documents[indexDoc].hash : ''
+        doc_hash_list: docHashList
       }
       window.console.log(this.docsToBeDeleted)
     },
