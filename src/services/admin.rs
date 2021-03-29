@@ -582,9 +582,9 @@ pub mod request_handlers {
                 } else {
                     msg_err = "An error occurred while deleting the document.".to_string();
                 }
-            }
-        } else {
+            } else {
             msg_err = "It is forbidden to perform delete.".to_string();
+            }
         }
 
         // Return json response
