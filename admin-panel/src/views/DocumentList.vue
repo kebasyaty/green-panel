@@ -253,6 +253,24 @@ export default {
         model_key: service.collections[indexCollection].model_key,
         doc_hash_list: docHashList
       }
+      this.axios.post('/admin/delete-documents', payload)
+        .then(response => {
+          const data = response.data
+          if (!data.is_authenticated) {
+            this.setIsAuthenticated(false)
+          } else if (data.msg_err.length === 0) {
+            this.resetPageNumberDefault()
+            this.getDocumentList()
+          } else {
+            console.log(data.msg_err)
+            this.runShowMsg({ text: data.msg_err, status: 'error' })
+          }
+        })
+        .catch(error => {
+          console.log(error)
+          this.runShowMsg({ text: error, status: 'error' })
+        })
+        .then(() => this.runShowOverlayPageLockout(false))
     }
   },
 
