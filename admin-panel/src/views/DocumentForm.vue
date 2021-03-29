@@ -1378,6 +1378,7 @@ export default {
         doc_hash: this.documents[indexDoc] !== undefined ? this.documents[indexDoc].hash : ''
       }
       if (payload.doc_hash.length === 0) {
+        this.runShowOverlayPageLockout(false)
         return
       }
       this.axios.post('/admin/delete-document', payload)
