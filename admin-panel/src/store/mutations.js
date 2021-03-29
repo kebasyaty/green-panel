@@ -26,9 +26,6 @@ export default {
   setServiceList(state, payload) {
     state.serviceList = payload
   },
-  setIsWasChoiceService(state, payload) {
-    state.isWasChoiceService = payload
-  },
   setShowErrMsg(state, payload) {
     state.showErrMsg = payload
   },

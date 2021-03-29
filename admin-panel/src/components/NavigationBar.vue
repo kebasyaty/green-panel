@@ -105,8 +105,7 @@ export default {
     ...mapMutations([
       'setOpenPanelServiceList',
       'setPanelWidthServiceList',
-      'setSelectedService',
-      'setIsWasChoiceService'
+      'setSelectedService'
     ]),
     ...mapMutations('documentList', [
       'setSearchQuery'
@@ -151,10 +150,7 @@ export default {
           window.console.log(error)
           this.runShowMsg({ text: error, status: 'error' })
         })
-        .then(() => {
-          this.setIsWasChoiceService(true)
-          this.runShowOverlayPageLockout(false)
-        })
+        .then(() => this.runShowOverlayPageLockout(false))
     }
   }
 }
