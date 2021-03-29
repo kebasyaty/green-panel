@@ -104,7 +104,7 @@
           :length="pageCount"
           :total-visible="5"
           @input="getDocumentList()"
-          :disabled="deleteAllDocsFlag"
+          :disabled="docsToBeDeleted.length > 0"
         ></v-pagination>
         <v-spacer></v-spacer>
       </v-card-actions>
