@@ -237,6 +237,13 @@ export default {
     deleteDocs: function () {
       this.setShowMsg(false)
       this.runShowOverlayPageLockout(true)
+      const indexService = this.$route.params.indexService
+      const indexCollection = this.$route.params.indexCollection
+      const service = this.serviceList[indexService]
+      const payload = {
+        model_key: service.collections[indexCollection].model_key,
+        doc_hash: this.documents[indexDoc] !== undefined ? this.documents[indexDoc].hash : ''
+      }
       window.console.log(this.docsToBeDeleted)
     },
     // Formatting date.
