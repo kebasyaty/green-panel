@@ -252,6 +252,7 @@ export default {
     },
     // Delete selected documents.
     deleteDocs: function () {
+      window.console.log(this.docsToBeDeleted)
       this.setShowMsg(false)
       this.runShowOverlayPageLockout(true)
       const indexService = this.$route.params.indexService
