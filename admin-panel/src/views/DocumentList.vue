@@ -121,7 +121,7 @@ export default {
   name: 'DocumentList',
 
   data: () => ({
-    docsToBeDeleted: []
+    //
   }),
 
   computed: {
@@ -134,7 +134,8 @@ export default {
       'pageCount',
       'searchQuery',
       'blockPagination',
-      'deleteAllDocsFlag'
+      'deleteAllDocsFlag',
+      'docsToBeDeleted'
     ]),
     updateCurrentPageNumber: {
       get: function () {
@@ -142,7 +143,7 @@ export default {
       },
       set: function (num) {
         this.updateDeleteAllDocsFlag = false
-        this.docsToBeDeleted = []
+        this.setDocsToBeDeleted([])
         this.setCurrentPageNumber(num)
       }
     },
@@ -193,7 +194,8 @@ export default {
     ...mapMutations('documentList', [
       'setCurrentPageNumber',
       'setSearchQuery',
-      'setDeleteAllDocsFlag'
+      'setDeleteAllDocsFlag',
+      'setDocsToBeDeleted'
     ]),
     ...mapMutations('popUpMsgs', [
       'setShowMsg'
@@ -242,7 +244,7 @@ export default {
     },
     // Mark all documents for deletion.
     markAllDocsForDeletion: function () {
-      this.docsToBeDeleted = this.deleteAllDocsFlag ? fillRange(0, this.documents.length - 1) : []
+      this.setDocsToBeDeleted(this.deleteAllDocsFlag ? fillRange(0, this.documents.length - 1) : [])
     },
     // Check the status of the list of selected documents to be deleted.
     checkStatusListSelectedDocsDeleted: function () {
