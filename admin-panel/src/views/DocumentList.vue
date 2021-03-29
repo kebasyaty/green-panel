@@ -253,7 +253,6 @@ export default {
         model_key: service.collections[indexCollection].model_key,
         doc_hash_list: docHashList
       }
-      window.console.log(this.docsToBeDeleted)
     }
   },
 
