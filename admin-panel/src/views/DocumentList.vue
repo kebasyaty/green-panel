@@ -125,9 +125,20 @@ export default {
     docsToBeDeleted: []
   }),
 
+  watch: {
+    isWasChoiceService: function (value) {
+      if (value) {
+        this.deleteAllDocsFlag = false
+        this.docsToBeDeleted = []
+        this.setIsWasChoiceService(false)
+      }
+    }
+  },
+
   computed: {
     ...mapState([
-      'serviceList'
+      'serviceList',
+      'isWasChoiceService'
     ]),
     ...mapState('documentList', [
       'documents',
@@ -180,7 +191,7 @@ export default {
 
   methods: {
     ...mapMutations([
-      'setSearchQuery'
+      'setIsWasChoiceService'
     ]),
     ...mapMutations('documentList', [
       'setCurrentPageNumber',
