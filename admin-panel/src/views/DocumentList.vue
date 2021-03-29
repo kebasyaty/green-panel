@@ -254,7 +254,7 @@ export default {
         model_key: service.collections[indexCollection].model_key,
         doc_hash_list: docHashList
       }
-      this.axios.post('/admin/delete-documents', payload)
+      this.axios.post('/admin/delete-many-doc', payload)
         .then(response => {
           const data = response.data
           if (!data.is_authenticated) {

@@ -47,6 +47,7 @@ pub mod configure_urls {
             web::resource("/{model_key}/save-document").route(web::post().to(save_document)),
         );
         cfg.service(web::resource("/delete-document").route(web::post().to(delete_document)));
+        cfg.service(web::resource("/delete-many-doc").route(web::post().to(delete_many_doc)));
         cfg.service(web::resource("/*").route(web::get().to(admin_panel)));
         cfg.service(web::resource("").route(web::get().to(admin_panel)));
     }
