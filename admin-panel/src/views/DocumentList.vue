@@ -73,7 +73,7 @@
             </thead>
             <tbody>
               <!-- Document list. -->
-              <tr v-for="(document, idxDoc) in documents" :key="document.title">
+              <tr v-for="(document, idxDoc) in documents" :key="`${document.title}-${idxDoc}`">
                 <!-- Delete document. -->
                 <td width="76" class="pr-0">
                   <v-checkbox
