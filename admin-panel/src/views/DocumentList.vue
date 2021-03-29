@@ -233,6 +233,11 @@ export default {
     checkStatusListSelectedDocsDeleted: function () {
       this.deleteAllDocsFlag = this.docsToBeDeleted.length === this.documents.length
     },
+    // Formatting date.
+    formatDate: function (date) {
+      const dateParsing = date.split('T')
+      return `<span class="cyan--text text--darken-2">${dateParsing[0]}</span> <span class="orange--text text--darken-2">${dateParsing[1]}</span>`
+    },
     // Delete selected documents.
     deleteDocs: function () {
       this.setShowMsg(false)
@@ -249,11 +254,6 @@ export default {
         doc_hash_list: docHashList
       }
       window.console.log(this.docsToBeDeleted)
-    },
-    // Formatting date.
-    formatDate: function (date) {
-      const dateParsing = date.split('T')
-      return `<span class="cyan--text text--darken-2">${dateParsing[0]}</span> <span class="orange--text text--darken-2">${dateParsing[1]}</span>`
     }
   },
 
