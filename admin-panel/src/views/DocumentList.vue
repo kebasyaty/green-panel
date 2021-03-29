@@ -104,7 +104,6 @@
           :length="pageCount"
           :total-visible="5"
           @input="getDocumentList()"
-          :disabled="docsToBeDeleted.length > 0"
         ></v-pagination>
         <v-spacer></v-spacer>
       </v-card-actions>
@@ -214,6 +213,10 @@ export default {
     // Get a list of documents.
     getDocumentList: function () {
       this.runShowOverlayPageLockout(true)
+      if (this.docsToBeDeleted.length > 0) {
+        this.deleteAllDocsFlag = false
+        this.docsToBeDeleted = []
+      }
       this.ajaxGetDocumentList()
         .catch(error => {
           window.console.log(error)
