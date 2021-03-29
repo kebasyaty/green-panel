@@ -526,4 +526,19 @@ pub mod request_handlers {
                     "msg_err": msg_err
             })))
     }
+
+    // Delete document
+    // *********************************************************************************************
+    #[derive(Deserialize)]
+    pub struct QueryDeleteManyDoc {
+        model_key: String,
+        doc_hash_list: Vec<String>,
+    }
+
+    pub async fn delete_many_doc(
+        session: Session,
+        query: web::Json<QueryDeleteManyDoc>,
+    ) -> Result<HttpResponse, Error> {
+        //
+    }
 }
