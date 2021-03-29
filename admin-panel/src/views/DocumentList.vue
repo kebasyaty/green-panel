@@ -225,6 +225,11 @@ export default {
     createDocumentUrl: function (indexDoc) {
       return `${this.docUrlNoIndex}/${indexDoc}`
     },
+    // Formatting date.
+    formatDate: function (date) {
+      const dateParsing = date.split('T')
+      return `<span class="cyan--text text--darken-2">${dateParsing[0]}</span> <span class="orange--text text--darken-2">${dateParsing[1]}</span>`
+    },
     // Mark all documents for deletion.
     markAllDocsForDeletion: function () {
       this.docsToBeDeleted = this.deleteAllDocsFlag ? fillRange(0, this.documents.length - 1) : []
@@ -232,11 +237,6 @@ export default {
     // Check the status of the list of selected documents to be deleted.
     checkStatusListSelectedDocsDeleted: function () {
       this.deleteAllDocsFlag = this.docsToBeDeleted.length === this.documents.length
-    },
-    // Formatting date.
-    formatDate: function (date) {
-      const dateParsing = date.split('T')
-      return `<span class="cyan--text text--darken-2">${dateParsing[0]}</span> <span class="orange--text text--darken-2">${dateParsing[1]}</span>`
     },
     // Delete selected documents.
     deleteDocs: function () {
