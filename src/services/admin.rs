@@ -569,12 +569,12 @@ pub mod request_handlers {
                 let coll = client
                     .database(meta.database_name.as_str())
                     .collection(meta.collection_name.as_str());
-                let mut bson_has_list: Vec<mongodb::bson::oid::ObjectId> = Vec::new();
+                let mut bson_hash_list: Vec<mongodb::bson::oid::ObjectId> = Vec::new();
                 for hash in query.doc_hash_list.iter() {
                     let object_id = mongodb::bson::oid::ObjectId::with_string(hash).unwrap();
-                    bson_has_list.push(object_id);
+                    bson_hash_list.push(object_id);
                 }
-                let filter = doc! {"_id": {"$in": bson_has_list}};
+                let filter = doc! {"_id": {"$in": bson_hash_list}};
                 if let Ok(result) = coll.delete_many(filter, None) {
                     if result.deleted_count == 0 {
                         msg_err = "An error occurred while deleting the document.".to_string();
