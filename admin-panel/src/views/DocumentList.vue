@@ -201,6 +201,7 @@ export default {
     ]),
     // Router - Go back one step.
     goBack() {
+      this.setShowMsg(false)
       this.$router.replace({ name: 'home' })
     },
     // Get a list of documents.
@@ -259,6 +260,7 @@ export default {
           if (!data.is_authenticated) {
             this.setIsAuthenticated(false)
           } else if (data.msg_err.length === 0) {
+            this.updateSearchQuery = null
             this.resetPageNumberDefault()
             this.getDocumentList()
           } else {
