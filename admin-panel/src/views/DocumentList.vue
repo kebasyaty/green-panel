@@ -241,6 +241,7 @@ export default {
     },
     // Delete selected documents.
     deleteDocs: function () {
+      window.console.log(this.docsToBeDeleted)
       this.setShowMsg(false)
       this.runShowOverlayPageLockout(true)
       const indexService = this.$route.params.indexService
@@ -260,6 +261,7 @@ export default {
           if (!data.is_authenticated) {
             this.setIsAuthenticated(false)
           } else if (data.msg_err.length === 0) {
+            this.setShowMsg(false)
             this.updateSearchQuery = null
             this.resetPageNumberDefault()
             this.getDocumentList()
