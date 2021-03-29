@@ -134,7 +134,8 @@ export default {
       'currentPageNumber',
       'pageCount',
       'searchQuery',
-      'blockPagination'
+      'blockPagination',
+      'blockLoadDocs'
     ]),
     updateCurrentPageNumber: {
       get: function () {
@@ -175,6 +176,15 @@ export default {
       const slugServiceTitle = slug(service.service.title, { locale: currentUserLocale })
       const slugCollectionTitle = slug(this.collectionTitle, { locale: currentUserLocale })
       return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document`
+    }
+  },
+
+  watch: {
+    blockLoadDocs: function (flag) {
+      if (!flag) {
+        this.deleteAllDocsFlag = false
+        this.docsToBeDeleted = []
+      }
     }
   },
 
