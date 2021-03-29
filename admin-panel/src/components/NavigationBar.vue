@@ -105,7 +105,8 @@ export default {
     ...mapMutations([
       'setOpenPanelServiceList',
       'setPanelWidthServiceList',
-      'setSelectedService'
+      'setSelectedService',
+      'setIsWasChoiceService'
     ]),
     ...mapMutations('documentList', [
       'setSearchQuery'
@@ -143,6 +144,7 @@ export default {
     getDocumentList: function (payload) {
       this.setShowMsg(false)
       this.setSearchQuery(null)
+      this.setIsWasChoiceService(true)
       this.runShowOverlayPageLockout(true)
       this.resetPageNumberDefault()
       this.ajaxGetDocumentList(payload)
