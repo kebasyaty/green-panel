@@ -69,8 +69,8 @@
                           small
                           color="red"
                           @click="[dynamicSelectionDialog[field.name] = false,
-                                   delDynItems = [],
-                                   currValDynItem = {title: null, value: null}]"
+                                   currValDynItem = {title: null, value: null},
+                                   delDynItems = []]"
                         >
                           <v-icon>mdi-close</v-icon>
                         </v-btn>
@@ -134,6 +134,7 @@
                           :disabled="delDynItems.length === 0"
                           @click="[removeDynItems(field.options),
                                    dynamicSelectionDialog[field.name] = false,
+                                   currValDynItem = {title: null, value: null},
                                    delDynItems = []]"
                         >{{ $t('message.21') }}</v-btn>
                       </v-card-actions>
