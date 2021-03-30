@@ -354,7 +354,7 @@ pub mod request_handlers {
                                 .unwrap();
                         }
                     } else {
-                        msg_err = "Error in the output data.".to_string();
+                        msg_err = "No output data received.".to_string();
                     }
                 } else {
                     if let Ok(form_json) = users::User::form_json_for_admin() {
@@ -603,7 +603,6 @@ pub mod request_handlers {
     #[derive(Deserialize)]
     pub struct QuerySaveNewDynItem {
         model_key: String,
-        doc_hash: String,
         json_options: String,
     }
 
@@ -615,7 +614,6 @@ pub mod request_handlers {
         let mut is_authenticated = false;
         let mut msg_err = String::new();
         let model_key = query.model_key.clone();
-        let mut document = String::new();
 
         // Access request identity
         // -----------------------------------------------------------------------------------------
@@ -628,14 +626,33 @@ pub mod request_handlers {
             msg_err = "Authentication failed.".to_string();
         }
 
+        // Define the desired model by `model_key` and
+        // get an instance of the model in json format (for the administrator)
+        //
+        // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ADD A MODEL TO HANDLE THE REQUEST
+        if msg_err.is_empty() {
+            // Model `users::User`
+            // -------------------------------------------------------------------------------------
+            if model_key == users::User::key() {
+                if users::User::db_update_dyn_widgets(query.json_options.as_str()).is_err() {
+                    msg_err = "Failed to save dynamic data.".to_string();
+                }
+
+                // Other Models ...
+                // ---------------------------------------------------------------------------------
+                // } else if model_key == users::ModelName::key() {}
+            } else {
+                msg_err = "No match for `model_key`.".to_string();
+            }
+        }
+
         // Return json response
         // -----------------------------------------------------------------------------------------
         Ok(HttpResponse::Ok()
             .content_type("application/json")
             .json(json!({
                 "is_authenticated": is_authenticated,
-                "msg_err": msg_err,
-                "document": document,
+                "msg_err": msg_err
             })))
     }
 }
