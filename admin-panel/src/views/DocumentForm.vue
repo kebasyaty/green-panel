@@ -1408,7 +1408,8 @@ export default {
           if (!data.is_authenticated) {
             this.setIsAuthenticated(false)
           } else if (data.msg_err.length === 0) {
-            this.fieldData[fieldName].options.concat(this.currValDynItem)
+            const cloneCurrValDynItem = JSON.parse(JSON.stringify(this.currValDynItem))
+            this.fieldData[fieldName].options.concat(cloneCurrValDynItem)
           } else {
             console.log(data.msg_err)
             this.runShowMsg({ text: data.msg_err, status: 'error' })
