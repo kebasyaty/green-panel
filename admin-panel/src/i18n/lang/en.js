@@ -33,7 +33,6 @@ export default {
     29: 'Created',
     30: 'Updated',
     31: 'Delete file',
-    32: 'Delete image',
-    33: 'Save your new document.'
+    32: 'Delete image'
   }
 }
