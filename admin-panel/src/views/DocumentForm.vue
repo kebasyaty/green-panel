@@ -132,7 +132,7 @@
                           text
                           color="red"
                           :disabled="delDynItems.length === 0"
-                          @click="[removeDynItems(field.options),
+                          @click="[removeDynItems(field.name),
                                    dynamicSelectionDialog[field.name] = false,
                                    currValDynItem = {title: null, value: null},
                                    delDynItems = []]"
@@ -1428,10 +1428,10 @@ export default {
     },
 
     // Remove selected dynamic elements.
-    removeDynItems(choice) {
+    removeDynItems(fieldName) {
       this.setShowMsg(false)
       this.runShowOverlayPageLockout(true)
-      window.console.log(this.delDynItems, choice)
+      window.console.log(this.delDynItems, fieldName)
     }
   },
 
