@@ -1130,18 +1130,6 @@ export default {
       this.fields = document
     },
 
-    // Add a new dynamic element.
-    saveNewDynItem(fieldName) {
-      this.setShowMsg(false)
-      window.console.log(fieldName, this.currValDynItem)
-    },
-
-    // Remove selected dynamic elements.
-    removeDynItems(choice) {
-      this.setShowMsg(false)
-      window.console.log(this.delDynItems, choice)
-    },
-
     // Converte File to base64.
     toBase64(file) {
       return new Promise((resolve, reject) => {
@@ -1398,8 +1386,19 @@ export default {
           this.runShowMsg({ text: error, status: 'error' })
         })
         .then(() => this.runShowOverlayPageLockout(false))
-    }
+    },
 
+    // Add a new dynamic element.
+    saveNewDynItem(fieldName) {
+      this.setShowMsg(false)
+      window.console.log(fieldName, this.currValDynItem)
+    },
+
+    // Remove selected dynamic elements.
+    removeDynItems(choice) {
+      this.setShowMsg(false)
+      window.console.log(this.delDynItems, choice)
+    }
   },
 
   created() {
