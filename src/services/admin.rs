@@ -48,6 +48,7 @@ pub mod configure_urls {
         );
         cfg.service(web::resource("/delete-document").route(web::post().to(delete_document)));
         cfg.service(web::resource("/delete-many-doc").route(web::post().to(delete_many_doc)));
+        cfg.service(web::resource("/save-new-dyn-item").route(web::post().to(save_new_dyn_item)));
         cfg.service(web::resource("/*").route(web::get().to(admin_panel)));
         cfg.service(web::resource("").route(web::get().to(admin_panel)));
     }
@@ -583,7 +584,7 @@ pub mod request_handlers {
                     msg_err = "An error occurred while deleting the document.".to_string();
                 }
             } else {
-            msg_err = "It is forbidden to perform delete.".to_string();
+                msg_err = "It is forbidden to perform delete.".to_string();
             }
         }
 
