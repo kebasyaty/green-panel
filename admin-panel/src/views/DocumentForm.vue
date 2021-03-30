@@ -1155,7 +1155,7 @@ export default {
       const indexCollection = this.$route.params.indexCollection
       const service = this.serviceList[indexService]
       const modelKey = service.collections[indexCollection].model_key
-      const preparedFieldData = Object.assign({}, this.fieldData)
+      const cloneFieldData = JSON.parse(JSON.stringify(this.fieldData))
 
       const addFiles = () => {
         return new Promise((resolve, reject) => {
@@ -1187,7 +1187,7 @@ export default {
                 dataSumSize += file.size
                 this.toBase64(file).then(
                   data => {
-                    preparedFieldData[field.name] = JSON.stringify({
+                    cloneFieldData[field.name] = JSON.stringify({
                       name: fileName,
                       base64: data,
                       is_delete: this.fieldData[field.name].url !== undefined &&
@@ -1201,13 +1201,13 @@ export default {
                 })
               } else {
                 if (this.fieldData[field.name].is_delete) {
-                  preparedFieldData[field.name] = JSON.stringify({
+                  cloneFieldData[field.name] = JSON.stringify({
                     name: '',
                     base64: '',
                     is_delete: this.fieldData[field.name].is_delete
                   })
                 } else {
-                  preparedFieldData[field.name] = null
+                  cloneFieldData[field.name] = null
                 }
                 response(++counter)
               }
@@ -1220,7 +1220,7 @@ export default {
         () => {
           const options = {
             method: 'POST',
-            data: preparedFieldData,
+            data: cloneFieldData,
             url: `/admin/${modelKey}/save-document`
           }
 
@@ -1392,7 +1392,7 @@ export default {
     saveNewDynItem(fieldName) {
       this.setShowMsg(false)
       this.runShowOverlayPageLockout(true)
-      const options = JSON.parse(JSON.stringify(this.fieldData[fieldName].options))
+      const cloneOptions = JSON.parse(JSON.stringify(this.fieldData[fieldName].options))
       window.console.log(fieldName, this.currValDynItem)
     },
 
