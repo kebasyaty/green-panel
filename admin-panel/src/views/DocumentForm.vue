@@ -1392,6 +1392,7 @@ export default {
     saveNewDynItem(fieldName) {
       this.setShowMsg(false)
       this.runShowOverlayPageLockout(true)
+      const options = JSON.parse(JSON.stringify(this.fieldData[fieldName].options))
       window.console.log(fieldName, this.currValDynItem)
     },
 
