@@ -68,9 +68,9 @@
                           icon
                           small
                           color="red"
-                          @click="[dynamicSelectionDialog[field.name] = false],
+                          @click="[dynamicSelectionDialog[field.name] = false,
                                    delDynItems = [],
-                                   currValDynItem = {title: null, value: null}"
+                                   currValDynItem = {title: null, value: null}]"
                         >
                           <v-icon>mdi-close</v-icon>
                         </v-btn>
