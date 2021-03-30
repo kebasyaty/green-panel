@@ -1392,12 +1392,19 @@ export default {
     saveNewDynItem(fieldName) {
       this.setShowMsg(false)
       this.runShowOverlayPageLockout(true)
+      const indexService = this.$route.params.indexService
+      const indexCollection = this.$route.params.indexCollection
+      const service = this.serviceList[indexService]
       const jsonOptions = JSON.stringify({
         fieldName:
           JSON.parse(JSON.stringify(this.fieldData[fieldName].options))
             .concat(this.currValDynItem)
             .map(item => [item.value, item.title])
       })
+      const payload = {
+        model_key: service.collections[indexCollection].model_key,
+        json_options: jsonOptions
+      }
     },
 
     // Remove selected dynamic elements.
