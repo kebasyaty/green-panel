@@ -1394,6 +1394,7 @@ export default {
       this.runShowOverlayPageLockout(true)
       const indexService = this.$route.params.indexService
       const indexCollection = this.$route.params.indexCollection
+      const indexDoc = this.$route.params.indexDoc
       const service = this.serviceList[indexService]
       const jsonOptions = JSON.stringify({
         fieldName:
@@ -1403,7 +1404,13 @@ export default {
       })
       const payload = {
         model_key: service.collections[indexCollection].model_key,
+        doc_hash: this.documents[indexDoc] !== undefined ? this.documents[indexDoc].hash : '',
         json_options: jsonOptions
+      }
+      if (payload.doc_hash.length === 0) {
+        this.runShowOverlayPageLockout(false)
+        this.runShowMsg({ text: 'Save your new document.', status: 'error' })
+        return
       }
       this.axios.post('/admin/save-new-dyn-item', payload)
         .then(response => {
