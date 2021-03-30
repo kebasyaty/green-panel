@@ -455,9 +455,9 @@ pub mod request_handlers {
         Ok(HttpResponse::Ok()
             .content_type("application/json")
             .json(json!({
-                "document": document,
                 "is_authenticated": is_authenticated,
-                "msg_err": msg_err
+                "msg_err": msg_err,
+                "document": document,
             })))
     }
 
@@ -595,6 +595,47 @@ pub mod request_handlers {
             .json(json!({
                     "is_authenticated": is_authenticated,
                     "msg_err": msg_err
+            })))
+    }
+
+    // Delete document
+    // *********************************************************************************************
+    #[derive(Deserialize)]
+    pub struct QuerySaveNewDynItem {
+        model_key: String,
+        doc_hash: String,
+        json_options: String,
+    }
+
+    pub async fn save_new_dyn_item(
+        session: Session,
+        query: web::Json<QuerySaveNewDynItem>,
+    ) -> Result<HttpResponse, Error> {
+        //
+        let mut is_authenticated = false;
+        let mut msg_err = String::new();
+        let model_key = query.model_key.clone();
+        let mut document = String::new();
+
+        // Access request identity
+        // -----------------------------------------------------------------------------------------
+        if session.get::<String>("user")?.is_some()
+            && session.get::<bool>("is_active")?.unwrap()
+            && session.get::<bool>("is_staff")?.unwrap()
+        {
+            is_authenticated = true;
+        } else {
+            msg_err = "Authentication failed.".to_string();
+        }
+
+        // Return json response
+        // -----------------------------------------------------------------------------------------
+        Ok(HttpResponse::Ok()
+            .content_type("application/json")
+            .json(json!({
+                "is_authenticated": is_authenticated,
+                "msg_err": msg_err,
+                "document": document,
             })))
     }
 }
