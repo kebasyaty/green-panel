@@ -1392,8 +1392,12 @@ export default {
     saveNewDynItem(fieldName) {
       this.setShowMsg(false)
       this.runShowOverlayPageLockout(true)
-      const cloneOptions = JSON.parse(JSON.stringify(this.fieldData[fieldName].options))
-        .concat(this.currValDynItem)
+      const jsonOptions = JSON.stringify({
+        fieldName:
+          JSON.parse(JSON.stringify(this.fieldData[fieldName].options))
+            .concat(this.currValDynItem)
+            .map(item => [item.value, item.title])
+      })
     },
 
     // Remove selected dynamic elements.
