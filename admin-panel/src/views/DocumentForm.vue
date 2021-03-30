@@ -1409,7 +1409,7 @@ export default {
       }
       if (payload.doc_hash.length === 0) {
         this.runShowOverlayPageLockout(false)
-        this.runShowMsg({ text: 'Save your new document.', status: 'error' })
+        this.runShowMsg({ text: this.$t('message.33'), status: 'error' })
         return
       }
       this.axios.post('/admin/save-new-dyn-item', payload)
