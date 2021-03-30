@@ -1393,7 +1393,7 @@ export default {
       this.setShowMsg(false)
       this.runShowOverlayPageLockout(true)
       const cloneOptions = JSON.parse(JSON.stringify(this.fieldData[fieldName].options))
-      window.console.log(fieldName, this.currValDynItem)
+        .concat(this.currValDynItem)
     },
 
     // Remove selected dynamic elements.
