@@ -102,10 +102,7 @@
                           text
                           color="green"
                           :disabled="currValDynItem.title === null || currValDynItem.value === null"
-                          @click="[saveNewDynItem(field.name),
-                                   dynamicSelectionDialog[field.name] = false,
-                                   delDynItems = [],
-                                   currValDynItem = {title: null, value: null}]"
+                          @click="saveNewDynItem(field.name)"
                         >{{ $t('message.19') }}</v-btn>
                       </v-card-actions>
                       <v-divider></v-divider>
@@ -1411,14 +1408,7 @@ export default {
           if (!data.is_authenticated) {
             this.setIsAuthenticated(false)
           } else if (data.msg_err.length === 0) {
-            this.vMenu = {}
-            this.dynamicSelectionDialog = {}
-            this.delDynItems = []
-            this.currValDynItem = { title: null, value: null }
-            this.fieldData = {}
-            this.fields = []
-            this.getFormData(document)
-            this.reload()
+            //
           } else {
             console.log(data.msg_err)
             this.runShowMsg({ text: data.msg_err, status: 'error' })
@@ -1428,7 +1418,12 @@ export default {
           console.log(error)
           this.runShowMsg({ text: error, status: 'error' })
         })
-        .then(() => this.runShowOverlayPageLockout(false))
+        .then(() => {
+          this.dynamicSelectionDialog[fieldName] = false
+          this.delDynItems = []
+          this.currValDynItem = { title: null, value: null }
+          this.runShowOverlayPageLockout(false)
+        })
     },
 
     // Remove selected dynamic elements.
