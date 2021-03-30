@@ -97,6 +97,14 @@ pub struct User {
         hint = "Is this an active account?"
     )]
     pub is_active: Option<bool>,
+    // Dynamics
+    #[serde(default)]
+    #[field_attrs(
+        widget = "selectTextDyn",
+        label = "Test Dynamic",
+        hint = "Field for testing dynamic widgets"
+    )]
+    pub select_text_dyn: Option<String>,
 }
 
 impl AdditionalValidation for User {
