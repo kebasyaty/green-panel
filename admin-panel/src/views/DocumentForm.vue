@@ -557,13 +557,15 @@
                 ></v-select>
 
                 <!-- Selection fields
-                     (Dynamic)
+                     (multiple)
                 -->
                 <v-select
                   class="pt-0"
-                  v-if="['selectTextDyn', 'selectI32Dyn', 'selectU32Dyn',
-                         'selectI64Dyn', 'selectF64Dyn'].includes(field.widget)"
+                  v-if="['selectTextMult', 'selectI32Mult', 'selectU32Mult',
+                         'selectI64Mult', 'selectF64Mult'].includes(field.widget)"
                   clearable
+                  chips
+                  multiple
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                   :items="field.options"
                   item-text="title"
@@ -580,15 +582,13 @@
                 ></v-select>
 
                 <!-- Selection fields
-                     (multiple)
+                     (Dynamic)
                 -->
                 <v-select
                   class="pt-0"
-                  v-if="['selectTextMult', 'selectI32Mult', 'selectU32Mult',
-                         'selectI64Mult', 'selectF64Mult'].includes(field.widget)"
+                  v-if="['selectTextDyn', 'selectI32Dyn', 'selectU32Dyn',
+                         'selectI64Dyn', 'selectF64Dyn'].includes(field.widget)"
                   clearable
-                  chips
-                  multiple
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                   :items="field.options"
                   item-text="title"
