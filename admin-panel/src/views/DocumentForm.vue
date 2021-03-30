@@ -1391,12 +1391,14 @@ export default {
     // Add a new dynamic element.
     saveNewDynItem(fieldName) {
       this.setShowMsg(false)
+      this.runShowOverlayPageLockout(true)
       window.console.log(fieldName, this.currValDynItem)
     },
 
     // Remove selected dynamic elements.
     removeDynItems(choice) {
       this.setShowMsg(false)
+      this.runShowOverlayPageLockout(true)
       window.console.log(this.delDynItems, choice)
     }
   },
