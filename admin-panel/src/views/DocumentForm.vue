@@ -1405,6 +1405,23 @@ export default {
         model_key: service.collections[indexCollection].model_key,
         json_options: jsonOptions
       }
+      this.axios.post('/admin/save-new-dyn-item', payload)
+        .then(response => {
+          const data = response.data
+          if (!data.is_authenticated) {
+            this.setIsAuthenticated(false)
+          } else if (data.msg_err.length === 0) {
+            this.goBack()
+          } else {
+            console.log(data.msg_err)
+            this.runShowMsg({ text: data.msg_err, status: 'error' })
+          }
+        })
+        .catch(error => {
+          console.log(error)
+          this.runShowMsg({ text: error, status: 'error' })
+        })
+        .then(() => this.runShowOverlayPageLockout(false))
     },
 
     // Remove selected dynamic elements.
