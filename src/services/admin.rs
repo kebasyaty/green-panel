@@ -230,7 +230,7 @@ pub mod request_handlers {
         }
 
         if msg_err.is_empty() {
-            // Define filter and options for database query.
+            // Define filter and options for database query
             // -------------------------------------------------------------------------------------
             let filter = if !query.search_query.is_empty() {
                 Some(doc! {
@@ -255,7 +255,7 @@ pub mod request_handlers {
                     .build(),
             );
 
-            // Get read access from cache.
+            // Get read access from cache
             // -------------------------------------------------------------------------------------
             let form_store = FORM_CACHE.read().unwrap();
             let form_cache = form_store.get(query.model_key.as_str()).unwrap();
@@ -273,7 +273,7 @@ pub mod request_handlers {
             // Get cursor for selecting documents.
             let mut cursor = coll.find(filter, options).unwrap();
 
-            // Selecting documents.
+            // Selecting documents
             // -------------------------------------------------------------------------------------
             while let Some(doc) = cursor.next() {
                 let doc = doc.unwrap();
@@ -488,7 +488,7 @@ pub mod request_handlers {
             msg_err = "Authentication failed.".to_string();
         }
 
-        // Get read access from cache.
+        // Get read access from cache
         // -----------------------------------------------------------------------------------------
         if msg_err.is_empty() {
             let form_store = FORM_CACHE.read().unwrap();
@@ -555,7 +555,7 @@ pub mod request_handlers {
             msg_err = "Authentication failed.".to_string();
         }
 
-        // Get read access from cache.
+        // Get read access from cache
         // -----------------------------------------------------------------------------------------
         if msg_err.is_empty() {
             let form_store = FORM_CACHE.read().unwrap();
