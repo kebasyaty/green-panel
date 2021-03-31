@@ -1412,7 +1412,7 @@ export default {
         model_key: service.collections[indexCollection].model_key,
         json_options: jsonOptions
       }
-      this.axios.post('/admin/save-new-dyn-item', payload)
+      this.axios.post('/admin/update-dyn-data', payload)
         .then(response => {
           const data = response.data
           if (!data.is_authenticated) {
