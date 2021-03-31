@@ -1408,7 +1408,13 @@ export default {
           if (!data.is_authenticated) {
             this.setIsAuthenticated(false)
           } else if (data.msg_err.length === 0) {
-            // this.fields.filter(item => item.name === fieldName)[0].options.concat(this.currValDynItem)
+            const len = this.fields.length
+            for (let idx = 0; idx < len; idx++) {
+              if (this.fields[idx].name === fieldName) {
+                this.fields[idx].options.push(this.currValDynItem)
+                break
+              }
+            }
           } else {
             console.log(data.msg_err)
             this.runShowMsg({ text: data.msg_err, status: 'error' })
