@@ -1395,6 +1395,7 @@ export default {
       const service = this.serviceList[indexService]
       const field = this.fields.filter(item => item.name === fieldName)[0]
       const targetObj = {}
+      const delItemsName = []
       switch (mode) {
         case 'save':
           targetObj[fieldName] = field.options.concat(this.currValDynItem)
@@ -1402,9 +1403,9 @@ export default {
           break
         case 'delete':
           this.delDynItems.forEach(idx => {
-            field.options.splice(idx, 1)
+            delItemsName.push(field.options[idx].name)
           })
-          targetObj[fieldName] = field.options.map(item => [item.value, item.title])
+          targetObj[fieldName] = field.options.filter(item => !delItemsName.includes(item.name)).map(item => [item.value, item.title])
           break
       }
       const jsonOptions = JSON.stringify(targetObj)
