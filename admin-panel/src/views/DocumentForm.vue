@@ -1393,11 +1393,10 @@ export default {
       const indexService = this.$route.params.indexService
       const indexCollection = this.$route.params.indexCollection
       const service = this.serviceList[indexService]
-      let options = this.fields[fieldName].options
-      options = options !== undefined ? JSON.parse(JSON.stringify(options)) : []
+      const field = this.fields.filter(item => item.name === fieldName)[0]
       const jsonOptions = JSON.stringify({
         fieldName:
-          options.concat(this.currValDynItem).map(item => [item.value, item.title])
+          JSON.parse(JSON.stringify((field.options))).concat(this.currValDynItem).map(item => [item.value, item.title])
       })
       const payload = {
         model_key: service.collections[indexCollection].model_key,
