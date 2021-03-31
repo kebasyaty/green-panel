@@ -48,7 +48,7 @@ pub mod configure_urls {
         );
         cfg.service(web::resource("/delete-document").route(web::post().to(delete_document)));
         cfg.service(web::resource("/delete-many-doc").route(web::post().to(delete_many_doc)));
-        cfg.service(web::resource("/save-new-dyn-item").route(web::post().to(save_new_dyn_item)));
+        cfg.service(web::resource("/update-dyn-data").route(web::post().to(update_dyn_data)));
         cfg.service(web::resource("/*").route(web::get().to(admin_panel)));
         cfg.service(web::resource("").route(web::get().to(admin_panel)));
     }
@@ -598,17 +598,17 @@ pub mod request_handlers {
             })))
     }
 
-    // Delete document
+    // Refresh data for dynamic widgets
     // *********************************************************************************************
     #[derive(Deserialize)]
-    pub struct QuerySaveNewDynItem {
+    pub struct QueryUpdateDynData {
         model_key: String,
         json_options: String,
     }
 
-    pub async fn save_new_dyn_item(
+    pub async fn update_dyn_data(
         session: Session,
-        query: web::Json<QuerySaveNewDynItem>,
+        query: web::Json<QueryUpdateDynData>,
     ) -> Result<HttpResponse, Error> {
         //
         let mut is_authenticated = false;
