@@ -1395,7 +1395,7 @@ export default {
       const service = this.serviceList[indexService]
       const jsonOptions = JSON.stringify({
         fieldName:
-          JSON.parse(JSON.stringify(this.fields[fieldName].options))
+          JSON.parse(JSON.stringify(this.fields[fieldName].options || []))
             .concat(this.currValDynItem)
             .map(item => [item.value, item.title])
       })
@@ -1409,7 +1409,11 @@ export default {
           if (!data.is_authenticated) {
             this.setIsAuthenticated(false)
           } else if (data.msg_err.length === 0) {
-            this.fields[fieldName].options.concat(this.currValDynItem)
+            if (this.fields[fieldName].options !== undefined) {
+              this.fields[fieldName].options.concat(this.currValDynItem)
+            } else {
+              this.fields[fieldName].options = [this.currValDynItem]
+            }
           } else {
             console.log(data.msg_err)
             this.runShowMsg({ text: data.msg_err, status: 'error' })
