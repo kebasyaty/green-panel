@@ -635,7 +635,7 @@ pub mod request_handlers {
             // -------------------------------------------------------------------------------------
             if model_key == users::User::key() {
                 if users::User::db_update_dyn_widgets(query.json_options.as_str()).is_err() {
-                    msg_err = "Failed to save dynamic data.".to_string();
+                    msg_err = "Failed to update dynamic data.".to_string();
                 }
 
                 // Other Models ...
