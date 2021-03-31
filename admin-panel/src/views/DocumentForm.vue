@@ -1394,10 +1394,10 @@ export default {
       const indexCollection = this.$route.params.indexCollection
       const service = this.serviceList[indexService]
       const field = this.fields.filter(item => item.name === fieldName)[0]
-      const jsonOptions = JSON.stringify({
-        fieldName:
-          JSON.parse(JSON.stringify((field.options))).concat(this.currValDynItem).map(item => [item.value, item.title])
-      })
+      const targetObj = {}
+      targetObj[fieldName] = field.options.concat(this.currValDynItem)
+        .map(item => [item.value, item.title])
+      const jsonOptions = JSON.stringify(targetObj)
       const payload = {
         model_key: service.collections[indexCollection].model_key,
         json_options: jsonOptions
@@ -1408,8 +1408,7 @@ export default {
           if (!data.is_authenticated) {
             this.setIsAuthenticated(false)
           } else if (data.msg_err.length === 0) {
-            const field = this.fields.filter(item => item.name === fieldName)[0]
-            field.options.concat(this.currValDynItem)
+            // this.fields.filter(item => item.name === fieldName)[0].options.concat(this.currValDynItem)
           } else {
             console.log(data.msg_err)
             this.runShowMsg({ text: data.msg_err, status: 'error' })
