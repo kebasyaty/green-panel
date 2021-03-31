@@ -1408,11 +1408,8 @@ export default {
           if (!data.is_authenticated) {
             this.setIsAuthenticated(false)
           } else if (data.msg_err.length === 0) {
-            if (this.fields[fieldName].options !== undefined) {
-              this.fields[fieldName].options.concat(this.currValDynItem)
-            } else {
-              this.fields[fieldName].options = [this.currValDynItem]
-            }
+            const field = this.fields.filter(item => item.name === fieldName)[0]
+            field.options.concat(this.currValDynItem)
           } else {
             console.log(data.msg_err)
             this.runShowMsg({ text: data.msg_err, status: 'error' })
