@@ -102,7 +102,7 @@
                           text
                           color="green"
                           :disabled="currValDynItem.title === null || currValDynItem.value === null"
-                          @click="saveNewDynItem(field.name)"
+                          @click="updateDynData(field.name, 'save')"
                         >{{ $t('message.19') }}</v-btn>
                       </v-card-actions>
                       <v-divider></v-divider>
@@ -1386,8 +1386,8 @@ export default {
         .then(() => this.runShowOverlayPageLockout(false))
     },
 
-    // Add a new dynamic element.
-    saveNewDynItem(fieldName) {
+    // Adding and deleting dynamic elements.
+    updateDynData(fieldName, mode) {
       this.setShowMsg(false)
       this.runShowOverlayPageLockout(true)
       const indexService = this.$route.params.indexService
@@ -1395,8 +1395,16 @@ export default {
       const service = this.serviceList[indexService]
       const field = this.fields.filter(item => item.name === fieldName)[0]
       const targetObj = {}
-      targetObj[fieldName] = field.options.concat(this.currValDynItem)
-        .map(item => [item.value, item.title])
+      if (mode === 'save') {
+        targetObj[fieldName] = field.options.concat(this.currValDynItem)
+          .map(item => [item.value, item.title])
+      } else {
+        /*
+        const keys = Object.keys(this.delDynItems)
+        targetObj[fieldName] = field.options.filter(item => !keys.includes(item.title))
+          .map(item => [item.value, item.title])
+        */
+      }
       const jsonOptions = JSON.stringify(targetObj)
       const payload = {
         model_key: service.collections[indexCollection].model_key,
