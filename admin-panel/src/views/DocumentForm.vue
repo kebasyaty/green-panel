@@ -1428,6 +1428,14 @@ export default {
                 }
                 break
               case 'delete':
+                for (let idx = 0; idx < this.fields.length; idx++) {
+                  if (this.fields[idx].name === fieldName) {
+                    this.delDynItems.forEach(idx2 => {
+                      this.fields[idx].options.splice(idx2, 1)
+                    })
+                    break
+                  }
+                }
                 break
             }
           } else {
