@@ -1418,12 +1418,17 @@ export default {
           if (!data.is_authenticated) {
             this.setIsAuthenticated(false)
           } else if (data.msg_err.length === 0) {
-            const len = this.fields.length
-            for (let idx = 0; idx < len; idx++) {
-              if (this.fields[idx].name === fieldName) {
-                this.fields[idx].options.push(this.currValDynItem)
+            switch (mode) {
+              case 'save':
+                for (let idx = 0; idx < this.fields.length; idx++) {
+                  if (this.fields[idx].name === fieldName) {
+                    this.fields[idx].options.push(this.currValDynItem)
+                    break
+                  }
+                }
                 break
-              }
+              case 'delete':
+                break
             }
           } else {
             console.log(data.msg_err)
