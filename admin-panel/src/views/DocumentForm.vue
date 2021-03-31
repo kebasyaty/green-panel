@@ -1405,7 +1405,9 @@ export default {
           this.delDynItems.forEach(idx => {
             delItemsName.push(field.options[idx].name)
           })
-          targetObj[fieldName] = field.options.filter(item => !delItemsName.includes(item.name)).map(item => [item.value, item.title])
+          targetObj[fieldName] = field.options
+            .filter(item => !delItemsName.includes(item.name))
+            .map(item => [item.value, item.title])
           break
       }
       const jsonOptions = JSON.stringify(targetObj)
