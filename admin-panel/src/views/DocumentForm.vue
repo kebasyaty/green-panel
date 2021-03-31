@@ -132,7 +132,7 @@
                           text
                           color="red"
                           :disabled="delDynItems.length === 0"
-                          @click="[removeDynItems(field.name),
+                          @click="[updateDynData(field.name, 'delete'),
                                    dynamicSelectionDialog[field.name] = false,
                                    currValDynItem = {title: null, value: null},
                                    delDynItems = []]"
@@ -1395,15 +1395,17 @@ export default {
       const service = this.serviceList[indexService]
       const field = this.fields.filter(item => item.name === fieldName)[0]
       const targetObj = {}
-      if (mode === 'save') {
-        targetObj[fieldName] = field.options.concat(this.currValDynItem)
-          .map(item => [item.value, item.title])
-      } else {
-        /*
-        const keys = Object.keys(this.delDynItems)
-        targetObj[fieldName] = field.options.filter(item => !keys.includes(item.title))
-          .map(item => [item.value, item.title])
-        */
+      switch (mode) {
+        case 'save':
+          targetObj[fieldName] = field.options.concat(this.currValDynItem)
+            .map(item => [item.value, item.title])
+          break
+        case 'delete':
+          this.delDynItems.forEach(idx => {
+            field.options.splice(idx, 1)
+          })
+          targetObj[fieldName] = field.options.map(item => [item.value, item.title])
+          break
       }
       const jsonOptions = JSON.stringify(targetObj)
       const payload = {
@@ -1438,13 +1440,6 @@ export default {
           this.currValDynItem = { title: null, value: null }
           this.runShowOverlayPageLockout(false)
         })
-    },
-
-    // Remove selected dynamic elements.
-    removeDynItems(fieldName) {
-      this.setShowMsg(false)
-      this.runShowOverlayPageLockout(true)
-      window.console.log(this.delDynItems, fieldName)
     }
   },
 
