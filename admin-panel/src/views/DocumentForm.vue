@@ -1433,9 +1433,8 @@ export default {
               case 'delete':
                 for (let idx = 0; idx < this.fields.length; idx++) {
                   if (this.fields[idx].name === fieldName) {
-                    this.delDynItems.forEach(idx2 => {
-                      this.fields[idx].options.splice(idx2, 1)
-                    })
+                    this.fields[idx].options = this.fields[idx].options
+                      .filter(item => !delItemsName.includes(item.name))
                     break
                   }
                 }
