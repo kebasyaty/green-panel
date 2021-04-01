@@ -1200,6 +1200,12 @@ export default {
               } else {
                 cloneFieldData[field.name] = parseInt(cloneFieldData[field.name])
               }
+            } else if (field.widget.includes('F64')) {
+              if (field.widget.includes('Mult')) {
+                cloneFieldData[field.name] = cloneFieldData[field.name].map(item => parseFloat(item))
+              } else {
+                cloneFieldData[field.name] = parseFloat(cloneFieldData[field.name])
+              }
             }
             //
             if (field.input_type === 'file') {
