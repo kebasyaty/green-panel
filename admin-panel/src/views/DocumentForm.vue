@@ -1201,306 +1201,305 @@ export default {
                 cloneFieldData[field.name] = parseInt(cloneFieldData[field.name])
               }
             }
-          }
             //
             if (field.input_type === 'file') {
-            const files = document.getElementById(field.id).files
-            if (files.length > 0) {
-              const file = files[0]
-              const fileName = file.name
-              dataSumSize += file.size
-              this.toBase64(file).then(
-                data => {
-                  cloneFieldData[field.name] = JSON.stringify({
-                    name: fileName,
-                    base64: data,
-                    is_delete: this.fieldData[field.name].url !== undefined &&
-                      this.fieldData[field.name].url.length > 0
-                      ? true : this.fieldData[field.name].is_delete
-                  })
-                  response(++counter)
-                }
-              ).catch(error => {
-                reject(error)
-              })
-            } else {
-              if (this.fieldData[field.name].is_delete) {
-                cloneFieldData[field.name] = JSON.stringify({
-                  name: '',
-                  base64: '',
-                  is_delete: this.fieldData[field.name].is_delete
+              const files = document.getElementById(field.id).files
+              if (files.length > 0) {
+                const file = files[0]
+                const fileName = file.name
+                dataSumSize += file.size
+                this.toBase64(file).then(
+                  data => {
+                    cloneFieldData[field.name] = JSON.stringify({
+                      name: fileName,
+                      base64: data,
+                      is_delete: this.fieldData[field.name].url !== undefined &&
+                        this.fieldData[field.name].url.length > 0
+                        ? true : this.fieldData[field.name].is_delete
+                    })
+                    response(++counter)
+                  }
+                ).catch(error => {
+                  reject(error)
                 })
               } else {
-                cloneFieldData[field.name] = null
+                if (this.fieldData[field.name].is_delete) {
+                  cloneFieldData[field.name] = JSON.stringify({
+                    name: '',
+                    base64: '',
+                    is_delete: this.fieldData[field.name].is_delete
+                  })
+                } else {
+                  cloneFieldData[field.name] = null
+                }
+                response(++counter)
               }
-              response(++counter)
             }
-          }
+          })
         })
-      })
-    }
+      }
 
       addFiles().then(
-      () => {
-        const options = {
-          method: 'POST',
-          data: cloneFieldData,
-          url: `/admin/${modelKey}/save-document`
-        }
+        () => {
+          const options = {
+            method: 'POST',
+            data: cloneFieldData,
+            url: `/admin/${modelKey}/save-document`
+          }
 
-        this.axios(options)
-          .then(response => {
-            const data = response.data
-            if (!data.is_authenticated) {
-              this.setIsAuthenticated(false)
-            } else if (data.msg_err.length === 0) {
-              const document = JSON.parse(data.document)
-              for (let idx = 0, len = document.length; idx < len; idx++) {
-                const field = document[idx]
-                if (field.error.length > 0 || field.common_msg.length > 0) {
-                  mode = 'save_and_edit'
-                  break
+          this.axios(options)
+            .then(response => {
+              const data = response.data
+              if (!data.is_authenticated) {
+                this.setIsAuthenticated(false)
+              } else if (data.msg_err.length === 0) {
+                const document = JSON.parse(data.document)
+                for (let idx = 0, len = document.length; idx < len; idx++) {
+                  const field = document[idx]
+                  if (field.error.length > 0 || field.common_msg.length > 0) {
+                    mode = 'save_and_edit'
+                    break
+                  }
                 }
+                switch (mode) {
+                  case 'save':
+                    this.goBack()
+                    break
+                  case 'save_and_edit':
+                    this.vMenu = {}
+                    this.dynamicSelectionDialog = {}
+                    this.delDynItems = []
+                    this.currValDynItem = { title: null, value: null }
+                    this.fieldData = {}
+                    this.fields = []
+                    this.getFormData(document)
+                    this.reload()
+                    break
+                  case 'save_and_new':
+                    this.$router.replace({
+                      name: 'documenForm',
+                      params: {
+                        service: this.$route.params.service,
+                        indexService: this.$route.params.indexService,
+                        collection: this.$route.params.collection,
+                        indexCollection: this.$route.params.indexCollection,
+                        indexDoc: 'new'
+                      }
+                    }, () => window.document.location.reload(), () => window.document.location.reload())
+                    break
+                }
+              } else {
+                console.log(data.msg_err)
+                this.runShowMsg({ text: data.msg_err, status: 'error' })
               }
-              switch (mode) {
-                case 'save':
-                  this.goBack()
-                  break
-                case 'save_and_edit':
-                  this.vMenu = {}
-                  this.dynamicSelectionDialog = {}
-                  this.delDynItems = []
-                  this.currValDynItem = { title: null, value: null }
-                  this.fieldData = {}
-                  this.fields = []
-                  this.getFormData(document)
-                  this.reload()
-                  break
-                case 'save_and_new':
-                  this.$router.replace({
-                    name: 'documenForm',
-                    params: {
-                      service: this.$route.params.service,
-                      indexService: this.$route.params.indexService,
-                      collection: this.$route.params.collection,
-                      indexCollection: this.$route.params.indexCollection,
-                      indexDoc: 'new'
-                    }
-                  }, () => window.document.location.reload(), () => window.document.location.reload())
-                  break
-              }
-            } else {
-              console.log(data.msg_err)
-              this.runShowMsg({ text: data.msg_err, status: 'error' })
-            }
-          })
-          .catch(error => {
-            console.log(error)
-            this.runShowMsg({ text: error, status: 'error' })
-          })
-          .then(() => this.runShowOverlayPageLockout(false))
+            })
+            .catch(error => {
+              console.log(error)
+              this.runShowMsg({ text: error, status: 'error' })
+            })
+            .then(() => this.runShowOverlayPageLockout(false))
+        }
+      ).catch(error => {
+        console.log(error)
+        this.runShowMsg({ text: error, status: 'error' })
+      }).then(() => this.runShowOverlayPageLockout(false))
+    },
+
+    // Get Title of document.
+    getDocTitle() {
+      const indexDoc = this.$route.params.indexDoc
+      let title = ''
+      if (indexDoc !== 'new') {
+        title = this.documents[indexDoc].title
+      } else {
+        title = this.$t('message.26')
       }
-    ).catch(error => {
-      console.log(error)
-      this.runShowMsg({ text: error, status: 'error' })
-    }).then(() => this.runShowOverlayPageLockout(false))
-  },
+      this.docTitle = title
+    },
 
-  // Get Title of document.
-  getDocTitle() {
-    const indexDoc = this.$route.params.indexDoc
-    let title = ''
-    if (indexDoc !== 'new') {
-      title = this.documents[indexDoc].title
-    } else {
-      title = this.$t('message.26')
-    }
-    this.docTitle = title
-  },
+    // Get scheme route of document.
+    getBreadcrumbs() {
+      const indexService = this.$route.params.indexService
+      const indexCollection = this.$route.params.indexCollection
+      const service = this.serviceList[indexService]
+      this.breadcrumbs = `${service.service.title} > ${service.collections[indexCollection].title} > ${this.docTitle}`
+    },
 
-  // Get scheme route of document.
-  getBreadcrumbs() {
-    const indexService = this.$route.params.indexService
-    const indexCollection = this.$route.params.indexCollection
-    const service = this.serviceList[indexService]
-    this.breadcrumbs = `${service.service.title} > ${service.collections[indexCollection].title} > ${this.docTitle}`
-  },
-
-  // Get document
-  ajaxGetDoc(indexes) {
-    const service = this.serviceList[indexes.indexService]
-    const payload = {
-      model_key: service.collections[indexes.indexCollection].model_key,
-      doc_hash: this.documents[indexes.indexDoc] !== undefined ? this.documents[indexes.indexDoc].hash : ''
-    }
-    this.axios.post('/admin/get-document', payload)
-      .then(response => {
-        const data = response.data
-        if (!data.is_authenticated) {
-          this.setIsAuthenticated(false)
-        } else if (data.msg_err.length === 0) {
-          // 16384 = ~16 Kb (default data size for the form)
-          this.maxTotalFilesSize = data.max_size - 16384
-          this.getDocTitle()
-          this.getBreadcrumbs()
-          if (data.document.length > 0) {
-            const document = JSON.parse(data.document)
-            this.getFormData(document)
+    // Get document
+    ajaxGetDoc(indexes) {
+      const service = this.serviceList[indexes.indexService]
+      const payload = {
+        model_key: service.collections[indexes.indexCollection].model_key,
+        doc_hash: this.documents[indexes.indexDoc] !== undefined ? this.documents[indexes.indexDoc].hash : ''
+      }
+      this.axios.post('/admin/get-document', payload)
+        .then(response => {
+          const data = response.data
+          if (!data.is_authenticated) {
+            this.setIsAuthenticated(false)
+          } else if (data.msg_err.length === 0) {
+            // 16384 = ~16 Kb (default data size for the form)
+            this.maxTotalFilesSize = data.max_size - 16384
+            this.getDocTitle()
+            this.getBreadcrumbs()
+            if (data.document.length > 0) {
+              const document = JSON.parse(data.document)
+              this.getFormData(document)
+            }
+          } else {
+            console.log(data.msg_err)
+            this.runShowMsg({ text: data.msg_err, status: 'error' })
           }
-        } else {
-          console.log(data.msg_err)
-          this.runShowMsg({ text: data.msg_err, status: 'error' })
-        }
-      })
-      .catch(error => {
-        console.log(error)
-        this.runShowMsg({ text: error, status: 'error' })
-      })
-      .then(() => this.runShowOverlayPageLockout(false))
-  },
-  getDoc() {
-    this.setShowMsg(false)
-    this.runShowOverlayPageLockout(true)
-    const indexService = this.$route.params.indexService
-    const indexCollection = this.$route.params.indexCollection
-    const indexDoc = this.$route.params.indexDoc
-    if (this.documents.length > 0) {
-      this.ajaxGetDoc({ indexService, indexCollection, indexDoc })
-    } else {
-      this.ajaxGetDocumentList({ indexService, indexCollection }).then(() => {
-        this.ajaxGetDoc({ indexService, indexCollection, indexDoc })
-      }).catch(error => {
-        console.log(error)
-        this.runShowOverlayPageLockout(false)
-        this.runShowMsg({ text: error, status: 'error' })
-      })
-    }
-  },
-
-  // Remove document from collection.
-  deleteDoc() {
-    this.setShowMsg(false)
-    this.runShowOverlayPageLockout(true)
-    const indexService = this.$route.params.indexService
-    const indexCollection = this.$route.params.indexCollection
-    const indexDoc = this.$route.params.indexDoc
-    const service = this.serviceList[indexService]
-    const payload = {
-      model_key: service.collections[indexCollection].model_key,
-      doc_hash: this.documents[indexDoc] !== undefined ? this.documents[indexDoc].hash : ''
-    }
-    if (payload.doc_hash.length === 0) {
-      this.runShowOverlayPageLockout(false)
-      return
-    }
-    this.axios.post('/admin/delete-document', payload)
-      .then(response => {
-        const data = response.data
-        if (!data.is_authenticated) {
-          this.setIsAuthenticated(false)
-        } else if (data.msg_err.length === 0) {
-          this.goBack()
-        } else {
-          console.log(data.msg_err)
-          this.runShowMsg({ text: data.msg_err, status: 'error' })
-        }
-      })
-      .catch(error => {
-        console.log(error)
-        this.runShowMsg({ text: error, status: 'error' })
-      })
-      .then(() => this.runShowOverlayPageLockout(false))
-  },
-
-  // Adding and deleting dynamic elements.
-  updateDynData(fieldName, mode) {
-    this.setShowMsg(false)
-    this.runShowOverlayPageLockout(true)
-    const indexService = this.$route.params.indexService
-    const indexCollection = this.$route.params.indexCollection
-    const service = this.serviceList[indexService]
-    const targetField = this.fields.filter(item => item.name === fieldName)[0]
-    const targetOptions = {}
-    const delItemsName = []
-
-    switch (mode) {
-      case 'save':
-        // Validation uniqueness of names for dynamic enumerations.
-        for (let idx = 0; idx < targetField.options.length; idx++) {
-          if (targetField.options[idx].title === this.currValDynItem.title) {
-            this.runShowMsg({ text: this.$t('message.33'), status: 'error' })
-            return
-          }
-        }
-        // Prepare `options` for conversion to json-line.
-        targetOptions[fieldName] = targetField.options.concat(this.currValDynItem)
-          .map(item => [item.value, item.title])
-        break
-      case 'delete':
-        // Prepare `options` for conversion to json-line.
-        this.delDynItems.forEach(idx => {
-          delItemsName.push(targetField.options[idx].title)
         })
-        targetOptions[fieldName] = targetField.options
-          .filter(item => !delItemsName.includes(item.title))
-          .map(item => [item.value, item.title])
-        break
-    }
+        .catch(error => {
+          console.log(error)
+          this.runShowMsg({ text: error, status: 'error' })
+        })
+        .then(() => this.runShowOverlayPageLockout(false))
+    },
+    getDoc() {
+      this.setShowMsg(false)
+      this.runShowOverlayPageLockout(true)
+      const indexService = this.$route.params.indexService
+      const indexCollection = this.$route.params.indexCollection
+      const indexDoc = this.$route.params.indexDoc
+      if (this.documents.length > 0) {
+        this.ajaxGetDoc({ indexService, indexCollection, indexDoc })
+      } else {
+        this.ajaxGetDocumentList({ indexService, indexCollection }).then(() => {
+          this.ajaxGetDoc({ indexService, indexCollection, indexDoc })
+        }).catch(error => {
+          console.log(error)
+          this.runShowOverlayPageLockout(false)
+          this.runShowMsg({ text: error, status: 'error' })
+        })
+      }
+    },
 
-    // Create a payload and send it to the server.
-    const jsonOptions = JSON.stringify(targetOptions)
-    const payload = {
-      model_key: service.collections[indexCollection].model_key,
-      json_options: jsonOptions
-    }
-    this.axios.post('/admin/update-dyn-data', payload)
-      .then(response => {
-        const data = response.data
-        if (!data.is_authenticated) {
-          this.setIsAuthenticated(false)
-        } else if (data.msg_err.length === 0) {
-          // Apply changes to the current state.
-          switch (mode) {
-            case 'save':
-              for (let idx = 0; idx < this.fields.length; idx++) {
-                if (this.fields[idx].name === fieldName) {
-                  this.fields[idx].options.push(this.currValDynItem)
-                  break
-                }
-              }
-              break
-            case 'delete':
-              for (let idx = 0; idx < this.fields.length; idx++) {
-                if (this.fields[idx].name === fieldName) {
-                  this.fields[idx].options = this.fields[idx].options
-                    .filter(item => !delItemsName.includes(item.title))
-                  break
-                }
-              }
-              break
-          }
-        } else {
-          console.log(data.msg_err)
-          this.runShowMsg({ text: data.msg_err, status: 'error' })
-        }
-      })
-      .catch(error => {
-        console.log(error)
-        this.runShowMsg({ text: error, status: 'error' })
-      })
-      .then(() => {
-        this.dynamicSelectionDialog[fieldName] = false
-        this.delDynItems = []
-        this.currValDynItem = { title: null, value: null }
+    // Remove document from collection.
+    deleteDoc() {
+      this.setShowMsg(false)
+      this.runShowOverlayPageLockout(true)
+      const indexService = this.$route.params.indexService
+      const indexCollection = this.$route.params.indexCollection
+      const indexDoc = this.$route.params.indexDoc
+      const service = this.serviceList[indexService]
+      const payload = {
+        model_key: service.collections[indexCollection].model_key,
+        doc_hash: this.documents[indexDoc] !== undefined ? this.documents[indexDoc].hash : ''
+      }
+      if (payload.doc_hash.length === 0) {
         this.runShowOverlayPageLockout(false)
-      })
-  }
-},
+        return
+      }
+      this.axios.post('/admin/delete-document', payload)
+        .then(response => {
+          const data = response.data
+          if (!data.is_authenticated) {
+            this.setIsAuthenticated(false)
+          } else if (data.msg_err.length === 0) {
+            this.goBack()
+          } else {
+            console.log(data.msg_err)
+            this.runShowMsg({ text: data.msg_err, status: 'error' })
+          }
+        })
+        .catch(error => {
+          console.log(error)
+          this.runShowMsg({ text: error, status: 'error' })
+        })
+        .then(() => this.runShowOverlayPageLockout(false))
+    },
 
-created() {
-  // Get document.
-  this.getDoc()
-}
+    // Adding and deleting dynamic elements.
+    updateDynData(fieldName, mode) {
+      this.setShowMsg(false)
+      this.runShowOverlayPageLockout(true)
+      const indexService = this.$route.params.indexService
+      const indexCollection = this.$route.params.indexCollection
+      const service = this.serviceList[indexService]
+      const targetField = this.fields.filter(item => item.name === fieldName)[0]
+      const targetOptions = {}
+      const delItemsName = []
+
+      switch (mode) {
+        case 'save':
+          // Validation uniqueness of names for dynamic enumerations.
+          for (let idx = 0; idx < targetField.options.length; idx++) {
+            if (targetField.options[idx].title === this.currValDynItem.title) {
+              this.runShowMsg({ text: this.$t('message.33'), status: 'error' })
+              return
+            }
+          }
+          // Prepare `options` for conversion to json-line.
+          targetOptions[fieldName] = targetField.options.concat(this.currValDynItem)
+            .map(item => [item.value, item.title])
+          break
+        case 'delete':
+          // Prepare `options` for conversion to json-line.
+          this.delDynItems.forEach(idx => {
+            delItemsName.push(targetField.options[idx].title)
+          })
+          targetOptions[fieldName] = targetField.options
+            .filter(item => !delItemsName.includes(item.title))
+            .map(item => [item.value, item.title])
+          break
+      }
+
+      // Create a payload and send it to the server.
+      const jsonOptions = JSON.stringify(targetOptions)
+      const payload = {
+        model_key: service.collections[indexCollection].model_key,
+        json_options: jsonOptions
+      }
+      this.axios.post('/admin/update-dyn-data', payload)
+        .then(response => {
+          const data = response.data
+          if (!data.is_authenticated) {
+            this.setIsAuthenticated(false)
+          } else if (data.msg_err.length === 0) {
+            // Apply changes to the current state.
+            switch (mode) {
+              case 'save':
+                for (let idx = 0; idx < this.fields.length; idx++) {
+                  if (this.fields[idx].name === fieldName) {
+                    this.fields[idx].options.push(this.currValDynItem)
+                    break
+                  }
+                }
+                break
+              case 'delete':
+                for (let idx = 0; idx < this.fields.length; idx++) {
+                  if (this.fields[idx].name === fieldName) {
+                    this.fields[idx].options = this.fields[idx].options
+                      .filter(item => !delItemsName.includes(item.title))
+                    break
+                  }
+                }
+                break
+            }
+          } else {
+            console.log(data.msg_err)
+            this.runShowMsg({ text: data.msg_err, status: 'error' })
+          }
+        })
+        .catch(error => {
+          console.log(error)
+          this.runShowMsg({ text: error, status: 'error' })
+        })
+        .then(() => {
+          this.dynamicSelectionDialog[fieldName] = false
+          this.delDynItems = []
+          this.currValDynItem = { title: null, value: null }
+          this.runShowOverlayPageLockout(false)
+        })
+    }
+  },
+
+  created() {
+    // Get document.
+    this.getDoc()
+  }
 
 }
 </script>
