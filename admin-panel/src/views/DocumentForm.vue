@@ -1408,10 +1408,11 @@ export default {
           this.runShowMsg({ text: this.$t('message.33'), status: 'error' })
           return
         }
-
+        // Prepare `options` for conversion to json-line.
         targetOptions[fieldName] = targetField.options.concat(this.currValDynItem)
           .map(item => [item.value, item.title])
       } else if (mode === 'delete') {
+        // Prepare `options` for conversion to json-line.
         this.delDynItems.forEach(idx => {
           delItemsName.push(targetField.options[idx].title)
         })
