@@ -1398,6 +1398,7 @@ export default {
       const delItemsName = []
 
       if (mode === 'save') {
+        // Validation uniqueness of names for dynamic enumerations.
         const store = {}
         for (let idx = 0; idx < targetField.options.length; idx++) {
           const key = targetField.options[idx].title
