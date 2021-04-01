@@ -104,7 +104,7 @@ pub struct User {
         label = "Test Dynamic",
         hint = "Field for testing dynamic widgets"
     )]
-    pub select_text_dyn: Option<i32>,
+    pub select_dyn: Option<i32>,
 }
 
 impl AdditionalValidation for User {
