@@ -1192,7 +1192,7 @@ export default {
           let counter = 0
           response(counter)
           this.fields.forEach(field => {
-            //
+            // Additionally convert numeric data types.
             if (field.widget.includes('I32') || field.widget.includes('U32') ||
               field.widget.includes('I64')) {
               if (field.widget.includes('Mult')) {
@@ -1207,7 +1207,7 @@ export default {
                 cloneFieldData[field.name] = parseFloat(cloneFieldData[field.name])
               }
             }
-            //
+            // Process data from fields of the `file` type.
             if (field.input_type === 'file') {
               const files = document.getElementById(field.id).files
               if (files.length > 0) {
