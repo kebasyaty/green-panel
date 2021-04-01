@@ -1471,7 +1471,7 @@ export default {
   },
 
   created() {
-    // Get document
+    // Get document.
     this.getDoc()
   }
 
