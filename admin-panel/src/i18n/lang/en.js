@@ -33,6 +33,7 @@ export default {
     29: 'Created',
     30: 'Updated',
     31: 'Delete file',
-    32: 'Delete image'
+    32: 'Delete image',
+    33: 'For dynamic enumerations, only unique names are allowed'
   }
 }

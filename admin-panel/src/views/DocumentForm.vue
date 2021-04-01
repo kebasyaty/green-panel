@@ -1397,19 +1397,26 @@ export default {
       const targetOptions = {}
       const delItemsName = []
 
-      switch (mode) {
-        case 'save':
-          targetOptions[fieldName] = targetField.options.concat(this.currValDynItem)
-            .map(item => [item.value, item.title])
-          break
-        case 'delete':
-          this.delDynItems.forEach(idx => {
-            delItemsName.push(targetField.options[idx].title)
-          })
-          targetOptions[fieldName] = targetField.options
-            .filter(item => !delItemsName.includes(item.title))
-            .map(item => [item.value, item.title])
-          break
+      if (mode === 'save') {
+        const store = {}
+        for (let idx = 0; idx < targetField.options.length; idx++) {
+          const key = targetField.options[idx].title
+          store[key] = true
+        }
+        if (Object.keys(store).length !== targetField.options.length) {
+          this.runShowMsg({ text: this.$t('message.33'), status: 'error' })
+          return
+        }
+
+        targetOptions[fieldName] = targetField.options.concat(this.currValDynItem)
+          .map(item => [item.value, item.title])
+      } else if (mode === 'delete') {
+        this.delDynItems.forEach(idx => {
+          delItemsName.push(targetField.options[idx].title)
+        })
+        targetOptions[fieldName] = targetField.options
+          .filter(item => !delItemsName.includes(item.title))
+          .map(item => [item.value, item.title])
       }
 
       const jsonOptions = JSON.stringify(targetOptions)
