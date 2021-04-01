@@ -1432,6 +1432,7 @@ export default {
           if (!data.is_authenticated) {
             this.setIsAuthenticated(false)
           } else if (data.msg_err.length === 0) {
+            // Apply changes to the current state.
             switch (mode) {
               case 'save':
                 for (let idx = 0; idx < this.fields.length; idx++) {
