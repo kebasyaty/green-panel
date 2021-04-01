@@ -1399,14 +1399,11 @@ export default {
 
       if (mode === 'save') {
         // Validation uniqueness of names for dynamic enumerations.
-        const store = {}
         for (let idx = 0; idx < targetField.options.length; idx++) {
-          const key = targetField.options[idx].title
-          store[key] = true
-        }
-        if (Object.keys(store).length !== targetField.options.length) {
-          this.runShowMsg({ text: this.$t('message.33'), status: 'error' })
-          return
+          if (targetField.options[idx].title === this.currValDynItem.title) {
+            this.runShowMsg({ text: this.$t('message.33'), status: 'error' })
+            return
+          }
         }
         // Prepare `options` for conversion to json-line.
         targetOptions[fieldName] = targetField.options.concat(this.currValDynItem)
