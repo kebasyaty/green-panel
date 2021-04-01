@@ -92,6 +92,7 @@
                             <v-text-field
                               clearable
                               :label="$t('message.24')"
+                              :type="getDynFieldType(field.field.widget)"
                               v-model="currValDynItem.value"
                             ></v-text-field>
                           </v-col>
@@ -762,6 +763,18 @@ export default {
     humanFileSize(size) {
       var i = Math.floor(Math.log(size) / Math.log(1024))
       return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i]
+    },
+    // Get field type with dynamic widget.
+    getDynFieldType(widget) {
+      let result = 'text'
+      if (window.includes('I32') || window.includes('I64')) {
+        result = 'number'
+      } else if (window.includes('U32')) {
+        result = 'number'
+      } else if (window.includes('F64')) {
+        result = 'number'
+      }
+      return result
     },
     // Get the associative icon for the file.
     getFileIcon(extension) {

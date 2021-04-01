@@ -100,11 +100,11 @@ pub struct User {
     // Dynamics
     #[serde(default)]
     #[field_attrs(
-        widget = "selectTextDyn",
+        widget = "selectI32Dyn",
         label = "Test Dynamic",
         hint = "Field for testing dynamic widgets"
     )]
-    pub select_text_dyn: Option<String>,
+    pub select_text_dyn: Option<i32>,
 }
 
 impl AdditionalValidation for User {
