@@ -92,7 +92,7 @@
                             <v-text-field
                               clearable
                               :label="$t('message.24')"
-                              :type="getDynFieldType(field.field.widget)"
+                              :type="getDynFieldType(field.widget)"
                               v-model="currValDynItem.value"
                             ></v-text-field>
                           </v-col>
