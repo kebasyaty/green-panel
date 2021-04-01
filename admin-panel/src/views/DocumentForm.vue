@@ -1420,7 +1420,7 @@ export default {
           .filter(item => !delItemsName.includes(item.title))
           .map(item => [item.value, item.title])
       }
-
+      // Create a payload and send it to the server.
       const jsonOptions = JSON.stringify(targetOptions)
       const payload = {
         model_key: service.collections[indexCollection].model_key,
