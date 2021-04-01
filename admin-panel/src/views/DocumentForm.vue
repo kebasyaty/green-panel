@@ -1412,26 +1412,30 @@ export default {
       const targetOptions = {}
       const delItemsName = []
 
-      if (mode === 'save') {
-        // Validation uniqueness of names for dynamic enumerations.
-        for (let idx = 0; idx < targetField.options.length; idx++) {
-          if (targetField.options[idx].title === this.currValDynItem.title) {
-            this.runShowMsg({ text: this.$t('message.33'), status: 'error' })
-            return
+      switch (mode) {
+        case 'save':
+          // Validation uniqueness of names for dynamic enumerations.
+          for (let idx = 0; idx < targetField.options.length; idx++) {
+            if (targetField.options[idx].title === this.currValDynItem.title) {
+              this.runShowMsg({ text: this.$t('message.33'), status: 'error' })
+              return
+            }
           }
-        }
-        // Prepare `options` for conversion to json-line.
-        targetOptions[fieldName] = targetField.options.concat(this.currValDynItem)
-          .map(item => [item.value, item.title])
-      } else if (mode === 'delete') {
-        // Prepare `options` for conversion to json-line.
-        this.delDynItems.forEach(idx => {
-          delItemsName.push(targetField.options[idx].title)
-        })
-        targetOptions[fieldName] = targetField.options
-          .filter(item => !delItemsName.includes(item.title))
-          .map(item => [item.value, item.title])
+          // Prepare `options` for conversion to json-line.
+          targetOptions[fieldName] = targetField.options.concat(this.currValDynItem)
+            .map(item => [item.value, item.title])
+          break
+        case 'delete':
+          // Prepare `options` for conversion to json-line.
+          this.delDynItems.forEach(idx => {
+            delItemsName.push(targetField.options[idx].title)
+          })
+          targetOptions[fieldName] = targetField.options
+            .filter(item => !delItemsName.includes(item.title))
+            .map(item => [item.value, item.title])
+          break
       }
+
       // Create a payload and send it to the server.
       const jsonOptions = JSON.stringify(targetOptions)
       const payload = {
