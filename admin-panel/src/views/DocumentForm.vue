@@ -1207,7 +1207,7 @@ export default {
                 cloneFieldData[field.name] = parseFloat(cloneFieldData[field.name])
               }
             }
-            // Process data from fields of the `file` type.
+            // Preparing data from fields of the `file` type.
             if (field.input_type === 'file') {
               const files = document.getElementById(field.id).files
               if (files.length > 0) {
