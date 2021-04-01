@@ -1439,7 +1439,7 @@ export default {
           }
           // Prepare `options` for conversion to json-line.
           targetOptions[fieldName] = targetField.options.concat(this.currValDynItem)
-            .map(item => [item.value, item.title])
+            .map(item => [item.value.toString(), item.title])
           break
         case 'delete':
           // Prepare `options` for conversion to json-line.
@@ -1448,7 +1448,7 @@ export default {
           })
           targetOptions[fieldName] = targetField.options
             .filter(item => !delItemsName.includes(item.title))
-            .map(item => [item.value, item.title])
+            .map(item => [item.value.toString(), item.title])
           break
       }
 
