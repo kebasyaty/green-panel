@@ -106,7 +106,7 @@ impl AppState {
             if !file_name.is_empty() && !base64.is_empty() {
                 let extension = Path::new(file_name).extension().unwrap().to_str().unwrap();
                 let file_name = format!("{}.{}", Uuid::new_v4(), extension);
-                let total_dir = &self.format_media_root("uploads")[..];
+                let total_dir = &self.get_media_root()[..];
                 fs::create_dir_all(format!("{}/{}", total_dir, target_dir)).unwrap();
                 let file_path = Path::new(total_dir)
                     .join(target_dir)
@@ -118,7 +118,7 @@ impl AppState {
                 return Some(
                     serde_json::to_string(&json!({
                         "path": file_path.to_str().unwrap(),
-                        "url": self.format_media_url(&format!("uploads/{}/{}", target_dir, file_name)[..]),
+                        "url": self.format_media_url(&format!("{}/{}", target_dir, file_name)[..]),
                         "is_delete": is_delete
                     }))
                     .unwrap(),
