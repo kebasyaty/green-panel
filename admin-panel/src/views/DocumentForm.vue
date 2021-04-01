@@ -70,7 +70,9 @@
                           color="red"
                           @click="[dynamicSelectionDialog[field.name] = false,
                                    currValDynItem = {title: null, value: null},
-                                   delDynItems = []]"
+                                   delDynItems = [],
+                                   setShowMsg(false),
+                                   runShowOverlayPageLockout(false)]"
                         >
                           <v-icon>mdi-close</v-icon>
                         </v-btn>
