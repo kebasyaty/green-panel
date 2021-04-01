@@ -1196,7 +1196,7 @@ export default {
             if (field.widget.includes('I32') || field.widget.includes('U32') ||
               field.widget.includes('I64')) {
               if (field.widget.includes('Mult')) {
-                cloneFieldData[field.name] = parseInt(cloneFieldData[field.name])
+                cloneFieldData[field.name] = cloneFieldData[field.name].map(item => parseInt(item))
               } else {
                 cloneFieldData[field.name] = parseInt(cloneFieldData[field.name])
               }
