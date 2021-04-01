@@ -1436,7 +1436,7 @@ export default {
                 for (let idx = 0; idx < this.fields.length; idx++) {
                   if (this.fields[idx].name === fieldName) {
                     this.fields[idx].options = this.fields[idx].options
-                      .filter(item => !delItemsName.includes(item.name))
+                      .filter(item => !delItemsName.includes(item.title))
                     break
                   }
                 }
