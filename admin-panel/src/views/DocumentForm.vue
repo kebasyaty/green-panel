@@ -1394,23 +1394,25 @@ export default {
       const indexCollection = this.$route.params.indexCollection
       const service = this.serviceList[indexService]
       const targetField = this.fields.filter(item => item.name === fieldName)[0]
-      const targetObj = {}
+      const targetOptions = {}
       const delItemsName = []
+
       switch (mode) {
         case 'save':
-          targetObj[fieldName] = targetField.options.concat(this.currValDynItem)
+          targetOptions[fieldName] = targetField.options.concat(this.currValDynItem)
             .map(item => [item.value, item.title])
           break
         case 'delete':
           this.delDynItems.forEach(idx => {
-            delItemsName.push(targetField.options[idx].name)
+            delItemsName.push(targetField.options[idx].title)
           })
-          targetObj[fieldName] = targetField.options
-            .filter(item => !delItemsName.includes(item.name))
+          targetOptions[fieldName] = targetField.options
+            .filter(item => !delItemsName.includes(item.title))
             .map(item => [item.value, item.title])
           break
       }
-      const jsonOptions = JSON.stringify(targetObj)
+
+      const jsonOptions = JSON.stringify(targetOptions)
       const payload = {
         model_key: service.collections[indexCollection].model_key,
         json_options: jsonOptions
