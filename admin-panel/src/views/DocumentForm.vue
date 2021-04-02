@@ -93,6 +93,9 @@
                               clearable
                               :label="$t('message.24')"
                               :type="getDynFieldType(field.widget)"
+                              :step="field.step"
+                              :min="field.min"
+                              :max="field.max"
                               v-model="currValDynItem.value"
                             ></v-text-field>
                           </v-col>
