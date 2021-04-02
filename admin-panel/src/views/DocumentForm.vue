@@ -1437,6 +1437,12 @@ export default {
               return
             }
           }
+          //
+          if (targetField.widget.includes('I32') || targetField.widget.includes('U32') || targetField.widget.includes('I64')) {
+            this.currValDynItem.value = parseInt(this.currValDynItem.value)
+          } else if (targetField.widget.includes('F64')) {
+            this.currValDynItem.value = parseFloat(this.currValDynItem.value)
+          }
           // Prepare `options` for conversion to json-line.
           targetOptions[fieldName] = targetField.options.concat(this.currValDynItem)
             .map(item => [item.value.toString(), item.title])
