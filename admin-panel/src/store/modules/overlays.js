@@ -22,7 +22,11 @@ export default {
           }
         }, 1000)
       } else {
-        commit('setOverlayPageLockout', false)
+        if (state.overlayPageLockout) {
+          setTimeout(() => commit('setOverlayPageLockout', false), 500)
+        } else {
+          commit('setOverlayPageLockout', false)
+        }
       }
     }
   }
