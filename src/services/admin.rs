@@ -79,7 +79,7 @@ pub mod request_handlers {
                     is_active: Some(true),
                     ..Default::default()
                 };
-                let result = first_user.save(None, None, None).unwrap();
+                let result = first_user.save(None, None).unwrap();
                 if !result.bool() {
                     panic!(
                         "Model: `User` : Error while creating the first user. In detail: {}.",
@@ -433,7 +433,7 @@ pub mod request_handlers {
                 if model.is_ok() {
                     let mut model = model?;
                     model.photo = app_state.to_file(model.photo, "admin/users/avatars");
-                    if let Ok(output_data) = model.save(None, None, None) {
+                    if let Ok(output_data) = model.save(None, None) {
                         document = output_data.json_for_admin().unwrap();
                     } else {
                         msg_err = "Failed to save document to database.".to_string();
