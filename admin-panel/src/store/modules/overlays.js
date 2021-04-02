@@ -22,7 +22,7 @@ export default {
           }
         }, 1000)
       } else {
-        commit('setOverlayPageLockout', false)
+        setTimeout(() => commit('setOverlayPageLockout', false), 500)
       }
     }
   }
