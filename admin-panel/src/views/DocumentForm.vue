@@ -417,7 +417,7 @@
                 <!-- Date fields -->
                 <v-menu
                   v-if="field.widget === 'inputDate'"
-                  :ref="vMenu[field.name]"
+                  :ref="field.name"
                   v-model="vMenu[field.name]"
                   :close-on-content-click="false"
                   :return-value.sync="fieldData[field.name]"
@@ -446,12 +446,26 @@
                     ></v-text-field>
                   </template>
                   <v-date-picker
+                    no-title
+                    scrollable
                     v-model="fieldData[field.name]"
-                    @input="vMenu[field.name] = false"
                     :min="field.min"
                     :max="field.max"
-                    :locale="$i18n.locale"
-                  ></v-date-picker>
+                  >
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      text
+                      small
+                      color="primary"
+                      @click="vMenu[field.name] = false"
+                    >{{ $t('message.18') }}</v-btn>
+                    <v-btn
+                      text
+                      small
+                      color="primary"
+                      @click="$refs[field.name][0].save(fieldData[field.name])"
+                    >OK</v-btn>
+                  </v-date-picker>
                 </v-menu>
 
                 <!-- Date and Time fields -->
