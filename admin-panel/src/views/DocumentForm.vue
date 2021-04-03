@@ -363,12 +363,12 @@
                       :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                       v-model="fieldData[field.name]"
                       :id="field.id"
-                      type="text"
+                      :type="field.input_type"
                       :name="field.name"
                       :placeholder="field.placeholder"
                       :required="field.required"
                       :disabled="field.disabled"
-                      :readonly="field.readonly"
+                      readonly
                       :class="field.css_classes"
                       :messages="field.warning"
                       :error-messages="field.error"
@@ -417,6 +417,7 @@
                 <!-- Date fields -->
                 <v-menu
                   v-if="field.widget === 'inputDate'"
+                  :ref="field.name"
                   v-model="vMenu[field.name]"
                   :close-on-content-click="false"
                   :nudge-right="40"
@@ -431,12 +432,11 @@
                       :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                       v-model="fieldData[field.name]"
                       :id="field.id"
-                      :type="text"
                       :name="field.name"
                       :placeholder="field.placeholder"
                       :required="field.required"
                       :disabled="field.disabled"
-                      :readonly="field.readonly"
+                      readonly
                       :class="field.css_classes"
                       :messages="field.warning"
                       :error-messages="field.error"
@@ -460,6 +460,7 @@
                 <v-row v-if="field.widget === 'inputDateTime'">
                   <v-col cols="6">
                     <v-menu
+                      :ref="field.name"
                       v-model="vMenu[field.name]"
                       :close-on-content-click="false"
                       :nudge-right="40"
@@ -474,12 +475,11 @@
                           :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                           v-model="fieldData[field.name]"
                           :id="field.id"
-                          :type="field.input_type"
                           :name="field.name"
                           :placeholder="field.placeholder"
                           :required="field.required"
                           :disabled="field.disabled"
-                          :readonly="field.readonly"
+                          readonly
                           :class="field.css_classes"
                           :messages="field.warning"
                           :error-messages="field.error"
@@ -524,7 +524,7 @@
                           :placeholder="field.placeholder"
                           :required="field.required"
                           :disabled="field.disabled"
-                          :readonly="field.readonly"
+                          readonly
                           :class="field.css_classes"
                           v-bind="attrs"
                           v-on="on"
