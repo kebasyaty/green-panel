@@ -368,7 +368,7 @@
                       :placeholder="field.placeholder"
                       :required="field.required"
                       :disabled="field.disabled"
-                      readonly
+                      :readonly="field.readonly"
                       :class="field.css_classes"
                       :messages="field.warning"
                       :error-messages="field.error"
@@ -436,7 +436,7 @@
                       :placeholder="field.placeholder"
                       :required="field.required"
                       :disabled="field.disabled"
-                      readonly
+                      :readonly="field.readonly"
                       :class="field.css_classes"
                       :messages="field.warning"
                       :error-messages="field.error"
@@ -479,7 +479,7 @@
                           :placeholder="field.placeholder"
                           :required="field.required"
                           :disabled="field.disabled"
-                          readonly
+                          :readonly="field.readonly"
                           :class="field.css_classes"
                           :messages="field.warning"
                           :error-messages="field.error"
@@ -524,7 +524,7 @@
                           :placeholder="field.placeholder"
                           :required="field.required"
                           :disabled="field.disabled"
-                          readonly
+                          :readonly="field.readonly"
                           :class="field.css_classes"
                           v-bind="attrs"
                           v-on="on"

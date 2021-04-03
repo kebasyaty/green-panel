@@ -97,14 +97,15 @@ pub struct User {
         hint = "Is this an active account?"
     )]
     pub is_active: Option<bool>,
-    // Dynamics
+    // Test field
+    // ---------------------------------------------------------------------------------------------
     #[serde(default)]
     #[field_attrs(
-        widget = "selectTextMultDyn",
+        widget = "inputDate",
         label = "Test Dynamic",
         hint = "Field for testing dynamic widgets"
     )]
-    pub select_dyn: Option<Vec<String>>,
+    pub test: Option<String>,
 }
 
 impl AdditionalValidation for User {
