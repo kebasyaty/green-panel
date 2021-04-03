@@ -417,9 +417,10 @@
                 <!-- Date fields -->
                 <v-menu
                   v-if="field.widget === 'inputDate'"
-                  :ref="field.name"
+                  :ref="vMenu[field.name]"
                   v-model="vMenu[field.name]"
                   :close-on-content-click="false"
+                  :return-value.sync="fieldData[field.name]"
                   :nudge-right="40"
                   transition="scale-transition"
                   offset-y
@@ -445,11 +446,8 @@
                     ></v-text-field>
                   </template>
                   <v-date-picker
-                    scrollable
                     v-model="fieldData[field.name]"
                     @input="vMenu[field.name] = false"
-                    year-icon="mdi-calendar-blank"
-                    color="primary"
                     :min="field.min"
                     :max="field.max"
                     :locale="$i18n.locale"
