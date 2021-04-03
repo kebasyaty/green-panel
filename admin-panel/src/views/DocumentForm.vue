@@ -474,7 +474,7 @@
                           :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                           v-model="fieldData[field.name]"
                           :id="field.id"
-                          :type="text"
+                          :type="field.input_type"
                           :name="field.name"
                           :placeholder="field.placeholder"
                           :required="field.required"
@@ -541,7 +541,7 @@
                   </v-col>
                 </v-row>
 
-                <!-- Selection fields -->
+                <!-- Selection fields-->
                 <v-select
                   class="pt-0"
                   v-if="['selectText', 'selectI32', 'selectU32',
