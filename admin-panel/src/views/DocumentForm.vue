@@ -16,7 +16,7 @@
           <input
             v-if="['hiddenText', 'hiddenI32', 'hiddenU32',
                    'hiddenI64', 'hiddenF64'].includes(field.widget)"
-            v-model="fieldData[field.name]"
+            v-model="fieldsData[field.name]"
             :label="field.label"
             :id="field.id"
             :type="field.input_type"
@@ -155,7 +155,7 @@
                   'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6'].includes(field.widget)"
                   clearable
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                  v-model="fieldData[field.name]"
+                  v-model="fieldsData[field.name]"
                   :id="field.id"
                   :type="field.input_type"
                   :name="field.name"
@@ -174,7 +174,7 @@
                   v-if="['numberI32', 'numberU32', 'numberI64', 'numberF64'].includes(field.widget)"
                   clearable
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                  v-model="fieldData[field.name]"
+                  v-model="fieldsData[field.name]"
                   :id="field.id"
                   :type="field.input_type"
                   :name="field.name"
@@ -195,7 +195,7 @@
                   v-if="['rangeI32', 'rangeU32', 'rangeI64', 'rangeF64'].includes(field.widget)"
                   thumb-label
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                  v-model="fieldData[field.name]"
+                  v-model="fieldsData[field.name]"
                   :id="field.id"
                   :type="field.input_type"
                   :name="field.name"
@@ -215,7 +215,7 @@
                 <v-radio-group
                   class="mt-1"
                   v-if="['radioText', 'radioI32', 'radioU32', 'radioI64', 'radioF64'].includes(field.widget)"
-                  v-model="fieldData[field.name]"
+                  v-model="fieldsData[field.name]"
                   :messages="field.warning"
                   :error-messages="field.error"
                 >
@@ -238,7 +238,7 @@
                   class="mt-0"
                   persistent-hint
                   v-if="field.widget === 'checkBox'"
-                  v-model="fieldData[field.name]"
+                  v-model="fieldsData[field.name]"
                   :id="field.id"
                   :label="field.label"
                   :type="field.input_type"
@@ -251,11 +251,11 @@
 
                 <!-- File information -->
                 <div
-                  v-if="field.widget === 'inputFile' && fieldData[field.name].url !== undefined && fieldData[field.name].url.length > 0"
+                  v-if="field.widget === 'inputFile' && fieldsData[field.name].url !== undefined && fieldsData[field.name].url.length > 0"
                 >
                   <v-divider class="mb-1"></v-divider>
                   <div
-                    v-for="(item, index) in [getFileIcon(fieldData[field.name].name.split('.').pop())]"
+                    v-for="(item, index) in [getFileIcon(fieldsData[field.name].name.split('.').pop())]"
                     :key="`${item.icon}-${index}`"
                   >
                     <v-icon :color="item.color" size="60">{{ `mdi-${item.icon}` }}</v-icon>
@@ -265,17 +265,17 @@
                     small
                     color="primary"
                     class="text-lowercase px-0"
-                    :href="fieldData[field.name].url"
+                    :href="fieldsData[field.name].url"
                     target="_blank"
-                  >{{ fieldData[field.name].url }}</v-btn>
+                  >{{ fieldsData[field.name].url }}</v-btn>
                   <v-card-subtitle
                     class="pa-0"
-                  >{{ `${$t('message.28')}: ${humanFileSize(fieldData[field.name].size)}` }}</v-card-subtitle>
+                  >{{ `${$t('message.28')}: ${humanFileSize(fieldsData[field.name].size)}` }}</v-card-subtitle>
                   <v-checkbox
                     dense
                     hide-details
                     class="mt-0"
-                    v-model="fieldData[field.name].is_delete"
+                    v-model="fieldsData[field.name].is_delete"
                     :label="`${$t('message.31')} ?`"
                     :disabled="field.required"
                   ></v-checkbox>
@@ -283,26 +283,26 @@
 
                 <!-- Image thumbnail -->
                 <div
-                  v-if="field.widget === 'inputImage' && fieldData[field.name].url !== undefined && fieldData[field.name].url.length > 0"
+                  v-if="field.widget === 'inputImage' && fieldsData[field.name].url !== undefined && fieldsData[field.name].url.length > 0"
                 >
                   <v-divider class="mb-1"></v-divider>
-                  <v-img contain :src="fieldData[field.name].url" height="60" position="left"></v-img>
+                  <v-img contain :src="fieldsData[field.name].url" height="60" position="left"></v-img>
                   <v-btn
                     text
                     small
                     color="primary"
                     class="text-lowercase px-0"
-                    :href="fieldData[field.name].url"
+                    :href="fieldsData[field.name].url"
                     target="_blank"
-                  >{{ fieldData[field.name].url }}</v-btn>
+                  >{{ fieldsData[field.name].url }}</v-btn>
                   <v-card-subtitle
                     class="pa-0"
-                  >{{ `${$t('message.28')}: ${humanFileSize(fieldData[field.name].size)}` }}</v-card-subtitle>
+                  >{{ `${$t('message.28')}: ${humanFileSize(fieldsData[field.name].size)}` }}</v-card-subtitle>
                   <v-checkbox
                     dense
                     hide-details
                     class="mt-0"
-                    v-model="fieldData[field.name].is_delete"
+                    v-model="fieldsData[field.name].is_delete"
                     :label="`${$t('message.32')} ?`"
                     :disabled="field.required"
                   ></v-checkbox>
@@ -350,7 +350,7 @@
                   :ref="field.name"
                   v-model="vMenu[field.name]"
                   :close-on-content-click="false"
-                  :return-value.sync="fieldData[field.name]"
+                  :return-value.sync="fieldsData[field.name]"
                   :nudge-right="40"
                   transition="scale-transition"
                   offset-y
@@ -359,9 +359,9 @@
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field
                       class="mt-0 pt-1"
-                      :background-color="fieldData[field.name]"
+                      :background-color="fieldsData[field.name]"
                       :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                      v-model="fieldData[field.name]"
+                      v-model="fieldsData[field.name]"
                       :id="field.id"
                       :type="field.input_type"
                       :name="field.name"
@@ -377,7 +377,7 @@
                     ></v-text-field>
                   </template>
                   <v-card>
-                    <v-color-picker show-swatches mode="hexa" v-model="fieldData[field.name]"></v-color-picker>
+                    <v-color-picker show-swatches mode="hexa" v-model="fieldsData[field.name]"></v-color-picker>
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn
@@ -390,7 +390,7 @@
                         text
                         small
                         color="primary"
-                        @click="$refs[field.name][0].save(fieldData[field.name])"
+                        @click="$refs[field.name][0].save(fieldsData[field.name])"
                       >OK</v-btn>
                     </v-card-actions>
                   </v-card>
@@ -402,7 +402,7 @@
                   v-if="field.widget === 'textArea'"
                   clearable
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                  v-model="fieldData[field.name]"
+                  v-model="fieldsData[field.name]"
                   :id="field.id"
                   :name="field.name"
                   :placeholder="field.placeholder"
@@ -420,7 +420,7 @@
                   :ref="field.name"
                   v-model="vMenu[field.name]"
                   :close-on-content-click="false"
-                  :return-value.sync="fieldData[field.name]"
+                  :return-value.sync="fieldsData[field.name]"
                   :nudge-right="40"
                   transition="scale-transition"
                   offset-y
@@ -431,7 +431,7 @@
                       class="mt-0 pt-1"
                       clearable
                       :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                      v-model="fieldData[field.name]"
+                      v-model="fieldsData[field.name]"
                       :id="field.id"
                       :name="field.name"
                       :placeholder="field.placeholder"
@@ -447,7 +447,7 @@
                   </template>
                   <v-date-picker
                     scrollable
-                    v-model="fieldData[field.name]"
+                    v-model="fieldsData[field.name]"
                     :min="field.min"
                     :max="field.max"
                     :locale="$i18n.locale"
@@ -463,7 +463,7 @@
                       text
                       small
                       color="primary"
-                      @click="$refs[field.name][0].save(fieldData[field.name])"
+                      @click="$refs[field.name][0].save(fieldsData[field.name])"
                     >OK</v-btn>
                   </v-date-picker>
                 </v-menu>
@@ -475,7 +475,7 @@
                       :ref="field.name"
                       v-model="vMenu[field.name]"
                       :close-on-content-click="false"
-                      :return-value.sync="fieldData[field.name]"
+                      :return-value.sync="fieldsData[field.name]"
                       :nudge-right="40"
                       transition="scale-transition"
                       offset-y
@@ -486,7 +486,7 @@
                           class="mt-0 pt-1"
                           clearable
                           :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                          v-model="fieldData[field.name]"
+                          v-model="fieldsData[field.name]"
                           :id="field.id"
                           :name="field.name"
                           :placeholder="field.placeholder"
@@ -502,7 +502,7 @@
                       </template>
                       <v-date-picker
                         scrollable
-                        v-model="fieldData[field.name]"
+                        v-model="fieldsData[field.name]"
                         year-icon="mdi-calendar-blank"
                         color="primary"
                         :min="field.min"
@@ -520,7 +520,7 @@
                           text
                           small
                           color="primary"
-                          @click="$refs[field.name][0].save(fieldData[field.name])"
+                          @click="$refs[field.name][0].save(fieldsData[field.name])"
                         >OK</v-btn>
                       </v-date-picker>
                     </v-menu>
@@ -531,7 +531,7 @@
                       v-model="vMenu[`${field.name}__time`]"
                       :close-on-content-click="false"
                       :nudge-right="40"
-                      :return-value.sync="fieldData[`${field.name}__time`]"
+                      :return-value.sync="fieldsData[`${field.name}__time`]"
                       transition="scale-transition"
                       offset-y
                       max-width="290px"
@@ -542,7 +542,7 @@
                           class="mt-0 pt-1"
                           clearable
                           prepend-icon="mdi-clock-time-four-outline"
-                          v-model="fieldData[`${field.name}__time`]"
+                          v-model="fieldsData[`${field.name}__time`]"
                           :label="$t('message.17')"
                           :id="field.id"
                           type="time"
@@ -560,8 +560,8 @@
                         full-width
                         scrollable
                         v-if="vMenu[`${field.name}__time`]"
-                        v-model="fieldData[`${field.name}__time`]"
-                        @click:minute="$refs[`${field.name}__time`][0].save(fieldData[`${field.name}__time`])"
+                        v-model="fieldsData[`${field.name}__time`]"
+                        @click:minute="$refs[`${field.name}__time`][0].save(fieldsData[`${field.name}__time`])"
                       ></v-time-picker>
                     </v-menu>
                   </v-col>
@@ -577,7 +577,7 @@
                   :items="field.options"
                   item-text="title"
                   item-value="value"
-                  v-model="fieldData[field.name]"
+                  v-model="fieldsData[field.name]"
                   :id="field.id"
                   :name="field.name"
                   :placeholder="field.placeholder"
@@ -602,7 +602,7 @@
                   :items="field.options"
                   item-text="title"
                   item-value="value"
-                  v-model="fieldData[field.name]"
+                  v-model="fieldsData[field.name]"
                   :id="field.id"
                   :name="field.name"
                   :placeholder="field.placeholder"
@@ -625,7 +625,7 @@
                   :items="field.options"
                   item-text="title"
                   item-value="value"
-                  v-model="fieldData[field.name]"
+                  v-model="fieldsData[field.name]"
                   :id="field.id"
                   :name="field.name"
                   :placeholder="field.placeholder"
@@ -650,7 +650,7 @@
                   :items="field.options"
                   item-text="title"
                   item-value="value"
-                  v-model="fieldData[field.name]"
+                  v-model="fieldsData[field.name]"
                   :id="field.id"
                   :name="field.name"
                   :placeholder="field.placeholder"
@@ -738,7 +738,7 @@ export default {
     docTitle: '...',
     breadcrumbs: '... > ... > ...',
     vMenu: {},
-    fieldData: {},
+    fieldsData: {},
     fields: [],
     dynamicSelectionDialog: {},
     delDynItems: [],
@@ -974,7 +974,7 @@ export default {
     // Get data for fields of form.
     getFormData(document) {
       const vMenu = {}
-      const fieldData = {}
+      const fieldsData = {}
       const dynamicSelectionDialog = {}
       let tmp
 
@@ -993,22 +993,22 @@ export default {
           case 'inputIPv4':
           case 'inputIPv6':
           case 'textArea':
-            fieldData[field.name] = field.value || ''
+            fieldsData[field.name] = field.value || ''
             break
           case 'inputColor':
             vMenu[field.name] = false
-            fieldData[field.name] = field.value || '#00000000'
+            fieldsData[field.name] = field.value || '#00000000'
             break
           case 'inputDate':
             vMenu[field.name] = false
-            fieldData[field.name] = field.value.substr(0, 10) || new Date().toISOString().substr(0, 10)
+            fieldsData[field.name] = field.value.substr(0, 10) || new Date().toISOString().substr(0, 10)
             break
           case 'inputDateTime':
             vMenu[field.name] = false
             vMenu[`${field.name}__time`] = false
             tmp = field.value || new Date().toISOString()
-            fieldData[field.name] = tmp.substr(0, 10)
-            fieldData[`${field.name}__time`] = new Date(tmp).toLocaleTimeString(this.$i18n.locale,
+            fieldsData[field.name] = tmp.substr(0, 10)
+            fieldsData[`${field.name}__time`] = new Date(tmp).toLocaleTimeString(this.$i18n.locale,
               { timeStyle: 'short', hour12: false })
             tmp = undefined
             break
@@ -1017,36 +1017,36 @@ export default {
           case 'hiddenU32':
           case 'hiddenI64':
           case 'hiddenF64':
-            fieldData[field.name] = field.value || ''
+            fieldsData[field.name] = field.value || ''
             break
           case 'numberI32':
           case 'numberU32':
           case 'numberI64':
             tmp = parseInt(field.value)
-            fieldData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
             tmp = undefined
             break
           case 'numberF64':
             tmp = parseFloat(field.value)
-            fieldData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
             tmp = undefined
             break
           case 'rangeI32':
           case 'rangeU32':
           case 'rangeI64':
-            fieldData[field.name] = parseInt(field.value)
+            fieldsData[field.name] = parseInt(field.value)
             break
           case 'rangeF64':
-            fieldData[field.name] = parseFloat(field.value)
+            fieldsData[field.name] = parseFloat(field.value)
             break
           case 'radioText':
-            fieldData[field.name] = field.value || ''
+            fieldsData[field.name] = field.value || ''
             break
           case 'radioI32':
           case 'radioU32':
           case 'radioI64':
             tmp = parseInt(field.value)
-            fieldData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
             field.options.forEach(function (item) {
               item[0] = parseInt(item[0])
             })
@@ -1054,17 +1054,17 @@ export default {
             break
           case 'radioF64':
             tmp = parseFloat(field.value)
-            fieldData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
             field.options.forEach(function (item) {
               item[0] = parseFloat(item[0])
             })
             tmp = undefined
             break
           case 'checkBox':
-            fieldData[field.name] = field.checked
+            fieldsData[field.name] = field.checked
             break
           case 'selectText':
-            fieldData[field.name] = field.value || ''
+            fieldsData[field.name] = field.value || ''
             field.options = field.options.map(function (item) {
               return { value: item[0], title: item[1] }
             })
@@ -1073,7 +1073,7 @@ export default {
           case 'selectU32':
           case 'selectI64':
             tmp = parseInt(field.value)
-            fieldData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
             field.options = field.options.map(function (item) {
               return { value: parseInt(item[0]), title: item[1] }
             })
@@ -1081,14 +1081,14 @@ export default {
             break
           case 'selectF64':
             tmp = parseFloat(field.value)
-            fieldData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
             field.options = field.options.map(function (item) {
               return { value: parseFloat(item[0]), title: item[1] }
             })
             tmp = undefined
             break
           case 'selectTextMult':
-            fieldData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : []
+            fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : []
             field.options = field.options.map(function (item) {
               return { value: item[0], title: item[1] }
             })
@@ -1096,20 +1096,20 @@ export default {
           case 'selectI32Mult':
           case 'selectU32Mult':
           case 'selectI64Mult':
-            fieldData[field.name] = field.value.length > 0 ? JSON.parse(field.value).map(item => parseInt(item[0])) : []
+            fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value).map(item => parseInt(item[0])) : []
             field.options = field.options.map(function (item) {
               return { value: parseInt(item[0]), title: item[1] }
             })
             break
           case 'selectF64Mult':
-            fieldData[field.name] = field.value.length > 0 ? JSON.parse(field.value).map(item => parseFloat(item[0])) : []
+            fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value).map(item => parseFloat(item[0])) : []
             field.options = field.options.map(function (item) {
               return { value: parseFloat(item[0]), title: item[1] }
             })
             break
 
           case 'selectTextDyn':
-            fieldData[field.name] = field.value || ''
+            fieldsData[field.name] = field.value || ''
             field.options = field.options.map(function (item) {
               return { value: item[0], title: item[1] }
             })
@@ -1119,7 +1119,7 @@ export default {
           case 'selectU32Dyn':
           case 'selectI64Dyn':
             tmp = parseInt(field.value)
-            fieldData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
             field.options = field.options.map(function (item) {
               return { value: parseInt(item[0]), title: item[1] }
             })
@@ -1128,7 +1128,7 @@ export default {
             break
           case 'selectF64Dyn':
             tmp = parseFloat(field.value)
-            fieldData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
             field.options = field.options.map(function (item) {
               return { value: parseFloat(item[0]), title: item[1] }
             })
@@ -1136,7 +1136,7 @@ export default {
             tmp = undefined
             break
           case 'selectTextMultDyn':
-            fieldData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : []
+            fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : []
             field.options = field.options.map(function (item) {
               return { value: item[0], title: item[1] }
             })
@@ -1145,14 +1145,14 @@ export default {
           case 'selectI32MultDyn':
           case 'selectU32MultDyn':
           case 'selectI64MultDyn':
-            fieldData[field.name] = field.value.length > 0 ? JSON.parse(field.value).map(item => parseInt(item[0])) : []
+            fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value).map(item => parseInt(item[0])) : []
             field.options = field.options.map(function (item) {
               return { value: parseInt(item[0]), title: item[1] }
             })
             dynamicSelectionDialog[field.name] = false
             break
           case 'selectF64MultDyn':
-            fieldData[field.name] = field.value.length > 0 ? JSON.parse(field.value).map(item => parseFloat(item[0])) : []
+            fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value).map(item => parseFloat(item[0])) : []
             field.options = field.options.map(function (item) {
               return { value: parseFloat(item[0]), title: item[1] }
             })
@@ -1160,14 +1160,14 @@ export default {
             break
           case 'inputFile':
           case 'inputImage':
-            fieldData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : {}
-            fieldData[field.name].is_delete = false
+            fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : {}
+            fieldsData[field.name].is_delete = false
             break
         }
       })
 
       this.vMenu = vMenu
-      this.fieldData = fieldData
+      this.fieldsData = fieldsData
       this.dynamicSelectionDialog = dynamicSelectionDialog
       this.fields = document
     },
@@ -1197,7 +1197,7 @@ export default {
       const indexCollection = this.$route.params.indexCollection
       const service = this.serviceList[indexService]
       const modelKey = service.collections[indexCollection].model_key
-      const cloneFieldData = JSON.parse(JSON.stringify(this.fieldData))
+      const cloneFieldsData = JSON.parse(JSON.stringify(this.fieldsData))
 
       const prepareData = () => {
         return new Promise((resolve, reject) => {
@@ -1225,15 +1225,15 @@ export default {
             if (field.widget.includes('I32') || field.widget.includes('U32') ||
               field.widget.includes('I64')) {
               if (field.widget.includes('Mult')) {
-                cloneFieldData[field.name] = cloneFieldData[field.name].map(item => parseInt(item))
+                cloneFieldsData[field.name] = cloneFieldsData[field.name].map(item => parseInt(item))
               } else {
-                cloneFieldData[field.name] = parseInt(cloneFieldData[field.name])
+                cloneFieldsData[field.name] = parseInt(cloneFieldsData[field.name])
               }
             } else if (field.widget.includes('F64')) {
               if (field.widget.includes('Mult')) {
-                cloneFieldData[field.name] = cloneFieldData[field.name].map(item => parseFloat(item))
+                cloneFieldsData[field.name] = cloneFieldsData[field.name].map(item => parseFloat(item))
               } else {
-                cloneFieldData[field.name] = parseFloat(cloneFieldData[field.name])
+                cloneFieldsData[field.name] = parseFloat(cloneFieldsData[field.name])
               }
             }
             // Preparing data from fields of the `file` type.
@@ -1245,12 +1245,12 @@ export default {
                 dataSumSize += file.size
                 this.toBase64(file).then(
                   data => {
-                    cloneFieldData[field.name] = JSON.stringify({
+                    cloneFieldsData[field.name] = JSON.stringify({
                       name: fileName,
                       base64: data,
-                      is_delete: this.fieldData[field.name].url !== undefined &&
-                        this.fieldData[field.name].url.length > 0
-                        ? true : this.fieldData[field.name].is_delete
+                      is_delete: this.fieldsData[field.name].url !== undefined &&
+                        this.fieldsData[field.name].url.length > 0
+                        ? true : this.fieldsData[field.name].is_delete
                     })
                     response(++counter)
                   }
@@ -1258,14 +1258,14 @@ export default {
                   reject(error)
                 })
               } else {
-                if (this.fieldData[field.name].is_delete) {
-                  cloneFieldData[field.name] = JSON.stringify({
+                if (this.fieldsData[field.name].is_delete) {
+                  cloneFieldsData[field.name] = JSON.stringify({
                     name: '',
                     base64: '',
-                    is_delete: this.fieldData[field.name].is_delete
+                    is_delete: this.fieldsData[field.name].is_delete
                   })
                 } else {
-                  cloneFieldData[field.name] = null
+                  cloneFieldsData[field.name] = null
                 }
                 response(++counter)
               }
@@ -1278,7 +1278,7 @@ export default {
         () => {
           const options = {
             method: 'POST',
-            data: cloneFieldData,
+            data: cloneFieldsData,
             url: `/admin/${modelKey}/save-document`
           }
 
@@ -1305,7 +1305,7 @@ export default {
                     this.dynamicSelectionDialog = {}
                     this.delDynItems = []
                     this.currValDynItem = { title: null, value: null }
-                    this.fieldData = {}
+                    this.fieldsData = {}
                     this.fields = []
                     this.getFormData(document)
                     this.reload()
