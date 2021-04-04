@@ -9,7 +9,7 @@
       :max="max"
       :disabled="disabled"
       :readonly="readonly"
-      :locale="$i18n.locale"
+      :locale="locale"
     >
       <v-spacer></v-spacer>
       <v-btn text small color="primary" @click="vMenu[field.name] = false">{{ $t('message.18') }}</v-btn>
@@ -48,6 +48,20 @@ export default {
     max: {
       type: String,
       default: ''
+    },
+    locale: {
+      type: String,
+      default: this.$i18n.locale
+    },
+    menu: {
+      type: Boolean,
+      default: false
+    },
+    field: {
+      type: Object,
+      default: function () {
+        return {}
+      }
     }
   }
 }
