@@ -451,6 +451,17 @@
                       v-on="on"
                     ></v-text-field>
                   </template>
+                  <DatePicker
+                    :data="fieldsData[field.name]"
+                    :disabled="field.disabled"
+                    :readonly="field.readonly"
+                    :min="field.min"
+                    :max="field.max"
+                    :locale="$i18n.locale"
+                    :menu="vMenu"
+                    :field="field"
+                  />
+                  <!--
                   <v-date-picker
                     scrollable
                     v-model="fieldsData[field.name]"
@@ -474,6 +485,7 @@
                       @click="$refs[field.name][0].save(fieldsData[field.name])"
                     >OK</v-btn>
                   </v-date-picker>
+                  -->
                 </v-menu>
 
                 <!-- Date and Time fields -->
@@ -740,9 +752,15 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
+import DatePicker from '@/components/DatePicker.vue'
 
 export default {
   name: 'DocumentForm',
+
+  components: {
+    DatePicker
+
+  },
 
   data: () => ({
     docTitle: '...',
