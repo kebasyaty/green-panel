@@ -1026,11 +1026,15 @@ export default {
             break
           case 'inputDate':
             vMenu[field.name] = false
+            field.min = field.min !== '0' ? field.min : ''
+            field.max = field.max !== '0' ? field.max : ''
             fieldsData[field.name] = field.value.substr(0, 10) || new Date().toISOString().substr(0, 10)
             break
           case 'inputDateTime':
             vMenu[field.name] = false
             vMenu[`${field.name}__time`] = false
+            field.min = field.min !== '0' ? field.min : ''
+            field.max = field.max !== '0' ? field.max : ''
             tmp = field.value || new Date().toISOString()
             fieldsData[field.name] = tmp.substr(0, 10)
             fieldsData[`${field.name}__time`] = new Date(tmp).toLocaleTimeString(this.$i18n.locale,
