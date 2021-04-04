@@ -831,7 +831,7 @@ export default {
         case 'dotx':
         case 'dotm':
         case 'docb':
-          result = { color: 'blue darken-3', icon: 'microsoft-word' }
+          result = { color: 'blue', icon: 'microsoft-word' }
           break
         case 'xls':
         case 'xlt':
@@ -845,7 +845,7 @@ export default {
         case 'xlam':
         case 'xll':
         case 'xlw':
-          result = { color: 'green darken-3', icon: 'microsoft-excel' }
+          result = { color: 'green', icon: 'microsoft-excel' }
           break
         case 'ppt':
         case 'pot':
@@ -859,33 +859,33 @@ export default {
         case 'ppsm':
         case 'sldx':
         case 'sldm':
-          result = { color: 'orange darken-3', icon: 'microsoft-powerpoint' }
+          result = { color: 'orange', icon: 'microsoft-powerpoint' }
           break
         case 'accdb':
         case 'accde':
         case 'accdt':
         case 'accdr':
-          result = { color: 'pink darken-3', icon: 'microsoft-access' }
+          result = { color: 'pink', icon: 'microsoft-access' }
           break
         case 'one':
-          result = { color: 'purple darken-3', icon: 'microsoft-onenote' }
+          result = { color: 'purple', icon: 'microsoft-onenote' }
           break
         case 'pub':
-          result = { color: 'teal darken-3', icon: 'alpha-p-box' }
+          result = { color: 'teal', icon: 'alpha-p-box' }
           break
         case 'xml':
-          result = { color: 'blue darken-3', icon: 'xml' }
+          result = { color: 'blue', icon: 'xml' }
           break
         case 'svg':
         case 'svgz':
-          result = { color: 'amber darken-2', icon: 'svg' }
+          result = { color: 'amber', icon: 'svg' }
           break
         case 'pdf':
-          result = { color: 'red darken-3', icon: 'file-pdf-box' }
+          result = { color: 'red', icon: 'file-pdf-box' }
           break
         case 'html':
         case 'htm':
-          result = { color: 'orange darken-3', icon: 'language-html5' }
+          result = { color: 'orange', icon: 'language-html5' }
           break
         case 'epub':
           result = { color: 'lime', icon: 'book-open-page-variant-outline' }
@@ -904,11 +904,11 @@ export default {
           break
         case 'sxd':
         case 'std':
-          result = { color: 'amber darken-2', icon: 'draw' }
+          result = { color: 'amber', icon: 'draw' }
           break
         case 'sxi':
         case 'sti':
-          result = { color: 'monitor-dashboard', icon: 'orange darken-2' }
+          result = { color: 'orange', icon: 'monitor-dashboard' }
           break
         case 'sxm':
           result = { color: 'blue-grey', icon: 'math-integral-box' }
