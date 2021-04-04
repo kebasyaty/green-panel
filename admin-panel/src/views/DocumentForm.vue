@@ -423,10 +423,8 @@
                 <!-- Date fields -->
                 <v-menu
                   v-if="field.widget === 'inputDate'"
-                  :ref="field.name"
                   v-model="vMenu[field.name]"
                   :close-on-content-click="false"
-                  :return-value.sync="fieldsData[field.name]"
                   :nudge-right="40"
                   transition="scale-transition"
                   offset-y
@@ -459,7 +457,7 @@
                     :max="field.max"
                     :locale="$i18n.locale"
                     :menu="vMenu"
-                    :field="field"
+                    :field="field.name"
                   />
                   <!--
                   <v-date-picker

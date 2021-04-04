@@ -3,39 +3,34 @@
   <v-date-picker
     v-if="min.length > 0 && max.length === 0"
     scrollable
-    v-model="data[field.name]"
+    @input="menu[field_name] = false"
+    v-model="data[field_name]"
     year-icon="mdi-calendar-blank"
     color="primary"
     :min="min"
     :disabled="disabled"
     :readonly="readonly"
     :locale="locale"
-  >
-    <v-spacer></v-spacer>
-    <v-btn text small color="primary" @click="menu[field.name] = false">{{ $t('message.18') }}</v-btn>
-    <v-btn text small color="primary" @click="$refs[field.name][0].save(data[field.name])">OK</v-btn>
-  </v-date-picker>
+  ></v-date-picker>
   <!-- only max -->
   <v-date-picker
     v-else-if="min.length === 0 && max.length > 0"
     scrollable
-    v-model="data[field.name]"
+    @input="menu[field_name] = false"
+    v-model="data[field_name]"
     year-icon="mdi-calendar-blank"
     color="primary"
     :max="max"
     :disabled="disabled"
     :readonly="readonly"
     :locale="locale"
-  >
-    <v-spacer></v-spacer>
-    <v-btn text small color="primary" @click="menu[field.name] = false">{{ $t('message.18') }}</v-btn>
-    <v-btn text small color="primary" @click="$refs[field.name][0].save(data[field.name])">OK</v-btn>
-  </v-date-picker>
+  ></v-date-picker>
   <!-- min and max -->
   <v-date-picker
     v-else-if="min.length > 0 && max.length > 0"
     scrollable
-    v-model="data[field.name]"
+    @input="menu[field_name] = false"
+    v-model="data[field_name]"
     year-icon="mdi-calendar-blank"
     color="primary"
     :min="min"
@@ -43,26 +38,19 @@
     :disabled="disabled"
     :readonly="readonly"
     :locale="locale"
-  >
-    <v-spacer></v-spacer>
-    <v-btn text small color="primary" @click="menu[field.name] = false">{{ $t('message.18') }}</v-btn>
-    <v-btn text small color="primary" @click="$refs[field.name][0].save(data[field.name])">OK</v-btn>
-  </v-date-picker>
+  ></v-date-picker>
   <!-- without min and max -->
   <v-date-picker
     v-else
     scrollable
-    v-model="data[field.name]"
+    v-model="data[field_name]"
+    @input="menu[field_name] = false"
     year-icon="mdi-calendar-blank"
     color="primary"
     :disabled="disabled"
     :readonly="readonly"
     :locale="locale"
-  >
-    <v-spacer></v-spacer>
-    <v-btn text small color="primary" @click="menu[field.name] = false">{{ $t('message.18') }}</v-btn>
-    <v-btn text small color="primary" @click="$refs[field.name][0].save(data[field.name])">OK</v-btn>
-  </v-date-picker>
+  ></v-date-picker>
 </template>
 
 <script>
@@ -102,11 +90,9 @@ export default {
         return {}
       }
     },
-    field: {
-      type: Object,
-      default: function () {
-        return {}
-      }
+    field_name: {
+      type: String,
+      default: ''
     }
   }
 }
