@@ -101,9 +101,9 @@ pub struct User {
     // ---------------------------------------------------------------------------------------------
     #[serde(default)]
     #[field_attrs(
-        widget = "inputDate",
-        label = "Test Dynamic",
-        hint = "Field for testing dynamic widgets"
+        widget = "inputDateTime",
+        label = "Test Field",
+        hint = "Field for testing"
     )]
     pub test: Option<String>,
 }
