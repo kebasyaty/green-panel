@@ -1231,7 +1231,7 @@ export default {
           let counter = 0
           response(counter)
           this.fields.forEach(field => {
-            // Additionally convert numeric data types.
+            // Convert numeric data types.
             if (field.widget.includes('I32') || field.widget.includes('U32') ||
               field.widget.includes('I64')) {
               if (field.widget.includes('Mult')) {
@@ -1245,6 +1245,11 @@ export default {
               } else {
                 cloneFieldsData[field.name] = parseFloat(cloneFieldsData[field.name])
               }
+            }
+            // inputDateTime - Combining date and time.
+            if (field.widget === 'inputDateTime') {
+              cloneFieldsData[field.name] = cloneFieldsData[field.name] + 'T' + cloneFieldsData[`${field.name}__time`]
+              delete cloneFieldsData[`${field.name}__time`]
             }
             // Preparing data from fields of the `file` type.
             if (field.input_type === 'file') {
