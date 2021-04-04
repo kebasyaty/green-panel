@@ -29,6 +29,7 @@ pub struct User {
         hint = "Valid characters: a-z A-Z 0-9 _ @ + .<br>Max size: 150"
     )]
     pub username: Option<String>,
+    //
     #[serde(default)]
     #[field_attrs(
         widget = "inputImage",
@@ -38,6 +39,7 @@ pub struct User {
         hint = "Image in JPEG or PNG format"
     )]
     pub photo: Option<String>,
+    //
     #[serde(default)]
     #[field_attrs(
         widget = "inputText",
@@ -46,6 +48,7 @@ pub struct User {
         maxlength = 150
     )]
     pub first_name: Option<String>,
+    //
     #[serde(default)]
     #[field_attrs(
         widget = "inputText",
@@ -54,6 +57,7 @@ pub struct User {
         maxlength = 150
     )]
     pub last_name: Option<String>,
+    //
     #[serde(default)]
     #[field_attrs(
         widget = "inputEmail",
@@ -65,6 +69,7 @@ pub struct User {
         hint = "Your actual E-mail"
     )]
     pub email: Option<String>,
+    //
     #[serde(default)]
     #[field_attrs(
         widget = "inputPassword",
@@ -75,6 +80,7 @@ pub struct User {
         hint = "Valid characters: a-z A-Z 0-9 @ # $ % ^ & + = * ! ~ ) (<br>Min size: 8"
     )]
     pub password: Option<String>,
+    //
     #[serde(default)]
     #[field_attrs(
         widget = "inputPassword",
@@ -83,6 +89,7 @@ pub struct User {
         hint = "Repeat your password"
     )]
     pub confirm_password: Option<String>,
+    //
     #[serde(default)]
     #[field_attrs(
         widget = "checkBox",
@@ -90,6 +97,7 @@ pub struct User {
         hint = "User can access the admin site?"
     )]
     pub is_staff: Option<bool>,
+    //
     #[serde(default)]
     #[field_attrs(
         widget = "checkBox",
@@ -97,10 +105,11 @@ pub struct User {
         hint = "Is this an active account?"
     )]
     pub is_active: Option<bool>,
+    //
     // Test field
     // ---------------------------------------------------------------------------------------------
     #[serde(default)]
-    #[field_attrs(widget = "inputFile", label = "Test Field", hint = "Field for testing")]
+    #[field_attrs(widget = "inputDate", label = "Test Field", hint = "Field for testing")]
     pub test: Option<String>,
 }
 

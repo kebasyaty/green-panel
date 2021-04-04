@@ -433,7 +433,6 @@ pub mod request_handlers {
                 if model.is_ok() {
                     let mut model = model?;
                     model.photo = app_state.to_file(model.photo, "admin/users/avatars");
-                    model.test = app_state.to_file(model.test, "admin/users/documents");
                     if let Ok(output_data) = model.save(None, None) {
                         document = output_data.json_for_admin().unwrap();
                     } else {
