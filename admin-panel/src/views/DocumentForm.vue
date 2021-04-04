@@ -452,7 +452,7 @@
                     ></v-text-field>
                   </template>
                   <DatePicker
-                    :data="fieldsData[field.name]"
+                    :data="fieldsData"
                     :disabled="field.disabled"
                     :readonly="field.readonly"
                     :min="field.min"
