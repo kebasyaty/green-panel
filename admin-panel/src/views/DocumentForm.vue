@@ -448,8 +448,9 @@
                   <v-date-picker
                     scrollable
                     v-model="fieldsData[field.name]"
-                    :min="field.min"
-                    :max="field.max"
+                    year-icon="mdi-calendar-blank"
+                    :min="field.min || undefined"
+                    :max="field.max || undefined"
                     :locale="$i18n.locale"
                   >
                     <v-spacer></v-spacer>
