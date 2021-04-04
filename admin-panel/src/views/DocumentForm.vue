@@ -452,6 +452,7 @@
                     color="primary"
                     :min="field.min || undefined"
                     :max="field.max || undefined"
+                    :readonly="field.readonly"
                     :locale="$i18n.locale"
                   >
                     <v-spacer></v-spacer>
@@ -509,6 +510,7 @@
                         color="primary"
                         :min="field.min || undefined"
                         :max="field.max || undefined"
+                        :readonly="field.readonly"
                         :locale="$i18n.locale"
                       >
                         <v-spacer></v-spacer>
