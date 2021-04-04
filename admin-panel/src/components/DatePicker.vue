@@ -2,7 +2,7 @@
   <div>
     <v-date-picker
       scrollable
-      v-model="data"
+      v-model="data[field.name]"
       year-icon="mdi-calendar-blank"
       color="primary"
       :min="min"
@@ -12,13 +12,8 @@
       :locale="locale"
     >
       <v-spacer></v-spacer>
-      <v-btn text small color="primary" @click="vMenu[field.name] = false">{{ $t('message.18') }}</v-btn>
-      <v-btn
-        text
-        small
-        color="primary"
-        @click="$refs[field.name][0].save(fieldsData[field.name])"
-      >OK</v-btn>
+      <v-btn text small color="primary" @click="menu[field.name] = false">{{ $t('message.18') }}</v-btn>
+      <v-btn text small color="primary" @click="$refs[field.name][0].save(data[field.name])">OK</v-btn>
     </v-date-picker>
   </div>
 </template>
@@ -30,8 +25,10 @@ export default {
 
   props: {
     data: {
-      type: String,
-      default: new Date().toISOString().substr(0, 10)
+      type: Array,
+      default: function () {
+        return []
+      }
     },
     disabled: {
       type: Boolean,
@@ -54,8 +51,10 @@ export default {
       default: this.$i18n.locale
     },
     menu: {
-      type: Boolean,
-      default: false
+      type: Array,
+      default: function () {
+        return []
+      }
     },
     field: {
       type: Object,
