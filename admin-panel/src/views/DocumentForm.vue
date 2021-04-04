@@ -446,11 +446,11 @@
                     ></v-text-field>
                   </template>
                   <v-date-picker
-                    no-title
                     scrollable
                     v-model="fieldData[field.name]"
                     :min="field.min"
                     :max="field.max"
+                    :locale="$i18n.locale"
                   >
                     <v-spacer></v-spacer>
                     <v-btn
@@ -475,6 +475,7 @@
                       :ref="field.name"
                       v-model="vMenu[field.name]"
                       :close-on-content-click="false"
+                      :return-value.sync="fieldData[field.name]"
                       :nudge-right="40"
                       transition="scale-transition"
                       offset-y
@@ -502,13 +503,26 @@
                       <v-date-picker
                         scrollable
                         v-model="fieldData[field.name]"
-                        @input="vMenu[field.name] = false"
                         year-icon="mdi-calendar-blank"
                         color="primary"
                         :min="field.min"
                         :max="field.max"
                         :locale="$i18n.locale"
-                      ></v-date-picker>
+                      >
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          text
+                          small
+                          color="primary"
+                          @click="vMenu[field.name] = false"
+                        >{{ $t('message.18') }}</v-btn>
+                        <v-btn
+                          text
+                          small
+                          color="primary"
+                          @click="$refs[field.name][0].save(fieldData[field.name])"
+                        >OK</v-btn>
+                      </v-date-picker>
                     </v-menu>
                   </v-col>
                   <v-col cols="6">
