@@ -96,7 +96,7 @@ export default {
     },
     locale: {
       type: String,
-      default: this.$i18n.locale
+      default: 'en'
     },
     menu: {
       type: Object,
