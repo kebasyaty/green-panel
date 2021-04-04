@@ -377,7 +377,13 @@
                     ></v-text-field>
                   </template>
                   <v-card>
-                    <v-color-picker show-swatches mode="hexa" v-model="fieldsData[field.name]"></v-color-picker>
+                    <v-color-picker
+                      show-swatches
+                      mode="hexa"
+                      v-model="fieldsData[field.name]"
+                      :disabled="field.disabled"
+                      :readonly="field.readonly"
+                    ></v-color-picker>
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn
