@@ -806,11 +806,8 @@ export default {
     // Get field type with dynamic widget.
     getDynFieldType(widget) {
       let result = 'text'
-      if (widget.includes('I32') || widget.includes('I64')) {
-        result = 'number'
-      } else if (widget.includes('U32')) {
-        result = 'number'
-      } else if (widget.includes('F64')) {
+      if (widget.includes('I32') || widget.includes('U32') ||
+        widget.includes('I64') || widget.includes('F64')) {
         result = 'number'
       }
       return result
