@@ -449,6 +449,7 @@
                     scrollable
                     v-model="fieldsData[field.name]"
                     year-icon="mdi-calendar-blank"
+                    color="primary"
                     :min="field.min || undefined"
                     :max="field.max || undefined"
                     :locale="$i18n.locale"
@@ -506,8 +507,8 @@
                         v-model="fieldsData[field.name]"
                         year-icon="mdi-calendar-blank"
                         color="primary"
-                        :min="field.min"
-                        :max="field.max"
+                        :min="field.min || undefined"
+                        :max="field.max || undefined"
                         :locale="$i18n.locale"
                       >
                         <v-spacer></v-spacer>
