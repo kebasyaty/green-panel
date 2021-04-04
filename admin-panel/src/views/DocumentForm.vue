@@ -452,6 +452,7 @@
                     color="primary"
                     :min="field.min || undefined"
                     :max="field.max || undefined"
+                    :disabled="field.disabled"
                     :readonly="field.readonly"
                     :locale="$i18n.locale"
                   >
@@ -510,6 +511,7 @@
                         color="primary"
                         :min="field.min || undefined"
                         :max="field.max || undefined"
+                        :disabled="field.disabled"
                         :readonly="field.readonly"
                         :locale="$i18n.locale"
                       >
@@ -566,6 +568,8 @@
                         v-if="vMenu[`${field.name}__time`]"
                         v-model="fieldsData[`${field.name}__time`]"
                         @click:minute="$refs[`${field.name}__time`][0].save(fieldsData[`${field.name}__time`])"
+                        :disabled="field.disabled"
+                        :readonly="field.readonly"
                       ></v-time-picker>
                     </v-menu>
                   </v-col>
