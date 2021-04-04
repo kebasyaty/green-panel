@@ -1199,7 +1199,7 @@ export default {
       const modelKey = service.collections[indexCollection].model_key
       const cloneFieldData = JSON.parse(JSON.stringify(this.fieldData))
 
-      const addFiles = () => {
+      const prepareData = () => {
         return new Promise((resolve, reject) => {
           const countFileType = this.fields.reduce((sum, field) => {
             if (field.input_type === 'file') {
@@ -1274,7 +1274,7 @@ export default {
         })
       }
 
-      addFiles().then(
+      prepareData().then(
         () => {
           const options = {
             method: 'POST',
