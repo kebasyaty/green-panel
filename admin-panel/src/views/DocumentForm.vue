@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <!-- Form for document. -->
     <v-card class="mt-1" max-width="1000">
       <v-toolbar dense flat>
