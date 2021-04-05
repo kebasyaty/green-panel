@@ -109,14 +109,7 @@ pub struct User {
     // Test field
     // ---------------------------------------------------------------------------------------------
     #[serde(default)]
-    #[field_attrs(
-        widget = "inputDate",
-        label = "Test Field",
-        hint = "Field for testing",
-        default = "2001-04-04",
-        min = "2001-02-20",
-        max = "2002-02-20"
-    )]
+    #[field_attrs(widget = "inputText", label = "Test Field", hint = "Field for testing")]
     pub test: Option<String>,
 }
 

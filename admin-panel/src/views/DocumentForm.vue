@@ -197,26 +197,25 @@
                   <span>{{ `step: ${field.step}` }}</span>
                   <span class="ml-2">{{ `min: ${field.min}` }}</span>
                   <span class="ml-2">{{ `max: ${field.max}` }}</span>
+                  <v-slider
+                    thumb-label
+                    :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+                    v-model="fieldsData[field.name]"
+                    :id="field.id"
+                    :type="field.input_type"
+                    :name="field.name"
+                    :placeholder="field.placeholder"
+                    :required="field.required"
+                    :disabled="field.disabled"
+                    :readonly="field.readonly"
+                    :step="field.step"
+                    :min="field.min"
+                    :max="field.max"
+                    :class="field.css_classes"
+                    :messages="field.warning"
+                    :error-messages="field.error"
+                  ></v-slider>
                 </div>
-                <v-slider
-                  v-if="['rangeI32', 'rangeU32', 'rangeI64', 'rangeF64'].includes(field.widget)"
-                  thumb-label
-                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                  v-model="fieldsData[field.name]"
-                  :id="field.id"
-                  :type="field.input_type"
-                  :name="field.name"
-                  :placeholder="field.placeholder"
-                  :required="field.required"
-                  :disabled="field.disabled"
-                  :readonly="field.readonly"
-                  :step="field.step"
-                  :min="field.min"
-                  :max="field.max"
-                  :class="field.css_classes"
-                  :messages="field.warning"
-                  :error-messages="field.error"
-                ></v-slider>
 
                 <!-- Radio buttons fields -->
                 <v-radio-group
