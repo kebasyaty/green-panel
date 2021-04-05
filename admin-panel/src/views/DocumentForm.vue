@@ -451,7 +451,88 @@
                       v-on="on"
                     ></v-text-field>
                   </template>
+                  <!-- only min -->
                   <v-date-picker
+                    v-if="field.min.length > 0 && field.max.length === 0"
+                    scrollable
+                    v-model="fieldsData[field.name]"
+                    year-icon="mdi-calendar-blank"
+                    color="primary"
+                    :disabled="field.disabled"
+                    :readonly="field.readonly"
+                    :locale="$i18n.locale"
+                    :min="field.min"
+                  >
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      text
+                      small
+                      color="primary"
+                      @click="vMenu[field.name] = false"
+                    >{{ $t('message.18') }}</v-btn>
+                    <v-btn
+                      text
+                      small
+                      color="primary"
+                      @click="$refs[field.name][0].save(fieldsData[field.name])"
+                    >OK</v-btn>
+                  </v-date-picker>
+                  <!-- only max -->
+                  <v-date-picker
+                    v-else-if="field.min.length === 0 && field.max.length > 0"
+                    scrollable
+                    v-model="fieldsData[field.name]"
+                    year-icon="mdi-calendar-blank"
+                    color="primary"
+                    :disabled="field.disabled"
+                    :readonly="field.readonly"
+                    :locale="$i18n.locale"
+                    :max="field.max"
+                  >
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      text
+                      small
+                      color="primary"
+                      @click="vMenu[field.name] = false"
+                    >{{ $t('message.18') }}</v-btn>
+                    <v-btn
+                      text
+                      small
+                      color="primary"
+                      @click="$refs[field.name][0].save(fieldsData[field.name])"
+                    >OK</v-btn>
+                  </v-date-picker>
+                  <!-- min and max -->
+                  <v-date-picker
+                    v-else-if="field.min.length > 0 && field.max.length > 0"
+                    scrollable
+                    v-model="fieldsData[field.name]"
+                    year-icon="mdi-calendar-blank"
+                    color="primary"
+                    :disabled="field.disabled"
+                    :readonly="field.readonly"
+                    :locale="$i18n.locale"
+                    :min="field.min"
+                    :max="field.max"
+                  >
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      text
+                      small
+                      color="primary"
+                      @click="vMenu[field.name] = false"
+                    >{{ $t('message.18') }}</v-btn>
+                    <v-btn
+                      text
+                      small
+                      color="primary"
+                      @click="$refs[field.name][0].save(fieldsData[field.name])"
+                    >OK</v-btn>
+                  </v-date-picker>
+                  <!-- without min and max -->
+                  <v-date-picker
+                    v-else
                     scrollable
                     v-model="fieldsData[field.name]"
                     year-icon="mdi-calendar-blank"
@@ -508,7 +589,88 @@
                           v-on="on"
                         ></v-text-field>
                       </template>
+                      <!-- only min -->
                       <v-date-picker
+                        v-if="field.min.length > 0 && field.max.length === 0"
+                        scrollable
+                        v-model="fieldsData[field.name]"
+                        year-icon="mdi-calendar-blank"
+                        color="primary"
+                        :disabled="field.disabled"
+                        :readonly="field.readonly"
+                        :locale="$i18n.locale"
+                        :min="field.min"
+                      >
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          text
+                          small
+                          color="primary"
+                          @click="vMenu[field.name] = false"
+                        >{{ $t('message.18') }}</v-btn>
+                        <v-btn
+                          text
+                          small
+                          color="primary"
+                          @click="$refs[field.name][0].save(fieldsData[field.name])"
+                        >OK</v-btn>
+                      </v-date-picker>
+                      <!-- only max -->
+                      <v-date-picker
+                        v-else-if="field.min.length === 0 && field.max.length > 0"
+                        scrollable
+                        v-model="fieldsData[field.name]"
+                        year-icon="mdi-calendar-blank"
+                        color="primary"
+                        :disabled="field.disabled"
+                        :readonly="field.readonly"
+                        :locale="$i18n.locale"
+                        :max="field.max"
+                      >
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          text
+                          small
+                          color="primary"
+                          @click="vMenu[field.name] = false"
+                        >{{ $t('message.18') }}</v-btn>
+                        <v-btn
+                          text
+                          small
+                          color="primary"
+                          @click="$refs[field.name][0].save(fieldsData[field.name])"
+                        >OK</v-btn>
+                      </v-date-picker>
+                      <!-- min and max -->
+                      <v-date-picker
+                        v-else-if="field.min.length > 0 && field.max.length > 0"
+                        scrollable
+                        v-model="fieldsData[field.name]"
+                        year-icon="mdi-calendar-blank"
+                        color="primary"
+                        :disabled="field.disabled"
+                        :readonly="field.readonly"
+                        :locale="$i18n.locale"
+                        :min="field.min"
+                        :max="field.max"
+                      >
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          text
+                          small
+                          color="primary"
+                          @click="vMenu[field.name] = false"
+                        >{{ $t('message.18') }}</v-btn>
+                        <v-btn
+                          text
+                          small
+                          color="primary"
+                          @click="$refs[field.name][0].save(fieldsData[field.name])"
+                        >OK</v-btn>
+                      </v-date-picker>
+                      <!-- without min and max -->
+                      <v-date-picker
+                        v-else
                         scrollable
                         v-model="fieldsData[field.name]"
                         year-icon="mdi-calendar-blank"
