@@ -193,10 +193,10 @@
                 <!-- Range fields -->
                 <div v-if="['rangeI32', 'rangeU32', 'rangeI64', 'rangeF64'].includes(field.widget)">
                   <v-divider class="mb-1"></v-divider>
-                  <div>{{ `Value: ${fieldsData[field.name]}` }}</div>
-                  <span>{{ `Step: ${field.step}` }}</span>
-                  <span>{{ `Min: ${field.min}` }}</span>
-                  <span>{{ `Max: ${field.max}` }}</span>
+                  <div>{{ `value: ${fieldsData[field.name]}` }}</div>
+                  <span>{{ `step: ${field.step}` }}</span>
+                  <span class="ml-2">{{ `min: ${field.min}` }}</span>
+                  <span class="ml-2">{{ `max: ${field.max}` }}</span>
                 </div>
                 <v-slider
                   v-if="['rangeI32', 'rangeU32', 'rangeI64', 'rangeF64'].includes(field.widget)"
