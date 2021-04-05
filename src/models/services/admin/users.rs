@@ -105,12 +105,6 @@ pub struct User {
         hint = "Is this an active account?"
     )]
     pub is_active: Option<bool>,
-    //
-    // Test field
-    // ---------------------------------------------------------------------------------------------
-    #[serde(default)]
-    #[field_attrs(widget = "textArea", label = "Test Field", hint = "Field for testing")]
-    pub test: Option<String>,
 }
 
 impl AdditionalValidation for User {
