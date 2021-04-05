@@ -1170,8 +1170,6 @@ export default {
           case 'inputIPv4':
           case 'inputIPv6':
           case 'textArea':
-            field.minlength = field.minlength || 0
-            field.maxlength = field.maxlength || 256
             fieldsData[field.name] = field.value || ''
             break
           case 'inputColor':
