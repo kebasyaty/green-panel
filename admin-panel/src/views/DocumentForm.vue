@@ -1152,12 +1152,12 @@ export default {
       const vMenu = {}
       const fieldsData = {}
       const dynamicSelectionDialog = {}
-      let tmp
 
       document.forEach(field => {
         const re = /<br>/g
         field.warning = field.warning.replace(re, ' || ')
         field.error = field.error.replace(re, ' || ')
+        let tmp
 
         switch (field.widget) {
           case 'inputText':
@@ -1179,18 +1179,17 @@ export default {
             vMenu[field.name] = false
             field.min = field.min !== '0' ? field.min : ''
             field.max = field.max !== '0' ? field.max : ''
-            fieldsData[field.name] = field.value.substr(0, 10) || new Date().toISOString().substr(0, 10)
+            fieldsData[field.name] = field.value || ''
             break
           case 'inputDateTime':
             vMenu[field.name] = false
             vMenu[`${field.name}__time`] = false
             field.min = field.min !== '0' ? field.min : ''
             field.max = field.max !== '0' ? field.max : ''
-            tmp = field.value || new Date().toISOString()
+            tmp = field.value || ''
             fieldsData[field.name] = tmp.substr(0, 10)
             fieldsData[`${field.name}__time`] = new Date(tmp).toLocaleTimeString(this.$i18n.locale,
               { timeStyle: 'short', hour12: false })
-            tmp = undefined
             break
           case 'hiddenText':
           case 'hiddenI32':
@@ -1204,12 +1203,10 @@ export default {
           case 'numberI64':
             tmp = parseInt(field.value)
             fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
-            tmp = undefined
             break
           case 'numberF64':
             tmp = parseFloat(field.value)
             fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
-            tmp = undefined
             break
           case 'rangeI32':
           case 'rangeU32':
@@ -1230,7 +1227,6 @@ export default {
             field.options.forEach(function (item) {
               item[0] = parseInt(item[0])
             })
-            tmp = undefined
             break
           case 'radioF64':
             tmp = parseFloat(field.value)
@@ -1238,7 +1234,6 @@ export default {
             field.options.forEach(function (item) {
               item[0] = parseFloat(item[0])
             })
-            tmp = undefined
             break
           case 'checkBox':
             fieldsData[field.name] = field.checked
@@ -1257,7 +1252,6 @@ export default {
             field.options = field.options.map(function (item) {
               return { value: parseInt(item[0]), title: item[1] }
             })
-            tmp = undefined
             break
           case 'selectF64':
             tmp = parseFloat(field.value)
@@ -1265,7 +1259,6 @@ export default {
             field.options = field.options.map(function (item) {
               return { value: parseFloat(item[0]), title: item[1] }
             })
-            tmp = undefined
             break
           case 'selectTextMult':
             fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : []
@@ -1304,7 +1297,6 @@ export default {
               return { value: parseInt(item[0]), title: item[1] }
             })
             dynamicSelectionDialog[field.name] = false
-            tmp = undefined
             break
           case 'selectF64Dyn':
             tmp = parseFloat(field.value)
@@ -1313,7 +1305,6 @@ export default {
               return { value: parseFloat(item[0]), title: item[1] }
             })
             dynamicSelectionDialog[field.name] = false
-            tmp = undefined
             break
           case 'selectTextMultDyn':
             fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : []

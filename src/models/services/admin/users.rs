@@ -110,14 +110,14 @@ pub struct User {
     // ---------------------------------------------------------------------------------------------
     #[serde(default)]
     #[field_attrs(
-        widget = "rangeF64",
+        widget = "inputDate",
         label = "Test Field",
         hint = "Field for testing",
-        step = 0.1,
-        min = -0.1,
-        max = 1.0
+        default = "2001-04-04",
+        min = "2001-02-20",
+        max = "2002-02-20"
     )]
-    pub test: Option<f64>,
+    pub test: Option<String>,
 }
 
 impl AdditionalValidation for User {
