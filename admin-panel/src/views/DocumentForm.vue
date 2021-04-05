@@ -152,7 +152,7 @@
                 <v-text-field
                   class="mt-0 pt-0"
                   v-if="['inputText', 'inputEmail', 'inputPassword', 'inputPhone',
-                  'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6'].includes(field.widget)"
+                         'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6'].includes(field.widget)"
                   clearable
                   counter
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
