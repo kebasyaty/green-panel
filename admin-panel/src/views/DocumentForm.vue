@@ -154,7 +154,7 @@
                   'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6'].includes(field.widget)"
                 >
                   <v-divider class="mb-1"></v-divider>
-                  <span class="ml-2">{{ `min: ${field.minlength}` }}</span>
+                  <span>{{ `min: ${field.minlength}` }}</span>
                   <span class="ml-2">{{ `max: ${field.maxlength}` }}</span>
                   <v-text-field
                     class="mt-0 pt-0"
