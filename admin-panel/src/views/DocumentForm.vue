@@ -149,33 +149,26 @@
                 </div>
 
                 <!-- Text fields -->
-                <div
+                <v-text-field
+                  class="mt-0 pt-0"
                   v-if="['inputText', 'inputEmail', 'inputPassword', 'inputPhone',
                   'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6'].includes(field.widget)"
-                >
-                  <v-divider class="mb-1"></v-divider>
-                  <span>{{ `min: ${field.minlength}` }}</span>
-                  <span class="ml-2">{{ `max: ${field.maxlength}` }}</span>
-                  <v-text-field
-                    class="mt-0 pt-0"
-                    clearable
-                    counter
-                    :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                    v-model="fieldsData[field.name]"
-                    :id="field.id"
-                    :type="field.input_type"
-                    :name="field.name"
-                    :placeholder="field.placeholder"
-                    :required="field.required"
-                    :disabled="field.disabled"
-                    :readonly="field.readonly"
-                    :minlength="field.minlength"
-                    :maxlength="field.maxlength"
-                    :class="field.css_classes"
-                    :messages="field.warning"
-                    :error-messages="field.error"
-                  ></v-text-field>
-                </div>
+                  clearable
+                  counter
+                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+                  v-model="fieldsData[field.name]"
+                  :id="field.id"
+                  :type="field.input_type"
+                  :name="field.name"
+                  :placeholder="field.placeholder"
+                  :required="field.required"
+                  :disabled="field.disabled"
+                  :readonly="field.readonly"
+                  :maxlength="field.maxlength"
+                  :class="field.css_classes"
+                  :messages="field.warning"
+                  :error-messages="field.error"
+                ></v-text-field>
 
                 <!-- Number fields -->
                 <v-text-field
