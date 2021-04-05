@@ -1177,15 +1177,15 @@ export default {
             break
           case 'inputDate':
             vMenu[field.name] = false
-            field.min = field.min !== '0' ? field.min : ''
-            field.max = field.max !== '0' ? field.max : ''
+            field.min = field.min || ''
+            field.max = field.max || ''
             fieldsData[field.name] = field.value || ''
             break
           case 'inputDateTime':
             vMenu[field.name] = false
             vMenu[`${field.name}__time`] = false
-            field.min = field.min !== '0' ? field.min : ''
-            field.max = field.max !== '0' ? field.max : ''
+            field.min = field.min || ''
+            field.max = field.max || ''
             tmp = field.value || ''
             fieldsData[field.name] = tmp.substr(0, 10)
             fieldsData[`${field.name}__time`] = new Date(tmp).toLocaleTimeString(this.$i18n.locale,
