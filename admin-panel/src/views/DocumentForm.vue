@@ -149,24 +149,33 @@
                 </div>
 
                 <!-- Text fields -->
-                <v-text-field
-                  class="mt-0 pt-0"
+                <div
                   v-if="['inputText', 'inputEmail', 'inputPassword', 'inputPhone',
                   'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6'].includes(field.widget)"
-                  clearable
-                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                  v-model="fieldsData[field.name]"
-                  :id="field.id"
-                  :type="field.input_type"
-                  :name="field.name"
-                  :placeholder="field.placeholder"
-                  :required="field.required"
-                  :disabled="field.disabled"
-                  :readonly="field.readonly"
-                  :class="field.css_classes"
-                  :messages="field.warning"
-                  :error-messages="field.error"
-                ></v-text-field>
+                >
+                  <v-divider class="mb-1"></v-divider>
+                  <span class="ml-2">{{ `min: ${field.minlength}` }}</span>
+                  <span class="ml-2">{{ `max: ${field.maxlength}` }}</span>
+                  <v-text-field
+                    class="mt-0 pt-0"
+                    clearable
+                    counter
+                    :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+                    v-model="fieldsData[field.name]"
+                    :id="field.id"
+                    :type="field.input_type"
+                    :name="field.name"
+                    :placeholder="field.placeholder"
+                    :required="field.required"
+                    :disabled="field.disabled"
+                    :readonly="field.readonly"
+                    :minlength="field.minlength"
+                    :maxlength="field.maxlength"
+                    :class="field.css_classes"
+                    :messages="field.warning"
+                    :error-messages="field.error"
+                  ></v-text-field>
+                </div>
 
                 <!-- Number fields -->
                 <v-text-field
@@ -1168,6 +1177,8 @@ export default {
           case 'inputIPv4':
           case 'inputIPv6':
           case 'textArea':
+            field.minlength = field.minlength || 0
+            field.maxlength = field.maxlength || 256
             fieldsData[field.name] = field.value || ''
             break
           case 'inputColor':
