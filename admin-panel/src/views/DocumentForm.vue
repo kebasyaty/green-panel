@@ -414,6 +414,7 @@
                 <v-textarea
                   class="mt-0 pt-1"
                   v-if="field.widget === 'textArea'"
+                  counter
                   clearable
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                   v-model="fieldsData[field.name]"
@@ -423,6 +424,7 @@
                   :required="field.required"
                   :disabled="field.disabled"
                   :readonly="field.readonly"
+                  :maxlength="field.maxlength"
                   :class="field.css_classes"
                   :messages="field.warning"
                   :error-messages="field.error"

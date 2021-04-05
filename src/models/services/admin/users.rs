@@ -109,12 +109,7 @@ pub struct User {
     // Test field
     // ---------------------------------------------------------------------------------------------
     #[serde(default)]
-    #[field_attrs(
-        widget = "inputText",
-        label = "Test Field",
-        hint = "Field for testing",
-        minlength = 20
-    )]
+    #[field_attrs(widget = "textArea", label = "Test Field", hint = "Field for testing")]
     pub test: Option<String>,
 }
 
