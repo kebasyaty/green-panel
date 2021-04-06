@@ -1176,7 +1176,7 @@ export default {
             break
           case 'inputColor':
             vMenu[field.name] = false
-            fieldsData[field.name] = field.value || '#00000000'
+            fieldsData[field.name] = field.value || 'transparent'
             break
           case 'inputDate':
             vMenu[field.name] = false
