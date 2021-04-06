@@ -367,6 +367,7 @@
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field
                       class="mt-0 pt-1"
+                      clearable
                       :background-color="fieldsData[field.name]"
                       :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                       v-model="fieldsData[field.name]"
