@@ -371,7 +371,6 @@
                       :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                       v-model="fieldsData[field.name]"
                       :id="field.id"
-                      :type="field.input_type"
                       :name="field.name"
                       :placeholder="field.placeholder"
                       :required="field.required"
