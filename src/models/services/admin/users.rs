@@ -107,8 +107,17 @@ pub struct User {
     pub is_active: Option<bool>,
     // Test field
     #[serde(default)]
-    #[field_attrs(widget = "inputColor")]
-    pub test: Option<String>,
+    #[field_attrs(
+        widget = "selectText",
+        default = "volvo",
+        choice = r#"[
+                ["volvo","Volvo"],
+                ["saab","Saab"],
+                ["mercedes","Mercedes"],
+                ["audi","Audi"]
+            ]"#
+    )]
+    pub select_text: Option<String>,
 }
 
 impl AdditionalValidation for User {
