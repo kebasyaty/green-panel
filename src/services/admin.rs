@@ -16,7 +16,7 @@ use serde::Deserialize;
 use serde_json::{json, Value};
 
 use crate::models::{registration::admin_panel, services::admin::users};
-use mango_orm::{CachingModel, QCommon, QPaladins, ToModel, DB_MAP_CLIENT_NAMES, FORM_CACHE};
+use mango_orm::{CachingModel, QCommon, QPaladins, ToModel, FORM_STORE, MONGODB_CLIENT_STORE};
 
 pub use configure_urls::*;
 pub use request_handlers::*;
@@ -80,7 +80,7 @@ pub mod request_handlers {
                     ..Default::default()
                 };
                 let result = first_user.save(None, None).unwrap();
-                if !result.bool() {
+                if !result.is_valid() {
                     panic!(
                         "Model: `User` : Error while creating the first user. In detail: {}.",
                         result.hash().unwrap()
@@ -257,10 +257,10 @@ pub mod request_handlers {
 
             // Get read access from cache
             // -------------------------------------------------------------------------------------
-            let form_store = FORM_CACHE.read().unwrap();
+            let form_store = FORM_STORE.read().unwrap();
             let form_cache = form_store.get(query.model_key.as_str()).unwrap();
             let meta = &form_cache.meta;
-            let client_store = DB_MAP_CLIENT_NAMES.read().unwrap();
+            let client_store = MONGODB_CLIENT_STORE.read().unwrap();
             let client: &mongodb::sync::Client =
                 client_store.get(meta.db_client_name.as_str()).unwrap();
             // Accessing the collection
@@ -491,12 +491,12 @@ pub mod request_handlers {
         // Get read access from cache
         // -----------------------------------------------------------------------------------------
         if msg_err.is_empty() {
-            let form_store = FORM_CACHE.read().unwrap();
+            let form_store = FORM_STORE.read().unwrap();
             let form_cache = form_store.get(query.model_key.as_str()).unwrap();
             let meta = &form_cache.meta;
             //
             if meta.is_del_docs {
-                let client_store = DB_MAP_CLIENT_NAMES.read().unwrap();
+                let client_store = MONGODB_CLIENT_STORE.read().unwrap();
                 let client: &mongodb::sync::Client =
                     client_store.get(meta.db_client_name.as_str()).unwrap();
                 // Accessing the collection
@@ -558,12 +558,12 @@ pub mod request_handlers {
         // Get read access from cache
         // -----------------------------------------------------------------------------------------
         if msg_err.is_empty() {
-            let form_store = FORM_CACHE.read().unwrap();
+            let form_store = FORM_STORE.read().unwrap();
             let form_cache = form_store.get(query.model_key.as_str()).unwrap();
             let meta = &form_cache.meta;
             //
             if meta.is_del_docs {
-                let client_store = DB_MAP_CLIENT_NAMES.read().unwrap();
+                let client_store = MONGODB_CLIENT_STORE.read().unwrap();
                 let client: &mongodb::sync::Client =
                     client_store.get(meta.db_client_name.as_str()).unwrap();
                 // Accessing the collection
