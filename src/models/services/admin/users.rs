@@ -108,16 +108,15 @@ pub struct User {
     // Test field
     #[serde(default)]
     #[field_attrs(
-        widget = "selectText",
-        default = "volvo",
+        widget = "selectI32Mult",
         choice = r#"[
-                ["volvo","Volvo"],
-                ["saab","Saab"],
-                ["mercedes","Mercedes"],
-                ["audi","Audi"]
+                [1,"Volvo"],
+                [2,"Saab"],
+                [3,"Mercedes"],
+                [4,"Audi"]
             ]"#
     )]
-    pub select_text: Option<String>,
+    pub select_i32_mult: Option<Vec<i32>>,
 }
 
 impl AdditionalValidation for User {

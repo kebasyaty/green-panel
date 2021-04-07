@@ -429,18 +429,10 @@ pub mod request_handlers {
             // Model `users::User`
             // -------------------------------------------------------------------------------------
             if model_key == users::User::key() {
-                let model = serde_json::from_slice::<users::User>(&bytes);
-                if model.is_ok() {
-                    let mut model = model?;
-                    model.photo = app_state.to_file(model.photo, "admin/users/avatars");
-                    if let Ok(output_data) = model.save(None, None) {
-                        document = output_data.json_for_admin().unwrap();
-                    } else {
-                        msg_err = "Failed to save document to database.".to_string();
-                    }
-                } else {
-                    msg_err = "Model initialization error.".to_string();
-                }
+                let mut model = serde_json::from_slice::<users::User>(&bytes).unwrap();
+                model.photo = app_state.to_file(model.photo, "admin/users/avatars");
+                let output_data = model.save(None, None).unwrap();
+                document = output_data.json_for_admin().unwrap();
 
                 // Other Models ...
                 // ---------------------------------------------------------------------------------
