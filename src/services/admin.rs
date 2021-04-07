@@ -344,24 +344,16 @@ pub mod request_handlers {
                 if !doc_hash.is_empty() {
                     let object_id = users::User::hash_to_id(doc_hash.as_str()).unwrap();
                     let filter = doc! {"_id": object_id};
-                    let output_data = users::User::find_one(Some(filter), None);
-                    if let Ok(output_data) = output_data {
-                        if output_data.bool() {
-                            document = output_data
-                                .model::<users::User>()
-                                .unwrap()
-                                .json_for_admin()
-                                .unwrap();
-                        }
-                    } else {
-                        msg_err = "No output data received.".to_string();
+                    let output_data = users::User::find_one(Some(filter), None).unwrap();
+                    if output_data.bool() {
+                        document = output_data
+                            .model::<users::User>()
+                            .unwrap()
+                            .json_for_admin()
+                            .unwrap();
                     }
                 } else {
-                    if let Ok(form_json) = users::User::form_json_for_admin() {
-                        document = form_json;
-                    } else {
-                        msg_err = "Failed to get empty form.".to_string();
-                    }
+                    document = users::User::form_json_for_admin().unwrap();
                 }
 
                 // Other Models ...
@@ -626,9 +618,7 @@ pub mod request_handlers {
             // Model `users::User`
             // -------------------------------------------------------------------------------------
             if model_key == users::User::key() {
-                if users::User::db_update_dyn_widgets(query.json_options.as_str()).is_err() {
-                    msg_err = "Failed to update dynamic data.".to_string();
-                }
+                users::User::db_update_dyn_widgets(query.json_options.as_str()).unwrap();
 
                 // Other Models ...
                 // ---------------------------------------------------------------------------------
