@@ -1272,13 +1272,13 @@ export default {
           case 'selectI32Mult':
           case 'selectU32Mult':
           case 'selectI64Mult':
-            fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value).map(item => parseInt(item[0])) : []
+            fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value).map(item => parseInt(item)) : []
             field.options = field.options.map(function (item) {
               return { value: parseInt(item[0]), title: item[1] }
             })
             break
           case 'selectF64Mult':
-            fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value).map(item => parseFloat(item[0])) : []
+            fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value).map(item => parseFloat(item)) : []
             field.options = field.options.map(function (item) {
               return { value: parseFloat(item[0]), title: item[1] }
             })
@@ -1319,14 +1319,14 @@ export default {
           case 'selectI32MultDyn':
           case 'selectU32MultDyn':
           case 'selectI64MultDyn':
-            fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value).map(item => parseInt(item[0])) : []
+            fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value).map(item => parseInt(item)) : []
             field.options = field.options.map(function (item) {
               return { value: parseInt(item[0]), title: item[1] }
             })
             dynamicSelectionDialog[field.name] = false
             break
           case 'selectF64MultDyn':
-            fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value).map(item => parseFloat(item[0])) : []
+            fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value).map(item => parseFloat(item)) : []
             field.options = field.options.map(function (item) {
               return { value: parseFloat(item[0]), title: item[1] }
             })
