@@ -560,12 +560,9 @@ pub mod request_handlers {
                     bson_hash_list.push(object_id);
                 }
                 let filter = doc! {"_id": {"$in": bson_hash_list}};
-                if let Ok(result) = coll.delete_many(filter, None) {
-                    if result.deleted_count == 0 {
-                        msg_err = "An error occurred while deleting the document.".to_string();
-                    }
-                } else {
-                    msg_err = "An error occurred while deleting the document.".to_string();
+                let result = coll.delete_many(filter, None).unwrap();
+                if result.deleted_count == 0 {
+                    msg_err = "Number of deleted documents = 0".to_string();
                 }
             } else {
                 msg_err = "It is forbidden to perform delete.".to_string();
