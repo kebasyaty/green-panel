@@ -1645,16 +1645,21 @@ export default {
               return
             }
           }
-          // Convert to the appropriate numeric type.
+          // Validation of number u32 type.
           if (targetField.widget.includes('U32')) {
-            this.currValDynItem.value = parseInt(this.currValDynItem.value)
-            // Validation of number u32 type.
-            if (this.currValDynItem.value < 0) {
+            if (+this.currValDynItem.value < 0) {
               this.runShowMsg({ text: `${this.currValDynItem.title}<br>${this.$t('message.34')}.`, status: 'error' })
               return
             }
-          } else if (targetField.widget.includes('I32') ||
+          }
+          // Convert to the appropriate numeric type.
+          if (targetField.widget.includes('I32') || targetField.widget.includes('U32') ||
             targetField.widget.includes('I64')) {
+            // Validate that the value is not fractional
+            if (this.currValDynItem.value.includes('.')) {
+              this.runShowMsg({ text: `${this.currValDynItem.title}<br>${this.$t('message.34')}.`, status: 'error' })
+              return
+            }
             this.currValDynItem.value = parseInt(this.currValDynItem.value)
           } else if (targetField.widget.includes('F64')) {
             this.currValDynItem.value = parseFloat(this.currValDynItem.value)
