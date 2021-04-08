@@ -411,7 +411,10 @@
                 </v-menu>
 
                 <!-- Textarea fields -->
-                <div v-if="field.widget === 'textArea'">
+                <div
+                  v-if="field.widget === 'textArea'"
+                  :class="field.css_classes.includes('ckeditor') ? 'mt-1 mb-2' : ''"
+                >
                   <ckeditor
                     v-if="field.css_classes.includes('ckeditor')"
                     :editor="editor"
