@@ -943,7 +943,9 @@ export default {
     render: true,
     editor: ClassicEditor,
     editorConfig: {
-      language: 'ru'
+      language: 'ru',
+      toolbar: null,
+      toolbarGroups: null
     }
   }),
 
