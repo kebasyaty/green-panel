@@ -925,7 +925,14 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+// import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document'
+import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
+import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials'
+import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold'
+import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic'
+import LinkPlugin from '@ckeditor/ckeditor5-link/src/link'
+import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph'
 
 export default {
   name: 'DocumentForm',
@@ -944,6 +951,24 @@ export default {
     editor: ClassicEditor,
     editorConfig: {
       language: 'ru',
+      plugins: [
+        EssentialsPlugin,
+        BoldPlugin,
+        ItalicPlugin,
+        LinkPlugin,
+        ParagraphPlugin
+      ],
+
+      toolbar: {
+        items: [
+          'bold',
+          'italic',
+          'link',
+          'undo',
+          'redo'
+        ]
+      }
+      /*
       toolbar: [
         { name: 'document', groups: ['mode', 'document', 'doctools'], items: ['Source', '-', 'Save', 'NewPage', 'ExportPdf', 'Preview', 'Print', '-', 'Templates'] },
         { name: 'clipboard', groups: ['clipboard', 'undo'], items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'] },
@@ -978,6 +1003,7 @@ export default {
         { name: 'others' },
         { name: 'about' }
       ]
+      */
     }
   }),
 
@@ -1018,6 +1044,15 @@ export default {
         this.render = true
       })
     },
+    /*
+    // Insert the toolbar before the editable area.
+    onReady(editor) {
+      editor.ui.getEditableElement().parentElement.insertBefore(
+        editor.ui.view.toolbar.element,
+        editor.ui.getEditableElement()
+      )
+    },
+    */
     // Determine if the document was previously created.
     isCreatedDoc() {
       return !isNaN(parseInt(this.$route.params.indexDoc))
