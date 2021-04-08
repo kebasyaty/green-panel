@@ -1655,9 +1655,9 @@ export default {
           // Convert to the appropriate numeric type.
           if (targetField.widget.includes('I32') || targetField.widget.includes('U32') ||
             targetField.widget.includes('I64')) {
-            // Validate that the value is not fractional
+            // Validate that the value is not fractional.
             if (this.currValDynItem.value.includes('.')) {
-              this.runShowMsg({ text: `${this.currValDynItem.title}<br>${this.$t('message.34')}.`, status: 'error' })
+              this.runShowMsg({ text: `${this.currValDynItem.title}<br>${this.$t('message.35')}.`, status: 'error' })
               return
             }
             this.currValDynItem.value = parseInt(this.currValDynItem.value)
