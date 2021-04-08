@@ -422,6 +422,7 @@
                     :config="editorConfig"
                     tag-name="textarea"
                     :disabled="field.disabled"
+                    @ready="onReady"
                   ></ckeditor>
                   <v-textarea
                     class="mt-0 pt-1"
@@ -925,9 +926,12 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
-// import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-// import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document'
-import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
+// CKEditor 5.
+// import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
+import DecoupledEditor from '@ckeditor/ckeditor5-editor-decoupled/src/decouplededitor'
+// Translations.
+import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
+// Plugins.
 import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials'
 import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold'
 import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic'
@@ -948,7 +952,7 @@ export default {
     currValDynItem: { title: null, value: null },
     maxTotalFilesSize: 16384, // 16384 = ~16 Kb (default data size for the form),
     render: true,
-    editor: ClassicEditor,
+    editor: DecoupledEditor,
     editorConfig: {
       language: 'ru',
       plugins: [
@@ -1044,7 +1048,6 @@ export default {
         this.render = true
       })
     },
-    /*
     // Insert the toolbar before the editable area.
     onReady(editor) {
       editor.ui.getEditableElement().parentElement.insertBefore(
@@ -1052,7 +1055,6 @@ export default {
         editor.ui.getEditableElement()
       )
     },
-    */
     // Determine if the document was previously created.
     isCreatedDoc() {
       return !isNaN(parseInt(this.$route.params.indexDoc))
