@@ -1645,7 +1645,7 @@ export default {
               return
             }
           }
-          // Validation of number u32 type.
+          // Validating a number like u32 - The value must not be less than zero.
           if (targetField.widget.includes('U32')) {
             if (+this.currValDynItem.value < 0) {
               this.runShowMsg({ text: `${this.currValDynItem.title}<br>${this.$t('message.34')}.`, status: 'error' })
@@ -1656,7 +1656,7 @@ export default {
           if (targetField.widget.includes('I32') || targetField.widget.includes('U32') ||
             targetField.widget.includes('I64')) {
             // Validate that the value is not fractional.
-            if (this.currValDynItem.value.includes('.')) {
+            if (this.currValDynItem.value.includes('.') || this.currValDynItem.value.includes(',')) {
               this.runShowMsg({ text: `${this.currValDynItem.title}<br>${this.$t('message.35')}.`, status: 'error' })
               return
             }
