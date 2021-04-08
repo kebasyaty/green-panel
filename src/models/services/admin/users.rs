@@ -107,8 +107,8 @@ pub struct User {
     pub is_active: Option<bool>,
     // Test field
     #[serde(default)]
-    #[field_attrs(widget = "selectF64MultDyn")]
-    pub select_f64_mult_dyn: Option<Vec<f64>>,
+    #[field_attrs(widget = "selectU32MultDyn")]
+    pub select_u32_mult_dyn: Option<Vec<u32>>,
 }
 
 impl AdditionalValidation for User {
