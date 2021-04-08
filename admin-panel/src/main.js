@@ -10,6 +10,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueSession from 'vue-session'
 import CKEditor from '@ckeditor/ckeditor5-vue2'
+import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
 
 // Disable debug to production.
 if (process.env.NODE_ENV === 'production') {
