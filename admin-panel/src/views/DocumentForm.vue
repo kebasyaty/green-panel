@@ -1638,20 +1638,22 @@ export default {
 
       switch (mode) {
         case 'save':
-          // Validation.
+          // Validation uniqueness of names for dynamic enumerations.
           for (let idx = 0; idx < targetField.options.length; idx++) {
-            // Validation uniqueness of names for dynamic enumerations.
             if (targetField.options[idx].title === this.currValDynItem.title) {
               this.runShowMsg({ text: this.$t('message.33'), status: 'error' })
-              return
-              // Validation of number u32 type.
-            } else if (targetField.widget.includes('U32') && targetField.options[idx].value < 0) {
-              this.runShowMsg({ text: `${targetField.options[idx].title}<br>${this.$t('message.34')}.`, status: 'error' })
               return
             }
           }
           // Convert to the appropriate numeric type.
-          if (targetField.widget.includes('I32') || targetField.widget.includes('U32') ||
+          if (targetField.widget.includes('U32')) {
+            this.currValDynItem.value = parseInt(this.currValDynItem.value)
+            // Validation of number u32 type.
+            if (this.currValDynItem.value < 0) {
+              this.runShowMsg({ text: `${this.currValDynItem.title}<br>${this.$t('message.34')}.`, status: 'error' })
+              return
+            }
+          } else if (targetField.widget.includes('I32') ||
             targetField.widget.includes('I64')) {
             this.currValDynItem.value = parseInt(this.currValDynItem.value)
           } else if (targetField.widget.includes('F64')) {
