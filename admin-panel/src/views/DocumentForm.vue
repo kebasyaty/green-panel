@@ -939,7 +939,6 @@ export default {
     maxTotalFilesSize: 16384, // 16384 = ~16 Kb (default data size for the form),
     render: true,
     editor: ClassicEditor,
-    editorData: '<p>Content of the editor.</p>',
     editorConfig: {
       language: 'ru'
     }
