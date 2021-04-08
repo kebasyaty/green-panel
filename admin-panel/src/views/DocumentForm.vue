@@ -1646,7 +1646,7 @@ export default {
               return
               // Validation of number u32 type.
             } else if (targetField.widget.includes('U32') && targetField.options[idx].value < 0) {
-              this.runShowMsg({ text: this.$t('message.33'), status: 'error' })
+              this.runShowMsg({ text: `${targetField.options[idx].title}<br>${this.$t('message.34')}.`, status: 'error' })
               return
             }
           }
