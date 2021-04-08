@@ -1648,7 +1648,7 @@ export default {
           // Validating a number like u32 - The value must not be less than zero.
           if (targetField.widget.includes('U32')) {
             if (+this.currValDynItem.value < 0) {
-              this.runShowMsg({ text: `${this.currValDynItem.title}<br>${this.$t('message.34')}.`, status: 'error' })
+              this.runShowMsg({ text: `Title: ${this.currValDynItem.title}<br>Value: ${this.$t('message.34')}.`, status: 'error' })
               return
             }
           }
@@ -1657,7 +1657,7 @@ export default {
             targetField.widget.includes('I64')) {
             // Validate that the value is not fractional.
             if (this.currValDynItem.value.includes('.') || this.currValDynItem.value.includes(',')) {
-              this.runShowMsg({ text: `${this.currValDynItem.title}<br>${this.$t('message.35')}.`, status: 'error' })
+              this.runShowMsg({ text: `Title: ${this.currValDynItem.title}<br>Value: ${this.$t('message.35')}.`, status: 'error' })
               return
             }
             this.currValDynItem.value = parseInt(this.currValDynItem.value)
