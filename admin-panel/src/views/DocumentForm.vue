@@ -1641,7 +1641,7 @@ export default {
           // Validation uniqueness of names for dynamic enumerations.
           for (let idx = 0; idx < targetField.options.length; idx++) {
             if (targetField.options[idx].title === this.currValDynItem.title) {
-              this.runShowMsg({ text: this.$t('message.33'), status: 'error' })
+              this.runShowMsg({ text: `Title: ${this.$t('message.33')}`, status: 'error' })
               return
             }
           }
