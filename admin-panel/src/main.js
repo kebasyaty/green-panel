@@ -9,6 +9,7 @@ import '@/assets/css/helpers.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueSession from 'vue-session'
+import CKEditor from '@ckeditor/ckeditor5-vue2'
 
 // Disable debug to production.
 if (process.env.NODE_ENV === 'production') {
@@ -21,6 +22,7 @@ if (process.env.NODE_ENV === 'production') {
 Vue.use(VueI18n)
 Vue.use(VueAxios, axios)
 Vue.use(VueSession, { persist: true })
+Vue.use(CKEditor)
 
 // Create VueI18n instance with options.
 const i18n = new VueI18n({

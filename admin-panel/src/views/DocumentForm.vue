@@ -411,24 +411,32 @@
                 </v-menu>
 
                 <!-- Textarea fields -->
-                <v-textarea
-                  class="mt-0 pt-1"
-                  v-if="field.widget === 'textArea'"
-                  counter
-                  clearable
-                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                  v-model="fieldsData[field.name]"
-                  :id="field.id"
-                  :name="field.name"
-                  :placeholder="field.placeholder"
-                  :required="field.required"
-                  :disabled="field.disabled"
-                  :readonly="field.readonly"
-                  :maxlength="field.maxlength"
-                  :class="field.css_classes"
-                  :messages="field.warning"
-                  :error-messages="field.error"
-                ></v-textarea>
+                <div v-if="field.widget === 'textArea'">
+                  <ckeditor
+                    v-if="field.css_classes.includes('ckeditor')"
+                    :editor="editor"
+                    v-model="editorData"
+                    :config="editorConfig"
+                  ></ckeditor>
+                  <v-textarea
+                    class="mt-0 pt-1"
+                    v-else
+                    counter
+                    clearable
+                    :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+                    v-model="fieldsData[field.name]"
+                    :id="field.id"
+                    :name="field.name"
+                    :placeholder="field.placeholder"
+                    :required="field.required"
+                    :disabled="field.disabled"
+                    :readonly="field.readonly"
+                    :maxlength="field.maxlength"
+                    :class="field.css_classes"
+                    :messages="field.warning"
+                    :error-messages="field.error"
+                  ></v-textarea>
+                </div>
 
                 <!-- Date fields -->
                 <v-menu
@@ -912,6 +920,7 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
 export default {
   name: 'DocumentForm',
@@ -926,7 +935,12 @@ export default {
     delDynItems: [],
     currValDynItem: { title: null, value: null },
     maxTotalFilesSize: 16384, // 16384 = ~16 Kb (default data size for the form),
-    render: true
+    render: true,
+    editor: ClassicEditor,
+    editorData: '<p>Content of the editor.</p>',
+    editorConfig: {
+      // The configuration of the editor.
+    }
   }),
 
   computed: {
