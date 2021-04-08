@@ -1638,9 +1638,14 @@ export default {
 
       switch (mode) {
         case 'save':
-          // Validation uniqueness of names for dynamic enumerations.
+          // Validation.
           for (let idx = 0; idx < targetField.options.length; idx++) {
+            // Validation uniqueness of names for dynamic enumerations.
             if (targetField.options[idx].title === this.currValDynItem.title) {
+              this.runShowMsg({ text: this.$t('message.33'), status: 'error' })
+              return
+              // Validation of number u32 type.
+            } else if (targetField.widget.includes('U32') && targetField.options[idx].value < 0) {
               this.runShowMsg({ text: this.$t('message.33'), status: 'error' })
               return
             }
