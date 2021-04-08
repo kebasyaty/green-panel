@@ -415,8 +415,10 @@
                   <ckeditor
                     v-if="field.css_classes.includes('ckeditor')"
                     :editor="editor"
-                    v-model="editorData"
+                    v-model="fieldsData[field.name]"
                     :config="editorConfig"
+                    tag-name="textarea"
+                    :disabled="field.disabled"
                   ></ckeditor>
                   <v-textarea
                     class="mt-0 pt-1"
@@ -939,7 +941,7 @@ export default {
     editor: ClassicEditor,
     editorData: '<p>Content of the editor.</p>',
     editorConfig: {
-      // The configuration of the editor.
+      language: 'ru'
     }
   }),
 
