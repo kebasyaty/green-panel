@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-alignment": "^27.0.0",
     "@ckeditor/ckeditor5-basic-styles": "^27.0.0",
     "@ckeditor/ckeditor5-build-classic": "^27.0.0",
     "@ckeditor/ckeditor5-dev-utils": "^24.4.2",
