@@ -929,11 +929,11 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 // CKEditor 5.
 import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
 // Plugins.
-import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials'
-import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold'
-import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic'
-import LinkPlugin from '@ckeditor/ckeditor5-link/src/link'
-import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph'
+import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials'
+import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold'
+import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic'
+import Link from '@ckeditor/ckeditor5-link/src/link'
+import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph'
 
 export default {
   name: 'DocumentForm',
@@ -947,29 +947,18 @@ export default {
     dynamicSelectionDialog: {},
     delDynItems: [],
     currValDynItem: { title: null, value: null },
-    maxTotalFilesSize: 16384, // 16384 = ~16 Kb (default data size for the form),
+    maxTotalFormSize: 16384, // 16384 = ~16 Kb (default data size for the form),
     render: true,
     editor: ClassicEditor,
     editorConfig: {
       language: 'ru',
       plugins: [
-        EssentialsPlugin,
-        BoldPlugin,
-        ItalicPlugin,
-        LinkPlugin,
-        ParagraphPlugin
+        Essentials,
+        Bold,
+        Italic,
+        Link,
+        Paragraph
       ],
-
-      toolbar: {
-        items: [
-          'bold',
-          'italic',
-          'link',
-          'undo',
-          'redo'
-        ]
-      }
-      /*
       toolbar: [
         { name: 'document', groups: ['mode', 'document', 'doctools'], items: ['Source', '-', 'Save', 'NewPage', 'ExportPdf', 'Preview', 'Print', '-', 'Templates'] },
         { name: 'clipboard', groups: ['clipboard', 'undo'], items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'] },
@@ -1004,7 +993,6 @@ export default {
         { name: 'others' },
         { name: 'about' }
       ]
-      */
     }
   }),
 
@@ -1463,10 +1451,10 @@ export default {
           let dataSumSize = 0
           const response = (counter) => {
             if (counter === countFileType) {
-              if (dataSumSize <= this.maxTotalFilesSize) {
+              if (dataSumSize <= this.maxTotalFormSize) {
                 resolve()
               } else {
-                const msg = `The total data size exceeds the ${this.humanFileSize(this.maxTotalFilesSize)} limit.`
+                const msg = `The total data size exceeds the ${this.humanFileSize(this.maxTotalFormSize)} limit.`
                 reject(msg)
               }
             }
@@ -1632,7 +1620,7 @@ export default {
             this.setIsAuthenticated(false)
           } else if (data.msg_err.length === 0) {
             // 16384 = ~16 Kb (default data size for the form)
-            this.maxTotalFilesSize = data.max_size - 16384
+            this.maxTotalFormSize = data.max_size - 16384
             this.getDocTitle()
             this.getBreadcrumbs()
             if (data.document.length > 0) {
