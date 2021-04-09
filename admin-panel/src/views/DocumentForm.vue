@@ -1812,8 +1812,6 @@ export default {
   created() {
     // Get document.
     this.getDoc()
-    //
-    window.console.log(Array.from(this.editor.ui.componentFactory.names()))
   }
 
 }
