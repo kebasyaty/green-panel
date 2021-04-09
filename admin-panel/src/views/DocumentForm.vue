@@ -417,11 +417,10 @@
                 >
                   <ckeditor
                     v-if="field.css_classes.includes('ckeditor')"
-                    :editor="editor"
                     v-model="fieldsData[field.name]"
                     :config="editorConfig"
                     tag-name="textarea"
-                    :disabled="field.disabled"
+                    :read-only="field.disabled"
                   ></ckeditor>
                   <v-textarea
                     class="mt-0 pt-1"
@@ -939,7 +938,8 @@ export default {
     delDynItems: [],
     currValDynItem: { title: null, value: null },
     maxTotalFormSize: 16384, // 16384 = ~16 Kb (default data size for the form),
-    render: true
+    render: true,
+    editorConfig: {}
   }),
 
   computed: {
