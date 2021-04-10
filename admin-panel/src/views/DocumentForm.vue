@@ -938,7 +938,8 @@ import BlockQuotePlugin from '@ckeditor/ckeditor5-block-quote/src/blockquote'
 import HeadingPlugin from '@ckeditor/ckeditor5-heading/src/heading'
 import ListPlugin from '@ckeditor/ckeditor5-list/src/list'
 import AlignmentPlugin from '@ckeditor/ckeditor5-alignment/src/alignment'
-import Font from '@ckeditor/ckeditor5-font/src/font'
+import FontPlugin from '@ckeditor/ckeditor5-font/src/font'
+import HighlightPlugin from '@ckeditor/ckeditor5-highlight/src/highlight'
 
 export default {
   name: 'DocumentForm',
@@ -967,7 +968,8 @@ export default {
         HeadingPlugin,
         ListPlugin,
         AlignmentPlugin,
-        Font
+        FontPlugin,
+        HighlightPlugin
       ],
 
       toolbar: {
@@ -984,6 +986,7 @@ export default {
           'fontColor',
           'fontBackgroundColor',
           'fontFamily',
+          'highlight',
           'undo',
           'redo'
         ]
