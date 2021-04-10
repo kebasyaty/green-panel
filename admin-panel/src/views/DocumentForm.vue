@@ -946,6 +946,7 @@ import IndentPlugin from '@ckeditor/ckeditor5-indent/src/indent'
 import IndentBlockPlugin from '@ckeditor/ckeditor5-indent/src/indentblock'
 import TextPartLanguagePlugin from '@ckeditor/ckeditor5-langauge/src/textpartlanguage'
 import MediaEmbedPlugin from '@ckeditor/ckeditor5-media-embed/src/mediaembed'
+import PageBreakPlugin from '@ckeditor/ckeditor5-page-break/src/pagebreak'
 
 export default {
   name: 'DocumentForm',
@@ -980,7 +981,8 @@ export default {
         IndentPlugin,
         IndentBlockPlugin,
         TextPartLanguagePlugin,
-        MediaEmbedPlugin
+        MediaEmbedPlugin,
+        PageBreakPlugin
       ],
 
       toolbar: {
@@ -1003,6 +1005,7 @@ export default {
           'indent',
           'textPartLanguage',
           'mediaEmbed',
+          'pageBreak',
           'undo',
           'redo'
         ]
