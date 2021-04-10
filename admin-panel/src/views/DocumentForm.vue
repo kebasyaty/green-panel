@@ -1003,32 +1003,18 @@ export default {
 
       toolbar: {
         items: [
-          'heading',
-          '|',
-          'alignment',
-          'bold',
-          'italic',
-          '|',
-          'bulletedList',
-          'numberedList',
-          '|',
-          'fontColor',
-          'fontBackgroundColor',
-          'fontFamily',
-          '|',
-          'link',
-          'blockQuote',
-          'highlight',
-          'horizontalLine',
-          'outdent',
-          'indent',
-          'textPartLanguage',
-          'mediaEmbed',
-          'pageBreak',
-          'removeFormat',
-          'selectAll',
+          'heading', '|',
+          'alignment', '|',
+          'bold', 'italic', '|',
+          'bulletedList', 'numberedList', '|',
+          'fontColor', 'fontBackgroundColor', 'fontFamily', '|',
+          'link', '|',
+          'blockQuote', 'highlight', 'horizontalLine', 'outdent', 'indent', '|',
+          'textPartLanguage', '|',
+          'mediaEmbed', '|',
+          'pageBreak', 'removeFormat', 'selectAll', '|',
           'specialCharacters',
-          'insertTable',
+          'insertTable', '|',
           '|',
           'codeBlock',
           '|',
@@ -1037,7 +1023,8 @@ export default {
         ],
         table: {
           contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
-        }
+        },
+        shouldNotGroupWhenFull: true
       }
     }
   }),
