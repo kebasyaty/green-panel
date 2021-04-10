@@ -949,6 +949,8 @@ import MediaEmbedPlugin from '@ckeditor/ckeditor5-media-embed/src/mediaembed'
 import PageBreakPlugin from '@ckeditor/ckeditor5-page-break/src/pagebreak'
 import RemoveFormatPlugin from '@ckeditor/ckeditor5-remove-format/src/removeformat'
 import SelectAllPlugin from '@ckeditor/ckeditor5-select-all/src/selectall'
+import SpecialCharactersPlugin from '@ckeditor/ckeditor5-special-characters/src/specialcharacters'
+import SpecialCharactersEssentialsPlugin from '@ckeditor/ckeditor5-special-characters/src/specialcharactersessentials'
 
 export default {
   name: 'DocumentForm',
@@ -986,7 +988,9 @@ export default {
         MediaEmbedPlugin,
         PageBreakPlugin,
         RemoveFormatPlugin,
-        SelectAllPlugin
+        SelectAllPlugin,
+        SpecialCharactersPlugin,
+        SpecialCharactersEssentialsPlugin
       ],
 
       toolbar: {
@@ -1012,6 +1016,7 @@ export default {
           'pageBreak',
           'removeFormat',
           'selectAll',
+          'specialCharacters',
           'undo',
           'redo'
         ]

@@ -27,6 +27,7 @@
     "@ckeditor/ckeditor5-paragraph": "^27.0.0",
     "@ckeditor/ckeditor5-remove-format": "^27.0.0",
     "@ckeditor/ckeditor5-select-all": "^27.0.0",
+    "@ckeditor/ckeditor5-special-characters": "^27.0.0",
     "@ckeditor/ckeditor5-theme-lark": "^27.0.0",
     "@ckeditor/ckeditor5-vue2": "^1.0.5",
     "axios": "^0.21.1",
