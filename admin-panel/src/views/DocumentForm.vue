@@ -940,6 +940,7 @@ import ListPlugin from '@ckeditor/ckeditor5-list/src/list'
 import AlignmentPlugin from '@ckeditor/ckeditor5-alignment/src/alignment'
 import FontPlugin from '@ckeditor/ckeditor5-font/src/font'
 import HighlightPlugin from '@ckeditor/ckeditor5-highlight/src/highlight'
+import HorizontalLinePlugin from '@ckeditor/ckeditor5-horizontal-line/src/horizontalline'
 
 export default {
   name: 'DocumentForm',
@@ -969,7 +970,8 @@ export default {
         ListPlugin,
         AlignmentPlugin,
         FontPlugin,
-        HighlightPlugin
+        HighlightPlugin,
+        HorizontalLinePlugin
       ],
 
       toolbar: {
@@ -987,6 +989,7 @@ export default {
           'fontBackgroundColor',
           'fontFamily',
           'highlight',
+          'horizontalLine',
           'undo',
           'redo'
         ]
