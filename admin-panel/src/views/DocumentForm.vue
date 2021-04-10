@@ -419,7 +419,7 @@
                     v-if="field.css_classes.includes('ckeditor')"
                     :editor="classicCKEditor"
                     v-model="fieldsData[field.name]"
-                    :config="editorConfig"
+                    :config="configCKEditor"
                     tag-name="textarea"
                     :disabled="field.disabled"
                   ></ckeditor>
