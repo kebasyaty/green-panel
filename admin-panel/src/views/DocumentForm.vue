@@ -947,6 +947,8 @@ import IndentBlockPlugin from '@ckeditor/ckeditor5-indent/src/indentblock'
 import TextPartLanguagePlugin from '@ckeditor/ckeditor5-langauge/src/textpartlanguage'
 import MediaEmbedPlugin from '@ckeditor/ckeditor5-media-embed/src/mediaembed'
 import PageBreakPlugin from '@ckeditor/ckeditor5-page-break/src/pagebreak'
+import RemoveFormatPlugin from '@ckeditor/ckeditor5-remove-format/src/removeformat'
+import SelectAllPlugin from '@ckeditor/ckeditor5-select-all/src/selectall'
 
 export default {
   name: 'DocumentForm',
@@ -982,7 +984,9 @@ export default {
         IndentBlockPlugin,
         TextPartLanguagePlugin,
         MediaEmbedPlugin,
-        PageBreakPlugin
+        PageBreakPlugin,
+        RemoveFormatPlugin,
+        SelectAllPlugin
       ],
 
       toolbar: {
@@ -1006,6 +1010,8 @@ export default {
           'textPartLanguage',
           'mediaEmbed',
           'pageBreak',
+          'removeFormat',
+          'selectAll',
           'undo',
           'redo'
         ]
