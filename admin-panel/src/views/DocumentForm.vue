@@ -926,8 +926,9 @@
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
 
+// CKEditor 5
 import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
-
+// Plugins
 import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials'
 import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold'
 import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic'
