@@ -944,6 +944,8 @@ import HighlightPlugin from '@ckeditor/ckeditor5-highlight/src/highlight'
 import HorizontalLinePlugin from '@ckeditor/ckeditor5-horizontal-line/src/horizontalline'
 import IndentPlugin from '@ckeditor/ckeditor5-indent/src/indent'
 import IndentBlockPlugin from '@ckeditor/ckeditor5-indent/src/indentblock'
+import TextPartLanguagePlugin from '@ckeditor/ckeditor5-langauge/src/textpartlanguage'
+import MediaEmbedPlugin from '@ckeditor/ckeditor5-media-embed/src/mediaembed'
 
 export default {
   name: 'DocumentForm',
@@ -976,7 +978,9 @@ export default {
         HighlightPlugin,
         HorizontalLinePlugin,
         IndentPlugin,
-        IndentBlockPlugin
+        IndentBlockPlugin,
+        TextPartLanguagePlugin,
+        MediaEmbedPlugin
       ],
 
       toolbar: {
@@ -997,6 +1001,8 @@ export default {
           'horizontalLine',
           'outdent',
           'indent',
+          'textPartLanguage',
+          'mediaEmbed',
           'undo',
           'redo'
         ]
