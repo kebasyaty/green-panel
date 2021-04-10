@@ -417,6 +417,7 @@
                 >
                   <ckeditor
                     v-if="field.css_classes.includes('ckeditor')"
+                    :editor="editor"
                     v-model="fieldsData[field.name]"
                     :config="editorConfig"
                     tag-name="textarea"
