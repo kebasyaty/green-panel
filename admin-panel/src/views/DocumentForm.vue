@@ -954,7 +954,6 @@ export default {
     render: true,
     editor: ClassicEditor,
     editorConfig: {
-      language: 'en',
       plugins: [
         EssentialsPlugin,
         BoldPlugin,
