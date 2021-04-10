@@ -951,6 +951,8 @@ import RemoveFormatPlugin from '@ckeditor/ckeditor5-remove-format/src/removeform
 import SelectAllPlugin from '@ckeditor/ckeditor5-select-all/src/selectall'
 import SpecialCharactersPlugin from '@ckeditor/ckeditor5-special-characters/src/specialcharacters'
 import SpecialCharactersEssentialsPlugin from '@ckeditor/ckeditor5-special-characters/src/specialcharactersessentials'
+import TablePlugin from '@ckeditor/ckeditor5-table/src/table'
+import TableToolbarPlugin from '@ckeditor/ckeditor5-table/src/tabletoolbar'
 
 export default {
   name: 'DocumentForm',
@@ -990,7 +992,9 @@ export default {
         RemoveFormatPlugin,
         SelectAllPlugin,
         SpecialCharactersPlugin,
-        SpecialCharactersEssentialsPlugin
+        SpecialCharactersEssentialsPlugin,
+        TablePlugin,
+        TableToolbarPlugin
       ],
 
       toolbar: {
@@ -1017,9 +1021,13 @@ export default {
           'removeFormat',
           'selectAll',
           'specialCharacters',
+          'insertTable',
           'undo',
           'redo'
-        ]
+        ],
+        table: {
+          contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+        }
       }
     }
   }),
