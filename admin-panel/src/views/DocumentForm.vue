@@ -1011,11 +1011,10 @@ export default {
           'fontColor', 'fontBackgroundColor', 'fontFamily', '|',
           'bulletedList', 'numberedList', 'todoList', '|',
           '-',
-          'link', '|',
           'blockQuote', 'highlight', 'horizontalLine', '|',
           'outdent', 'indent', '|',
           'pageBreak', 'removeFormat', 'selectAll', '|',
-          'specialCharacters', 'mediaEmbed', 'insertTable', 'codeBlock', '|',
+          'link', 'specialCharacters', 'mediaEmbed', 'insertTable', 'codeBlock', '|',
           'undo',
           'redo'
         ],
