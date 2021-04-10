@@ -1005,14 +1005,14 @@ export default {
       toolbar: {
         items: [
           'heading', '|',
+          'textPartLanguage', '|',
           'alignment', '|',
           'bold', 'italic', '|',
           'bulletedList', 'numberedList', 'todoList', '|',
           'fontColor', 'fontBackgroundColor', 'fontFamily', '|',
           'link', '|',
-          'blockQuote', 'highlight', 'horizontalLine', 'outdent', 'indent', '|',
           '-',
-          'textPartLanguage', '|',
+          'blockQuote', 'highlight', 'horizontalLine', 'outdent', 'indent', '|',
           'pageBreak', 'removeFormat', 'selectAll', '|',
           'specialCharacters',
           'mediaEmbed', '|',
