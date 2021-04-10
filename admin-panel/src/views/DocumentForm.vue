@@ -942,6 +942,8 @@ import AlignmentPlugin from '@ckeditor/ckeditor5-alignment/src/alignment'
 import FontPlugin from '@ckeditor/ckeditor5-font/src/font'
 import HighlightPlugin from '@ckeditor/ckeditor5-highlight/src/highlight'
 import HorizontalLinePlugin from '@ckeditor/ckeditor5-horizontal-line/src/horizontalline'
+import IndentPlugin from '@ckeditor/ckeditor5-indent/src/indent'
+import IndentBlockPlugin from '@ckeditor/ckeditor5-indent/src/indentblock'
 
 export default {
   name: 'DocumentForm',
@@ -972,7 +974,9 @@ export default {
         AlignmentPlugin,
         FontPlugin,
         HighlightPlugin,
-        HorizontalLinePlugin
+        HorizontalLinePlugin,
+        IndentPlugin,
+        IndentBlockPlugin
       ],
 
       toolbar: {
@@ -991,6 +995,8 @@ export default {
           'fontFamily',
           'highlight',
           'horizontalLine',
+          'outdent',
+          'indent',
           'undo',
           'redo'
         ]
