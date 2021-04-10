@@ -420,7 +420,7 @@
                     v-model="fieldsData[field.name]"
                     :config="editorConfig"
                     tag-name="textarea"
-                    :read-only="field.disabled"
+                    :disabled="field.disabled"
                   ></ckeditor>
                   <v-textarea
                     class="mt-0 pt-1"
@@ -925,6 +925,19 @@
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
 
+import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
+
+import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials'
+import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold'
+import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic'
+import LinkPlugin from '@ckeditor/ckeditor5-link/src/link'
+import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph'
+import AutoformatPlugin from '@ckeditor/ckeditor5-autoformat/src/autoformat'
+import BlockQuotePlugin from '@ckeditor/ckeditor5-block-quote/src/blockquote'
+import HeadingPlugin from '@ckeditor/ckeditor5-heading/src/heading'
+import ListPlugin from '@ckeditor/ckeditor5-list/src/list'
+import AlignmentPlugin from '@ckeditor/ckeditor5-alignment/src/alignment'
+
 export default {
   name: 'DocumentForm',
 
@@ -939,7 +952,38 @@ export default {
     currValDynItem: { title: null, value: null },
     maxTotalFormSize: 16384, // 16384 = ~16 Kb (default data size for the form),
     render: true,
-    editorConfig: {}
+    editor: ClassicEditor,
+    editorConfig: {
+      language: 'en',
+      plugins: [
+        EssentialsPlugin,
+        BoldPlugin,
+        ItalicPlugin,
+        LinkPlugin,
+        ParagraphPlugin,
+        AutoformatPlugin,
+        BlockQuotePlugin,
+        HeadingPlugin,
+        ListPlugin,
+        AlignmentPlugin
+      ],
+
+      toolbar: {
+        items: [
+          'heading',
+          '|',
+          'alignment',
+          'bold',
+          'italic',
+          'link',
+          'bulletedList',
+          'numberedList',
+          'blockQuote',
+          'undo',
+          'redo'
+        ]
+      }
+    }
   }),
 
   computed: {
