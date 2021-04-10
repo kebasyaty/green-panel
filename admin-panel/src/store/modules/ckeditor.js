@@ -93,8 +93,6 @@ export default {
     }
   },
 
-  getters: {},
-
   mutations: {
     setEditorConfig(state, payload) {
       // this.editorConfig.language = this.$i18n.locale
