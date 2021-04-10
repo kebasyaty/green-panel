@@ -60,6 +60,7 @@ async fn main() -> std::io::Result<()> {
                                 "default-src 'self'; connect-src http:; font-src http: data:;",
                                 " img-src http: data:; media-src http:; object-src http:;",
                                 " script-src 'unsafe-inline' 'unsafe-eval' http:;",
+                                " frame-src http:; frame-ancestors http:;",
                                 " style-src 'unsafe-inline' http:;"
                             )
                         } else {
@@ -67,6 +68,7 @@ async fn main() -> std::io::Result<()> {
                                 "default-src 'self'; connect-src https:; font-src https: data:;",
                                 " img-src https: data:; media-src https:; object-src https:;",
                                 " script-src 'unsafe-inline' 'unsafe-eval' https:;",
+                                " frame-src https:; frame-ancestors https:;",
                                 " style-src 'unsafe-inline' https:;"
                             )
                         },
