@@ -1787,7 +1787,7 @@ export default {
 
   created() {
     //
-    // this.editorConfig.language = 'ru' // this.$i18n.locale
+    this.editorConfig.language = 'ru' // this.$i18n.locale
     // Get document.
     this.getDoc()
   }
