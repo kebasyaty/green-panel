@@ -938,6 +938,7 @@ import AutoformatPlugin from '@ckeditor/ckeditor5-autoformat/src/autoformat'
 import BlockQuotePlugin from '@ckeditor/ckeditor5-block-quote/src/blockquote'
 import HeadingPlugin from '@ckeditor/ckeditor5-heading/src/heading'
 import ListPlugin from '@ckeditor/ckeditor5-list/src/list'
+import TodoListPlugin from '@ckeditor/ckeditor5-list/src/todolist'
 import AlignmentPlugin from '@ckeditor/ckeditor5-alignment/src/alignment'
 import FontPlugin from '@ckeditor/ckeditor5-font/src/font'
 import HighlightPlugin from '@ckeditor/ckeditor5-highlight/src/highlight'
@@ -982,6 +983,7 @@ export default {
         BlockQuotePlugin,
         HeadingPlugin,
         ListPlugin,
+        TodoListPlugin,
         AlignmentPlugin,
         FontPlugin,
         HighlightPlugin,
@@ -1829,7 +1831,7 @@ export default {
   },
 
   created() {
-    this.editorConfig.language = 'ru' // this.$i18n.locale
+    this.editorConfig.language = this.$i18n.locale
     // Get document.
     this.getDoc()
   }
