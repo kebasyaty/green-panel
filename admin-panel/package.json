@@ -31,6 +31,7 @@
     "@ckeditor/ckeditor5-table": "^27.0.0",
     "@ckeditor/ckeditor5-theme-lark": "^27.0.0",
     "@ckeditor/ckeditor5-vue2": "^1.0.5",
+    "@ckeditor/ckeditor5-word-count": "^27.0.0",
     "axios": "^0.21.1",
     "core-js": "^3.8.3",
     "fill-range": "^7.0.1",
