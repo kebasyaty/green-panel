@@ -938,6 +938,7 @@ import BlockQuotePlugin from '@ckeditor/ckeditor5-block-quote/src/blockquote'
 import HeadingPlugin from '@ckeditor/ckeditor5-heading/src/heading'
 import ListPlugin from '@ckeditor/ckeditor5-list/src/list'
 import AlignmentPlugin from '@ckeditor/ckeditor5-alignment/src/alignment'
+import Font from '@ckeditor/ckeditor5-font/src/font'
 
 export default {
   name: 'DocumentForm',
@@ -965,7 +966,8 @@ export default {
         BlockQuotePlugin,
         HeadingPlugin,
         ListPlugin,
-        AlignmentPlugin
+        AlignmentPlugin,
+        Font
       ],
 
       toolbar: {
@@ -979,6 +981,9 @@ export default {
           'bulletedList',
           'numberedList',
           'blockQuote',
+          'fontColor',
+          'fontBackgroundColor',
+          'fontFamily',
           'undo',
           'redo'
         ]
@@ -1787,10 +1792,12 @@ export default {
   },
 
   created() {
-    //
-    this.editorConfig.language = 'ru' // this.$i18n.locale
     // Get document.
     this.getDoc()
+  },
+
+  mounted() {
+    this.editorConfig.language = 'ru' // this.$i18n.locale
   }
 
 }
