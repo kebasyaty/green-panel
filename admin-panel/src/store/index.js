@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import mutations from '@/store/mutations.js'
-import actions from '@/store/actions.js'
-import documentList from '@/store/modules/document_list.js'
-import popUpMsgs from '@/store/modules/pop_up_msgs.js'
-import overlays from '@/store/modules/overlays.js'
+import mutations from '@/store/mutations'
+import actions from '@/store/actions'
+import documentList from '@/store/modules/document_list'
+import popUpMsgs from '@/store/modules/pop_up_msgs'
+import overlays from '@/store/modules/overlays'
+import ckeditor from '@/store/modules/ckeditor'
 
 Vue.use(Vuex)
 
@@ -30,6 +31,7 @@ export default new Vuex.Store({
   modules: {
     documentList,
     popUpMsgs,
-    overlays
+    overlays,
+    ckeditor
   }
 })
