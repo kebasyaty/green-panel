@@ -5,7 +5,6 @@ import actions from '@/store/actions'
 import documentList from '@/store/modules/document_list'
 import popUpMsgs from '@/store/modules/pop_up_msgs'
 import overlays from '@/store/modules/overlays'
-import ckeditor from '@/store/modules/ckeditor'
 
 Vue.use(Vuex)
 
@@ -31,7 +30,6 @@ export default new Vuex.Store({
   modules: {
     documentList,
     popUpMsgs,
-    overlays,
-    ckeditor
+    overlays
   }
 })
