@@ -1839,12 +1839,9 @@ export default {
   },
 
   created() {
+    this.editorConfig.language = 'ru' // this.$i18n.locale
     // Get document.
     this.getDoc()
-  },
-
-  mounted() {
-    this.editorConfig.language = this.$i18n.locale
   }
 
 }
