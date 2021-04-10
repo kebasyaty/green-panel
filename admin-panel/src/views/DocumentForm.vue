@@ -954,6 +954,7 @@ import SpecialCharactersEssentialsPlugin from '@ckeditor/ckeditor5-special-chara
 import TablePlugin from '@ckeditor/ckeditor5-table/src/table'
 import TableToolbarPlugin from '@ckeditor/ckeditor5-table/src/tabletoolbar'
 import WordCountPlugin from '@ckeditor/ckeditor5-word-count/src/wordcount'
+import CodeBlockPlugin from '@ckeditor/ckeditor5-code-block/src/codeblock'
 
 export default {
   name: 'DocumentForm',
@@ -996,7 +997,8 @@ export default {
         SpecialCharactersEssentialsPlugin,
         TablePlugin,
         TableToolbarPlugin,
-        WordCountPlugin
+        WordCountPlugin,
+        CodeBlockPlugin
       ],
 
       toolbar: {
@@ -1027,6 +1029,8 @@ export default {
           'selectAll',
           'specialCharacters',
           'insertTable',
+          '|',
+          'codeBlock',
           '|',
           'undo',
           'redo'
