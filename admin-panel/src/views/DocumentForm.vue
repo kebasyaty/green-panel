@@ -987,7 +987,8 @@ export default {
 
   computed: {
     ...mapState([
-      'serviceList'
+      'serviceList',
+      'configEditor'
     ]),
     ...mapState('documentList', [
       'documents'
@@ -1207,7 +1208,7 @@ export default {
       return result
     },
     // Get data for fields of form.
-    getFormData(document, configCKEditor) {
+    getFormData(document) {
       const vMenu = {}
       const fieldsData = {}
       const dynamicSelectionDialog = {}
@@ -1234,8 +1235,8 @@ export default {
             if (!isUseCkeditor && field.css_classes.includes('ckeditor')) {
               isUseCkeditor = true
               this.classicCKEditor = ClassicCKEditor
-              if (Object.keys(configCKEditor).length > 0) {
-                for (const [key, value] of Object.entries(configCKEditor)) {
+              if (Object.keys(this.configEditor).length > 0) {
+                for (const [key, value] of Object.entries(this.configEditor)) {
                   this.configCKEditor[key] = value
                 }
               } else {
@@ -1613,7 +1614,7 @@ export default {
                     this.currValDynItem = { title: null, value: null }
                     this.fieldsData = {}
                     this.fields = []
-                    this.getFormData(document, data.config_ckeditor.length > 0 ? JSON.parse(data.config_ckeditor) : {})
+                    this.getFormData(document)
                     this.reload()
                     break
                   case 'save_and_new':
@@ -1685,7 +1686,7 @@ export default {
             this.getBreadcrumbs()
             if (data.document.length > 0) {
               const document = JSON.parse(data.document)
-              this.getFormData(document, data.config_ckeditor.length > 0 ? JSON.parse(data.config_ckeditor) : {})
+              this.getFormData(document)
             }
           } else {
             console.log(data.msg_err)

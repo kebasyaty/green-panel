@@ -22,7 +22,9 @@ export default new Vuex.Store({
     // The current service in which the collection is selected.
     selectedService: [],
     // List of services (sub-applications) with nested list of collections.
-    serviceList: []
+    serviceList: [],
+    // CKeditor configuration.
+    configEditor: {}
   },
 
   mutations,
