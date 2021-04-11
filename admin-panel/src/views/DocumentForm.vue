@@ -966,10 +966,6 @@ import CodePlugin from '@ckeditor/ckeditor5-basic-styles/src/code'
 import CodeBlockPlugin from '@ckeditor/ckeditor5-code-block/src/codeblock'
 import PasteFromOfficePlugin from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice'
 import ClipboardPlugin from '@ckeditor/ckeditor5-clipboard/src/clipboard'
-import EasyImagePlugin from '@ckeditor/ckeditor5-easy-image/src/easyimage'
-import ImagePlugin from '@ckeditor/ckeditor5-image/src/image'
-import ImageUploadPlugin from '@ckeditor/ckeditor5-image/src/imageupload'
-import Base64UploadAdapterPlugin from '@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter'
 
 export default {
   name: 'DocumentForm',
@@ -1262,8 +1258,8 @@ export default {
                       'outdent', 'indent', '|',
                       'blockQuote', 'highlight', '|',
                       'pageBreak', 'removeFormat', 'selectAll', '|',
-                      'link', 'specialCharacters', 'uploadImage', 'insertTable',
-                      'mediaEmbed', 'horizontalLine', 'code', 'codeBlock', '|',
+                      'link', 'specialCharacters', 'insertTable', 'mediaEmbed',
+                      'horizontalLine', 'code', 'codeBlock', '|',
                       'undo',
                       'redo'
                     ],
@@ -1313,11 +1309,7 @@ export default {
                 CodePlugin,
                 CodeBlockPlugin,
                 PasteFromOfficePlugin,
-                ClipboardPlugin,
-                EasyImagePlugin,
-                ImagePlugin,
-                ImageUploadPlugin,
-                Base64UploadAdapterPlugin
+                ClipboardPlugin
               ]
             }
             fieldsData[field.name] = field.value || ''
