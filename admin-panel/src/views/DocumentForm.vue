@@ -981,7 +981,7 @@ export default {
     currValDynItem: { title: null, value: null },
     maxTotalFormSize: 16384, // 16384 = ~16 Kb (default data size for the form),
     render: true,
-    classicCKEditor: ClassicCKEditor,
+    classicCKEditor: null,
     configCKEditor: {}
   }),
 
@@ -1233,6 +1233,7 @@ export default {
           case 'textArea':
             if (!isUseCkeditor && field.css_classes.includes('ckeditor')) {
               isUseCkeditor = true
+              this.classicCKEditor = ClassicCKEditor
               if (Object.keys(configCKEditor).length > 0) {
                 for (const [key, value] of Object.entries(configCKEditor)) {
                   this.configCKEditor[key] = value
