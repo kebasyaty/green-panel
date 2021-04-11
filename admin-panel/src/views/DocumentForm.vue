@@ -966,6 +966,8 @@ import CodePlugin from '@ckeditor/ckeditor5-basic-styles/src/code'
 import CodeBlockPlugin from '@ckeditor/ckeditor5-code-block/src/codeblock'
 import PasteFromOfficePlugin from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice'
 import ClipboardPlugin from '@ckeditor/ckeditor5-clipboard/src/clipboard'
+import ImagePlugin from '@ckeditor/ckeditor5-image/src/image'
+import Base64UploadAdapterPlugin from '@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter'
 
 export default {
   name: 'DocumentForm',
@@ -1252,14 +1254,14 @@ export default {
                       'alignment', '|',
                       'bold', 'italic', 'underline', 'strikethrough', '|',
                       'subscript', 'superscript', '|',
-                      'fontColor', 'fontBackgroundColor', 'fontFamily', '|',
+                      'fontColor', 'fontBackgroundColor', 'fontFamily', 'fontsize', '|',
                       'bulletedList', 'numberedList', 'todoList', '|',
                       '-',
                       'outdent', 'indent', '|',
                       'blockQuote', 'highlight', '|',
                       'pageBreak', 'removeFormat', 'selectAll', '|',
-                      'link', 'specialCharacters', 'insertTable', 'mediaEmbed',
-                      'horizontalLine', 'code', 'codeBlock', '|',
+                      'link', 'specialCharacters', 'uploadImage', 'insertTable',
+                      'mediaEmbed', 'horizontalLine', 'code', 'codeBlock', '|',
                       'undo',
                       'redo'
                     ],
@@ -1309,7 +1311,9 @@ export default {
                 CodePlugin,
                 CodeBlockPlugin,
                 PasteFromOfficePlugin,
-                ClipboardPlugin
+                ClipboardPlugin,
+                ImagePlugin,
+                Base64UploadAdapterPlugin
               ]
             }
             fieldsData[field.name] = field.value || ''
