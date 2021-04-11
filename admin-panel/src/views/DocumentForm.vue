@@ -927,7 +927,8 @@
 import { mapState, mapMutations, mapActions } from 'vuex'
 
 // CKEditor 5
-import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
+import CKEditor from '@ckeditor/ckeditor5-vue2'
+import ClassicCKEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
 // Plugins
 import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials'
 import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold'
@@ -960,6 +961,10 @@ import CodeBlockPlugin from '@ckeditor/ckeditor5-code-block/src/codeblock'
 export default {
   name: 'DocumentForm',
 
+  components: {
+    ckeditor: CKEditor.component
+  },
+
   data: () => ({
     docTitle: '...',
     breadcrumbs: '... > ... > ...',
@@ -971,7 +976,7 @@ export default {
     currValDynItem: { title: null, value: null },
     maxTotalFormSize: 16384, // 16384 = ~16 Kb (default data size for the form),
     render: true,
-    classicCKEditor: ClassicEditor,
+    classicCKEditor: ClassicCKEditor,
     configCKEditor: {
       plugins: [
         EssentialsPlugin,
