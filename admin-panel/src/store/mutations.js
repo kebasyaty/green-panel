@@ -26,6 +26,9 @@ export default {
   setServiceList(state, payload) {
     state.serviceList = payload
   },
+  setConfigEditor(state, payload) {
+    state.configEditor = payload
+  },
   setShowErrMsg(state, payload) {
     state.showErrMsg = payload
   },
