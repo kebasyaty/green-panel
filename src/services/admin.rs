@@ -190,11 +190,12 @@ pub mod request_handlers {
         Ok(HttpResponse::Ok()
             .content_type("application/json")
             .json(json!({
-                "service_list": admin_panel::service_list(),
                 "is_authenticated": is_authenticated,
-                "msg_err": msg_err,
                 "brand": BRAND,
-                "slogan": SLOGAN
+                "slogan": SLOGAN,
+                "service_list": admin_panel::service_list(),
+                "config_ckeditor": admin_panel::config_ckeditor(),
+                "msg_err": msg_err
             })))
     }
 
