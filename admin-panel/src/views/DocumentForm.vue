@@ -964,6 +964,8 @@ import TableCellPropertiesPlugin from '@ckeditor/ckeditor5-table/src/tablecellpr
 import WordCountPlugin from '@ckeditor/ckeditor5-word-count/src/wordcount'
 import CodePlugin from '@ckeditor/ckeditor5-basic-styles/src/code'
 import CodeBlockPlugin from '@ckeditor/ckeditor5-code-block/src/codeblock'
+import PasteFromOfficePlugin from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice'
+import ClipboardPlugin from '@ckeditor/ckeditor5-clipboard/src/clipboard'
 
 export default {
   name: 'DocumentForm',
@@ -1305,7 +1307,9 @@ export default {
                 TableCellPropertiesPlugin,
                 WordCountPlugin,
                 CodePlugin,
-                CodeBlockPlugin
+                CodeBlockPlugin,
+                PasteFromOfficePlugin,
+                ClipboardPlugin
               ]
             }
             fieldsData[field.name] = field.value || ''
