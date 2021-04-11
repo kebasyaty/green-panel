@@ -1256,7 +1256,8 @@ export default {
                       'outdent', 'indent', '|',
                       'blockQuote', 'highlight', '|',
                       'pageBreak', 'removeFormat', 'selectAll', '|',
-                      'link', 'specialCharacters', 'insertTable', 'mediaEmbed', 'horizontalLine', 'code', 'codeBlock', '|',
+                      'link', 'specialCharacters', 'insertTable', 'mediaEmbed',
+                      'horizontalLine', 'code', 'codeBlock', '|',
                       'undo',
                       'redo'
                     ],
