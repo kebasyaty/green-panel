@@ -982,30 +982,7 @@ export default {
     maxTotalFormSize: 16384, // 16384 = ~16 Kb (default data size for the form),
     render: true,
     classicCKEditor: ClassicCKEditor,
-    configCKEditor: {
-      toolbar: {
-        items: [
-          'heading', '|',
-          'textPartLanguage', '|',
-          'alignment', '|',
-          'bold', 'italic', 'underline', 'strikethrough', '|',
-          'subscript', 'superscript', '|',
-          'fontColor', 'fontBackgroundColor', 'fontFamily', '|',
-          'bulletedList', 'numberedList', 'todoList', '|',
-          '-',
-          'outdent', 'indent', '|',
-          'blockQuote', 'highlight', '|',
-          'pageBreak', 'removeFormat', 'selectAll', '|',
-          'link', 'specialCharacters', 'insertTable', 'mediaEmbed', 'horizontalLine', 'code', 'codeBlock', '|',
-          'undo',
-          'redo'
-        ],
-        table: {
-          contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
-        },
-        shouldNotGroupWhenFull: true
-      }
-    }
+    configCKEditor: {}
   }),
 
   computed: {
@@ -1293,7 +1270,32 @@ export default {
             }
             if (Object.keys(configCKEditor).length > 0) {
               for (const [key, value] of Object.entries(configCKEditor)) {
-                configCKEditor[key] = value
+                this.configCKEditor[key] = value
+              }
+            } else {
+              this.configCKEditor = {
+                toolbar: {
+                  items: [
+                    'heading', '|',
+                    'textPartLanguage', '|',
+                    'alignment', '|',
+                    'bold', 'italic', 'underline', 'strikethrough', '|',
+                    'subscript', 'superscript', '|',
+                    'fontColor', 'fontBackgroundColor', 'fontFamily', '|',
+                    'bulletedList', 'numberedList', 'todoList', '|',
+                    '-',
+                    'outdent', 'indent', '|',
+                    'blockQuote', 'highlight', '|',
+                    'pageBreak', 'removeFormat', 'selectAll', '|',
+                    'link', 'specialCharacters', 'insertTable', 'mediaEmbed', 'horizontalLine', 'code', 'codeBlock', '|',
+                    'undo',
+                    'redo'
+                  ],
+                  table: {
+                    contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+                  },
+                  shouldNotGroupWhenFull: true
+                }
               }
             }
             fieldsData[field.name] = field.value || ''
