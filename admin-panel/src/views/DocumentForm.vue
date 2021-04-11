@@ -1269,7 +1269,6 @@ export default {
       const vMenu = {}
       const fieldsData = {}
       const dynamicSelectionDialog = {}
-      let isUseCkeditor = false
       const re = /<br>/g
 
       document.forEach(field => {
@@ -1289,8 +1288,8 @@ export default {
             fieldsData[field.name] = field.value || ''
             break
           case 'textArea':
-            if (field.css_classes.includes('ckeditor')) {
-              isUseCkeditor = true
+            if (!this.isUseCkeditor && field.css_classes.includes('ckeditor')) {
+              this.isUseCkeditor = true
             }
             fieldsData[field.name] = field.value || ''
             break
@@ -1464,7 +1463,6 @@ export default {
       this.fieldsData = fieldsData
       this.dynamicSelectionDialog = dynamicSelectionDialog
       this.fields = document
-      this.isUseCkeditor = isUseCkeditor
     },
 
     // Converte File to base64.
