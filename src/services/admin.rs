@@ -194,7 +194,7 @@ pub mod request_handlers {
                 "brand": BRAND,
                 "slogan": SLOGAN,
                 "service_list": admin_panel::service_list(),
-                "config_ckeditor": admin_panel::config_ckeditor(),
+                "config_ckeditor": admin_panel::config_ckeditor("default"),
                 "msg_err": msg_err
             })))
     }
