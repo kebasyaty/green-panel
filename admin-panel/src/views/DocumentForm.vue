@@ -1233,6 +1233,36 @@ export default {
           case 'textArea':
             if (!isUseCkeditor && field.css_classes.includes('ckeditor')) {
               isUseCkeditor = true
+              if (Object.keys(configCKEditor).length > 0) {
+                for (const [key, value] of Object.entries(configCKEditor)) {
+                  this.configCKEditor[key] = value
+                }
+              } else {
+                this.configCKEditor = {
+                  toolbar: {
+                    items: [
+                      'heading', '|',
+                      'textPartLanguage', '|',
+                      'alignment', '|',
+                      'bold', 'italic', 'underline', 'strikethrough', '|',
+                      'subscript', 'superscript', '|',
+                      'fontColor', 'fontBackgroundColor', 'fontFamily', '|',
+                      'bulletedList', 'numberedList', 'todoList', '|',
+                      '-',
+                      'outdent', 'indent', '|',
+                      'blockQuote', 'highlight', '|',
+                      'pageBreak', 'removeFormat', 'selectAll', '|',
+                      'link', 'specialCharacters', 'insertTable', 'mediaEmbed', 'horizontalLine', 'code', 'codeBlock', '|',
+                      'undo',
+                      'redo'
+                    ],
+                    table: {
+                      contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+                    },
+                    shouldNotGroupWhenFull: true
+                  }
+                }
+              }
               this.configCKEditor.plugins = [
                 EssentialsPlugin,
                 BoldPlugin,
@@ -1267,36 +1297,6 @@ export default {
                 CodePlugin,
                 CodeBlockPlugin
               ]
-            }
-            if (Object.keys(configCKEditor).length > 0) {
-              for (const [key, value] of Object.entries(configCKEditor)) {
-                this.configCKEditor[key] = value
-              }
-            } else {
-              this.configCKEditor = {
-                toolbar: {
-                  items: [
-                    'heading', '|',
-                    'textPartLanguage', '|',
-                    'alignment', '|',
-                    'bold', 'italic', 'underline', 'strikethrough', '|',
-                    'subscript', 'superscript', '|',
-                    'fontColor', 'fontBackgroundColor', 'fontFamily', '|',
-                    'bulletedList', 'numberedList', 'todoList', '|',
-                    '-',
-                    'outdent', 'indent', '|',
-                    'blockQuote', 'highlight', '|',
-                    'pageBreak', 'removeFormat', 'selectAll', '|',
-                    'link', 'specialCharacters', 'insertTable', 'mediaEmbed', 'horizontalLine', 'code', 'codeBlock', '|',
-                    'undo',
-                    'redo'
-                  ],
-                  table: {
-                    contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
-                  },
-                  shouldNotGroupWhenFull: true
-                }
-              }
             }
             fieldsData[field.name] = field.value || ''
             break
