@@ -1207,7 +1207,7 @@ export default {
       return result
     },
     // Get data for fields of form.
-    getFormData(document, configCKEditor) {
+    getFormData(document, configCKEditor = {}) {
       const vMenu = {}
       const fieldsData = {}
       const dynamicSelectionDialog = {}
