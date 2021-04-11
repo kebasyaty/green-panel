@@ -1207,7 +1207,7 @@ export default {
       return result
     },
     // Get data for fields of form.
-    getFormData(document, configCKEditor = {}) {
+    getFormData(document, configCKEditor) {
       const vMenu = {}
       const fieldsData = {}
       const dynamicSelectionDialog = {}
@@ -1613,7 +1613,7 @@ export default {
                     this.currValDynItem = { title: null, value: null }
                     this.fieldsData = {}
                     this.fields = []
-                    this.getFormData(document)
+                    this.getFormData(document, data.config_ckeditor.length > 0 ? JSON.parse(data.config_ckeditor) : {})
                     this.reload()
                     break
                   case 'save_and_new':
@@ -1685,7 +1685,7 @@ export default {
             this.getBreadcrumbs()
             if (data.document.length > 0) {
               const document = JSON.parse(data.document)
-              this.getFormData(document)
+              this.getFormData(document, data.config_ckeditor.length > 0 ? JSON.parse(data.config_ckeditor) : {})
             }
           } else {
             console.log(data.msg_err)
