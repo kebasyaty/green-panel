@@ -27,7 +27,9 @@ export default {
     state.serviceList = payload
   },
   setConfigEditor(state, payload) {
-    state.configEditor = payload
+    if (payload instanceof Object) {
+      state.configEditor = payload
+    }
   },
   setShowErrMsg(state, payload) {
     state.showErrMsg = payload

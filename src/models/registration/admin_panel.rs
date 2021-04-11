@@ -13,13 +13,15 @@ use crate::models::services::admin::users;
 // ( field_name - only text field )
 pub fn service_list() -> Value {
     json!([
-            // Users
+            // Admin
             {
                 "service": { "title": "Users", "icon": "account-multiple" },
                 "collections": [
+                    // Users
                     { "title": "Users",
                       "model_key": users::User::key(),
                       "doc_name": { "field": "username", "title": "Nickname" } },
+                   // Other collection
                 ]
             },
             // Other service
