@@ -60,6 +60,7 @@ pub fn config_ckeditor(config_name: &str) -> Value {
                 }
             })
         }
+        // Error
         _ => panic!(
             "CKEditor - Configuration name `{}` does not match.",
             config_name
