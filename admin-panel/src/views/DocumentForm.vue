@@ -1291,8 +1291,10 @@ export default {
                 CodeBlockPlugin
               ]
             }
-            for (const [key, value] of Object.entries(configCKEditor)) {
-              configCKEditor[key] = value
+            if (Object.keys(configCKEditor).length > 0) {
+              for (const [key, value] of Object.entries(configCKEditor)) {
+                configCKEditor[key] = value
+              }
             }
             fieldsData[field.name] = field.value || ''
             break
