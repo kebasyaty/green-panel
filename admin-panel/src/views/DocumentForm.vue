@@ -968,6 +968,7 @@ import PasteFromOfficePlugin from '@ckeditor/ckeditor5-paste-from-office/src/pas
 import ClipboardPlugin from '@ckeditor/ckeditor5-clipboard/src/clipboard'
 import EasyImagePlugin from '@ckeditor/ckeditor5-easy-image/src/easyimage'
 import ImagePlugin from '@ckeditor/ckeditor5-image/src/image'
+import ImageUploadPlugin from '@ckeditor/ckeditor5-image/src/imageupload'
 import Base64UploadAdapterPlugin from '@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter'
 
 export default {
@@ -1315,6 +1316,7 @@ export default {
                 ClipboardPlugin,
                 EasyImagePlugin,
                 ImagePlugin,
+                ImageUploadPlugin,
                 Base64UploadAdapterPlugin
               ]
             }
