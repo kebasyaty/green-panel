@@ -959,6 +959,8 @@ import SpecialCharactersPlugin from '@ckeditor/ckeditor5-special-characters/src/
 import SpecialCharactersEssentialsPlugin from '@ckeditor/ckeditor5-special-characters/src/specialcharactersessentials'
 import TablePlugin from '@ckeditor/ckeditor5-table/src/table'
 import TableToolbarPlugin from '@ckeditor/ckeditor5-table/src/tabletoolbar'
+import TablePropertiesPlugin from '@ckeditor/ckeditor5-table/src/tableproperties'
+import TableCellPropertiesPlugin from '@ckeditor/ckeditor5-table/src/tablecellproperties'
 import WordCountPlugin from '@ckeditor/ckeditor5-word-count/src/wordcount'
 import CodePlugin from '@ckeditor/ckeditor5-basic-styles/src/code'
 import CodeBlockPlugin from '@ckeditor/ckeditor5-code-block/src/codeblock'
@@ -1259,7 +1261,10 @@ export default {
                       'redo'
                     ],
                     table: {
-                      contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+                      contentToolbar: [
+                        'tableColumn', 'tableRow', 'mergeTableCells',
+                        'tableProperties', 'tableCellProperties'
+                      ]
                     },
                     shouldNotGroupWhenFull: true
                   }
@@ -1295,6 +1300,8 @@ export default {
                 SpecialCharactersEssentialsPlugin,
                 TablePlugin,
                 TableToolbarPlugin,
+                TablePropertiesPlugin,
+                TableCellPropertiesPlugin,
                 WordCountPlugin,
                 CodePlugin,
                 CodeBlockPlugin
