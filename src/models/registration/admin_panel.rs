@@ -49,12 +49,16 @@ pub fn config_ckeditor(config_name: &str) -> Value {
                         "outdent", "indent", "|",
                         "blockQuote", "highlight", "|",
                         "pageBreak", "removeFormat", "selectAll", "|",
-                        "link", "specialCharacters", "insertTable", "mediaEmbed", "horizontalLine", "code", "codeBlock", "|",
+                        "link", "specialCharacters", "insertTable", "mediaEmbed",
+                        "horizontalLine", "code", "codeBlock", "|",
                         "undo",
                         "redo"
                     ],
                     "table": {
-                        "contentToolbar": ["tableColumn", "tableRow", "mergeTableCells"]
+                        "contentToolbar": [
+                            "tableColumn", "tableRow", "mergeTableCells",
+                            "tableProperties", "tableCellProperties"
+                        ]
                     },
                     "shouldNotGroupWhenFull": true
                 }
