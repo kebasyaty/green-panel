@@ -110,7 +110,8 @@ pub struct User {
     #[field_attrs(
         widget = "textArea",
         label = "Test field",
-        hint = "Setting up a text editor"
+        hint = "Setting up a text editor",
+        css_classes = "ckeditor"
     )]
     pub text: Option<String>,
 }
