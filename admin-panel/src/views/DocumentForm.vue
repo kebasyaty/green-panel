@@ -981,43 +981,8 @@ export default {
     currValDynItem: { title: null, value: null },
     maxTotalFormSize: 16384, // 16384 = ~16 Kb (default data size for the form),
     render: true,
-    isUseCkeditor: false,
     classicCKEditor: ClassicCKEditor,
     configCKEditor: {
-      plugins: [
-        EssentialsPlugin,
-        BoldPlugin,
-        ItalicPlugin,
-        UnderlinePlugin,
-        StrikethroughPlugin,
-        SubscriptPlugin,
-        SuperscriptPlugin,
-        LinkPlugin,
-        ParagraphPlugin,
-        AutoformatPlugin,
-        BlockQuotePlugin,
-        HeadingPlugin,
-        ListPlugin,
-        TodoListPlugin,
-        AlignmentPlugin,
-        FontPlugin,
-        HighlightPlugin,
-        HorizontalLinePlugin,
-        IndentPlugin,
-        IndentBlockPlugin,
-        TextPartLanguagePlugin,
-        MediaEmbedPlugin,
-        PageBreakPlugin,
-        RemoveFormatPlugin,
-        SelectAllPlugin,
-        SpecialCharactersPlugin,
-        SpecialCharactersEssentialsPlugin,
-        TablePlugin,
-        TableToolbarPlugin,
-        WordCountPlugin,
-        CodePlugin,
-        CodeBlockPlugin
-      ],
       toolbar: {
         items: [
           'heading', '|',
@@ -1265,10 +1230,11 @@ export default {
       return result
     },
     // Get data for fields of form.
-    getFormData(document) {
+    getFormData(document, configCKEditor) {
       const vMenu = {}
       const fieldsData = {}
       const dynamicSelectionDialog = {}
+      let isUseCkeditor = false
       const re = /<br>/g
 
       document.forEach(field => {
@@ -1288,8 +1254,45 @@ export default {
             fieldsData[field.name] = field.value || ''
             break
           case 'textArea':
-            if (!this.isUseCkeditor && field.css_classes.includes('ckeditor')) {
-              this.isUseCkeditor = true
+            if (!isUseCkeditor && field.css_classes.includes('ckeditor')) {
+              isUseCkeditor = true
+              this.configCKEditor.plugins = [
+                EssentialsPlugin,
+                BoldPlugin,
+                ItalicPlugin,
+                UnderlinePlugin,
+                StrikethroughPlugin,
+                SubscriptPlugin,
+                SuperscriptPlugin,
+                LinkPlugin,
+                ParagraphPlugin,
+                AutoformatPlugin,
+                BlockQuotePlugin,
+                HeadingPlugin,
+                ListPlugin,
+                TodoListPlugin,
+                AlignmentPlugin,
+                FontPlugin,
+                HighlightPlugin,
+                HorizontalLinePlugin,
+                IndentPlugin,
+                IndentBlockPlugin,
+                TextPartLanguagePlugin,
+                MediaEmbedPlugin,
+                PageBreakPlugin,
+                RemoveFormatPlugin,
+                SelectAllPlugin,
+                SpecialCharactersPlugin,
+                SpecialCharactersEssentialsPlugin,
+                TablePlugin,
+                TableToolbarPlugin,
+                WordCountPlugin,
+                CodePlugin,
+                CodeBlockPlugin
+              ]
+            }
+            for (const [key, value] of Object.entries(configCKEditor)) {
+              configCKEditor[key] = value
             }
             fieldsData[field.name] = field.value || ''
             break
