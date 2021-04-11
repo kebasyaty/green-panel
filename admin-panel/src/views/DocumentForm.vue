@@ -933,6 +933,10 @@ import ClassicCKEditor from '@ckeditor/ckeditor5-editor-classic/src/classicedito
 import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials'
 import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold'
 import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic'
+import UnderlinePlugin from '@ckeditor/ckeditor5-basic-styles/src/underline'
+import StrikethroughPlugin from '@ckeditor/ckeditor5-basic-styles/src/strikethrough'
+import SubscriptPlugin from '@ckeditor/ckeditor5-basic-styles/src/subscript'
+import SuperscriptPlugin from '@ckeditor/ckeditor5-basic-styles/src/superscript'
 import LinkPlugin from '@ckeditor/ckeditor5-link/src/link'
 import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph'
 import AutoformatPlugin from '@ckeditor/ckeditor5-autoformat/src/autoformat'
@@ -956,6 +960,7 @@ import SpecialCharactersEssentialsPlugin from '@ckeditor/ckeditor5-special-chara
 import TablePlugin from '@ckeditor/ckeditor5-table/src/table'
 import TableToolbarPlugin from '@ckeditor/ckeditor5-table/src/tabletoolbar'
 import WordCountPlugin from '@ckeditor/ckeditor5-word-count/src/wordcount'
+import CodePlugin from '@ckeditor/ckeditor5-basic-styles/src/code'
 import CodeBlockPlugin from '@ckeditor/ckeditor5-code-block/src/codeblock'
 
 export default {
@@ -982,6 +987,10 @@ export default {
         EssentialsPlugin,
         BoldPlugin,
         ItalicPlugin,
+        UnderlinePlugin,
+        StrikethroughPlugin,
+        SubscriptPlugin,
+        SuperscriptPlugin,
         LinkPlugin,
         ParagraphPlugin,
         AutoformatPlugin,
@@ -1005,6 +1014,7 @@ export default {
         TablePlugin,
         TableToolbarPlugin,
         WordCountPlugin,
+        CodePlugin,
         CodeBlockPlugin
       ],
       toolbar: {
@@ -1012,14 +1022,15 @@ export default {
           'heading', '|',
           'textPartLanguage', '|',
           'alignment', '|',
-          'bold', 'italic', '|',
+          'bold', 'italic', 'underline', 'strikethrough', '|',
+          'subscript', 'superscript', '|',
           'fontColor', 'fontBackgroundColor', 'fontFamily', '|',
           'bulletedList', 'numberedList', 'todoList', '|',
           '-',
           'outdent', 'indent', '|',
           'blockQuote', 'highlight', '|',
           'pageBreak', 'removeFormat', 'selectAll', '|',
-          'link', 'specialCharacters', 'insertTable', 'mediaEmbed', 'horizontalLine', 'codeBlock', '|',
+          'link', 'specialCharacters', 'insertTable', 'mediaEmbed', 'horizontalLine', 'code', 'codeBlock', '|',
           'undo',
           'redo'
         ],
