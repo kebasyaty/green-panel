@@ -980,7 +980,7 @@ export default {
     maxTotalFormSize: 16384, // 16384 = ~16 Kb (default data size for the form),
     render: true,
     isUseCkeditor: false,
-    classicCKEditor: null,
+    classicCKEditor: ClassicCKEditor,
     configCKEditor: {}
   }),
 
@@ -1232,7 +1232,7 @@ export default {
           case 'textArea':
             if (!this.isUseCkeditor && field.css_classes.includes('ckeditor')) {
               this.isUseCkeditor = true
-              this.classicCKEditor = ClassicCKEditor
+              // this.classicCKEditor = ClassicCKEditor
               if (Object.keys(this.configEditor).length > 0) {
                 for (const [key, value] of Object.entries(this.configEditor)) {
                   this.configCKEditor[key] = value
