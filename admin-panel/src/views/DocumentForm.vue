@@ -980,8 +980,7 @@ export default {
     maxTotalFormSize: 16384, // 16384 = ~16 Kb (default data size for the form),
     render: true,
     isUseCkeditor: false,
-    classicCKEditor: null,
-    configCKEditor: {}
+    classicCKEditor: null
   }),
 
   computed: {
@@ -996,7 +995,8 @@ export default {
 
   methods: {
     ...mapMutations([
-      'setIsAuthenticated'
+      'setIsAuthenticated',
+      'configCKEditor'
     ]),
     ...mapMutations('popUpMsgs', [
       'setShowMsg'
