@@ -420,7 +420,6 @@
                     :editor="classicCKEditor"
                     v-model="fieldsData[field.name]"
                     :config="configCKEditor"
-                    tag-name="textarea"
                     :disabled="field.disabled"
                   ></ckeditor>
                   <v-textarea
@@ -927,7 +926,6 @@
 import { mapState, mapMutations, mapActions } from 'vuex'
 
 // CKEditor 5
-import CKEditor from '@ckeditor/ckeditor5-vue2'
 import ClassicCKEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
 // Plugins
 import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials'
@@ -969,10 +967,6 @@ import ClipboardPlugin from '@ckeditor/ckeditor5-clipboard/src/clipboard'
 
 export default {
   name: 'DocumentForm',
-
-  components: {
-    ckeditor: CKEditor.component
-  },
 
   data: () => ({
     docTitle: '...',
