@@ -986,7 +986,7 @@ export default {
   computed: {
     ...mapState([
       'serviceList',
-      'configEditor'
+      'configCKEditor'
     ]),
     ...mapState('documentList', [
       'documents'
@@ -995,8 +995,7 @@ export default {
 
   methods: {
     ...mapMutations([
-      'setIsAuthenticated',
-      'configCKEditor'
+      'setIsAuthenticated'
     ]),
     ...mapMutations('popUpMsgs', [
       'setShowMsg'
