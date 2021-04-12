@@ -1232,6 +1232,7 @@ export default {
           case 'textArea':
             if (!this.isUseCkeditor && field.css_classes.includes('ckeditor')) {
               this.isUseCkeditor = true
+              this.configEditor = this.configCKEditor
               this.configEditor.plugins = [
                 EssentialsPlugin,
                 BoldPlugin,
@@ -1270,7 +1271,6 @@ export default {
                 PasteFromOfficePlugin,
                 ClipboardPlugin
               ]
-              this.configEditor = this.configCKEditor
             }
             fieldsData[field.name] = field.value || ''
             break
