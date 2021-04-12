@@ -36,23 +36,26 @@ pub fn config_ckeditor(config_name: &str) -> Value {
         // By default.
         "default" => {
             json!({
-                "toolbar": [
-                    "heading", "|",
-                    "textPartLanguage", "|",
-                    "alignment", "|",
-                    "bold", "italic", "underline", "strikethrough", "|",
-                    "subscript", "superscript", "|",
-                    "fontColor", "fontBackgroundColor", "fontFamily", "fontsize", "|",
-                    "bulletedList", "numberedList", "todoList", "|",
-                    "-",
-                    "outdent", "indent", "|",
-                    "blockQuote", "highlight", "|",
-                    "pageBreak", "removeFormat", "selectAll", "|",
-                    "link", "specialCharacters", "insertTable", "mediaEmbed",
-                    "horizontalLine", "code", "codeBlock", "|",
-                    "undo",
-                    "redo"
-                ],
+                "toolbar": {
+                    "items": [
+                        "heading", "|",
+                        "textPartLanguage", "|",
+                        "alignment", "|",
+                        "bold", "italic", "underline", "strikethrough", "|",
+                        "subscript", "superscript", "|",
+                        "fontColor", "fontBackgroundColor", "fontFamily", "fontsize", "|",
+                        "bulletedList", "numberedList", "todoList", "|",
+                        "-",
+                        "outdent", "indent", "|",
+                        "blockQuote", "highlight", "|",
+                        "pageBreak", "removeFormat", "selectAll", "|",
+                        "link", "specialCharacters", "insertTable", "mediaEmbed",
+                        "horizontalLine", "code", "codeBlock", "|",
+                        "undo",
+                        "redo"
+                    ],
+                    "shouldNotGroupWhenFull": true
+                },
                 "table": {
                     "contentToolbar": [
                         "tableColumn", "tableRow", "mergeTableCells",
@@ -60,8 +63,7 @@ pub fn config_ckeditor(config_name: &str) -> Value {
                     ],
                     "tableProperties": {},
                     "tableCellProperties": {}
-                },
-                "shouldNotGroupWhenFull": true
+                }
             })
         }
         // Error
