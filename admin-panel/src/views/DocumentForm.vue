@@ -980,14 +980,13 @@ export default {
     maxTotalFormSize: 16384, // 16384 = ~16 Kb (default data size for the form),
     render: true,
     isUseCkeditor: false,
-    classicCKEditor,
-    configCKEditor: {}
+    classicCKEditor
   }),
 
   computed: {
     ...mapState([
       'serviceList',
-      'configEditor'
+      'configCKEditor'
     ]),
     ...mapState('documentList', [
       'documents'
@@ -1232,41 +1231,6 @@ export default {
           case 'textArea':
             if (!this.isUseCkeditor && field.css_classes.includes('ckeditor')) {
               this.isUseCkeditor = true
-              // this.classicCKEditor = ClassicCKEditor
-              if (Object.keys(this.configEditor).length > 0) {
-                for (const [key, value] of Object.entries(this.configEditor)) {
-                  this.configCKEditor[key] = value
-                }
-              } else {
-                this.configCKEditor = {
-                  toolbar: [
-                    'heading', '|',
-                    'textPartLanguage', '|',
-                    'alignment', '|',
-                    'bold', 'italic', 'underline', 'strikethrough', '|',
-                    'subscript', 'superscript', '|',
-                    'fontColor', 'fontBackgroundColor', 'fontFamily', 'fontsize', '|',
-                    'bulletedList', 'numberedList', 'todoList', '|',
-                    '-',
-                    'outdent', 'indent', '|',
-                    'blockQuote', 'highlight', '|',
-                    'pageBreak', 'removeFormat', 'selectAll', '|',
-                    'link', 'specialCharacters', 'insertTable', 'mediaEmbed',
-                    'horizontalLine', 'code', 'codeBlock', '|',
-                    'undo',
-                    'redo'
-                  ],
-                  table: {
-                    contentToolbar: [
-                      'tableColumn', 'tableRow', 'mergeTableCells',
-                      'tableProperties', 'tableCellProperties'
-                    ],
-                    tableProperties: {},
-                    tableCellProperties: {}
-                  },
-                  shouldNotGroupWhenFull: true
-                }
-              }
               this.configCKEditor.plugins = [
                 EssentialsPlugin,
                 BoldPlugin,
