@@ -25,7 +25,7 @@ export default new Vuex.Store({
     // Hint: For menu admin panel.
     serviceList: [],
     // CKeditor configuration.
-    configCKEditor: {}
+    configEditor: {}
   },
 
   mutations,
