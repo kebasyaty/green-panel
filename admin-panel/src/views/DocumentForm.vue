@@ -1239,32 +1239,32 @@ export default {
                 }
               } else {
                 this.configCKEditor = {
-                  toolbar: {
-                    items: [
-                      'heading', '|',
-                      'textPartLanguage', '|',
-                      'alignment', '|',
-                      'bold', 'italic', 'underline', 'strikethrough', '|',
-                      'subscript', 'superscript', '|',
-                      'fontColor', 'fontBackgroundColor', 'fontFamily', 'fontsize', '|',
-                      'bulletedList', 'numberedList', 'todoList', '|',
-                      '-',
-                      'outdent', 'indent', '|',
-                      'blockQuote', 'highlight', '|',
-                      'pageBreak', 'removeFormat', 'selectAll', '|',
-                      'link', 'specialCharacters', 'insertTable', 'mediaEmbed',
-                      'horizontalLine', 'code', 'codeBlock', '|',
-                      'undo',
-                      'redo'
+                  toolbar: [
+                    'heading', '|',
+                    'textPartLanguage', '|',
+                    'alignment', '|',
+                    'bold', 'italic', 'underline', 'strikethrough', '|',
+                    'subscript', 'superscript', '|',
+                    'fontColor', 'fontBackgroundColor', 'fontFamily', 'fontsize', '|',
+                    'bulletedList', 'numberedList', 'todoList', '|',
+                    '-',
+                    'outdent', 'indent', '|',
+                    'blockQuote', 'highlight', '|',
+                    'pageBreak', 'removeFormat', 'selectAll', '|',
+                    'link', 'specialCharacters', 'insertTable', 'mediaEmbed',
+                    'horizontalLine', 'code', 'codeBlock', '|',
+                    'undo',
+                    'redo'
+                  ],
+                  table: {
+                    contentToolbar: [
+                      'tableColumn', 'tableRow', 'mergeTableCells',
+                      'tableProperties', 'tableCellProperties'
                     ],
-                    table: {
-                      contentToolbar: [
-                        'tableColumn', 'tableRow', 'mergeTableCells',
-                        'tableProperties', 'tableCellProperties'
-                      ]
-                    },
-                    shouldNotGroupWhenFull: true
-                  }
+                    tableProperties: {},
+                    tableCellProperties: {}
+                  },
+                  shouldNotGroupWhenFull: true
                 }
               }
               this.configCKEditor.plugins = [
