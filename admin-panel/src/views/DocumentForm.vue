@@ -928,6 +928,7 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 // CKEditor 5
 import classicCKEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
 // Plugins
+/*
 import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials'
 import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold'
 import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic'
@@ -964,6 +965,7 @@ import CodePlugin from '@ckeditor/ckeditor5-basic-styles/src/code'
 import CodeBlockPlugin from '@ckeditor/ckeditor5-code-block/src/codeblock'
 import PasteFromOfficePlugin from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice'
 import ClipboardPlugin from '@ckeditor/ckeditor5-clipboard/src/clipboard'
+*/
 
 export default {
   name: 'DocumentForm',
@@ -1229,6 +1231,7 @@ export default {
             fieldsData[field.name] = field.value || ''
             break
           case 'textArea':
+            /*
             if (!this.isUseCkeditor && field.css_classes.includes('ckeditor')) {
               this.isUseCkeditor = true
               this.configCKEditor.plugins = [
@@ -1270,6 +1273,7 @@ export default {
                 ClipboardPlugin
               ]
             }
+            */
             fieldsData[field.name] = field.value || ''
             break
           case 'inputColor':
