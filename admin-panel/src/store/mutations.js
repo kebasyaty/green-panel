@@ -26,9 +26,9 @@ export default {
   setServiceList(state, payload) {
     state.serviceList = payload
   },
-  setConfigEditor(state, payload) {
+  setConfigCKEditor(state, payload) {
     if (payload instanceof Object && Object.keys(payload).length > 0) {
-      state.configEditor = payload
+      state.configCKEditor = payload
     } else {
       state.configCKEditor = {
         toolbar: {
