@@ -28,11 +28,9 @@ export default {
   },
   setConfigEditor(state, payload) {
     if (payload instanceof Object && Object.keys(payload).length > 0) {
-      for (const [key, value] of Object.entries(payload)) {
-        state.configEditor[key] = value
-      }
+      state.configEditor = payload
     } else {
-      this.configCKEditor = {
+      state.configCKEditor = {
         toolbar: {
           items: [
             'heading', '|',

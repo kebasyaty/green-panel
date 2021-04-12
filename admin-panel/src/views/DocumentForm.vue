@@ -1233,42 +1233,6 @@ export default {
             if (!this.isUseCkeditor && field.css_classes.includes('ckeditor')) {
               this.isUseCkeditor = true
               this.classicCKEditor = ClassicCKEditor
-              if (Object.keys(this.configEditor).length > 0) {
-                for (const [key, value] of Object.entries(this.configEditor)) {
-                  this.configCKEditor[key] = value
-                }
-              } else {
-                this.configCKEditor = {
-                  toolbar: {
-                    items: [
-                      'heading', '|',
-                      'textPartLanguage', '|',
-                      'alignment', '|',
-                      'bold', 'italic', 'underline', 'strikethrough', '|',
-                      'subscript', 'superscript', '|',
-                      'fontColor', 'fontBackgroundColor', 'fontFamily', 'fontsize', '|',
-                      'bulletedList', 'numberedList', 'todoList', '|',
-                      '-',
-                      'outdent', 'indent', '|',
-                      'blockQuote', 'highlight', '|',
-                      'pageBreak', 'removeFormat', 'selectAll', '|',
-                      'link', 'specialCharacters', 'insertTable', 'mediaEmbed',
-                      'horizontalLine', 'code', 'codeBlock', '|',
-                      'undo',
-                      'redo'
-                    ],
-                    shouldNotGroupWhenFull: true
-                  },
-                  table: {
-                    contentToolbar: [
-                      'tableColumn', 'tableRow', 'mergeTableCells',
-                      'tableProperties', 'tableCellProperties'
-                    ],
-                    tableProperties: {},
-                    tableCellProperties: {}
-                  }
-                }
-              }
               this.configCKEditor.plugins = [
                 EssentialsPlugin,
                 BoldPlugin,
