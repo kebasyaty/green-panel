@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 export default {
   setBrand(state, payload) {
     state.brand = payload
@@ -32,7 +30,6 @@ export default {
     if (payload instanceof Object && Object.keys(payload).length > 0) {
       state.configCKEditor = payload
     }
-    state.configCKEditor.plugins = Vue.$ckeditorPlugins
   },
   setShowErrMsg(state, payload) {
     state.showErrMsg = payload

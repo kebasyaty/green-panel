@@ -58,7 +58,7 @@ pub fn config_ckeditor(config_name: &str) -> Value {
                 },
                 "table": {
                     "contentToolbar": [
-                        "tableColumn", "tableRow", "mergeTableCells"
+                        "tableColumn", "tableRow", "mergeTableCells",
                         "tableProperties", "tableCellProperties"
                     ],
                     "tableProperties": {},

@@ -419,7 +419,7 @@
                     v-if="field.css_classes.includes('ckeditor')"
                     :editor="classicCKEditor"
                     v-model="fieldsData[field.name]"
-                    :config="configCKEditor"
+                    :config="configEditor"
                     :disabled="field.disabled"
                   ></ckeditor>
                   <v-textarea
@@ -928,7 +928,6 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 // CKEditor 5
 import classicCKEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
 // Plugins
-/*
 import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials'
 import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold'
 import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic'
@@ -965,7 +964,6 @@ import CodePlugin from '@ckeditor/ckeditor5-basic-styles/src/code'
 import CodeBlockPlugin from '@ckeditor/ckeditor5-code-block/src/codeblock'
 import PasteFromOfficePlugin from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice'
 import ClipboardPlugin from '@ckeditor/ckeditor5-clipboard/src/clipboard'
-*/
 
 export default {
   name: 'DocumentForm',
@@ -982,7 +980,8 @@ export default {
     maxTotalFormSize: 16384, // 16384 = ~16 Kb (default data size for the form),
     render: true,
     isUseCkeditor: false,
-    classicCKEditor
+    classicCKEditor,
+    configEditor: {}
   }),
 
   computed: {
@@ -1231,10 +1230,9 @@ export default {
             fieldsData[field.name] = field.value || ''
             break
           case 'textArea':
-            /*
             if (!this.isUseCkeditor && field.css_classes.includes('ckeditor')) {
               this.isUseCkeditor = true
-              this.configCKEditor.plugins = [
+              this.configEditor.plugins = [
                 EssentialsPlugin,
                 BoldPlugin,
                 ItalicPlugin,
@@ -1272,8 +1270,8 @@ export default {
                 PasteFromOfficePlugin,
                 ClipboardPlugin
               ]
+              this.configEditor = this.configCKEditor
             }
-            */
             fieldsData[field.name] = field.value || ''
             break
           case 'inputColor':
