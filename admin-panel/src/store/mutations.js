@@ -27,8 +27,41 @@ export default {
     state.serviceList = payload
   },
   setConfigEditor(state, payload) {
-    if (payload instanceof Object) {
-      state.configEditor = payload
+    if (payload instanceof Object && Object.keys(payload).length > 0) {
+      for (const [key, value] of Object.entries(payload)) {
+        state.configEditor[key] = value
+      }
+    } else {
+      this.configCKEditor = {
+        toolbar: {
+          items: [
+            'heading', '|',
+            'textPartLanguage', '|',
+            'alignment', '|',
+            'bold', 'italic', 'underline', 'strikethrough', '|',
+            'subscript', 'superscript', '|',
+            'fontColor', 'fontBackgroundColor', 'fontFamily', 'fontsize', '|',
+            'bulletedList', 'numberedList', 'todoList', '|',
+            '-',
+            'outdent', 'indent', '|',
+            'blockQuote', 'highlight', '|',
+            'pageBreak', 'removeFormat', 'selectAll', '|',
+            'link', 'specialCharacters', 'insertTable', 'mediaEmbed',
+            'horizontalLine', 'code', 'codeBlock', '|',
+            'undo',
+            'redo'
+          ],
+          shouldNotGroupWhenFull: true
+        },
+        table: {
+          contentToolbar: [
+            'tableColumn', 'tableRow', 'mergeTableCells',
+            'tableProperties', 'tableCellProperties'
+          ],
+          tableProperties: {},
+          tableCellProperties: {}
+        }
+      }
     }
   },
   setShowErrMsg(state, payload) {
