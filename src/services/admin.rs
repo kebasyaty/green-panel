@@ -25,6 +25,7 @@ use crate::settings;
 
 const BRAND: &str = "Сompany Name";
 const SLOGAN: &str = "Brief description of the company.";
+const LANGUAGE_CODE: &str = "ru";
 
 fn admin_file_path(inner_path: &str) -> String {
     format!("./admin/{}", inner_path)
@@ -193,7 +194,7 @@ pub mod request_handlers {
                 "is_authenticated": is_authenticated,
                 "brand": BRAND,
                 "slogan": SLOGAN,
-                "language_code": "en",
+                "language_code": LANGUAGE_CODE,
                 "service_list": admin_panel::service_list(),
                 "config_ckeditor": admin_panel::config_ckeditor("default"),
                 "msg_err": msg_err
