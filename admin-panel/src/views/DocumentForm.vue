@@ -964,8 +964,6 @@ import CodePlugin from '@ckeditor/ckeditor5-basic-styles/src/code'
 import CodeBlockPlugin from '@ckeditor/ckeditor5-code-block/src/codeblock'
 import PasteFromOfficePlugin from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice'
 import ClipboardPlugin from '@ckeditor/ckeditor5-clipboard/src/clipboard'
-// Translations
-// import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
 
 export default {
   name: 'DocumentForm',
