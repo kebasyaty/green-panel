@@ -54,7 +54,7 @@ export default {
         } else {
           this.setSelectedService([])
           this.setServiceList([])
-          this.setConfigCKEditor({})
+          this.addConfigCKEditor({})
           this.$session.destroy()
           this.$router.push('/sign-in')
         }
@@ -72,8 +72,10 @@ export default {
       'setUsername',
       'setIsAuthenticated',
       'setSelectedService',
-      'setServiceList',
-      'setConfigCKEditor'
+      'setServiceList'
+    ]),
+    ...mapActions([
+      'addConfigCKEditor'
     ]),
     ...mapActions('popUpMsgs', [
       'runShowMsg'
@@ -94,7 +96,7 @@ export default {
               }
               this.setSelectedService(selectedServiceList)
               this.setServiceList(data.service_list)
-              this.setConfigCKEditor(data.config_ckeditor)
+              this.addConfigCKEditor(data.config_ckeditor, this.$i18n.locale)
             } else {
               console.log('No data available')
               this.runShowMsg({ text: 'No data available', status: 'warning' })
@@ -120,7 +122,7 @@ export default {
       this.setUsername('..')
       this.setSelectedService([])
       this.setServiceList([])
-      this.setConfigCKEditor({})
+      this.addConfigCKEditor({})
     }
   }
 }

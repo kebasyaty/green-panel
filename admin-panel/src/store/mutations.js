@@ -27,9 +27,7 @@ export default {
     state.serviceList = payload
   },
   setConfigCKEditor(state, payload) {
-    if (payload instanceof Object && Object.keys(payload).length > 0) {
-      state.configCKEditor = payload
-    }
+    state.configCKEditor = payload
   },
   setShowErrMsg(state, payload) {
     state.showErrMsg = payload

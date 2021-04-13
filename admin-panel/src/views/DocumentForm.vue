@@ -1233,7 +1233,6 @@ export default {
             if (!this.isUseCkeditor && field.css_classes.includes('ckeditor')) {
               this.isUseCkeditor = true
               this.configEditor = this.configCKEditor
-              this.configEditor.language = this.$i18n.locale
               this.configEditor.plugins = [
                 EssentialsPlugin,
                 BoldPlugin,
