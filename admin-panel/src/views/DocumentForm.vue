@@ -980,75 +980,8 @@ export default {
     maxTotalFormSize: 16384, // 16384 = ~16 Kb (default data size for the form),
     render: true,
     isUseCkeditor: false,
-    classicCKEditor: ClassicCKEditor,
-    configEditor: {
-      language: 'en',
-      toolbar: {
-        items: [
-          'heading', '|',
-          'textPartLanguage', '|',
-          'alignment', '|',
-          'bold', 'italic', 'underline', 'strikethrough', '|',
-          'subscript', 'superscript', '|',
-          'fontColor', 'fontBackgroundColor', 'fontFamily', 'fontsize', '|',
-          'bulletedList', 'numberedList', 'todoList', '|',
-          'outdent', 'indent', '|',
-          'blockQuote', 'highlight', '|',
-          'pageBreak', 'removeFormat', 'selectAll', '|',
-          'link', 'specialCharacters', 'insertTable', 'mediaEmbed',
-          'horizontalLine', 'code', 'codeBlock', '|',
-          'undo',
-          'redo'
-        ],
-        shouldNotGroupWhenFull: true
-      },
-      table: {
-        contentToolbar: [
-          'tableColumn', 'tableRow', 'mergeTableCells',
-          'tableProperties', 'tableCellProperties'
-        ],
-        tableProperties: {},
-        tableCellProperties: {}
-      },
-      plugins: [
-        EssentialsPlugin,
-        BoldPlugin,
-        ItalicPlugin,
-        UnderlinePlugin,
-        StrikethroughPlugin,
-        SubscriptPlugin,
-        SuperscriptPlugin,
-        LinkPlugin,
-        ParagraphPlugin,
-        AutoformatPlugin,
-        BlockQuotePlugin,
-        HeadingPlugin,
-        ListPlugin,
-        TodoListPlugin,
-        AlignmentPlugin,
-        FontPlugin,
-        HighlightPlugin,
-        HorizontalLinePlugin,
-        IndentPlugin,
-        IndentBlockPlugin,
-        TextPartLanguagePlugin,
-        MediaEmbedPlugin,
-        PageBreakPlugin,
-        RemoveFormatPlugin,
-        SelectAllPlugin,
-        SpecialCharactersPlugin,
-        SpecialCharactersEssentialsPlugin,
-        TablePlugin,
-        TableToolbarPlugin,
-        TablePropertiesPlugin,
-        TableCellPropertiesPlugin,
-        WordCountPlugin,
-        CodePlugin,
-        CodeBlockPlugin,
-        PasteFromOfficePlugin,
-        ClipboardPlugin
-      ]
-    }
+    classicCKEditor: null,
+    configEditor: {}
   }),
 
   computed: {
@@ -1297,7 +1230,6 @@ export default {
             fieldsData[field.name] = field.value || ''
             break
           case 'textArea':
-            /*
             if (!this.isUseCkeditor && field.css_classes.includes('ckeditor')) {
               this.isUseCkeditor = true
               this.classicCKEditor = ClassicCKEditor
@@ -1342,7 +1274,6 @@ export default {
                 ClipboardPlugin
               ]
             }
-            */
             fieldsData[field.name] = field.value || ''
             break
           case 'inputColor':
