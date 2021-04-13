@@ -26,7 +26,7 @@ Vue.use(CKEditor)
 
 // Create VueI18n instance with options.
 const i18n = new VueI18n({
-  locale: 'en',
+  locale: window.navigator.language.slice(0, 2).toLowerCase(),
   fallbackLocale: 'en',
   messages
 })
