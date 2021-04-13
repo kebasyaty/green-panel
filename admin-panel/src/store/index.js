@@ -27,23 +27,25 @@ export default new Vuex.Store({
     // CKeditor configuration.
     configCKEditor: {
       language: 'en',
-      toolbar: [
-        'heading', '|',
-        'textPartLanguage', '|',
-        'alignment', '|',
-        'bold', 'italic', 'underline', 'strikethrough', '|',
-        'subscript', 'superscript', '|',
-        'fontColor', 'fontBackgroundColor', 'fontFamily', 'fontsize', '|',
-        'bulletedList', 'numberedList', 'todoList', '|',
-        '-',
-        'outdent', 'indent', '|',
-        'blockQuote', 'highlight', '|',
-        'pageBreak', 'removeFormat', 'selectAll', '|',
-        'link', 'specialCharacters', 'insertTable', 'mediaEmbed',
-        'horizontalLine', 'code', 'codeBlock', '|',
-        'undo',
-        'redo'
-      ],
+      toolbar: {
+        items: [
+          'heading', '|',
+          'textPartLanguage', '|',
+          'alignment', '|',
+          'bold', 'italic', 'underline', 'strikethrough', '|',
+          'subscript', 'superscript', '|',
+          'fontColor', 'fontBackgroundColor', 'fontFamily', 'fontsize', '|',
+          'bulletedList', 'numberedList', 'todoList', '|',
+          'outdent', 'indent', '|',
+          'blockQuote', 'highlight', '|',
+          'pageBreak', 'removeFormat', 'selectAll', '|',
+          'link', 'specialCharacters', 'insertTable', 'mediaEmbed',
+          'horizontalLine', 'code', 'codeBlock', '|',
+          'undo',
+          'redo'
+        ],
+        shouldNotGroupWhenFull: true
+      },
       table: {
         contentToolbar: [
           'tableColumn', 'tableRow', 'mergeTableCells',
@@ -51,8 +53,7 @@ export default new Vuex.Store({
         ],
         tableProperties: {},
         tableCellProperties: {}
-      },
-      shouldNotGroupWhenFull: true
+      }
     }
   },
 

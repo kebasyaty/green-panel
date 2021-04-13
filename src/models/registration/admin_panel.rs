@@ -45,7 +45,6 @@ pub fn config_ckeditor(config_name: &str) -> Value {
                         "subscript", "superscript", "|",
                         "fontColor", "fontBackgroundColor", "fontFamily", "fontsize", "|",
                         "bulletedList", "numberedList", "todoList", "|",
-                        "-",
                         "outdent", "indent", "|",
                         "blockQuote", "highlight", "|",
                         "pageBreak", "removeFormat", "selectAll", "|",
