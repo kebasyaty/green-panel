@@ -1,8 +1,7 @@
 export default {
-  addConfigCKEditor({ commit }, config, lang = 'en') {
-    if (config instanceof Object && Object.keys(config).length > 0) {
-      config.language = lang
-      commit('setConfigCKEditor', config)
+  addConfigCKEditor({ commit }, payload) {
+    if (payload instanceof Object && Object.keys(payload).length > 0) {
+      commit('setConfigCKEditor', payload)
     }
   }
 }
