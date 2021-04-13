@@ -983,74 +983,7 @@ export default {
     render: true,
     isUseCkeditor: false,
     classicCKEditor,
-    configEditor: {
-      language: 'en',
-      toolbar: {
-        items: [
-          'heading', '|',
-          'textPartLanguage', '|',
-          'alignment', '|',
-          'bold', 'italic', 'underline', 'strikethrough', '|',
-          'subscript', 'superscript', '|',
-          'fontColor', 'fontBackgroundColor', 'fontFamily', 'fontsize', '|',
-          'bulletedList', 'numberedList', 'todoList', '|',
-          'outdent', 'indent', '|',
-          'blockQuote', 'highlight', '|',
-          'pageBreak', 'removeFormat', 'selectAll', '|',
-          'link', 'specialCharacters', 'insertTable', 'mediaEmbed',
-          'horizontalLine', 'code', 'codeBlock', '|',
-          'undo',
-          'redo'
-        ],
-        shouldNotGroupWhenFull: true
-      },
-      table: {
-        contentToolbar: [
-          'tableColumn', 'tableRow', 'mergeTableCells',
-          'tableProperties', 'tableCellProperties'
-        ],
-        tableProperties: {},
-        tableCellProperties: {}
-      },
-      plugins: [
-        EssentialsPlugin,
-        BoldPlugin,
-        ItalicPlugin,
-        UnderlinePlugin,
-        StrikethroughPlugin,
-        SubscriptPlugin,
-        SuperscriptPlugin,
-        LinkPlugin,
-        ParagraphPlugin,
-        AutoformatPlugin,
-        BlockQuotePlugin,
-        HeadingPlugin,
-        ListPlugin,
-        TodoListPlugin,
-        AlignmentPlugin,
-        FontPlugin,
-        HighlightPlugin,
-        HorizontalLinePlugin,
-        IndentPlugin,
-        IndentBlockPlugin,
-        TextPartLanguagePlugin,
-        MediaEmbedPlugin,
-        PageBreakPlugin,
-        RemoveFormatPlugin,
-        SelectAllPlugin,
-        SpecialCharactersPlugin,
-        SpecialCharactersEssentialsPlugin,
-        TablePlugin,
-        TableToolbarPlugin,
-        TablePropertiesPlugin,
-        TableCellPropertiesPlugin,
-        WordCountPlugin,
-        CodePlugin,
-        CodeBlockPlugin,
-        PasteFromOfficePlugin,
-        ClipboardPlugin
-      ]
-    }
+    configEditor: {}
   }),
 
   computed: {
@@ -1301,13 +1234,8 @@ export default {
           case 'textArea':
             if (!this.isUseCkeditor && field.css_classes.includes('ckeditor')) {
               this.isUseCkeditor = true
-              /*
-              if (Object.keys(this.configCKEditor).length > 0) {
-                for (const [key, value] of Object.entries(this.configCKEditor)) {
-                  this.configEditor[key] = value
-                }
-              }
-              this.configEditor.language = 'ru'
+              this.configEditor = this.configCKEditor
+              this.configEditor.language = this.$i18n.locale
               this.configEditor.plugins = [
                 EssentialsPlugin,
                 BoldPlugin,
@@ -1346,7 +1274,6 @@ export default {
                 PasteFromOfficePlugin,
                 ClipboardPlugin
               ]
-              */
             }
             fieldsData[field.name] = field.value || ''
             break
@@ -1906,7 +1833,6 @@ export default {
   },
 
   created() {
-    this.configEditor.language = 'ru'
     // Get document.
     this.getDoc()
   }
