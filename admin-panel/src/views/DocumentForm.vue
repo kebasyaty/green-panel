@@ -982,7 +982,7 @@ export default {
     isUseCkeditor: false,
     classicCKEditor: ClassicCKEditor,
     configEditor: {
-      language: 'ru',
+      language: 'en',
       toolbar: {
         items: [
           'heading', '|',
