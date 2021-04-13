@@ -193,6 +193,7 @@ pub mod request_handlers {
                 "is_authenticated": is_authenticated,
                 "brand": BRAND,
                 "slogan": SLOGAN,
+                "language_code": "en",
                 "service_list": admin_panel::service_list(),
                 "config_ckeditor": admin_panel::config_ckeditor("default"),
                 "msg_err": msg_err
