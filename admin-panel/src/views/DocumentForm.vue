@@ -926,7 +926,7 @@
 import { mapState, mapMutations, mapActions } from 'vuex'
 
 // CKEditor 5
-import ClassicCKEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
+import classicCKEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
 // Plugins
 import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials'
 import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold'
@@ -980,8 +980,37 @@ export default {
     maxTotalFormSize: 16384, // 16384 = ~16 Kb (default data size for the form),
     render: true,
     isUseCkeditor: false,
-    classicCKEditor: null,
-    configEditor: {}
+    classicCKEditor,
+    configEditor: {
+      language: 'en',
+      toolbar: {
+        items: [
+          'heading', '|',
+          'textPartLanguage', '|',
+          'alignment', '|',
+          'bold', 'italic', 'underline', 'strikethrough', '|',
+          'subscript', 'superscript', '|',
+          'fontColor', 'fontBackgroundColor', 'fontFamily', 'fontsize', '|',
+          'bulletedList', 'numberedList', 'todoList', '|',
+          'outdent', 'indent', '|',
+          'blockQuote', 'highlight', '|',
+          'pageBreak', 'removeFormat', 'selectAll', '|',
+          'link', 'specialCharacters', 'insertTable', 'mediaEmbed',
+          'horizontalLine', 'code', 'codeBlock', '|',
+          'undo',
+          'redo'
+        ],
+        shouldNotGroupWhenFull: true
+      },
+      table: {
+        contentToolbar: [
+          'tableColumn', 'tableRow', 'mergeTableCells',
+          'tableProperties', 'tableCellProperties'
+        ],
+        tableProperties: {},
+        tableCellProperties: {}
+      }
+    }
   }),
 
   computed: {
@@ -1232,8 +1261,11 @@ export default {
           case 'textArea':
             if (!this.isUseCkeditor && field.css_classes.includes('ckeditor')) {
               this.isUseCkeditor = true
-              this.classicCKEditor = ClassicCKEditor
-              this.configEditor = JSON.parse(JSON.stringify(this.configCKEditor))
+              if (Object.keys(this.configCKEditor).length > 0) {
+                for (const [key, value] of Object.entries(this.configCKEditor)) {
+                  this.configEditor[key] = value
+                }
+              }
               this.configEditor.language = 'ru'
               this.configEditor.plugins = [
                 EssentialsPlugin,

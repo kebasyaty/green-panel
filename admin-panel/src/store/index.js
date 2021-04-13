@@ -25,36 +25,7 @@ export default new Vuex.Store({
     // Hint: For menu admin panel.
     serviceList: [],
     // CKeditor configuration.
-    configCKEditor: {
-      language: 'en',
-      toolbar: {
-        items: [
-          'heading', '|',
-          'textPartLanguage', '|',
-          'alignment', '|',
-          'bold', 'italic', 'underline', 'strikethrough', '|',
-          'subscript', 'superscript', '|',
-          'fontColor', 'fontBackgroundColor', 'fontFamily', 'fontsize', '|',
-          'bulletedList', 'numberedList', 'todoList', '|',
-          'outdent', 'indent', '|',
-          'blockQuote', 'highlight', '|',
-          'pageBreak', 'removeFormat', 'selectAll', '|',
-          'link', 'specialCharacters', 'insertTable', 'mediaEmbed',
-          'horizontalLine', 'code', 'codeBlock', '|',
-          'undo',
-          'redo'
-        ],
-        shouldNotGroupWhenFull: true
-      },
-      table: {
-        contentToolbar: [
-          'tableColumn', 'tableRow', 'mergeTableCells',
-          'tableProperties', 'tableCellProperties'
-        ],
-        tableProperties: {},
-        tableCellProperties: {}
-      }
-    }
+    configCKEditor: {}
   },
 
   mutations,
