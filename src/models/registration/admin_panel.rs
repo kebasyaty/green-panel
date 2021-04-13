@@ -36,6 +36,7 @@ pub fn config_ckeditor(config_name: &str) -> Value {
         // By default.
         "default" => {
             json!({
+                "language": "en",
                 "toolbar": {
                     "items": [
                         "heading", "|",
