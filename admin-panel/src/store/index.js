@@ -26,6 +26,7 @@ export default new Vuex.Store({
     serviceList: [],
     // CKeditor configuration.
     configCKEditor: {
+      language: 'en',
       toolbar: [
         'heading', '|',
         'textPartLanguage', '|',

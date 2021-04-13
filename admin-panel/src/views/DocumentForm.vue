@@ -926,7 +926,7 @@
 import { mapState, mapMutations, mapActions } from 'vuex'
 
 // CKEditor 5
-import classicCKEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
+import ClassicCKEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
 // Plugins
 import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials'
 import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold'
@@ -980,7 +980,7 @@ export default {
     maxTotalFormSize: 16384, // 16384 = ~16 Kb (default data size for the form),
     render: true,
     isUseCkeditor: false,
-    classicCKEditor,
+    classicCKEditor: null,
     configEditor: {}
   }),
 
@@ -1232,7 +1232,8 @@ export default {
           case 'textArea':
             if (!this.isUseCkeditor && field.css_classes.includes('ckeditor')) {
               this.isUseCkeditor = true
-              this.configEditor = this.configCKEditor
+              this.classicCKEditor = ClassicCKEditor
+              this.configEditor = JSON.parse(JSON.stringify(this.configCKEditor))
               this.configEditor.language = 'ru'
               this.configEditor.plugins = [
                 EssentialsPlugin,
