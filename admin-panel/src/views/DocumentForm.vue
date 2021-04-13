@@ -964,6 +964,8 @@ import CodePlugin from '@ckeditor/ckeditor5-basic-styles/src/code'
 import CodeBlockPlugin from '@ckeditor/ckeditor5-code-block/src/codeblock'
 import PasteFromOfficePlugin from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice'
 import ClipboardPlugin from '@ckeditor/ckeditor5-clipboard/src/clipboard'
+// Translations
+import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
 
 export default {
   name: 'DocumentForm',
@@ -1009,7 +1011,45 @@ export default {
         ],
         tableProperties: {},
         tableCellProperties: {}
-      }
+      },
+      plugins: [
+        EssentialsPlugin,
+        BoldPlugin,
+        ItalicPlugin,
+        UnderlinePlugin,
+        StrikethroughPlugin,
+        SubscriptPlugin,
+        SuperscriptPlugin,
+        LinkPlugin,
+        ParagraphPlugin,
+        AutoformatPlugin,
+        BlockQuotePlugin,
+        HeadingPlugin,
+        ListPlugin,
+        TodoListPlugin,
+        AlignmentPlugin,
+        FontPlugin,
+        HighlightPlugin,
+        HorizontalLinePlugin,
+        IndentPlugin,
+        IndentBlockPlugin,
+        TextPartLanguagePlugin,
+        MediaEmbedPlugin,
+        PageBreakPlugin,
+        RemoveFormatPlugin,
+        SelectAllPlugin,
+        SpecialCharactersPlugin,
+        SpecialCharactersEssentialsPlugin,
+        TablePlugin,
+        TableToolbarPlugin,
+        TablePropertiesPlugin,
+        TableCellPropertiesPlugin,
+        WordCountPlugin,
+        CodePlugin,
+        CodeBlockPlugin,
+        PasteFromOfficePlugin,
+        ClipboardPlugin
+      ]
     }
   }),
 
@@ -1261,6 +1301,7 @@ export default {
           case 'textArea':
             if (!this.isUseCkeditor && field.css_classes.includes('ckeditor')) {
               this.isUseCkeditor = true
+              /*
               if (Object.keys(this.configCKEditor).length > 0) {
                 for (const [key, value] of Object.entries(this.configCKEditor)) {
                   this.configEditor[key] = value
@@ -1305,6 +1346,7 @@ export default {
                 PasteFromOfficePlugin,
                 ClipboardPlugin
               ]
+              */
             }
             fieldsData[field.name] = field.value || ''
             break
@@ -1864,6 +1906,7 @@ export default {
   },
 
   created() {
+    this.configEditor.language = 'ru'
     // Get document.
     this.getDoc()
   }
