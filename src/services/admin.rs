@@ -25,7 +25,7 @@ use crate::settings;
 
 const BRAND: &str = "Сompany Name";
 const SLOGAN: &str = "Brief description of the company.";
-const LANGUAGE_CODE: &str = "fr";
+const LANGUAGE_CODE: &str = "en";
 
 fn admin_file_path(inner_path: &str) -> String {
     format!("./admin/{}", inner_path)
