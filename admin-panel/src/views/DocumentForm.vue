@@ -979,6 +979,7 @@ export default {
     currValDynItem: { title: null, value: null },
     maxTotalFormSize: 16384, // 16384 = ~16 Kb (default data size for the form),
     render: true,
+    isUseCkeditor: false,
     classicCKEditor,
     configEditor: {}
   }),
@@ -1210,7 +1211,6 @@ export default {
       const vMenu = {}
       const fieldsData = {}
       const dynamicSelectionDialog = {}
-      let isUseCkeditor = false
       const re = /<br>/g
 
       document.forEach(field => {
@@ -1230,9 +1230,10 @@ export default {
             fieldsData[field.name] = field.value || ''
             break
           case 'textArea':
-            if (!isUseCkeditor && field.css_classes.includes('ckeditor')) {
-              isUseCkeditor = true
+            if (!this.isUseCkeditor && field.css_classes.includes('ckeditor')) {
+              this.isUseCkeditor = true
               this.configEditor = this.configCKEditor
+              this.configEditor.language = this.$i18n.locale
               this.configEditor.plugins = [
                 EssentialsPlugin,
                 BoldPlugin,

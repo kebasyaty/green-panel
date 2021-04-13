@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 export default {
   setBrand(state, payload) {
     state.brand = payload
@@ -30,7 +28,6 @@ export default {
   },
   setConfigCKEditor(state, payload) {
     if (payload instanceof Object && Object.keys(payload).length > 0) {
-      payload.language = Vue.$i18n.locale
       state.configCKEditor = payload
     }
   },
