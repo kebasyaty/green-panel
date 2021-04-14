@@ -154,12 +154,20 @@ fn custom_color_palette() -> Value {
             "label": "Blue Grey"
         },
         {
+            "color": "#000000",
+            "label": "Black"
+        },
+        {
+            "color": "#424242",
+            "label": "Dim Grey"
+        },
+        {
             "color": "#9E9E9E",
             "label": "Grey"
         },
         {
-            "color": "#000000",
-            "label": "Black"
+            "color": "#E0E0E0",
+            "label": "Light Grey"
         },
         {
             "color": "#FFFFFF",
