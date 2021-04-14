@@ -1552,7 +1552,7 @@ export default {
               if (dataSumSize <= this.maxTotalFormSize) {
                 resolve()
               } else {
-                const msg = `The total data size exceeds the ${this.humanFileSize(this.maxTotalFormSize)} limit.`
+                const msg = `The total size of the form data exceeds the ${this.humanFileSize(this.maxTotalFormSize)} limit.`
                 reject(msg)
               }
             }

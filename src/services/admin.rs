@@ -5,9 +5,10 @@
 use actix_files::Files;
 use actix_files::NamedFile;
 use actix_session::Session;
-use actix_web::{error, web, Error, HttpResponse, Result};
+use actix_web::{web, Error, HttpResponse, Result};
 
 use futures::StreamExt;
+use humansize::{file_size_opts, FileSize};
 use mongodb::{
     bson::{doc, Bson, Regex},
     options::FindOptions,
@@ -422,8 +423,8 @@ pub mod request_handlers {
             let chunk = chunk?;
             if (bytes.len() + chunk.len()) > PAYLOAD_MAX_SIZE {
                 msg_err = format!(
-                    "The total data size exceeds the {} limit.",
-                    PAYLOAD_MAX_SIZE
+                    "The total size of the form data exceeds the {} limit.",
+                    PAYLOAD_MAX_SIZE.file_size(file_size_opts::BINARY).unwrap()
                 );
             }
             bytes.extend_from_slice(&chunk);
