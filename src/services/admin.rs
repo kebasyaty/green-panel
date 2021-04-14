@@ -5,7 +5,7 @@
 use actix_files::Files;
 use actix_files::NamedFile;
 use actix_session::Session;
-use actix_web::{web, Error, HttpResponse, Result};
+use actix_web::{error, web, Error, HttpResponse, Result};
 
 use futures::StreamExt;
 use mongodb::{
@@ -33,6 +33,7 @@ const SLOGAN: &str = "Brief description of the company.";
 // sl | sq | sr | sr-latn | sv | th | tk | tr | tt | ug | uk | vi |
 // zh | zh-cn
 const LANGUAGE_CODE: &str = "en";
+const PAYLOAD_MAX_SIZE: usize = 2097_152; // 2097152 = ~2mb ; Default data size for the form - 16384 = ~16 Kb
 
 fn admin_file_path(inner_path: &str) -> String {
     format!("./admin/{}", inner_path)
@@ -325,7 +326,6 @@ pub mod request_handlers {
     ) -> Result<HttpResponse, Error> {
         //
         let mut is_authenticated = false;
-        let mut payload_max_size: usize = 16384; // Default data size for the form - 16384 = ~16 Kb
         let mut msg_err = String::new();
         let model_key = query.model_key.clone();
         let doc_hash = query.doc_hash.clone();
@@ -350,7 +350,6 @@ pub mod request_handlers {
             // Model `users::User`
             // -------------------------------------------------------------------------------------
             if model_key == users::User::key() {
-                payload_max_size = 2097_152; // 2097152 = ~2mb
                 if !doc_hash.is_empty() {
                     let object_id = users::User::hash_to_id(doc_hash.as_str()).unwrap();
                     let filter = doc! {"_id": object_id};
@@ -382,7 +381,7 @@ pub mod request_handlers {
                 "document": document,
                 "is_authenticated": is_authenticated,
                 "msg_err": msg_err,
-                "max_size": payload_max_size
+                "max_size": PAYLOAD_MAX_SIZE
             })))
     }
 
@@ -421,6 +420,12 @@ pub mod request_handlers {
         let mut bytes = web::BytesMut::new();
         while let Some(chunk) = payload.next().await {
             let chunk = chunk?;
+            if (bytes.len() + chunk.len()) > PAYLOAD_MAX_SIZE {
+                msg_err = format!(
+                    "The total data size exceeds the {} limit.",
+                    PAYLOAD_MAX_SIZE
+                );
+            }
             bytes.extend_from_slice(&chunk);
         }
 
