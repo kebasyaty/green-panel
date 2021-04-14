@@ -26,11 +26,12 @@ use crate::settings;
 const BRAND: &str = "Сompany Name";
 const SLOGAN: &str = "Brief description of the company.";
 // CKEditor supported languages:
-// af | ar | az | bg | bn | bs | ca | cs | cy | da | de | de-ch | el | en-au |
-// en-ca | en-gb | en | eo | es | es-mx | et | eu | fa | fi | fo | fr-ca | fr |
-// gl | gu | he | hi | hr | hu | id | is | it | ja | ka | km | ko | ku | lt | lv |
-//  mk | mn | ms | nb | nl | no | oc | pl | pt-br | pt | ro | ru | si | sk | sl |
-// sq | sr-latn | sr | sv | th | tr | tt | ug | uk | vi | zh-cn | zh
+// af | ar | ast | az | bg | ca | cs | da | de | de-ch | el | en-au |
+// en-gb | eo | es | et | eu | fa | fi | fr | gl | gu | he | hi |
+// hr | hu | id | it | ja | km | kn | ko | ku | lt | lv | ms |
+// nb | ne | nl | no | oc | pl | pt | pt-br | ro | ru | si | sk |
+// sl | sq | sr | sr-latn | sv | th | tk | tr | tt | ug | uk | vi |
+// zh | zh-cn
 const LANGUAGE_CODE: &str = "en";
 
 fn admin_file_path(inner_path: &str) -> String {
