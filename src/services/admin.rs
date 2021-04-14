@@ -25,7 +25,7 @@ use crate::settings;
 
 const BRAND: &str = "Сompany Name";
 const SLOGAN: &str = "Brief description of the company.";
-//
+// CKEditor supported languages:
 // af | ar | az | bg | bn | bs | ca | cs | cy | da | de | de-ch | el | en-au |
 // en-ca | en-gb | en | eo | es | es-mx | et | eu | fa | fi | fo | fr-ca | fr |
 // gl | gu | he | hi | hr | hu | id | is | it | ja | ka | km | ko | ku | lt | lv |
