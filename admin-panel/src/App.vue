@@ -93,7 +93,7 @@ export default {
               for (let idx = 0; idx < listLength; idx++) {
                 selectedServiceList.push(undefined)
               }
-              if (data.language_code.length > 0) {
+              if (data.language_code !== undefined && data.language_code.length > 0) {
                 this.$i18n.locale = data.language_code
               }
               this.setSelectedService(selectedServiceList)
