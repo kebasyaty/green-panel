@@ -68,6 +68,12 @@ pub fn config_ckeditor(config_name: &str) -> Value {
                         "borderColors": custom_color_palette(),
                         "backgroundColors": custom_color_palette()
                     }
+                },
+                "fontColor": {
+                    "colors": custom_color_palette()
+                },
+                "fontBackgroundColor": {
+                    "colors": custom_color_palette()
                 }
             })
         }
