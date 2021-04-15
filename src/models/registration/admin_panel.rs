@@ -32,6 +32,7 @@ pub fn service_list() -> Value {
 // CKEditor configuration
 // *************************************************************************************************
 pub fn config_ckeditor(config_name: &str) -> Value {
+    let color_palette = custom_color_palette();
     match config_name {
         // By default.
         "default" => {
@@ -61,19 +62,19 @@ pub fn config_ckeditor(config_name: &str) -> Value {
                         "tableProperties", "tableCellProperties"
                     ],
                     "tableProperties": {
-                        "borderColors": custom_color_palette(),
-                        "backgroundColors": custom_color_palette()
+                        "borderColors": color_palette,
+                        "backgroundColors": color_palette
                     },
                     "tableCellProperties": {
-                        "borderColors": custom_color_palette(),
-                        "backgroundColors": custom_color_palette()
+                        "borderColors": color_palette,
+                        "backgroundColors": color_palette
                     }
                 },
                 "fontColor": {
-                    "colors": custom_color_palette()
+                    "colors": color_palette
                 },
                 "fontBackgroundColor": {
-                    "colors": custom_color_palette()
+                    "colors": color_palette
                 }
             })
         }
