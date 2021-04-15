@@ -29,7 +29,7 @@ pub fn service_list() -> Value {
     )
 }
 
-// CKEditor configuration.
+// CKEditor 5 configuration.
 // *************************************************************************************************
 pub fn config_ckeditor(config_name: &str) -> Value {
     let color_palette = custom_color_palette();
