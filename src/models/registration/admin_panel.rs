@@ -86,6 +86,7 @@ pub fn config_ckeditor(config_name: &str) -> Value {
     }
 }
 // Configuration custom color palette.
+// https://vuetifyjs.com/en/styles/colors/#material-colors
 fn custom_color_palette() -> Value {
     json!([
         {
