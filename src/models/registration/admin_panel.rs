@@ -1,13 +1,16 @@
 //! # Registering models for the admin panel.
 //!
 
-use mango_orm::ToModel;
+use mango_orm::{CachingModel, QCommon, QPaladins, ToModel};
+use mongodb::bson::doc;
 use serde_json::{json, Value};
 
-use crate::models::services::admin::users;
+use crate::{models::services::admin::users, settings};
 
 // Register models.
 // *************************************************************************************************
+// Step 1
+// -------------------------------------------------------------------------------------------------
 // Hint: get icon name - https://materialdesignicons.com/
 // Hint: doc_name - {"field": "field_name", "title": "Table header"}
 // ( field_name - only text field )
@@ -27,6 +30,67 @@ pub fn service_list() -> Value {
             // Other service
         ]
     )
+}
+
+// Step 2
+// -------------------------------------------------------------------------------------------------
+// Connect models for the `get_document` method.
+pub fn get_document_as_json(
+    model_key: String,
+    doc_hash: String,
+) -> Result<String, Box<dyn std::error::Error>> {
+    let mut json = String::new();
+    // User
+    if model_key == users::User::key() {
+        if !doc_hash.is_empty() {
+            let object_id = users::User::hash_to_id(doc_hash.as_str())?;
+            let filter = doc! {"_id": object_id};
+            let output_data = users::User::find_one(Some(filter), None).unwrap();
+            if output_data.bool() {
+                json = output_data
+                    .model::<users::User>()
+                    .unwrap()
+                    .json_for_admin()?;
+            }
+        } else {
+            json = users::User::form_json_for_admin()?
+        }
+        // Other Model ...
+        // } else if model_key == users::ModelName::key() {}
+    } else {
+        Err(
+            "Module: `src/models/registration/admin_panel` > Method: `get_document_as_json` : \
+             No match for `model_key`.",
+        )?
+    }
+    //
+    Ok(json)
+}
+
+// Step 3
+// -------------------------------------------------------------------------------------------------
+// Connect models for the `save_document` method.
+pub fn save_document_and_return_as_json(
+    model_key: String,
+    bytes: &actix_web::web::BytesMut,
+    app_state: actix_web::web::Data<settings::state::AppState>,
+) -> Result<String, Box<dyn std::error::Error>> {
+    let mut json = String::new();
+    // User
+    if model_key == users::User::key() {
+        let mut model = serde_json::from_slice::<users::User>(&bytes)?;
+        model.photo = app_state.to_file(model.photo, "admin/users/avatars");
+        let output_data = model.save(None, None)?;
+        json = output_data.json_for_admin()?;
+
+        // Other Model ...
+        // } else if model_key == users::ModelName::key() {}
+    } else {
+        Err("Module: `src/models/registration/admin_panel` > \
+             Method: `save_document_and_return_as_json` : No match for `model_key`.")?
+    }
+    //
+    Ok(json)
 }
 
 // CKEditor 5 configuration.

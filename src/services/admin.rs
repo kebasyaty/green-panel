@@ -345,33 +345,8 @@ pub mod request_handlers {
 
         // Define the desired model by `model_key` and
         // get an instance of the model in json format (for the administrator)
-        //
-        // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ADD A MODEL TO HANDLE THE REQUEST
         if msg_err.is_empty() {
-            // Model `users::User`
-            // -------------------------------------------------------------------------------------
-            if model_key == users::User::key() {
-                if !doc_hash.is_empty() {
-                    let object_id = users::User::hash_to_id(doc_hash.as_str()).unwrap();
-                    let filter = doc! {"_id": object_id};
-                    let output_data = users::User::find_one(Some(filter), None).unwrap();
-                    if output_data.bool() {
-                        document = output_data
-                            .model::<users::User>()
-                            .unwrap()
-                            .json_for_admin()
-                            .unwrap();
-                    }
-                } else {
-                    document = users::User::form_json_for_admin().unwrap();
-                }
-
-                // Other Models ...
-                // ---------------------------------------------------------------------------------
-                // } else if model_key == users::ModelName::key() {}
-            } else {
-                msg_err = "No match for `model_key`.".to_string();
-            }
+            document = admin_panel::get_document_as_json(model_key, doc_hash).unwrap()
         }
 
         // Return json response
@@ -402,7 +377,6 @@ pub mod request_handlers {
         //
         let mut is_authenticated = false;
         let mut msg_err = String::new();
-        let model_key = path.model_key.clone();
         let mut document = String::new();
 
         // Access request identity
@@ -431,23 +405,13 @@ pub mod request_handlers {
         }
 
         // Define the desired model with `model_key` and save/update in the database
-        //
-        // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ADD A MODEL TO HANDLE THE REQUEST
         if msg_err.is_empty() {
-            // Model `users::User`
-            // -------------------------------------------------------------------------------------
-            if model_key == users::User::key() {
-                let mut model = serde_json::from_slice::<users::User>(&bytes).unwrap();
-                model.photo = app_state.to_file(model.photo, "admin/users/avatars");
-                let output_data = model.save(None, None).unwrap();
-                document = output_data.json_for_admin().unwrap();
-
-                // Other Models ...
-                // ---------------------------------------------------------------------------------
-                // } else if model_key == users::ModelName::key() {}
-            } else {
-                msg_err = "No match for `model_key`.".to_string();
-            }
+            document = admin_panel::save_document_and_return_as_json(
+                path.model_key.clone(),
+                &bytes,
+                app_state,
+            )
+            .unwrap()
         }
 
         // Return json response
