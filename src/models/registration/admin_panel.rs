@@ -34,12 +34,13 @@ pub fn service_list() -> Value {
 
 // Step 2
 // -------------------------------------------------------------------------------------------------
-// Connect models for the `get_document` method.
+// Connect models for the `src/services/admin.rs/get_document` method.
 pub fn get_document_as_json(
     model_key: String,
     doc_hash: String,
 ) -> Result<String, Box<dyn std::error::Error>> {
     let mut json = String::new();
+
     // User
     if model_key == users::User::key() {
         if !doc_hash.is_empty() {
@@ -67,13 +68,14 @@ pub fn get_document_as_json(
 
 // Step 3
 // -------------------------------------------------------------------------------------------------
-// Connect models for the `save_document` method.
+// Connect models for the `src/services/admin.rs/save_document` method.
 pub fn save_document_and_return_as_json(
     model_key: String,
     bytes: &actix_web::web::BytesMut,
     app_state: actix_web::web::Data<settings::state::AppState>,
 ) -> Result<String, Box<dyn std::error::Error>> {
     let mut json = String::new();
+
     // User
     if model_key == users::User::key() {
         let mut model = serde_json::from_slice::<users::User>(&bytes)?;
@@ -89,6 +91,28 @@ pub fn save_document_and_return_as_json(
     }
     //
     Ok(json)
+}
+
+// Step 4
+// -------------------------------------------------------------------------------------------------
+// Connect models for the `src/services/admin.rs/update_dyn_data` method.
+// Hint: Refresh data for dynamic widgets.
+pub fn refresh_dyn_data(
+    model_key: String,
+    json_options: &str,
+) -> Result<(), Box<dyn std::error::Error>> {
+    // User
+    if model_key == users::User::key() {
+        users::User::db_update_dyn_widgets(json_options)?;
+
+        // Other Model ...
+        // } else if model_key == users::ModelName::key() {}
+    } else {
+        Err("Module: `src/models/registration/admin_panel` > \
+             Method: `refresh_dyn_data` : No match for `model_key`.")?
+    }
+    //
+    Ok(())
 }
 
 // CKEditor 5 configuration.

@@ -574,7 +574,6 @@ pub mod request_handlers {
         //
         let mut is_authenticated = false;
         let mut msg_err = String::new();
-        let model_key = query.model_key.clone();
 
         // Access request identity
         // -----------------------------------------------------------------------------------------
@@ -592,17 +591,8 @@ pub mod request_handlers {
         //
         // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ADD A MODEL TO HANDLE THE REQUEST
         if msg_err.is_empty() {
-            // Model `users::User`
-            // -------------------------------------------------------------------------------------
-            if model_key == users::User::key() {
-                users::User::db_update_dyn_widgets(query.json_options.as_str()).unwrap();
-
-                // Other Models ...
-                // ---------------------------------------------------------------------------------
-                // } else if model_key == users::ModelName::key() {}
-            } else {
-                msg_err = "No match for `model_key`.".to_string();
-            }
+            admin_panel::refresh_dyn_data(query.model_key.clone(), query.json_options.as_str())
+                .unwrap();
         }
 
         // Return json response
