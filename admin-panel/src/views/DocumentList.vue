@@ -237,8 +237,10 @@ export default {
     },
     // Formatting date.
     formattingDate: function (date) {
-      const dateParsing = date.split('T')
-      return `<span class="cyan--text text--darken-2">${dateParsing[0]}</span> <span class="orange--text text--darken-2">${dateParsing[1]}</span>`
+      const local = new Date(date + 'Z')
+      const localDate = local.toLocaleDateString()
+      const localTime = local.toLocaleTimeString().slice(0, 5)
+      return `<span class="cyan--text text--darken-2">${localDate}</span> <span class="orange--text text--darken-2">${localTime}</span>`
     },
     // Mark all documents for deletion.
     markAllDocsForDeletion: function () {
