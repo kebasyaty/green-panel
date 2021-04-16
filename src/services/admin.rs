@@ -586,10 +586,7 @@ pub mod request_handlers {
             msg_err = "Authentication failed.".to_string();
         }
 
-        // Define the desired model by `model_key` and
-        // get an instance of the model in json format (for the administrator)
-        //
-        // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ADD A MODEL TO HANDLE THE REQUEST
+        // Define the desired model by `model_key` and update dynamic data
         if msg_err.is_empty() {
             admin_panel::refresh_dyn_data(query.model_key.clone(), query.json_options.as_str())
                 .unwrap();
