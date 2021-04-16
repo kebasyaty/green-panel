@@ -58,10 +58,8 @@ pub fn get_document_as_json(
         // Other Model ...
         // } else if model_key == users::ModelName::key() {}
     } else {
-        Err(
-            "Module: `src/models/registration/admin_panel` > Method: `get_document_as_json` : \
-             No match for `model_key`.",
-        )?
+        Err("Module: `src/models/registration/admin_panel` > \
+             Method: `get_document_as_json` : No match for `model_key`.")?
     }
     //
     Ok(json)
