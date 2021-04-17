@@ -75,8 +75,8 @@ pub mod request_handlers {
         // Access request identity
         if session.get::<String>("user")?.is_none() {
             // Create first user (administrator)
-            if users::User::estimated_document_count(None).unwrap() == 0_i64 {
-                let mut first_user = users::User {
+            if users::AdminProfile::estimated_document_count(None).unwrap() == 0_i64 {
+                let mut first_user = users::AdminProfile {
                     // Valid characters: a-z A-Z 0-9 _ @ + .
                     // Max size: 150
                     username: Some("admin".into()),
@@ -137,11 +137,11 @@ pub mod request_handlers {
             let filter =
                 Some(doc! {"username": username.clone(), "is_staff": true, "is_active": true});
             // Search for a user in the database
-            let output_data = users::User::find_one(filter, None).unwrap();
+            let output_data = users::AdminProfile::find_one(filter, None).unwrap();
             // Check search result
             if output_data.bool() {
                 // Get an instance of a User model
-                let user = output_data.model::<users::User>().unwrap();
+                let user = output_data.model::<users::AdminProfile>().unwrap();
                 // Check password
                 if user.verify_password(password.as_str(), None).unwrap() {
                     // Add user identity to session

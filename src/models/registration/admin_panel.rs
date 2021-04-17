@@ -21,8 +21,8 @@ pub fn service_list() -> Value {
                 "service": { "title": "Users", "icon": "account-multiple" },
                 "collections": [
                     // Users
-                    { "title": "Users",
-                      "model_key": users::User::key(),
+                    { "title": "Admin Profile",
+                      "model_key": users::AdminProfile::key(),
                       "doc_name": { "field": "username", "title": "Nickname" } },
                    // Other collection
                 ]
@@ -42,19 +42,19 @@ pub fn get_document_as_json(
     let mut json = String::new();
 
     // User
-    if model_key == users::User::key() {
+    if model_key == users::AdminProfile::key() {
         if !doc_hash.is_empty() {
-            let object_id = users::User::hash_to_id(doc_hash.as_str())?;
+            let object_id = users::AdminProfile::hash_to_id(doc_hash.as_str())?;
             let filter = doc! {"_id": object_id};
-            let output_data = users::User::find_one(Some(filter), None).unwrap();
+            let output_data = users::AdminProfile::find_one(Some(filter), None).unwrap();
             if output_data.bool() {
                 json = output_data
-                    .model::<users::User>()
+                    .model::<users::AdminProfile>()
                     .unwrap()
                     .json_for_admin()?;
             }
         } else {
-            json = users::User::form_json_for_admin()?
+            json = users::AdminProfile::form_json_for_admin()?
         }
         // Other Model ...
         // } else if model_key == users::ModelName::key() {}
@@ -77,8 +77,8 @@ pub fn save_document_and_return_as_json(
     let mut json = String::new();
 
     // User
-    if model_key == users::User::key() {
-        let mut model = serde_json::from_slice::<users::User>(&bytes)?;
+    if model_key == users::AdminProfile::key() {
+        let mut model = serde_json::from_slice::<users::AdminProfile>(&bytes)?;
         model.photo = app_state.to_file(model.photo, "admin/users/avatars");
         let output_data = model.save(None, None)?;
         json = output_data.json_for_admin()?;
@@ -102,8 +102,8 @@ pub fn refresh_dyn_data(
     json_options: &str,
 ) -> Result<(), Box<dyn std::error::Error>> {
     // User
-    if model_key == users::User::key() {
-        users::User::db_update_dyn_widgets(json_options)?;
+    if model_key == users::AdminProfile::key() {
+        users::AdminProfile::db_update_dyn_widgets(json_options)?;
 
         // Other Model ...
         // } else if model_key == users::ModelName::key() {}

@@ -21,13 +21,13 @@ pub fn mango_migration() -> Result<(), Box<dyn std::error::Error>> {
         unique_project_key: settings::UNIQUE_PROJECT_KEY,
         // Register models.
         // -----------------------------------------------------------------------------------------
-        models: vec![users::User::meta()?],
+        models: vec![users::AdminProfile::meta()?],
     };
     monitor.migrat();
 
     // Add metadata and widgects map to cache.
     // ---------------------------------------------------------------------------------------------
-    users::User::to_cache()?;
+    users::AdminProfile::to_cache()?;
     //
     Ok(())
 }

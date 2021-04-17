@@ -17,7 +17,7 @@ use crate::models::settings::{
     ignore_fields = "confirm_password"
 )]
 #[derive(Serialize, Deserialize, Default, Debug)]
-pub struct User {
+pub struct AdminProfile {
     #[serde(default)]
     #[field_attrs(
         widget = "inputText",
@@ -107,7 +107,7 @@ pub struct User {
     pub is_active: Option<bool>,
 }
 
-impl AdditionalValidation for User {
+impl AdditionalValidation for AdminProfile {
     fn add_validation<'a>(
         &self,
     ) -> Result<std::collections::HashMap<&'a str, &'a str>, Box<dyn std::error::Error>> {
