@@ -12,7 +12,7 @@ use crate::{models::services::admin::users, settings};
 // Step 1
 // -------------------------------------------------------------------------------------------------
 // Hint: get icon name - https://materialdesignicons.com/
-// Hint: doc_name - {"field": "field_name", "title": "Table header"}
+// Hint: doc_name - {"field": "field_name", "title": "Table header name"}
 // ( field_name - only text field )
 pub fn service_list() -> Value {
     json!([
