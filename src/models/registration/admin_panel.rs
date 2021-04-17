@@ -1,4 +1,4 @@
-//! # Registering models for the admin panel.
+//! # Add models to admin panel.
 //!
 
 use mango_orm::{CachingModel, QCommon, QPaladins, ToModel};
@@ -7,7 +7,7 @@ use serde_json::{json, Value};
 
 use crate::{models::services::admin::users, settings};
 
-// Register models.
+// Add models
 // *************************************************************************************************
 // Step 1
 // -------------------------------------------------------------------------------------------------
@@ -20,11 +20,14 @@ pub fn service_list() -> Value {
             {
                 "service": { "title": "Users", "icon": "account-multiple" },
                 "collections": [
-                    // Users
+                    // AdminProfile
                     { "title": "Administrators",
                       "model_key": users::AdminProfile::key(),
                       "doc_name": { "field": "username", "title": "Nickname" } },
-                   // Other collection
+                   // SellerProfile
+                    { "title": "Sellers",
+                      "model_key": users::SellerProfile::key(),
+                      "doc_name": { "field": "username", "title": "Nickname" } },
                 ]
             },
             // Other service
@@ -41,7 +44,7 @@ pub fn get_document_as_json(
 ) -> Result<String, Box<dyn std::error::Error>> {
     let mut json = String::new();
 
-    // User
+    // AdminProfile
     if model_key == users::AdminProfile::key() {
         if !doc_hash.is_empty() {
             let object_id = users::AdminProfile::hash_to_id(doc_hash.as_str())?;
@@ -56,8 +59,24 @@ pub fn get_document_as_json(
         } else {
             json = users::AdminProfile::form_json_for_admin()?
         }
-        // Other Model ...
-        // } else if model_key == users::ModelName::key() {}
+
+    // SellerProfile
+    } else if model_key == users::SellerProfile::key() {
+        if !doc_hash.is_empty() {
+            let object_id = users::SellerProfile::hash_to_id(doc_hash.as_str())?;
+            let filter = doc! {"_id": object_id};
+            let output_data = users::SellerProfile::find_one(Some(filter), None).unwrap();
+            if output_data.bool() {
+                json = output_data
+                    .model::<users::SellerProfile>()
+                    .unwrap()
+                    .json_for_admin()?;
+            }
+        } else {
+            json = users::SellerProfile::form_json_for_admin()?
+        }
+
+    // Error
     } else {
         Err("Module: `src/models/registration/admin_panel` > \
              Method: `get_document_as_json` : No match for `model_key`.")?
@@ -76,15 +95,21 @@ pub fn save_document_and_return_as_json(
 ) -> Result<String, Box<dyn std::error::Error>> {
     let mut json = String::new();
 
-    // User
+    // AdminProfile
     if model_key == users::AdminProfile::key() {
         let mut model = serde_json::from_slice::<users::AdminProfile>(&bytes)?;
         model.photo = app_state.to_file(model.photo, "admin/users/avatars");
         let output_data = model.save(None, None)?;
         json = output_data.json_for_admin()?;
 
-        // Other Model ...
-        // } else if model_key == users::ModelName::key() {}
+    // SellerProfile
+    } else if model_key == users::SellerProfile::key() {
+        let mut model = serde_json::from_slice::<users::SellerProfile>(&bytes)?;
+        model.photo = app_state.to_file(model.photo, "admin/users/avatars");
+        let output_data = model.save(None, None)?;
+        json = output_data.json_for_admin()?;
+
+    // Error
     } else {
         Err("Module: `src/models/registration/admin_panel` > \
              Method: `save_document_and_return_as_json` : No match for `model_key`.")?
@@ -101,12 +126,15 @@ pub fn refresh_dyn_data(
     model_key: String,
     json_options: &str,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    // User
+    // AdminProfile
     if model_key == users::AdminProfile::key() {
         users::AdminProfile::db_update_dyn_widgets(json_options)?;
 
-        // Other Model ...
-        // } else if model_key == users::ModelName::key() {}
+    // SellerProfile
+    } else if model_key == users::SellerProfile::key() {
+        users::SellerProfile::db_update_dyn_widgets(json_options)?;
+
+    // Error
     } else {
         Err("Module: `src/models/registration/admin_panel` > \
              Method: `refresh_dyn_data` : No match for `model_key`.")?
