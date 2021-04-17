@@ -76,6 +76,17 @@ pub struct AdminProfile {
     //
     #[serde(default)]
     #[field_attrs(
+        widget = "inputPhone",
+        label = "Contact's Phone Number",
+        placeholder = "Please enter your phone number",
+        unique = true,
+        maxlength = 15,
+        hint = "Your actual phone number"
+    )]
+    pub phone: Option<String>,
+    //
+    #[serde(default)]
+    #[field_attrs(
         widget = "inputPassword",
         label = "Password",
         placeholder = "Enter your password",
@@ -228,6 +239,15 @@ pub struct SellerProfile {
         hint = "Indicate the city in which you live"
     )]
     pub city: Option<String>,
+    //
+    #[serde(default)]
+    #[field_attrs(
+        widget = "selectTextDyn",
+        label = "Country",
+        required = true,
+        hint = "Select the country you live in"
+    )]
+    pub country: Option<String>,
     //
     #[serde(default)]
     #[field_attrs(
