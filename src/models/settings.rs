@@ -1,6 +1,7 @@
 //! # Mango-ORM model settings
 //!
-//! `default` - Default settings.
+//! `admin` - Settings for user accounts.
+//! `electric_cars` - Settings for products such as electric cars.
 //!
 
 // General settings for the project.
@@ -19,7 +20,7 @@ pub const PROJECT_NAME: &str = "store";
 // Example: "7rzgacfqQB3B7q7T"
 pub const UNIQUE_PROJECT_KEY: &str = "Gm5EKQZRAWvV6BW";
 
-// Default settings.
+// Admin - Settings for user accounts.
 // *************************************************************************************************
 pub mod admin {
     // Valid characters: _ a-z A-Z 0-9
@@ -34,7 +35,7 @@ pub mod admin {
     pub const DB_QUERY_DOCS_LIMIT: u32 = 1000;
 }
 
-// Electric Cars
+// Electric Cars - Settings for products such as electric cars.
 // *************************************************************************************************
 pub mod electric_cars {
     // Valid characters: _ a-z A-Z 0-9
