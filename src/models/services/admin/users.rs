@@ -198,7 +198,7 @@ pub struct SellerProfile {
     #[serde(default)]
     #[field_attrs(
         widget = "inputEmail",
-        label = "E-mail",
+        label = "Contact's Mailing Address",
         placeholder = "Please enter your email",
         required = true,
         unique = true,
@@ -210,7 +210,7 @@ pub struct SellerProfile {
     #[serde(default)]
     #[field_attrs(
         widget = "inputPhone",
-        label = "Phone Number",
+        label = "Contact's Phone Number",
         placeholder = "Please enter your phone number",
         required = true,
         unique = true,
@@ -218,6 +218,16 @@ pub struct SellerProfile {
         hint = "Your actual phone number"
     )]
     pub phone: Option<String>,
+    //
+    #[serde(default)]
+    #[field_attrs(
+        widget = "inputText",
+        label = "City",
+        placeholder = "Enter the name of the city",
+        required = true,
+        hint = "Indicate the city in which you live"
+    )]
+    pub city: Option<String>,
     //
     #[serde(default)]
     #[field_attrs(
