@@ -1,6 +1,7 @@
 //! # User profile
 //!
 //! `AdminProfile` - Administrator profiles.
+//! `SellerProfile` - Seller profiles.
 //!
 
 use mango_orm::*;
@@ -157,7 +158,7 @@ impl AdditionalValidation for AdminProfile {
     }
 }
 
-// Administrator profiles
+// Seller profiles
 // *************************************************************************************************
 #[Model(
     is_del_docs = false,
