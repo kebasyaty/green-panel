@@ -21,7 +21,7 @@ pub const UNIQUE_PROJECT_KEY: &str = "Gm5EKQZRAWvV6BW";
 
 // Default settings.
 // *************************************************************************************************
-pub mod default {
+pub mod admin {
     // Valid characters: _ a-z A-Z 0-9
     // Max size: 31
     // First character: a-z A-Z
