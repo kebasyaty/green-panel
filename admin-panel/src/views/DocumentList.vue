@@ -56,12 +56,12 @@
                 <!-- Mark all documents for deletion. -->
                 <th>
                   <v-checkbox
-                    v-if="documents.length > 0"
                     hide-details
                     v-model="deleteAllDocsFlag"
                     color="red darken-3"
                     class="mt-0 pt-0"
                     @change="markAllDocsForDeletion()"
+                    :disabled="documents.length === 0"
                   ></v-checkbox>
                 </th>
                 <!-- Other headers. -->
