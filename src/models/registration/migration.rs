@@ -21,7 +21,11 @@ pub fn mango_migration() -> Result<(), Box<dyn std::error::Error>> {
         unique_project_key: settings::UNIQUE_PROJECT_KEY,
         // Register models.
         // -----------------------------------------------------------------------------------------
-        models: vec![users::AdminProfile::meta()?, users::SellerProfile::meta()?],
+        models: vec![
+            users::AdminProfile::meta()?,
+            users::SellerProfile::meta()?,
+            users::CustomerProfile::meta()?,
+        ],
     };
     monitor.migrat()?;
 
@@ -29,6 +33,7 @@ pub fn mango_migration() -> Result<(), Box<dyn std::error::Error>> {
     // ---------------------------------------------------------------------------------------------
     users::AdminProfile::to_cache()?;
     users::SellerProfile::to_cache()?;
+    users::CustomerProfile::to_cache()?;
     //
     Ok(())
 }

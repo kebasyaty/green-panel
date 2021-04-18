@@ -24,9 +24,13 @@ pub fn service_list() -> Value {
                     { "title": "Admins",
                       "model_key": users::AdminProfile::key(),
                       "doc_name": { "field": "username", "title": "Nickname" } },
-                   // SellerProfile
+                    // SellerProfile
                     { "title": "Sellers",
                       "model_key": users::SellerProfile::key(),
+                      "doc_name": { "field": "username", "title": "Nickname" } },
+                    // CustomerProfile
+                    { "title": "Customers",
+                      "model_key": users::CustomerProfile::key(),
                       "doc_name": { "field": "username", "title": "Nickname" } },
                 ]
             },
@@ -76,6 +80,22 @@ pub fn get_document_as_json(
             json = users::SellerProfile::form_json_for_admin()?
         }
 
+    // CustomerProfile
+    } else if model_key == users::CustomerProfile::key() {
+        if !doc_hash.is_empty() {
+            let object_id = users::CustomerProfile::hash_to_id(doc_hash.as_str())?;
+            let filter = doc! {"_id": object_id};
+            let output_data = users::CustomerProfile::find_one(Some(filter), None).unwrap();
+            if output_data.bool() {
+                json = output_data
+                    .model::<users::CustomerProfile>()
+                    .unwrap()
+                    .json_for_admin()?;
+            }
+        } else {
+            json = users::CustomerProfile::form_json_for_admin()?
+        }
+
     // Error
     } else {
         Err("Module: `src/models/registration/admin_panel` > \
@@ -109,6 +129,13 @@ pub fn save_document_and_return_as_json(
         let output_data = model.save(None, None)?;
         json = output_data.json_for_admin()?;
 
+    // CustomerProfile
+    } else if model_key == users::CustomerProfile::key() {
+        let mut model = serde_json::from_slice::<users::CustomerProfile>(&bytes)?;
+        model.photo = app_state.to_file(model.photo, "admin/sellers/photos");
+        let output_data = model.save(None, None)?;
+        json = output_data.json_for_admin()?;
+
     // Error
     } else {
         Err("Module: `src/models/registration/admin_panel` > \
@@ -133,6 +160,10 @@ pub fn refresh_dyn_data(
     // SellerProfile
     } else if model_key == users::SellerProfile::key() {
         users::SellerProfile::db_update_dyn_widgets(json_options)?;
+
+    // CustomerProfile
+    } else if model_key == users::CustomerProfile::key() {
+        users::CustomerProfile::db_update_dyn_widgets(json_options)?;
 
     // Error
     } else {
