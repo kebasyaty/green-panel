@@ -239,7 +239,7 @@ export default {
     // Formatting date.
     formattingDate: function (date) {
       const local = new Date(date + 'Z')
-      const localDate = local.toLocaleDateString()
+      const localDate = local.toLocaleDateString([this.$i18n.locale, 'en'])
       const localTime = local.toLocaleTimeString().slice(0, 5)
       return `<span class="cyan--text text--darken-2">${localDate}</span> <span class="orange--text text--darken-2">${localTime}</span>`
     },
