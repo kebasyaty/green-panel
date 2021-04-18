@@ -56,6 +56,7 @@
                 <!-- Mark all documents for deletion. -->
                 <th>
                   <v-checkbox
+                    v-if="documents.length > 0"
                     hide-details
                     v-model="deleteAllDocsFlag"
                     color="red darken-3"
