@@ -2,6 +2,7 @@
 //!
 //! `AdminProfile` - Administrator profiles.
 //! `SellerProfile` - Seller profiles.
+//! `CustomerProfile` - Customer profiles.
 //!
 
 use mango_orm::*;
@@ -158,7 +159,7 @@ impl AdditionalValidation for AdminProfile {
     }
 }
 
-// Seller profiles
+// Customer profiles
 // *************************************************************************************************
 #[Model(
     is_del_docs = false,
@@ -166,7 +167,7 @@ impl AdditionalValidation for AdminProfile {
     ignore_fields = "confirm_password"
 )]
 #[derive(Serialize, Deserialize, Default, Debug)]
-pub struct SellerProfile {
+pub struct CustomerProfile {
     #[serde(default)]
     #[field_attrs(
         widget = "inputText",
@@ -279,7 +280,7 @@ pub struct SellerProfile {
     pub is_active: Option<bool>,
 }
 
-impl AdditionalValidation for SellerProfile {
+impl AdditionalValidation for CustomerProfile {
     fn add_validation<'a>(
         &self,
     ) -> Result<std::collections::HashMap<&'a str, &'a str>, Box<dyn std::error::Error>> {
