@@ -23,7 +23,7 @@ pub fn mango_migration() -> Result<(), Box<dyn std::error::Error>> {
         // -----------------------------------------------------------------------------------------
         models: vec![users::AdminProfile::meta()?, users::SellerProfile::meta()?],
     };
-    monitor.migrat();
+    monitor.migrat()?;
 
     // Add metadata and widgects map to cache.
     // ---------------------------------------------------------------------------------------------
