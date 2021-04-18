@@ -195,6 +195,7 @@ pub struct SellerProfile {
         widget = "inputText",
         label = "First name",
         placeholder = "Enter your First name",
+        required = true,
         maxlength = 150
     )]
     pub first_name: Option<String>,
@@ -204,6 +205,7 @@ pub struct SellerProfile {
         widget = "inputText",
         label = "Last name",
         placeholder = "Enter your Last name",
+        required = true,
         maxlength = 150
     )]
     pub last_name: Option<String>,
@@ -352,6 +354,7 @@ pub struct CustomerProfile {
         widget = "inputText",
         label = "First name",
         placeholder = "Enter your First name",
+        required = true,
         maxlength = 150
     )]
     pub first_name: Option<String>,
@@ -361,6 +364,7 @@ pub struct CustomerProfile {
         widget = "inputText",
         label = "Last name",
         placeholder = "Enter your Last name",
+        required = true,
         maxlength = 150
     )]
     pub last_name: Option<String>,
