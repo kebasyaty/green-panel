@@ -15,10 +15,14 @@ pub mod services;
 // Mango-ORM Models
 pub mod models;
 
-#[actix_web::main]
-async fn main() -> std::io::Result<()> {
+fn main() -> std::io::Result<()> {
     // Run migration.
     models::registration::migration::mango_migration().unwrap();
+    run_http_server()
+}
+
+#[actix_web::main]
+async fn run_http_server() -> std::io::Result<()> {
     // Init logger middleware (debug, error, info, trace)
     std::env::set_var("RUST_LOG", "actix_web=info,actix_server=info");
     env_logger::init();
