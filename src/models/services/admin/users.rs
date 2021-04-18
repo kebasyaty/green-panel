@@ -234,6 +234,7 @@ pub struct SellerProfile {
     #[field_attrs(
         widget = "selectTextDyn",
         label = "Country",
+        placeholder = "Please Select",
         required = true,
         hint = "Select the country you live in"
     )]
@@ -390,6 +391,7 @@ pub struct CustomerProfile {
     #[field_attrs(
         widget = "selectTextDyn",
         label = "Country",
+        placeholder = "Please Select",
         required = true,
         hint = "Select the country you live in"
     )]
