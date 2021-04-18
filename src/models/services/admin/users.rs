@@ -78,7 +78,7 @@ pub struct AdminProfile {
     #[serde(default)]
     #[field_attrs(
         widget = "inputPhone",
-        label = "Contact's Phone Number",
+        label = "Phone number",
         placeholder = "Please enter your phone number",
         unique = true,
         maxlength = 15,
