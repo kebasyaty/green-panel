@@ -212,6 +212,19 @@ pub struct SellerProfile {
     //
     #[serde(default)]
     #[field_attrs(
+        widget = "selectText",
+        label = "Gender",
+        value = "male",
+        options = r#"[
+                ["female","female"],
+                ["male","male"]
+            ]"#,
+        hint = "Select your gender"
+    )]
+    pub gender: Option<String>,
+    //
+    #[serde(default)]
+    #[field_attrs(
         widget = "inputEmail",
         label = "Contact's Mailing Address",
         placeholder = "Please enter your email",
@@ -368,6 +381,19 @@ pub struct CustomerProfile {
         maxlength = 150
     )]
     pub last_name: Option<String>,
+    //
+    #[serde(default)]
+    #[field_attrs(
+        widget = "selectText",
+        label = "Gender",
+        value = "male",
+        options = r#"[
+                ["female","female"],
+                ["male","male"]
+            ]"#,
+        hint = "Select your gender"
+    )]
+    pub gender: Option<String>,
     //
     #[serde(default)]
     #[field_attrs(
