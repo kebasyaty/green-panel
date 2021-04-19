@@ -231,7 +231,7 @@ pub struct SellerProfile {
     #[field_attrs(
         widget = "inputDate",
         label = "Birthday",
-        placeholder = "Please enter your date of birth"
+        placeholder = "Please enter your date of birth",
         hint = "Your date of birth"
     )]
     pub birthday: Option<String>,
@@ -422,7 +422,7 @@ pub struct CustomerProfile {
     #[field_attrs(
         widget = "inputDate",
         label = "Birthday",
-        placeholder = "Please enter your date of birth"
+        placeholder = "Please enter your date of birth",
         hint = "Your date of birth"
     )]
     pub birthday: Option<String>,
