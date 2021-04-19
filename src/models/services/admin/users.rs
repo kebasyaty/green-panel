@@ -284,9 +284,9 @@ pub struct SellerProfile {
     #[field_attrs(
         widget = "inputFile",
         label = "Resume",
-        placeholder = "msword, docx or pdf",
+        placeholder = "msword or pdf",
         accept = "application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf",
-        hint = "Add your resume in msword, docx or pdf format"
+        hint = "Add your resume in msword or pdf format"
     )]
     pub resume: Option<String>,
     //
