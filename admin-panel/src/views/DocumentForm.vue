@@ -332,6 +332,8 @@
                   :disabled="field.disabled"
                   :readonly="field.readonly"
                   :class="field.css_classes"
+                  :messages="field.warning"
+                  :error-messages="field.error"
                 ></v-file-input>
 
                 <!-- Image fields -->
@@ -350,6 +352,8 @@
                   :disabled="field.disabled"
                   :readonly="field.readonly"
                   :class="field.css_classes"
+                  :messages="field.warning"
+                  :error-messages="field.error"
                 ></v-file-input>
 
                 <!-- Color fields -->
