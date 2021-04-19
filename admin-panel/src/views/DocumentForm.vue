@@ -784,6 +784,7 @@
                   :readonly="field.readonly"
                   :class="field.css_classes"
                   :messages="field.warning"
+                  :error-messages="field.error"
                 ></v-select>
 
                 <!-- Selection fields
@@ -809,6 +810,7 @@
                   :readonly="field.readonly"
                   :class="field.css_classes"
                   :messages="field.warning"
+                  :error-messages="field.error"
                 ></v-select>
 
                 <!-- Selection fields
@@ -832,6 +834,7 @@
                   :readonly="field.readonly"
                   :class="field.css_classes"
                   :messages="field.warning"
+                  :error-messages="field.error"
                 ></v-select>
 
                 <!-- Selection fields
@@ -857,6 +860,7 @@
                   :readonly="field.readonly"
                   :class="field.css_classes"
                   :messages="field.warning"
+                  :error-messages="field.error"
                 ></v-select>
               </v-card-text>
             </v-card>
