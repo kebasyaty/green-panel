@@ -190,6 +190,7 @@ pub struct SellerProfile {
         label = "Photo",
         placeholder = "Upload your photo",
         accept = "image/jpeg,image/png",
+        required = true,
         hint = "Image in JPEG or PNG format"
     )]
     pub photo: Option<String>,
@@ -232,6 +233,7 @@ pub struct SellerProfile {
         widget = "inputDate",
         label = "Birthday",
         placeholder = "Please enter your date of birth",
+        required = true,
         hint = "Your date of birth"
     )]
     pub birthday: Option<String>,
@@ -381,6 +383,7 @@ pub struct CustomerProfile {
         label = "Photo",
         placeholder = "Upload your photo",
         accept = "image/jpeg,image/png",
+        required = true,
         hint = "Image in JPEG or PNG format"
     )]
     pub photo: Option<String>,
@@ -423,6 +426,7 @@ pub struct CustomerProfile {
         widget = "inputDate",
         label = "Birthday",
         placeholder = "Please enter your date of birth",
+        required = true,
         hint = "Your date of birth"
     )]
     pub birthday: Option<String>,
