@@ -188,6 +188,10 @@ pub struct SellerProfile {
     #[field_attrs(
         widget = "inputImage",
         label = "Photo",
+        value = r#"{
+                "path":"./media/no_photo.jpg",
+                "url":"/media/no_photo.jpg"
+            }"#,
         placeholder = "Upload your photo",
         accept = "image/jpeg,image/png",
         required = true,
@@ -381,6 +385,10 @@ pub struct CustomerProfile {
     #[field_attrs(
         widget = "inputImage",
         label = "Photo",
+        value = r#"{
+                "path":"./media/no_photo.jpg",
+                "url":"/media/no_photo.jpg"
+            }"#,
         placeholder = "Upload your photo",
         accept = "image/jpeg,image/png",
         hint = "Image in JPEG or PNG format"
