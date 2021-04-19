@@ -126,6 +126,7 @@ pub fn save_document_and_return_as_json(
     } else if model_key == users::SellerProfile::key() {
         let mut model = serde_json::from_slice::<users::SellerProfile>(&bytes)?;
         model.photo = app_state.to_file(model.photo, "admin/sellers/photos");
+        model.resume = app_state.to_file(model.resume, "admin/sellers/resume");
         let output_data = model.save(None, None)?;
         json = output_data.json_for_admin()?;
 
