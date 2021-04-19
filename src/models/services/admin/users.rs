@@ -383,7 +383,6 @@ pub struct CustomerProfile {
         label = "Photo",
         placeholder = "Upload your photo",
         accept = "image/jpeg,image/png",
-        required = true,
         hint = "Image in JPEG or PNG format"
     )]
     pub photo: Option<String>,
