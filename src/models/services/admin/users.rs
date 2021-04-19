@@ -229,6 +229,15 @@ pub struct SellerProfile {
     //
     #[serde(default)]
     #[field_attrs(
+        widget = "inputDate",
+        label = "Birthday",
+        placeholder = "Please enter your date of birth"
+        hint = "Your date of birth"
+    )]
+    pub birthday: Option<String>,
+    //
+    #[serde(default)]
+    #[field_attrs(
         widget = "inputEmail",
         label = "Contact's Mailing Address",
         placeholder = "Please enter your email",
@@ -408,6 +417,15 @@ pub struct CustomerProfile {
         hint = "Select your gender"
     )]
     pub gender: Option<String>,
+    //
+    #[serde(default)]
+    #[field_attrs(
+        widget = "inputDate",
+        label = "Birthday",
+        placeholder = "Please enter your date of birth"
+        hint = "Your date of birth"
+    )]
+    pub birthday: Option<String>,
     //
     #[serde(default)]
     #[field_attrs(
