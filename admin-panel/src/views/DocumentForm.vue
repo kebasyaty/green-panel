@@ -1840,7 +1840,7 @@ export default {
           })
           targetOptions[fieldName] = targetField.options
             .filter(item => !delItemsName.includes(item.title))
-            .map(item => [item.value.toString(), item.title])
+            .map(item => [item.value.toString().trim(), item.title.trim()])
           break
       }
 
