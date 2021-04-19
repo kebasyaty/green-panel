@@ -192,10 +192,10 @@ pub struct SellerProfile {
                 "path":"./media/no_photo.jpg",
                 "url":"/media/no_photo.jpg"
             }"#,
-        placeholder = "Upload your photo",
+        placeholder = "Image in (JPEG or PNG) format",
         accept = "image/jpeg,image/png",
         required = true,
-        hint = "Image in JPEG or PNG format"
+        hint = "Upload your photo"
     )]
     pub photo: Option<String>,
     //
@@ -290,9 +290,9 @@ pub struct SellerProfile {
     #[field_attrs(
         widget = "inputFile",
         label = "Resume",
-        placeholder = "msword or pdf",
+        placeholder = "Document in (msword or pdf) format",
         accept = "application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf",
-        hint = "Add your resume in msword or pdf format"
+        hint = "Upload your resume"
     )]
     pub resume: Option<String>,
     //
@@ -389,9 +389,9 @@ pub struct CustomerProfile {
                 "path":"./media/no_photo.jpg",
                 "url":"/media/no_photo.jpg"
             }"#,
-        placeholder = "Upload your photo",
+        placeholder = "Image in (JPEG or PNG) format",
         accept = "image/jpeg,image/png",
-        hint = "Image in JPEG or PNG format"
+        hint = "Upload your photo"
     )]
     pub photo: Option<String>,
     //
