@@ -269,6 +269,16 @@ pub struct SellerProfile {
     //
     #[serde(default)]
     #[field_attrs(
+        widget = "inputFile",
+        label = "Resume",
+        placeholder = "Please add your resume (docx or pdf)",
+        accept = "application/msword,application/pdf",
+        hint = "Add your resume in docx or pdf format"
+    )]
+    pub file: Option<String>,
+    //
+    #[serde(default)]
+    #[field_attrs(
         widget = "inputPassword",
         label = "Password",
         placeholder = "Enter your password",
