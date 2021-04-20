@@ -3,7 +3,7 @@
     <v-row justify="space-around">
       <v-card width="400" class="pa-4">
         <v-img :src="require('../assets/logo.svg')" contain height="100" />
-        <form>
+        <form @submit.prevent="submit()">
           <v-card-text class="pb-0">
             <v-alert
               v-if="msg_error.length > 0"
@@ -34,7 +34,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn text color="green" @click="submit()">{{ $t('message.9') }}</v-btn>
+            <v-btn text color="green" type="submit">{{ $t('message.9') }}</v-btn>
             <v-btn text color="red" class="ml-4" @click="clear">{{ $t('message.10') }}</v-btn>
           </v-card-actions>
         </form>
