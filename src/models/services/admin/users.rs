@@ -107,6 +107,8 @@ pub struct AdminProfile {
         widget = "inputPassword",
         label = "Confirm password",
         placeholder = "Repeat your password",
+        required = true,
+        minlength = 8,
         hint = "Repeat your password"
     )]
     pub confirm_password: Option<String>,
@@ -313,6 +315,8 @@ pub struct SellerProfile {
         widget = "inputPassword",
         label = "Confirm password",
         placeholder = "Repeat your password",
+        required = true,
+        minlength = 8,
         hint = "Repeat your password"
     )]
     pub confirm_password: Option<String>,
@@ -434,7 +438,6 @@ pub struct CustomerProfile {
         widget = "inputDate",
         label = "Birthday",
         placeholder = "Please enter your date of birth",
-        required = true,
         hint = "Your date of birth"
     )]
     pub birthday: Option<String>,
@@ -456,7 +459,6 @@ pub struct CustomerProfile {
         widget = "inputText",
         label = "City",
         placeholder = "Enter the name of the city",
-        required = true,
         hint = "Indicate the city in which you live"
     )]
     pub city: Option<String>,
@@ -466,7 +468,6 @@ pub struct CustomerProfile {
         widget = "selectTextDyn",
         label = "Country",
         placeholder = "Please Select",
-        required = true,
         hint = "Select the country you live in"
     )]
     pub country: Option<String>,
@@ -476,8 +477,6 @@ pub struct CustomerProfile {
         widget = "inputPhone",
         label = "Contact's Phone Number",
         placeholder = "Please enter your phone number",
-        required = true,
-        unique = true,
         maxlength = 15,
         hint = "Your actual phone number"
     )]
@@ -499,6 +498,8 @@ pub struct CustomerProfile {
         widget = "inputPassword",
         label = "Confirm password",
         placeholder = "Repeat your password",
+        required = true,
+        minlength = 8,
         hint = "Repeat your password"
     )]
     pub confirm_password: Option<String>,
