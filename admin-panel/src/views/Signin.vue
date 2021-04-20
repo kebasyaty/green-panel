@@ -24,6 +24,7 @@
             ></v-text-field>
             <v-text-field
               v-model="password"
+              type="password"
               :error-messages="passwordErrors"
               :label="$t('message.6')"
               required
