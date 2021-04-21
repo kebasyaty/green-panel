@@ -86,7 +86,7 @@ pub struct AdminProfile {
         label = "Phone number",
         placeholder = "Please enter your phone number",
         unique = true,
-        maxlength = 15,
+        maxlength = 30,
         hint = "Your actual phone number"
     )]
     pub phone: Option<String>,
@@ -283,7 +283,7 @@ pub struct SellerProfile {
         placeholder = "Please enter your phone number",
         required = true,
         unique = true,
-        maxlength = 15,
+        maxlength = 30,
         hint = "Your actual phone number"
     )]
     pub phone: Option<String>,
@@ -477,7 +477,7 @@ pub struct CustomerProfile {
         widget = "inputPhone",
         label = "Contact's Phone Number",
         placeholder = "Please enter your phone number",
-        maxlength = 15,
+        maxlength = 30,
         hint = "Your actual phone number"
     )]
     pub phone: Option<String>,
