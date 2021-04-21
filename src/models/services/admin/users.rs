@@ -75,7 +75,7 @@ pub struct AdminProfile {
         placeholder = "Please enter your email",
         required = true,
         unique = true,
-        maxlength = 74,
+        maxlength = 320,
         hint = "Your actual E-mail"
     )]
     pub email: Option<String>,
@@ -251,7 +251,7 @@ pub struct SellerProfile {
         placeholder = "Please enter your email",
         required = true,
         unique = true,
-        maxlength = 74,
+        maxlength = 320,
         hint = "Your actual E-mail"
     )]
     pub email: Option<String>,
@@ -449,7 +449,7 @@ pub struct CustomerProfile {
         placeholder = "Please enter your email",
         required = true,
         unique = true,
-        maxlength = 74,
+        maxlength = 320,
         hint = "Your actual E-mail"
     )]
     pub email: Option<String>,
