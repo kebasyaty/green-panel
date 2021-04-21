@@ -478,6 +478,7 @@ pub struct CustomerProfile {
         label = "Contact's Phone Number",
         placeholder = "Please enter your phone number",
         maxlength = 30,
+        unique = true,
         hint = "Your actual phone number"
     )]
     pub phone: Option<String>,
