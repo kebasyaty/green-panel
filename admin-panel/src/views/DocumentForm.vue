@@ -39,7 +39,7 @@
                 <div v-if="field.widget !== 'checkBox'">
                   <!-- Title of field. -->
                   <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">
-                    {{ field.label }}<span v-if="field.required" class="red--text h6 pl-2">&#9733;<span>
+                    {{ field.label }}<span v-if="field.required" class="red--text pl-2">&#10026;<span>
                   </v-card-title>
                   <!-- Hint for field. -->
                   <v-card-subtitle
