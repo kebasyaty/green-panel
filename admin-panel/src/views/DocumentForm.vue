@@ -816,7 +816,7 @@
                 ></v-select>
 
                 <!-- Selection fields
-                     (Dynamic)
+                     (dynamic)
                 -->
                 <v-select
                   class="pt-0"
