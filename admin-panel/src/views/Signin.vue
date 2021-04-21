@@ -28,6 +28,7 @@
               :error-messages="passwordErrors"
               :label="$t('message.6')"
               required
+              autofocus
               @input="$v.password.$touch()"
               @blur="$v.password.$touch()"
             ></v-text-field>
