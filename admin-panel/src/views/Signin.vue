@@ -19,6 +19,7 @@
               :error-messages="usernameErrors"
               :label="$t('message.5')"
               required
+              autofocus
               @input="$v.username.$touch()"
               @blur="$v.username.$touch()"
             ></v-text-field>
@@ -28,7 +29,6 @@
               :error-messages="passwordErrors"
               :label="$t('message.6')"
               required
-              autofocus
               @input="$v.password.$touch()"
               @blur="$v.password.$touch()"
             ></v-text-field>
