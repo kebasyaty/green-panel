@@ -1,7 +1,7 @@
 //! # Registering models for migration.
 //!
 
-use crate::models::{services::admin::users, settings};
+use crate::models::{services::admin::users, services::products::electric_cars, settings};
 use mango_orm::{CachingModel, Monitor, ToModel, MONGODB_CLIENT_STORE};
 
 // Migration Service `Mango`.
@@ -25,6 +25,7 @@ pub fn mango_migration() -> Result<(), Box<dyn std::error::Error>> {
             users::AdminProfile::meta()?,
             users::SellerProfile::meta()?,
             users::CustomerProfile::meta()?,
+            electric_cars::ElectricCar::meta()?,
         ],
     };
     monitor.migrat()?;
@@ -34,6 +35,7 @@ pub fn mango_migration() -> Result<(), Box<dyn std::error::Error>> {
     users::AdminProfile::to_cache()?;
     users::SellerProfile::to_cache()?;
     users::CustomerProfile::to_cache()?;
+    electric_cars::ElectricCar::to_cache()?;
     //
     Ok(())
 }

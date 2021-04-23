@@ -5,6 +5,7 @@
 /media/*
 !/media/uploads/
 !/media/no_avatar.png
+!/media/no_vehicle.png
 
 /tmp
 
