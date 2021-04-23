@@ -5,7 +5,7 @@ use mango_orm::{CachingModel, QCommon, QPaladins, ToModel};
 use mongodb::bson::doc;
 use serde_json::{json, Value};
 
-use crate::{models::services::admin::users, settings};
+use crate::{models::services::admin::users, models::services::products::electric_cars, settings};
 
 // Add models
 // *************************************************************************************************
@@ -34,7 +34,16 @@ pub fn service_list() -> Value {
                       "doc_name": { "field": "username", "title": "Nickname" } },
                 ]
             },
-            // Other service
+            // Products
+                        {
+                "service": { "title": "Products", "icon": "cart" },
+                "collections": [
+                    // AdminProfile
+                    { "title": "Electric Cars",
+                      "model_key": electric_cars::ElectricCar::key(),
+                      "doc_name": { "field": "username", "title": "Nickname" } },
+                ]
+            },
         ]
     )
 }

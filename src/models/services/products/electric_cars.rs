@@ -3,7 +3,6 @@
 
 use mango_orm::*;
 use metamorphose::Model;
-use regex::RegexBuilder;
 use serde::{Deserialize, Serialize};
 
 use crate::models::settings::{
@@ -16,6 +15,16 @@ use crate::models::settings::{
 pub struct ElectricCar {
     #[serde(default)]
     #[field_attrs(
+        widget = "inputText",
+        label = "Vehicle name",
+        placeholder = "Enter vehicle name",
+        required = true,
+        hint = "Car brand and name"
+    )]
+    pub car_name: Option<String>,
+    //
+    #[serde(default)]
+    #[field_attrs(
         widget = "inputImage",
         label = "Image",
         value = r#"{
@@ -24,6 +33,7 @@ pub struct ElectricCar {
             }"#,
         placeholder = "Upload image car",
         accept = "image/jpeg,image/png",
+        required = true,
         hint = "Image in JPEG or PNG format"
     )]
     pub image: Option<String>,
