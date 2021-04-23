@@ -35,13 +35,13 @@ pub fn service_list() -> Value {
                 ]
             },
             // Products
-                        {
+            {
                 "service": { "title": "Products", "icon": "cart" },
                 "collections": [
-                    // AdminProfile
+                    // ElectricCar
                     { "title": "Electric Cars",
                       "model_key": electric_cars::ElectricCar::key(),
-                      "doc_name": { "field": "username", "title": "Nickname" } },
+                      "doc_name": { "field": "car_name", "title": "Vehicle name" } },
                 ]
             },
         ]
@@ -105,6 +105,22 @@ pub fn get_document_as_json(
             json = users::CustomerProfile::form_json_for_admin()?
         }
 
+    // ElectricCar
+    } else if model_key == electric_cars::ElectricCar::key() {
+        if !doc_hash.is_empty() {
+            let object_id = electric_cars::ElectricCar::hash_to_id(doc_hash.as_str())?;
+            let filter = doc! {"_id": object_id};
+            let output_data = electric_cars::ElectricCar::find_one(Some(filter), None).unwrap();
+            if output_data.bool() {
+                json = output_data
+                    .model::<electric_cars::ElectricCar>()
+                    .unwrap()
+                    .json_for_admin()?;
+            }
+        } else {
+            json = electric_cars::ElectricCar::form_json_for_admin()?
+        }
+
     // Error
     } else {
         Err("Module: `src/models/registration/admin_panel` > \
@@ -146,6 +162,13 @@ pub fn save_document_and_return_as_json(
         let output_data = model.save(None, None)?;
         json = output_data.json_for_admin()?;
 
+    // ElectricCar
+    } else if model_key == electric_cars::ElectricCar::key() {
+        let mut model = serde_json::from_slice::<electric_cars::ElectricCar>(&bytes)?;
+        model.image = app_state.to_file(model.image, "products/electric_cars/images");
+        let output_data = model.save(None, None)?;
+        json = output_data.json_for_admin()?;
+
     // Error
     } else {
         Err("Module: `src/models/registration/admin_panel` > \
@@ -174,6 +197,10 @@ pub fn refresh_dyn_data(
     // CustomerProfile
     } else if model_key == users::CustomerProfile::key() {
         users::CustomerProfile::db_update_dyn_widgets(json_options)?;
+
+    // ElectricCar
+    } else if model_key == electric_cars::ElectricCar::key() {
+        electric_cars::ElectricCar::db_update_dyn_widgets(json_options)?;
 
     // Error
     } else {
