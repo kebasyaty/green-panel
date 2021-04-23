@@ -279,6 +279,7 @@
                     target="_blank"
                   >{{ fieldsData[field.name].url }}</v-btn>
                   <v-card-subtitle
+                    v-if="fieldsData[field.name].size !== undefined"
                     class="pa-0"
                   >{{ `${$t('message.28')}: ${humanFileSize(fieldsData[field.name].size)}` }}</v-card-subtitle>
                   <v-checkbox
@@ -306,6 +307,7 @@
                     target="_blank"
                   >{{ fieldsData[field.name].url }}</v-btn>
                   <v-card-subtitle
+                    v-if="fieldsData[field.name].size !== undefined"
                     class="pa-0"
                   >{{ `${$t('message.28')}: ${humanFileSize(fieldsData[field.name].size)}` }}</v-card-subtitle>
                   <v-checkbox
