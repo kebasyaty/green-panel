@@ -72,9 +72,9 @@
             </thead>
             <tbody>
               <!-- Document list. -->
-              <tr v-for="(document, idxDoc) in documents" :key="updateDocNumber = idxDoc">
+              <tr v-for="(document, idxDoc) in documents" :key="idxDoc">
                 <!-- Number of the document in the table. -->
-                <td width="76" class="pr-0">{{ updateDocNumber }}</td>
+                <td width="76" class="pr-0">{{ idxDoc + ((50 * (currentPageNumber - 1)) + 1) }}</td>
                 <!-- Delete document. -->
                 <td width="76" class="pr-0">
                   <v-checkbox
@@ -122,8 +122,7 @@ export default {
 
   data: () => ({
     deleteAllDocsFlag: false,
-    docsToBeDeleted: [],
-    docNumber: 0
+    docsToBeDeleted: []
   }),
 
   computed: {
@@ -154,14 +153,6 @@ export default {
       },
       set: function (text) {
         this.setSearchQuery(text)
-      }
-    },
-    updateDocNumber: {
-      get: function () {
-        return this.docNumber
-      },
-      set: function (index) {
-        this.docNumber = index + ((50 * (this.currentPageNumber - 1)) + 1)
       }
     },
     // Get Title of collection.
