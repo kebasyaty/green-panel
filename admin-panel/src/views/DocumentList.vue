@@ -74,7 +74,7 @@
               <!-- Document list. -->
               <tr v-for="(document, idxDoc) in documents" :key="`${document.title}-${idxDoc}`">
                 <!-- Number of the document in the table. -->
-                <td width="76" class="pr-0">{{ idxDoc + 1 }}</td>
+                <td width="76" class="pr-0">{{ idxDoc + ((50 * (this.currentPageNumber - 1)) + 1) }}</td>
                 <!-- Delete document. -->
                 <td width="76" class="pr-0">
                   <v-checkbox
