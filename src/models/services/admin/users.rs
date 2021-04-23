@@ -41,8 +41,8 @@ pub struct AdminProfile {
         widget = "inputImage",
         label = "Photo",
         value = r#"{
-                "path":"./media/no_photo.jpg",
-                "url":"/media/no_photo.jpg"
+                "path":"./media/no-avatar.png",
+                "url":"/media/no-avatar.png"
             }"#,
         placeholder = "Upload your photo",
         accept = "image/jpeg,image/png",
@@ -191,8 +191,8 @@ pub struct SellerProfile {
         widget = "inputImage",
         label = "Photo",
         value = r#"{
-                "path":"./media/no_photo.jpg",
-                "url":"/media/no_photo.jpg"
+                "path":"./media/no-avatar.png",
+                "url":"/media/no-avatar.png"
             }"#,
         placeholder = "Image in (JPEG or PNG) format",
         accept = "image/jpeg,image/png",
@@ -391,8 +391,8 @@ pub struct CustomerProfile {
         widget = "inputImage",
         label = "Photo",
         value = r#"{
-                "path":"./media/no_photo.jpg",
-                "url":"/media/no_photo.jpg"
+                "path":"./media/no-avatar.png",
+                "url":"/media/no-avatar.png"
             }"#,
         placeholder = "Image in (JPEG or PNG) format",
         accept = "image/jpeg,image/png",
