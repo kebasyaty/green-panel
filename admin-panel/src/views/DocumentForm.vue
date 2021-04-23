@@ -1087,8 +1087,12 @@ export default {
     ]),
     // Router - Go back one step.
     goBack() {
+      const service = this.$route.params.service
+      const collection = this.$route.params.collection
+      const indexService = this.$route.params.indexService
+      const indexCollection = this.$route.params.indexCollection
       this.setShowMsg(false)
-      this.$router.go(-1)
+      this.$router.replace({ path: `/${service}/${indexService}/${collection}/${indexCollection}/document-list` })
     },
     // To Rerender Component.
     reload() {
