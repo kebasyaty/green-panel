@@ -34,7 +34,6 @@ const SLOGAN: &str = "Brief description of the company.";
 // sl | sq | sr | sr-latn | sv | th | tk | tr | tt | ug | uk | vi |
 // zh | zh-cn
 const LANGUAGE_CODE: &str = "en";
-const PAYLOAD_MAX_SIZE: usize = 2097_152; // 2097152 = ~2mb ; Default data size for the form - 16384 = ~16 Kb
 
 fn admin_file_path(inner_path: &str) -> String {
     format!("./admin/{}", inner_path)
@@ -357,7 +356,7 @@ pub mod request_handlers {
                 "document": document,
                 "is_authenticated": is_authenticated,
                 "msg_err": msg_err,
-                "max_size": PAYLOAD_MAX_SIZE
+                "max_size": settings::general::MAX_UPLOAD_SIZE
             })))
     }
 
@@ -395,10 +394,12 @@ pub mod request_handlers {
         let mut bytes = web::BytesMut::new();
         while let Some(chunk) = payload.next().await {
             let chunk = chunk?;
-            if (bytes.len() + chunk.len()) > PAYLOAD_MAX_SIZE {
+            if (bytes.len() + chunk.len()) > settings::general::MAX_UPLOAD_SIZE {
                 msg_err = format!(
                     "The total size of the form data exceeds the {} limit.",
-                    PAYLOAD_MAX_SIZE.file_size(file_size_opts::BINARY).unwrap()
+                    settings::general::MAX_UPLOAD_SIZE
+                        .file_size(file_size_opts::BINARY)
+                        .unwrap()
                 );
             }
             bytes.extend_from_slice(&chunk);
