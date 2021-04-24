@@ -1,5 +1,5 @@
 //! # Primal
-//! Service/Subapplication by default.
+//! Service (Subapplication) by default.
 //!
 
 use actix_session::Session;

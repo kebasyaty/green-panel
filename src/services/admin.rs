@@ -1,5 +1,5 @@
 //! # Admin
-//! Service/Subapplication for administration.
+//! Service (Subapplication) for administration.
 //!
 
 use actix_files::Files;
