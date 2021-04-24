@@ -60,7 +60,8 @@ export default {
               model_key: collection.model_key,
               field_name: collection.doc_name.field,
               page_num: state.currentPageNumber,
-              search_query: state.searchQuery || ''
+              search_query: state.searchQuery || '',
+              limit: state.docsPerPage
             }
           })
             .then(response => {

@@ -98,23 +98,27 @@
         </v-simple-table>
       </v-card-text>
       <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-pagination
-          v-if="!blockPagination"
-          v-model="updateCurrentPageNumber"
-          :length="pageCount"
-          :total-visible="5"
-          @input="getDocumentList()"
-        ></v-pagination>
-        <v-select
-          class="ml-5"
-          v-model="updateDocsPerPage"
-          :items="countPerPage"
-          :label="$t('message.37')"
-          hide-details
-          @change="window.console.log(docsPerPage)"
-        ></v-select>
-        <v-spacer></v-spacer>
+        <v-row>
+          <v-col cols="auto">
+            <v-pagination
+              v-if="!blockPagination"
+              v-model="updateCurrentPageNumber"
+              :length="pageCount"
+              :total-visible="5"
+              @input="getDocumentList()"
+            ></v-pagination>
+          </v-col>
+          <v-col cols="auto">
+            <v-select
+              v-model="updateDocsPerPage"
+              :items="countPerPage"
+              :label="$t('message.37')"
+              hide-details
+              dense
+              @change="getDocumentList()"
+            ></v-select>
+          </v-col>
+        </v-row>
       </v-card-actions>
     </v-card>
   </v-container>
