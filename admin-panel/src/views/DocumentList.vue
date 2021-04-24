@@ -190,7 +190,7 @@ export default {
     currentPageNumber: function (numPage) {
       this.progressionStep = ((50 * (numPage - 1))) + 1
       this.$route.query.page = numPage.toString()
-      history.replaceState(null, '', `${window.location.protocol}//${window.location.host}${this.$route.path}?page=${numPage}`)
+      history.replaceState(null, '', `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?page=${numPage}`)
     }
   },
 
