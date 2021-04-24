@@ -74,7 +74,7 @@
               <!-- Document list. -->
               <tr v-for="(document, idxDoc) in documents" :key="idxDoc">
                 <!-- Number of the document in the table. -->
-                <td width="76" class="pr-0">{{ idxDoc + ((50 * (currentPageNumber - 1)) + 1) }}</td>
+                <td width="76" class="pr-0">{{ idxDoc + progressionStep }}</td>
                 <!-- Delete document. -->
                 <td width="76" class="pr-0">
                   <v-checkbox
@@ -88,7 +88,7 @@
                 </td>
                 <!-- Link to document. -->
                 <td>
-                  <router-link :to="createDocumentUrl(idxDoc)">{{ document.title }}</router-link>
+                  <router-link class="pl-0" :to="createDocumentUrl(idxDoc)">{{ document.title }}</router-link>
                 </td>
                 <td width="160" v-html="formattingDate(document.created_at)"></td>
                 <td width="160" v-html="formattingDate(document.updated_at)"></td>
@@ -122,7 +122,8 @@ export default {
 
   data: () => ({
     deleteAllDocsFlag: false,
-    docsToBeDeleted: []
+    docsToBeDeleted: [],
+    progressionStep: 1
   }),
 
   computed: {
@@ -185,6 +186,9 @@ export default {
         this.deleteAllDocsFlag = false
         this.docsToBeDeleted = []
       }
+    },
+    currentPageNumber: function (numPage) {
+      this.progressionStep = ((50 * (numPage - 1))) + 1
     }
   },
 
