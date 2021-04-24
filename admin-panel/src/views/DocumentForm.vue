@@ -1065,7 +1065,8 @@ export default {
       'configCKEditor'
     ]),
     ...mapState('documentList', [
-      'documents'
+      'documents',
+      'currentPageNumber'
     ])
   },
 
@@ -1092,7 +1093,7 @@ export default {
       const indexService = this.$route.params.indexService
       const indexCollection = this.$route.params.indexCollection
       this.setShowMsg(false)
-      this.$router.replace({ path: `/${service}/${indexService}/${collection}/${indexCollection}/document-list` })
+      this.$router.replace({ path: `/${service}/${indexService}/${collection}/${indexCollection}/document-list?page=${this.currentPageNumber}` })
     },
     // To Rerender Component.
     reload() {
