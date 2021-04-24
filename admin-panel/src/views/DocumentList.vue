@@ -106,6 +106,14 @@
           :total-visible="5"
           @input="getDocumentList()"
         ></v-pagination>
+        <v-select
+          class="ml-5"
+          v-model="updateDocsPerPage"
+          :items="countPerPage"
+          :label="$t('message.37')"
+          hide-details
+          @change="window.console.log(docsPerPage)"
+        ></v-select>
         <v-spacer></v-spacer>
       </v-card-actions>
     </v-card>
@@ -123,7 +131,8 @@ export default {
   data: () => ({
     deleteAllDocsFlag: false,
     docsToBeDeleted: [],
-    progressionStep: 1
+    progressionStep: 1,
+    countPerPage: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 500, 1000]
   }),
 
   computed: {
@@ -134,6 +143,7 @@ export default {
       'documents',
       'currentPageNumber',
       'pageCount',
+      'docsPerPage',
       'searchQuery',
       'blockPagination',
       'blockLoadDocs'
@@ -154,6 +164,14 @@ export default {
       },
       set: function (text) {
         this.setSearchQuery(text)
+      }
+    },
+    updateDocsPerPage: {
+      get: function () {
+        return this.docsPerPage
+      },
+      set: function (num) {
+        this.setDocsPerPage(num)
       }
     },
     // Get Title of collection.
@@ -197,6 +215,7 @@ export default {
   methods: {
     ...mapMutations('documentList', [
       'setCurrentPageNumber',
+      'setDocsPerPage',
       'setSearchQuery'
     ]),
     ...mapMutations('popUpMsgs', [

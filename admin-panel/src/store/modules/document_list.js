@@ -8,6 +8,7 @@ export default {
     documents: [],
     currentPageNumber: 1,
     pageCount: 0,
+    docsPerPage: 50,
     searchQuery: null,
     blockPagination: false,
     // block loading of documents
@@ -25,6 +26,9 @@ export default {
     },
     setPageCount(state, payload) {
       state.pageCount = payload
+    },
+    setDocsPerPage(state, payload) {
+      state.docsPerPage = payload
     },
     setSearchQuery(state, payload) {
       state.searchQuery = payload
