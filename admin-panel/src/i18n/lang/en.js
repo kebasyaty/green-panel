@@ -36,6 +36,7 @@ export default {
     32: 'Delete image',
     33: 'For dynamic enumerations, only unique names are allowed',
     34: 'The minimum value is zero',
-    35: 'The value must not be fractional'
+    35: 'The value must not be fractional',
+    36: 'Invalid parameter `?page=` in URL'
   }
 }

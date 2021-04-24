@@ -137,7 +137,7 @@ export default {
       const currentUserLocale = this.$i18n.locale
       const slugServiceTitle = slug(serviceTitle, { locale: currentUserLocale })
       const slugCollectionTitle = slug(collectionTitle, { locale: currentUserLocale })
-      return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document-list`
+      return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document-list?page=1`
     },
     // Get a list of documents.
     getDocumentList: function (payload) {

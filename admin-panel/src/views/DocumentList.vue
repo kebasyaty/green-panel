@@ -189,6 +189,7 @@ export default {
     },
     currentPageNumber: function (numPage) {
       this.progressionStep = ((50 * (numPage - 1))) + 1
+      this.$route.query.page = numPage.toString()
     }
   },
 
@@ -294,7 +295,13 @@ export default {
 
   created() {
     // Reset page number to default.
-    this.resetPageNumberDefault()
+    let numPage = parseInt(this.$route.query.page)
+    if (numPage === undefined) {
+      numPage = 1
+    } else if (Number.isNaN(numPage)) {
+      this.runShowMsg({ text: this.$t('message.36'), status: 'error' })
+    }
+    this.resetPageNumberDefault(numPage)
     // Get a list of documents.
     this.getDocumentList()
   }
