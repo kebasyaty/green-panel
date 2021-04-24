@@ -25,7 +25,6 @@ const routes = [
     path: '/:service/:indexService/:collection/:indexCollection/document-list',
     name: 'documentList',
     component: () => import('../views/DocumentList.vue'),
-    props: (route) => ({ page: route.query.page }),
     meta: {
       authRequired: true
     }
