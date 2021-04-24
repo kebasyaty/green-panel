@@ -88,7 +88,7 @@
                 </td>
                 <!-- Link to document. -->
                 <td>
-                  <router-link class="pl-0" :to="createDocumentUrl(idxDoc)">{{ document.title }}</router-link>
+                  <router-link :to="createDocumentUrl(idxDoc)">{{ document.title }}</router-link>
                 </td>
                 <td width="160" v-html="formattingDate(document.created_at)"></td>
                 <td width="160" v-html="formattingDate(document.updated_at)"></td>
