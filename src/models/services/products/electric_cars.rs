@@ -17,7 +17,6 @@ pub struct ElectricCar {
     #[field_attrs(
         widget = "inputText",
         label = "Vehicle name",
-        value = "x",
         placeholder = "Enter vehicle name",
         required = true,
         hint = "Car brand and name"
