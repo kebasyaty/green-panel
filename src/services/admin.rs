@@ -254,10 +254,11 @@ pub mod request_handlers {
             } else {
                 None
             };
-            let limit = (50_u32 * query.page_num) as i64;
+            let limit: i64 = 50;
+            let skip = limit * i64::from(query.page_num - 1_u32);
             let options = Some(
                 FindOptions::builder()
-                    .skip(limit - 50_i64)
+                    .skip(skip)
                     .limit(limit)
                     .projection(Some(
                         doc! {query.field_name.as_str(): 1, "created_at": 1, "updated_at": 1},
