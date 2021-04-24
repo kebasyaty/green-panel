@@ -217,6 +217,7 @@ pub mod request_handlers {
         field_name: String,
         page_num: u32,
         search_query: String,
+        limit: u32,
     }
 
     pub async fn document_list(
@@ -254,7 +255,7 @@ pub mod request_handlers {
             } else {
                 None
             };
-            let limit: i64 = 50;
+            let limit = i64::from(query.limit);
             let skip = limit * i64::from(query.page_num - 1_u32);
             let options = Some(
                 FindOptions::builder()
