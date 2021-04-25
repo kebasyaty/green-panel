@@ -215,7 +215,8 @@ export default {
     currentPageNumber: function (numPage) {
       this.progressionStep = ((this.docsPerPage * (numPage - 1))) + 1
       this.$route.query.page = numPage.toString()
-      history.replaceState(null, '', `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${numPage}`)
+      const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${numPage}`
+      history.replaceState(null, url)
     }
   },
 
@@ -245,7 +246,8 @@ export default {
     },
     // Refresh the number of documents per page.
     changeDocsPerPage() {
-      //
+      const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${this.currentPageNumber}`
+      document.location.replace(url)
     },
     // Get a list of documents.
     getDocumentList: function () {
