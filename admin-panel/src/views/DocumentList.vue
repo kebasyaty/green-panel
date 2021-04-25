@@ -328,17 +328,15 @@ export default {
 
   created() {
     // Reset page number to default.
-    let numPage = parseInt(this.$route.query.page)
-    if (numPage === undefined) {
-      numPage = 1
-    } else if (Number.isNaN(numPage)) {
-      this.runShowMsg({ text: this.$t('message.36'), status: 'error' })
-    }
-    let numPer = parseInt(this.$route.query.per)
-    if (numPer === undefined) {
-      numPer = this.docsPerPage
-    } else if (Number.isNaN(numPer)) {
+    let numPer = this.$route.query.per
+    numPer = numPer !== undefined ? parseInt(numPer) : this.docsPerPage
+    if (Number.isNaN(numPer)) {
       this.runShowMsg({ text: this.$t('message.38'), status: 'error' })
+    }
+    let numPage = this.$route.query.page
+    numPage = numPage !== undefined ? parseInt(numPage) : 1
+    if (Number.isNaN(numPage)) {
+      this.runShowMsg({ text: this.$t('message.36'), status: 'error' })
     }
     this.resetPageNumberDefault({ numPer, numPage })
     // Get a list of documents.
