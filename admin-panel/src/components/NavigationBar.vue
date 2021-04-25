@@ -140,7 +140,13 @@ export default {
       const currentUserLocale = this.$i18n.locale
       const slugServiceTitle = slug(serviceTitle, { locale: currentUserLocale })
       const slugCollectionTitle = slug(collectionTitle, { locale: currentUserLocale })
-      return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document-list?per=${this.docsPerPage}&page=1`
+      let numPer = parseInt(this.$route.query.per)
+      if (numPer === undefined) {
+        numPer = this.docsPerPage
+      } else if (Number.isNaN(numPer)) {
+        this.runShowMsg({ text: this.$t('message.38'), status: 'error' })
+      }
+      return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document-list?per=${numPer}&page=1`
     },
     // Get a list of documents.
     getDocumentList: function (payload) {
