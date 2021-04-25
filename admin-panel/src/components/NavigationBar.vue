@@ -83,6 +83,9 @@ export default {
       'selectedService',
       'serviceList'
     ]),
+    ...mapState('documentList', [
+      'docsPerPage'
+    ]),
     updateOpenPanelServiceList: {
       get: function () {
         return this.openPanelServiceList
@@ -137,7 +140,7 @@ export default {
       const currentUserLocale = this.$i18n.locale
       const slugServiceTitle = slug(serviceTitle, { locale: currentUserLocale })
       const slugCollectionTitle = slug(collectionTitle, { locale: currentUserLocale })
-      return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document-list?page=1`
+      return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document-list?per=${this.docsPerPage}&page=1`
     },
     // Get a list of documents.
     getDocumentList: function (payload) {
