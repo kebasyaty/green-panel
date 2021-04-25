@@ -34,6 +34,18 @@
         </v-row>
         <v-row>
           <v-col cols="12">
+            <v-select
+              v-model="updateDocsPerPage"
+              :items="countPerPage"
+              :label="$t('message.37')"
+              hide-details
+              dense
+              @change="getDocumentList()"
+            ></v-select>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12">
             <!-- Button - Delete all selected documents. -->
             <v-btn
               dark
@@ -98,27 +110,13 @@
         </v-simple-table>
       </v-card-text>
       <v-card-actions>
-        <v-row>
-          <v-col cols="6">
-            <v-pagination
-              v-if="!blockPagination"
-              v-model="updateCurrentPageNumber"
-              :length="pageCount"
-              :total-visible="5"
-              @input="getDocumentList()"
-            ></v-pagination>
-          </v-col>
-          <v-col cols="6">
-            <v-select
-              v-model="updateDocsPerPage"
-              :items="countPerPage"
-              :label="$t('message.37')"
-              hide-details
-              dense
-              @change="getDocumentList()"
-            ></v-select>
-          </v-col>
-        </v-row>
+        <v-pagination
+          v-if="!blockPagination"
+          v-model="updateCurrentPageNumber"
+          :length="pageCount"
+          :total-visible="5"
+          @input="getDocumentList()"
+        ></v-pagination>
       </v-card-actions>
     </v-card>
   </v-container>
