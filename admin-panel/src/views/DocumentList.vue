@@ -107,7 +107,7 @@
                 :items="countPerPage"
                 hide-details
                 dense
-                @change="setCurrentPageNumber(1)"
+                @change="changeDocsPerPage()"
               ></v-select>
             </div>
           </v-col>
@@ -242,6 +242,10 @@ export default {
     goBack() {
       this.setShowMsg(false)
       this.$router.replace({ name: 'home' })
+    },
+    // Refresh the number of documents per page.
+    changeDocsPerPage() {
+      //
     },
     // Get a list of documents.
     getDocumentList: function () {
