@@ -37,7 +37,8 @@ export default {
     33: 'For dynamic enumerations, only unique names are allowed',
     34: 'The minimum value is zero',
     35: 'The value must not be fractional',
-    36: 'Invalid parameter `?page=` in URL',
-    37: 'Docs per page'
+    36: 'Invalid parameter `&page=` in URL',
+    37: 'Docs per page',
+    38: 'Invalid parameter `?per=` in URL'
   }
 }

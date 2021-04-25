@@ -332,7 +332,13 @@ export default {
     } else if (Number.isNaN(numPage)) {
       this.runShowMsg({ text: this.$t('message.36'), status: 'error' })
     }
-    this.resetPageNumberDefault(numPage)
+    let numPer = parseInt(this.$route.query.per)
+    if (numPer === undefined) {
+      numPer = this.docsPerPage
+    } else if (Number.isNaN(numPer)) {
+      this.runShowMsg({ text: this.$t('message.38'), status: 'error' })
+    }
+    this.resetPageNumberDefault({ numPer, numPage })
     // Get a list of documents.
     this.getDocumentList()
   }
