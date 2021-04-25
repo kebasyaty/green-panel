@@ -107,7 +107,7 @@
                 :items="countPerPage"
                 hide-details
                 dense
-                @change="getDocumentList()"
+                @change="[getDocumentList(), setCurrentPageNumber(1)]"
               ></v-select>
             </div>
           </v-col>
