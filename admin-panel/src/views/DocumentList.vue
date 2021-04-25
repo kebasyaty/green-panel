@@ -99,7 +99,7 @@
       </v-card-text>
       <v-card-actions>
         <v-row>
-          <v-col cols="auto">
+          <v-col cols="6">
             <v-pagination
               v-if="!blockPagination"
               v-model="updateCurrentPageNumber"
@@ -108,7 +108,7 @@
               @input="getDocumentList()"
             ></v-pagination>
           </v-col>
-          <v-col cols="auto">
+          <v-col cols="6">
             <v-select
               v-model="updateDocsPerPage"
               :items="countPerPage"
