@@ -281,8 +281,8 @@ pub mod request_handlers {
                 .database(meta.database_name.as_str())
                 .collection(meta.collection_name.as_str());
             // Get the number of pages (50 documents per page).
-            page_count = f64::from((coll.count_documents(filter.clone(), None).unwrap()) / 50_f64)
-                .ceil() as u64;
+            page_count =
+                (coll.count_documents(filter.clone(), None).unwrap() as f64 / 50_f64).ceil() as u64;
             // Get cursor for selecting documents.
             let mut cursor = coll.find(filter, options).unwrap();
 
