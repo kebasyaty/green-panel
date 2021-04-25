@@ -89,8 +89,8 @@ export default {
     // Reset page number to default.
     resetPageNumberDefault({ commit }, payload) {
       commit('setBlockPagination', true)
-      commit('setDocsPerPage', payload.num_per)
-      commit('setCurrentPageNumber', payload.num_page)
+      commit('setDocsPerPage', payload.numPer)
+      commit('setCurrentPageNumber', payload.numPage)
       commit('setBlockPagination', false)
     }
   }
