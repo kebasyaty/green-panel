@@ -61,6 +61,15 @@ export default {
     logout() {
       this.axios.post('/admin/logout', {})
         .then(response => {
+          if (this.$session.has('theme_dark')) {
+            this.$session.remove('theme_dark')
+          }
+          if (this.$session.has('num_page')) {
+            this.$session.remove('num_page')
+          }
+          if (this.$session.has('num_per')) {
+            this.$session.remove('num_per')
+          }
           this.setUsername('..')
           this.$vuetify.theme.dark = false
           this.setIsAuthenticated(false)
