@@ -214,7 +214,7 @@ export default {
     },
     currentPageNumber: function (numPage) {
       this.progressionStep = ((this.docsPerPage * (numPage - 1))) + 1
-      this.$route.query.page = numPage.toString()
+      this.$route.query.page = numPage
       const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${numPage}`
       history.replaceState(null, url)
     }
