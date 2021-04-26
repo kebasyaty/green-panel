@@ -323,12 +323,26 @@ export default {
           this.runShowMsg({ text: error, status: 'error' })
         })
         .then(() => this.runShowOverlayPageLockout(false))
+    },
+    // Get request parameters - per, page.
+    getPerPage() {
+      let numPage = this.$route.query.page
+      numPage = numPage !== undefined ? parseInt(numPage) : 1
+      if (Number.isNaN(numPage)) {
+        this.runShowMsg({ text: this.$t('message.36'), status: 'error' })
+      }
+      let numPer = this.$route.query.per
+      numPer = numPer !== undefined ? parseInt(numPer) : this.docsPerPage
+      if (Number.isNaN(numPer)) {
+        this.runShowMsg({ text: this.$t('message.38'), status: 'error' })
+      }
+      return { numPage, numPer }
     }
   },
 
   created() {
     // Reset page number to default.
-    this.resetPageNumberDefault()
+    this.resetPageNumberDefault(this.getPerPage())
     // Get a list of documents.
     this.getDocumentList()
   }
