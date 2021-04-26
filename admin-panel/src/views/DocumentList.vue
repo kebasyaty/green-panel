@@ -246,7 +246,7 @@ export default {
     },
     // Refresh the number of documents per page.
     changeDocsPerPage() {
-      const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${this.currentPageNumber}`
+      const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=1`
       document.location.replace(url)
     },
     // Get a list of documents.
