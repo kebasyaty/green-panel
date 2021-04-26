@@ -138,7 +138,6 @@ export default {
   data: () => ({
     deleteAllDocsFlag: false,
     docsToBeDeleted: [],
-    progressionStep: 1,
     countPerPage: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 500, 1000]
   }),
 
@@ -150,6 +149,7 @@ export default {
       'documents',
       'currentPageNumber',
       'pageCount',
+      'progressionStep',
       'docsPerPage',
       'searchQuery',
       'blockPagination',
@@ -213,7 +213,7 @@ export default {
       }
     },
     currentPageNumber: function (numPage) {
-      this.progressionStep = ((this.docsPerPage * (numPage - 1))) + 1
+      this.setProgressionStep(((this.docsPerPage * (numPage - 1))) + 1)
       this.$route.query.page = numPage
       const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${numPage}`
       history.replaceState(null, null, url)
@@ -223,6 +223,7 @@ export default {
   methods: {
     ...mapMutations('documentList', [
       'setCurrentPageNumber',
+      'setProgressionStep',
       'setDocsPerPage',
       'setSearchQuery'
     ]),

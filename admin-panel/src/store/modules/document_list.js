@@ -8,6 +8,7 @@ export default {
     documents: [],
     currentPageNumber: 1,
     pageCount: 0,
+    progressionStep: 1,
     docsPerPage: 50,
     searchQuery: null,
     blockPagination: false,
@@ -26,6 +27,9 @@ export default {
     },
     setPageCount(state, payload) {
       state.pageCount = payload
+    },
+    setProgressionStep(state, payload) {
+      state.progressionStep = payload
     },
     setDocsPerPage(state, payload) {
       state.docsPerPage = payload
