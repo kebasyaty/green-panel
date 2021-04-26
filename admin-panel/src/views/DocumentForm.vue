@@ -1078,6 +1078,10 @@ export default {
     ...mapMutations('popUpMsgs', [
       'setShowMsg'
     ]),
+    ...mapMutations('documentList', [
+      'setCurrentPageNumber',
+      'setDocsPerPage'
+    ]),
     ...mapActions('documentList', [
       'ajaxGetDocumentList'
     ]),
@@ -1673,6 +1677,10 @@ export default {
                     this.reload()
                     break
                   case 'save_and_new':
+                    if (this.$session.exists()) {
+                      this.$session.set('num_page', this.currentPageNumber)
+                      this.$session.set('num_per', this.docsPerPage)
+                    }
                     this.$router.replace({
                       name: 'documenForm',
                       params: {
@@ -1913,6 +1921,11 @@ export default {
   },
 
   created() {
+    //
+    if (this.$session.exists()) {
+      this.setCurrentPageNumber = this.$session.get('num_page')
+      this.setDocsPerPage = this.$session.get('num_per')
+    }
     // Get document.
     this.getDoc()
   }
