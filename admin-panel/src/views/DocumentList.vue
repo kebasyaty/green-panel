@@ -115,6 +115,7 @@
             <!-- Pagination. -->
             <v-pagination
               v-if="!blockPagination"
+              circle
               v-model="updateCurrentPageNumber"
               :length="pageCount"
               :total-visible="5"
