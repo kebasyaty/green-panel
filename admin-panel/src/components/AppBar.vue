@@ -58,6 +58,11 @@ export default {
       'setIsAuthenticated',
       'setOpenPanelServiceList'
     ]),
+    ...mapMutations('documentList', [
+      'setCurrentPageNumber',
+      'setProgressionStep',
+      'setDocsPerPage'
+    ]),
     logout() {
       this.axios.post('/admin/logout', {})
         .then(response => {
@@ -71,6 +76,9 @@ export default {
             this.$session.remove('num_per')
           }
           this.setUsername('..')
+          this.setCurrentPageNumber(1)
+          this.setProgressionStep(1)
+          this.setDocsPerPage(50)
           this.$vuetify.theme.dark = false
           this.setIsAuthenticated(false)
         })
