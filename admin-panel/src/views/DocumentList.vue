@@ -320,9 +320,11 @@ export default {
           } else if (data.msg_err.length === 0) {
             this.setShowMsg(false)
             this.getDocumentList().then(() => {
-              const numPage = this.currentPageNumber
+              let numPage = this.currentPageNumber
               if (numPage > 1 && this.pageCount < numPage) {
-                const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${numPage - 1}`
+                this.setProgressionStep(((this.docsPerPage * (--numPage - 1))) + 1)
+                this.$route.query.page = numPage
+                const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${numPage}`
                 document.location.replace(url)
               }
             })
