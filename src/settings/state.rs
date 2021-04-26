@@ -93,7 +93,7 @@ impl AppState {
     // Example:
     // from "{"name":"name.jpg","base64":"...","is_delete":false}"
     // to "{"path":"./path/.name.jpg","url":"/path/name.jpg","is_delete":false}"
-    pub fn to_file(&self, json_line: Option<String>, target_dir: &str) -> Option<String> {
+    pub fn base64_to_file(&self, json_line: Option<String>, target_dir: &str) -> Option<String> {
         if let Some(json_line) = json_line {
             // Extract data from json string.
             let data =
