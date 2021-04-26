@@ -111,6 +111,7 @@ export default {
       'setSelectedService'
     ]),
     ...mapMutations('documentList', [
+      'setProgressionStep',
       'setSearchQuery'
     ]),
     ...mapMutations('popUpMsgs', [
