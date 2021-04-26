@@ -338,7 +338,7 @@ export default {
         .then(() => this.runShowOverlayPageLockout(false))
     },
     // Get request parameters - per, page.
-    getPerPage() {
+    getRequestParams() {
       let numPage = this.$route.query.page
       numPage = numPage !== undefined ? parseInt(numPage) : 1
       if (Number.isNaN(numPage)) {
@@ -349,13 +349,14 @@ export default {
       if (Number.isNaN(numPer)) {
         this.runShowMsg({ text: this.$t('message.38'), status: 'error' })
       }
+      this.setProgressionStep(((this.docsPerPage * (numPage - 1))) + 1)
       return { numPage, numPer }
     }
   },
 
   created() {
     // Reset page number to default.
-    this.resetPageNumberDefault(this.getPerPage())
+    this.resetPageNumberDefault(this.getRequestParams())
     // Get a list of documents.
     this.getDocumentList()
   }

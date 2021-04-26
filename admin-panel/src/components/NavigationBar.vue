@@ -44,7 +44,7 @@
                 v-for="(collection, indexCollection) in item.collections"
                 :key="collection.model_key"
                 class="px-1"
-                @click="[resetPageNumberDefault(getPerPage()),
+                @click="[resetPageNumberDefault(getRequestParams()),
                          getDocumentList({indexService, indexCollection}),
                          resetPreActivatedService(indexService)]"
                 :to="createUrlDocumentList(item.service.title, collection.title, indexService, indexCollection)"
@@ -150,7 +150,7 @@ export default {
       return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document-list?per=${numPer}&page=1`
     },
     // Get request parameters - per, page.
-    getPerPage() {
+    getRequestParams() {
       let numPage = this.$route.query.page
       numPage = numPage !== undefined ? parseInt(numPage) : 1
       if (Number.isNaN(numPage)) {
@@ -161,6 +161,7 @@ export default {
       if (Number.isNaN(numPer)) {
         this.runShowMsg({ text: this.$t('message.38'), status: 'error' })
       }
+      this.setProgressionStep(((this.docsPerPage * (numPage - 1))) + 1)
       return { numPage, numPer }
     },
     // Get a list of documents.
@@ -168,7 +169,7 @@ export default {
       this.setShowMsg(false)
       this.setSearchQuery(null)
       this.runShowOverlayPageLockout(true)
-      this.resetPageNumberDefault(this.getPerPage())
+      this.resetPageNumberDefault(this.getRequestParams())
       this.ajaxGetDocumentList(payload)
         .catch(error => {
           window.console.log(error)
