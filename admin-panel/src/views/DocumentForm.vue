@@ -1923,8 +1923,8 @@ export default {
   created() {
     //
     if (this.$session.exists()) {
-      this.setCurrentPageNumber = this.$session.has('num_page') ? this.$session.get('num_page') : this.currentPageNumber
-      this.setDocsPerPage = this.$session.has('num_per') ? this.$session.get('num_per') : this.docsPerPage
+      this.setCurrentPageNumber(this.$session.has('num_page') ? this.$session.get('num_page') : this.currentPageNumber)
+      this.setDocsPerPage(this.$session.has('num_per') ? this.$session.get('num_per') : this.docsPerPage)
     }
     // Get document.
     this.getDoc()
