@@ -25,7 +25,7 @@
     <!-- Logout button. -->
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs" v-on="on" @click="logout">
+        <v-btn icon v-bind="attrs" v-on="on" @click="logout()">
           <v-icon>mdi-logout</v-icon>
         </v-btn>
       </template>
@@ -62,6 +62,7 @@ export default {
       this.axios.post('/admin/logout', {})
         .then(response => {
           this.setUsername('..')
+          this.$vuetify.theme.dark = false
           this.setIsAuthenticated(false)
         })
         .catch(error => {
