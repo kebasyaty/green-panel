@@ -1926,6 +1926,8 @@ export default {
       if (this.$session.has('num_page') && this.$session.has('num_per')) {
         this.setCurrentPageNumber(this.$session.get('num_page'))
         this.setDocsPerPage(this.$session.get('num_per'))
+        this.$session.remove('num_page')
+        this.$session.remove('num_per')
       }
     }
     // Get document.
