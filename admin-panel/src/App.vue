@@ -116,6 +116,9 @@ export default {
   created() {
     if (this.$session.exists()) {
       this.setUsername(this.$session.get('username'))
+      if (this.$session.has('theme_dark')) {
+        this.$vuetify.theme.dark = this.$session.get('theme_dark')
+      }
       this.setIsAuthenticated(true)
       // Get a list of services and collections
       this.getServiceList()
