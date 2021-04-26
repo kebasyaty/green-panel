@@ -1066,7 +1066,8 @@ export default {
     ]),
     ...mapState('documentList', [
       'documents',
-      'currentPageNumber'
+      'currentPageNumber',
+      'docsPerPage'
     ])
   },
 
@@ -1093,7 +1094,7 @@ export default {
       const indexService = this.$route.params.indexService
       const indexCollection = this.$route.params.indexCollection
       this.setShowMsg(false)
-      this.$router.replace({ path: `/${service}/${indexService}/${collection}/${indexCollection}/document-list?page=${this.currentPageNumber}` })
+      this.$router.replace({ path: `/${service}/${indexService}/${collection}/${indexCollection}/document-list?per=${this.docsPerPage}&page=${this.currentPageNumber}` })
     },
     // To Rerender Component.
     reload() {
