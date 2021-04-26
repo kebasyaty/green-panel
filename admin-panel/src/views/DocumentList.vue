@@ -322,9 +322,7 @@ export default {
             this.getDocumentList().then(() => {
               let numPage = this.currentPageNumber
               if (numPage > 1 && this.pageCount < numPage) {
-                this.setProgressionStep(((this.docsPerPage * (--numPage - 1))) + 1)
-                this.$route.query.page = numPage
-                const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${numPage}`
+                const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${--numPage}`
                 document.location.replace(url)
               }
             })
