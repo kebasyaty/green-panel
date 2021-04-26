@@ -15,7 +15,7 @@
     <!-- Light or dark theme button. -->
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs" v-on="on" @click="$vuetify.theme.dark = !$vuetify.theme.dark">
+        <v-btn icon v-bind="attrs" v-on="on" @click="changeTheme()">
           <v-icon>mdi-brightness-4</v-icon>
         </v-btn>
       </template>
@@ -67,6 +67,12 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    },
+    changeTheme() {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+      if (this.$session.exists()) {
+        this.$session.set('theme_dark', this.$vuetify.theme.dark)
+      }
     }
   }
 }
