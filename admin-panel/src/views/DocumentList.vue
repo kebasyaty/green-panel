@@ -212,11 +212,11 @@ export default {
         this.docsToBeDeleted = []
       }
     },
-    currentPageNumber: function () {
-      this.progressionStep = ((this.docsPerPage * (this.currentPageNumber - 1))) + 1
-      this.$route.query.page = this.currentPageNumber
-      const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${this.currentPageNumber}`
-      history.replaceState(null, url)
+    currentPageNumber: function (numPage) {
+      this.progressionStep = ((this.docsPerPage * (numPage - 1))) + 1
+      this.$route.query.page = numPage
+      const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${numPage}`
+      history.replaceState(null, null, url)
     }
   },
 
