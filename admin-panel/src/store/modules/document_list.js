@@ -87,10 +87,20 @@ export default {
       })
     },
     // Reset page number to default.
-    resetPageNumberDefault({ commit }, payload) {
+    resetPageNumberDefault({ commit }) {
+      let numPage = Vue.$route.query.page
+      numPage = numPage !== undefined ? parseInt(numPage) : 1
+      if (Number.isNaN(numPage)) {
+        this.runShowMsg({ text: this.$t('message.36'), status: 'error' })
+      }
+      let numPer = Vue.$route.query.per
+      numPer = numPer !== undefined ? parseInt(numPer) : this.docsPerPage
+      if (Number.isNaN(numPer)) {
+        this.runShowMsg({ text: this.$t('message.38'), status: 'error' })
+      }
       commit('setBlockPagination', true)
-      commit('setDocsPerPage', payload.numPer)
-      commit('setCurrentPageNumber', payload.numPage)
+      commit('setDocsPerPage', numPer)
+      commit('setCurrentPageNumber', numPage)
       commit('setBlockPagination', false)
     }
   }
