@@ -247,17 +247,21 @@ export default {
     },
     // Get a list of documents.
     getDocumentList: function () {
-      this.setShowMsg(false)
-      this.runShowOverlayPageLockout(true)
-      if (this.docsToBeDeleted.length > 0) {
-        this.deleteAllDocsFlag = false
-        this.docsToBeDeleted = []
-      }
-      this.ajaxGetDocumentList()
-        .catch(error => {
-          window.console.log(error)
-        })
-        .then(() => this.runShowOverlayPageLockout(false))
+      return new Promise((resolve, reject) => {
+        this.setShowMsg(false)
+        this.runShowOverlayPageLockout(true)
+        if (this.docsToBeDeleted.length > 0) {
+          this.deleteAllDocsFlag = false
+          this.docsToBeDeleted = []
+        }
+        this.ajaxGetDocumentList()
+          .then(() => resolve())
+          .catch(error => {
+            window.console.log(error)
+            reject(error)
+          })
+          .then(() => this.runShowOverlayPageLockout(false))
+      })
     },
     // After changing the page number, update the url state.
     refreshUrlState: function () {
@@ -315,7 +319,13 @@ export default {
             this.setIsAuthenticated(false)
           } else if (data.msg_err.length === 0) {
             this.setShowMsg(false)
-            this.getDocumentList()
+            this.getDocumentList().then(() => {
+              const numPage = this.currentPageNumber
+              if (numPage > 1 && this.pageCount < numPage) {
+                const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${numPage - 1}`
+                document.location.replace(url)
+              }
+            })
           } else {
             console.log(data.msg_err)
             this.runShowMsg({ text: data.msg_err, status: 'error' })
