@@ -118,7 +118,7 @@
               v-model="updateCurrentPageNumber"
               :length="pageCount"
               :total-visible="5"
-              @input="getDocumentList()"
+              @input="[getDocumentList(), refreshUrlState()]"
             ></v-pagination>
           </v-col>
         </v-row>
@@ -211,12 +211,6 @@ export default {
         this.deleteAllDocsFlag = false
         this.docsToBeDeleted = []
       }
-    },
-    currentPageNumber: function (numPage) {
-      this.setProgressionStep(((this.docsPerPage * (numPage - 1))) + 1)
-      this.$route.query.page = numPage
-      const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${numPage}`
-      history.replaceState(null, null, url)
     }
   },
 
@@ -263,6 +257,14 @@ export default {
           window.console.log(error)
         })
         .then(() => this.runShowOverlayPageLockout(false))
+    },
+    // After changing the page number, update the url state.
+    refreshUrlState: function () {
+      const numPage = this.currentPageNumber
+      this.setProgressionStep(((this.docsPerPage * (numPage - 1))) + 1)
+      this.$route.query.page = numPage
+      const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${numPage}`
+      history.replaceState(null, null, url)
     },
     // Documents search.
     documentSearch: function () {
