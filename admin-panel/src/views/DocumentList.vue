@@ -315,7 +315,6 @@ export default {
             this.setIsAuthenticated(false)
           } else if (data.msg_err.length === 0) {
             this.setShowMsg(false)
-            this.resetPageNumberDefault(this.getPerPage())
             this.getDocumentList()
           } else {
             console.log(data.msg_err)
