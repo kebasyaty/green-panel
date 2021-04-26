@@ -162,7 +162,7 @@ export default {
       if (Number.isNaN(numPer)) {
         this.runShowMsg({ text: this.$t('message.38'), status: 'error' })
       }
-      this.setProgressionStep(((this.docsPerPage * (numPage - 1))) + 1)
+      this.setProgressionStep(((numPer * (numPage - 1))) + 1)
       return { numPage, numPer }
     },
     // Get a list of documents.
