@@ -339,7 +339,8 @@ export default {
       this.runShowMsg({ text: this.$t('message.38'), status: 'error' })
     }
     //
-    this.resetPageNumberDefault({ numPage, numPer })
+    const payload = { numPage, numPer }
+    this.resetPageNumberDefault(payload)
     // Get a list of documents.
     this.getDocumentList()
   }
