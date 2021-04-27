@@ -1099,7 +1099,10 @@ export default {
       const indexService = this.$route.params.indexService
       const indexCollection = this.$route.params.indexCollection
       this.setShowMsg(false)
-      this.$router.replace({ path: `/${service}/${indexService}/${collection}/${indexCollection}/document-list?per=${this.docsPerPage}&page=${this.currentPageNumber}` })
+      this.$router.replace({
+        path: `/${service}/${indexService}/${collection}/${indexCollection}/document-list`,
+        query: { per: this.docsPerPage, page: this.currentPageNumber }
+      })
     },
     // To Rerender Component.
     reload() {
@@ -1804,13 +1807,7 @@ export default {
           if (!data.is_authenticated) {
             this.setIsAuthenticated(false)
           } else if (data.msg_err.length === 0) {
-            let numPage = this.currentPageNumber
-            if (numPage > 1 && this.pageCount < numPage) {
-              const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${--numPage}`
-              document.location.replace(url)
-            } else {
-              this.goBack()
-            }
+            this.goBack()
           } else {
             console.log(data.msg_err)
             this.runShowMsg({ text: data.msg_err, status: 'error' })
