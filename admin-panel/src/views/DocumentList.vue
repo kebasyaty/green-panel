@@ -298,7 +298,7 @@ export default {
       this.deleteAllDocsFlag = this.docsToBeDeleted.length === this.documents.length
     },
     // Restart the list of documents for with the correct number of pages.
-    restartDocsList() {
+    restartDocList() {
       let numPage = this.currentPageNumber
       if (numPage > 1 && this.pageCount < numPage) {
         const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${--numPage}`
@@ -328,7 +328,7 @@ export default {
           } else if (data.msg_err.length === 0) {
             this.setShowMsg(false)
             this.getDocumentList().then(() => {
-              this.restartDocsList()
+              this.restartDocList()
             })
           } else {
             console.log(data.msg_err)
@@ -363,7 +363,7 @@ export default {
     this.resetPageNumberDefault(this.getRequestParams())
     // Get a list of documents.
     this.getDocumentList().then(() => {
-      this.restartDocsList()
+      this.restartDocList()
     })
   }
 }
