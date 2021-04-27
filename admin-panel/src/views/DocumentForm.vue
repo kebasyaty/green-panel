@@ -948,7 +948,7 @@
         </v-btn>
       </template>
       <v-card>
-        <v-card-title class="headline">
+        <v-card-title class="h6">
            {{ $t('message.39') }}
         </v-card-title>
         <v-card-actions>
