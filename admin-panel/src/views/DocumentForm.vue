@@ -1067,6 +1067,7 @@ export default {
     ...mapState('documentList', [
       'documents',
       'currentPageNumber',
+      'pageCount',
       'docsPerPage'
     ])
   },
@@ -1803,7 +1804,13 @@ export default {
           if (!data.is_authenticated) {
             this.setIsAuthenticated(false)
           } else if (data.msg_err.length === 0) {
-            this.goBack()
+            let numPage = this.currentPageNumber
+            if (numPage > 1 && this.pageCount < numPage) {
+              const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${--numPage}`
+              document.location.replace(url)
+            } else {
+              this.goBack()
+            }
           } else {
             console.log(data.msg_err)
             this.runShowMsg({ text: data.msg_err, status: 'error' })
