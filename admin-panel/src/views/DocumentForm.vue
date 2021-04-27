@@ -876,7 +876,7 @@
         <!-- Delete button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn text small color="red" v-bind="attrs" v-on="on" @click="dialogDocDelete = true">
+            <v-btn text small color="red" :disabled="$route.params.indexDoc === 'new'" v-bind="attrs" v-on="on" @click="dialogDocDelete = true">
               <v-icon>mdi-close-thick</v-icon>
             </v-btn>
           </template>
