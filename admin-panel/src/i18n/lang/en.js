@@ -39,6 +39,7 @@ export default {
     35: 'The value must not be fractional',
     36: 'Invalid parameter `&page=` in URL',
     37: 'Docs per page',
-    38: 'Invalid parameter `?per=` in URL'
+    38: 'Invalid parameter `?per=` in URL',
+    39: 'Are you sure you want to delete this document ?'
   }
 }

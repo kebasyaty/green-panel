@@ -931,6 +931,45 @@
         </v-tooltip>
       </v-card-actions>
     </v-card>
+
+    <!-- Confirm deletion of the document. -->
+    <v-dialog
+      v-model="dialogDocDelete"
+      max-width="290"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          color="primary"
+          dark
+          v-bind="attrs"
+          v-on="on"
+        >
+          Open Dialog
+        </v-btn>
+      </template>
+      <v-card>
+        <v-card-title class="headline">
+           {{ $t('message.39') }}
+        </v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="dialogDocDelete = false"
+          >
+            {{ $t('message.18') }}
+          </v-btn>
+          <v-btn
+            color="red"
+            text
+            @click="[deleteDoc(), dialogDocDelete = false]"
+          >
+            {{ $t('message.21') }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -1056,7 +1095,8 @@ export default {
     render: true,
     isUseCkeditor: false,
     classicCKEditor: null,
-    configEditor: {}
+    configEditor: {},
+    dialogDocDelete: false
   }),
 
   computed: {
