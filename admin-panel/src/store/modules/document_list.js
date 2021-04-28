@@ -10,6 +10,7 @@ export default {
     pageCount: 0,
     progressionStep: 1,
     docsPerPage: 50,
+    sortDocList: '',
     searchQuery: null,
     blockPagination: false,
     // block loading of documents

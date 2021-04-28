@@ -46,6 +46,28 @@
             </v-btn>
           </v-col>
         </v-row>
+        <v-row>
+          <v-col cols="auto" class="py-0">
+            <!-- Sorting the list of documents. -->
+            <v-select
+              v-model="sortDocList"
+              :items="itemsSortDocList"
+              hide-details
+              dense
+              @change="changeSortDocList()"
+            ></v-select>
+          </v-col>
+          <v-col cols="auto" class="py-0">
+            <!-- Sorting direction. -->
+            <v-select
+              v-model="updateDocsPerPage"
+              :items="countPerPage"
+              hide-details
+              dense
+              @change="changeDocsPerPage()"
+            ></v-select>
+          </v-col>
+        </v-row>
         <!-- Document table. -->
         <v-simple-table fixed-header class="mt-4">
           <template v-slot:default>
@@ -139,7 +161,13 @@ export default {
   data: () => ({
     deleteAllDocsFlag: false,
     docsToBeDeleted: [],
-    countPerPage: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 500, 1000]
+    countPerPage: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 500, 1000],
+    itemsSortDocList: [
+      { text: 'Name | Created', value: 'name_and_created' },
+      { text: 'Name | Updated', value: 'name_and_updated' },
+      { text: 'Created', value: 'created' },
+      { text: 'Updated', value: 'updated' }
+    ]
   }),
 
   computed: {
@@ -152,6 +180,7 @@ export default {
       'pageCount',
       'progressionStep',
       'docsPerPage',
+      'sortDocList',
       'searchQuery',
       'blockPagination',
       'blockLoadDocs'
