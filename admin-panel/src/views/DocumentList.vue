@@ -50,7 +50,7 @@
           <v-col cols="auto" class="py-0">
             <!-- Sorting the list of documents. -->
             <v-select
-              v-model="sortDocList"
+              v-model="updateSortDocList"
               :items="itemsSortDocList()"
               hide-details
               dense
@@ -60,7 +60,7 @@
           <v-col cols="auto" class="py-0">
             <!-- Sorting direction. -->
             <v-select
-              v-model="sortDirectDocList"
+              v-model="updateSortDirectDocList"
               :items="itemsSortDirectDocList()"
               hide-details
               dense
@@ -204,6 +204,22 @@ export default {
       },
       set: function (num) {
         this.setDocsPerPage(num)
+      }
+    },
+    updateSortDocList: {
+      get: function () {
+        return this.sortDocList
+      },
+      set: function (sort) {
+        this.setSortDocList(sort)
+      }
+    },
+    updateSortDirectDocList: {
+      get: function () {
+        return this.sortDirectDocList
+      },
+      set: function (direc) {
+        this.setSortDirectDocList(direc)
       }
     },
     // Get Title of collection.
