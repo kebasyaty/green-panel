@@ -49,23 +49,27 @@
         <v-row>
           <v-col cols="auto" class="py-0">
             <!-- Sorting the list of documents. -->
-            <v-select
-              v-model="updateSortDocList"
-              :items="itemsSortDocList()"
-              hide-details
-              dense
-              @change="getDocumentList()"
-            ></v-select>
+            <div class="w-290">
+              <v-select
+                v-model="updateSortDocList"
+                :items="itemsSortDocList()"
+                hide-details
+                dense
+                @change="getDocumentList()"
+              ></v-select>
+            </div>
           </v-col>
           <v-col cols="auto" class="py-0">
             <!-- Sorting direction. -->
-            <v-select
-              v-model="updateSortDirectDocList"
-              :items="itemsSortDirectDocList()"
-              hide-details
-              dense
-              @change="getDocumentList()"
-            ></v-select>
+            <div class="w-200">
+              <v-select
+                v-model="updateSortDirectDocList"
+                :items="itemsSortDirectDocList()"
+                hide-details
+                dense
+                @change="getDocumentList()"
+              ></v-select>
+            </div>
           </v-col>
         </v-row>
         <!-- Document table. -->
