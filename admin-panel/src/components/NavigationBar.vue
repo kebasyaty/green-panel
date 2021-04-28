@@ -148,7 +148,7 @@ export default {
         this.runShowMsg({ text: this.$t('message.38'), status: 'error' })
       }
       //
-      return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document-list?per=${numPer}&page=1`
+      return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document-list?per=${numPer}&page=1&sort=name_and_created&direct=-1`
     },
     // Get request parameters - per, page.
     getRequestParams() {

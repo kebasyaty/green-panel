@@ -304,7 +304,7 @@ export default {
     },
     // Refresh the number of documents per page.
     changeDocsPerPage() {
-      const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=1`
+      const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=1&sort=name_and_created&direct=-1`
       document.location.replace(url)
     },
     // Get a list of documents.
@@ -330,7 +330,7 @@ export default {
       const numPage = this.currentPageNumber
       this.setProgressionStep(((this.docsPerPage * (numPage - 1))) + 1)
       this.$route.query.page = numPage
-      const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${numPage}`
+      const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${numPage}&sort=${this.sortDocList}&direct=${this.sortDirectDocList}`
       history.replaceState(null, null, url)
     },
     // Documents search.
