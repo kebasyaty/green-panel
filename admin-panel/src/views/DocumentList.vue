@@ -165,7 +165,8 @@ export default {
   data: () => ({
     deleteAllDocsFlag: false,
     docsToBeDeleted: [],
-    countPerPage: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 500, 1000]
+    countPerPage: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 500, 1000],
+    sortTypes: ['name_and_created', 'name_and_updated', 'created', 'updated']
   }),
 
   computed: {
@@ -289,10 +290,10 @@ export default {
     // Sorting options for the list of documents.
     itemsSortDocList() {
       return [
-        { text: this.$t('message.40'), value: 'name_and_created' },
-        { text: this.$t('message.41'), value: 'name_and_updated' },
-        { text: this.$t('message.29'), value: 'created' },
-        { text: this.$t('message.30'), value: 'updated' }
+        { text: this.$t('message.40'), value: this.sortTypes[0] },
+        { text: this.$t('message.41'), value: this.sortTypes[1] },
+        { text: this.$t('message.29'), value: this.sortTypes[2] },
+        { text: this.$t('message.30'), value: this.sortTypes[3] }
       ]
     },
     // Sort direction options.
@@ -405,18 +406,26 @@ export default {
     },
     // Get request parameters - per, page.
     getRequestParams() {
+      // Page.
       let numPage = this.$route.query.page
       numPage = numPage !== undefined ? parseInt(numPage) : 1
       if (Number.isNaN(numPage)) {
         this.runShowMsg({ text: this.$t('message.36'), status: 'error' })
       }
+      // Per.
       let numPer = this.$route.query.per
       numPer = numPer !== undefined ? parseInt(numPer) : this.docsPerPage
       if (Number.isNaN(numPer)) {
         this.runShowMsg({ text: this.$t('message.38'), status: 'error' })
       }
+      // Sort.
+      let sortType = this.$route.query.sort
+      sortType = sortType !== undefined ? sortType : this.docsPerPage
+      if (!this.sortTypes.includes(sortType)) {
+        this.runShowMsg({ text: this.$t('message.44'), status: 'error' })
+      }
       this.setProgressionStep(((numPer * (numPage - 1))) + 1)
-      return { numPage, numPer }
+      return { numPage, numPer, sortType }
     }
   },
 
