@@ -1137,7 +1137,12 @@ export default {
       this.setShowMsg(false)
       this.$router.replace({
         path: `/${service}/${indexService}/${collection}/${indexCollection}/document-list`,
-        query: { per: this.docsPerPage, page: this.currentPageNumber }
+        query: {
+          per: this.docsPerPage,
+          page: this.currentPageNumber,
+          sort: this.sortDocList,
+          direct: this.sortDirectDocList
+        }
       })
     },
     // To Rerender Component.
