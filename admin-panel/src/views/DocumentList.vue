@@ -273,7 +273,7 @@ export default {
         { text: this.$t('message.30'), value: 'updated' }
       ]
     },
-    //
+    // Sort direction options.
     itemsSortDirectDocList() {
       return [
         { text: 'Descending', value: -1 },
