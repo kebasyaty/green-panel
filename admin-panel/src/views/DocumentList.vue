@@ -406,24 +406,25 @@ export default {
     },
     // Get request parameters - per, page.
     getRequestParams() {
-      // Page.
+      // Page number.
       let numPage = this.$route.query.page
       numPage = numPage !== undefined ? parseInt(numPage) : 1
       if (Number.isNaN(numPage)) {
         this.runShowMsg({ text: this.$t('message.36'), status: 'error' })
       }
-      // Per.
+      // The number of documents per page.
       let numPer = this.$route.query.per
       numPer = numPer !== undefined ? parseInt(numPer) : this.docsPerPage
       if (Number.isNaN(numPer)) {
         this.runShowMsg({ text: this.$t('message.38'), status: 'error' })
       }
-      // Sort.
+      // Sorting type.
       let sortType = this.$route.query.sort
       sortType = sortType !== undefined ? sortType : this.docsPerPage
       if (!this.sortTypes.includes(sortType)) {
         this.runShowMsg({ text: this.$t('message.44'), status: 'error' })
       }
+      // Sorting direction.
       this.setProgressionStep(((numPer * (numPage - 1))) + 1)
       return { numPage, numPer, sortType }
     }
