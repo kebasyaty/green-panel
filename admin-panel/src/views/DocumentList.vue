@@ -51,7 +51,7 @@
             <!-- Sorting the list of documents. -->
             <v-select
               v-model="sortDocList"
-              :items="itemsSortDocList"
+              :items="itemsSortDocList()"
               hide-details
               dense
               @change="changeSortDocList()"
@@ -61,7 +61,7 @@
             <!-- Sorting direction. -->
             <v-select
               v-model="sortDirectDocList"
-              :items="itemsSortDirectDocList"
+              :items="itemsSortDirectDocList()"
               hide-details
               dense
               @change="changeSortDirectDocList()"
@@ -161,11 +161,7 @@ export default {
   data: () => ({
     deleteAllDocsFlag: false,
     docsToBeDeleted: [],
-    countPerPage: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 500, 1000],
-    itemsSortDirectDocList: [
-      { text: 'Descending', value: -1 },
-      { text: 'Ascending', value: 1 }
-    ]
+    countPerPage: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 500, 1000]
   }),
 
   computed: {
@@ -275,6 +271,13 @@ export default {
         { text: this.$t('message.41'), value: 'name_and_updated' },
         { text: this.$t('message.29'), value: 'created' },
         { text: this.$t('message.30'), value: 'updated' }
+      ]
+    },
+    //
+    itemsSortDirectDocList() {
+      return [
+        { text: 'Descending', value: -1 },
+        { text: 'Ascending', value: 1 }
       ]
     },
     // Refresh the number of documents per page.
