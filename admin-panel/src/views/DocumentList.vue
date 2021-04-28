@@ -336,7 +336,7 @@ export default {
     // Documents search.
     documentSearch: function () {
       // Reset page number to default.
-      this.resetPageNumberDefault()
+      this.resetPageNumberDefault(this.getRequestParams())
       // Get a list of documents.
       this.getDocumentList()
     },
