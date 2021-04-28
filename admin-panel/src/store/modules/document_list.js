@@ -106,6 +106,7 @@ export default {
       commit('setDocsPerPage', payload.numPer)
       commit('setCurrentPageNumber', payload.numPage)
       commit('setSortDocList', payload.sortType)
+      commit('setSortDirectDocList', payload.sortDirect)
       commit('setBlockPagination', false)
     }
   }
