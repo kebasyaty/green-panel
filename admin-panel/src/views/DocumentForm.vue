@@ -89,6 +89,23 @@
                 </v-row>
                 </v-container>
               </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="dialogUpdatePassword = false"
+                >
+                  {{ $t('message.18') }}
+                </v-btn>
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="dialogUpdatePassword = false"
+                >
+                  {{ $t('message.19') }}
+                </v-btn>
+              </v-card-actions>
             </v-card>
           </v-dialog>
       </v-card-actions>
