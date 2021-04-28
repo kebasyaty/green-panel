@@ -276,8 +276,8 @@ export default {
     // Sort direction options.
     itemsSortDirectDocList() {
       return [
-        { text: 'Descending', value: -1 },
-        { text: 'Ascending', value: 1 }
+        { text: this.$t('message.42'), value: -1 },
+        { text: this.$t('message.43'), value: 1 }
       ]
     },
     // Refresh the number of documents per page.

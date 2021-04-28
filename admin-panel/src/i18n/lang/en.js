@@ -42,6 +42,8 @@ export default {
     38: 'Invalid parameter `?per=` in URL',
     39: 'Are you sure you want to delete this document ?',
     40: 'Doc name | Created',
-    41: 'Doc name | Updated'
+    41: 'Doc name | Updated',
+    42: 'Descending',
+    43: 'Ascending'
   }
 }
