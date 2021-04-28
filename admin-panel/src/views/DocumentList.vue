@@ -404,7 +404,7 @@ export default {
         })
         .then(() => this.runShowOverlayPageLockout(false))
     },
-    // Get request parameters - per, page.
+    // Get request parameters - per, page, sort, direct.
     getRequestParams() {
       // Page number.
       let numPage = this.$route.query.page
