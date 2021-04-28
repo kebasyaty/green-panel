@@ -28,9 +28,11 @@
             <!-- Common messages for all fields. -->
             <v-alert
               v-if="field.common_msg.length > 0"
-              dark
-              color="pink darken-4"
+              text
+              dense
+              color="deep-orange"
               icon="mdi-alert"
+              border="left"
             >{{ field.common_msg }}</v-alert>
 
             <!-- Wrapper for fields. -->
