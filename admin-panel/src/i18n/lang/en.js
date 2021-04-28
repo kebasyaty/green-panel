@@ -45,6 +45,7 @@ export default {
     41: 'Doc name | Updated',
     42: 'Descending',
     43: 'Ascending',
-    44: 'Undefined value for query parameter `& sort =`'
+    44: 'Undefined value for query parameter `&sort=`',
+    45: 'Undefined value for query parameter `&direct`'
   }
 }
