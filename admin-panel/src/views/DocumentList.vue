@@ -49,7 +49,7 @@
         <v-row>
           <v-col cols="auto" class="py-0">
             <!-- Sorting the list of documents. -->
-            <div class="w-290">
+            <div class="w-260">
               <v-select
                 v-model="updateSortDocList"
                 :items="itemsSortDocList()"
@@ -61,7 +61,7 @@
           </v-col>
           <v-col cols="auto" class="py-0">
             <!-- Sorting direction. -->
-            <div class="w-200">
+            <div class="w-180">
               <v-select
                 v-model="updateSortDirectDocList"
                 :items="itemsSortDirectDocList()"
