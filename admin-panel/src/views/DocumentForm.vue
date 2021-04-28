@@ -34,59 +34,47 @@
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                    <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">
-                      {{ $t('message.47') }}
-                    </v-card-title>
-                      <v-text-field
-                      autofocus
-                      required
-                      clearable
-                      counter
-                      hide-details
-                    ></v-text-field>
+                     <v-col cols="12">
+                      <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">
+                        {{ $t('message.47') }}
+                      </v-card-title>
+                        <v-text-field
+                        autofocus
+                        required
+                        clearable
+                        counter
+                        hide-details
+                      ></v-text-field>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                    <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">
-                      {{ $t('message.48') }}
-                    </v-card-title>
-                    <v-card-subtitle
-                      class="pl-0 pb-1 pt-3"
-                      v-html="$t('message.50')"
-                    ></v-card-subtitle>
-                      <v-text-field
-                      autofocus
-                      required
-                      clearable
-                      counter
-                      hide-details
-                    ></v-text-field>
+                    <v-col cols="12">
+                      <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">
+                        {{ $t('message.48') }}
+                      </v-card-title>
+                      <v-card-subtitle
+                        class="pl-0 pb-1 pt-3"
+                        v-html="$t('message.50')"
+                      ></v-card-subtitle>
+                        <v-text-field
+                        autofocus
+                        required
+                        clearable
+                        counter
+                        hide-details
+                      ></v-text-field>
                     </v-col>
-                    <v-col
-                      cols="12"
-                      sm="6"
-                      md="4"
-                    >
-                    <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">
-                      {{ $t('message.49') }}
-                    </v-card-title>
-                      <v-text-field
-                      autofocus
-                      required
-                      clearable
-                      counter
-                      hide-details
-                    ></v-text-field>
+                    <v-col cols="12">
+                      <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">
+                        {{ $t('message.49') }}
+                      </v-card-title>
+                        <v-text-field
+                        autofocus
+                        required
+                        clearable
+                        counter
+                        hide-details
+                      ></v-text-field>
                     </v-col>
-                </v-row>
+                  </v-row>
                 </v-container>
               </v-card-text>
               <v-card-actions>
