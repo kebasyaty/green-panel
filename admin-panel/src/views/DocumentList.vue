@@ -420,13 +420,19 @@ export default {
       }
       // Sorting type.
       let sortType = this.$route.query.sort
-      sortType = sortType !== undefined ? sortType : this.docsPerPage
+      sortType = sortType !== undefined ? sortType : this.sortDocList
       if (!this.sortTypes.includes(sortType)) {
         this.runShowMsg({ text: this.$t('message.44'), status: 'error' })
       }
       // Sorting direction.
+      let sortDirect = this.$route.query.direct
+      sortDirect = sortDirect !== undefined ? parseInt(sortDirect) : this.sortDirectDocList
+      if (Number.isNaN(sortDirect)) {
+        this.runShowMsg({ text: this.$t('message.45'), status: 'error' })
+      }
+      //
       this.setProgressionStep(((numPer * (numPage - 1))) + 1)
-      return { numPage, numPer, sortType }
+      return { numPage, numPer, sortType, sortDirect }
     }
   },
 
