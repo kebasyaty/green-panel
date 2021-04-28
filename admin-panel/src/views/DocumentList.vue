@@ -308,7 +308,7 @@ export default {
       document.location.replace(url)
     },
     // Get a list of documents.
-    getDocumentList: function () {
+    getDocumentList() {
       return new Promise((resolve, reject) => {
         this.setShowMsg(false)
         this.runShowOverlayPageLockout(true)
@@ -326,7 +326,7 @@ export default {
       })
     },
     // After changing the page number, update the url state.
-    refreshUrlState: function () {
+    refreshUrlState() {
       const numPage = this.currentPageNumber
       this.setProgressionStep(((this.docsPerPage * (numPage - 1))) + 1)
       this.$route.query.page = numPage
@@ -334,29 +334,29 @@ export default {
       history.replaceState(null, null, url)
     },
     // Documents search.
-    documentSearch: function () {
+    documentSearch() {
       // Reset page number to default.
       this.resetPageNumberDefault(this.getRequestParams())
       // Get a list of documents.
       this.getDocumentList()
     },
     // Create Url for Document.
-    createDocumentUrl: function (indexDoc) {
+    createDocumentUrl(indexDoc) {
       return `${this.docUrlNoIndex}/${indexDoc}`
     },
     // Formatting date.
-    formattingDate: function (date) {
+    formattingDate(date) {
       const local = new Date(date + 'Z')
       const localDate = local.toLocaleDateString([this.$i18n.locale, 'en'])
       const localTime = local.toLocaleTimeString().slice(0, 5)
       return `<span class="cyan--text text--darken-2">${localDate}</span> <span class="orange--text text--darken-2">${localTime}</span>`
     },
     // Mark all documents for deletion.
-    markAllDocsForDeletion: function () {
+    markAllDocsForDeletion() {
       this.docsToBeDeleted = this.deleteAllDocsFlag ? fillRange(0, this.documents.length - 1) : []
     },
     // Check the status of the list of selected documents to be deleted.
-    checkStatusListSelectedDocsDeleted: function () {
+    checkStatusListSelectedDocsDeleted() {
       this.deleteAllDocsFlag = this.docsToBeDeleted.length === this.documents.length
     },
     // Restart the list of documents for with the correct number of pages.
@@ -368,7 +368,7 @@ export default {
       }
     },
     // Delete selected documents.
-    deleteDocs: function () {
+    deleteDocs() {
       this.setShowMsg(false)
       this.runShowOverlayPageLockout(true)
       const indexService = this.$route.params.indexService
