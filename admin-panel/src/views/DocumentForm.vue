@@ -11,11 +11,28 @@
       <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
       <!-- Update password. -->
       <v-card-actions>
+        <v-spacer></v-spacer>
           <v-dialog
             v-model="dialogUpdatePassword"
             persistent
             max-width="600px"
-          ></v-dialog>
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                color="green"
+                dark
+                v-bind="attrs"
+                v-on="on"
+              >
+                {{ $t('message.46') }}
+              </v-btn>
+            </template>
+            <v-card>
+              <v-card-title>
+                <span class="h6">{{ $t('message.46') }}</span>
+              </v-card-title>
+            </v-card>
+          </v-dialog>
       </v-card-actions>
       <!-- Form fields. -->
       <v-card-text class="pa-4" v-if="render">

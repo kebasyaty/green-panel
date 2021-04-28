@@ -46,6 +46,7 @@ export default {
     42: 'Descending',
     43: 'Ascending',
     44: 'Undefined value for query parameter `&sort=`',
-    45: 'Undefined value for query parameter `&direct`'
+    45: 'Undefined value for query parameter `&direct`',
+    46: 'Update password'
   }
 }
