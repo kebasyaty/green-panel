@@ -36,6 +36,12 @@ export default {
     setDocsPerPage(state, payload) {
       state.docsPerPage = payload
     },
+    setSortDocList(state, payload) {
+      state.sortDocList = payload
+    },
+    setSortDirectDocList(state, payload) {
+      state.sortDirectDocList = payload
+    },
     setSearchQuery(state, payload) {
       state.searchQuery = payload
     },

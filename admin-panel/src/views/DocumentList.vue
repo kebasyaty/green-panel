@@ -244,6 +244,8 @@ export default {
       'setCurrentPageNumber',
       'setProgressionStep',
       'setDocsPerPage',
+      'setSortDocList',
+      'setSortDirectDocList',
       'setSearchQuery'
     ]),
     ...mapMutations('popUpMsgs', [
