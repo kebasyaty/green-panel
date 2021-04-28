@@ -1100,7 +1100,9 @@ export default {
       'documents',
       'currentPageNumber',
       'pageCount',
-      'docsPerPage'
+      'docsPerPage',
+      'sortDocList',
+      'sortDirectDocList'
     ])
   },
 
@@ -1113,7 +1115,9 @@ export default {
     ]),
     ...mapMutations('documentList', [
       'setCurrentPageNumber',
-      'setDocsPerPage'
+      'setDocsPerPage',
+      'setSortDocList',
+      'setSortDirectDocList'
     ]),
     ...mapActions('documentList', [
       'ajaxGetDocumentList'
@@ -1716,6 +1720,8 @@ export default {
                     if (this.$session.exists()) {
                       this.$session.set('num_page', this.currentPageNumber)
                       this.$session.set('num_per', this.docsPerPage)
+                      this.$session.set('sort', this.sortDocList)
+                      this.$session.set('direct', this.sortDirectDocList)
                     }
                     this.$router.replace({
                       name: 'documenForm',
@@ -1962,8 +1968,12 @@ export default {
       if (this.$session.has('num_page') && this.$session.has('num_per')) {
         this.setCurrentPageNumber(this.$session.get('num_page'))
         this.setDocsPerPage(this.$session.get('num_per'))
+        this.setSortDocList(this.$session.get('sort'))
+        this.setSortDirectDocList(this.$session.get('direct'))
         this.$session.remove('num_page')
         this.$session.remove('num_per')
+        this.$session.remove('sort')
+        this.$session.remove('direct')
       }
     }
     // Get document.
