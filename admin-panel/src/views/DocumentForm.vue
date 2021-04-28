@@ -39,13 +39,19 @@
                       sm="6"
                       md="4"
                     >
+                    <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">
+                      {{ $t('message.47') }}
+                    </v-card-title>
+                    <v-card-subtitle
+                      class="pl-0 pb-1 pt-3"
+                      v-html="$t('message.50')"
+                    ></v-card-subtitle>
                       <v-text-field
                       autofocus
                       required
                       clearable
                       counter
                       hide-details
-                      :placeholder="$t('message.47')"
                     ></v-text-field>
                     </v-col>
                 </v-row>

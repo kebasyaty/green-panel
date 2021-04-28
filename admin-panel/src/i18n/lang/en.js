@@ -50,6 +50,7 @@ export default {
     46: 'Update password',
     47: 'Old password',
     48: 'New password',
-    49: 'Repeat password'
+    49: 'Repeat password',
+    50: 'Allowed characters: a-z A-Z 0-9 @ # $ % ^ & + = * ! ~ ) (<br>Minimum size 8 characters.'
   }
 }
