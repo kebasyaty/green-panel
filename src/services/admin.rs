@@ -218,6 +218,8 @@ pub mod request_handlers {
         page_num: u32,
         search_query: String,
         limit: u32,
+        sort: String,
+        direct: i32,
     }
 
     pub async fn document_list(
@@ -257,6 +259,17 @@ pub mod request_handlers {
             };
             let limit = i64::from(query.limit);
             let skip = limit * i64::from(query.page_num - 1_u32);
+            let sort = match query.sort.as_str() {
+                "name_and_created" => {
+                    doc! {query.field_name.as_str(): query.direct, "created_at": query.direct}
+                }
+                "name_and_updated" => {
+                    doc! {query.field_name.as_str(): query.direct, "updated_at": query.direct}
+                }
+                "created" => doc! {"created_at": query.direct},
+                "updated" => doc! {"updated_at": query.direct},
+                _ => doc! {"created_at": query.direct},
+            };
             let options = Some(
                 FindOptions::builder()
                     .skip(skip)
@@ -264,7 +277,7 @@ pub mod request_handlers {
                     .projection(Some(
                         doc! {query.field_name.as_str(): 1, "created_at": 1, "updated_at": 1},
                     ))
-                    .sort(Some(doc! {"created_at": 1}))
+                    .sort(Some(sort))
                     .build(),
             );
 
