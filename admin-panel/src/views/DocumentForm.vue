@@ -31,6 +31,26 @@
               <v-card-title>
                 <span class="h6">{{ $t('message.46') }}</span>
               </v-card-title>
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-text-field
+                      autofocus
+                      required
+                      clearable
+                      counter
+                      hide-details
+                      :placeholder="$t('message.47')"
+                    ></v-text-field>
+                    </v-col>
+                </v-row>
+                </v-container>
+              </v-card-text>
             </v-card>
           </v-dialog>
       </v-card-actions>
