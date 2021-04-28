@@ -10,7 +10,7 @@
       <v-card-title class="pt-0">{{ docTitle }}</v-card-title>
       <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
       <!-- Update password. -->
-      <v-card-actions>
+      <v-card-actions class="pr-4">
         <v-spacer></v-spacer>
           <v-dialog
             v-model="dialogUpdatePassword"
@@ -39,13 +39,14 @@
                         {{ $t('message.47') }}
                       </v-card-title>
                         <v-text-field
-                        autofocus
-                        required
-                        clearable
-                        counter
-                        hide-details
-                      ></v-text-field>
-                    </v-col>
+                          class="mt-0 pt-0"
+                          autofocus
+                          required
+                          clearable
+                          counter
+                          hide-details
+                        ></v-text-field>
+                      </v-col>
                     <v-col cols="12">
                       <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">
                         {{ $t('message.48') }}
@@ -55,24 +56,26 @@
                         v-html="$t('message.50')"
                       ></v-card-subtitle>
                         <v-text-field
-                        autofocus
-                        required
-                        clearable
-                        counter
-                        hide-details
-                      ></v-text-field>
+                          class="mt-0 pt-0"
+                          autofocus
+                          required
+                          clearable
+                          counter
+                          hide-details
+                        ></v-text-field>
                     </v-col>
                     <v-col cols="12">
                       <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">
                         {{ $t('message.49') }}
                       </v-card-title>
                         <v-text-field
-                        autofocus
-                        required
-                        clearable
-                        counter
-                        hide-details
-                      ></v-text-field>
+                          class="mt-0 pt-0"
+                          autofocus
+                          required
+                          clearable
+                          counter
+                          hide-details
+                        ></v-text-field>
                     </v-col>
                   </v-row>
                 </v-container>
