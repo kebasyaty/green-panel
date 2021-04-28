@@ -9,6 +9,14 @@
       </v-toolbar>
       <v-card-title class="pt-0">{{ docTitle }}</v-card-title>
       <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
+      <!-- Update password. -->
+      <v-card-actions>
+          <v-dialog
+            v-model="dialogUpdatePassword"
+            persistent
+            max-width="600px"
+          ></v-dialog>
+      </v-card-actions>
       <!-- Form fields. -->
       <v-card-text class="pa-4" v-if="render">
         <div v-for="field in fields" :key="field.name" class="rounded-lg">
@@ -1088,7 +1096,8 @@ export default {
     isUseCkeditor: false,
     classicCKEditor: null,
     configEditor: {},
-    dialogDocDelete: false
+    dialogDocDelete: false,
+    dialogUpdatePassword: false
   }),
 
   computed: {
