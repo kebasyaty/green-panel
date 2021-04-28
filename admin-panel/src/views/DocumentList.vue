@@ -363,7 +363,7 @@ export default {
     restartDocList() {
       let numPage = this.currentPageNumber
       if (numPage > 1 && this.pageCount < numPage) {
-        const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${--numPage}`
+        const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${--numPage}&sort=${this.sortDocList}&direct=${this.sortDirectDocList}`
         document.location.replace(url)
       }
     },
