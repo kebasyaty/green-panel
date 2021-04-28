@@ -40,6 +40,8 @@ export default {
     36: 'Invalid parameter `&page=` in URL',
     37: 'Docs per page',
     38: 'Invalid parameter `?per=` in URL',
-    39: 'Are you sure you want to delete this document ?'
+    39: 'Are you sure you want to delete this document ?',
+    40: 'Doc name | Created',
+    41: 'Doc name | Updated'
   }
 }

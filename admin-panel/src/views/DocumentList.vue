@@ -162,12 +162,6 @@ export default {
     deleteAllDocsFlag: false,
     docsToBeDeleted: [],
     countPerPage: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 500, 1000],
-    itemsSortDocList: [
-      { text: 'Name | Created', value: 'name_and_created' },
-      { text: 'Name | Updated', value: 'name_and_updated' },
-      { text: 'Created', value: 'created' },
-      { text: 'Updated', value: 'updated' }
-    ],
     itemsSortDirectDocList: [
       { text: 'Descending', value: -1 },
       { text: 'Ascending', value: 1 }
@@ -273,6 +267,15 @@ export default {
     goBack() {
       this.setShowMsg(false)
       this.$router.replace({ name: 'home' })
+    },
+    // Sorting options for the list of documents.
+    itemsSortDocList() {
+      return [
+        { text: this.$t('message.40'), value: 'name_and_created' },
+        { text: this.$t('message.41'), value: 'name_and_updated' },
+        { text: this.$t('message.29'), value: 'created' },
+        { text: this.$t('message.30'), value: 'updated' }
+      ]
     },
     // Refresh the number of documents per page.
     changeDocsPerPage() {
