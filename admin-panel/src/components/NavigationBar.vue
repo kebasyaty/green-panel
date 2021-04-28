@@ -86,7 +86,8 @@ export default {
     ...mapState('documentList', [
       'docsPerPage',
       'sortDocList',
-      'sortDirectDocList'
+      'sortDirectDocList',
+      'sortTypes'
     ]),
     updateOpenPanelServiceList: {
       get: function () {

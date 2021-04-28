@@ -165,8 +165,7 @@ export default {
   data: () => ({
     deleteAllDocsFlag: false,
     docsToBeDeleted: [],
-    countPerPage: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 500, 1000],
-    sortTypes: ['name_and_created', 'name_and_updated', 'created', 'updated']
+    countPerPage: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 500, 1000]
   }),
 
   computed: {
@@ -181,6 +180,7 @@ export default {
       'docsPerPage',
       'sortDocList',
       'sortDirectDocList',
+      'sortTypes',
       'searchQuery',
       'blockPagination',
       'blockLoadDocs'

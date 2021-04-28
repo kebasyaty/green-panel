@@ -12,6 +12,7 @@ export default {
     docsPerPage: 50,
     sortDocList: 'name_and_created',
     sortDirectDocList: -1,
+    sortTypes: ['name_and_created', 'name_and_updated', 'created', 'updated'],
     searchQuery: null,
     blockPagination: false,
     // block loading of documents
