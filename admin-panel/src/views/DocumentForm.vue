@@ -10,7 +10,7 @@
       <v-card-title class="pt-0">{{ docTitle }}</v-card-title>
       <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
       <!-- Update password. -->
-      <v-card-actions class="pr-4">
+      <v-card-actions class="px-4 py-0">
         <v-spacer></v-spacer>
           <v-dialog
             v-model="dialogUpdatePassword"
