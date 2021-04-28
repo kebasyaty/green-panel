@@ -54,7 +54,7 @@
               :items="itemsSortDocList()"
               hide-details
               dense
-              @change="changeSortDocList()"
+              @change="getDocumentList()"
             ></v-select>
           </v-col>
           <v-col cols="auto" class="py-0">
@@ -64,7 +64,7 @@
               :items="itemsSortDirectDocList()"
               hide-details
               dense
-              @change="changeSortDirectDocList()"
+              @change="getDocumentList()"
             ></v-select>
           </v-col>
         </v-row>

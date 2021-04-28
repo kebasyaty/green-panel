@@ -73,7 +73,9 @@ export default {
               field_name: collection.doc_name.field,
               page_num: state.currentPageNumber,
               search_query: state.searchQuery || '',
-              limit: state.docsPerPage
+              limit: state.docsPerPage,
+              sort: state.sortDocList,
+              direct: state.sortDirectDocList
             }
           })
             .then(response => {
