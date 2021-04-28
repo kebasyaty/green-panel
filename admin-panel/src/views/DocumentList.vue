@@ -55,7 +55,7 @@
                 :items="itemsSortDocList()"
                 hide-details
                 dense
-                @change="getDocumentList()"
+                @change="[getDocumentList(), refreshUrlState()]"
               ></v-select>
             </div>
           </v-col>
@@ -67,7 +67,7 @@
                 :items="itemsSortDirectDocList()"
                 hide-details
                 dense
-                @change="getDocumentList()"
+                @change="[getDocumentList(), refreshUrlState()]"
               ></v-select>
             </div>
           </v-col>
