@@ -5,7 +5,7 @@
 use actix_files::Files;
 use actix_files::NamedFile;
 use actix_session::Session;
-use actix_web::{web, Error, HttpResponse, Result};
+use actix_web::{error, web, Error, HttpResponse, Result};
 
 use futures::StreamExt;
 use humansize::{file_size_opts, FileSize};
@@ -268,7 +268,10 @@ pub mod request_handlers {
                 }
                 "created" => doc! {"created_at": query.direct},
                 "updated" => doc! {"updated_at": query.direct},
-                _ => doc! {"created_at": query.direct},
+                _ => {
+                    let msg = "Sorting Documents - There is no match for the sort type.";
+                    return Err(error::ErrorBadRequest(msg));
+                }
             };
             let options = Some(
                 FindOptions::builder()
