@@ -60,11 +60,11 @@
           <v-col cols="auto" class="py-0">
             <!-- Sorting direction. -->
             <v-select
-              v-model="updateDocsPerPage"
-              :items="countPerPage"
+              v-model="sortDirectDocList"
+              :items="itemsSortDirectDocList"
               hide-details
               dense
-              @change="changeDocsPerPage()"
+              @change="changeSortDirectDocList()"
             ></v-select>
           </v-col>
         </v-row>
@@ -167,6 +167,10 @@ export default {
       { text: 'Name | Updated', value: 'name_and_updated' },
       { text: 'Created', value: 'created' },
       { text: 'Updated', value: 'updated' }
+    ],
+    itemsSortDirectDocList: [
+      { text: 'Descending', value: -1 },
+      { text: 'Ascending', value: 1 }
     ]
   }),
 
@@ -181,6 +185,7 @@ export default {
       'progressionStep',
       'docsPerPage',
       'sortDocList',
+      'sortDirectDocList',
       'searchQuery',
       'blockPagination',
       'blockLoadDocs'
