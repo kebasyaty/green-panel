@@ -2065,6 +2065,15 @@ export default {
       window.console.log(oldPass)
       window.console.log(newPass)
       window.console.log(repeatPass)
+
+      this.dataUpdatePassword.formHasErrors = false
+
+      Object.keys(this.updatePasswordForm).forEach(field => {
+        if (!this.updatePasswordForm[field]) {
+          this.dataUpdatePassword.formHasErrors = true
+        }
+        this.$refs[field].validate(true)
+      })
     }
   },
 
