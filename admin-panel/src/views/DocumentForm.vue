@@ -1165,7 +1165,7 @@ export default {
     dialogDocDelete: false,
     dialogUpdatePassword: false,
     dataUpdatePassword: {
-      old: null, new: null, repeat: null, errorMessages: '', formHasErrors: false
+      old: null, new: null, repeat: null, formHasErrors: false
     }
   }),
 
@@ -1188,12 +1188,6 @@ export default {
         new: this.dataUpdatePassword.new,
         repeat: this.dataUpdatePassword.repeat
       }
-    }
-  },
-
-  watch: {
-    dataUpdatePassword() {
-      this.dataUpdatePassword.errorMessages = ''
     }
   },
 
