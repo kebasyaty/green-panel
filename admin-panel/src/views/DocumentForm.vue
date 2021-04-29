@@ -97,11 +97,7 @@
                   <span>{{ $t('message.53') }}</span>
                 </v-tooltip>
               </v-slide-x-reverse-transition>
-              <v-btn
-                color="primary"
-                text
-                @click="[updatePassword(), dialogUpdatePassword = false]"
-              >{{ $t('message.55') }}</v-btn>
+              <v-btn color="primary" text @click="updatePassword()">{{ $t('message.55') }}</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
