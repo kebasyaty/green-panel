@@ -34,7 +34,7 @@
                       counter
                       :placeholder="$t('message.47')"
                       v-model="dataUpdatePassword.old"
-                      :maxlength="1000"
+                      :maxlength="256"
                       :rules="[() => !!dataUpdatePassword.old || $t('message.51')]"
                     ></v-text-field>
                   </v-col>
@@ -48,10 +48,10 @@
                       :placeholder="$t('message.48')"
                       :hint="$t('message.50')"
                       v-model="dataUpdatePassword.new"
-                      :maxlength="1000"
+                      :maxlength="256"
                       :rules="[
                         () => !!dataUpdatePassword.new || $t('message.51'),
-                        () => /^[a-z0-9@#$%^&+=*!~)(]{8,1000}$/i.test(dataUpdatePassword.new) ||  $t('message.50')
+                        () => /^[a-z0-9@#$%^&+=*!~)(]{8,256}$/i.test(dataUpdatePassword.new) ||  $t('message.50')
                       ]"
                     ></v-text-field>
                   </v-col>
@@ -64,7 +64,7 @@
                       counter
                       :placeholder="$t('message.49')"
                       v-model="dataUpdatePassword.repeat"
-                      :maxlength="1000"
+                      :maxlength="256"
                       :rules="[
                         () => !!dataUpdatePassword.repeat || $t('message.51'),
                         () => dataUpdatePassword.repeat !== dataUpdatePassword.new || $t('message.52'),
