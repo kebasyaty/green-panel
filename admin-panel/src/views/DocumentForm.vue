@@ -26,7 +26,6 @@
                       required
                       clearable
                       counter
-                      hide-details
                       :placeholder="$t('message.47')"
                     ></v-text-field>
                   </v-col>
@@ -46,7 +45,6 @@
                       required
                       clearable
                       counter
-                      hide-details
                       :placeholder="$t('message.49')"
                     ></v-text-field>
                   </v-col>
