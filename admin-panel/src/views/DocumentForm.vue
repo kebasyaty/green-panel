@@ -62,7 +62,10 @@
                       counter
                       :placeholder="$t('message.49')"
                       v-model="dataUpdatePassword.repeat"
-                      :rules="[() => !!dataUpdatePassword.repeat || $t('message.51')]"
+                      :rules="[
+                        () => !!dataUpdatePassword.repeat || $t('message.51'),
+                        () => dataUpdatePassword.repeat !== dataUpdatePassword.new || $t('message.52'),
+                      ]"
                     ></v-text-field>
                   </v-col>
                 </v-row>
