@@ -26,7 +26,7 @@
                 <v-row>
                   <v-col cols="12">
                     <v-text-field
-                      ref="old"
+                      ref="passwordOld"
                       class="mt-0 pt-0"
                       autofocus
                       required
@@ -40,7 +40,7 @@
                   </v-col>
                   <v-col cols="12">
                     <v-text-field
-                      ref="new"
+                      ref="passwordNew"
                       class="mt-0 pt-0"
                       required
                       clearable
@@ -57,7 +57,7 @@
                   </v-col>
                   <v-col cols="12">
                     <v-text-field
-                      ref="repeat"
+                      ref="passwordRepeat"
                       class="mt-0 pt-0"
                       required
                       clearable
@@ -1182,7 +1182,7 @@ export default {
     dialogDocDelete: false,
     dialogUpdatePassword: false,
     dataUpdatePassword: {
-      old: null, new: null, repeat: null, formHasErrors: false
+      passwordOld: null, passwordNew: null, passwordRepeat: null, formHasErrors: false
     }
   }),
 
@@ -1201,9 +1201,9 @@ export default {
     ]),
     updatePasswordForm() {
       return {
-        old: this.dataUpdatePassword.old,
-        new: this.dataUpdatePassword.new,
-        repeat: this.dataUpdatePassword.repeat
+        passwordOld: this.dataUpdatePassword.old,
+        passwordNew: this.dataUpdatePassword.new,
+        passwordRepeat: this.dataUpdatePassword.repeat
       }
     }
   },
@@ -2077,9 +2077,9 @@ export default {
     },
     // Update password
     updatePassword() {
-      const oldPass = this.dataUpdatePassword.old
-      const newPass = this.dataUpdatePassword.new
-      const repeatPass = this.dataUpdatePassword.repeat
+      const oldPass = this.dataUpdatePassword.passwordOld
+      const newPass = this.dataUpdatePassword.passwordNew
+      const repeatPass = this.dataUpdatePassword.passwordRepeat
 
       window.console.log(oldPass)
       window.console.log(newPass)
