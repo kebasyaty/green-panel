@@ -8,20 +8,9 @@
         </v-btn>
         <v-spacer></v-spacer>
         <!-- Update password. -->
-        <v-dialog
-          v-model="dialogUpdatePassword"
-          persistent
-          max-width="600px"
-        >
+        <v-dialog v-model="dialogUpdatePassword" persistent max-width="600px">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              text
-              color="green"
-              v-bind="attrs"
-              v-on="on"
-            >
-              {{ $t('message.46') }}
-            </v-btn>
+            <v-btn text color="green" v-bind="attrs" v-on="on">{{ $t('message.46') }}</v-btn>
           </template>
           <v-card>
             <v-card-title>
@@ -30,48 +19,31 @@
             <v-card-text>
               <v-container>
                 <v-row>
-                    <v-col cols="12">
-                    <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">
-                      {{ $t('message.47') }}
-                    </v-card-title>
-                      <v-text-field
-                        class="mt-0 pt-0"
-                        autofocus
-                        required
-                        clearable
-                        counter
-                        hide-details
-                      ></v-text-field>
-                    </v-col>
                   <v-col cols="12">
-                    <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">
-                      {{ $t('message.48') }}
-                    </v-card-title>
-                    <v-card-subtitle
-                      class="pl-0 pb-1 pt-3"
-                      v-html="$t('message.50')"
-                    ></v-card-subtitle>
-                      <v-text-field
-                        class="mt-0 pt-0"
-                        autofocus
-                        required
-                        clearable
-                        counter
-                        hide-details
-                      ></v-text-field>
+                    <v-card-title
+                      class="pa-0 text-subtitle-1 font-weight-medium"
+                    >{{ $t('message.47') }}</v-card-title>
+                    <v-text-field
+                      class="mt-0 pt-0"
+                      autofocus
+                      required
+                      clearable
+                      counter
+                      hide-details
+                    ></v-text-field>
                   </v-col>
                   <v-col cols="12">
-                    <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">
-                      {{ $t('message.49') }}
-                    </v-card-title>
-                      <v-text-field
-                        class="mt-0 pt-0"
-                        autofocus
-                        required
-                        clearable
-                        counter
-                        hide-details
-                      ></v-text-field>
+                    <v-card-title
+                      class="pa-0 text-subtitle-1 font-weight-medium"
+                    >{{ $t('message.48') }}</v-card-title>
+                    <v-card-subtitle class="pl-0 pb-1 pt-3" v-html="$t('message.50')"></v-card-subtitle>
+                    <v-text-field class="mt-0 pt-0" required clearable counter hide-details></v-text-field>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-card-title
+                      class="pa-0 text-subtitle-1 font-weight-medium"
+                    >{{ $t('message.49') }}</v-card-title>
+                    <v-text-field class="mt-0 pt-0" required clearable counter hide-details></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
@@ -82,16 +54,12 @@
                 color="blue darken-1"
                 text
                 @click="dialogUpdatePassword = false"
-              >
-                {{ $t('message.18') }}
-              </v-btn>
+              >{{ $t('message.18') }}</v-btn>
               <v-btn
                 color="blue darken-1"
                 text
                 @click="dialogUpdatePassword = false"
-              >
-                {{ $t('message.19') }}
-              </v-btn>
+              >{{ $t('message.19') }}</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -130,7 +98,8 @@
                 <div v-if="field.widget !== 'checkBox'">
                   <!-- Title of field. -->
                   <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">
-                    {{ field.label }}<span v-if="field.required" class="red--text pl-2">&#9733;<span>
+                    {{ field.label }}
+                    <span v-if="field.required" class="red--text pl-2">&#9733;</span>
                   </v-card-title>
                   <!-- Hint for field. -->
                   <v-card-subtitle
@@ -967,7 +936,15 @@
         <!-- Delete button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn text small color="red" :disabled="$route.params.indexDoc === 'new'" v-bind="attrs" v-on="on" @click="dialogDocDelete = true">
+            <v-btn
+              text
+              small
+              color="red"
+              :disabled="$route.params.indexDoc === 'new'"
+              v-bind="attrs"
+              v-on="on"
+              @click="dialogDocDelete = true"
+            >
               <v-icon>mdi-close-thick</v-icon>
             </v-btn>
           </template>
@@ -1024,30 +1001,17 @@
     </v-card>
 
     <!-- Confirm deletion of the document. -->
-    <v-dialog
-      v-model="dialogDocDelete"
-      max-width="290"
-    >
+    <v-dialog v-model="dialogDocDelete" max-width="290">
       <v-card>
-        <v-card-title class="h6">
-           {{ $t('message.39') }}
-        </v-card-title>
+        <v-card-title class="h6">{{ $t('message.39') }}</v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            text
-            @click="dialogDocDelete = false"
-          >
-            {{ $t('message.18') }}
-          </v-btn>
+          <v-btn color="primary" text @click="dialogDocDelete = false">{{ $t('message.18') }}</v-btn>
           <v-btn
             color="red"
             text
             @click="[deleteDoc(), dialogDocDelete = false]"
-          >
-            {{ $t('message.21') }}
-          </v-btn>
+          >{{ $t('message.21') }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
