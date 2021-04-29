@@ -69,7 +69,7 @@
               <v-btn
                 color="blue darken-1"
                 text
-                @click="dialogUpdatePassword = false"
+                @click="[updatePassword(), dialogUpdatePassword = false]"
               >{{ $t('message.19') }}</v-btn>
             </v-card-actions>
           </v-card>
