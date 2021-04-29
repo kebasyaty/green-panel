@@ -49,7 +49,7 @@
                       v-model="dataUpdatePassword.new"
                       :rules="[
                         () => !!dataUpdatePassword.new || $t('message.51'),
-                        () => !!dataUpdatePassword.new && dataUpdatePassword.new.length <= 25 ||  $t('message.50')
+                        () => /^[a-z0-9@#$%^&+=*!~)(]{8,}$/i.test(dataUpdatePassword.new) ||  $t('message.50')
                       ]"
                     ></v-text-field>
                   </v-col>
