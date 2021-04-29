@@ -2031,9 +2031,15 @@ export default {
           this.runShowOverlayPageLockout(false)
         })
     },
-
+    // Update password
     updatePassword() {
-      //
+      const oldPass = this.fieldsUpdatePassword.old
+      const newPass = this.fieldsUpdatePassword.new
+      const repeatPass = this.fieldsUpdatePassword.repeat
+
+      window.console.log(oldPass)
+      window.console.log(newPass)
+      window.console.log(repeatPass)
     }
   },
 
