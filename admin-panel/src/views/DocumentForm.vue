@@ -76,7 +76,10 @@
             </v-card-text>
             <v-divider class="mt-4"></v-divider>
             <v-card-actions>
-              <v-btn text @click="dialogUpdatePassword = false">{{ $t('message.54') }}</v-btn>
+              <v-btn
+                text
+                @click="[updatePassResetForm(), dialogUpdatePassword = false]"
+              >{{ $t('message.54') }}</v-btn>
               <v-spacer></v-spacer>
               <v-slide-x-reverse-transition>
                 <v-tooltip v-if="dataUpdatePassword.formHasErrors" left>
