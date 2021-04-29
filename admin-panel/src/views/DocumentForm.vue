@@ -17,7 +17,7 @@
           <template v-slot:activator="{ on, attrs }">
             <v-btn text color="green" v-bind="attrs" v-on="on">{{ $t('message.46') }}</v-btn>
           </template>
-          <v-card>
+          <v-card ref="updatePasswordForm">
             <v-card-title>
               <span class="h6">{{ $t('message.46') }}</span>
             </v-card-title>
@@ -26,46 +26,52 @@
                 <v-row>
                   <v-col cols="12">
                     <v-text-field
+                      :ref="dataUpdatePassword.old"
                       class="mt-0 pt-0"
                       autofocus
                       required
                       clearable
                       counter
                       :placeholder="$t('message.47')"
-                      v-model="fieldsUpdatePassword.old"
+                      v-model="dataUpdatePassword.old"
+                      :rules="[() => !!dataUpdatePassword.old || 'This field is required']"
+                      :error-messages="errorMessages"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12">
                     <v-text-field
+                      :ref="dataUpdatePassword.new"
                       class="mt-0 pt-0"
                       required
                       clearable
                       counter
                       :placeholder="$t('message.48')"
                       :hint="$t('message.50')"
-                      v-model="fieldsUpdatePassword.new"
+                      v-model="dataUpdatePassword.new"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12">
                     <v-text-field
+                      :ref="dataUpdatePassword.repeat"
                       class="mt-0 pt-0"
                       required
                       clearable
                       counter
                       :placeholder="$t('message.49')"
-                      v-model="fieldsUpdatePassword.repeat"
+                      v-model="dataUpdatePassword.repeat"
                     ></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
             </v-card-text>
+            <v-divider class="mt-12"></v-divider>
             <v-card-actions>
-              <v-spacer></v-spacer>
               <v-btn
                 color="blue darken-1"
                 text
                 @click="dialogUpdatePassword = false"
               >{{ $t('message.18') }}</v-btn>
+              <v-spacer></v-spacer>
               <v-btn
                 color="blue darken-1"
                 text
@@ -1154,7 +1160,9 @@ export default {
     configEditor: {},
     dialogDocDelete: false,
     dialogUpdatePassword: false,
-    fieldsUpdatePassword: { old: null, new: null, repeat: null }
+    dataUpdatePassword: {
+      old: null, new: null, repeat: null, errorMessages: '', formHasErrors: false
+    }
   }),
 
   computed: {
@@ -2033,9 +2041,9 @@ export default {
     },
     // Update password
     updatePassword() {
-      const oldPass = this.fieldsUpdatePassword.old
-      const newPass = this.fieldsUpdatePassword.new
-      const repeatPass = this.fieldsUpdatePassword.repeat
+      const oldPass = this.dataUpdatePassword.old
+      const newPass = this.dataUpdatePassword.new
+      const repeatPass = this.dataUpdatePassword.repeat
 
       window.console.log(oldPass)
       window.console.log(newPass)
