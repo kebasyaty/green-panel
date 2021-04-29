@@ -2073,7 +2073,7 @@ export default {
       this.dataUpdatePassword.formHasErrors = false
 
       Object.keys(this.updatePasswordForm).forEach(field => {
-        this.$refs[field].reset()
+        this.$refs[field][0].reset()
       })
     },
     // Update password
@@ -2092,7 +2092,7 @@ export default {
         if (!this.updatePasswordForm[field]) {
           this.dataUpdatePassword.formHasErrors = true
         }
-        this.$refs[field].validate(true)
+        this.$refs[field][0].validate(true)
       })
     }
   },
