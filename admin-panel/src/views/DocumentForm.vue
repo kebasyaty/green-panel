@@ -27,6 +27,7 @@
                       clearable
                       counter
                       :placeholder="$t('message.47')"
+                      v-model="fieldsUpdatePassword.old"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12">
@@ -37,6 +38,7 @@
                       counter
                       :placeholder="$t('message.48')"
                       :hint="$t('message.50')"
+                      v-model="fieldsUpdatePassword.new"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12">
@@ -46,6 +48,7 @@
                       clearable
                       counter
                       :placeholder="$t('message.49')"
+                      v-model="fieldsUpdatePassword.repeat"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -1145,7 +1148,8 @@ export default {
     classicCKEditor: null,
     configEditor: {},
     dialogDocDelete: false,
-    dialogUpdatePassword: false
+    dialogUpdatePassword: false,
+    fieldsUpdatePassword: { old: null, new: null, repeat: null }
   }),
 
   computed: {
