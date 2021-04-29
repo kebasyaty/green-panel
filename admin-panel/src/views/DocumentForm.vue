@@ -67,7 +67,7 @@
                       :maxlength="256"
                       :rules="[
                         () => !!dataUpdatePassword.passwordRepeat || $t('message.51'),
-                        () => dataUpdatePassword.passwordRepeat !== dataUpdatePassword.passwordNew || $t('message.52'),
+                        () => dataUpdatePassword.passwordRepeat === dataUpdatePassword.passwordNew || $t('message.52'),
                       ]"
                     ></v-text-field>
                   </v-col>
