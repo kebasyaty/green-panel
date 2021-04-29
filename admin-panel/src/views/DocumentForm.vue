@@ -34,7 +34,7 @@
                       counter
                       :placeholder="$t('message.47')"
                       v-model="dataUpdatePassword.old"
-                      :rules="[() => !!dataUpdatePassword.old || 'This field is required']"
+                      :rules="[() => !!dataUpdatePassword.old || $t('message.51')]"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12">
@@ -47,7 +47,10 @@
                       :placeholder="$t('message.48')"
                       :hint="$t('message.50')"
                       v-model="dataUpdatePassword.new"
-                      :rules="[() => !!dataUpdatePassword.new || 'This field is required']"
+                      :rules="[
+                        () => !!dataUpdatePassword.new || $t('message.51'),
+                        () => !!dataUpdatePassword.new && dataUpdatePassword.new.length <= 25 ||  $t('message.50')
+                      ]"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12">
@@ -59,7 +62,7 @@
                       counter
                       :placeholder="$t('message.49')"
                       v-model="dataUpdatePassword.repeat"
-                      :rules="[() => !!dataUpdatePassword.repeat || 'This field is required']"
+                      :rules="[() => !!dataUpdatePassword.repeat || $t('message.51')]"
                     ></v-text-field>
                   </v-col>
                 </v-row>
