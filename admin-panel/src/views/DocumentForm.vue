@@ -60,7 +60,6 @@
                       :placeholder="$t('message.49')"
                       v-model="dataUpdatePassword.repeat"
                       :rules="[() => !!dataUpdatePassword.repeat || 'This field is required']"
-                      :error-messages="dataUpdatePassword.errorMessages"
                     ></v-text-field>
                   </v-col>
                 </v-row>
