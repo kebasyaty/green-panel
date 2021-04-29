@@ -9,7 +9,7 @@
         <v-spacer></v-spacer>
         <!-- Update password. -->
         <v-dialog
-          v-if="$route.params.service === 'users'"
+          v-if="$route.params.service === 'users' && $route.params.indexDoc !== 'new'"
           v-model="dialogUpdatePassword"
           persistent
           max-width="600px"
