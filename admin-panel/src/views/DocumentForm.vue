@@ -8,7 +8,12 @@
         </v-btn>
         <v-spacer></v-spacer>
         <!-- Update password. -->
-        <v-dialog v-model="dialogUpdatePassword" persistent max-width="600px">
+        <v-dialog
+          v-if="$route.params.service === 'users'"
+          v-model="dialogUpdatePassword"
+          persistent
+          max-width="600px"
+        >
           <template v-slot:activator="{ on, attrs }">
             <v-btn text color="green" v-bind="attrs" v-on="on">{{ $t('message.46') }}</v-btn>
           </template>
@@ -2025,6 +2030,10 @@ export default {
           this.currValDynItem = { title: null, value: null }
           this.runShowOverlayPageLockout(false)
         })
+    },
+
+    updatePassword() {
+      //
     }
   },
 
