@@ -74,7 +74,7 @@
                 </v-row>
               </v-container>
             </v-card-text>
-            <v-divider class="mt-12"></v-divider>
+            <v-divider class="mt-4"></v-divider>
             <v-card-actions>
               <v-btn text @click="dialogUpdatePassword = false">{{ $t('message.54') }}</v-btn>
               <v-spacer></v-spacer>
