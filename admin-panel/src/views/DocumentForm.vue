@@ -35,7 +35,6 @@
                       :placeholder="$t('message.47')"
                       v-model="dataUpdatePassword.old"
                       :rules="[() => !!dataUpdatePassword.old || 'This field is required']"
-                      :error-messages="errorMessages"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12">
@@ -48,6 +47,7 @@
                       :placeholder="$t('message.48')"
                       :hint="$t('message.50')"
                       v-model="dataUpdatePassword.new"
+                      :rules="[() => !!dataUpdatePassword.old || 'This field is required']"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12">
@@ -59,6 +59,8 @@
                       counter
                       :placeholder="$t('message.49')"
                       v-model="dataUpdatePassword.repeat"
+                      :rules="[() => !!dataUpdatePassword.old || 'This field is required']"
+                      :error-messages="dataUpdatePassword.errorMessages"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -1177,7 +1179,20 @@ export default {
       'docsPerPage',
       'sortDocList',
       'sortDirectDocList'
-    ])
+    ]),
+    updatePasswordForm() {
+      return {
+        old: this.dataUpdatePassword.old,
+        new: this.dataUpdatePassword.new,
+        repeat: this.dataUpdatePassword.repeat
+      }
+    }
+  },
+
+  watch: {
+    dataUpdatePassword() {
+      this.dataUpdatePassword.errorMessages = ''
+    }
   },
 
   methods: {
