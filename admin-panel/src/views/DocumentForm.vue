@@ -2068,6 +2068,14 @@ export default {
           this.runShowOverlayPageLockout(false)
         })
     },
+    // Refresh form for update password.
+    updatePassResetForm() {
+      this.dataUpdatePassword.formHasErrors = false
+
+      Object.keys(this.updatePasswordForm).forEach(field => {
+        this.$refs[field].reset()
+      })
+    },
     // Update password
     updatePassword() {
       const oldPass = this.dataUpdatePassword.old
