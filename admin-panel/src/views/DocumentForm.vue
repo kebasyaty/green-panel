@@ -20,9 +20,6 @@
               <v-container>
                 <v-row>
                   <v-col cols="12">
-                    <v-card-title
-                      class="pa-0 text-subtitle-1 font-weight-medium"
-                    >{{ $t('message.47') }}</v-card-title>
                     <v-text-field
                       class="mt-0 pt-0"
                       autofocus
@@ -30,20 +27,28 @@
                       clearable
                       counter
                       hide-details
+                      :placeholder="$t('message.47')"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12">
-                    <v-card-title
-                      class="pa-0 text-subtitle-1 font-weight-medium"
-                    >{{ $t('message.48') }}</v-card-title>
-                    <v-card-subtitle class="pl-0 pb-1 pt-3" v-html="$t('message.50')"></v-card-subtitle>
-                    <v-text-field class="mt-0 pt-0" required clearable counter hide-details></v-text-field>
+                    <v-text-field
+                      class="mt-0 pt-0"
+                      required
+                      clearable
+                      counter
+                      :placeholder="$t('message.48')"
+                      :hint="$t('message.50')"
+                    ></v-text-field>
                   </v-col>
                   <v-col cols="12">
-                    <v-card-title
-                      class="pa-0 text-subtitle-1 font-weight-medium"
-                    >{{ $t('message.49') }}</v-card-title>
-                    <v-text-field class="mt-0 pt-0" required clearable counter hide-details></v-text-field>
+                    <v-text-field
+                      class="mt-0 pt-0"
+                      required
+                      clearable
+                      counter
+                      hide-details
+                      :placeholder="$t('message.49')"
+                    ></v-text-field>
                   </v-col>
                 </v-row>
               </v-container>
