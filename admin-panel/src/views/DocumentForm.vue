@@ -26,7 +26,7 @@
                 <v-row>
                   <v-col cols="12">
                     <v-text-field
-                      :ref="dataUpdatePassword.old"
+                      ref="old"
                       class="mt-0 pt-0"
                       autofocus
                       required
@@ -40,7 +40,7 @@
                   </v-col>
                   <v-col cols="12">
                     <v-text-field
-                      :ref="dataUpdatePassword.new"
+                      ref="new"
                       class="mt-0 pt-0"
                       required
                       clearable
@@ -57,7 +57,7 @@
                   </v-col>
                   <v-col cols="12">
                     <v-text-field
-                      :ref="dataUpdatePassword.repeat"
+                      ref="repeat"
                       class="mt-0 pt-0"
                       required
                       clearable
@@ -2076,7 +2076,7 @@ export default {
       this.dataUpdatePassword.formHasErrors = false
 
       Object.keys(this.updatePasswordForm).forEach(field => {
-        this.$refs[field][0].reset()
+        this.$refs[field].reset()
       })
     },
     // Update password
@@ -2095,7 +2095,7 @@ export default {
         if (!this.updatePasswordForm[field]) {
           this.dataUpdatePassword.formHasErrors = true
         }
-        this.$refs[field][0].validate(true)
+        this.$refs[field].validate(true)
       })
     }
   },
