@@ -22,57 +22,47 @@
               <span class="h6">{{ $t('message.46') }}</span>
             </v-card-title>
             <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12">
-                    <v-text-field
-                      ref="passwordOld"
-                      class="mt-0 pt-0"
-                      autofocus
-                      required
-                      clearable
-                      counter
-                      :placeholder="$t('message.47')"
-                      v-model="dataUpdatePassword.passwordOld"
-                      :maxlength="256"
-                      :rules="[() => !!dataUpdatePassword.passwordOld || $t('message.51')]"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12">
-                    <v-text-field
-                      ref="passwordNew"
-                      class="mt-0 pt-0"
-                      required
-                      clearable
-                      counter
-                      :placeholder="$t('message.48')"
-                      :hint="$t('message.50')"
-                      v-model="dataUpdatePassword.passwordNew"
-                      :maxlength="256"
-                      :rules="[
+              <v-text-field
+                ref="passwordOld"
+                class="mt-0 pt-0"
+                autofocus
+                required
+                clearable
+                counter
+                :placeholder="$t('message.47')"
+                v-model="dataUpdatePassword.passwordOld"
+                :maxlength="256"
+                :rules="[() => !!dataUpdatePassword.passwordOld || $t('message.51')]"
+              ></v-text-field>
+              <v-text-field
+                ref="passwordNew"
+                class="mt-0 pt-0"
+                required
+                clearable
+                counter
+                :placeholder="$t('message.48')"
+                :hint="$t('message.50')"
+                v-model="dataUpdatePassword.passwordNew"
+                :maxlength="256"
+                :rules="[
                         () => !!dataUpdatePassword.passwordNew || $t('message.51'),
                         () => /^[a-z0-9@#$%^&+=*!~)(]{8,256}$/i.test(dataUpdatePassword.passwordNew) ||  $t('message.50')
                       ]"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12">
-                    <v-text-field
-                      ref="passwordRepeat"
-                      class="mt-0 pt-0"
-                      required
-                      clearable
-                      counter
-                      :placeholder="$t('message.49')"
-                      v-model="dataUpdatePassword.passwordRepeat"
-                      :maxlength="256"
-                      :rules="[
+              ></v-text-field>
+              <v-text-field
+                ref="passwordRepeat"
+                class="mt-0 pt-0"
+                required
+                clearable
+                counter
+                :placeholder="$t('message.49')"
+                v-model="dataUpdatePassword.passwordRepeat"
+                :maxlength="256"
+                :rules="[
                         () => !!dataUpdatePassword.passwordRepeat || $t('message.51'),
                         () => dataUpdatePassword.passwordRepeat === dataUpdatePassword.passwordNew || $t('message.52'),
                       ]"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
+              ></v-text-field>
             </v-card-text>
             <v-card-actions>
               <v-btn
