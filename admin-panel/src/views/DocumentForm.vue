@@ -2076,14 +2076,6 @@ export default {
     },
     // Update password
     updatePassword() {
-      const oldPass = this.dataUpdatePassword.passwordOld
-      const newPass = this.dataUpdatePassword.passwordNew
-      const repeatPass = this.dataUpdatePassword.passwordRepeat
-
-      window.console.log(oldPass)
-      window.console.log(newPass)
-      window.console.log(repeatPass)
-
       this.dataUpdatePassword.formHasErrors = false
 
       Object.keys(this.updatePasswordForm).forEach(field => {
@@ -2092,6 +2084,34 @@ export default {
         }
         this.$refs[field].validate(true)
       })
+
+      if (!this.dataUpdatePassword.formHasErrors) {
+        const payload = {
+          oldPass: this.dataUpdatePassword.passwordOld,
+          newPass: this.dataUpdatePassword.passwordNew,
+          repeatPass: this.dataUpdatePassword.passwordRepeat
+        }
+
+        this.axios.post('/admin/update-password', payload)
+          .then(response => {
+            const data = response.data
+            if (!data.is_authenticated) {
+              this.setIsAuthenticated(false)
+            } else if (data.msg_err.length === 0) {
+              this.dialogUpdatePassword = false
+            } else {
+              console.log(data.msg_err)
+              this.runShowMsg({ text: data.msg_err, status: 'error' })
+            }
+          })
+          .catch(error => {
+            console.log(error)
+            this.runShowMsg({ text: error, status: 'error' })
+          })
+          .then(() => {
+            this.runShowOverlayPageLockout(false)
+          })
+      }
     }
   },
 
