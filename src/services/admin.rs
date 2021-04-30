@@ -635,8 +635,8 @@ pub mod request_handlers {
     // *********************************************************************************************
     #[derive(Deserialize)]
     pub struct QueryUpdatePassword {
-        oldPass: String,
-        newPass: String,
+        old_pass: String,
+        new_pass: String,
         model_key: String,
         doc_hash: String,
     }
@@ -671,8 +671,8 @@ pub mod request_handlers {
                     if let Ok(instance) = output_data.model::<users::AdminProfile>() {
                         if !instance
                             .update_password(
-                                query.oldPass.as_str(),
-                                query.newPass.as_str(),
+                                query.old_pass.as_str(),
+                                query.new_pass.as_str(),
                                 None,
                                 None,
                             )
