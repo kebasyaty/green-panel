@@ -2101,7 +2101,7 @@ export default {
               this.setIsAuthenticated(false)
             } else if (data.msg_err.length === 0) {
               this.dialogUpdatePassword = false
-              this.runShowMsg({ text: data.msg_err, status: 'error' })
+              this.runShowMsg({ text: this.$t('message.56'), status: 'success' })
             } else {
               console.log(data.msg_err)
               this.runShowMsg({ text: data.msg_err, status: 'error' })

@@ -56,6 +56,7 @@ export default {
     52: 'Password mismatch',
     53: 'Refresh form',
     54: 'Cancel',
-    55: 'Update'
+    55: 'Update',
+    56: 'Your password has been successfully updated !'
   }
 }
