@@ -1437,7 +1437,7 @@ export default {
       //
       return result
     },
-    //
+    // Show popup warning.
     showWarning(msg) {
       if (msg.length > 0) {
         this.runShowMsg({ text: msg, status: 'warning' })
