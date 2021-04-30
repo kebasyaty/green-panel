@@ -51,7 +51,7 @@ export default {
     47: 'Old password',
     48: 'New password',
     49: 'Repeat password',
-    50: 'Min size 8 ; Allowed characters: a-z A-Z 0-9 @ # $ % ^ & + = * ! ~ ) (',
+    50: 'Size 8-256 ; Allowed characters: a-z A-Z 0-9 @ # $ % ^ & + = * ! ~ ) (',
     51: 'This field is required',
     52: 'Password mismatch',
     53: 'Refresh form',
