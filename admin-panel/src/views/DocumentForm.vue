@@ -2119,9 +2119,13 @@ export default {
   },
 
   created() {
-    //
+    // Update the request parameters from the session.
     if (this.$session.exists()) {
-      if (this.$session.has('num_page') && this.$session.has('num_per')) {
+      if (this.$session.has('num_page') &&
+        this.$session.has('num_per') &&
+        this.$session.has('sort') &&
+        this.$session.has('direct')) {
+        //
         this.setCurrentPageNumber(this.$session.get('num_page'))
         this.setDocsPerPage(this.$session.get('num_per'))
         this.setSortDocList(this.$session.get('sort'))
