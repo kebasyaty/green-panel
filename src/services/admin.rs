@@ -58,7 +58,7 @@ pub mod configure_urls {
         cfg.service(web::resource("/delete-document").route(web::post().to(delete_document)));
         cfg.service(web::resource("/delete-many-doc").route(web::post().to(delete_many_doc)));
         cfg.service(web::resource("/update-dyn-data").route(web::post().to(update_dyn_data)));
-        //cfg.service(web::resource("/update-password").route(web::post().to(update_password)));
+        cfg.service(web::resource("/update-password").route(web::post().to(update_password)));
         cfg.service(web::resource("/*").route(web::get().to(admin_panel)));
         cfg.service(web::resource("").route(web::get().to(admin_panel)));
     }
@@ -189,6 +189,7 @@ pub mod request_handlers {
         let mut msg_err = String::new();
         // Access request identity
         if session.get::<String>("user")?.is_some()
+            && session.get::<String>("hash")?.is_some()
             && session.get::<bool>("is_active")?.unwrap()
             && session.get::<bool>("is_staff")?.unwrap()
         {
@@ -236,6 +237,7 @@ pub mod request_handlers {
         // Access request identity
         // -----------------------------------------------------------------------------------------
         if session.get::<String>("user")?.is_some()
+            && session.get::<String>("hash")?.is_some()
             && session.get::<bool>("is_active")?.unwrap()
             && session.get::<bool>("is_staff")?.unwrap()
         {
@@ -354,6 +356,7 @@ pub mod request_handlers {
         // Access request identity
         // -----------------------------------------------------------------------------------------
         if session.get::<String>("user")?.is_some()
+            && session.get::<String>("hash")?.is_some()
             && session.get::<bool>("is_active")?.unwrap()
             && session.get::<bool>("is_staff")?.unwrap()
         {
@@ -401,6 +404,7 @@ pub mod request_handlers {
         // Access request identity
         // -----------------------------------------------------------------------------------------
         if session.get::<String>("user")?.is_some()
+            && session.get::<String>("hash")?.is_some()
             && session.get::<bool>("is_active")?.unwrap()
             && session.get::<bool>("is_staff")?.unwrap()
         {
@@ -465,6 +469,7 @@ pub mod request_handlers {
         // Access request identity
         // -----------------------------------------------------------------------------------------
         if session.get::<String>("user")?.is_some()
+            && session.get::<String>("hash")?.is_some()
             && session.get::<bool>("is_active")?.unwrap()
             && session.get::<bool>("is_staff")?.unwrap()
         {
@@ -532,6 +537,7 @@ pub mod request_handlers {
         // Access request identity
         // -----------------------------------------------------------------------------------------
         if session.get::<String>("user")?.is_some()
+            && session.get::<String>("hash")?.is_some()
             && session.get::<bool>("is_active")?.unwrap()
             && session.get::<bool>("is_staff")?.unwrap()
         {
@@ -599,6 +605,7 @@ pub mod request_handlers {
         // Access request identity
         // -----------------------------------------------------------------------------------------
         if session.get::<String>("user")?.is_some()
+            && session.get::<String>("hash")?.is_some()
             && session.get::<bool>("is_active")?.unwrap()
             && session.get::<bool>("is_staff")?.unwrap()
         {
@@ -608,9 +615,51 @@ pub mod request_handlers {
         }
 
         // Define the desired model by `model_key` and update dynamic data
+        // -----------------------------------------------------------------------------------------
         if msg_err.is_empty() {
             admin_panel::refresh_dyn_data(query.model_key.clone(), query.json_options.as_str())
                 .unwrap();
+        }
+
+        // Return json response
+        // -----------------------------------------------------------------------------------------
+        Ok(HttpResponse::Ok()
+            .content_type("application/json")
+            .json(json!({
+                "is_authenticated": is_authenticated,
+                "msg_err": msg_err
+            })))
+    }
+
+    // Update password
+    // *********************************************************************************************
+    #[derive(Deserialize)]
+    pub struct QueryUpdatePassword {
+        oldPass: String,
+        newPass: String,
+        repeatPass: String,
+        model_key: String,
+        doc_hash: String,
+    }
+
+    pub async fn update_password(
+        session: Session,
+        query: web::Json<QueryUpdatePassword>,
+    ) -> Result<HttpResponse, Error> {
+        //
+        let mut is_authenticated = false;
+        let mut msg_err = String::new();
+
+        // Access request identity
+        // -----------------------------------------------------------------------------------------
+        if session.get::<String>("user")?.is_some()
+            && session.get::<String>("hash")?.is_some()
+            && session.get::<bool>("is_active")?.unwrap()
+            && session.get::<bool>("is_staff")?.unwrap()
+        {
+            is_authenticated = true;
+        } else {
+            msg_err = "Authentication failed.".to_string();
         }
 
         // Return json response
