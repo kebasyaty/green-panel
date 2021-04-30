@@ -1448,11 +1448,8 @@ export default {
       const vMenu = {}
       const fieldsData = {}
       const dynamicSelectionDialog = {}
-      const re = /<br>/g
 
       document.forEach(field => {
-        field.warning = field.warning.replace(re, ' || ')
-        field.error = field.error.replace(re, ' || ')
         let tmp
 
         switch (field.widget) {
