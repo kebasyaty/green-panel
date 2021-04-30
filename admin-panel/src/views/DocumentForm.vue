@@ -74,7 +74,6 @@
                 </v-row>
               </v-container>
             </v-card-text>
-            <v-divider class="mt-4"></v-divider>
             <v-card-actions>
               <v-btn
                 text
