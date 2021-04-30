@@ -17,7 +17,7 @@ use serde::Deserialize;
 use serde_json::{json, Value};
 
 use crate::models::{registration::admin_panel, services::admin::users};
-use mango_orm::{QCommon, QPaladins, FORM_STORE, MONGODB_CLIENT_STORE};
+use mango_orm::{QCommon, QPaladins, ToModel, FORM_STORE, MONGODB_CLIENT_STORE};
 
 pub use configure_urls::*;
 pub use request_handlers::*;
@@ -660,6 +660,27 @@ pub mod request_handlers {
             is_authenticated = true;
         } else {
             msg_err = "Authentication failed.".to_string();
+        }
+
+        // Update password
+        if query.model_key == users::AdminProfile::key() {
+            if !query.doc_hash.is_empty() {
+                let object_id = users::AdminProfile::hash_to_id(query.doc_hash.as_str()).unwrap();
+                let filter = doc! {"_id": object_id};
+                let output_data = users::AdminProfile::find_one(Some(filter), None).unwrap();
+                if output_data.bool() {
+                    json = output_data
+                        .model::<users::AdminProfile>()
+                        .unwrap()
+                        .json_for_admin()?;
+                } else {
+                    return Err(error::ErrorBadRequest("User is not found."));
+                }
+            } else {
+                return Err(error::ErrorBadRequest("Missing document hash."));
+            }
+        } else {
+            return Err(error::ErrorBadRequest("The model key does not match."));
         }
 
         // Return json response
