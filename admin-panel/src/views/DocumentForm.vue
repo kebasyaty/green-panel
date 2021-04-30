@@ -2109,7 +2109,6 @@ export default {
         const payload = {
           oldPass: this.dataUpdatePassword.passwordOld,
           newPass: this.dataUpdatePassword.passwordNew,
-          repeatPass: this.dataUpdatePassword.passwordRepeat,
           model_key: service.collections[indexCollection].model_key,
           doc_hash: this.documents[indexDoc] !== undefined ? this.documents[indexDoc].hash : ''
         }

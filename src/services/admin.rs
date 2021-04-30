@@ -637,7 +637,6 @@ pub mod request_handlers {
     pub struct QueryUpdatePassword {
         oldPass: String,
         newPass: String,
-        repeatPass: String,
         model_key: String,
         doc_hash: String,
     }
@@ -670,7 +669,18 @@ pub mod request_handlers {
                 let output_data = users::AdminProfile::find_one(Some(filter), None).unwrap();
                 if output_data.bool() {
                     if let Ok(instance) = output_data.model::<users::AdminProfile>() {
-                        //
+                        if !instance
+                            .update_password(
+                                query.oldPass.as_str(),
+                                query.newPass.as_str(),
+                                None,
+                                None,
+                            )
+                            .unwrap()
+                        {
+                            msg_err =
+                                "Sorry, your password has not been updated. Try again.".to_string();
+                        }
                     } else {
                         return Err(error::ErrorBadRequest("No model instance was received."));
                     }
