@@ -2102,10 +2102,16 @@ export default {
       })
 
       if (!this.dataUpdatePassword.formHasErrors) {
+        const indexService = this.$route.params.indexService
+        const indexCollection = this.$route.params.indexCollection
+        const indexDoc = this.$route.params.indexDoc
+        const service = this.serviceList[indexService]
         const payload = {
           oldPass: this.dataUpdatePassword.passwordOld,
           newPass: this.dataUpdatePassword.passwordNew,
-          repeatPass: this.dataUpdatePassword.passwordRepeat
+          repeatPass: this.dataUpdatePassword.passwordRepeat,
+          model_key: service.collections[indexCollection].model_key,
+          doc_hash: this.documents[indexDoc] !== undefined ? this.documents[indexDoc].hash : ''
         }
 
         this.axios.post('/admin/update-password', payload)
