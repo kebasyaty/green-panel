@@ -2107,8 +2107,8 @@ export default {
         const indexDoc = this.$route.params.indexDoc
         const service = this.serviceList[indexService]
         const payload = {
-          oldPass: this.dataUpdatePassword.passwordOld,
-          newPass: this.dataUpdatePassword.passwordNew,
+          old_pass: this.dataUpdatePassword.passwordOld,
+          new_pass: this.dataUpdatePassword.passwordNew,
           model_key: service.collections[indexCollection].model_key,
           doc_hash: this.documents[indexDoc] !== undefined ? this.documents[indexDoc].hash : ''
         }
