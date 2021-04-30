@@ -1510,16 +1510,19 @@ export default {
               ]
             }
             fieldsData[field.name] = field.value || ''
+            this.showWarning(field.common_msg)
             break
           case 'inputColor':
             vMenu[field.name] = false
             fieldsData[field.name] = field.value || '#00000000'
+            this.showWarning(field.common_msg)
             break
           case 'inputDate':
             vMenu[field.name] = false
             field.min = field.min || ''
             field.max = field.max || ''
             fieldsData[field.name] = field.value || ''
+            this.showWarning(field.common_msg)
             break
           case 'inputDateTime':
             vMenu[field.name] = false
@@ -1530,6 +1533,7 @@ export default {
             fieldsData[field.name] = tmp.substr(0, 10)
             fieldsData[`${field.name}__time`] = new Date(tmp).toLocaleTimeString(this.$i18n.locale,
               { timeStyle: 'short', hour12: false })
+            this.showWarning(field.common_msg)
             break
           case 'hiddenText':
           case 'hiddenI32':
@@ -1537,27 +1541,33 @@ export default {
           case 'hiddenI64':
           case 'hiddenF64':
             fieldsData[field.name] = field.value || ''
+            this.showWarning(field.common_msg)
             break
           case 'numberI32':
           case 'numberU32':
           case 'numberI64':
             tmp = parseInt(field.value)
             fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+            this.showWarning(field.common_msg)
             break
           case 'numberF64':
             tmp = parseFloat(field.value)
             fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+            this.showWarning(field.common_msg)
             break
           case 'rangeI32':
           case 'rangeU32':
           case 'rangeI64':
             fieldsData[field.name] = parseInt(field.value)
+            this.showWarning(field.common_msg)
             break
           case 'rangeF64':
             fieldsData[field.name] = parseFloat(field.value)
+            this.showWarning(field.common_msg)
             break
           case 'radioText':
             fieldsData[field.name] = field.value || ''
+            this.showWarning(field.common_msg)
             break
           case 'radioI32':
           case 'radioU32':
@@ -1567,6 +1577,7 @@ export default {
             field.options.forEach(function (item) {
               item[0] = parseInt(item[0])
             })
+            this.showWarning(field.common_msg)
             break
           case 'radioF64':
             tmp = parseFloat(field.value)
@@ -1574,15 +1585,18 @@ export default {
             field.options.forEach(function (item) {
               item[0] = parseFloat(item[0])
             })
+            this.showWarning(field.common_msg)
             break
           case 'checkBox':
             fieldsData[field.name] = field.checked
+            this.showWarning(field.common_msg)
             break
           case 'selectText':
             fieldsData[field.name] = field.value || ''
             field.options = field.options.map(function (item) {
               return { value: item[0], title: item[1] }
             })
+            this.showWarning(field.common_msg)
             break
           case 'selectI32':
           case 'selectU32':
@@ -1592,6 +1606,7 @@ export default {
             field.options = field.options.map(function (item) {
               return { value: parseInt(item[0]), title: item[1] }
             })
+            this.showWarning(field.common_msg)
             break
           case 'selectF64':
             tmp = parseFloat(field.value)
@@ -1599,12 +1614,14 @@ export default {
             field.options = field.options.map(function (item) {
               return { value: parseFloat(item[0]), title: item[1] }
             })
+            this.showWarning(field.common_msg)
             break
           case 'selectTextMult':
             fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : []
             field.options = field.options.map(function (item) {
               return { value: item[0], title: item[1] }
             })
+            this.showWarning(field.common_msg)
             break
           case 'selectI32Mult':
           case 'selectU32Mult':
@@ -1613,20 +1630,22 @@ export default {
             field.options = field.options.map(function (item) {
               return { value: parseInt(item[0]), title: item[1] }
             })
+            this.showWarning(field.common_msg)
             break
           case 'selectF64Mult':
             fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value).map(item => parseFloat(item)) : []
             field.options = field.options.map(function (item) {
               return { value: parseFloat(item[0]), title: item[1] }
             })
+            this.showWarning(field.common_msg)
             break
-
           case 'selectTextDyn':
             fieldsData[field.name] = field.value || ''
             field.options = field.options.map(function (item) {
               return { value: item[0], title: item[1] }
             })
             dynamicSelectionDialog[field.name] = false
+            this.showWarning(field.common_msg)
             break
           case 'selectI32Dyn':
           case 'selectU32Dyn':
@@ -1637,6 +1656,7 @@ export default {
               return { value: parseInt(item[0]), title: item[1] }
             })
             dynamicSelectionDialog[field.name] = false
+            this.showWarning(field.common_msg)
             break
           case 'selectF64Dyn':
             tmp = parseFloat(field.value)
@@ -1645,6 +1665,7 @@ export default {
               return { value: parseFloat(item[0]), title: item[1] }
             })
             dynamicSelectionDialog[field.name] = false
+            this.showWarning(field.common_msg)
             break
           case 'selectTextMultDyn':
             fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : []
@@ -1652,6 +1673,7 @@ export default {
               return { value: item[0], title: item[1] }
             })
             dynamicSelectionDialog[field.name] = false
+            this.showWarning(field.common_msg)
             break
           case 'selectI32MultDyn':
           case 'selectU32MultDyn':
@@ -1661,6 +1683,7 @@ export default {
               return { value: parseInt(item[0]), title: item[1] }
             })
             dynamicSelectionDialog[field.name] = false
+            this.showWarning(field.common_msg)
             break
           case 'selectF64MultDyn':
             fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value).map(item => parseFloat(item)) : []
@@ -1668,11 +1691,13 @@ export default {
               return { value: parseFloat(item[0]), title: item[1] }
             })
             dynamicSelectionDialog[field.name] = false
+            this.showWarning(field.common_msg)
             break
           case 'inputFile':
           case 'inputImage':
             fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : {}
             fieldsData[field.name].is_delete = false
+            this.showWarning(field.common_msg)
             break
         }
       })
