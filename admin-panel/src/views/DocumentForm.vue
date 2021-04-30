@@ -2088,8 +2088,9 @@ export default {
     // Refresh form for update password.
     updatePassResetForm() {
       this.dataUpdatePassword.formHasErrors = false
+      const fields = ['passwordOld', 'passwordNew', 'passwordRepeat']
 
-      Object.keys(this.updatePasswordForm).forEach(field => {
+      fields.forEach(field => {
         this.$refs[field].reset()
       })
     },
@@ -2098,9 +2099,10 @@ export default {
       this.setShowMsg(false)
       this.runShowOverlayPageLockout(true)
       this.dataUpdatePassword.formHasErrors = false
+      const fields = ['passwordOld', 'passwordNew', 'passwordRepeat']
 
-      Object.keys(this.updatePasswordForm).forEach(field => {
-        if (!this.updatePasswordForm[field]) {
+      fields.forEach(field => {
+        if (!this.dataUpdatePassword[field]) {
           this.dataUpdatePassword.formHasErrors = true
         }
         this.$refs[field].validate(true)
