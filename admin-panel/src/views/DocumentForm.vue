@@ -1187,14 +1187,7 @@ export default {
       'docsPerPage',
       'sortDocList',
       'sortDirectDocList'
-    ]),
-    updatePasswordForm() {
-      return {
-        passwordOld: this.dataUpdatePassword.old,
-        passwordNew: this.dataUpdatePassword.new,
-        passwordRepeat: this.dataUpdatePassword.repeat
-      }
-    }
+    ])
   },
 
   methods: {
