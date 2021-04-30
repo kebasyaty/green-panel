@@ -669,10 +669,11 @@ pub mod request_handlers {
                 let filter = doc! {"_id": object_id};
                 let output_data = users::AdminProfile::find_one(Some(filter), None).unwrap();
                 if output_data.bool() {
-                    json = output_data
-                        .model::<users::AdminProfile>()
-                        .unwrap()
-                        .json_for_admin()?;
+                    if let Ok(instance) = output_data.model::<users::AdminProfile>() {
+                        //
+                    } else {
+                        return Err(error::ErrorBadRequest("No model instance was received."));
+                    }
                 } else {
                     return Err(error::ErrorBadRequest("User is not found."));
                 }
