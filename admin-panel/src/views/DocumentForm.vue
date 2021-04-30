@@ -1437,6 +1437,12 @@ export default {
       //
       return result
     },
+    //
+    showWarning(msg) {
+      if (msg.length > 0) {
+        this.runShowMsg({ text: msg, status: 'warning' })
+      }
+    },
     // Get data for fields of form.
     getFormData(document) {
       const vMenu = {}
@@ -1459,6 +1465,7 @@ export default {
           case 'inputIPv4':
           case 'inputIPv6':
             fieldsData[field.name] = field.value || ''
+            this.showWarning(field.common_msg)
             break
           case 'textArea':
             if (!this.isUseCkeditor && field.css_classes.includes('ckeditor')) {
