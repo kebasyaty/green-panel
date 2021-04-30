@@ -2076,6 +2076,8 @@ export default {
     },
     // Update password
     updatePassword() {
+      this.setShowMsg(false)
+      this.runShowOverlayPageLockout(true)
       this.dataUpdatePassword.formHasErrors = false
 
       Object.keys(this.updatePasswordForm).forEach(field => {
@@ -2099,6 +2101,7 @@ export default {
               this.setIsAuthenticated(false)
             } else if (data.msg_err.length === 0) {
               this.dialogUpdatePassword = false
+              this.runShowMsg({ text: data.msg_err, status: 'error' })
             } else {
               console.log(data.msg_err)
               this.runShowMsg({ text: data.msg_err, status: 'error' })
