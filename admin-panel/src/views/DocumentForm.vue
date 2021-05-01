@@ -887,6 +887,7 @@
                          'selectI64Mult', 'selectF64Mult'].includes(field.widget)"
                   clearable
                   chips
+                  deletable-chips
                   multiple
                   counter
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
@@ -938,6 +939,7 @@
                          'selectI64MultDyn', 'selectF64MultDyn'].includes(field.widget)"
                   clearable
                   chips
+                  deletable-chips
                   multiple
                   counter
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
