@@ -268,11 +268,12 @@ pub struct SellerProfile {
     //
     #[serde(default)]
     #[field_attrs(
-        widget = "selectTextDyn",
+        widget = "selectText",
         label = "Country",
         placeholder = "Please Select",
         required = true,
-        hint = "Select the country you live in"
+        hint = "Select the country you live in",
+        options = r#"["Volvo", "Saab", "Mercedes", "Audi"]"#
     )]
     pub country: Option<String>,
     //
@@ -466,10 +467,12 @@ pub struct CustomerProfile {
     //
     #[serde(default)]
     #[field_attrs(
-        widget = "selectTextDyn",
+        widget = "selectText",
         label = "Country",
         placeholder = "Please Select",
-        hint = "Select the country you live in"
+        required = true,
+        hint = "Select the country you live in",
+        options = r#"["Volvo", "Saab", "Mercedes", "Audi"]"#
     )]
     pub country: Option<String>,
     //
