@@ -857,7 +857,7 @@
                 </v-row>
 
                 <!-- Selection fields-->
-                <v-select
+                <v-autocomplete
                   class="pt-0"
                   v-if="['selectText', 'selectI32', 'selectU32',
                          'selectI64', 'selectF64'].includes(field.widget)"
@@ -876,18 +876,19 @@
                   :class="field.css_classes"
                   :messages="field.warning"
                   :error-messages="field.error"
-                ></v-select>
+                ></v-autocomplete>
 
                 <!-- Selection fields
                      (multiple)
                 -->
-                <v-select
+                <v-autocomplete
                   class="pt-0"
                   v-if="['selectTextMult', 'selectI32Mult', 'selectU32Mult',
                          'selectI64Mult', 'selectF64Mult'].includes(field.widget)"
                   clearable
                   chips
                   multiple
+                  counter
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                   :items="field.options"
                   item-text="title"
@@ -902,12 +903,12 @@
                   :class="field.css_classes"
                   :messages="field.warning"
                   :error-messages="field.error"
-                ></v-select>
+                ></v-autocomplete>
 
                 <!-- Selection fields
                      (dynamic)
                 -->
-                <v-select
+                <v-autocomplete
                   class="pt-0"
                   v-if="['selectTextDyn', 'selectI32Dyn', 'selectU32Dyn',
                          'selectI64Dyn', 'selectF64Dyn'].includes(field.widget)"
@@ -926,18 +927,19 @@
                   :class="field.css_classes"
                   :messages="field.warning"
                   :error-messages="field.error"
-                ></v-select>
+                ></v-autocomplete>
 
                 <!-- Selection fields
                      (multiple, dynamic)
                 -->
-                <v-select
+                <v-autocomplete
                   class="pt-0"
                   v-if="['selectTextMultDyn', 'selectI32MultDyn', 'selectU32MultDyn',
                          'selectI64MultDyn', 'selectF64MultDyn'].includes(field.widget)"
                   clearable
                   chips
                   multiple
+                  counter
                   :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                   :items="field.options"
                   item-text="title"
@@ -952,7 +954,7 @@
                   :class="field.css_classes"
                   :messages="field.warning"
                   :error-messages="field.error"
-                ></v-select>
+                ></v-autocomplete>
               </v-card-text>
             </v-card>
           </div>
