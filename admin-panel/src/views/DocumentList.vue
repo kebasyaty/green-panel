@@ -119,6 +119,7 @@
                 <td>
                   <router-link :to="createDocumentUrl(idxDoc)">{{ document.title }}</router-link>
                 </td>
+                <!-- Date fields. -->
                 <td width="160" v-html="formattingDate(document.created_at)"></td>
                 <td width="160" v-html="formattingDate(document.updated_at)"></td>
               </tr>
