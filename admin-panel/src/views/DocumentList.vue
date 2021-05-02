@@ -91,7 +91,7 @@
                   ></v-checkbox>
                 </th>
                 <!-- Other headers. -->
-                <th>{{ serviceList[$route.params.indexService].collections[$route.params.indexCollection].doc_name.title }}</th>
+                <th>{{ serviceList[$route.params.indexService].collections[$route.params.indexCollection].fields[0].title }}</th>
                 <th>{{ $t('message.29') }}</th>
                 <th>{{ $t('message.30') }}</th>
               </tr>
