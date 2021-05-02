@@ -10,7 +10,7 @@ use actix_web::{error, web, Error, HttpResponse, Result};
 use futures::StreamExt;
 use humansize::{file_size_opts, FileSize};
 use mongodb::{
-    bson::{doc, Bson, Regex},
+    bson::{doc, document::Document, Bson, Regex},
     options::FindOptions,
 };
 use serde::Deserialize;
@@ -216,7 +216,7 @@ pub mod request_handlers {
     #[derive(Deserialize)]
     pub struct QueryGetDocList {
         model_key: String,
-        field_name: String,
+        fields_name: Vec<String>,
         page_num: u32,
         search_query: String,
         limit: u32,
@@ -249,17 +249,18 @@ pub mod request_handlers {
         if msg_err.is_empty() {
             // Define filter and options for database query
             // -------------------------------------------------------------------------------------
-            let filter = if !query.search_query.is_empty() {
-                Some(doc! {
-                    query.field_name.as_str():
-                    Bson::RegularExpression(
-                        Regex{pattern: query.search_query.clone(),
-                              options: "im".to_string()}
-                    )
-                })
-            } else {
-                None
-            };
+            let mut filter = None;
+            if !query.search_query.is_empty() {
+                let search_pattern = Bson::RegularExpression(Regex {
+                    pattern: query.search_query.clone(),
+                    options: "im".to_string(),
+                });
+                let doc = Document::new();
+                for field_name in query.fields_name {
+                    doc.insert(field_name, search_pattern);
+                }
+                filter = Some(doc);
+            }
             let limit = i64::from(query.limit);
             let skip = limit * i64::from(query.page_num - 1_u32);
             let sort = match query.sort.as_str() {
