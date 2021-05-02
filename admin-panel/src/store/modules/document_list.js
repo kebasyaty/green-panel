@@ -71,7 +71,7 @@ export default {
           Vue.axios.post('/admin/document-list', {
             params: {
               model_key: collection.model_key,
-              fields_name: collection.fields.map((item) => item.field),
+              fields_name: JSON.stringify(collection.fields.map((item) => item.field)),
               page_num: state.currentPageNumber,
               search_query: state.searchQuery || '',
               limit: state.docsPerPage,

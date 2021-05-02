@@ -216,7 +216,7 @@ pub mod request_handlers {
     #[derive(Deserialize)]
     pub struct QueryGetDocList {
         model_key: String,
-        fields_name: Vec<String>,
+        fields_name: String,
         page_num: u32,
         search_query: String,
         limit: u32,
@@ -246,9 +246,12 @@ pub mod request_handlers {
             msg_err = "Authentication failed.".to_string();
         }
 
+        // Get document list
+        // -----------------------------------------------------------------------------------------
         if msg_err.is_empty() {
+            let fields_name: Vec<String> =
+                serde_json::from_str(query.fields_name.as_str()).unwrap();
             // Define filter and options for database query
-            // -------------------------------------------------------------------------------------
             let mut filter = None;
             if !query.search_query.is_empty() {
                 let search_pattern = &Bson::RegularExpression(Regex {
@@ -256,7 +259,7 @@ pub mod request_handlers {
                     options: "im".to_string(),
                 });
                 let mut doc = Document::new();
-                for field_name in query.fields_name.iter() {
+                for field_name in fields_name.iter() {
                     doc.insert(field_name, search_pattern);
                 }
                 filter = Some(doc);
@@ -265,10 +268,10 @@ pub mod request_handlers {
             let skip = limit * i64::from(query.page_num - 1_u32);
             let sort = match query.sort.as_str() {
                 "name_and_created" => {
-                    doc! {query.fields_name[0].as_str(): query.direct, "created_at": query.direct}
+                    doc! {fields_name[0].as_str(): query.direct, "created_at": query.direct}
                 }
                 "name_and_updated" => {
-                    doc! {query.fields_name[0].as_str(): query.direct, "updated_at": query.direct}
+                    doc! {fields_name[0].as_str(): query.direct, "updated_at": query.direct}
                 }
                 "created" => doc! {"created_at": query.direct},
                 "updated" => doc! {"updated_at": query.direct},
@@ -278,7 +281,7 @@ pub mod request_handlers {
                 }
             };
             let mut projection = doc! {"created_at": 1, "updated_at": 1};
-            for field_name in query.fields_name.iter() {
+            for field_name in fields_name.iter() {
                 projection.insert(field_name, 1);
             }
             let options = Some(
@@ -322,7 +325,7 @@ pub mod request_handlers {
                     "updated_at":
                         Bson::String(doc.get_datetime("updated_at").unwrap().to_rfc3339()[..16].to_string())
                 };
-                for field_name in query.fields_name.iter() {
+                for field_name in fields_name.iter() {
                     match map_field_type.get(field_name).unwrap().as_str() {
                         "String" => {
                             tmp_doc.insert(
