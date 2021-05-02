@@ -50,7 +50,7 @@ pub mod configure_urls {
         cfg.service(web::resource("/logout").route(web::post().to(logout)));
         cfg.service(web::resource("/sign-in").route(web::get().to(admin_panel)));
         cfg.service(web::resource("/service-list").route(web::get().to(service_list)));
-        cfg.service(web::resource("/document-list").route(web::get().to(document_list)));
+        cfg.service(web::resource("/document-list").route(web::post().to(document_list)));
         cfg.service(web::resource("/get-document").route(web::post().to(get_document)));
         cfg.service(
             web::resource("/{model_key}/save-document").route(web::post().to(save_document)),
@@ -226,7 +226,7 @@ pub mod request_handlers {
 
     pub async fn document_list(
         session: Session,
-        query: web::Query<QueryGetDocList>,
+        query: web::Json<QueryGetDocList>,
     ) -> Result<HttpResponse, Error> {
         //
         let mut is_authenticated = false;
