@@ -37,8 +37,4 @@ pub struct ElectricCar {
         hint = "Image in JPEG or PNG format"
     )]
     pub image: Option<String>,
-    //
-    #[serde(default)]
-    #[field_attrs(widget = "selectTextDyn")]
-    pub select_text_dyn: Option<String>,
 }
