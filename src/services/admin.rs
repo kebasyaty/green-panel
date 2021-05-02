@@ -251,12 +251,12 @@ pub mod request_handlers {
             // -------------------------------------------------------------------------------------
             let mut filter = None;
             if !query.search_query.is_empty() {
-                let search_pattern = Bson::RegularExpression(Regex {
+                let search_pattern = &Bson::RegularExpression(Regex {
                     pattern: query.search_query.clone(),
                     options: "im".to_string(),
                 });
-                let doc = Document::new();
-                for field_name in query.fields_name {
+                let mut doc = Document::new();
+                for field_name in query.fields_name.iter() {
                     doc.insert(field_name, search_pattern);
                 }
                 filter = Some(doc);
@@ -277,8 +277,8 @@ pub mod request_handlers {
                     return Err(error::ErrorBadRequest(msg));
                 }
             };
-            let projection = doc! {"created_at": 1, "updated_at": 1};
-            for field_name in query.fields_name {
+            let mut projection = doc! {"created_at": 1, "updated_at": 1};
+            for field_name in query.fields_name.iter() {
                 projection.insert(field_name, 1);
             }
             let options = Some(
@@ -314,14 +314,17 @@ pub mod request_handlers {
             while let Some(doc) = cursor.next() {
                 let doc = doc.unwrap();
                 // Filling in the `documents` array
-                documents.push(json!({
-                    "title": doc.get_str(query.field_name.as_str()).unwrap(),
-                    "hash": doc.get_object_id("_id").unwrap().to_hex(),
+                let mut tmp_doc = doc! {
+                    "hash": Bson::String(doc.get_object_id("_id").unwrap().to_hex()),
                     "created_at":
-                        doc.get_datetime("created_at").unwrap().to_rfc3339()[..16],
+                        Bson::String(doc.get_datetime("created_at").unwrap().to_rfc3339()[..16].to_string()),
                     "updated_at":
-                        doc.get_datetime("updated_at").unwrap().to_rfc3339()[..16]
-                }))
+                        Bson::String(doc.get_datetime("updated_at").unwrap().to_rfc3339()[..16].to_string())
+                };
+                for field_name in query.fields_name.iter() {
+                    tmp_doc.insert(field_name, 1);
+                }
+                documents.push(serde_json::to_value(tmp_doc).unwrap());
             }
         }
 
