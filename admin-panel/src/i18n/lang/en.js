@@ -57,6 +57,7 @@ export default {
     53: 'Refresh form',
     54: 'Cancel',
     55: 'Update',
-    56: 'Your password has been successfully updated !'
+    56: 'Your password has been successfully updated !',
+    57: 'Add as JSON string'
   }
 }

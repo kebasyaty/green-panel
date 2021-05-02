@@ -190,6 +190,9 @@
                           </v-col>
                         </v-row>
                       </v-card-text>
+                      <v-card-text>
+                        <v-textarea outlined :label="$t('message.57')"></v-textarea>
+                      </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
                         <!-- Button - Save. -->
