@@ -342,10 +342,26 @@ pub mod request_handlers {
                             );
                         }
                         "u32" | "i64" => {
-                            tmp_doc.insert(field_name, doc.get_i64(field_name).unwrap());
+                            let num = doc.get_i64(field_name);
+                            tmp_doc.insert(
+                                field_name,
+                                if num.is_ok() {
+                                    num.unwrap().to_string()
+                                } else {
+                                    String::new()
+                                },
+                            );
                         }
                         "f64" => {
-                            tmp_doc.insert(field_name, doc.get_f64(field_name).unwrap());
+                            let num = doc.get_f64(field_name);
+                            tmp_doc.insert(
+                                field_name,
+                                if num.is_ok() {
+                                    num.unwrap().to_string()
+                                } else {
+                                    String::new()
+                                },
+                            );
                         }
                         _ => {
                             return Err(error::ErrorBadRequest("service_list() - ."));
