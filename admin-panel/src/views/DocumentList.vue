@@ -92,7 +92,7 @@
                 </th>
                 <!-- Other headers. -->
                 <th
-                  v-for="(field, idxHeader) in serviceList[$route.params.indexService].collections[$route.params.indexCollection].fields"
+                  v-for="(field, idxHeader) in fields"
                   :key="`header-${idxHeader}`"
                 >{{ field.title }}</th>
                 <th>{{ $t('message.29') }}</th>
@@ -116,9 +116,7 @@
                   ></v-checkbox>
                 </td>
                 <!-- Other fields. -->
-                <template
-                  v-for="(item, idxField) in serviceList[$route.params.indexService].collections[$route.params.indexCollection].fields"
-                >
+                <template v-for="(item, idxField) in fields">
                   <!-- Link to document. -->
                   <td :key="idxField">
                     <router-link
@@ -261,6 +259,10 @@ export default {
       const slugServiceTitle = slug(service.service.title, { locale: currentUserLocale })
       const slugCollectionTitle = slug(this.collectionTitle, { locale: currentUserLocale })
       return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document`
+    },
+    // Get field list.
+    fields: function () {
+      return this.serviceList[this.$route.params.indexService].collections[this.$route.params.indexCollection].fields
     }
   },
 
