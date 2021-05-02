@@ -295,6 +295,7 @@ pub mod request_handlers {
             let form_store = FORM_STORE.read().unwrap();
             let form_cache = form_store.get(query.model_key.as_str()).unwrap();
             let meta = &form_cache.meta;
+            let map_field_type = &meta.map_field_type;
             let client_store = MONGODB_CLIENT_STORE.read().unwrap();
             let client: &mongodb::sync::Client =
                 client_store.get(meta.db_client_name.as_str()).unwrap();
@@ -322,7 +323,34 @@ pub mod request_handlers {
                         Bson::String(doc.get_datetime("updated_at").unwrap().to_rfc3339()[..16].to_string())
                 };
                 for field_name in query.fields_name.iter() {
-                    tmp_doc.insert(field_name, 1);
+                    match map_field_type.get(field_name).unwrap().as_str() {
+                        "String" => {
+                            tmp_doc.insert(
+                                field_name,
+                                doc.get_str(field_name).unwrap_or("").to_string(),
+                            );
+                        }
+                        "i32" => {
+                            let num = doc.get_i32(field_name);
+                            tmp_doc.insert(
+                                field_name,
+                                if num.is_ok() {
+                                    num.unwrap().to_string()
+                                } else {
+                                    String::new()
+                                },
+                            );
+                        }
+                        "u32" | "i64" => {
+                            tmp_doc.insert(field_name, doc.get_i64(field_name).unwrap());
+                        }
+                        "f64" => {
+                            tmp_doc.insert(field_name, doc.get_f64(field_name).unwrap());
+                        }
+                        _ => {
+                            return Err(error::ErrorBadRequest("service_list() - ."));
+                        }
+                    }
                 }
                 documents.push(serde_json::to_value(tmp_doc).unwrap());
             }
