@@ -364,7 +364,8 @@ pub mod request_handlers {
                             );
                         }
                         _ => {
-                            return Err(error::ErrorBadRequest("service_list() - ."));
+                            let msg = format!("{}", "");
+                            return Err(error::ErrorBadRequest(msg));
                         }
                     }
                 }
