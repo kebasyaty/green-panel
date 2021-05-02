@@ -21,17 +21,36 @@ pub fn service_list() -> Value {
                 "service": { "title": "Users", "icon": "account-multiple" },
                 "collections": [
                     // AdminProfile
-                    { "title": "Admins",
-                      "model_key": users::AdminProfile::key(),
-                      "doc_name": { "field": "username", "title": "Nickname" } },
+                    {
+                        "title": "Admins",
+                        "model_key": users::AdminProfile::key(),
+                        "fields": [
+                            { "field": "username", "title": "Nickname" },
+                            { "field": "first_name", "title": "First name" },
+                            { "field": "last_name", "title": "Last name" },
+                            { "field": "email", "title": "E-mail" },
+                            { "field": "phone", "title": "Phone" },
+                            { "field": "", "title": "" },
+                            { "field": "", "title": "" },
+                            { "field": "", "title": "" },
+                        ]
+                    },
                     // SellerProfile
-                    { "title": "Sellers",
-                      "model_key": users::SellerProfile::key(),
-                      "doc_name": { "field": "username", "title": "Nickname" } },
+                    {
+                        "title": "Sellers",
+                        "model_key": users::SellerProfile::key(),
+                        "fields": [
+                            { "field": "username", "title": "Nickname" },
+                        ]
+                    },
                     // CustomerProfile
-                    { "title": "Customers",
-                      "model_key": users::CustomerProfile::key(),
-                      "doc_name": { "field": "username", "title": "Nickname" } },
+                    {
+                        "title": "Customers",
+                        "model_key": users::CustomerProfile::key(),
+                        "fields": [
+                            { "field": "username", "title": "Nickname" },
+                        ]
+                    },
                 ]
             },
             // Products
@@ -39,9 +58,13 @@ pub fn service_list() -> Value {
                 "service": { "title": "Products", "icon": "cart" },
                 "collections": [
                     // ElectricCar
-                    { "title": "Electric Cars",
-                      "model_key": electric_cars::ElectricCar::key(),
-                      "doc_name": { "field": "car_name", "title": "Vehicle name" } },
+                    {
+                        "title": "Electric Cars",
+                        "model_key": electric_cars::ElectricCar::key(),
+                        "fields": [
+                            { "field": "car_name", "title": "Vehicle name" },
+                        ]
+                    }
                 ]
             },
         ]
