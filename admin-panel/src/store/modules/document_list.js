@@ -68,7 +68,7 @@ export default {
             collection = rootState.serviceList[router.currentRoute.params.indexService]
               .collections[router.currentRoute.params.indexCollection]
           }
-          Vue.axios.get('/admin/document-list', {
+          Vue.axios.post('/admin/document-list', {
             params: {
               model_key: collection.model_key,
               fields_name: collection.fields.map((item) => item.field),
