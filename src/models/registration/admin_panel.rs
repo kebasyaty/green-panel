@@ -12,11 +12,11 @@ use crate::{models::services::admin::users, models::services::products::electric
 // Step 1
 // -------------------------------------------------------------------------------------------------
 // Hint: get icon name - https://materialdesignicons.com/
-// Hint: doc_name - {"field": "field_name", "title": "Table header name"}
-// ( field_name - only text field )
+// Hint: field types (fields): text field, number field
 pub fn service_list() -> Value {
     json!([
             // Admin
+            // -------------------------------------------------------------------------------------
             {
                 "service": { "title": "Users", "icon": "account-multiple" },
                 "collections": [
@@ -29,10 +29,7 @@ pub fn service_list() -> Value {
                             { "field": "first_name", "title": "First name" },
                             { "field": "last_name", "title": "Last name" },
                             { "field": "email", "title": "E-mail" },
-                            { "field": "phone", "title": "Phone" },
-                            { "field": "", "title": "" },
-                            { "field": "", "title": "" },
-                            { "field": "", "title": "" },
+                            { "field": "phone", "title": "Phone" }
                         ]
                     },
                     // SellerProfile
@@ -40,7 +37,7 @@ pub fn service_list() -> Value {
                         "title": "Sellers",
                         "model_key": users::SellerProfile::key(),
                         "fields": [
-                            { "field": "username", "title": "Nickname" },
+                            { "field": "username", "title": "Nickname" }
                         ]
                     },
                     // CustomerProfile
@@ -48,12 +45,13 @@ pub fn service_list() -> Value {
                         "title": "Customers",
                         "model_key": users::CustomerProfile::key(),
                         "fields": [
-                            { "field": "username", "title": "Nickname" },
+                            { "field": "username", "title": "Nickname" }
                         ]
                     },
                 ]
             },
             // Products
+            // -------------------------------------------------------------------------------------
             {
                 "service": { "title": "Products", "icon": "cart" },
                 "collections": [
@@ -62,7 +60,7 @@ pub fn service_list() -> Value {
                         "title": "Electric Cars",
                         "model_key": electric_cars::ElectricCar::key(),
                         "fields": [
-                            { "field": "car_name", "title": "Vehicle name" },
+                            { "field": "car_name", "title": "Vehicle name" }
                         ]
                     }
                 ]
