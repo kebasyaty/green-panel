@@ -91,14 +91,17 @@
                   ></v-checkbox>
                 </th>
                 <!-- Other headers. -->
-                <th>{{ serviceList[$route.params.indexService].collections[$route.params.indexCollection].fields[0].title }}</th>
+                <th
+                  v-for="(field, idxHeader) in serviceList[$route.params.indexService].collections[$route.params.indexCollection].fields"
+                  :key="`header-${idxHeader}`"
+                >{{ field.title }}</th>
                 <th>{{ $t('message.29') }}</th>
                 <th>{{ $t('message.30') }}</th>
               </tr>
             </thead>
             <tbody>
               <!-- Document list. -->
-              <tr v-for="(document, idxDoc) in documents" :key="idxDoc">
+              <tr v-for="(document, idxDoc) in documents" :key="`doc-${idxDoc}`">
                 <!-- Number of the document in the table. -->
                 <td width="76" class="pr-0">{{ idxDoc + progressionStep }}</td>
                 <!-- Delete document. -->
