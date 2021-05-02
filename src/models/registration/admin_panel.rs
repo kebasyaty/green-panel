@@ -11,7 +11,7 @@ use crate::{models::services::admin::users, models::services::products::electric
 // *************************************************************************************************
 // Step 1
 // -------------------------------------------------------------------------------------------------
-// Hint: get icon name - https://materialdesignicons.com/
+// Hint: get icon name (service) - https://materialdesignicons.com/
 // Hint: field types (fields): text field, number field
 pub fn service_list() -> Value {
     json!([
