@@ -115,10 +115,19 @@
                     @change="checkStatusListSelectedDocsDeleted()"
                   ></v-checkbox>
                 </td>
-                <!-- Link to document. -->
-                <td>
-                  <router-link :to="createDocumentUrl(idxDoc)">{{ document.title }}</router-link>
-                </td>
+                <!-- Other fields. -->
+                <template
+                  v-for="(item, idxField) in serviceList[$route.params.indexService].collections[$route.params.indexCollection].fields"
+                >
+                  <!-- Link to document. -->
+                  <td :key="idxField">
+                    <router-link
+                      v-if="idxField === 0"
+                      :to="createDocumentUrl(idxDoc)"
+                    >{{ document[item.field] }}</router-link>
+                    <span v-else>{{ document[item.field] }}</span>
+                  </td>
+                </template>
                 <!-- Date fields. -->
                 <td width="160" v-html="formattingDate(document.created_at)"></td>
                 <td width="160" v-html="formattingDate(document.updated_at)"></td>
