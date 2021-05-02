@@ -277,13 +277,15 @@ pub mod request_handlers {
                     return Err(error::ErrorBadRequest(msg));
                 }
             };
+            let projection = doc! {"created_at": 1, "updated_at": 1};
+            for field_name in query.fields_name {
+                projection.insert(field_name, 1);
+            }
             let options = Some(
                 FindOptions::builder()
                     .skip(skip)
                     .limit(limit)
-                    .projection(Some(
-                        doc! {query.field_name.as_str(): 1, "created_at": 1, "updated_at": 1},
-                    ))
+                    .projection(Some(projection))
                     .sort(Some(sort))
                     .build(),
             );
