@@ -364,7 +364,10 @@ pub mod request_handlers {
                             );
                         }
                         _ => {
-                            let msg = format!("{}", "");
+                            let msg = format!(
+                                "admin_panel/service_list() > Field: `{}` : Invalid data type.",
+                                field_name
+                            );
                             return Err(error::ErrorBadRequest(msg));
                         }
                     }
