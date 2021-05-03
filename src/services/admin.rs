@@ -402,7 +402,7 @@ pub mod request_handlers {
                                     let img: ImageData =
                                         mongodb::bson::de::from_document(img_bson.clone()).unwrap();
                                         format!(
-                                            r#"<img class="rounde-img mt-1" src="{}" height="60" alt="{}">"#,
+                                            r#"<img class="rounded-lg mt-1" src="{}" height="60" alt="{}">"#,
                                             img.url, img.name
                                         )
                                 } else {
