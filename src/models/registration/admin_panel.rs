@@ -26,6 +26,7 @@ pub fn service_list() -> Value {
                         "model_key": users::AdminProfile::key(),
                         "fields": [
                             { "field": "username", "title": "Nickname" },
+                            { "field": "photo", "title": "Photo" },
                             { "field": "first_name", "title": "First name" },
                             { "field": "last_name", "title": "Last name" },
                             { "field": "email", "title": "E-mail" },
@@ -38,6 +39,7 @@ pub fn service_list() -> Value {
                         "model_key": users::SellerProfile::key(),
                         "fields": [
                             { "field": "username", "title": "Nickname" },
+                            { "field": "photo", "title": "Photo" },
                             { "field": "first_name", "title": "First name" },
                             { "field": "last_name", "title": "Last name" },
                             { "field": "gender", "title": "Gender" },
@@ -53,6 +55,7 @@ pub fn service_list() -> Value {
                         "model_key": users::CustomerProfile::key(),
                         "fields": [
                             { "field": "username", "title": "Nickname" },
+                            { "field": "photo", "title": "Photo" },
                             { "field": "first_name", "title": "First name" },
                             { "field": "last_name", "title": "Last name" },
                             { "field": "gender", "title": "Gender" },
@@ -74,7 +77,8 @@ pub fn service_list() -> Value {
                         "title": "Electric Cars",
                         "model_key": electric_cars::ElectricCar::key(),
                         "fields": [
-                            { "field": "car_name", "title": "Vehicle name" }
+                            { "field": "car_name", "title": "Vehicle name" },
+                            { "field": "image", "title": "Image" },
                         ]
                     }
                 ]
