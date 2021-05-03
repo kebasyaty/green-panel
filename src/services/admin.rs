@@ -377,6 +377,14 @@ pub mod request_handlers {
                                 },
                             );
                         }
+                        "selectTextMult" | "selectTextMultDyn" | "selectI32Mult"
+                        | "selectI32MultDyn" | "selectU32Mult" | "selectU32MultDyn"
+                        | "selectI64Mult" | "selectI64MultDyn" | "selectF64Mult"
+                        | "selectF64MultDyn" => {
+                            let empty_arr: Vec<Bson> = Vec::new();
+                            let arr = doc.get_array(field_name).unwrap_or(&empty_arr);
+                            tmp_doc.insert(field_name, serde_json::to_string(arr).unwrap());
+                        }
                         _ => {
                             let msg = format!(
                                 "admin_panel/service_list() > Field: `{}` : Invalid data type.",
