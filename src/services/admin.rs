@@ -267,7 +267,14 @@ pub mod request_handlers {
                 });
                 let mut vec_doc: Vec<Document> = Vec::new();
                 for field_name in query.fields_name.iter() {
-                    vec_doc.push(doc! {field_name: search_pattern});
+                    match map_widget_type.get(field_name).unwrap().as_str() {
+                        "inputEmail" | "radioText" | "inputPhone" | "inputText" | "inputUrl"
+                        | "inputIP" | "inputIPv4" | "inputIPv6" | "textArea" | "selectText"
+                        | "selectTextDyn" | "hiddenText" => {
+                            vec_doc.push(doc! {field_name: search_pattern});
+                        }
+                        _ => {}
+                    }
                 }
                 filter = Some(doc! {"$or": vec_doc});
             }
