@@ -396,16 +396,22 @@ pub mod request_handlers {
                             tmp_doc.insert(field_name, serde_json::to_string(arr).unwrap());
                         }
                         "inputImage" => {
-                            let img_bson = doc.get_document(field_name).unwrap();
-                            let img: ImageData =
-                                mongodb::bson::de::from_document(img_bson.clone()).unwrap();
                             tmp_doc.insert(
                                 field_name,
-                                format!(
-                                    r#"<img class="rounde-img mt-1" src="{}" height="60" alt="{}">"#,
-                                    img.url, img.name
-                                ),
+                                if let Ok(img_bson) = doc.get_document(field_name) {
+                                    let img: ImageData =
+                                        mongodb::bson::de::from_document(img_bson.clone()).unwrap();
+                                        format!(
+                                            r#"<img class="rounde-img mt-1" src="{}" height="60" alt="{}">"#,
+                                            img.url, img.name
+                                        )
+                                } else {
+                                    String::new()
+                                }
                             );
+                        }
+                        "checkBox" => {
+                            let bool_bson = doc.get_bool(field_name).unwrap_or(false);
                         }
                         _ => {
                             let msg = format!(
