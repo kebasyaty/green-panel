@@ -249,7 +249,15 @@ pub mod request_handlers {
         // Get document list
         // -----------------------------------------------------------------------------------------
         if msg_err.is_empty() {
+            // Get read access from cache
+            // -------------------------------------------------------------------------------------
+            let form_store = FORM_STORE.read().unwrap();
+            let form_cache = form_store.get(query.model_key.as_str()).unwrap();
+            let meta = &form_cache.meta;
+
             // Define filter and options for database query
+            // -------------------------------------------------------------------------------------
+            // Query filter
             let mut filter = None;
             if !query.search_query.is_empty() {
                 let search_pattern = &Bson::RegularExpression(Regex {
@@ -262,6 +270,7 @@ pub mod request_handlers {
                 }
                 filter = Some(doc! {"$or": vec_doc});
             }
+            // Query options
             let limit = i64::from(query.limit);
             let skip = limit * i64::from(query.page_num - 1_u32);
             let sort = match query.sort.as_str() {
@@ -293,9 +302,6 @@ pub mod request_handlers {
 
             // Get read access from cache
             // -------------------------------------------------------------------------------------
-            let form_store = FORM_STORE.read().unwrap();
-            let form_cache = form_store.get(query.model_key.as_str()).unwrap();
-            let meta = &form_cache.meta;
             let map_field_type = &meta.map_field_type;
             let client_store = MONGODB_CLIENT_STORE.read().unwrap();
             let client: &mongodb::sync::Client =
