@@ -414,11 +414,11 @@ pub mod request_handlers {
                             let bool_val = doc.get_bool(field_name).unwrap_or(false);
                             let icon = if bool_val {
                                 String::from(
-                                    r#"<span class="mdi mdi-checkbox-marked-outline"></span>"#,
+                                    r#"<span class="mdi mdi-18px mdi-checkbox-marked-outline"></span>"#,
                                 )
                             } else {
                                 String::from(
-                                    r#"<span class="mdi mdi-checkbox-blank-outline"></span>"#,
+                                    r#"<span class="mdi mdi-18px mdi-checkbox-blank-outline"></span>"#,
                                 )
                             };
                             tmp_doc.insert(field_name, icon);
