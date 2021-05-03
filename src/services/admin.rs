@@ -260,7 +260,7 @@ pub mod request_handlers {
                 for field_name in query.fields_name.iter() {
                     vec_doc.push(doc! {field_name: search_pattern});
                 }
-                filter = Some(doc! {"&or": vec_doc});
+                filter = Some(doc! {"$or": vec_doc});
             }
             let limit = i64::from(query.limit);
             let skip = limit * i64::from(query.page_num - 1_u32);
