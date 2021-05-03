@@ -81,7 +81,7 @@ export default {
     ]),
     // Get a list of services and collections
     getServiceList() {
-      this.axios.get('/admin/service-list')
+      this.axios.post('/admin/service-list')
         .then(response => {
           const data = response.data
           if (data.is_authenticated) {
