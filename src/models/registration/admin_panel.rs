@@ -44,7 +44,7 @@ pub fn service_list() -> Value {
                             { "field": "email", "title": "E-mail" },
                             { "field": "phone", "title": "Phone" },
                             { "field": "city", "title": "City" },
-                            { "field": "country", "title": "Country" },
+                            { "field": "country", "title": "Country" }
                         ]
                     },
                     // CustomerProfile
@@ -59,7 +59,7 @@ pub fn service_list() -> Value {
                             { "field": "email", "title": "E-mail" },
                             { "field": "phone", "title": "Phone" },
                             { "field": "city", "title": "City" },
-                            { "field": "country", "title": "Country" },
+                            { "field": "country", "title": "Country" }
                         ]
                     },
                 ]
