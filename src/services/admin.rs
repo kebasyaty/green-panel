@@ -343,7 +343,7 @@ pub mod request_handlers {
                 for field_name in query.fields_name.iter() {
                     match map_widget_type.get(field_name).unwrap().as_str() {
                         "inputEmail" | "radioText" | "inputPhone" | "inputText" | "inputUrl"
-                        | "inputIP" | "inputIPv4" | "inputIPv6" | "textArea" | "selectText"
+                        | "inputIP" | "inputIPv4" | "inputIPv6" | "selectText"
                         | "selectTextDyn" | "hiddenText" => {
                             tmp_doc.insert(
                                 field_name,
@@ -402,7 +402,7 @@ pub mod request_handlers {
                             tmp_doc.insert(
                                 field_name,
                                 format!(
-                                    r#"<img class="mt-1" src="{}" height="60" alt="{}">"#,
+                                    r#"<img class="rounde-img mt-1" src="{}" height="60" alt="{}">"#,
                                     img.url, img.name
                                 ),
                             );
