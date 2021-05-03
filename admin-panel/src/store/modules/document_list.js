@@ -68,17 +68,16 @@ export default {
             collection = rootState.serviceList[router.currentRoute.params.indexService]
               .collections[router.currentRoute.params.indexCollection]
           }
-          Vue.axios.post('/admin/document-list', {
-            params: {
-              model_key: collection.model_key,
-              fields_name: JSON.stringify(collection.fields.map((item) => item.field)),
-              page_num: state.currentPageNumber,
-              search_query: state.searchQuery || '',
-              limit: state.docsPerPage,
-              sort: state.sortDocList,
-              direct: state.sortDirectDocList
-            }
-          })
+          const payloadQuery = {
+            model_key: collection.model_key,
+            fields_name: collection.fields.map((item) => item.field),
+            page_num: state.currentPageNumber,
+            search_query: state.searchQuery || '',
+            limit: state.docsPerPage,
+            sort: state.sortDocList,
+            direct: state.sortDirectDocList
+          }
+          this.axios.post('/admin/document-list', payloadQuery)
             .then(response => {
               const data = response.data
               if (!data.is_authenticated) {
