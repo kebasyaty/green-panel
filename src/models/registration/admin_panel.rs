@@ -30,7 +30,9 @@ pub fn service_list() -> Value {
                             { "field": "first_name", "title": "First name" },
                             { "field": "last_name", "title": "Last name" },
                             { "field": "email", "title": "E-mail" },
-                            { "field": "phone", "title": "Phone" }
+                            { "field": "phone", "title": "Phone" },
+                            { "field": "is_active", "title": "Active" },
+                            { "field": "is_staff", "title": "Staff" }
                         ]
                     },
                     // SellerProfile
@@ -46,7 +48,8 @@ pub fn service_list() -> Value {
                             { "field": "email", "title": "E-mail" },
                             { "field": "phone", "title": "Phone" },
                             { "field": "city", "title": "City" },
-                            { "field": "country", "title": "Country" }
+                            { "field": "country", "title": "Country" },
+                            { "field": "is_active", "title": "Active" }
                         ]
                     },
                     // CustomerProfile
@@ -62,7 +65,8 @@ pub fn service_list() -> Value {
                             { "field": "email", "title": "E-mail" },
                             { "field": "phone", "title": "Phone" },
                             { "field": "city", "title": "City" },
-                            { "field": "country", "title": "Country" }
+                            { "field": "country", "title": "Country" },
+                            { "field": "is_active", "title": "Active" }
                         ]
                     },
                 ]
