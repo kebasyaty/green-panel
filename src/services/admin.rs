@@ -411,7 +411,17 @@ pub mod request_handlers {
                             );
                         }
                         "checkBox" => {
-                            let bool_bson = doc.get_bool(field_name).unwrap_or(false);
+                            let bool_val = doc.get_bool(field_name).unwrap_or(false);
+                            let icon = if bool_val {
+                                String::from(
+                                    r#"<span class="mdi mdi-checkbox-marked-outline"></span>"#,
+                                )
+                            } else {
+                                String::from(
+                                    r#"<span class="mdi mdi-checkbox-blank-outline"></span>"#,
+                                )
+                            };
+                            tmp_doc.insert(field_name, icon);
                         }
                         _ => {
                             let msg = format!(
