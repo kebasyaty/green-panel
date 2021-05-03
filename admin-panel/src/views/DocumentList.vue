@@ -123,7 +123,7 @@
                       v-if="idxField === 0"
                       :to="createDocumentUrl(idxDoc)"
                     >{{ document[item.field] }}</router-link>
-                    <span v-else>{{ document[item.field] }}</span>
+                    <span v-else v-html="document[item.field]"></span>
                   </td>
                 </template>
                 <!-- Date fields. -->
