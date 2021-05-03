@@ -256,11 +256,11 @@ pub mod request_handlers {
                     pattern: format!(r"^{}$", query.search_query.clone()),
                     options: "im".to_string(),
                 });
-                let mut doc = Document::new();
+                let mut vec_doc: Vec<Document> = Vec::new();
                 for field_name in query.fields_name.iter() {
-                    doc.insert(field_name, search_pattern);
+                    vec_doc.push(doc! {field_name: search_pattern});
                 }
-                filter = Some(doc);
+                filter = Some(doc! {"&or": vec_doc});
             }
             let limit = i64::from(query.limit);
             let skip = limit * i64::from(query.page_num - 1_u32);
