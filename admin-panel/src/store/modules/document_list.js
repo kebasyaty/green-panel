@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import router from '@/router'
 
 export default {
@@ -76,7 +77,7 @@ export default {
             sort: state.sortDocList,
             direct: state.sortDirectDocList
           }
-          this.axios.post('/admin/document-list', payloadQuery)
+          Vue.axios.post('/admin/document-list', payloadQuery)
             .then(response => {
               const data = response.data
               if (!data.is_authenticated) {
