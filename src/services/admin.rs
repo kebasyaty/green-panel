@@ -17,7 +17,7 @@ use serde::Deserialize;
 use serde_json::{json, Value};
 
 use crate::models::{registration::admin_panel, services::admin::users};
-use mango_orm::{QCommon, QPaladins, ToModel, FORM_STORE, MONGODB_CLIENT_STORE};
+use mango_orm::{forms::ImageData, QCommon, QPaladins, ToModel, FORM_STORE, MONGODB_CLIENT_STORE};
 
 pub use configure_urls::*;
 pub use request_handlers::*;
@@ -394,6 +394,18 @@ pub mod request_handlers {
                             let empty_arr: Vec<Bson> = Vec::new();
                             let arr = doc.get_array(field_name).unwrap_or(&empty_arr);
                             tmp_doc.insert(field_name, serde_json::to_string(arr).unwrap());
+                        }
+                        "inputImage" => {
+                            let img_bson = doc.get_document(field_name).unwrap();
+                            let img: ImageData =
+                                mongodb::bson::de::from_document(img_bson.clone()).unwrap();
+                            tmp_doc.insert(
+                                field_name,
+                                format!(
+                                    r#"<img src="{}" height="60" alt="{}">"#,
+                                    img.url, img.name
+                                ),
+                            );
                         }
                         _ => {
                             let msg = format!(
