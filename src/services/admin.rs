@@ -49,7 +49,7 @@ pub mod configure_urls {
         cfg.service(web::resource("/login").route(web::post().to(login)));
         cfg.service(web::resource("/logout").route(web::post().to(logout)));
         cfg.service(web::resource("/sign-in").route(web::get().to(admin_panel)));
-        cfg.service(web::resource("/service-list").route(web::get().to(service_list)));
+        cfg.service(web::resource("/service-list").route(web::post().to(service_list)));
         cfg.service(web::resource("/document-list").route(web::post().to(document_list)));
         cfg.service(web::resource("/get-document").route(web::post().to(get_document)));
         cfg.service(
