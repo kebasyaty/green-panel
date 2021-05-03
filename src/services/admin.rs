@@ -254,6 +254,7 @@ pub mod request_handlers {
             let form_store = FORM_STORE.read().unwrap();
             let form_cache = form_store.get(query.model_key.as_str()).unwrap();
             let meta = &form_cache.meta;
+            let map_widget_type = &meta.map_widget_type;
 
             // Define filter and options for database query
             // -------------------------------------------------------------------------------------
@@ -300,17 +301,20 @@ pub mod request_handlers {
                     .build(),
             );
 
-            // Get read access from cache
+            // Get MongoDB client
             // -------------------------------------------------------------------------------------
-            let map_field_type = &meta.map_field_type;
             let client_store = MONGODB_CLIENT_STORE.read().unwrap();
             let client: &mongodb::sync::Client =
                 client_store.get(meta.db_client_name.as_str()).unwrap();
+
             // Accessing the collection
+            // -------------------------------------------------------------------------------------
             let coll = client
                 .database(meta.database_name.as_str())
                 .collection(meta.collection_name.as_str());
-            // Get the number of pages (50 documents per page).
+
+            // Get the number of pages
+            // -------------------------------------------------------------------------------------
             page_count = (coll.count_documents(filter.clone(), None).unwrap() as f64
                 / query.limit as f64)
                 .ceil() as u32;
@@ -330,14 +334,16 @@ pub mod request_handlers {
                         Bson::String(doc.get_datetime("updated_at").unwrap().to_rfc3339()[..16].to_string())
                 };
                 for field_name in query.fields_name.iter() {
-                    match map_field_type.get(field_name).unwrap().as_str() {
-                        "String" => {
+                    match map_widget_type.get(field_name).unwrap().as_str() {
+                        "inputEmail" | "radioText" | "inputPhone" | "inputText" | "inputUrl"
+                        | "inputIP" | "inputIPv4" | "inputIPv6" | "textArea" | "selectText"
+                        | "hiddenText" => {
                             tmp_doc.insert(
                                 field_name,
                                 doc.get_str(field_name).unwrap_or("").to_string(),
                             );
                         }
-                        "i32" => {
+                        "numberI32" | "radioI32" | "rangeI32" | "selectI32" | "hiddenI32" => {
                             let num = doc.get_i32(field_name);
                             tmp_doc.insert(
                                 field_name,
@@ -348,7 +354,8 @@ pub mod request_handlers {
                                 },
                             );
                         }
-                        "u32" | "i64" => {
+                        "numberU32" | "numberI64" | "radioU32" | "radioI64" | "rangeU32"
+                        | "rangeI64" | "selectU32" | "selectI64" | "hiddenU32" | "hiddenI64" => {
                             let num = doc.get_i64(field_name);
                             tmp_doc.insert(
                                 field_name,
@@ -359,7 +366,7 @@ pub mod request_handlers {
                                 },
                             );
                         }
-                        "f64" => {
+                        "numberF64" | "radioF64" | "rangeF64" | "selectF64" | "hiddenF64" => {
                             let num = doc.get_f64(field_name);
                             tmp_doc.insert(
                                 field_name,
