@@ -402,7 +402,7 @@ pub mod request_handlers {
                             tmp_doc.insert(
                                 field_name,
                                 format!(
-                                    r#"<img src="{}" height="60" alt="{}">"#,
+                                    r#"<img class="mt-1" src="{}" height="60" alt="{}">"#,
                                     img.url, img.name
                                 ),
                             );
