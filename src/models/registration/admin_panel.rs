@@ -37,7 +37,14 @@ pub fn service_list() -> Value {
                         "title": "Sellers",
                         "model_key": users::SellerProfile::key(),
                         "fields": [
-                            { "field": "username", "title": "Nickname" }
+                            { "field": "username", "title": "Nickname" },
+                            { "field": "first_name", "title": "First name" },
+                            { "field": "last_name", "title": "Last name" },
+                            { "field": "gender", "title": "Gender" },
+                            { "field": "email", "title": "E-mail" },
+                            { "field": "phone", "title": "Phone" },
+                            { "field": "city", "title": "City" },
+                            { "field": "country", "title": "Country" },
                         ]
                     },
                     // CustomerProfile
@@ -45,7 +52,14 @@ pub fn service_list() -> Value {
                         "title": "Customers",
                         "model_key": users::CustomerProfile::key(),
                         "fields": [
-                            { "field": "username", "title": "Nickname" }
+                            { "field": "username", "title": "Nickname" },
+                            { "field": "first_name", "title": "First name" },
+                            { "field": "last_name", "title": "Last name" },
+                            { "field": "gender", "title": "Gender" },
+                            { "field": "email", "title": "E-mail" },
+                            { "field": "phone", "title": "Phone" },
+                            { "field": "city", "title": "City" },
+                            { "field": "country", "title": "Country" },
                         ]
                     },
                 ]

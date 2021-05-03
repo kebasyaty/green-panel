@@ -258,6 +258,18 @@ pub struct SellerProfile {
     //
     #[serde(default)]
     #[field_attrs(
+        widget = "inputPhone",
+        label = "Contact's Phone Number",
+        placeholder = "Please enter your phone number",
+        required = true,
+        unique = true,
+        maxlength = 30,
+        hint = "Your actual phone number"
+    )]
+    pub phone: Option<String>,
+    //
+    #[serde(default)]
+    #[field_attrs(
         widget = "inputText",
         label = "City",
         placeholder = "Enter the name of the city",
@@ -276,18 +288,6 @@ pub struct SellerProfile {
         hint = "Select the country you live in"
     )]
     pub country: Option<String>,
-    //
-    #[serde(default)]
-    #[field_attrs(
-        widget = "inputPhone",
-        label = "Contact's Phone Number",
-        placeholder = "Please enter your phone number",
-        required = true,
-        unique = true,
-        maxlength = 30,
-        hint = "Your actual phone number"
-    )]
-    pub phone: Option<String>,
     //
     #[serde(default)]
     #[field_attrs(
@@ -458,6 +458,17 @@ pub struct CustomerProfile {
     //
     #[serde(default)]
     #[field_attrs(
+        widget = "inputPhone",
+        label = "Contact's Phone Number",
+        placeholder = "Please enter your phone number",
+        maxlength = 30,
+        unique = true,
+        hint = "Your actual phone number"
+    )]
+    pub phone: Option<String>,
+    //
+    #[serde(default)]
+    #[field_attrs(
         widget = "inputText",
         label = "City",
         placeholder = "Enter the name of the city",
@@ -475,17 +486,6 @@ pub struct CustomerProfile {
         hint = "Select the country you live in"
     )]
     pub country: Option<String>,
-    //
-    #[serde(default)]
-    #[field_attrs(
-        widget = "inputPhone",
-        label = "Contact's Phone Number",
-        placeholder = "Please enter your phone number",
-        maxlength = 30,
-        unique = true,
-        hint = "Your actual phone number"
-    )]
-    pub phone: Option<String>,
     //
     #[serde(default)]
     #[field_attrs(
