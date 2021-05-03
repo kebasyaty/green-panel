@@ -253,7 +253,7 @@ pub mod request_handlers {
             let mut filter = None;
             if !query.search_query.is_empty() {
                 let search_pattern = &Bson::RegularExpression(Regex {
-                    pattern: format!(r"^{}$", query.search_query.clone()),
+                    pattern: query.search_query.clone(),
                     options: "im".to_string(),
                 });
                 let mut vec_doc: Vec<Document> = Vec::new();
