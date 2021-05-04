@@ -1209,6 +1209,7 @@ export default {
       'setShowMsg'
     ]),
     ...mapMutations('documentList', [
+      'setDocuments',
       'setCurrentPageNumber',
       'setDocsPerPage',
       'setSortDocList',
@@ -1230,6 +1231,7 @@ export default {
       const indexService = this.$route.params.indexService
       const indexCollection = this.$route.params.indexCollection
       this.setShowMsg(false)
+      this.setDocuments([])
       this.$router.replace({
         path: `/${service}/${indexService}/${collection}/${indexCollection}/document-list`,
         query: {
