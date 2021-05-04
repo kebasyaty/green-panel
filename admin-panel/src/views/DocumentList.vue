@@ -193,7 +193,8 @@ export default {
       'sortDirectDocList',
       'sortTypes',
       'searchQuery',
-      'blockPagination'
+      'blockPagination',
+      'blockLoadDocs'
     ]),
     updateCurrentPageNumber: {
       get: function () {
@@ -281,7 +282,8 @@ export default {
       'setDocsPerPage',
       'setSortDocList',
       'setSortDirectDocList',
-      'setSearchQuery'
+      'setSearchQuery',
+      'setBlockLoadDocs'
     ]),
     ...mapMutations('popUpMsgs', [
       'setShowMsg'
@@ -454,9 +456,13 @@ export default {
     // Reset page number to default.
     this.resetPageNumberDefault(this.getRequestParams())
     // Get a list of documents.
-    this.getDocumentList().then(() => {
-      this.restartDocList()
-    })
+    if (!this.blockLoadDocs) {
+      this.getDocumentList().then(() => {
+        this.restartDocList()
+      })
+    } else {
+      this.setBlockLoadDocs(false)
+    }
   }
 }
 </script>

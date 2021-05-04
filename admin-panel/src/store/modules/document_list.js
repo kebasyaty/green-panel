@@ -14,7 +14,9 @@ export default {
     sortDirectDocList: -1,
     sortTypes: ['name_and_created', 'name_and_updated', 'created', 'updated'],
     searchQuery: null,
-    blockPagination: false
+    blockPagination: false,
+    // block loading of documents
+    blockLoadDocs: false
   },
 
   getters: {},
@@ -46,15 +48,24 @@ export default {
     },
     setBlockPagination(state, payload) {
       state.blockPagination = payload
+    },
+    setBlockLoadDocs(state, payload) {
+      state.blockLoadDocs = payload
     }
   },
 
   actions: {
     // Get a list of documents.
-    ajaxGetDocumentList({ state, commit, dispatch, rootState }) {
+    ajaxGetDocumentList({ state, commit, dispatch, rootState }, payload = {}) {
       return new Promise((resolve, reject) => {
-        const collection = rootState.serviceList[router.currentRoute.params.indexService]
-          .collections[router.currentRoute.params.indexCollection]
+        let collection
+        if (Object.keys(payload).length > 0) {
+          collection = rootState.serviceList[payload.indexService]
+            .collections[payload.indexCollection]
+        } else {
+          collection = rootState.serviceList[router.currentRoute.params.indexService]
+            .collections[router.currentRoute.params.indexCollection]
+        }
         const payloadQuery = {
           model_key: collection.model_key,
           fields_name: collection.fields.map((item) => item.field),

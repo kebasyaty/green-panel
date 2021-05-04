@@ -45,6 +45,7 @@
                 :key="collection.model_key"
                 class="px-1"
                 @click="[resetPageNumberDefault(getRequestParams()),
+                         getDocumentList({indexService, indexCollection}),
                          resetPreActivatedService(indexService)]"
                 :to="createUrlDocumentList(item.service.title, collection.title, indexService, indexCollection)"
               >
@@ -114,12 +115,14 @@ export default {
     ]),
     ...mapMutations('documentList', [
       'setProgressionStep',
-      'setSearchQuery'
+      'setSearchQuery',
+      'setBlockLoadDocs'
     ]),
     ...mapMutations('popUpMsgs', [
       'setShowMsg'
     ]),
     ...mapActions('documentList', [
+      'ajaxGetDocumentList',
       'resetPageNumberDefault'
     ]),
     ...mapActions('popUpMsgs', [
@@ -182,11 +185,18 @@ export default {
       return { numPage, numPer, sortType, sortDirect }
     },
     // Get a list of documents.
-    showDocumentList: function (payload) {
+    getDocumentList: function (payload) {
       this.setShowMsg(false)
+      this.setBlockLoadDocs(true)
       this.setSearchQuery(null)
       this.runShowOverlayPageLockout(true)
       this.resetPageNumberDefault(this.getRequestParams())
+      this.ajaxGetDocumentList(payload)
+        .catch(error => {
+          window.console.log(error)
+          this.runShowMsg({ text: error, status: 'error' })
+        })
+        .then(() => this.runShowOverlayPageLockout(false))
     }
   }
 }
