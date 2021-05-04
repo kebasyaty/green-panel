@@ -2151,20 +2151,14 @@ export default {
   created() {
     // Update the request parameters from the session.
     if (this.$session.exists()) {
-      if (this.$session.has('num_page') &&
-        this.$session.has('num_per') &&
-        this.$session.has('sort') &&
-        this.$session.has('direct')) {
-        //
-        this.setCurrentPageNumber(this.$session.get('num_page'))
-        this.setDocsPerPage(this.$session.get('num_per'))
-        this.setSortDocList(this.$session.get('sort'))
-        this.setSortDirectDocList(this.$session.get('direct'))
-        this.$session.remove('num_page')
-        this.$session.remove('num_per')
-        this.$session.remove('sort')
-        this.$session.remove('direct')
-      }
+      this.setCurrentPageNumber(this.$session.get('num_page') || 1)
+      this.setDocsPerPage(this.$session.get('num_per') || 50)
+      this.setSortDocList(this.$session.get('sort') || 'name_and_created')
+      this.setSortDirectDocList(this.$session.get('direct') || -1)
+      this.$session.remove('num_page')
+      this.$session.remove('num_per')
+      this.$session.remove('sort')
+      this.$session.remove('direct')
     }
     // Get document.
     this.getDoc()
