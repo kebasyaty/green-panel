@@ -198,7 +198,7 @@ export default {
         })
         .then(() => {
           this.runShowOverlayPageLockout(false)
-          this.setBlockLoadDocs(false)
+          setTimeout(() => this.setBlockLoadDocs(false), 1000)
         })
     }
   }
