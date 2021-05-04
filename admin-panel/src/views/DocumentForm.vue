@@ -92,7 +92,7 @@
         </v-dialog>
       </v-toolbar>
       <v-card-title class="pt-0">{{ docTitle }}</v-card-title>
-      <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
+      <v-card-subtitle class="pt-1">{{ breadcrumbs }}</v-card-subtitle>
       <!-- Form fields. -->
       <v-card-text class="pa-4" v-if="render">
         <div v-for="field in fields" :key="field.name" class="rounded-lg">

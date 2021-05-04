@@ -193,8 +193,7 @@ export default {
       'sortDirectDocList',
       'sortTypes',
       'searchQuery',
-      'blockPagination',
-      'blockLoadDocs'
+      'blockPagination'
     ]),
     updateCurrentPageNumber: {
       get: function () {

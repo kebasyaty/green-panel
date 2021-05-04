@@ -14,9 +14,7 @@ export default {
     sortDirectDocList: -1,
     sortTypes: ['name_and_created', 'name_and_updated', 'created', 'updated'],
     searchQuery: null,
-    blockPagination: false,
-    // block loading of documents
-    blockLoadDocs: false
+    blockPagination: false
   },
 
   getters: {},
@@ -48,56 +46,43 @@ export default {
     },
     setBlockPagination(state, payload) {
       state.blockPagination = payload
-    },
-    setBlockLoadDocs(state, payload) {
-      state.blockLoadDocs = payload
     }
   },
 
   actions: {
     // Get a list of documents.
-    ajaxGetDocumentList({ state, commit, dispatch, rootState }, payload = {}) {
+    ajaxGetDocumentList({ state, commit, dispatch, rootState }) {
       return new Promise((resolve, reject) => {
-        if (!state.blockLoadDocs && rootState.serviceList.length > 0) {
-          commit('setBlockLoadDocs', true)
-          let collection
-          if (Object.keys(payload).length > 0) {
-            collection = rootState.serviceList[payload.indexService]
-              .collections[payload.indexCollection]
-          } else {
-            collection = rootState.serviceList[router.currentRoute.params.indexService]
-              .collections[router.currentRoute.params.indexCollection]
-          }
-          const payloadQuery = {
-            model_key: collection.model_key,
-            fields_name: collection.fields.map((item) => item.field),
-            page_num: state.currentPageNumber,
-            search_query: state.searchQuery || '',
-            limit: state.docsPerPage,
-            sort: state.sortDocList,
-            direct: state.sortDirectDocList
-          }
-          Vue.axios.post('/admin/document-list', payloadQuery)
-            .then(response => {
-              const data = response.data
-              if (!data.is_authenticated) {
-                commit('setIsAuthenticated', false, { root: true })
-              } else if (data.msg_err.length === 0) {
-                commit('setPageCount', data.page_count)
-                commit('setDocuments', data.documents)
-              } else {
-                console.log(data.msg_err)
-                dispatch('popUpMsgs/runShowMsg', { text: data.msg_err, status: 'error' })
-              }
-            })
-            .catch(error => {
-              reject(error)
-            })
-            .then(() => {
-              commit('setBlockLoadDocs', false)
-              resolve()
-            })
+        const collection = rootState.serviceList[router.currentRoute.params.indexService]
+          .collections[router.currentRoute.params.indexCollection]
+        const payloadQuery = {
+          model_key: collection.model_key,
+          fields_name: collection.fields.map((item) => item.field),
+          page_num: state.currentPageNumber,
+          search_query: state.searchQuery || '',
+          limit: state.docsPerPage,
+          sort: state.sortDocList,
+          direct: state.sortDirectDocList
         }
+        Vue.axios.post('/admin/document-list', payloadQuery)
+          .then(response => {
+            const data = response.data
+            if (!data.is_authenticated) {
+              commit('setIsAuthenticated', false, { root: true })
+            } else if (data.msg_err.length === 0) {
+              commit('setPageCount', data.page_count)
+              commit('setDocuments', data.documents)
+            } else {
+              console.log(data.msg_err)
+              dispatch('popUpMsgs/runShowMsg', { text: data.msg_err, status: 'error' })
+            }
+          })
+          .catch(error => {
+            reject(error)
+          })
+          .then(() => {
+            resolve()
+          })
       })
     },
     // Reset page number to default.
