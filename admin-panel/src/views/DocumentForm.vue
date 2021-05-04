@@ -383,8 +383,15 @@
                 <div
                   v-if="field.widget === 'inputImage' && fieldsData[field.name].url !== undefined && fieldsData[field.name].url.length > 0"
                 >
-                  <v-divider class="mb-1"></v-divider>
-                  <img class="rounded-lg" :src="fieldsData[field.name].url" height="60" alt="Image" />
+                  <v-divider></v-divider>
+                  <div class="my-1">
+                    <img
+                      class="rounded-lg"
+                      :src="fieldsData[field.name].url"
+                      height="60"
+                      alt="Image"
+                    />
+                  </div>
                   <v-btn
                     text
                     small
