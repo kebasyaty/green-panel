@@ -282,8 +282,7 @@ export default {
       'setDocsPerPage',
       'setSortDocList',
       'setSortDirectDocList',
-      'setSearchQuery',
-      'setBlockLoadDocs'
+      'setSearchQuery'
     ]),
     ...mapMutations('popUpMsgs', [
       'setShowMsg'
@@ -355,7 +354,9 @@ export default {
       // Reset page number to default.
       this.resetPageNumberDefault(this.getRequestParams())
       // Get a list of documents.
-      this.getDocumentList()
+      if (!this.blockLoadDocs) {
+        this.getDocumentList()
+      }
     },
     // Create Url for Document.
     createDocumentUrl(indexDoc) {
@@ -460,8 +461,6 @@ export default {
       this.getDocumentList().then(() => {
         this.restartDocList()
       })
-    } else {
-      this.setBlockLoadDocs(false)
     }
   }
 }
