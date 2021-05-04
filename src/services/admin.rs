@@ -399,13 +399,9 @@ pub mod request_handlers {
                             tmp_doc.insert(
                                 field_name,
                                 if let Ok(img_bson) = doc.get_document(field_name) {
-                                    /*
-                                    let img: ImageData =
-                                        mongodb::bson::de::from_document(img_bson.clone()).unwrap();
-                                        */
                                         format!(
-                                            r#"<img class="rounded-lg mt-1" src="{}" height="60" alt="{}">"#,
-                                            img_bson.get_str("url").unwrap(), img_bson.get_str("name").unwrap()
+                                            r#"<img class="rounded-lg mt-1" src="{}" height="60" alt="Image">"#,
+                                            img_bson.get_str("url").unwrap()
                                         )
                                 } else {
                                     String::new()
