@@ -384,7 +384,7 @@
                   v-if="field.widget === 'inputImage' && fieldsData[field.name].url !== undefined && fieldsData[field.name].url.length > 0"
                 >
                   <v-divider></v-divider>
-                  <div class="my-1">
+                  <div class="mt-2 mb-1 h-60">
                     <img
                       class="rounded-lg"
                       :src="fieldsData[field.name].url"
