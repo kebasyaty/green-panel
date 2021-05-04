@@ -196,7 +196,10 @@ export default {
           window.console.log(error)
           this.runShowMsg({ text: error, status: 'error' })
         })
-        .then(() => this.runShowOverlayPageLockout(false))
+        .then(() => {
+          this.runShowOverlayPageLockout(false)
+          this.setBlockLoadDocs(false)
+        })
     }
   }
 }
