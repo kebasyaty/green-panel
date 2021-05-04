@@ -412,16 +412,15 @@ pub mod request_handlers {
                         }
                         "checkBox" => {
                             let bool_val = doc.get_bool(field_name).unwrap_or(false);
-                            let icon = if bool_val {
-                                String::from(
-                                    r#"<span class="mdi mdi-18px mdi-checkbox-marked-outline"></span>"#,
-                                )
+                            let icon_name = if bool_val {
+                                "checkbox-marked-outline"
                             } else {
-                                String::from(
-                                    r#"<span class="mdi mdi-18px mdi-checkbox-blank-outline"></span>"#,
-                                )
+                                "checkbox-blank-outline"
                             };
-                            tmp_doc.insert(field_name, icon);
+                            tmp_doc.insert(
+                                field_name,
+                                format!(r#"<span class="mdi mdi-18px mdi-{}"></span>"#, icon_name),
+                            );
                         }
                         _ => {
                             let msg = format!(
