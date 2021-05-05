@@ -10,9 +10,9 @@ export default {
     pageCount: 0,
     progressionStep: 1,
     docsPerPage: 50,
-    sortDocList: 'name_and_created',
+    sortDocList: 'link_and_created',
     sortDirectDocList: -1,
-    sortTypes: ['name_and_created', 'name_and_updated', 'created', 'updated'],
+    sortTypes: ['link_and_created', 'link_and_updated', 'created', 'updated'],
     searchQuery: null,
     blockPagination: false,
     // block loading of documents
