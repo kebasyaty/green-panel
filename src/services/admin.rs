@@ -401,7 +401,7 @@ pub mod request_handlers {
                                 if let Ok(img_bson) = doc.get_document(field_name) {
                                         format!(
                                             r#"<img class="rounded-lg mt-1" src="{}" height="60" alt="Image">"#,
-                                            img_bson.get_str("url").unwrap()
+                                            img_bson.get_str("url_xs").unwrap()
                                         )
                                 } else {
                                     String::new()
