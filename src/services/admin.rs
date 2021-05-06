@@ -282,10 +282,10 @@ pub mod request_handlers {
             let limit = i64::from(query.limit);
             let skip = limit * i64::from(query.page_num - 1_u32);
             let sort = match query.sort.as_str() {
-                "name_and_created" => {
+                "link_and_created" => {
                     doc! {query.fields_name[0].as_str(): query.direct, "created_at": query.direct}
                 }
-                "name_and_updated" => {
+                "link_and_updated" => {
                     doc! {query.fields_name[0].as_str(): query.direct, "updated_at": query.direct}
                 }
                 "created" => doc! {"created_at": query.direct},
