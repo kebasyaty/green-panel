@@ -350,7 +350,7 @@
                 <div
                   v-if="field.widget === 'inputFile' && fieldsData[field.name].url !== undefined && fieldsData[field.name].url.length > 0"
                 >
-                  <v-divider class="mb-1"></v-divider>
+                  <v-divider></v-divider>
                   <div
                     v-for="(item, index) in [getFileIcon(fieldsData[field.name].name.split('.').pop())]"
                     :key="`${item.icon}-${index}`"
