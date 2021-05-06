@@ -186,14 +186,14 @@ pub fn save_document_and_return_as_json(
     // AdminProfile
     if model_key == users::AdminProfile::key() {
         let mut model = serde_json::from_slice::<users::AdminProfile>(&bytes)?;
-        model.photo = app_state.base64_to_file(model.photo, "admin/admins/photos");
+        model.photo = app_state.base64_to_file(model.photo, "users/admins/photos");
         let output_data = model.save(None, None)?;
         json = output_data.json_for_admin()?;
 
     // SellerProfile
     } else if model_key == users::SellerProfile::key() {
         let mut model = serde_json::from_slice::<users::SellerProfile>(&bytes)?;
-        model.photo = app_state.base64_to_file(model.photo, "admin/sellers/photos");
+        model.photo = app_state.base64_to_file(model.photo, "users/sellers/photos");
         model.resume = app_state.base64_to_file(model.resume, "admin/sellers/resume");
         let output_data = model.save(None, None)?;
         json = output_data.json_for_admin()?;
@@ -201,7 +201,7 @@ pub fn save_document_and_return_as_json(
     // CustomerProfile
     } else if model_key == users::CustomerProfile::key() {
         let mut model = serde_json::from_slice::<users::CustomerProfile>(&bytes)?;
-        model.photo = app_state.base64_to_file(model.photo, "admin/sellers/photos");
+        model.photo = app_state.base64_to_file(model.photo, "users/customers/photos");
         let output_data = model.save(None, None)?;
         json = output_data.json_for_admin()?;
 
