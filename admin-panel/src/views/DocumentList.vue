@@ -306,8 +306,8 @@ export default {
     itemsSortDocList() {
       return [
         { text: this.$t('message.40'), value: this.sortTypes[0] },
-        { text: this.$t('message.29'), value: this.sortTypes[2] },
-        { text: this.$t('message.30'), value: this.sortTypes[3] }
+        { text: this.$t('message.29'), value: this.sortTypes[1] },
+        { text: this.$t('message.30'), value: this.sortTypes[2] }
       ]
     },
     // Sort direction options.
