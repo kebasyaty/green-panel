@@ -23,6 +23,7 @@ pub use configure_urls::*;
 pub use request_handlers::*;
 
 use crate::settings;
+use crate::settings::general::MAX_UPLOAD_SIZE;
 
 const BRAND: &str = "Сompany Name";
 const SLOGAN: &str = "Brief description of the company.";
@@ -495,7 +496,7 @@ pub mod request_handlers {
                 "document": document,
                 "is_authenticated": is_authenticated,
                 "msg_err": msg_err,
-                "max_size": settings::general::MAX_UPLOAD_SIZE
+                "max_size": MAX_UPLOAD_SIZE
             })))
     }
 
@@ -534,12 +535,10 @@ pub mod request_handlers {
         let mut bytes = web::BytesMut::new();
         while let Some(chunk) = payload.next().await {
             let chunk = chunk?;
-            if (bytes.len() + chunk.len()) > settings::general::MAX_UPLOAD_SIZE {
+            if (bytes.len() + chunk.len()) > MAX_UPLOAD_SIZE {
                 msg_err = format!(
                     "The total size of the form data exceeds the {} limit.",
-                    settings::general::MAX_UPLOAD_SIZE
-                        .file_size(file_size_opts::BINARY)
-                        .unwrap()
+                    MAX_UPLOAD_SIZE.file_size(file_size_opts::BINARY).unwrap()
                 );
             }
             bytes.extend_from_slice(&chunk);
