@@ -387,7 +387,7 @@
                   <div class="mt-2 mb-1 h-60">
                     <img
                       class="rounded-lg"
-                      :src="fieldsData[field.name].url_xs || fieldsData[field.name].url"
+                      :src="fieldsData[field.name].url_sm || fieldsData[field.name].url"
                       height="60"
                       alt="Image"
                     />
