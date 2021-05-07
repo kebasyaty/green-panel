@@ -34,7 +34,8 @@ pub struct ElectricCar {
         placeholder = "Upload image car",
         accept = "image/jpeg,image/png",
         required = true,
-        hint = "Image in JPEG or PNG format"
+        hint = "Image in JPEG or PNG format",
+        thumbnails = true
     )]
     pub image: Option<String>,
 }
