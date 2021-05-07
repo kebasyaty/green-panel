@@ -58,6 +58,7 @@ export default {
     // Get a list of documents.
     ajaxGetDocumentList({ state, commit, dispatch, rootState }, payload = {}) {
       return new Promise((resolve, reject) => {
+        commit('popUpMsgs/setShowMsg', false)
         dispatch('overlays/runShowOverlayPageLockout', true)
         let collection
         if (Object.keys(payload).length > 0) {
