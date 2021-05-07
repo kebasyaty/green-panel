@@ -324,13 +324,13 @@ export default {
     },
     // Get a list of documents.
     getDocumentList() {
+      this.setShowMsg(false)
+      this.runShowOverlayPageLockout(true)
+      if (this.docsToBeDeleted.length > 0) {
+        this.deleteAllDocsFlag = false
+        this.docsToBeDeleted = []
+      }
       return new Promise((resolve, reject) => {
-        this.setShowMsg(false)
-        this.runShowOverlayPageLockout(true)
-        if (this.docsToBeDeleted.length > 0) {
-          this.deleteAllDocsFlag = false
-          this.docsToBeDeleted = []
-        }
         this.ajaxGetDocumentList()
           .then(() => resolve())
           .catch(error => {
