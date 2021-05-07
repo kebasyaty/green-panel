@@ -189,7 +189,6 @@ export default {
       this.setShowMsg(false)
       this.setBlockLoadDocs(true)
       this.setSearchQuery(null)
-      this.runShowOverlayPageLockout(true)
       this.resetPageNumberDefault(this.getRequestParams())
       this.ajaxGetDocumentList(payload)
         .catch()
