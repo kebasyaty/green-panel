@@ -1909,6 +1909,8 @@ export default {
 
     // Get document
     ajaxGetDoc(indexes) {
+      this.setShowMsg(false)
+      this.runShowOverlayPageLockout(true)
       const service = this.serviceList[indexes.indexService]
       const payload = {
         model_key: service.collections[indexes.indexCollection].model_key,
@@ -1943,8 +1945,6 @@ export default {
         })
     },
     getDoc() {
-      this.setShowMsg(false)
-      this.runShowOverlayPageLockout(true)
       const indexService = this.$route.params.indexService
       const indexCollection = this.$route.params.indexCollection
       const indexDoc = this.$route.params.indexDoc

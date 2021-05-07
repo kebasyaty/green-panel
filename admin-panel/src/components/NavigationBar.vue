@@ -192,14 +192,8 @@ export default {
       this.runShowOverlayPageLockout(true)
       this.resetPageNumberDefault(this.getRequestParams())
       this.ajaxGetDocumentList(payload)
-        .catch(error => {
-          window.console.log(error)
-          this.runShowMsg({ text: error, status: 'error' })
-        })
-        .then(() => {
-          this.runShowOverlayPageLockout(false)
-          setTimeout(() => this.setBlockLoadDocs(false), 1000)
-        })
+        .catch()
+        .then(() => setTimeout(() => this.setBlockLoadDocs(false), 1000))
     }
   }
 }
