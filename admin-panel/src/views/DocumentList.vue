@@ -333,11 +333,7 @@ export default {
         }
         this.ajaxGetDocumentList()
           .then(() => resolve())
-          .catch(error => {
-            window.console.log(error)
-            reject(error)
-          })
-          .then(() => this.runShowOverlayPageLockout(false))
+          .catch(error => reject(error))
       })
     },
     // After changing the page number, update the url state.
@@ -403,6 +399,7 @@ export default {
         .then(response => {
           const data = response.data
           if (!data.is_authenticated) {
+            this.runShowOverlayPageLockout(false)
             this.setIsAuthenticated(false)
           } else if (data.msg_err.length === 0) {
             this.setShowMsg(false)
@@ -411,14 +408,15 @@ export default {
             })
           } else {
             console.log(data.msg_err)
+            this.runShowOverlayPageLockout(false)
             this.runShowMsg({ text: data.msg_err, status: 'error' })
           }
         })
         .catch(error => {
           console.log(error)
+          this.runShowOverlayPageLockout(false)
           this.runShowMsg({ text: error, status: 'error' })
         })
-        .then(() => this.runShowOverlayPageLockout(false))
     },
     // Get request parameters - per, page, sort, direct.
     getRequestParams() {

@@ -58,6 +58,7 @@ export default {
     // Get a list of documents.
     ajaxGetDocumentList({ state, commit, dispatch, rootState }, payload = {}) {
       return new Promise((resolve, reject) => {
+        dispatch('overlays/runShowOverlayPageLockout', true)
         let collection
         if (Object.keys(payload).length > 0) {
           collection = rootState.serviceList[payload.indexService]
@@ -79,20 +80,26 @@ export default {
           .then(response => {
             const data = response.data
             if (!data.is_authenticated) {
+              dispatch('overlays/runShowOverlayPageLockout', false)
               commit('setIsAuthenticated', false, { root: true })
             } else if (data.msg_err.length === 0) {
               commit('setPageCount', data.page_count)
               commit('setDocuments', data.documents)
+              dispatch('overlays/runShowOverlayPageLockout', false)
+              resolve()
             } else {
               console.log(data.msg_err)
+              window.console.log(data.msg_err)
+              dispatch('overlays/runShowOverlayPageLockout', false)
               dispatch('popUpMsgs/runShowMsg', { text: data.msg_err, status: 'error' })
+              reject(data.msg_err)
             }
           })
           .catch(error => {
+            window.console.log(error)
+            dispatch('overlays/runShowOverlayPageLockout', false)
+            dispatch('popUpMsgs/runShowMsg', { text: error, status: 'error' })
             reject(error)
-          })
-          .then(() => {
-            resolve()
           })
       })
     },

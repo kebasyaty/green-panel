@@ -1823,6 +1823,7 @@ export default {
             .then(response => {
               const data = response.data
               if (!data.is_authenticated) {
+                this.runShowOverlayPageLockout(false)
                 this.setIsAuthenticated(false)
               } else if (data.msg_err.length === 0) {
                 const document = JSON.parse(data.document)
@@ -1866,21 +1867,24 @@ export default {
                     }, () => window.document.location.reload(), () => window.document.location.reload())
                     break
                 }
+                this.runShowOverlayPageLockout(false)
               } else {
                 console.log(data.msg_err)
+                this.runShowOverlayPageLockout(false)
                 this.runShowMsg({ text: data.msg_err, status: 'error' })
               }
             })
             .catch(error => {
               console.log(error)
+              this.runShowOverlayPageLockout(false)
               this.runShowMsg({ text: error, status: 'error' })
             })
-            .then(() => this.runShowOverlayPageLockout(false))
         }
       ).catch(error => {
         console.log(error)
+        this.runShowOverlayPageLockout(false)
         this.runShowMsg({ text: error, status: 'error' })
-      }).then(() => this.runShowOverlayPageLockout(false))
+      })
     },
 
     // Get Title of document.
@@ -1914,6 +1918,7 @@ export default {
         .then(response => {
           const data = response.data
           if (!data.is_authenticated) {
+            this.runShowOverlayPageLockout(false)
             this.setIsAuthenticated(false)
           } else if (data.msg_err.length === 0) {
             // 16384 = ~16 Kb (default data size for the form)
@@ -1924,16 +1929,18 @@ export default {
               const document = JSON.parse(data.document)
               this.getFormData(document)
             }
+            this.runShowOverlayPageLockout(false)
           } else {
             console.log(data.msg_err)
+            this.runShowOverlayPageLockout(false)
             this.runShowMsg({ text: data.msg_err, status: 'error' })
           }
         })
         .catch(error => {
           console.log(error)
+          this.runShowOverlayPageLockout(false)
           this.runShowMsg({ text: error, status: 'error' })
         })
-        .then(() => this.runShowOverlayPageLockout(false))
     },
     getDoc() {
       this.setShowMsg(false)
@@ -1946,10 +1953,6 @@ export default {
       } else {
         this.ajaxGetDocumentList({ indexService, indexCollection }).then(() => {
           this.ajaxGetDoc({ indexService, indexCollection, indexDoc })
-        }).catch(error => {
-          console.log(error)
-          this.runShowOverlayPageLockout(false)
-          this.runShowMsg({ text: error, status: 'error' })
         })
       }
     },
@@ -1974,19 +1977,22 @@ export default {
         .then(response => {
           const data = response.data
           if (!data.is_authenticated) {
+            this.runShowOverlayPageLockout(false)
             this.setIsAuthenticated(false)
           } else if (data.msg_err.length === 0) {
+            this.runShowOverlayPageLockout(false)
             this.goBack()
           } else {
             console.log(data.msg_err)
+            this.runShowOverlayPageLockout(false)
             this.runShowMsg({ text: data.msg_err, status: 'error' })
           }
         })
         .catch(error => {
           console.log(error)
+          this.runShowOverlayPageLockout(false)
           this.runShowMsg({ text: error, status: 'error' })
         })
-        .then(() => this.runShowOverlayPageLockout(false))
     },
 
     // Adding and deleting dynamic elements.
@@ -2053,6 +2059,7 @@ export default {
         .then(response => {
           const data = response.data
           if (!data.is_authenticated) {
+            this.runShowOverlayPageLockout(false)
             this.setIsAuthenticated(false)
           } else if (data.msg_err.length === 0) {
             // Apply changes to the current state.
@@ -2075,20 +2082,22 @@ export default {
                 }
                 break
             }
+            this.runShowOverlayPageLockout(false)
           } else {
             console.log(data.msg_err)
+            this.runShowOverlayPageLockout(false)
             this.runShowMsg({ text: data.msg_err, status: 'error' })
           }
         })
         .catch(error => {
           console.log(error)
+          this.runShowOverlayPageLockout(false)
           this.runShowMsg({ text: error, status: 'error' })
         })
         .then(() => {
           this.dynamicSelectionDialog[fieldName] = false
           this.delDynItems = []
           this.currValDynItem = { title: null, value: null }
-          this.runShowOverlayPageLockout(false)
         })
     },
     // Refresh form for update password.
@@ -2130,21 +2139,22 @@ export default {
           .then(response => {
             const data = response.data
             if (!data.is_authenticated) {
+              this.runShowOverlayPageLockout(false)
               this.setIsAuthenticated(false)
             } else if (data.msg_err.length === 0) {
               this.dialogUpdatePassword = false
+              this.runShowOverlayPageLockout(false)
               this.runShowMsg({ text: this.$t('message.56'), status: 'success' })
             } else {
               console.log(data.msg_err)
+              this.runShowOverlayPageLockout(false)
               this.runShowMsg({ text: data.msg_err, status: 'error' })
             }
           })
           .catch(error => {
             console.log(error)
-            this.runShowMsg({ text: error, status: 'error' })
-          })
-          .then(() => {
             this.runShowOverlayPageLockout(false)
+            this.runShowMsg({ text: error, status: 'error' })
           })
       }
     }
