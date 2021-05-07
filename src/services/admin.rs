@@ -283,11 +283,8 @@ pub mod request_handlers {
             let limit = i64::from(query.limit);
             let skip = limit * i64::from(query.page_num - 1_u32);
             let sort = match query.sort.as_str() {
-                "link_and_created" => {
-                    doc! {query.fields_name[0].as_str(): query.direct, "created_at": query.direct}
-                }
-                "link_and_updated" => {
-                    doc! {query.fields_name[0].as_str(): query.direct, "updated_at": query.direct}
+                "alphabetical_links" => {
+                    doc! {query.fields_name[0].as_str(): query.direct}
                 }
                 "created" => doc! {"created_at": query.direct},
                 "updated" => doc! {"updated_at": query.direct},
@@ -404,7 +401,7 @@ pub mod request_handlers {
                                         format!(
                                             r#"<img class="rounded-lg mt-1" src="{}" height="60" alt="Image">"#,
                                             if !img_url.is_empty() {
-                                                img_bson.get_str("url_xs").unwrap()
+                                                img_bson.get_str("url_sm").unwrap()
                                             } else {
                                                 img_bson.get_str("url").unwrap()
                                             }

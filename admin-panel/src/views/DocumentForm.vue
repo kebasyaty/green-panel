@@ -2155,7 +2155,7 @@ export default {
     if (this.$session.exists()) {
       this.setCurrentPageNumber(this.$session.get('num_page') || 1)
       this.setDocsPerPage(this.$session.get('num_per') || 50)
-      this.setSortDocList(this.$session.get('sort') || 'link_and_created')
+      this.setSortDocList(this.$session.get('sort') || 'alphabetical_links')
       this.setSortDirectDocList(this.$session.get('direct') || -1)
       this.$session.remove('num_page')
       this.$session.remove('num_per')
