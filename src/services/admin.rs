@@ -397,7 +397,7 @@ pub mod request_handlers {
                             tmp_doc.insert(
                                 field_name,
                                 if let Ok(img_bson) = doc.get_document(field_name) {
-                                        let img_url = img_bson.get_str("url_xs").unwrap();
+                                        let img_url = img_bson.get_str("url_sm").unwrap();
                                         format!(
                                             r#"<img class="rounded-lg mt-1" src="{}" height="60" alt="Image">"#,
                                             if !img_url.is_empty() {
