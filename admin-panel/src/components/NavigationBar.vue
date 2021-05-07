@@ -187,12 +187,21 @@ export default {
     // Get a list of documents.
     getDocumentList: function (payload) {
       this.setShowMsg(false)
+      this.runShowOverlayPageLockout(true)
       this.setBlockLoadDocs(true)
       this.setSearchQuery(null)
       this.resetPageNumberDefault(this.getRequestParams())
       this.ajaxGetDocumentList(payload)
-        .catch()
-        .then(() => setTimeout(() => this.setBlockLoadDocs(false), 1000))
+        .then(() => {
+          this.runShowOverlayPageLockout(false)
+          setTimeout(() => this.setBlockLoadDocs(false), 1000)
+        })
+        .catch(error => {
+          console.log(error)
+          this.runShowOverlayPageLockout(false)
+          this.runShowMsg({ text: error, status: 'error' })
+          setTimeout(() => this.setBlockLoadDocs(false), 1000)
+        })
     }
   }
 }

@@ -325,13 +325,19 @@ export default {
     // Get a list of documents.
     getDocumentList() {
       return new Promise((resolve, reject) => {
+        this.setShowMsg(false)
+        this.runShowOverlayPageLockout(true)
         if (this.docsToBeDeleted.length > 0) {
           this.deleteAllDocsFlag = false
           this.docsToBeDeleted = []
         }
         this.ajaxGetDocumentList()
           .then(() => resolve())
-          .catch(error => reject(error))
+          .catch(error => {
+            console.log(error)
+            this.runShowMsg({ text: error, status: 'error' })
+            reject(error)
+          })
       })
     },
     // After changing the page number, update the url state.
