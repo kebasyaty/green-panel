@@ -332,9 +332,13 @@ export default {
       }
       return new Promise((resolve, reject) => {
         this.ajaxGetDocumentList()
-          .then(() => resolve())
+          .then(() => {
+            this.runShowOverlayPageLockout(false)
+            resolve()
+          })
           .catch(error => {
             console.log(error)
+            this.runShowOverlayPageLockout(false)
             this.runShowMsg({ text: error, status: 'error' })
             reject(error)
           })
