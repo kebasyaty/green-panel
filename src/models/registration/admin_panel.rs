@@ -84,7 +84,7 @@ pub fn service_list() -> Value {
                             { "field": "car_name", "title": "Vehicle name" },
                             { "field": "image", "title": "Image" },
                             { "field": "voltage", "title": "Voltage" },
-                            { "field": "power", "title": "Power" },
+                            { "field": "power", "title": "Power (W)" },
                             { "field": "car_type", "title": "Battery vehicle type" },
                             { "field": "body_type", "title": "Classification" }
                         ]
