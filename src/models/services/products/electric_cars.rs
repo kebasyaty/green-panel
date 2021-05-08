@@ -48,7 +48,7 @@ pub struct ElectricCar {
     pub voltage: Option<u32>,
     //
     #[serde(default)]
-    #[field_attrs(widget = "numberU32", label = "Power", hint = "Engine power")]
+    #[field_attrs(widget = "numberU32", label = "Power (W)", hint = "Engine power")]
     pub power: Option<u32>,
     //
     #[serde(default)]

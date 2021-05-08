@@ -274,7 +274,7 @@ pub mod request_handlers {
                     match map_widget_type.get(field_name).unwrap().as_str() {
                         "inputEmail" | "radioText" | "inputPhone" | "inputText" | "inputUrl"
                         | "inputIP" | "inputIPv4" | "inputIPv6" | "selectText"
-                        | "selectTextDyn" | "hiddenText" => {
+                        | "selectTextDyn" | "hiddenText" | "numberU32" => {
                             vec_doc.push(doc! {field_name: search_pattern});
                         }
                         _ => {}
