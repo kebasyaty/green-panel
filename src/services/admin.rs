@@ -654,22 +654,17 @@ pub mod request_handlers {
             let meta = &form_cache.meta;
             //
             if meta.is_del_docs {
-                let client_store = MONGODB_CLIENT_STORE.read().unwrap();
-                let client: &mongodb::sync::Client =
-                    client_store.get(meta.db_client_name.as_str()).unwrap();
-                // Accessing the collection
-                let coll = client
-                    .database(meta.database_name.as_str())
-                    .collection(meta.collection_name.as_str());
-                let mut bson_hash_list: Vec<mongodb::bson::oid::ObjectId> = Vec::new();
                 for hash in query.doc_hash_list.iter() {
-                    let object_id = mongodb::bson::oid::ObjectId::with_string(hash).unwrap();
-                    bson_hash_list.push(object_id);
-                }
-                let filter = doc! {"_id": {"$in": bson_hash_list}};
-                let result = coll.delete_many(filter, None).unwrap();
-                if result.deleted_count == 0 {
-                    msg_err = "Number of deleted documents = 0".to_string();
+                    // Create a filter for a database query
+                    let object_id =
+                        mongodb::bson::oid::ObjectId::with_string(hash.as_str()).unwrap();
+                    let filter = doc! {"_id": object_id};
+
+                    msg_err =
+                        admin_panel::delete_document_reg(query.model_key.as_str(), filter).unwrap();
+                    if !msg_err.is_empty() {
+                        break;
+                    }
                 }
             } else {
                 msg_err = "It is forbidden to perform delete.".to_string();

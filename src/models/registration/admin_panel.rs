@@ -223,7 +223,7 @@ pub fn save_document_reg(
 
 // Step 4
 // -------------------------------------------------------------------------------------------------
-// Connect models for the `src/services/admin.rs/delete_document` method.
+// Connect models for the `src/services/admin.rs/delete_document | delete_many_doc` method.
 pub fn delete_document_reg(
     model_key: &str,
     filter: Document,
@@ -269,7 +269,7 @@ pub fn delete_document_reg(
     // Error
     } else {
         Err("Module: `src/models/registration/admin_panel` > \
-             Method: `delete_document_reg` : No match for `model_key`.")?
+             Method: `delete_document_reg | delete_many_doc` : No match for `model_key`.")?
     }
     //
     Ok(msg_err)
