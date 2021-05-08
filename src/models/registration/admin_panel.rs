@@ -2,7 +2,7 @@
 //!
 
 use mango_orm::{CachingModel, QCommon, QPaladins, ToModel};
-use mongodb::bson::doc;
+use mongodb::bson::{doc, document::Document};
 use serde_json::{json, Value};
 
 use crate::{models::services::admin::users, models::services::products::electric_cars, settings};
@@ -95,15 +95,15 @@ pub fn service_list() -> Value {
 // -------------------------------------------------------------------------------------------------
 // Connect models for the `src/services/admin.rs/get_document` method.
 pub fn get_document_reg(
-    model_key: String,
-    doc_hash: String,
+    model_key: &str,
+    doc_hash: &str,
 ) -> Result<String, Box<dyn std::error::Error>> {
     let mut json = String::new();
 
     // AdminProfile
     if model_key == users::AdminProfile::key() {
         if !doc_hash.is_empty() {
-            let object_id = users::AdminProfile::hash_to_id(doc_hash.as_str())?;
+            let object_id = users::AdminProfile::hash_to_id(doc_hash)?;
             let filter = doc! {"_id": object_id};
             let output_data = users::AdminProfile::find_one(Some(filter), None).unwrap();
             if output_data.bool() {
@@ -119,7 +119,7 @@ pub fn get_document_reg(
     // SellerProfile
     } else if model_key == users::SellerProfile::key() {
         if !doc_hash.is_empty() {
-            let object_id = users::SellerProfile::hash_to_id(doc_hash.as_str())?;
+            let object_id = users::SellerProfile::hash_to_id(doc_hash)?;
             let filter = doc! {"_id": object_id};
             let output_data = users::SellerProfile::find_one(Some(filter), None).unwrap();
             if output_data.bool() {
@@ -135,7 +135,7 @@ pub fn get_document_reg(
     // CustomerProfile
     } else if model_key == users::CustomerProfile::key() {
         if !doc_hash.is_empty() {
-            let object_id = users::CustomerProfile::hash_to_id(doc_hash.as_str())?;
+            let object_id = users::CustomerProfile::hash_to_id(doc_hash)?;
             let filter = doc! {"_id": object_id};
             let output_data = users::CustomerProfile::find_one(Some(filter), None).unwrap();
             if output_data.bool() {
@@ -151,7 +151,7 @@ pub fn get_document_reg(
     // ElectricCar
     } else if model_key == electric_cars::ElectricCar::key() {
         if !doc_hash.is_empty() {
-            let object_id = electric_cars::ElectricCar::hash_to_id(doc_hash.as_str())?;
+            let object_id = electric_cars::ElectricCar::hash_to_id(doc_hash)?;
             let filter = doc! {"_id": object_id};
             let output_data = electric_cars::ElectricCar::find_one(Some(filter), None).unwrap();
             if output_data.bool() {
@@ -177,7 +177,7 @@ pub fn get_document_reg(
 // -------------------------------------------------------------------------------------------------
 // Connect models for the `src/services/admin.rs/save_document` method.
 pub fn save_document_reg(
-    model_key: String,
+    model_key: &str,
     bytes: &actix_web::web::BytesMut,
     app_state: actix_web::web::Data<settings::state::AppState>,
 ) -> Result<String, Box<dyn std::error::Error>> {
@@ -223,10 +223,37 @@ pub fn save_document_reg(
 
 // Step 4
 // -------------------------------------------------------------------------------------------------
+// Connect models for the `src/services/admin.rs/delete_document` method.
+pub fn delete_document_reg(
+    model_key: &str,
+    filter: Document,
+) -> Result<String, Box<dyn std::error::Error>> {
+    let mut msg_err = String::new();
+
+    // AdminProfile
+    if model_key == users::AdminProfile::key() {
+        let output_data = users::AdminProfile::find_one(Some(filter), None)?;
+        let instance = output_data.model::<users::AdminProfile>()?;
+        let output_data = instance.delete(None)?;
+        if !output_data.is_valid() {
+            msg_err = output_data.err_msg();
+        }
+
+    // Error
+    } else {
+        Err("Module: `src/models/registration/admin_panel` > \
+             Method: `delete_document_reg` : No match for `model_key`.")?
+    }
+    //
+    Ok(msg_err)
+}
+
+// Step 5
+// -------------------------------------------------------------------------------------------------
 // Connect models for the `src/services/admin.rs/update_dyn_data` method.
 // Hint: Refresh data for dynamic widgets.
 pub fn update_dyn_data_reg(
-    model_key: String,
+    model_key: &str,
     json_options: &str,
 ) -> Result<(), Box<dyn std::error::Error>> {
     // AdminProfile

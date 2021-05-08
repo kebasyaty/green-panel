@@ -485,7 +485,7 @@ pub mod request_handlers {
         // Define the desired model by `model_key` and
         // get an instance of the model in json format (for the administrator)
         if msg_err.is_empty() {
-            document = admin_panel::get_document_reg(model_key, doc_hash).unwrap()
+            document = admin_panel::get_document_reg(model_key.as_str(), doc_hash.as_str()).unwrap()
         }
 
         // Return json response
@@ -547,7 +547,7 @@ pub mod request_handlers {
         // Define the desired model with `model_key` and save/update in the database
         if msg_err.is_empty() {
             document =
-                admin_panel::save_document_reg(path.model_key.clone(), &bytes, app_state).unwrap()
+                admin_panel::save_document_reg(path.model_key.as_str(), &bytes, app_state).unwrap()
         }
 
         // Return json response
@@ -608,24 +608,7 @@ pub mod request_handlers {
                     mongodb::bson::oid::ObjectId::with_string(query.doc_hash.as_str()).unwrap();
                 let filter = doc! {"_id": object_id};
 
-                // AdminProfile
-                if query.model_key == users::AdminProfile::key() {
-                    let output_data = users::AdminProfile::find_one(Some(filter), None)?;
-                    let instance = output_data.model::<users::AdminProfile>()?;
-                    let output_data = instance.delete(None)?;
-                    if !output_data.is_valid() {
-                        msg_err = output_data.err_msg();
-                    }
-                }
-                /*
-                if let Ok(result) = coll.delete_one(filter, None) {
-                    if result.deleted_count == 0 {
-                        msg_err = "An error occurred while deleting the document.".to_string();
-                    }
-                } else {
-                    msg_err = "An error occurred while deleting the document.".to_string();
-                }
-                */
+                msg_err = admin_panel::save_document_reg(query.model_key.as_str(), filter).unwrap();
             } else {
                 msg_err = "It is forbidden to perform delete.".to_string();
             }
@@ -740,7 +723,7 @@ pub mod request_handlers {
         // Define the desired model by `model_key` and update dynamic data
         // -----------------------------------------------------------------------------------------
         if msg_err.is_empty() {
-            admin_panel::update_dyn_data_reg(query.model_key.clone(), query.json_options.as_str())
+            admin_panel::update_dyn_data_reg(query.model_key.as_str(), query.json_options.as_str())
                 .unwrap();
         }
 
