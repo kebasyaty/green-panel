@@ -485,7 +485,7 @@ pub mod request_handlers {
         // Define the desired model by `model_key` and
         // get an instance of the model in json format (for the administrator)
         if msg_err.is_empty() {
-            document = admin_panel::get_document_as_json(model_key, doc_hash).unwrap()
+            document = admin_panel::get_document_reg(model_key, doc_hash).unwrap()
         }
 
         // Return json response
@@ -546,12 +546,8 @@ pub mod request_handlers {
 
         // Define the desired model with `model_key` and save/update in the database
         if msg_err.is_empty() {
-            document = admin_panel::save_document_and_return_as_json(
-                path.model_key.clone(),
-                &bytes,
-                app_state,
-            )
-            .unwrap()
+            document =
+                admin_panel::save_document_reg(path.model_key.clone(), &bytes, app_state).unwrap()
         }
 
         // Return json response
@@ -732,7 +728,7 @@ pub mod request_handlers {
         // Define the desired model by `model_key` and update dynamic data
         // -----------------------------------------------------------------------------------------
         if msg_err.is_empty() {
-            admin_panel::refresh_dyn_data(query.model_key.clone(), query.json_options.as_str())
+            admin_panel::update_dyn_data_reg(query.model_key.clone(), query.json_options.as_str())
                 .unwrap();
         }
 

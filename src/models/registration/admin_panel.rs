@@ -94,7 +94,7 @@ pub fn service_list() -> Value {
 // Step 2
 // -------------------------------------------------------------------------------------------------
 // Connect models for the `src/services/admin.rs/get_document` method.
-pub fn get_document_as_json(
+pub fn get_document_reg(
     model_key: String,
     doc_hash: String,
 ) -> Result<String, Box<dyn std::error::Error>> {
@@ -176,7 +176,7 @@ pub fn get_document_as_json(
 // Step 3
 // -------------------------------------------------------------------------------------------------
 // Connect models for the `src/services/admin.rs/save_document` method.
-pub fn save_document_and_return_as_json(
+pub fn save_document_reg(
     model_key: String,
     bytes: &actix_web::web::BytesMut,
     app_state: actix_web::web::Data<settings::state::AppState>,
@@ -225,7 +225,7 @@ pub fn save_document_and_return_as_json(
 // -------------------------------------------------------------------------------------------------
 // Connect models for the `src/services/admin.rs/update_dyn_data` method.
 // Hint: Refresh data for dynamic widgets.
-pub fn refresh_dyn_data(
+pub fn update_dyn_data_reg(
     model_key: String,
     json_options: &str,
 ) -> Result<(), Box<dyn std::error::Error>> {
