@@ -239,6 +239,33 @@ pub fn delete_document_reg(
             msg_err = output_data.err_msg();
         }
 
+    // SellerProfile
+    } else if model_key == users::SellerProfile::key() {
+        let output_data = users::SellerProfile::find_one(Some(filter), None)?;
+        let instance = output_data.model::<users::SellerProfile>()?;
+        let output_data = instance.delete(None)?;
+        if !output_data.is_valid() {
+            msg_err = output_data.err_msg();
+        }
+
+    // CustomerProfile
+    } else if model_key == users::CustomerProfile::key() {
+        let output_data = users::CustomerProfile::find_one(Some(filter), None)?;
+        let instance = output_data.model::<users::CustomerProfile>()?;
+        let output_data = instance.delete(None)?;
+        if !output_data.is_valid() {
+            msg_err = output_data.err_msg();
+        }
+
+    // ElectricCar
+    } else if model_key == electric_cars::ElectricCar::key() {
+        let output_data = electric_cars::ElectricCar::find_one(Some(filter), None)?;
+        let instance = output_data.model::<electric_cars::ElectricCar>()?;
+        let output_data = instance.delete(None)?;
+        if !output_data.is_valid() {
+            msg_err = output_data.err_msg();
+        }
+
     // Error
     } else {
         Err("Module: `src/models/registration/admin_panel` > \
