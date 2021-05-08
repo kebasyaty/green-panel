@@ -610,12 +610,12 @@ pub mod request_handlers {
 
                 // AdminProfile
                 if query.model_key == users::AdminProfile::key() {
-                    //
-
-                    // Error
-                } else {
-                    Err("Module: `src/models/registration/admin_panel` > \
-                         Method: `get_document_as_json` : No match for `model_key`.")?
+                    let output_data = users::AdminProfile::find_one(Some(filter), None)?;
+                    let instance = output_data.model::<users::AdminProfile>()?;
+                    let output_data = instance.delete(None)?;
+                    if !output_data.is_valid() {
+                        msg_err = output_data.err_msg();
+                    }
                 }
                 /*
                 if let Ok(result) = coll.delete_one(filter, None) {
