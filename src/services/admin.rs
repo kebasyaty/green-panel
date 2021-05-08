@@ -595,15 +595,8 @@ pub mod request_handlers {
             let form_store = FORM_STORE.read().unwrap();
             let form_cache = form_store.get(query.model_key.as_str()).unwrap();
             let meta = &form_cache.meta;
-            //
             if meta.is_del_docs {
-                let client_store = MONGODB_CLIENT_STORE.read().unwrap();
-                let client: &mongodb::sync::Client =
-                    client_store.get(meta.db_client_name.as_str()).unwrap();
-                // Accessing the collection
-                let coll = client
-                    .database(meta.database_name.as_str())
-                    .collection(meta.collection_name.as_str());
+                // Create a filter for a database query
                 let object_id =
                     mongodb::bson::oid::ObjectId::with_string(query.doc_hash.as_str()).unwrap();
                 let filter = doc! {"_id": object_id};
