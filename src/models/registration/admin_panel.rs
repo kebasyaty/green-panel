@@ -167,7 +167,7 @@ pub fn get_document_reg(
     // Error
     } else {
         Err("Module: `src/models/registration/admin_panel` > \
-             Method: `get_document_as_json` : No match for `model_key`.")?
+             Method: `get_document_reg` : No match for `model_key`.")?
     }
     //
     Ok(json)
@@ -215,7 +215,7 @@ pub fn save_document_reg(
     // Error
     } else {
         Err("Module: `src/models/registration/admin_panel` > \
-             Method: `save_document_and_return_as_json` : No match for `model_key`.")?
+             Method: `save_document_reg` : No match for `model_key`.")?
     }
     //
     Ok(json)
@@ -248,7 +248,7 @@ pub fn update_dyn_data_reg(
     // Error
     } else {
         Err("Module: `src/models/registration/admin_panel` > \
-             Method: `refresh_dyn_data` : No match for `model_key`.")?
+             Method: `update_dyn_data_reg` : No match for `model_key`.")?
     }
     //
     Ok(())

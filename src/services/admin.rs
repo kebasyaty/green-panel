@@ -607,6 +607,17 @@ pub mod request_handlers {
                 let object_id =
                     mongodb::bson::oid::ObjectId::with_string(query.doc_hash.as_str()).unwrap();
                 let filter = doc! {"_id": object_id};
+
+                // AdminProfile
+                if query.model_key == users::AdminProfile::key() {
+                    //
+
+                    // Error
+                } else {
+                    Err("Module: `src/models/registration/admin_panel` > \
+                         Method: `get_document_as_json` : No match for `model_key`.")?
+                }
+                /*
                 if let Ok(result) = coll.delete_one(filter, None) {
                     if result.deleted_count == 0 {
                         msg_err = "An error occurred while deleting the document.".to_string();
@@ -614,6 +625,7 @@ pub mod request_handlers {
                 } else {
                     msg_err = "An error occurred while deleting the document.".to_string();
                 }
+                */
             } else {
                 msg_err = "It is forbidden to perform delete.".to_string();
             }
