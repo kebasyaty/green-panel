@@ -653,6 +653,8 @@ pub mod request_handlers {
             let form_cache = form_store.get(query.model_key.as_str()).unwrap();
             let meta = &form_cache.meta;
             //
+            let model_key = query.model_key.as_str();
+            //
             if meta.is_del_docs {
                 for hash in query.doc_hash_list.iter() {
                     // Create a filter for a database query
@@ -660,8 +662,7 @@ pub mod request_handlers {
                         mongodb::bson::oid::ObjectId::with_string(hash.as_str()).unwrap();
                     let filter = doc! {"_id": object_id};
 
-                    msg_err =
-                        admin_panel::delete_document_reg(query.model_key.as_str(), filter).unwrap();
+                    msg_err = admin_panel::delete_document_reg(model_key, filter).unwrap();
                     if !msg_err.is_empty() {
                         break;
                     }
