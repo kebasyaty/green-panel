@@ -38,4 +38,29 @@ pub struct ElectricCar {
         thumbnails = true
     )]
     pub image: Option<String>,
+    //
+    #[serde(default)]
+    #[field_attrs(
+        widget = "numberU32",
+        label = "Voltage",
+        hint = "Maximum battery voltage"
+    )]
+    pub voltage: Option<u32>,
+    //
+    #[serde(default)]
+    #[field_attrs(widget = "numberU32", label = "Power", hint = "Engine power")]
+    pub power: Option<u32>,
+    //
+    #[serde(default)]
+    #[field_attrs(
+        widget = "selectText",
+        label = "Type",
+        options = r#"["EV", "BEV", "FCEV", "HEV"]"#,
+        hint = "Battery vehicle type"
+    )]
+    pub car_type: Option<String>,
+    //
+    #[serde(default)]
+    #[field_attrs(widget = "numberF64", label = "Price", hint = "Car cost")]
+    pub price: Option<f64>,
 }
