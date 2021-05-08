@@ -62,11 +62,11 @@ pub struct ElectricCar {
     //
     #[serde(default)]
     #[field_attrs(
-        widget = "selectTextDyn",
+        widget = "selectTextMultDyn",
         label = "Certification",
         hint = "Electric vehicle certification"
     )]
-    pub certification: Option<String>,
+    pub certification: Option<Vec<String>>,
     //
     #[serde(default)]
     #[field_attrs(
