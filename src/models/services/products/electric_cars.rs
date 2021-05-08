@@ -61,6 +61,23 @@ pub struct ElectricCar {
     pub car_type: Option<String>,
     //
     #[serde(default)]
+    #[field_attrs(
+        widget = "selectTextDyn",
+        label = "Certification",
+        hint = "Electric vehicle certification"
+    )]
+    pub certification: Option<String>,
+    //
+    #[serde(default)]
+    #[field_attrs(
+        widget = "selectText",
+        label = "Body Type",
+        options = r#"["Convertible", "Coupe", "Crossover", "Hatchback", "Luxury", "MUV", "Notchback", "Sedan", "Sport Car", "SUV", "Wagon", "Super Car", "Van / Minivan"]"#,
+        hint = "Classification of cars on the basis of body type"
+    )]
+    pub body_type: Option<String>,
+    //
+    #[serde(default)]
     #[field_attrs(widget = "numberF64", label = "Price", hint = "Car cost")]
     pub price: Option<f64>,
 }
