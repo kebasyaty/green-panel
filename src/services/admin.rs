@@ -608,7 +608,8 @@ pub mod request_handlers {
                     mongodb::bson::oid::ObjectId::with_string(query.doc_hash.as_str()).unwrap();
                 let filter = doc! {"_id": object_id};
 
-                msg_err = admin_panel::save_document_reg(query.model_key.as_str(), filter).unwrap();
+                msg_err =
+                    admin_panel::delete_document_reg(query.model_key.as_str(), filter).unwrap();
             } else {
                 msg_err = "It is forbidden to perform delete.".to_string();
             }
