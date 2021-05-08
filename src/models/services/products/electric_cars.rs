@@ -72,7 +72,7 @@ pub struct ElectricCar {
     #[field_attrs(
         widget = "selectText",
         label = "Body Type",
-        options = r#"["Convertible", "Coupe", "Crossover", "Hatchback", "Luxury", "MUV", "Notchback", "Sedan", "Sport Car", "SUV", "Wagon", "Super Car", "Van/Minivan", "Buggy", "Buggy/Golf Carts"]"#,
+        options = r#"["Convertible", "Coupe", "Crossover", "Hatchback", "Luxury", "MUV", "Notchback", "Sedan", "Sport Car", "SUV", "Wagon", "Super Car", "Van/Minivan", "Buggy", "Buggy/Golf Carts", "Smart"]"#,
         hint = "Classification of cars on the basis of body type"
     )]
     pub body_type: Option<String>,
