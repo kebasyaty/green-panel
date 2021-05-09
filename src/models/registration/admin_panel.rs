@@ -12,7 +12,28 @@ use crate::{models::services::admin::users, models::services::products::electric
 // Step 1
 // -------------------------------------------------------------------------------------------------
 // Hint: get icon name (service) - https://materialdesignicons.com/
-// Hint: field types (fields): text field, number field
+/*
+Fields with the following types of widgets are supported:
+1.text
+inputEmail, radioText, inputPhone, inputTex, inputUrl,
+inputIP, inputIPv4, inputIPv6, selectText, selectTextDyn, hiddenText
+2.i32
+numberI32, radioI32, rangeI32, selectI32, selectI32Dyn, hiddenI32
+3.u32
+numberU32, radioU32, rangeU32, selectU32, selectU32Dyn, hiddenU32
+4.i64
+numberI64, radioI64, rangeI64, selectI64, selectI64Dyn, hiddenI64
+5.f64
+numberF64, radioF64, rangeF64, selectF64, selectF64Dyn, hiddenF64
+6.file
+inputImage
+7.boolean
+checkBox
+8.multiple select
+selectTextMult, selectTextMultDyn, selectI32Mult, selectI32MultDyn,
+selectU32Mult, selectU32MultDyn, selectI64Mult, selectI64MultDyn,
+selectF64Mult, selectF64MultDyn
+*/
 pub fn service_list() -> Value {
     json!([
             // Admin
