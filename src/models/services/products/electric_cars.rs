@@ -88,6 +88,14 @@ pub struct ElectricCar {
     pub drive: Option<String>,
     //
     #[serde(default)]
+    #[field_attrs(
+        widget = "selectTextMultDyn",
+        label = "Colors",
+        hint = "Available car body colors"
+    )]
+    pub colors: Option<Vec<String>>,
+    //
+    #[serde(default)]
     #[field_attrs(widget = "numberU32", label = "Seats", hint = "Number of seats")]
     pub seats: Option<u32>,
 }
