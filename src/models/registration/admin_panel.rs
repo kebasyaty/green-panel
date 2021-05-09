@@ -81,7 +81,7 @@ pub fn service_list() -> Value {
                         "title": "Electric Cars",
                         "model_key": electric_cars::ElectricCar::key(),
                         "fields": [
-                            { "field": "model", "title": "Model name" },
+                            { "field": "model", "title": "Model" },
                             { "field": "image", "title": "Image" },
                             { "field": "year", "title": "Year" },
                             { "field": "style", "title": "Style" },
