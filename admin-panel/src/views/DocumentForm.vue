@@ -1892,7 +1892,10 @@ export default {
       const indexDoc = this.$route.params.indexDoc
       let title = ''
       if (indexDoc !== 'new') {
-        title = this.documents[indexDoc].title
+        const indexService = this.$route.params.indexService
+        const indexCollection = this.$route.params.indexCollection
+        const field = this.serviceList[indexService].collections[indexCollection].fields[0].field
+        title = this.fieldsData[field]
       } else {
         title = this.$t('message.26')
       }
