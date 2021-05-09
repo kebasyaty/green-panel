@@ -67,12 +67,12 @@ pub struct ElectricCar {
     //
     #[serde(default)]
     #[field_attrs(
-        widget = "selectTextDyn",
+        widget = "selectTextMultDyn",
         label = "Engine",
         required = true,
         hint = "Engine type"
     )]
-    pub engine: Option<String>,
+    pub engine: Option<Vec<String>>,
     //
     #[serde(default)]
     #[field_attrs(
