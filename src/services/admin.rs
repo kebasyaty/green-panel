@@ -351,6 +351,14 @@ pub mod request_handlers {
                                 doc.get_str(field_name).unwrap_or("").to_string(),
                             );
                         }
+                        "inputColor" => {
+                            let color = doc.get_str(field_name).unwrap_or("").to_string();
+                            let html = format!(
+                                r#"<div class="show-color" style="background-color:{};"></div>"#,
+                                color
+                            );
+                            tmp_doc.insert(field_name, html);
+                        }
                         "numberI32" | "radioI32" | "rangeI32" | "selectI32" | "selectI32Dyn"
                         | "hiddenI32" => {
                             let num = doc.get_i32(field_name);
