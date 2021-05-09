@@ -273,7 +273,7 @@ pub mod request_handlers {
                 for field_name in query.fields_name.iter() {
                     match map_widget_type.get(field_name).unwrap().as_str() {
                         "inputEmail" | "radioText" | "inputPhone" | "inputText" | "inputUrl"
-                        | "inputIP" | "inputIPv4" | "inputIPv6" | "selectText"
+                        | "inputColor" | "inputIP" | "inputIPv4" | "inputIPv6" | "selectText"
                         | "selectTextDyn" | "hiddenText" => {
                             vec_doc.push(doc! {field_name: search_pattern});
                         }
