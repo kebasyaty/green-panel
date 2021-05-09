@@ -25,11 +25,13 @@ numberU32, radioU32, rangeU32, selectU32, selectU32Dyn, hiddenU32
 numberI64, radioI64, rangeI64, selectI64, selectI64Dyn, hiddenI64
 5.f64
 numberF64, radioF64, rangeF64, selectF64, selectF64Dyn, hiddenF64
-6.file
+6.color
+inputColor
+7.file
 inputImage
-7.boolean
+8.boolean
 checkBox
-8.multiple select
+9.multiple select
 selectTextMult, selectTextMultDyn, selectI32Mult, selectI32MultDyn,
 selectU32Mult, selectU32MultDyn, selectI64Mult, selectI64MultDyn,
 selectF64Mult, selectF64MultDyn
