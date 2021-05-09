@@ -262,7 +262,9 @@ export default {
     },
     // Get field list.
     fields: function () {
-      return this.serviceList[this.$route.params.indexService].collections[this.$route.params.indexCollection].fields
+      const indexService = this.$route.params.indexService
+      const indexCollection = this.$route.params.indexCollection
+      return this.serviceList[indexService].collections[indexCollection].fields
     }
   },
 
