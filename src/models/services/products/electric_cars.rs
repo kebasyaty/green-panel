@@ -40,50 +40,73 @@ pub struct ElectricCar {
     //
     #[serde(default)]
     #[field_attrs(
-        widget = "inputDate",
+        widget = "numberU32",
         label = "Year",
         required = true,
         hint = "Year of car manufacture"
     )]
-    pub year: Option<String>,
+    pub year: Option<u32>,
     //
     #[serde(default)]
     #[field_attrs(
         widget = "selectTextMultDyn",
         label = "Style",
+        required = true,
         hint = "Classification of cars on the basis of body type"
     )]
     pub style: Option<Vec<String>>,
     //
     #[serde(default)]
-    #[field_attrs(widget = "numberF64", label = "Price", hint = "Car cost")]
+    #[field_attrs(
+        widget = "numberF64",
+        label = "Price",
+        required = true,
+        hint = "Car cost"
+    )]
     pub price: Option<f64>,
     //
     #[serde(default)]
-    #[field_attrs(widget = "selectTextMultDyn", label = "Engine", hint = "Engine type")]
+    #[field_attrs(
+        widget = "selectTextMultDyn",
+        label = "Engine",
+        required = true,
+        hint = "Engine type"
+    )]
     pub engine: Option<Vec<String>>,
     //
     #[serde(default)]
     #[field_attrs(
         widget = "selectTextMultDyn",
         label = "Trans",
+        required = true,
         hint = "Transmission type"
     )]
     pub trans: Option<Vec<String>>,
     //
     #[serde(default)]
-    #[field_attrs(widget = "selectTextMultDyn", label = "Drive", hint = "Type of drive")]
+    #[field_attrs(
+        widget = "selectTextMultDyn",
+        label = "Drive",
+        required = true,
+        hint = "Type of drive"
+    )]
     pub drive: Option<Vec<String>>,
     //
     #[serde(default)]
     #[field_attrs(
         widget = "selectTextMultDyn",
         label = "Colors",
+        required = true,
         hint = "Available car body colors"
     )]
     pub colors: Option<Vec<String>>,
     //
     #[serde(default)]
-    #[field_attrs(widget = "numberU32", label = "Seats", hint = "Number of seats")]
+    #[field_attrs(
+        widget = "numberU32",
+        label = "Seats",
+        required = true,
+        hint = "Number of seats"
+    )]
     pub seats: Option<u32>,
 }
