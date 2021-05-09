@@ -49,43 +49,31 @@ pub struct ElectricCar {
     //
     #[serde(default)]
     #[field_attrs(
-        widget = "selectText",
+        widget = "selectTextMultDyn",
         label = "Style",
-        options = r#"["Convertible", "Coupe", "Crossover", "Hatchback", "Luxury", "MUV", "Notchback", "Sedan", "Sport Car", "SUV", "Wagon", "Super Car", "Van/Minivan", "Buggy", "Buggy/Golf Carts", "Smart"]"#,
         hint = "Classification of cars on the basis of body type"
     )]
-    pub style: Option<String>,
+    pub style: Option<Vec<String>>,
     //
     #[serde(default)]
     #[field_attrs(widget = "numberF64", label = "Price", hint = "Car cost")]
     pub price: Option<f64>,
     //
     #[serde(default)]
-    #[field_attrs(
-        widget = "selectText",
-        label = "Engine",
-        options = r#"["Electric"]"#,
-        hint = "Engine type"
-    )]
-    pub engine: Option<String>,
+    #[field_attrs(widget = "selectTextMultDyn", label = "Engine", hint = "Engine type")]
+    pub engine: Option<Vec<String>>,
     //
     #[serde(default)]
     #[field_attrs(
-        widget = "selectText",
+        widget = "selectTextMultDyn",
         label = "Trans",
-        options = r#"["1-speed automatic"]"#,
         hint = "Transmission type"
     )]
-    pub trans: Option<String>,
+    pub trans: Option<Vec<String>>,
     //
     #[serde(default)]
-    #[field_attrs(
-        widget = "selectText",
-        label = "Drive",
-        options = r#"["All-wheel Drive"]"#,
-        hint = "Type of drive"
-    )]
-    pub drive: Option<String>,
+    #[field_attrs(widget = "selectTextMultDyn", label = "Drive", hint = "Type of drive")]
+    pub drive: Option<Vec<String>>,
     //
     #[serde(default)]
     #[field_attrs(
