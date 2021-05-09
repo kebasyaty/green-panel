@@ -103,10 +103,10 @@ pub struct ElectricCar {
     //
     #[serde(default)]
     #[field_attrs(
-        widget = "numberU32",
+        widget = "selectTextDyn",
         label = "Seats",
         required = true,
         hint = "Number of seats"
     )]
-    pub seats: Option<u32>,
+    pub seats: Option<String>,
 }
