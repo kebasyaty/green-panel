@@ -394,7 +394,12 @@ pub mod request_handlers {
                         | "selectF64MultDyn" => {
                             let empty_arr: Vec<Bson> = Vec::new();
                             let arr = doc.get_array(field_name).unwrap_or(&empty_arr);
-                            tmp_doc.insert(field_name, serde_json::to_string(arr).unwrap());
+                            let result = serde_json::to_string(arr).unwrap();
+                            let result = result[1..result.len() - 1]
+                                .to_string()
+                                .replace(r#"""#, "")
+                                .replace(",", ", ");
+                            tmp_doc.insert(field_name, result);
                         }
                         "inputImage" => {
                             tmp_doc.insert(
