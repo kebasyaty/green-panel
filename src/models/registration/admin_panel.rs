@@ -81,12 +81,15 @@ pub fn service_list() -> Value {
                         "title": "Electric Cars",
                         "model_key": electric_cars::ElectricCar::key(),
                         "fields": [
-                            { "field": "car_name", "title": "Vehicle name" },
+                            { "field": "model", "title": "Model name" },
                             { "field": "image", "title": "Image" },
-                            { "field": "voltage", "title": "Voltage" },
-                            { "field": "power", "title": "Power (W)" },
-                            { "field": "car_type", "title": "Battery vehicle type" },
-                            { "field": "body_type", "title": "Classification" }
+                            { "field": "year", "title": "Year" },
+                            { "field": "style", "title": "Style" },
+                            { "field": "price", "title": "Price" },
+                            { "field": "engine", "title": "Engine" },
+                            { "field": "trans", "title": "Transmission" },
+                            { "field": "drive", "title": "Drive" },
+                            { "field": "seats", "title": "Seats" }
                         ]
                     }
                 ]
