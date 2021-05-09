@@ -248,6 +248,15 @@ pub struct SellerProfile {
     //
     #[serde(default)]
     #[field_attrs(
+        widget = "inputColor",
+        value = "#ffffff",
+        label = "Color",
+        hint = "Your favorite color"
+    )]
+    pub color: Option<String>,
+    //
+    #[serde(default)]
+    #[field_attrs(
         widget = "inputEmail",
         label = "Contact's Mailing Address",
         placeholder = "Please enter your email",
@@ -446,6 +455,15 @@ pub struct CustomerProfile {
         hint = "Your date of birth"
     )]
     pub birthday: Option<String>,
+    //
+    #[serde(default)]
+    #[field_attrs(
+        widget = "inputColor",
+        value = "#ffffff",
+        label = "Color",
+        hint = "Your favorite color"
+    )]
+    pub color: Option<String>,
     //
     #[serde(default)]
     #[field_attrs(
