@@ -16,12 +16,12 @@ pub struct ElectricCar {
     #[serde(default)]
     #[field_attrs(
         widget = "inputText",
-        label = "Vehicle name",
-        placeholder = "Enter vehicle name",
+        label = "Model",
+        placeholder = "Model name",
         required = true,
         hint = "Car brand and name"
     )]
-    pub car_name: Option<String>,
+    pub model: Option<String>,
     //
     #[serde(default)]
     #[field_attrs(
@@ -33,7 +33,6 @@ pub struct ElectricCar {
             }"#,
         placeholder = "Upload image car",
         accept = "image/jpeg,image/png",
-        required = true,
         hint = "Image in JPEG or PNG format",
         thumbnails = true
     )]
@@ -41,43 +40,54 @@ pub struct ElectricCar {
     //
     #[serde(default)]
     #[field_attrs(
-        widget = "numberU32",
-        label = "Voltage",
-        hint = "Maximum battery voltage"
+        widget = "inputDate",
+        label = "Year",
+        required = true,
+        hint = "Year of car manufacture"
     )]
-    pub voltage: Option<u32>,
-    //
-    #[serde(default)]
-    #[field_attrs(widget = "numberU32", label = "Power (W)", hint = "Engine power")]
-    pub power: Option<u32>,
+    pub year: Option<String>,
     //
     #[serde(default)]
     #[field_attrs(
         widget = "selectText",
-        label = "Type",
-        options = r#"["EV", "BEV", "FCEV", "HEV"]"#,
-        hint = "Battery vehicle type"
-    )]
-    pub car_type: Option<String>,
-    //
-    #[serde(default)]
-    #[field_attrs(
-        widget = "selectTextMultDyn",
-        label = "Certification",
-        hint = "Electric vehicle certification"
-    )]
-    pub certification: Option<Vec<String>>,
-    //
-    #[serde(default)]
-    #[field_attrs(
-        widget = "selectText",
-        label = "Body Type",
+        label = "Style",
         options = r#"["Convertible", "Coupe", "Crossover", "Hatchback", "Luxury", "MUV", "Notchback", "Sedan", "Sport Car", "SUV", "Wagon", "Super Car", "Van/Minivan", "Buggy", "Buggy/Golf Carts", "Smart"]"#,
         hint = "Classification of cars on the basis of body type"
     )]
-    pub body_type: Option<String>,
+    pub style: Option<String>,
     //
     #[serde(default)]
     #[field_attrs(widget = "numberF64", label = "Price", hint = "Car cost")]
     pub price: Option<f64>,
+    //
+    #[serde(default)]
+    #[field_attrs(
+        widget = "selectText",
+        label = "Engine",
+        options = r#"["Electric"]"#,
+        hint = "Engine type"
+    )]
+    pub engine: Option<String>,
+    //
+    #[serde(default)]
+    #[field_attrs(
+        widget = "selectText",
+        label = "Trans",
+        options = r#"["1-speed automatic"]"#,
+        hint = "Transmission type"
+    )]
+    pub trans: Option<String>,
+    //
+    #[serde(default)]
+    #[field_attrs(
+        widget = "selectText",
+        label = "Drive",
+        options = r#"["All-wheel Drive"]"#,
+        hint = "Type of drive"
+    )]
+    pub drive: Option<String>,
+    //
+    #[serde(default)]
+    #[field_attrs(widget = "numberU32", label = "Seats", hint = "Number of seats")]
+    pub seats: Option<u32>,
 }
