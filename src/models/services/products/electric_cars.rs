@@ -49,12 +49,12 @@ pub struct ElectricCar {
     //
     #[serde(default)]
     #[field_attrs(
-        widget = "selectTextMultDyn",
+        widget = "selectTextDyn",
         label = "Style",
         required = true,
         hint = "Classification of cars on the basis of body type"
     )]
-    pub style: Option<Vec<String>>,
+    pub style: Option<String>,
     //
     #[serde(default)]
     #[field_attrs(
@@ -67,30 +67,30 @@ pub struct ElectricCar {
     //
     #[serde(default)]
     #[field_attrs(
-        widget = "selectTextMultDyn",
+        widget = "selectTextDyn",
         label = "Engine",
         required = true,
         hint = "Engine type"
     )]
-    pub engine: Option<Vec<String>>,
+    pub engine: Option<String>,
     //
     #[serde(default)]
     #[field_attrs(
-        widget = "selectTextMultDyn",
+        widget = "selectTextDyn",
         label = "Trans",
         required = true,
         hint = "Transmission type"
     )]
-    pub trans: Option<Vec<String>>,
+    pub trans: Option<String>,
     //
     #[serde(default)]
     #[field_attrs(
-        widget = "selectTextMultDyn",
+        widget = "selectTextDyn",
         label = "Drive",
         required = true,
         hint = "Type of drive"
     )]
-    pub drive: Option<Vec<String>>,
+    pub drive: Option<String>,
     //
     #[serde(default)]
     #[field_attrs(
