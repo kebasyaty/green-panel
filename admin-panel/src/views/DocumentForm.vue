@@ -1423,7 +1423,7 @@ export default {
           break
         default:
           if (widget.includes('number')) {
-            result = 'numeric-1-box-multiple-outline'
+            result = 'numeric'
           } else if (widget.includes('range')) {
             result = 'arrow-split-vertical'
           } else if (widget.includes('select')) {
