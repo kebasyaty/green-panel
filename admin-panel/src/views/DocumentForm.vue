@@ -175,10 +175,10 @@
                         >
                           <span class="font-weight-medium green--text">{{ $t('message.41') }}</span>
                           <br />
-                          <span class="indigo--text">{{ $t('message.23') }}:</span>
+                          <span class="cyan--text">{{ $t('message.23') }}:</span>
                           <span>{{ $t('message.57') }}</span>
                           <br />
-                          <span class="indigo--text">{{ $t('message.24') }}:</span>
+                          <span class="cyan--text">{{ $t('message.24') }}:</span>
                           <span>{{ $t('message.57') }}</span>
                         </v-card-subtitle>
                         <v-card-subtitle
@@ -187,10 +187,10 @@
                         >
                           <span class="font-weight-medium green--text">{{ $t('message.41') }}</span>
                           <br />
-                          <span class="indigo--text">{{ $t('message.23') }}:</span>
+                          <span class="cyan--text">{{ $t('message.23') }}:</span>
                           <span>{{ $t('message.57') }}</span>
                           <br />
-                          <span class="indigo--text">{{ $t('message.24') }}:</span>
+                          <span class="cyan--text">{{ $t('message.24') }}:</span>
                           <span>{{ $t('message.58') }}</span>
                         </v-card-subtitle>
                         <v-card-subtitle
@@ -199,10 +199,10 @@
                         >
                           <span class="font-weight-medium green--text">{{ $t('message.41') }}</span>
                           <br />
-                          <span class="indigo--text">{{ $t('message.23') }}:</span>
+                          <span class="cyan--text">{{ $t('message.23') }}:</span>
                           <span>{{ $t('message.57') }}</span>
                           <br />
-                          <span class="indigo--text">{{ $t('message.24') }}:</span>
+                          <span class="cyan--text">{{ $t('message.24') }}:</span>
                           <span>{{ $t('message.59') }}</span>
                         </v-card-subtitle>
                         <v-card-subtitle
@@ -211,10 +211,10 @@
                         >
                           <span class="font-weight-medium green--text">{{ $t('message.41') }}</span>
                           <br />
-                          <span class="indigo--text">{{ $t('message.23') }}:</span>
+                          <span class="cyan--text">{{ $t('message.23') }}:</span>
                           <span>{{ $t('message.57') }}</span>
                           <br />
-                          <span class="indigo--text">{{ $t('message.24') }}:</span>
+                          <span class="cyan--text">{{ $t('message.24') }}:</span>
                           <span>{{ $t('message.60') }}</span>
                         </v-card-subtitle>
                         <v-row>
