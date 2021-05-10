@@ -114,6 +114,7 @@ pub fn service_list() -> Value {
                             { "field": "engine", "title": "Engine" },
                             { "field": "trans", "title": "Transmission" },
                             { "field": "drive", "title": "Drive" },
+                            { "field": "colors", "title": "Colors" },
                             { "field": "seats", "title": "Seats" }
                         ]
                     }
