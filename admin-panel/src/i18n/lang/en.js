@@ -42,7 +42,7 @@ export default {
     38: 'Invalid parameter `?per=` in URL',
     39: 'Are you sure you want to delete this document ?',
     40: 'Alphabetical links',
-    41: '',
+    41: 'Allowed characters:<br />letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /',
     42: 'Descending',
     43: 'Ascending',
     44: 'Undefined value for query parameter `&sort=`',

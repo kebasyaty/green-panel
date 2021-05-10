@@ -169,6 +169,7 @@
                       <!-- Add new list item. -->
                       <v-card-text class="pb-0">
                         <v-card-subtitle class="pt-0">{{ $t('message.22') }}</v-card-subtitle>
+                        <v-card-subtitle class="pt-1">{{ $t('message.22') }}</v-card-subtitle>
                         <v-row>
                           <v-col cols="12" sm="6">
                             <v-text-field
