@@ -173,7 +173,15 @@
                           v-if="field.widget.includes('Text')"
                           class="px-0 pt-2 pb-2"
                           v-html="$t('message.41')"
-                        ></v-card-subtitle>
+                        >
+                          <span class="font-weight-medium green--text">{{ $t('message.41') }}</span>
+                          <br />
+                          <span class="indigo--text">{{ $t('message.23') }}:</span>
+                          <span>{{ $t('message.57') }}</span>
+                          <br />
+                          <span class="indigo--text">{{ $t('message.24') }}:</span>
+                          <span>{{ $t('message.57') }}</span>
+                        </v-card-subtitle>
                         <v-card-subtitle
                           v-else-if="field.widget.includes('U32')"
                           class="px-0 pt-2 pb-2"

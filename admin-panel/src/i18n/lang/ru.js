@@ -42,7 +42,7 @@ export default {
     38: 'Неверный параметр `?per=` в URL-адресе',
     39: 'Вы точно хотите удалить этот документ ?',
     40: 'Ссылки в алфавитном порядке',
-    41: '<span class="font-weight-medium">Допустимые символы</span><br /><span class="green--text">Название:</span> letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /<br /><span class="green--text">Значение:</span> letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /',
+    41: 'Допустимые символы',
     42: 'По убыванию',
     43: 'По возрастанию',
     44: 'Неопределено значение параметра запроса `&sort=`',
@@ -58,8 +58,9 @@ export default {
     54: 'Отмена',
     55: 'Обновить',
     56: 'Ваш пароль успешно обновлен !',
-    57: '<span class="font-weight-medium">Допустимые символы</span><br /><span class="green--text">Название:</span> letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /<br /><span class="green--text">Значение:</span> numbers',
-    58: '<span class="font-weight-medium">Допустимые символы</span><br /><span class="green--text">Название:</span> letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /<br /><span class="green--text">Значение:</span> - numbers',
-    59: '<span class="font-weight-medium">Допустимые символы</span><br /><span class="green--text">Название:</span> letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /<br /><span class="green--text">Значение:</span> - . , numbers'
+    57: 'буквы цифры пробел - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /',
+    58: 'цифры',
+    59: '- цифры',
+    60: '- . , цифры'
   }
 }
