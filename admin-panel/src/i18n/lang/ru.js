@@ -58,8 +58,8 @@ export default {
     54: 'Отмена',
     55: 'Обновить',
     56: 'Ваш пароль успешно обновлен !',
-    57: 'Допустимые символы<br />Название: letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /<br />Значение: numbers',
-    58: 'Допустимые символы<br />Название: letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /<br />Значение: - numbers',
-    59: 'Допустимые символы<br />Название: letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /<br />Значение: - . , numbers'
+    57: '<span class="font-weight-medium">Допустимые символы</span><br /><span class="green--text">Название:</span> letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /<br /><span class="green--text">Значение:</span> numbers',
+    58: '<span class="font-weight-medium">Допустимые символы</span><br /><span class="green--text">Название:</span> letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /<br /><span class="green--text">Значение:</span> - numbers',
+    59: '<span class="font-weight-medium">Допустимые символы</span><br /><span class="green--text">Название:</span> letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /<br /><span class="green--text">Значение:</span> - . , numbers'
   }
 }
