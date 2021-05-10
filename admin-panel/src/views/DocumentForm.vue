@@ -168,8 +168,8 @@
                       </v-card-actions>
                       <!-- Add new list item. -->
                       <v-card-text class="pb-0">
-                        <v-card-subtitle class="px-0 py-0">{{ $t('message.22') }}</v-card-subtitle>
-                        <v-card-subtitle class="px-0 pt-0 pb-2" v-html="$t('message.41')"></v-card-subtitle>
+                        <v-card-title class="px-0 py-0">{{ $t('message.22') }}</v-card-title>
+                        <v-card-subtitle class="px-0 pt-2 pb-2" v-html="$t('message.41')"></v-card-subtitle>
                         <v-row>
                           <v-col cols="12" sm="6">
                             <v-text-field
@@ -204,8 +204,8 @@
                       <v-divider></v-divider>
                       <!-- Remove irrelevant items. -->
                       <v-card-text class="pb-0">
-                        <v-list subheader two-line flat>
-                          <v-subheader class="px-0">{{ $t('message.20') }}</v-subheader>
+                        <v-card-title class="px-0">{{ $t('message.20') }}</v-card-title>
+                        <v-list two-line flat>
                           <v-list-item-group v-model="delDynItems" multiple>
                             <v-list-item v-for="item in field.options" :key="item.title">
                               <template v-slot:default="{ active, }">
