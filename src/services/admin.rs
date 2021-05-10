@@ -354,7 +354,7 @@ pub mod request_handlers {
                         "inputColor" => {
                             let color = doc.get_str(field_name).unwrap_or("").to_string();
                             let html = format!(
-                                r#"<div class="w-30 h-30 rounded-circle" style="background-color:{};border:1px solid #0000001f;"></div>"#,
+                                r#"<div class="show-color" style="background-color:{};"></div>"#,
                                 color
                             );
                             tmp_doc.insert(field_name, html);
