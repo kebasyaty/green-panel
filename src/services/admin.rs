@@ -413,7 +413,7 @@ pub mod request_handlers {
                                 .replace(",", " ; ");
                             let result = re_find_color.replace_all(
                                 result.as_str(),
-                                r#"<span class="sm-show-color" style="background-color:$color;"></span>"#,
+                                r#"<div class="sm-show-color" style="background-color:$color;"></div>"#,
                             );
                             tmp_doc.insert(field_name, result.to_string());
                         }
