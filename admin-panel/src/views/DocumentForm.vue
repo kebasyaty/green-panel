@@ -172,7 +172,6 @@
                         <v-card-subtitle
                           v-if="field.widget.includes('Text')"
                           class="px-0 pt-2 pb-2"
-                          v-html="$t('message.41')"
                         >
                           <span class="font-weight-medium green--text">{{ $t('message.41') }}</span>
                           <br />
