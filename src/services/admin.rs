@@ -406,7 +406,7 @@ pub mod request_handlers {
                             let result = result[1..result.len() - 1]
                                 .to_string()
                                 .replace(r#"""#, "")
-                                .replace(",", ", ");
+                                .replace(",", " ; ");
                             tmp_doc.insert(field_name, result);
                         }
                         "inputImage" => {
