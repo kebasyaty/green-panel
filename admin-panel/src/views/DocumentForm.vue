@@ -150,7 +150,7 @@
                       </v-btn>
                     </template>
                     <v-card>
-                      <v-card-actions class="pr-3 pt-2">
+                      <v-card-actions class="pr-3 pt-2 pb-0">
                         <v-spacer></v-spacer>
                         <!-- Button - Close. -->
                         <v-btn
