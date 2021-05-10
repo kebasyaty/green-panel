@@ -42,7 +42,7 @@ export default {
     38: 'Invalid parameter `?per=` in URL',
     39: 'Are you sure you want to delete this document ?',
     40: 'Alphabetical links',
-    41: 'Allowed characters<br />Title: letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /<br />Value: letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /',
+    41: '<span class="font-weight-medium">Allowed characters</span><br /><span class="green--text">Title:</span> letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /<br /><span class="green--text">Value:</span> letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /',
     42: 'Descending',
     43: 'Ascending',
     44: 'Undefined value for query parameter `&sort=`',
@@ -58,8 +58,8 @@ export default {
     54: 'Cancel',
     55: 'Update',
     56: 'Your password has been successfully updated !',
-    57: 'Allowed characters<br />Title: letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /<br />Value: numbers',
-    58: 'Allowed characters<br />Title: letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /<br />Value: - numbers',
-    59: 'Allowed characters<br />Title: letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /<br />Value: - . , numbers'
+    57: '<span class="font-weight-medium">Allowed characters</span><br /><span class="green--text">Title:</span> letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /<br /><span class="green--text">Value:</span> numbers',
+    58: '<span class="font-weight-medium">Allowed characters</span><br /><span class="green--text">Title:</span> letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /<br /><span class="green--text">Value:</span> - numbers',
+    59: '<span class="font-weight-medium">Allowed characters</span><br /><span class="green--text">Title:</span> letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /<br /><span class="green--text">Value:</span> - . , numbers'
   }
 }
