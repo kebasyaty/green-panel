@@ -331,6 +331,10 @@ pub mod request_handlers {
 
             // Selecting documents
             // -------------------------------------------------------------------------------------
+            let re_find_color = regex::RegexBuilder::new(
+                r"(?P<color>(?:#|0x)(?:[a-f0-9]{3}|[a-f0-9]{6}|[a-f0-9]{8})\b|(?:rgb|hsl)a?\([^\)]*\))",)
+                .case_insensitive(true).build().unwrap();
+            //
             while let Some(doc) = cursor.next() {
                 let doc = doc.unwrap();
                 // Filling in the `documents` array
@@ -407,7 +411,11 @@ pub mod request_handlers {
                                 .to_string()
                                 .replace(r#"""#, "")
                                 .replace(",", " ; ");
-                            tmp_doc.insert(field_name, result);
+                            let result = re_find_color.replace_all(
+                                result.as_str(),
+                                r#"<span style="background-color:$color;"></span>"#,
+                            );
+                            tmp_doc.insert(field_name, result.to_string());
                         }
                         "inputImage" => {
                             tmp_doc.insert(
