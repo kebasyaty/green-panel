@@ -223,7 +223,7 @@
                       <v-divider></v-divider>
                       <!-- Remove irrelevant items. -->
                       <v-card-text class="pb-0">
-                        <v-card-title class="px-0">{{ $t('message.20') }}</v-card-title>
+                        <v-card-title class="px-0 pb-0">{{ $t('message.20') }}</v-card-title>
                         <v-list two-line flat>
                           <v-list-item-group v-model="delDynItems" multiple>
                             <v-list-item v-for="item in field.options" :key="item.title">
