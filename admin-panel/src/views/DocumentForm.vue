@@ -2075,7 +2075,7 @@ export default {
           // Validation uniqueness of names for dynamic enumerations.
           for (let idx = 0; idx < targetField.options.length; idx++) {
             if (targetField.options[idx].title === this.currValDynItem.title) {
-              this.runShowMsg({ text: `Title: ${this.$t('message.33')}`, status: 'error' })
+              this.runShowMsg({ text: `${this.$t('message.23')}: ${this.$t('message.33')}`, status: 'error' })
               return
             }
           }
@@ -2087,7 +2087,7 @@ export default {
             }
             // The value must not be less than zero.
             if (+this.currValDynItem.value < 0) {
-              this.runShowMsg({ text: `Title: ${this.currValDynItem.title}<br>Value: ${this.$t('message.34')}.`, status: 'error' })
+              this.runShowMsg({ text: `${this.$t('message.23')}: ${this.currValDynItem.title}<br>${this.$t('message.24')}: ${this.$t('message.34')}.`, status: 'error' })
               return
             }
           }
@@ -2096,7 +2096,7 @@ export default {
             targetField.widget.includes('I64')) {
             // Validate that the value is not fractional.
             if (this.currValDynItem.value.includes('.') || this.currValDynItem.value.includes(',')) {
-              this.runShowMsg({ text: `Title: ${this.currValDynItem.title}<br>Value: ${this.$t('message.35')}.`, status: 'error' })
+              this.runShowMsg({ text: `${this.$t('message.23')}: ${this.currValDynItem.title}<br>${this.$t('message.24')}: ${this.$t('message.35')}.`, status: 'error' })
               return
             }
             this.currValDynItem.value = parseInt(this.currValDynItem.value)
