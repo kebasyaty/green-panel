@@ -2068,6 +2068,10 @@ export default {
 
       switch (mode) {
         case 'save':
+          // Checking the Title field for valid characters.
+          if (!/^[-_.,`@#$%^&+=*!~)(:><?;№|\\/\s\w]+$/i.test(this.currValDynItem.title)) {
+            this.runShowMsg({ text: `Title: ${this.$t('message.61')}`, status: 'error' })
+          }
           // Validation uniqueness of names for dynamic enumerations.
           for (let idx = 0; idx < targetField.options.length; idx++) {
             if (targetField.options[idx].title === this.currValDynItem.title) {

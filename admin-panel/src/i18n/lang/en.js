@@ -61,6 +61,7 @@ export default {
     57: 'letters numbers space - _ . , ` @ # $ % ^ & + = * ! ~ ) ( : > < ? ; № | \\ /',
     58: 'numbers',
     59: '- numbers',
-    60: '- . , numbers'
+    60: '- . , numbers',
+    61: 'The `Title` field contains invalid characters.'
   }
 }
