@@ -2091,6 +2091,12 @@ export default {
               return
             }
           }
+          // Validating a number like i32 and i64.
+          if (targetField.widget.includes('I32') || targetField.widget.includes('I64')) {
+            if (!/^-?\d+$/.test(this.currValDynItem.value.toString().trim())) {
+              this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
+            }
+          }
           // Convert to the appropriate numeric type.
           if (targetField.widget.includes('I32') || targetField.widget.includes('U32') ||
             targetField.widget.includes('I64')) {
