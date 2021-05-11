@@ -429,7 +429,7 @@ pub mod request_handlers {
                                                 break;
                                             }
                                         }
-                                        if img_url.is_empty() {
+                                        if !img_url.is_empty() {
                                             format!(
                                                 r#"<img class="rounded-lg mt-1" src="{}" height="60" alt="Image">"#,
                                                 img_url
