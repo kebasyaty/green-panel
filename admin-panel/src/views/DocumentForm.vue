@@ -2105,7 +2105,7 @@ export default {
           }
           // Validation of a field of type f64.
           if (targetField.widget.includes('F64')) {
-            if (!/^[+-]?\d+((\.|,)\d+)?$/.test(this.currValDynItem.value.toString().trim())) {
+            if (!/^-?\d+((\.|,)\d+)?$/.test(this.currValDynItem.value.toString().trim())) {
               this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
             }
           }
