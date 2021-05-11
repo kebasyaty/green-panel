@@ -254,10 +254,14 @@
                         <v-card-title class="px-0 pb-0">{{ $t('message.20') }}</v-card-title>
                         <v-list two-line flat>
                           <v-list-item-group v-model="delDynItems" multiple>
-                            <v-list-item class="px-0" v-for="item in field.options" :key="item.title">
+                            <v-list-item
+                              class="px-0"
+                              v-for="item in field.options"
+                              :key="item.title"
+                            >
                               <template v-slot:default="{ active, }">
                                 <v-list-item-action>
-                                  <v-checkbox :input-value="active" color="primary"></v-checkbox>
+                                  <v-checkbox :input-value="active" color="red darken-3"></v-checkbox>
                                 </v-list-item-action>
                                 <v-list-item-content>
                                   <v-list-item-title>{{ item.title }}</v-list-item-title>
