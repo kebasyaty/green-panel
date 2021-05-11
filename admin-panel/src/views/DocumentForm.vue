@@ -2082,7 +2082,7 @@ export default {
           // Validating a number like u32.
           if (targetField.widget.includes('U32')) {
             // Checking the `Value` field for valid characters.
-            if (!/^[-_.,`@#$%^&+=*!~)(:><?;№|\\/\s\w]+$/i.test(this.currValDynItem.value)) {
+            if (!/^\d+$/i.test(this.currValDynItem.value)) {
               this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
             }
             // The value must not be less than zero.
