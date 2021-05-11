@@ -2071,6 +2071,7 @@ export default {
           // Checking the `Title` field for valid characters.
           if (!/^[-_.,`@#$%^&+=*!~)(:><?;№|\\/\s\w]+$/i.test(this.currValDynItem.title)) {
             this.runShowMsg({ text: this.$t('message.61'), status: 'error' })
+            return
           }
           // Validation uniqueness of names for dynamic enumerations.
           for (let idx = 0; idx < targetField.options.length; idx++) {
@@ -2083,6 +2084,7 @@ export default {
           if (targetField.widget.includes('Text')) {
             if (!/^[-_.,`@#$%^&+=*!~)(:><?;№|\\/\s\w]+$/i.test(this.currValDynItem.value.toString().trim())) {
               this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
+              return
             }
           }
           // Validation of a field of type u32.
@@ -2090,6 +2092,7 @@ export default {
             // Checking the `Value` field for valid characters.
             if (!/^\d+$/i.test(this.currValDynItem.value.toString().trim())) {
               this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
+              return
             }
             // The value must not be less than zero.
             if (+this.currValDynItem.value < 0) {
@@ -2101,12 +2104,14 @@ export default {
           if (targetField.widget.includes('I32') || targetField.widget.includes('I64')) {
             if (!/^-?\d+$/.test(this.currValDynItem.value.toString().trim())) {
               this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
+              return
             }
           }
           // Validation of a field of type f64.
           if (targetField.widget.includes('F64')) {
             if (!/^-?\d+((\.|,)\d+)?$/.test(this.currValDynItem.value.toString().trim())) {
               this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
+              return
             }
           }
           // Convert to the appropriate numeric type.
