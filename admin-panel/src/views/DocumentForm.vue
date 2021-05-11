@@ -2079,7 +2079,13 @@ export default {
               return
             }
           }
-          // Validating a number like u32.
+          // Validation of a field of type text.
+          if (targetField.widget.includes('Text')) {
+            if (!/^[-_.,`@#$%^&+=*!~)(:><?;№|\\/\s\w]+$/i.test(this.currValDynItem.value.toString().trim())) {
+              this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
+            }
+          }
+          // Validation of a field of type u32.
           if (targetField.widget.includes('U32')) {
             // Checking the `Value` field for valid characters.
             if (!/^\d+$/i.test(this.currValDynItem.value.toString().trim())) {
@@ -2091,7 +2097,7 @@ export default {
               return
             }
           }
-          // Validating a number like i32 and i64.
+          // Validation of a field of type i32 and i64.
           if (targetField.widget.includes('I32') || targetField.widget.includes('I64')) {
             if (!/^-?\d+$/.test(this.currValDynItem.value.toString().trim())) {
               this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
