@@ -2103,6 +2103,12 @@ export default {
               this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
             }
           }
+          // Validation of a field of type f64.
+          if (targetField.widget.includes('F64')) {
+            if (!/^[+-]?\d+((\.|,)\d+)?$/.test(this.currValDynItem.value.toString().trim())) {
+              this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
+            }
+          }
           // Convert to the appropriate numeric type.
           if (targetField.widget.includes('I32') || targetField.widget.includes('U32') ||
             targetField.widget.includes('I64')) {
