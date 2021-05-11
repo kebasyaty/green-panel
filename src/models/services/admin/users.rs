@@ -47,7 +47,7 @@ pub struct AdminProfile {
         placeholder = "Upload your photo",
         accept = "image/jpeg,image/png",
         hint = "Image in JPEG or PNG format",
-        thumbnails = true
+        thumbnails = r#"[["xs",150],["sm",300]]"#
     )]
     pub photo: Option<String>,
     //
@@ -199,7 +199,7 @@ pub struct SellerProfile {
         accept = "image/jpeg,image/png",
         required = true,
         hint = "Upload your photo",
-        thumbnails = true
+        thumbnails = r#"[["xs",150],["sm",300]]"#
     )]
     pub photo: Option<String>,
     //
@@ -409,7 +409,7 @@ pub struct CustomerProfile {
         placeholder = "Image in (JPEG or PNG) format",
         accept = "image/jpeg,image/png",
         hint = "Upload your photo",
-        thumbnails = true
+        thumbnails = r#"[["xs",150],["sm",300]]"#
     )]
     pub photo: Option<String>,
     //
