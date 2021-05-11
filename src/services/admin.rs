@@ -421,15 +421,22 @@ pub mod request_handlers {
                             tmp_doc.insert(
                                 field_name,
                                 if let Ok(img_bson) = doc.get_document(field_name) {
-                                        let img_url = img_bson.get_str("url_xs").unwrap();
-                                        format!(
-                                            r#"<img class="rounded-lg mt-1" src="{}" height="60" alt="Image">"#,
-                                            if !img_url.is_empty() {
-                                                img_bson.get_str("url_sm").unwrap()
-                                            } else {
-                                                img_bson.get_str("url").unwrap()
+                                        let urls: [&str; 5] = ["url_xs", "url_sm", "url_md", "url_lg", "url"];
+                                        let mut img_url: &str = "";
+                                        for url in urls.iter() {
+                                            if let Ok(img) = img_bson.get_str(url) {
+                                                img_url = img;
+                                                break;
                                             }
-                                        )
+                                        }
+                                        if img_url.is_empty() {
+                                            format!(
+                                                r#"<img class="rounded-lg mt-1" src="{}" height="60" alt="Image">"#,
+                                                img_url
+                                            )
+                                        } else {
+                                            String::new()
+                                        }
                                 } else {
                                     String::new()
                                 }
