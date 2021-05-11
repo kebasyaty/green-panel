@@ -2082,7 +2082,7 @@ export default {
           // Validating a number like u32.
           if (targetField.widget.includes('U32')) {
             // Checking the `Value` field for valid characters.
-            if (!/^\d+$/i.test(this.currValDynItem.value)) {
+            if (!/^\d+$/i.test(this.currValDynItem.value.toString().trim())) {
               this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
             }
             // The value must not be less than zero.
@@ -2105,7 +2105,7 @@ export default {
           }
           // Prepare `options` for conversion to json-line.
           targetOptions[fieldName] = targetField.options.concat(this.currValDynItem)
-            .map(item => [item.value.toString(), item.title])
+            .map(item => [item.value.toString().trim(), item.title.trim()])
           break
         case 'delete':
           // Prepare `options` for conversion to json-line.
