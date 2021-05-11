@@ -2068,9 +2068,9 @@ export default {
 
       switch (mode) {
         case 'save':
-          // Checking the Title field for valid characters.
+          // Checking the `Title` field for valid characters.
           if (!/^[-_.,`@#$%^&+=*!~)(:><?;№|\\/\s\w]+$/i.test(this.currValDynItem.title)) {
-            this.runShowMsg({ text: `Title: ${this.$t('message.61')}`, status: 'error' })
+            this.runShowMsg({ text: this.$t('message.61'), status: 'error' })
           }
           // Validation uniqueness of names for dynamic enumerations.
           for (let idx = 0; idx < targetField.options.length; idx++) {
@@ -2079,8 +2079,13 @@ export default {
               return
             }
           }
-          // Validating a number like u32 - The value must not be less than zero.
+          // Validating a number like u32.
           if (targetField.widget.includes('U32')) {
+            // Checking the `Value` field for valid characters.
+            if (!/^[-_.,`@#$%^&+=*!~)(:><?;№|\\/\s\w]+$/i.test(this.currValDynItem.value)) {
+              this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
+            }
+            // The value must not be less than zero.
             if (+this.currValDynItem.value < 0) {
               this.runShowMsg({ text: `Title: ${this.currValDynItem.title}<br>Value: ${this.$t('message.34')}.`, status: 'error' })
               return
