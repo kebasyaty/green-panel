@@ -113,18 +113,18 @@ pub struct ElectricCar {
     // For testing and create screenshots
     //----------------------------------------------------------------------------------------------
     #[serde(default)]
-    #[field_attrs(widget = "selectI32Dyn", label = "I32")]
-    pub select_i32_dyn: Option<i32>,
+    #[field_attrs(widget = "inputColor", label = "Color")]
+    pub color: Option<String>,
     //
     #[serde(default)]
-    #[field_attrs(widget = "selectU32Dyn", label = "U32")]
-    pub select_u32_dyn: Option<u32>,
+    #[field_attrs(widget = "textArea", label = "Text")]
+    pub textarea: Option<String>,
     //
     #[serde(default)]
-    #[field_attrs(widget = "selectI64Dyn", label = "I64")]
-    pub select_i64_dyn: Option<i64>,
+    #[field_attrs(widget = "textArea", label = "Text Editor", css_classes = "ckeditor")]
+    pub text_editor: Option<String>,
     //
     #[serde(default)]
-    #[field_attrs(widget = "selectF64Dyn", label = "F64")]
-    pub select_f64_dyn: Option<f64>,
+    #[field_attrs(widget = "inputDateTime", label = "Datetime")]
+    pub datetime: Option<String>,
 }
