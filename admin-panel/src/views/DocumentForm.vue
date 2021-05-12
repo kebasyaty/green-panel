@@ -637,7 +637,6 @@
                     color="primary"
                     :disabled="field.disabled"
                     :readonly="field.readonly"
-                    :locale="$i18n.locale"
                     :min="field.min"
                   >
                     <v-spacer></v-spacer>
@@ -663,7 +662,6 @@
                     color="primary"
                     :disabled="field.disabled"
                     :readonly="field.readonly"
-                    :locale="$i18n.locale"
                     :max="field.max"
                   >
                     <v-spacer></v-spacer>
@@ -689,7 +687,6 @@
                     color="primary"
                     :disabled="field.disabled"
                     :readonly="field.readonly"
-                    :locale="$i18n.locale"
                     :min="field.min"
                     :max="field.max"
                   >
@@ -716,7 +713,6 @@
                     color="primary"
                     :disabled="field.disabled"
                     :readonly="field.readonly"
-                    :locale="$i18n.locale"
                   >
                     <v-spacer></v-spacer>
                     <v-btn
@@ -775,7 +771,6 @@
                         color="primary"
                         :disabled="field.disabled"
                         :readonly="field.readonly"
-                        :locale="$i18n.locale"
                         :min="field.min"
                       >
                         <v-spacer></v-spacer>
@@ -801,7 +796,6 @@
                         color="primary"
                         :disabled="field.disabled"
                         :readonly="field.readonly"
-                        :locale="$i18n.locale"
                         :max="field.max"
                       >
                         <v-spacer></v-spacer>
@@ -827,7 +821,6 @@
                         color="primary"
                         :disabled="field.disabled"
                         :readonly="field.readonly"
-                        :locale="$i18n.locale"
                         :min="field.min"
                         :max="field.max"
                       >
@@ -854,7 +847,6 @@
                         color="primary"
                         :disabled="field.disabled"
                         :readonly="field.readonly"
-                        :locale="$i18n.locale"
                       >
                         <v-spacer></v-spacer>
                         <v-btn
