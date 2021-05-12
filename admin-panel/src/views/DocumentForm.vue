@@ -1564,7 +1564,7 @@ export default {
             vMenu[field.name] = false
             field.min = field.min || ''
             field.max = field.max || ''
-            fieldsData[field.name] = field.value || ''
+            fieldsData[field.name] = field.value || null
             this.showWarning(field.common_msg)
             break
           case 'inputDateTime':
@@ -1573,7 +1573,7 @@ export default {
             field.min = field.min || ''
             field.max = field.max || ''
             tmp = field.value || ''
-            fieldsData[field.name] = tmp.substr(0, 10)
+            fieldsData[field.name] = tmp.length > 0 ? tmp.substr(0, 10) : null
             fieldsData[`${field.name}__time`] = tmp.length > 0 ? new Date(tmp + 'Z').toLocaleTimeString().slice(0, 5) : '00:00'
             this.showWarning(field.common_msg)
             break
