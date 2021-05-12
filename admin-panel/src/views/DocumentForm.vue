@@ -1823,7 +1823,7 @@ export default {
             // inputDateTime - Combining date and time.
             if (field.widget === 'inputDateTime') {
               if (cloneFieldsData[field.name]) {
-                cloneFieldsData[field.name] = cloneFieldsData[field.name] + 'T' + cloneFieldsData[`${field.name}__time`]
+                cloneFieldsData[field.name] = new Date(cloneFieldsData[field.name] + 'T' + cloneFieldsData[`${field.name}__time`]).toISOString().slice(0, 16)
               }
               delete cloneFieldsData[`${field.name}__time`]
             }
