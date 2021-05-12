@@ -1816,7 +1816,9 @@ export default {
             }
             // inputDateTime - Combining date and time.
             if (field.widget === 'inputDateTime') {
-              cloneFieldsData[field.name] = cloneFieldsData[field.name] + 'T' + cloneFieldsData[`${field.name}__time`]
+              if (cloneFieldsData[field.name !== null]) {
+                cloneFieldsData[field.name] = cloneFieldsData[field.name] + 'T' + cloneFieldsData[`${field.name}__time`]
+              }
               delete cloneFieldsData[`${field.name}__time`]
             }
             // Preparing data from fields of the `file` type.
