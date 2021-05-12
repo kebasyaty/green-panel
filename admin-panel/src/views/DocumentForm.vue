@@ -1827,7 +1827,11 @@ export default {
             // inputDateTime - Combining date and time.
             if (field.widget === 'inputDateTime') {
               if (cloneFieldsData[field.name]) {
-                cloneFieldsData[field.name] = new Date(cloneFieldsData[field.name] + 'T' + cloneFieldsData[`${field.name}__time`]).toISOString().slice(0, 16)
+                let localTime = cloneFieldsData[`${field.name}__time`]
+                if (!localTime) {
+                  localTime = new Date().toLocaleTimeString().slice(0, 5)
+                }
+                cloneFieldsData[field.name] = new Date(cloneFieldsData[field.name] + 'T' + localTime).toISOString().slice(0, 16)
               }
               delete cloneFieldsData[`${field.name}__time`]
             }
