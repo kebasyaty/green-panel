@@ -1584,7 +1584,7 @@ export default {
             vMenu[`${field.name}__time`] = false
             field.min = field.min || ''
             field.max = field.max || ''
-            tmp = field.value || ''
+            tmp = field.value || new Date().toString()
             fieldsData[field.name] = tmp.substr(0, 10)
             fieldsData[`${field.name}__time`] = new Date(tmp).toLocaleTimeString(this.$i18n.locale,
               { timeStyle: 'short', hour12: false })
