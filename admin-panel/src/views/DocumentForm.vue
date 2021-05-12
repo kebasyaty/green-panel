@@ -626,6 +626,7 @@
                       :error-messages="field.error"
                       v-bind="attrs"
                       v-on="on"
+                      @click:clear="fieldsData[fieldName] = null"
                     ></v-text-field>
                   </template>
                   <!-- only min -->
@@ -760,6 +761,7 @@
                           :error-messages="field.error"
                           v-bind="attrs"
                           v-on="on"
+                          @click:clear="fieldsData[fieldName] = null"
                         ></v-text-field>
                       </template>
                       <!-- only min -->
