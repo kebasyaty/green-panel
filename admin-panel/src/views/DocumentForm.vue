@@ -895,6 +895,7 @@
                           :class="field.css_classes"
                           v-bind="attrs"
                           v-on="on"
+                          @click:clear="fieldsData[`${field.name}__time`] = null"
                         ></v-text-field>
                       </template>
                       <v-time-picker
