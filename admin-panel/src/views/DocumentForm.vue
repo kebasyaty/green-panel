@@ -244,7 +244,7 @@
                         <v-btn
                           text
                           color="green"
-                          :disabled="currValDynItem.title || currValDynItem.value"
+                          :disabled="!currValDynItem.title || !currValDynItem.value"
                           @click="updateDynData(field.name, 'save')"
                         >{{ $t('message.19') }}</v-btn>
                       </v-card-actions>
