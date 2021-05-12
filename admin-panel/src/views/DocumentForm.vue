@@ -536,7 +536,7 @@
                       :error-messages="field.error"
                       v-bind="attrs"
                       v-on="on"
-                      @click:clear="fieldsData[fieldName] = '#00000000'"
+                      @click:clear="fieldsData[field.name] = '#00000000'"
                     ></v-text-field>
                   </template>
                   <v-card>
@@ -626,7 +626,7 @@
                       :error-messages="field.error"
                       v-bind="attrs"
                       v-on="on"
-                      @click:clear="fieldsData[fieldName] = null"
+                      @click:clear="fieldsData[field.name] = null"
                     ></v-text-field>
                   </template>
                   <!-- only min -->
@@ -761,7 +761,7 @@
                           :error-messages="field.error"
                           v-bind="attrs"
                           v-on="on"
-                          @click:clear="fieldsData[fieldName] = null"
+                          @click:clear="fieldsData[field.name] = null"
                         ></v-text-field>
                       </template>
                       <!-- only min -->
