@@ -1580,7 +1580,10 @@ export default {
             field.max = field.max || ''
             tmp = field.value || ''
             fieldsData[field.name] = tmp.length > 0 ? tmp.substr(0, 10) : null
-            fieldsData[`${field.name}__time`] = tmp.length > 0 ? new Date(tmp + 'Z').toLocaleTimeString().slice(0, 5) : '00:00'
+            fieldsData[`${field.name}__time`] =
+              tmp.length > 0 ? new Date(tmp + 'Z')
+                .toLocaleTimeString()
+                .slice(0, 5) : new Date().toLocaleTimeString().slice(0, 5)
             this.showWarning(field.common_msg)
             break
           case 'hiddenText':
