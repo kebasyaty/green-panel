@@ -536,7 +536,7 @@
                       :error-messages="field.error"
                       v-bind="attrs"
                       v-on="on"
-                      @click:clear="fieldsData[field.name] = '#00000000'"
+                      @input="defaultColor(field.name)"
                     ></v-text-field>
                   </template>
                   <v-card>
@@ -1313,6 +1313,12 @@ export default {
         result = 'number'
       }
       return result
+    },
+    // Default color.
+    defaultColor(fieldName) {
+      if (!this.fieldsData[fieldName]) {
+        this.fieldsData[fieldName] = '#00000000'
+      }
     },
     // Get the associative icon for the file.
     getFileIcon(extension) {
