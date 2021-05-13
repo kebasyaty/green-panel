@@ -2,7 +2,8 @@ export default {
   namespaced: true,
 
   state: {
-    overlayPageLockout: false
+    overlayPageLockout: false,
+    breaker: false
   },
 
   getters: {},
@@ -10,16 +11,25 @@ export default {
   mutations: {
     setOverlayPageLockout(state, flag) {
       state.overlayPageLockout = flag
+    },
+    setBreaker(state, flag) {
+      state.breaker = flag
     }
   },
 
   actions: {
     runShowOverlayPageLockout({ state, commit }, payload) {
       if (payload) {
-        commit('setOverlayPageLockout', true)
+        commit('setBreaker', true)
+        setTimeout(() => {
+          if (state.breaker) {
+            commit('setOverlayPageLockout', true)
+          }
+        }, 1000)
       } else {
+        commit('setBreaker', false)
         if (state.overlayPageLockout) {
-          setTimeout(() => commit('setOverlayPageLockout', false), 500)
+          setTimeout(() => commit('setOverlayPageLockout', false), 400)
         }
       }
     }
