@@ -99,7 +99,8 @@ const customColorPalette = [
   },
   {
     color: '#FFFFFF',
-    label: 'White'
+    label: 'White',
+    hasBorder: true
   }
 ]
 
