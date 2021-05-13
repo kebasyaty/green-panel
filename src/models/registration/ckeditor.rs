@@ -151,7 +151,8 @@ fn custom_color_palette() -> Value {
         },
         {
             "color": "#FFFFFF",
-            "label": "White"
+            "label": "White",
+            "hasBorder": true
         }
     ])
 }
