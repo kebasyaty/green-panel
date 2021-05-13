@@ -117,14 +117,16 @@ pub struct ElectricCar {
     pub color: Option<String>,
     //
     #[serde(default)]
+    #[field_attrs(widget = "inputDateTime", label = "Datetime")]
+    pub datetime: Option<String>,
+    //
+    #[serde(default)]
     #[field_attrs(widget = "textArea", label = "Text")]
     pub textarea: Option<String>,
     //
+    /*
     #[serde(default)]
     #[field_attrs(widget = "textArea", label = "Text Editor", css_classes = "ckeditor")]
     pub text_editor: Option<String>,
-    //
-    #[serde(default)]
-    #[field_attrs(widget = "inputDateTime", label = "Datetime")]
-    pub datetime: Option<String>,
+    */
 }
