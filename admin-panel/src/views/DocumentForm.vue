@@ -614,7 +614,7 @@
                       class="mt-0 pt-1"
                       clearable
                       :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                      v-model="fieldsData[field.name]"
+                      v-model="showLocalDate[field.name]"
                       :id="field.id"
                       :name="field.name"
                       :placeholder="field.placeholder"
@@ -639,6 +639,7 @@
                     :disabled="field.disabled"
                     :readonly="field.readonly"
                     :min="field.min"
+                    @change="updateLocalDate(field.name)"
                   >
                     <v-spacer></v-spacer>
                     <v-btn
@@ -664,6 +665,7 @@
                     :disabled="field.disabled"
                     :readonly="field.readonly"
                     :max="field.max"
+                    @change="updateLocalDate(field.name)"
                   >
                     <v-spacer></v-spacer>
                     <v-btn
@@ -690,6 +692,7 @@
                     :readonly="field.readonly"
                     :min="field.min"
                     :max="field.max"
+                    @change="updateLocalDate(field.name)"
                   >
                     <v-spacer></v-spacer>
                     <v-btn
@@ -714,6 +717,7 @@
                     color="primary"
                     :disabled="field.disabled"
                     :readonly="field.readonly"
+                    @change="updateLocalDate(field.name)"
                   >
                     <v-spacer></v-spacer>
                     <v-btn
@@ -749,7 +753,7 @@
                           class="mt-0 pt-1"
                           clearable
                           :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                          v-model="fieldsData[field.name]"
+                          v-model="showLocalDate[field.name]"
                           :id="field.id"
                           :name="field.name"
                           :placeholder="field.placeholder"
@@ -774,6 +778,7 @@
                         :disabled="field.disabled"
                         :readonly="field.readonly"
                         :min="field.min"
+                        @change="updateLocalDate(field.name)"
                       >
                         <v-spacer></v-spacer>
                         <v-btn
@@ -799,6 +804,7 @@
                         :disabled="field.disabled"
                         :readonly="field.readonly"
                         :max="field.max"
+                        @change="updateLocalDate(field.name)"
                       >
                         <v-spacer></v-spacer>
                         <v-btn
@@ -825,6 +831,7 @@
                         :readonly="field.readonly"
                         :min="field.min"
                         :max="field.max"
+                        @change="updateLocalDate(field.name)"
                       >
                         <v-spacer></v-spacer>
                         <v-btn
@@ -849,6 +856,7 @@
                         color="primary"
                         :disabled="field.disabled"
                         :readonly="field.readonly"
+                        @change="updateLocalDate(field.name)"
                       >
                         <v-spacer></v-spacer>
                         <v-btn
@@ -1231,7 +1239,8 @@ export default {
     dialogUpdatePassword: false,
     dataUpdatePassword: {
       passwordOld: null, passwordNew: null, passwordRepeat: null, formHasErrors: false
-    }
+    },
+    showLocalDate: {}
   }),
 
   computed: {
@@ -1320,6 +1329,11 @@ export default {
       if (!this.fieldsData[fieldName]) {
         this.fieldsData[fieldName] = '#00000000'
       }
+    },
+    // Update local date.
+    updateLocalDate(fieldName) {
+      this.showLocalDate[fieldName] = new Date(this.fieldsData[fieldName])
+        .toLocaleDateString([this.$i18n.locale, 'en'])
     },
     // Get the associative icon for the file.
     getFileIcon(extension) {
@@ -1572,6 +1586,9 @@ export default {
             field.min = field.min || ''
             field.max = field.max || ''
             fieldsData[field.name] = field.value || null
+            this.showLocalDate[field.name] =
+              field.value ? new Date(field.value)
+                .toLocaleDateString([this.$i18n.locale, 'en']) : ''
             this.showWarning(field.common_msg)
             break
           case 'inputDateTime':
@@ -1585,6 +1602,9 @@ export default {
               tmp.length > 0 ? new Date(tmp + 'Z')
                 .toLocaleTimeString()
                 .slice(0, 5) : new Date().toLocaleTimeString().slice(0, 5)
+            this.showLocalDate[field.name] =
+              field.value ? new Date(field.value)
+                .toLocaleDateString([this.$i18n.locale, 'en']) : ''
             this.showWarning(field.common_msg)
             break
           case 'hiddenText':
