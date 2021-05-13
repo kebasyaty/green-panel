@@ -109,10 +109,4 @@ pub struct ElectricCar {
         hint = "Number of seats"
     )]
     pub seats: Option<String>,
-    //
-    // For testing and create screenshots
-    //----------------------------------------------------------------------------------------------
-    #[serde(default)]
-    #[field_attrs(widget = "textArea", label = "Text Editor", css_classes = "ckeditor")]
-    pub text_editor: Option<String>,
 }
