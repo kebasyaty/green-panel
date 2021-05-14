@@ -64,3 +64,6 @@
 
 ## Image upload field
 ![Image upload field](https://github.com/kebasyaty/mango-panel/raw/main/images/7.png "Image upload field")
+
+## File upload field
+![File upload field](https://github.com/kebasyaty/mango-panel/raw/main/images/12.png "File upload field")
