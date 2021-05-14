@@ -20,9 +20,9 @@
 - **mango-orm -** [https://crates.io/crates/mango-orm](https://crates.io/crates/mango-orm "https://crates.io/crates/mango-orm")
 - **metamorphose -** [https://crates.io/crates/metamorphose](https://crates.io/crates/metamorphose "https://crates.io/crates/metamorphose")
 - **regex -** [https://crates.io/crates/regex](https://crates.io/crates/regex "https://crates.io/crates/regex")
-- **sanitize-filename -**
-- **serde_json -**
-- **str_slug -**
+- **sanitize-filename -** [https://crates.io/crates/sanitize-filename](https://crates.io/crates/sanitize-filename "https://crates.io/crates/sanitize-filename")
+- **serde_json -** [https://crates.io/crates/serde_json](https://crates.io/crates/serde_json "https://crates.io/crates/serde_json")
+- **str_slug -** [https://crates.io/crates/str_slug](https://crates.io/crates/str_slug "https://crates.io/crates/str_slug")
 - **uuid -**
 - **serde -**
 - **tera -**
