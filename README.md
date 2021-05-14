@@ -50,3 +50,6 @@
 
 ## Welcome page
 ![Welcome page](https://github.com/kebasyaty/mango-panel/raw/main/images/2.png "Welcome page")
+
+## List of documents
+![List of documents](https://github.com/kebasyaty/mango-panel/raw/main/images/3.png "List of documents")
