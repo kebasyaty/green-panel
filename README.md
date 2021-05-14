@@ -23,10 +23,10 @@
 - **sanitize-filename -** [https://crates.io/crates/sanitize-filename](https://crates.io/crates/sanitize-filename "https://crates.io/crates/sanitize-filename")
 - **serde_json -** [https://crates.io/crates/serde_json](https://crates.io/crates/serde_json "https://crates.io/crates/serde_json")
 - **str_slug -** [https://crates.io/crates/str_slug](https://crates.io/crates/str_slug "https://crates.io/crates/str_slug")
-- **uuid -**
-- **serde -**
-- **tera -**
-- **mongodb -**
+- **uuid -** [https://crates.io/crates/uuid](https://crates.io/crates/uuid "https://crates.io/crates/uuid")
+- **serde -** [https://crates.io/crates/serde](https://crates.io/crates/serde "https://crates.io/crates/serde")
+- **tera -** [https://crates.io/crates/tera](https://crates.io/crates/tera "https://crates.io/crates/tera")
+- **mongodb -** [https://crates.io/crates/mongodb](https://crates.io/crates/mongodb "https://crates.io/crates/mongodb")
 - **Vue.js -** [https://vuejs.org/](https://vuejs.org/ "https://vuejs.org/")
 - **Vuetify.js -** [https://vuetifyjs.com/](https://vuetifyjs.com/ "https://vuetifyjs.com/")
 
