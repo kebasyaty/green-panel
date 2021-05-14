@@ -5,28 +5,28 @@
 ### Admin panel for easy use of [mango-orm](https://github.com/kebasyaty/mango-orm "mango-orm").  This example uses [actix-web](https://github.com/actix/actix-web "actix-web") . Other frameworks can be used by this analogy.
 
 ## Requirements
-- **actix-cors**
-- **actix-files**
-- **actix-http**
-- **actix-multipart**
-- **actix-rt**
-- **actix-session**
-- **actix-web**
-- **base64**
-- **chrono**
-- **env_logger**
-- **futures**
-- **humansize**
-- **mango-orm**
-- **metamorphose**
-- **regex**
-- **sanitize-filename**
-- **serde_json**
-- **str_slug**
-- **uuid**
-- **serde**
-- **tera**
-- **mongodb**
+- **actix-cors -** [https://github.com/actix/actix-extras](https://github.com/actix/actix-extras "https://github.com/actix/actix-extras")
+- **actix-files -**
+- **actix-http -**
+- **actix-multipart -**
+- **actix-rt -**
+- **actix-session -**
+- **actix-web -**
+- **base64 -**
+- **chrono -**
+- **env_logger -**
+- **futures -**
+- **humansize -**
+- **mango-orm -**
+- **metamorphose -**
+- **regex -**
+- **sanitize-filename -**
+- **serde_json -**
+- **str_slug -**
+- **uuid -**
+- **serde -**
+- **tera -**
+- **mongodb -**
 - **Vue.js -** [https://vuejs.org/](https://vuejs.org/ "https://vuejs.org/")
 - **Vuetify.js -** [https://vuetifyjs.com/](https://vuetifyjs.com/ "https://vuetifyjs.com/")
 
