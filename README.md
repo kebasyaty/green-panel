@@ -46,10 +46,8 @@
 - **Default login:** admin
 - **Default password:** 12345678
 
-###  Login page
-------------
+##  Login page
 ![Login page](https://github.com/kebasyaty/mango-panel/raw/main/images/1.png "Login page")
 
-### Welcome page
-------------
+## Welcome page
 ![Welcome page](https://github.com/kebasyaty/mango-panel/raw/main/images/2.png "Welcome page")
