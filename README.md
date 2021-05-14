@@ -30,6 +30,9 @@
 - **Vue.js -** [https://vuejs.org/](https://vuejs.org/ "https://vuejs.org/")
 - **Vuetify.js -** [https://vuetifyjs.com/](https://vuetifyjs.com/ "https://vuetifyjs.com/")
 
+## Hint
+#### Complete documentation is temporarily unavailable. [Use tests for examples.](https://github.com/kebasyaty/mango-orm/tree/master/test-drive/tests "Use tests for examples.")
+
 ## Quick start
 #### 1.  Install mongodb (if not installed)
     ### Ubuntu, Mint:
