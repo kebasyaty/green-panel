@@ -89,6 +89,7 @@
 ![ Document form](https://github.com/kebasyaty/mango-panel/raw/main/images/4.png " Document form")
 
 ## Example of using a dynamic widget
+#### Dynamic Widgets - This is a simplified alternative to `ForeignKey` and ` ManyToMan`. Dynamic widgets are used to create document-style categories.
 ![Example of using a dynamic widget](https://github.com/kebasyaty/mango-panel/raw/main/images/6.png "Example of using a dynamic widget")
 
 ## Image upload field
