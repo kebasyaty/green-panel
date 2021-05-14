@@ -10,8 +10,8 @@
 - **actix-http -** [https://crates.io/crates/actix-http](https://crates.io/crates/actix-http "https://crates.io/crates/actix-http")
 - **actix-multipart -** [https://crates.io/crates/actix-multipart](https://crates.io/crates/actix-multipart "https://crates.io/crates/actix-multipart")
 - **actix-rt -** [https://crates.io/crates/actix-rt](https://crates.io/crates/actix-rt "https://crates.io/crates/actix-rt")
-- **actix-session -**
-- **actix-web -**
+- **actix-session -** [https://crates.io/crates/actix-session](https://crates.io/crates/actix-session "https://crates.io/crates/actix-session")
+- **actix-web -** [https://crates.io/crates/actix-web](https://crates.io/crates/actix-web "https://crates.io/crates/actix-web")
 - **base64 -**
 - **chrono -**
 - **env_logger -**
