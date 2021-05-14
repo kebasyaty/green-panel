@@ -14,9 +14,9 @@
 - **actix-web -** [https://crates.io/crates/actix-web](https://crates.io/crates/actix-web "https://crates.io/crates/actix-web")
 - **base64 -** [https://crates.io/crates/base64](https://crates.io/crates/base64 "https://crates.io/crates/base64")
 - **chrono -** [https://crates.io/crates/chrono](https://crates.io/crates/chrono "https://crates.io/crates/chrono")
-- **env_logger -**
-- **futures -**
-- **humansize -**
+- **env_logger -** [https://crates.io/crates/env_logger](https://crates.io/crates/env_logger "https://crates.io/crates/env_logger")
+- **futures -** [https://crates.io/crates/futures](https://crates.io/crates/futures "https://crates.io/crates/futures")
+- **humansize -** [https://crates.io/crates/humansize](https://crates.io/crates/humansize "https://crates.io/crates/humansize")
 - **mango-orm -**
 - **metamorphose -**
 - **regex -**
