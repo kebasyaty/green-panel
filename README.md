@@ -61,3 +61,6 @@
 
 ## Example of using a dynamic widget
 ![Example of using a dynamic widget](https://github.com/kebasyaty/mango-panel/raw/main/images/6.png "Example of using a dynamic widget")
+
+## Image upload field
+![Image upload field](https://github.com/kebasyaty/mango-panel/raw/main/images/7.png "Image upload field")
