@@ -67,3 +67,6 @@
 
 ## File upload field
 ![File upload field](https://github.com/kebasyaty/mango-panel/raw/main/images/12.png "File upload field")
+
+## Color selection field
+![Color selection field](https://github.com/kebasyaty/mango-panel/raw/main/images/8.png "Color selection field")
