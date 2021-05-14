@@ -28,7 +28,7 @@
 - **tera**
 - **mongodb**
 - **Vue.js -** [https://vuejs.org/](https://vuejs.org/ "https://vuejs.org/")
-- **Vuetify.js** [https://vuetifyjs.com/](https://vuetifyjs.com/ "https://vuetifyjs.com/")
+- **Vuetify.js -** [https://vuetifyjs.com/](https://vuetifyjs.com/ "https://vuetifyjs.com/")
 
 ## Quick start
 #### 1.  Install mongodb (if not installed)
