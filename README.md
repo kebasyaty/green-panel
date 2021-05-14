@@ -103,4 +103,8 @@
 ![Date and time field](https://github.com/kebasyaty/mango-panel/raw/main/images/10.png "Date and time field")
 
 ## Field `textarea` type and pulse CKEditor 5
+#### Usag CKEditor 5 with `textArea` widget
+    #[serde(default)]
+    #[field_attrs(widget = "textArea", label = "Text Editor", css_classes = "ckeditor")]
+    pub text_editor: Option<String>,
 ![Field `textarea` type and pulse CKEditor 5](https://github.com/kebasyaty/mango-panel/raw/main/images/11.png "Field `textarea` type and pulse CKEditor 5")
