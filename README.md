@@ -54,5 +54,7 @@
 ## List of documents
 ![List of documents](https://github.com/kebasyaty/mango-panel/raw/main/images/3.png "List of documents")
 
+![List of documents](https://github.com/kebasyaty/mango-panel/raw/main/images/5.png "List of documents")
+
 ## Document form
 ![ Document form](https://github.com/kebasyaty/mango-panel/raw/main/images/4.png " Document form")
