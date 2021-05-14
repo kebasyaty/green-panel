@@ -7,7 +7,7 @@
 ## Requirements
 - **actix-cors -** [https://crates.io/crates/actix-cors](https://crates.io/crates/actix-cors "https://crates.io/crates/actix-cors")
 - **actix-files -** [https://crates.io/crates/actix-files](https://crates.io/crates/actix-files "https://crates.io/crates/actix-files")
-- **actix-http -** [https://crates.io/crates/actix-http](http://https://crates.io/crates/actix-http "https://crates.io/crates/actix-http")
+- **actix-http -** [https://crates.io/crates/actix-http](https://crates.io/crates/actix-http "https://crates.io/crates/actix-http")
 - **actix-multipart -**
 - **actix-rt -**
 - **actix-session -**
