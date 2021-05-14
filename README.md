@@ -12,8 +12,8 @@
 - **actix-rt -** [https://crates.io/crates/actix-rt](https://crates.io/crates/actix-rt "https://crates.io/crates/actix-rt")
 - **actix-session -** [https://crates.io/crates/actix-session](https://crates.io/crates/actix-session "https://crates.io/crates/actix-session")
 - **actix-web -** [https://crates.io/crates/actix-web](https://crates.io/crates/actix-web "https://crates.io/crates/actix-web")
-- **base64 -**
-- **chrono -**
+- **base64 -** [https://crates.io/crates/base64](https://crates.io/crates/base64 "https://crates.io/crates/base64")
+- **chrono -** [https://crates.io/crates/chrono](https://crates.io/crates/chrono "https://crates.io/crates/chrono")
 - **env_logger -**
 - **futures -**
 - **humansize -**
