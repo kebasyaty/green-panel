@@ -6,7 +6,7 @@
 
 ## Quick start
 #### 1.  Install mongodb (if not installed)
-     # Ubuntu, Mint:
+    # Ubuntu, Mint:
     $ sudo apt install mongodb
     # OR
     $ sudo apt update
@@ -38,13 +38,13 @@
 
 #### 2. [Download and unzip the project archive](https://github.com/kebasyaty/mango-panel/archive/refs/heads/main.zip "Download and unzip the project archive")
 #### 3. Go to the project directory and run the following commands:
-$ cargo build
-$ cargo run
-Open in a web browser http://127.0.0.1:8088/admin
+    $ cargo build
+    $ cargo run
+    Open in a web browser http://127.0.0.1:8088/admin
 
 #### On the first visit to the panel, the first user with administrator rights will be created.
-**Default login:** admin
-**Default password:** 12345678
+- **Default login:** admin
+- **Default password:** 12345678
 
 #### Login page
 ------------
