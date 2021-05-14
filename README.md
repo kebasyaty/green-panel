@@ -42,11 +42,10 @@
     $ cargo run
     Open in a web browser http://127.0.0.1:8088/admin
 
+##  Login page
 ##### *On the first visit to the panel, the first user with administrator rights will be created.*
 - **Default login:** admin
 - **Default password:** 12345678
-
-##  Login page
 ![Login page](https://github.com/kebasyaty/mango-panel/raw/main/images/1.png "Login page")
 
 ## Welcome page
