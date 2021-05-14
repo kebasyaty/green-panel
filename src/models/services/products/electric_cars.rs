@@ -109,4 +109,8 @@ pub struct ElectricCar {
         hint = "Number of seats"
     )]
     pub seats: Option<String>,
+    //
+    #[serde(default)]
+    #[field_attrs(widget = "inputDateTime", label = "Datetime")]
+    pub datetime: Option<String>,
 }
