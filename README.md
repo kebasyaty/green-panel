@@ -5,9 +5,9 @@
 ### Admin panel for easy use of [mango-orm](https://github.com/kebasyaty/mango-orm "mango-orm").  This example uses [actix-web](https://github.com/actix/actix-web "actix-web") . Other frameworks can be used by this analogy.
 
 ## Requirements
-- **actix-cors -** [https://github.com/actix/actix-extras](https://github.com/actix/actix-extras "https://github.com/actix/actix-extras")
-- **actix-files -**
-- **actix-http -**
+- **actix-cors -** [https://crates.io/crates/actix-cors](https://crates.io/crates/actix-cors "https://crates.io/crates/actix-cors")
+- **actix-files -** [https://crates.io/crates/actix-files](https://crates.io/crates/actix-files "https://crates.io/crates/actix-files")
+- **actix-http -** [https://crates.io/crates/actix-http](http://https://crates.io/crates/actix-http "https://crates.io/crates/actix-http")
 - **actix-multipart -**
 - **actix-rt -**
 - **actix-session -**
