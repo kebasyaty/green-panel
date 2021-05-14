@@ -17,9 +17,9 @@
 - **env_logger -** [https://crates.io/crates/env_logger](https://crates.io/crates/env_logger "https://crates.io/crates/env_logger")
 - **futures -** [https://crates.io/crates/futures](https://crates.io/crates/futures "https://crates.io/crates/futures")
 - **humansize -** [https://crates.io/crates/humansize](https://crates.io/crates/humansize "https://crates.io/crates/humansize")
-- **mango-orm -**
-- **metamorphose -**
-- **regex -**
+- **mango-orm -** [https://crates.io/crates/mango-orm](https://crates.io/crates/mango-orm "https://crates.io/crates/mango-orm")
+- **metamorphose -** [https://crates.io/crates/metamorphose](https://crates.io/crates/metamorphose "https://crates.io/crates/metamorphose")
+- **regex -** [https://crates.io/crates/regex](https://crates.io/crates/regex "https://crates.io/crates/regex")
 - **sanitize-filename -**
 - **serde_json -**
 - **str_slug -**
