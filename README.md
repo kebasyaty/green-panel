@@ -70,3 +70,8 @@
 
 ## Color selection field
 ![Color selection field](https://github.com/kebasyaty/mango-panel/raw/main/images/8.png "Color selection field")
+
+## Date and time field
+![Date and time field](https://github.com/kebasyaty/mango-panel/raw/main/images/9.png "Date and time field")
+
+![Date and time field](https://github.com/kebasyaty/mango-panel/raw/main/images/10.png "Date and time field")
