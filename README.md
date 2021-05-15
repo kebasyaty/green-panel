@@ -27,6 +27,7 @@
 - **serde -** [https://crates.io/crates/serde](https://crates.io/crates/serde "https://crates.io/crates/serde")
 - **tera -** [https://crates.io/crates/tera](https://crates.io/crates/tera "https://crates.io/crates/tera")
 - **mongodb -** [https://crates.io/crates/mongodb](https://crates.io/crates/mongodb "https://crates.io/crates/mongodb")
+- -
 - **Vue.js -** [https://vuejs.org/](https://vuejs.org/ "https://vuejs.org/")
 - **Vuetify.js -** [https://vuetifyjs.com/](https://vuetifyjs.com/ "https://vuetifyjs.com/")
 
