@@ -106,7 +106,7 @@
 
 ![Date and time field](https://github.com/kebasyaty/mango-panel/raw/main/images/10.png "Date and time field")
 
-## Field `textarea` type and pulse CKEditor 5
+## Field `textarea` type and CKEditor 5
 ###### *There are two problems - There is no support for images and tables are not working well.*
 ##### Usag CKEditor 5 with `textArea` widget
     #[serde(default)]
