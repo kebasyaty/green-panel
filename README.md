@@ -102,6 +102,7 @@
 ![Color selection field](https://github.com/kebasyaty/mango-panel/raw/main/images/8.png "Color selection field")
 
 ## Date and time field
+#### In the database, the date and time are stored in UTC format. In the admin panel, the date and time are displayed as local.
 ![Date and time field](https://github.com/kebasyaty/mango-panel/raw/main/images/9.png "Date and time field")
 
 ![Date and time field](https://github.com/kebasyaty/mango-panel/raw/main/images/10.png "Date and time field")
