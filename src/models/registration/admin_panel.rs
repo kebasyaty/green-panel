@@ -139,7 +139,7 @@ pub fn get_document_reg(
             let object_id = users::AdminProfile::hash_to_id(doc_hash)?;
             let filter = doc! {"_id": object_id};
             let output_data = users::AdminProfile::find_one(Some(filter), None).unwrap();
-            if output_data.bool() {
+            if output_data.is_valid() {
                 json = output_data
                     .model::<users::AdminProfile>()
                     .unwrap()
@@ -155,7 +155,7 @@ pub fn get_document_reg(
             let object_id = users::SellerProfile::hash_to_id(doc_hash)?;
             let filter = doc! {"_id": object_id};
             let output_data = users::SellerProfile::find_one(Some(filter), None).unwrap();
-            if output_data.bool() {
+            if output_data.is_valid() {
                 json = output_data
                     .model::<users::SellerProfile>()
                     .unwrap()
@@ -171,7 +171,7 @@ pub fn get_document_reg(
             let object_id = users::CustomerProfile::hash_to_id(doc_hash)?;
             let filter = doc! {"_id": object_id};
             let output_data = users::CustomerProfile::find_one(Some(filter), None).unwrap();
-            if output_data.bool() {
+            if output_data.is_valid() {
                 json = output_data
                     .model::<users::CustomerProfile>()
                     .unwrap()
@@ -187,7 +187,7 @@ pub fn get_document_reg(
             let object_id = electric_cars::ElectricCar::hash_to_id(doc_hash)?;
             let filter = doc! {"_id": object_id};
             let output_data = electric_cars::ElectricCar::find_one(Some(filter), None).unwrap();
-            if output_data.bool() {
+            if output_data.is_valid() {
                 json = output_data
                     .model::<electric_cars::ElectricCar>()
                     .unwrap()

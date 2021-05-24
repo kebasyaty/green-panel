@@ -143,7 +143,7 @@ pub mod request_handlers {
             // Search for a user in the database
             let output_data = users::AdminProfile::find_one(filter, None).unwrap();
             // Check search result
-            if output_data.bool() {
+            if output_data.is_valid() {
                 // Get an instance of a User model
                 let user = output_data.model::<users::AdminProfile>().unwrap();
                 // Check password
@@ -791,7 +791,7 @@ pub mod request_handlers {
                 let object_id = users::AdminProfile::hash_to_id(query.doc_hash.as_str()).unwrap();
                 let filter = doc! {"_id": object_id};
                 let output_data = users::AdminProfile::find_one(Some(filter), None).unwrap();
-                if output_data.bool() {
+                if output_data.is_valid() {
                     if let Ok(instance) = output_data.model::<users::AdminProfile>() {
                         if !instance
                             .update_password(
