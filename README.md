@@ -37,9 +37,9 @@
     To change the panel language, follow the path: mango-panel/src/services/admin.rs -> LANGUAGE_CODE
 #### If there is no translation for your language:
 -  Make a "Pull request" on the GitHub so that I can add your translation.
--  **OR:**
--  **1.**[Download the file with the English translation.](https://github.com/kebasyaty/mango-panel/raw/main/admin-panel/src/i18n/lang/en.js  "Download the file with the English translation.")
-- **2.**Translate the file into your language and send to kebasyaty@gmail.com
+-  OR:
+-  1.[Download the file with the English translation.](https://github.com/kebasyaty/mango-panel/raw/main/admin-panel/src/i18n/lang/en.js  "Download the file with the English translation.")
+- 2.Translate the file into your language and send to kebasyaty@gmail.com
 
 ## Quick start
 #### 1.  Install mongodb (if not installed)
