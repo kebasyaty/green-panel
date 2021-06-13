@@ -32,7 +32,14 @@
 - **Vuetify.js -** [https://vuetifyjs.com/](https://vuetifyjs.com/ "https://vuetifyjs.com/")
 
 ## Hint
-#### [Use tests for examples.](https://github.com/kebasyaty/mango-orm/tree/master/test-drive/tests "Use tests for examples.")
+#### 1) For examples of Model fields, use [tests](https://github.com/kebasyaty/mango-orm/tree/master/test-drive/tests "tests").
+#### 2) Translations for the panel:
+    To change the panel language, follow the path: mango-panel/src/services/admin.rs -> LANGUAGE_CODE
+#### If there is no translation for your language:
+Make a "Pull request" on the GitHub so that I can add your translation.
+**OR:**
+**1.**[Download the file with the English translation.](https://github.com/kebasyaty/mango-panel/raw/main/admin-panel/src/i18n/lang/en.js "Download the file with the English translation.")
+**2.**Translate the file into your language and send to kebasyaty@gmail.com
 
 ## Quick start
 #### 1.  Install mongodb (if not installed)
