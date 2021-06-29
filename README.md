@@ -46,6 +46,7 @@
     ### Ubuntu, Mint:
     $ sudo apt install mongodb
     ## OR
+    ### Ubuntu 20.04, Mint 19.x:
     $ sudo apt update
     $ sudo apt install dirmngr gnupg apt-transport-https ca-certificates
     $ wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
@@ -67,7 +68,7 @@
     ### Uninstall:
     $ sudo service mongod stop
     $ sudo service mongod disable
-    $ sudo apt purge mongodb    # OR (for 4.4) - $ sudo apt-get purge mongodb-org*
+    $ sudo apt purge mongodb-org*
     $ sudo rm -r /var/log/mongodb
     $ sudo rm -r /var/lib/mongodb
     $ sudo rm -f /etc/mongod.conf
