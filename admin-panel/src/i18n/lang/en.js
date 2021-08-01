@@ -26,7 +26,7 @@ export default {
     22: 'Add new item',
     23: 'Title',
     24: 'Value',
-    25: 'Create a new document',
+    25: 'Add document',
     26: 'New document',
     27: 'Access denied',
     28: 'Size',
