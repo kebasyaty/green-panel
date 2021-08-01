@@ -126,7 +126,7 @@
                   <!-- Title of field. -->
                   <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">
                     {{ field.label }}
-                    <span v-if="field.required" class="red--text pl-2">&#9733;</span>
+                    <span v-if="field.required" class="red--text pl-2">&#9913;</span>
                   </v-card-title>
                   <!-- Hint for field. -->
                   <v-card-subtitle
