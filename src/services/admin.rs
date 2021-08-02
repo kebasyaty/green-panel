@@ -89,8 +89,6 @@ pub mod request_handlers {
                     // Min size: 8
                     password: Some("12345678".into()),
                     confirm_password: Some("12345678".into()),
-                    is_staff: Some(true),
-                    is_active: Some(true),
                     ..Default::default()
                 };
                 let result = first_user.save(None, None).unwrap();
