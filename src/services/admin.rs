@@ -16,10 +16,7 @@ use mongodb::{
 use serde::Deserialize;
 use serde_json::{json, Value};
 
-use crate::models::{
-    registration::{admin_panel, ckeditor},
-    services::admin::users,
-};
+use crate::models::{registration::admin_panel, services::admin::users};
 use mango_orm::{QCommon, QPaladins, ToModel, FORM_STORE, MONGODB_CLIENT_STORE};
 
 pub use configure_urls::*;
@@ -30,13 +27,6 @@ use crate::settings::general::MAX_UPLOAD_SIZE;
 
 const BRAND: &str = "Сompany Name";
 const SLOGAN: &str = "Brief description of the company.";
-// CKEditor supported languages:
-// af | ar | ast | az | bg | ca | cs | da | de | de-ch | el | en-au |
-// en-gb | eo | es | et | eu | fa | fi | fr | gl | gu | he | hi |
-// hr | hu | id | it | ja | km | kn | ko | ku | lt | lv | ms |
-// nb | ne | nl | no | oc | pl | pt | pt-br | ro | ru | si | sk |
-// sl | sq | sr | sr-latn | sv | th | tk | tr | tt | ug | uk | vi |
-// zh | zh-cn
 const LANGUAGE_CODE: &str = "en";
 
 fn admin_file_path(inner_path: &str) -> String {
@@ -208,7 +198,6 @@ pub mod request_handlers {
                 "slogan": SLOGAN,
                 "language_code": LANGUAGE_CODE,
                 "service_list": admin_panel::service_list(),
-                "config_ckeditor": ckeditor::config_ckeditor("default"),
                 "msg_err": msg_err
             })))
     }

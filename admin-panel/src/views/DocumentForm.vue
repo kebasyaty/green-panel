@@ -566,36 +566,24 @@
                 </v-menu>
 
                 <!-- Textarea fields -->
-                <div
+                <v-textarea
+                  class="mt-0 pt-1"
                   v-if="field.widget === 'textArea'"
-                  :class="field.css_classes.includes('ckeditor') ? 'mt-1 mb-2' : ''"
-                >
-                  <ckeditor
-                    v-if="field.css_classes.includes('ckeditor')"
-                    :editor="classicCKEditor"
-                    v-model="fieldsData[field.name]"
-                    :config="configEditor"
-                    :disabled="field.disabled"
-                  ></ckeditor>
-                  <v-textarea
-                    class="mt-0 pt-1"
-                    v-else
-                    counter
-                    clearable
-                    :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
-                    v-model="fieldsData[field.name]"
-                    :id="field.id"
-                    :name="field.name"
-                    :placeholder="field.placeholder"
-                    :required="field.required"
-                    :disabled="field.disabled"
-                    :readonly="field.readonly"
-                    :maxlength="field.maxlength"
-                    :class="field.css_classes"
-                    :messages="field.warning"
-                    :error-messages="field.error"
-                  ></v-textarea>
-                </div>
+                  counter
+                  clearable
+                  :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+                  v-model="fieldsData[field.name]"
+                  :id="field.id"
+                  :name="field.name"
+                  :placeholder="field.placeholder"
+                  :required="field.required"
+                  :disabled="field.disabled"
+                  :readonly="field.readonly"
+                  :maxlength="field.maxlength"
+                  :class="field.css_classes"
+                  :messages="field.warning"
+                  :error-messages="field.error"
+                ></v-textarea>
 
                 <!-- Date fields -->
                 <v-menu
@@ -1115,109 +1103,6 @@
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
 
-// CKEditor 5
-import ClassicCKEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor'
-// Plugins
-import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials'
-import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold'
-import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic'
-import UnderlinePlugin from '@ckeditor/ckeditor5-basic-styles/src/underline'
-import StrikethroughPlugin from '@ckeditor/ckeditor5-basic-styles/src/strikethrough'
-import SubscriptPlugin from '@ckeditor/ckeditor5-basic-styles/src/subscript'
-import SuperscriptPlugin from '@ckeditor/ckeditor5-basic-styles/src/superscript'
-import LinkPlugin from '@ckeditor/ckeditor5-link/src/link'
-import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph'
-import AutoformatPlugin from '@ckeditor/ckeditor5-autoformat/src/autoformat'
-import BlockQuotePlugin from '@ckeditor/ckeditor5-block-quote/src/blockquote'
-import HeadingPlugin from '@ckeditor/ckeditor5-heading/src/heading'
-import ListPlugin from '@ckeditor/ckeditor5-list/src/list'
-import TodoListPlugin from '@ckeditor/ckeditor5-list/src/todolist'
-import AlignmentPlugin from '@ckeditor/ckeditor5-alignment/src/alignment'
-import FontPlugin from '@ckeditor/ckeditor5-font/src/font'
-import HighlightPlugin from '@ckeditor/ckeditor5-highlight/src/highlight'
-import HorizontalLinePlugin from '@ckeditor/ckeditor5-horizontal-line/src/horizontalline'
-import IndentPlugin from '@ckeditor/ckeditor5-indent/src/indent'
-import IndentBlockPlugin from '@ckeditor/ckeditor5-indent/src/indentblock'
-import TextPartLanguagePlugin from '@ckeditor/ckeditor5-language/src/textpartlanguage'
-import MediaEmbedPlugin from '@ckeditor/ckeditor5-media-embed/src/mediaembed'
-import PageBreakPlugin from '@ckeditor/ckeditor5-page-break/src/pagebreak'
-import RemoveFormatPlugin from '@ckeditor/ckeditor5-remove-format/src/removeformat'
-import SelectAllPlugin from '@ckeditor/ckeditor5-select-all/src/selectall'
-import SpecialCharactersPlugin from '@ckeditor/ckeditor5-special-characters/src/specialcharacters'
-import SpecialCharactersEssentialsPlugin from '@ckeditor/ckeditor5-special-characters/src/specialcharactersessentials'
-import TablePlugin from '@ckeditor/ckeditor5-table/src/table'
-import TableToolbarPlugin from '@ckeditor/ckeditor5-table/src/tabletoolbar'
-import TablePropertiesPlugin from '@ckeditor/ckeditor5-table/src/tableproperties'
-import TableCellPropertiesPlugin from '@ckeditor/ckeditor5-table/src/tablecellproperties'
-import WordCountPlugin from '@ckeditor/ckeditor5-word-count/src/wordcount'
-import CodePlugin from '@ckeditor/ckeditor5-basic-styles/src/code'
-import CodeBlockPlugin from '@ckeditor/ckeditor5-code-block/src/codeblock'
-import PasteFromOfficePlugin from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice'
-import ClipboardPlugin from '@ckeditor/ckeditor5-clipboard/src/clipboard'
-// Translations
-import '@ckeditor/ckeditor5-build-classic/build/translations/af'
-import '@ckeditor/ckeditor5-build-classic/build/translations/ar'
-import '@ckeditor/ckeditor5-build-classic/build/translations/ast'
-import '@ckeditor/ckeditor5-build-classic/build/translations/az'
-import '@ckeditor/ckeditor5-build-classic/build/translations/bg'
-import '@ckeditor/ckeditor5-build-classic/build/translations/ca'
-import '@ckeditor/ckeditor5-build-classic/build/translations/cs'
-import '@ckeditor/ckeditor5-build-classic/build/translations/da'
-import '@ckeditor/ckeditor5-build-classic/build/translations/de'
-import '@ckeditor/ckeditor5-build-classic/build/translations/de-ch'
-import '@ckeditor/ckeditor5-build-classic/build/translations/el'
-import '@ckeditor/ckeditor5-build-classic/build/translations/en-au'
-import '@ckeditor/ckeditor5-build-classic/build/translations/en-gb'
-import '@ckeditor/ckeditor5-build-classic/build/translations/eo'
-import '@ckeditor/ckeditor5-build-classic/build/translations/es'
-import '@ckeditor/ckeditor5-build-classic/build/translations/et'
-import '@ckeditor/ckeditor5-build-classic/build/translations/eu'
-import '@ckeditor/ckeditor5-build-classic/build/translations/fa'
-import '@ckeditor/ckeditor5-build-classic/build/translations/fi'
-import '@ckeditor/ckeditor5-build-classic/build/translations/fr'
-import '@ckeditor/ckeditor5-build-classic/build/translations/gl'
-import '@ckeditor/ckeditor5-build-classic/build/translations/gu'
-import '@ckeditor/ckeditor5-build-classic/build/translations/he'
-import '@ckeditor/ckeditor5-build-classic/build/translations/hi'
-import '@ckeditor/ckeditor5-build-classic/build/translations/hr'
-import '@ckeditor/ckeditor5-build-classic/build/translations/hu'
-import '@ckeditor/ckeditor5-build-classic/build/translations/id'
-import '@ckeditor/ckeditor5-build-classic/build/translations/it'
-import '@ckeditor/ckeditor5-build-classic/build/translations/ja'
-import '@ckeditor/ckeditor5-build-classic/build/translations/km'
-import '@ckeditor/ckeditor5-build-classic/build/translations/kn'
-import '@ckeditor/ckeditor5-build-classic/build/translations/ko'
-import '@ckeditor/ckeditor5-build-classic/build/translations/ku'
-import '@ckeditor/ckeditor5-build-classic/build/translations/lt'
-import '@ckeditor/ckeditor5-build-classic/build/translations/lv'
-import '@ckeditor/ckeditor5-build-classic/build/translations/ms'
-import '@ckeditor/ckeditor5-build-classic/build/translations/nb'
-import '@ckeditor/ckeditor5-build-classic/build/translations/ne'
-import '@ckeditor/ckeditor5-build-classic/build/translations/nl'
-import '@ckeditor/ckeditor5-build-classic/build/translations/no'
-import '@ckeditor/ckeditor5-build-classic/build/translations/oc'
-import '@ckeditor/ckeditor5-build-classic/build/translations/pl'
-import '@ckeditor/ckeditor5-build-classic/build/translations/pt'
-import '@ckeditor/ckeditor5-build-classic/build/translations/pt-br'
-import '@ckeditor/ckeditor5-build-classic/build/translations/ro'
-import '@ckeditor/ckeditor5-build-classic/build/translations/ru'
-import '@ckeditor/ckeditor5-build-classic/build/translations/si'
-import '@ckeditor/ckeditor5-build-classic/build/translations/sk'
-import '@ckeditor/ckeditor5-build-classic/build/translations/sl'
-import '@ckeditor/ckeditor5-build-classic/build/translations/sq'
-import '@ckeditor/ckeditor5-build-classic/build/translations/sr'
-import '@ckeditor/ckeditor5-build-classic/build/translations/sr-latn'
-import '@ckeditor/ckeditor5-build-classic/build/translations/sv'
-import '@ckeditor/ckeditor5-build-classic/build/translations/th'
-import '@ckeditor/ckeditor5-build-classic/build/translations/tk'
-import '@ckeditor/ckeditor5-build-classic/build/translations/tr'
-import '@ckeditor/ckeditor5-build-classic/build/translations/tt'
-import '@ckeditor/ckeditor5-build-classic/build/translations/ug'
-import '@ckeditor/ckeditor5-build-classic/build/translations/uk'
-import '@ckeditor/ckeditor5-build-classic/build/translations/vi'
-import '@ckeditor/ckeditor5-build-classic/build/translations/zh'
-import '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn'
-
 export default {
   name: 'DocumentForm',
 
@@ -1232,9 +1117,6 @@ export default {
     currValDynItem: { title: null, value: null },
     maxTotalFormSize: 16384, // 16384 = ~16 Kb (default data size for the form),
     render: true,
-    isUseCkeditor: false,
-    classicCKEditor: null,
-    configEditor: {},
     dialogDocDelete: false,
     dialogUpdatePassword: false,
     dataUpdatePassword: {
@@ -1245,8 +1127,7 @@ export default {
 
   computed: {
     ...mapState([
-      'serviceList',
-      'configCKEditor'
+      'serviceList'
     ]),
     ...mapState('documentList', [
       'documents',
@@ -1529,50 +1410,6 @@ export default {
             this.showWarning(field.common_msg)
             break
           case 'textArea':
-            if (!this.isUseCkeditor && field.css_classes.includes('ckeditor')) {
-              this.isUseCkeditor = true
-              this.classicCKEditor = ClassicCKEditor
-              this.configEditor = this.configCKEditor
-              this.configEditor.language = this.$i18n.locale
-              this.configEditor.plugins = [
-                EssentialsPlugin,
-                BoldPlugin,
-                ItalicPlugin,
-                UnderlinePlugin,
-                StrikethroughPlugin,
-                SubscriptPlugin,
-                SuperscriptPlugin,
-                LinkPlugin,
-                ParagraphPlugin,
-                AutoformatPlugin,
-                BlockQuotePlugin,
-                HeadingPlugin,
-                ListPlugin,
-                TodoListPlugin,
-                AlignmentPlugin,
-                FontPlugin,
-                HighlightPlugin,
-                HorizontalLinePlugin,
-                IndentPlugin,
-                IndentBlockPlugin,
-                TextPartLanguagePlugin,
-                MediaEmbedPlugin,
-                PageBreakPlugin,
-                RemoveFormatPlugin,
-                SelectAllPlugin,
-                SpecialCharactersPlugin,
-                SpecialCharactersEssentialsPlugin,
-                TablePlugin,
-                TableToolbarPlugin,
-                TablePropertiesPlugin,
-                TableCellPropertiesPlugin,
-                WordCountPlugin,
-                CodePlugin,
-                CodeBlockPlugin,
-                PasteFromOfficePlugin,
-                ClipboardPlugin
-              ]
-            }
             fieldsData[field.name] = field.value || ''
             this.showWarning(field.common_msg)
             break
