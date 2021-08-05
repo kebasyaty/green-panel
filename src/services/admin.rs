@@ -16,10 +16,7 @@ use mongodb::{
 use serde::Deserialize;
 use serde_json::{json, Value};
 
-use crate::models::{
-    registration::admin_panel,
-    services::admin::users,
-};
+use crate::models::{registration::admin_panel, services::admin::users};
 use mango_orm::{QCommon, QPaladins, ToModel, FORM_STORE, MONGODB_CLIENT_STORE};
 
 pub use configure_urls::*;
