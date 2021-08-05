@@ -18,7 +18,7 @@ pub const PROJECT_NAME: &str = "store";
 // Valid characters: a-z A-Z 0-9
 // Size: 8-16
 // Example: "7rzgacfqQB3B7q7T"
-pub const UNIQUE_PROJECT_KEY: &str = "Gm5EKQZRAWvV6BW";
+pub const UNIQUE_PROJECT_KEY: &str = "qn9JGrB3bCRMQnF";
 
 // Admin - Settings for user accounts.
 // *************************************************************************************************

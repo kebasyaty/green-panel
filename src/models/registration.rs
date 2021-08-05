@@ -6,4 +6,5 @@
 //!
 
 pub mod admin_panel;
+pub mod ckeditor;
 pub mod migration;
