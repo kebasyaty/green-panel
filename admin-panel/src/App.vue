@@ -71,10 +71,8 @@ export default {
       'setUsername',
       'setIsAuthenticated',
       'setSelectedService',
-      'setServiceList'
-    ]),
-    ...mapActions([
-      'addConfigCKEditor'
+      'setServiceList',
+      'setLanguageCKEditor'
     ]),
     ...mapActions('popUpMsgs', [
       'runShowMsg'
@@ -95,10 +93,10 @@ export default {
               }
               if (data.language_code !== undefined && data.language_code.length > 0) {
                 this.$i18n.locale = data.language_code
+                this.setLanguageCKEditor(data.language_code)
               }
               this.setSelectedService(selectedServiceList)
               this.setServiceList(data.service_list)
-              this.addConfigCKEditor(data.config_ckeditor)
             } else {
               console.log('No data available')
               this.runShowMsg({ text: 'No data available', status: 'warning' })

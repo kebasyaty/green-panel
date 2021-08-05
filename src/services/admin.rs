@@ -17,7 +17,7 @@ use serde::Deserialize;
 use serde_json::{json, Value};
 
 use crate::models::{
-    registration::{admin_panel, ckeditor},
+    registration::admin_panel,
     services::admin::users,
 };
 use mango_orm::{QCommon, QPaladins, ToModel, FORM_STORE, MONGODB_CLIENT_STORE};
@@ -208,7 +208,6 @@ pub mod request_handlers {
                 "slogan": SLOGAN,
                 "language_code": LANGUAGE_CODE,
                 "service_list": admin_panel::service_list(),
-                "config_ckeditor": ckeditor::config_ckeditor("default"),
                 "msg_err": msg_err
             })))
     }
