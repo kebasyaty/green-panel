@@ -578,12 +578,14 @@
                       :disabled="field.disabled"
                     ></ckeditor>
                     <v-alert
+                      class="mt-1"
                       dense
                       outlined
                       type="warning"
                       v-if="field.warning.length > 0"
                     >{{ field.warning }}</v-alert>
                     <v-alert
+                      class="mt-1"
                       dense
                       outlined
                       type="error"
