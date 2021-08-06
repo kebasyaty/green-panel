@@ -26,9 +26,6 @@ export default {
   setServiceList(state, payload) {
     state.serviceList = payload
   },
-  setLanguageCKEditor(state, payload) {
-    state.configCKEditor.language = payload
-  },
   setShowErrMsg(state, payload) {
     state.showErrMsg = payload
   },

@@ -71,7 +71,9 @@ export default {
       'setUsername',
       'setIsAuthenticated',
       'setSelectedService',
-      'setServiceList',
+      'setServiceList'
+    ]),
+    ...mapMutations('ckeditor', [
       'setLanguageCKEditor'
     ]),
     ...mapActions('popUpMsgs', [

@@ -1154,9 +1154,7 @@ export default {
 
   computed: {
     ...mapState([
-      'serviceList',
-      'classicCKEditor',
-      'configCKEditor'
+      'serviceList'
     ]),
     ...mapState('documentList', [
       'documents',
@@ -1165,6 +1163,10 @@ export default {
       'docsPerPage',
       'sortDocList',
       'sortDirectDocList'
+    ]),
+    ...mapState('ckeditor', [
+      'classicCKEditor',
+      'configCKEditor'
     ])
   },
 

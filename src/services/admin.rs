@@ -2,6 +2,27 @@
 //! Service (Subapplication) for administration.
 //!
 
+// Company Attributes
+const LOGO: &str = "img/logo.svg"; // in static
+const BRAND: &str = "Сompany Name";
+const SLOGAN: &str = "Brief description of the company.";
+
+// Language code.
+// CKEditor supported languages:
+// af | ar | ast | az | bg | ca | cs | da | de | de-ch | el | en-au |
+// en-gb | eo | es | et | eu | fa | fi | fr | gl | gu | he | hi |
+// hr | hu | id | it | ja | km | kn | ko | ku | lt | lv | ms |
+// nb | ne | nl | no | oc | pl | pt | pt-br | ro | ru | si | sk |
+// sl | sq | sr | sr-latn | sv | th | tk | tr | tt | ug | uk | vi |
+// zh | zh-cn
+const LANGUAGE_CODE: &str = "en";
+
+// Common functions
+fn admin_file_path(inner_path: &str) -> String {
+    format!("./admin/{}", inner_path)
+}
+
+// Import
 use actix_files::Files;
 use actix_files::NamedFile;
 use actix_session::Session;
@@ -24,21 +45,6 @@ pub use request_handlers::*;
 
 use crate::settings;
 use crate::settings::general::MAX_UPLOAD_SIZE;
-
-const BRAND: &str = "Сompany Name";
-const SLOGAN: &str = "Brief description of the company.";
-// CKEditor supported languages:
-// af | ar | ast | az | bg | ca | cs | da | de | de-ch | el | en-au |
-// en-gb | eo | es | et | eu | fa | fi | fr | gl | gu | he | hi |
-// hr | hu | id | it | ja | km | kn | ko | ku | lt | lv | ms |
-// nb | ne | nl | no | oc | pl | pt | pt-br | ro | ru | si | sk |
-// sl | sq | sr | sr-latn | sv | th | tk | tr | tt | ug | uk | vi |
-// zh | zh-cn
-const LANGUAGE_CODE: &str = "en";
-
-fn admin_file_path(inner_path: &str) -> String {
-    format!("./admin/{}", inner_path)
-}
 
 // CONFIGURE URLs
 // #################################################################################################
@@ -183,7 +189,10 @@ pub mod request_handlers {
 
     // Get service list
     // *********************************************************************************************
-    pub async fn service_list(session: Session) -> Result<HttpResponse, Error> {
+    pub async fn service_list(
+        session: Session,
+        app_state: web::Data<settings::AppState>,
+    ) -> Result<HttpResponse, Error> {
         let mut is_authenticated = false;
         let mut msg_err = String::new();
         // Access request identity
@@ -201,6 +210,7 @@ pub mod request_handlers {
             .content_type("application/json")
             .json(json!({
                 "is_authenticated": is_authenticated,
+                "logo": app_state.format_static_url(LOGO),
                 "brand": BRAND,
                 "slogan": SLOGAN,
                 "language_code": LANGUAGE_CODE,
