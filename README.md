@@ -113,7 +113,7 @@
 ##### Usag CKEditor 5 with `textArea` widget
 **Editor settings:** mango-panel/admin-panel/src/store/modules/ckeditor.js
 
-**Example of a field in the Model:**
+    //  Example of a field in the Model.
     #[serde(default)]
     #[field_attrs(
         widget = "textArea",
