@@ -36,7 +36,6 @@ import Code from '@ckeditor/ckeditor5-basic-styles/src/code'
 import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock'
 import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice'
 import Clipboard from '@ckeditor/ckeditor5-clipboard/src/clipboard'
-import SourceEditing from '@ckeditor/ckeditor5-source-editing/src/sourceediting'
 
 // Custom settings
 const customColorPalette = [
@@ -179,8 +178,7 @@ export default {
         Code,
         CodeBlock,
         PasteFromOffice,
-        Clipboard,
-        SourceEditing
+        Clipboard
       ],
       toolbar: {
         items: [
@@ -196,8 +194,7 @@ export default {
           'pageBreak', 'removeFormat', 'selectAll', '|',
           'link', 'specialCharacters', 'insertTable', 'mediaEmbed',
           'horizontalLine', 'code', 'codeBlock', '|',
-          'undo', 'redo', '|',
-          'sourceEditing'
+          'undo', 'redo'
         ],
         shouldNotGroupWhenFull: true
       },
@@ -205,22 +202,22 @@ export default {
         contentToolbar: [
           'tableColumn', 'tableRow', 'mergeTableCells',
           'tableProperties', 'tableCellProperties'
-        ]
+        ],
+        tableProperties: {
+          borderColors: customColorPalette,
+          backgroundColors: customColorPalette
+        },
+        tableCellProperties: {
+          borderColors: customColorPalette,
+          backgroundColors: customColorPalette
+        }
       },
-      tableProperties: {
-        borderColors: customColorPalette,
-        backgroundColors: customColorPalette
+      fontColor: {
+        colors: customColorPalette
       },
-      tableCellProperties: {
-        borderColors: customColorPalette,
-        backgroundColors: customColorPalette
+      fontBackgroundColor: {
+        colors: customColorPalette
       }
-    },
-    fontColor: {
-      colors: customColorPalette
-    },
-    fontBackgroundColor: {
-      colors: customColorPalette
     }
   },
 

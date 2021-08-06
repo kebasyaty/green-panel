@@ -31,6 +31,7 @@
     "@ckeditor/ckeditor5-paste-from-office": "^27.0.0",
     "@ckeditor/ckeditor5-remove-format": "^27.0.0",
     "@ckeditor/ckeditor5-select-all": "^27.0.0",
+    "@ckeditor/ckeditor5-source-editing": "^29.1.0",
     "@ckeditor/ckeditor5-special-characters": "^27.0.0",
     "@ckeditor/ckeditor5-table": "^27.0.0",
     "@ckeditor/ckeditor5-theme-lark": "^27.0.0",
