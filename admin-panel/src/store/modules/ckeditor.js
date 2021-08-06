@@ -36,6 +36,7 @@ import Code from '@ckeditor/ckeditor5-basic-styles/src/code'
 import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock'
 import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice'
 import Clipboard from '@ckeditor/ckeditor5-clipboard/src/clipboard'
+import SourceEditing from '@ckeditor/ckeditor5-source-editing/src/sourceediting'
 
 // Custom settings
 const customColorPalette = [
@@ -177,7 +178,8 @@ export default {
         Code,
         CodeBlock,
         PasteFromOffice,
-        Clipboard
+        Clipboard,
+        SourceEditing
       ],
       toolbar: {
         items: [
@@ -193,8 +195,8 @@ export default {
           'pageBreak', 'removeFormat', 'selectAll', '|',
           'link', 'specialCharacters', 'insertTable', 'mediaEmbed',
           'horizontalLine', 'code', 'codeBlock', '|',
-          'undo',
-          'redo'
+          'undo', 'redo', '|',
+          'sourceEditing'
         ],
         shouldNotGroupWhenFull: true
       },
