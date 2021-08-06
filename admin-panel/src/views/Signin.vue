@@ -2,7 +2,9 @@
   <v-container fluid fill-height>
     <v-row justify="space-around">
       <v-card width="400" class="pa-4">
-        <v-img :src="require('../assets/logo.svg')" contain height="100" />
+        <!--
+        <v-img :src="logo.length > 0 ? logo : require('../assets/logo.svg')" contain height="100" />
+        -->
         <form @submit.prevent="submit()">
           <v-card-text class="pb-0">
             <v-alert
