@@ -583,14 +583,16 @@
                       outlined
                       type="warning"
                       v-if="field.warning.length > 0"
-                    >{{ field.warning }}</v-alert>
+                      v-html="field.warning"
+                    ></v-alert>
                     <v-alert
                       class="mt-1"
                       dense
                       outlined
                       type="error"
                       v-if="field.error.length > 0"
-                    >{{ field.error }}</v-alert>
+                      v-html="field.error"
+                    ></v-alert>
                   </div>
                   <v-textarea
                     class="mt-0 pt-1"
