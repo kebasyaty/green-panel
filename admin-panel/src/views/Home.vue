@@ -2,7 +2,7 @@
   <v-container>
     <v-row class="text-center">
       <v-col cols="12" class="mt-16 mb-5">
-        <v-img :src="require('../assets/logo.svg')" contain height="140" />
+        <v-img :src="logo.length > 0 ? logo : require('../assets/logo.svg')" contain height="140" />
       </v-col>
 
       <v-col cols="12">
@@ -21,6 +21,7 @@ export default {
 
   computed: {
     ...mapState([
+      'logo',
       'username'
     ])
   }

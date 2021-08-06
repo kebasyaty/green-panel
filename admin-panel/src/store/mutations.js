@@ -1,4 +1,7 @@
 export default {
+  setLogo(state, payload) {
+    state.logo = payload
+  },
   setBrand(state, payload) {
     state.brand = payload
   },

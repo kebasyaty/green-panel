@@ -65,6 +65,7 @@ export default {
 
   methods: {
     ...mapMutations([
+      'setLogo',
       'setBrand',
       'setSlogan',
       'setIsStart',
@@ -86,6 +87,7 @@ export default {
           const data = response.data
           if (data.is_authenticated) {
             const listLength = data.service_list.length
+            this.setLogo(data.logo)
             this.setBrand(data.brand)
             this.setSlogan(data.slogan)
             if (listLength > 0) {
