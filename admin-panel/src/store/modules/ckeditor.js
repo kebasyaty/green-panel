@@ -135,6 +135,7 @@ const customColorPalette = [
   }
 ]
 
+// Export
 export default {
   namespaced: true,
 
