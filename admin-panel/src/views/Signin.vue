@@ -5,6 +5,7 @@
         <!--
         <v-img :src="logo.length > 0 ? logo : require('../assets/logo.svg')" contain height="100" />
         -->
+        <v-icon large color="green darken-2" class="icon-lock">mdi-lock</v-icon>
         <form @submit.prevent="submit()">
           <v-card-text class="pb-0">
             <v-alert
@@ -131,3 +132,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.icon-lock {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  margin-left: -18px;
+}
+</style>

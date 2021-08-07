@@ -79,7 +79,7 @@ export default {
           this.setCurrentPageNumber(1)
           this.setProgressionStep(1)
           this.setDocsPerPage(50)
-          this.$vuetify.theme.dark = false
+          // this.$vuetify.theme.dark = false
           this.setIsAuthenticated(false)
         })
         .catch(error => {
