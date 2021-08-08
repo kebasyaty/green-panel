@@ -2,11 +2,12 @@
   <v-container fluid fill-height>
     <v-row justify="space-around">
       <v-card width="400" class="pa-4">
-        <!--
-        <v-img :src="logo.length > 0 ? logo : require('../assets/logo.svg')" contain height="100" />
-        -->
         <v-icon large color="green darken-2" class="icon-lock">mdi-lock</v-icon>
-        <form @submit.prevent="submit()">
+        <v-card-title
+          v-if="count_effort === 2"
+          class="red--text text--darken-2 justify-center"
+        >{{ counter }}</v-card-title>
+        <form @submit.prevent="submit()" v-else>
           <v-card-text class="pb-0">
             <v-alert
               v-if="msg_error.length > 0"
@@ -65,7 +66,10 @@ export default {
   data: () => ({
     username: '',
     password: '',
-    msg_error: ''
+    msg_error: '',
+    count_effort: 0,
+    countdown: 10,
+    counter: 0
   }),
 
   computed: {
@@ -109,6 +113,18 @@ export default {
             } else {
               this.setIsAuthenticated(false)
               this.msg_error = this.$t('message.27')
+              if (++this.count_effort === 2) {
+                this.counter = this.countdown
+                const timer = window.setInterval(() => {
+                  if (--this.counter === 0) {
+                    window.clearInterval(timer)
+                    this.countdown += Math.floor((Math.random() * 20) + 1)
+                    this.msg_error = ''
+                    this.clear()
+                    this.count_effort = 0
+                  }
+                }, 1000)
+              }
             }
           })
           .catch(error => {
