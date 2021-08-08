@@ -69,7 +69,7 @@ export default {
     username: '',
     password: '',
     msg_error: '',
-    // For protect from woodpeckers
+    // For protect against woodpeckers
     count_effort: 0,
     countdown: 10,
     counter: 0
@@ -116,7 +116,7 @@ export default {
             } else {
               this.setIsAuthenticated(false)
               this.msg_error = this.$t('message.27')
-              // Protect from woodpeckers
+              // Protect against woodpeckers
               if (++this.count_effort === 2) {
                 this.counter = this.countdown
                 const timer = window.setInterval(() => {
