@@ -3,10 +3,12 @@
     <v-row justify="space-around">
       <v-card width="400" class="pa-4">
         <v-icon large color="green darken-2" class="icon-lock">mdi-lock</v-icon>
+        <!-- Countdown -->
         <v-card-title
           v-if="count_effort === 2"
           class="red--text text--darken-2 justify-center"
         >{{ counter }}</v-card-title>
+        <!-- Login form -->
         <form @submit.prevent="submit()" v-else>
           <v-card-text class="pb-0">
             <v-alert
@@ -67,6 +69,7 @@ export default {
     username: '',
     password: '',
     msg_error: '',
+    // For protect from woodpeckers
     count_effort: 0,
     countdown: 10,
     counter: 0
@@ -113,6 +116,7 @@ export default {
             } else {
               this.setIsAuthenticated(false)
               this.msg_error = this.$t('message.27')
+              // Protect from woodpeckers
               if (++this.count_effort === 2) {
                 this.counter = this.countdown
                 const timer = window.setInterval(() => {
