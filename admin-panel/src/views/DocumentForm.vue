@@ -544,6 +544,16 @@
                     </template>
                     <v-card>
                       <v-color-picker
+                        v-if="swatches.length > 0"
+                        show-swatches
+                        mode="hexa"
+                        v-model="fieldsData[field.name]"
+                        :disabled="field.disabled"
+                        :readonly="field.readonly"
+                        :swatches="swatches"
+                      ></v-color-picker>
+                      <v-color-picker
+                        v-else
                         show-swatches
                         mode="hexa"
                         v-model="fieldsData[field.name]"
@@ -574,6 +584,10 @@
                     :class="field.css_classes.includes('ckeditor') ? 'mt-1 mb-2' : ''"
                   >
                     <div v-if="field.css_classes.includes('ckeditor')">
+                      <v-card-subtitle
+                        class="px-0 pt-0 pb-1 cyan--text text--lighten-1"
+                        v-html="`&#9913;&#9913; ${$t('message.63')}`"
+                      ></v-card-subtitle>
                       <ckeditor
                         :editor="classicCKEditor"
                         v-model="fieldsData[field.name]"
@@ -1173,6 +1187,9 @@ export default {
     ...mapState('ckeditor', [
       'classicCKEditor',
       'configCKEditor'
+    ]),
+    ...mapState('colorPicker', [
+      'swatches'
     ])
   },
 
