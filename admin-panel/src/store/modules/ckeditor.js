@@ -38,6 +38,10 @@ import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefrom
 import Clipboard from '@ckeditor/ckeditor5-clipboard/src/clipboard'
 
 // Custom settings
+/*
+Colors:
+https://vuetifyjs.com/en/styles/colors/#material-colors
+*/
 const customColorPalette = [
   {
     color: '#F44336',

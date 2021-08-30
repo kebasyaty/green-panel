@@ -14,18 +14,21 @@
         <v-row>
           <v-col cols="12" md="6">
             <!-- Search query field. -->
-            <v-text-field
-              dense
-              clearable
-              hide-details
-              v-model="updateSearchQuery"
-              :placeholder="$t('message.3')"
-              append-icon="mdi-magnify"
-              @input="documentSearch()"
-            ></v-text-field>
+            <div class="max-w-400">
+              <v-text-field
+                dense
+                clearable
+                hide-details
+                class="shrink"
+                v-model="updateSearchQuery"
+                :placeholder="$t('message.3')"
+                append-icon="mdi-magnify"
+                @input="documentSearch()"
+              ></v-text-field>
+            </div>
           </v-col>
           <v-col cols="12" md="6" class="text-md-right">
-            <!-- Button - Create a new document. -->
+            <!-- Button - Add a new document. -->
             <v-btn text color="green" :to="docUrlNoIndex + '/new'">
               <v-icon left>mdi-file-plus-outline</v-icon>
               {{ $t('message.25') }}
@@ -75,7 +78,10 @@
         <!-- Document table. -->
         <v-simple-table fixed-header class="mt-4">
           <template v-slot:default>
-            <thead>
+            <thead
+              class="document-list"
+              :style="$vuetify.theme.dark ? 'background: #1d1f34;' : 'background: #f5f6fb;'"
+            >
               <tr>
                 <!-- Symbol - № -->
                 <th>&#8470;</th>
@@ -153,6 +159,7 @@
             <v-pagination
               v-if="!blockPagination"
               circle
+              color="#2196f38f"
               v-model="updateCurrentPageNumber"
               :length="pageCount"
               :total-visible="5"
@@ -274,6 +281,14 @@ export default {
         this.deleteAllDocsFlag = false
         this.docsToBeDeleted = []
       }
+    }
+  },
+
+  filters: {
+    upperCase: function (value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.toUpperCase()
     }
   },
 
@@ -474,17 +489,8 @@ export default {
 </script>
 
 <style>
-.v-pagination__item--active,
-.v-pagination__item,
-.v-pagination__navigation {
-  box-shadow: none !important;
-}
-button:not(.v-pagination__item--active).v-pagination__item,
-.v-pagination__navigation {
-  border: 1px solid transparent !important;
-}
-button:not(.v-pagination__item--active).v-pagination__item:hover,
-.v-pagination__navigation:hover {
-  border: 1px solid #e0e0e0 !important;
+.v-data-table__wrapper > table > thead.document-list > tr > th {
+  background: none !important;
+  font-size: 0.9rem !important;
 }
 </style>

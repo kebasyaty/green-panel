@@ -64,6 +64,7 @@ export default {
     60: '- . , numbers',
     61: 'The `Title` field contains invalid characters.',
     62: 'The `Value` field contains invalid characters.',
-    63: 'Select font color.'
+    63: 'Select font color.',
+    64: 'Filter'
   }
 }
