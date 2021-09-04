@@ -15,7 +15,7 @@ pub mod request_handlers {
     use super::*;
     // Favicon
     pub async fn favicon(app_state: web::Data<settings::AppState>) -> Result<NamedFile> {
-        let path = app_state.format_static_root("favicons/favicon.ico");
+        let path = app_state.format_static_root("favicons/favicon.png");
         Ok(NamedFile::open(path)?)
     }
     // Robots
@@ -57,7 +57,7 @@ mod tests {
             App::new()
                 .app_data(app_state)
                 .data(tera)
-                .route("/favicon.ico", web::get().to(favicon))
+                .route("/favicon.png", web::get().to(favicon))
                 .route("/robots.txt", web::get().to(robots))
                 .route("/sitemap.xml", web::get().to(sitemap))
                 .default_service(web::route().to(page_404)),
@@ -65,7 +65,7 @@ mod tests {
         .await;
 
         let mut handlers = HashMap::new();
-        handlers.insert("favicon", "/favicon.ico");
+        handlers.insert("favicon", "/favicon.png");
         handlers.insert("robots", "/robots.txt");
         handlers.insert("sitemap", "/sitemap.xml");
         handlers.insert("page_404", "/test-page-404");

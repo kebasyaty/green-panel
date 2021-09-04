@@ -149,12 +149,14 @@ pub mod request_handlers {
                 // Get an instance of a User model
                 let user = output_data.model::<users::AdminProfile>().unwrap();
                 // Check password
-                if user.verify_password(password.as_str(), None).unwrap() {
+                let is_active = user.is_active.unwrap();
+                let is_staff = user.is_staff.unwrap();
+                if user.verify_password(password.as_str(), None).unwrap() && is_active && is_staff {
                     // Add user identity to session
-                    session.set("user", user.username.clone())?; // Set `id user`
-                    session.set("hash", user.hash.clone())?; // Set `hash`
-                    session.set("is_active", user.is_staff.clone())?; // Set `is active`
-                    session.set("is_staff", user.is_staff.clone())?; // Set `is staff`
+                    session.set("user", user.username.unwrap())?; // Set `id user`
+                    session.set("hash", user.hash.unwrap())?; // Set `hash`
+                    session.set("is_active", is_active)?; // Set `is active`
+                    session.set("is_staff", is_staff)?; // Set `is staff`
                     is_authenticated = true;
                 } else {
                     msg_err = "Authentication failed.".to_string();
