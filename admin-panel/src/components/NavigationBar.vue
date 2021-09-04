@@ -116,6 +116,8 @@ export default {
     ...mapMutations('documentList', [
       'setProgressionStep',
       'setSearchQuery',
+      'setDataFilters',
+      'setSelectDataFilters',
       'setBlockLoadDocs'
     ]),
     ...mapMutations('popUpMsgs', [
@@ -123,6 +125,7 @@ export default {
     ]),
     ...mapActions('documentList', [
       'ajaxGetDocumentList',
+      'ajaxGetDataFilters',
       'resetPageNumberDefault'
     ]),
     ...mapActions('popUpMsgs', [
@@ -191,10 +194,20 @@ export default {
       this.setBlockLoadDocs(true)
       this.setSearchQuery(null)
       this.resetPageNumberDefault(this.getRequestParams())
+      this.setDataFilters([])
+      this.setSelectDataFilters({})
       this.ajaxGetDocumentList(payload)
         .then(() => {
           this.runShowOverlayPageLockout(false)
-          setTimeout(() => this.setBlockLoadDocs(false), 1000)
+          setTimeout(() => {
+            this.setBlockLoadDocs(false)
+            this.ajaxGetDataFilters(payload)
+              .catch(error => {
+                console.log(error)
+                this.runShowOverlayPageLockout(false)
+                this.runShowMsg({ text: error, status: 'error' })
+              })
+          }, 1000)
         })
         .catch(error => {
           console.log(error)

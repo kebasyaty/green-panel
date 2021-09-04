@@ -14,6 +14,10 @@ export default {
     sortDirectDocList: -1,
     sortTypes: ['alphabetical_links', 'created', 'updated'],
     searchQuery: null,
+    // Ajax get data of filters.
+    dataFilters: [],
+    selectDataFilters: {},
+    //
     blockPagination: false,
     // block loading of documents
     blockLoadDocs: false
@@ -46,6 +50,12 @@ export default {
     setSearchQuery(state, payload) {
       state.searchQuery = payload
     },
+    setDataFilters(state, payload) {
+      state.dataFilters = payload
+    },
+    setSelectDataFilters(state, payload) {
+      state.selectDataFilters = payload
+    },
     setBlockPagination(state, payload) {
       state.blockPagination = payload
     },
@@ -56,15 +66,27 @@ export default {
 
   actions: {
     // Get a list of documents.
-    ajaxGetDocumentList({ state, commit, dispatch, rootState }, payload = {}) {
+    ajaxGetDocumentList({ state, commit, rootState }, payload = {}) {
       return new Promise((resolve, reject) => {
         let collection
-        if (Object.keys(payload).length > 0) {
+        if ('indexService' in payload && 'indexCollection' in payload) {
           collection = rootState.serviceList[payload.indexService]
             .collections[payload.indexCollection]
         } else {
           collection = rootState.serviceList[router.currentRoute.params.indexService]
             .collections[router.currentRoute.params.indexCollection]
+        }
+        const filters = {}
+        for (const [key, value] of Object.entries(state.selectDataFilters)) {
+          if (value !== null) {
+            if (Array.isArray(value)) {
+              if (value.length > 0) {
+                filters[key] = value.map(String)
+              }
+            } else {
+              filters[key] = String(value)
+            }
+          }
         }
         const payloadQuery = {
           model_key: collection.model_key,
@@ -73,7 +95,8 @@ export default {
           search_query: state.searchQuery || '',
           limit: state.docsPerPage,
           sort: state.sortDocList,
-          direct: state.sortDirectDocList
+          direct: state.sortDirectDocList,
+          filters
         }
         Vue.axios.post('/admin/document-list', payloadQuery)
           .then(response => {
@@ -85,7 +108,43 @@ export default {
               commit('setDocuments', data.documents)
               resolve()
             } else {
-              console.log(data.msg_err)
+              window.console.log(data.msg_err)
+              reject(data.msg_err)
+            }
+          })
+          .catch(error => {
+            window.console.log(error)
+            reject(error)
+          })
+      })
+    },
+    // Ajax get data of filters.
+    ajaxGetDataFilters({ commit, rootState }, payload = {}) {
+      return new Promise((resolve, reject) => {
+        let collection
+        if ('indexService' in payload && 'indexCollection' in payload) {
+          collection = rootState.serviceList[payload.indexService]
+            .collections[payload.indexCollection]
+        } else {
+          collection = rootState.serviceList[router.currentRoute.params.indexService]
+            .collections[router.currentRoute.params.indexCollection]
+        }
+        const payloadQuery = {
+          model_key: collection.model_key
+        }
+        Vue.axios.post('/admin/data-filters', payloadQuery)
+          .then(response => {
+            const data = response.data
+            if (!data.is_authenticated) {
+              commit('setIsAuthenticated', false, { root: true })
+            } else if (data.msg_err.length === 0) {
+              const filters = data.filters
+              const selectDataFilters = {}
+              filters.forEach(item => { selectDataFilters[item.field] = null })
+              commit('setSelectDataFilters', selectDataFilters)
+              commit('setDataFilters', filters)
+              resolve()
+            } else {
               window.console.log(data.msg_err)
               reject(data.msg_err)
             }

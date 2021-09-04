@@ -57,6 +57,7 @@ pub mod configure_urls {
         cfg.service(web::resource("/logout").route(web::post().to(logout)));
         cfg.service(web::resource("/sign-in").route(web::get().to(admin_panel)));
         cfg.service(web::resource("/service-list").route(web::post().to(service_list)));
+        cfg.service(web::resource("/data-filters").route(web::post().to(data_filters)));
         cfg.service(web::resource("/document-list").route(web::post().to(document_list)));
         cfg.service(web::resource("/get-document").route(web::post().to(get_document)));
         cfg.service(
@@ -219,6 +220,81 @@ pub mod request_handlers {
             })))
     }
 
+    // Get data to filter by category (сategory - selection type fields).
+    // *********************************************************************************************
+    #[derive(Deserialize)]
+    pub struct QueryGetDataFilters {
+        model_key: String,
+    }
+
+    pub async fn data_filters(
+        session: Session,
+        query: web::Json<QueryGetDataFilters>,
+    ) -> Result<HttpResponse, Error> {
+        let mut is_authenticated = false;
+        let mut msg_err = String::new();
+        let mut filters = Vec::<Value>::new();
+
+        // Access request identity
+        // -----------------------------------------------------------------------------------------
+        if session.get::<String>("user")?.is_some()
+            && session.get::<String>("hash")?.is_some()
+            && session.get::<bool>("is_active")?.unwrap()
+            && session.get::<bool>("is_staff")?.unwrap()
+        {
+            is_authenticated = true;
+            //
+            let form_store = FORM_STORE.read().unwrap();
+            let form_cache = form_store.get(query.model_key.as_str()).unwrap();
+            let map_widgets = &form_cache.map_widgets;
+            //
+            for (field_name, widget) in map_widgets {
+                let widget_name = widget.widget.as_str();
+                if widget_name.contains("select") {
+                    let value_type: &str = if widget_name.contains("F") {
+                        "f64"
+                    } else if widget_name.contains("I") || widget_name.contains("U") {
+                        "i64"
+                    } else {
+                        "str"
+                    };
+                    let mut items = Vec::<Value>::new();
+                    let options = widget.options.clone();
+                    for (value, text) in options {
+                        let item = json!({
+                            "text": text,
+                            "value": match value_type {
+                                "f64" => json!(value.parse::<f64>().unwrap()),
+                                "i64" => json!(value.parse::<i64>().unwrap()),
+                                _ => json!(value)
+                            }
+                        });
+                        items.append(&mut vec![item]);
+                    }
+                    let filter = json!({
+                        "label": widget.label,
+                        "field": field_name,
+                        "multiple": widget_name.contains("Mult"),
+                        "items": items
+                    });
+                    filters.append(&mut vec![filter]);
+                }
+            }
+        } else {
+            msg_err = "Authentication failed.".to_string();
+        }
+
+        // Return json response
+        // -----------------------------------------------------------------------------------------
+        Ok(HttpResponse::Ok()
+            .content_type("application/json")
+            .json(json!({
+                "is_authenticated": is_authenticated,
+                "filters": filters,
+                "msg_err": msg_err
+            })))
+    }
+
     // Get document list
     // *********************************************************************************************
     #[derive(Deserialize)]
@@ -230,6 +306,7 @@ pub mod request_handlers {
         limit: u32,
         sort: String,
         direct: i32,
+        filters: Value,
     }
 
     pub async fn document_list(
@@ -268,24 +345,100 @@ pub mod request_handlers {
             // -------------------------------------------------------------------------------------
             // Query filter
             let mut filter = None;
-            if !query.search_query.is_empty() {
-                let search_pattern = &Bson::RegularExpression(Regex {
-                    pattern: query.search_query.clone(),
-                    options: "im".to_string(),
-                });
+            let categories = query.filters.as_object().unwrap();
+            let is_categories = categories.len() > 0;
+            let is_search_query = !query.search_query.is_empty();
+            //
+            if is_search_query || is_categories {
+                let search_pattern = if is_search_query {
+                    Bson::RegularExpression(Regex {
+                        pattern: query.search_query.clone(),
+                        options: "im".to_string(),
+                    })
+                } else {
+                    Bson::Null
+                };
                 let mut vec_doc: Vec<Document> = Vec::new();
-                for field_name in query.fields_name.iter() {
-                    match map_widget_type.get(field_name).unwrap().as_str() {
-                        "inputEmail" | "radioText" | "inputPhone" | "inputText" | "inputUrl"
-                        | "inputColor" | "inputIP" | "inputIPv4" | "inputIPv6" | "selectText"
-                        | "selectTextDyn" | "hiddenText" => {
-                            vec_doc.push(doc! {field_name: search_pattern});
+                let mut vec_doc_2: Vec<Document> = Vec::new();
+                for (field_name, widget_type) in map_widget_type {
+                    if is_search_query && query.fields_name.contains(field_name) {
+                        match widget_type.as_str() {
+                            "inputEmail" | "radioText" | "inputPhone" | "inputText"
+                            | "inputUrl" | "inputColor" | "inputIP" | "inputIPv4" | "inputIPv6"
+                            | "hiddenText" => {
+                                vec_doc.push(doc! {field_name: &search_pattern});
+                            }
+                            _ => {}
                         }
-                        _ => {}
+                    }
+                    if is_categories {
+                        if let Some(category) = categories.get(field_name) {
+                            match widget_type.as_str() {
+                                "selectText" | "selectTextDyn" => {
+                                    vec_doc_2.push(doc! {field_name: category.as_str().unwrap()});
+                                }
+                                "selectTextMult" | "selectTextMultDyn" => {
+                                    let arr: Vec<&str> = category
+                                        .as_array()
+                                        .unwrap()
+                                        .iter()
+                                        .map(|item| item.as_str().unwrap())
+                                        .collect();
+                                    vec_doc_2.push(doc! {field_name: {"$all": arr}});
+                                }
+                                "selectI32" | "selectI32Dyn" => {
+                                    vec_doc_2.push(
+                                    doc! {field_name: category.as_str().unwrap().parse::<i32>().unwrap()},
+                                );
+                                }
+                                "selectI32Mult" | "selectI32MultDyn" => {
+                                    let arr: Vec<i32> = category
+                                        .as_array()
+                                        .unwrap()
+                                        .iter()
+                                        .map(|item| item.as_str().unwrap().parse::<i32>().unwrap())
+                                        .collect();
+                                    vec_doc_2.push(doc! {field_name: {"$all": arr}});
+                                }
+                                "selectU32" | "selectU32Dyn" | "selectI64" | "selectI64Dyn" => {
+                                    vec_doc_2.push(doc! {field_name: category.as_str().unwrap().parse::<i64>().unwrap()});
+                                }
+                                "selectU32Mult" | "selectU32MultDyn" | "selectI64Mult"
+                                | "selectI64MultDyn" => {
+                                    let arr: Vec<i64> = category
+                                        .as_array()
+                                        .unwrap()
+                                        .iter()
+                                        .map(|item| item.as_str().unwrap().parse::<i64>().unwrap())
+                                        .collect();
+                                    vec_doc_2.push(doc! {field_name: {"$all": arr}});
+                                }
+                                "selectF64" | "selectF64Dyn" => {
+                                    vec_doc_2.push(doc! {field_name: category.as_str().unwrap().parse::<f64>().unwrap()});
+                                }
+                                "selectF64Mult" | "selectF64MultDyn" => {
+                                    let arr: Vec<f64> = category
+                                        .as_array()
+                                        .unwrap()
+                                        .iter()
+                                        .map(|item| item.as_str().unwrap().parse::<f64>().unwrap())
+                                        .collect();
+                                    vec_doc_2.push(doc! {field_name: {"$all": arr}});
+                                }
+                                _ => {}
+                            }
+                        }
                     }
                 }
-                filter = Some(doc! {"$or": vec_doc});
+                if is_search_query && is_categories {
+                    filter = Some(doc! {"$or": vec_doc, "$and": vec_doc_2});
+                } else if is_search_query {
+                    filter = Some(doc! {"$or": vec_doc});
+                } else {
+                    filter = Some(doc! {"$and": vec_doc_2});
+                }
             }
+
             // Query options
             let limit = i64::from(query.limit);
             let skip = limit * i64::from(query.page_num - 1_u32);

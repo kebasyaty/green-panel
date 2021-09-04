@@ -10,7 +10,7 @@
       <!-- Show collection name -->
       <v-card-title class="pt-0">{{ collectionTitle }}</v-card-title>
       <v-card-subtitle>{{ breadcrumbs }}</v-card-subtitle>
-      <v-card-text class="pt-4 pb-0">
+      <v-card-text class="pt-4">
         <v-row>
           <v-col cols="12" md="6">
             <!-- Search query field. -->
@@ -73,6 +73,19 @@
                 @change="[getDocumentList(), refreshUrlState()]"
               ></v-select>
             </div>
+          </v-col>
+          <v-col cols="auto" class="py-0">
+            <!-- Filter by selection fields. -->
+            <v-btn
+              dark
+              text
+              color="blue"
+              :disabled="dataFilters.length === 0"
+              @click="showFilterDoc = true"
+            >
+              <v-icon left>mdi-filter</v-icon>
+              {{ $t('message.64') }}
+            </v-btn>
           </v-col>
         </v-row>
         <!-- Document table. -->
@@ -169,6 +182,44 @@
         </v-row>
       </v-card-actions>
     </v-card>
+    <!-- Filter by categories, for selection type fields. -->
+    <v-dialog persistent v-model="showFilterDoc" max-width="500px">
+      <v-card>
+        <v-card-actions class="pr-3 pt-2 pb-0">
+          <v-spacer></v-spacer>
+          <!-- Button - Close. -->
+          <v-btn icon small color="red" @click="showFilterDoc = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-actions>
+        <v-card-title class="pt-0 pb-6">{{ $t('message.65') }}</v-card-title>
+        <v-card-text>
+          <v-row justify="center">
+            <v-col
+              cols="12"
+              v-for="(filter, idxFilter) in dataFilters"
+              :key="`filter-${idxFilter}`"
+              class="mb-4"
+            >
+              <v-autocomplete
+                dense
+                chips
+                :deletable-chips="filter.multiple"
+                clearable
+                small-chips
+                hide-details
+                class="shrink"
+                v-model="selectDataFilters[filter.field]"
+                :label="filter.label"
+                :multiple="filter.multiple"
+                :items="filter.items"
+                @input="getDocumentList()"
+              ></v-autocomplete>
+            </v-col>
+          </v-row>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -183,7 +234,8 @@ export default {
   data: () => ({
     deleteAllDocsFlag: false,
     docsToBeDeleted: [],
-    countPerPage: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+    countPerPage: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+    showFilterDoc: false
   }),
 
   computed: {
@@ -200,6 +252,8 @@ export default {
       'sortDirectDocList',
       'sortTypes',
       'searchQuery',
+      'dataFilters',
+      'selectDataFilters',
       'blockPagination',
       'blockLoadDocs'
     ]),
@@ -306,6 +360,7 @@ export default {
     ]),
     ...mapActions('documentList', [
       'ajaxGetDocumentList',
+      'ajaxGetDataFilters',
       'resetPageNumberDefault'
     ]),
     ...mapActions('popUpMsgs', [
@@ -482,6 +537,14 @@ export default {
     if (!this.blockLoadDocs) {
       this.getDocumentList().then(() => {
         this.restartDocList()
+        if (this.dataFilters.length === 0) {
+          this.ajaxGetDataFilters()
+            .catch(error => {
+              console.log(error)
+              this.runShowOverlayPageLockout(false)
+              this.runShowMsg({ text: error, status: 'error' })
+            })
+        }
       })
     }
   }

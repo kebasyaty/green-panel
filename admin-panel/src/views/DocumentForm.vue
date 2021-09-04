@@ -1205,7 +1205,9 @@ export default {
       'setCurrentPageNumber',
       'setDocsPerPage',
       'setSortDocList',
-      'setSortDirectDocList'
+      'setSortDirectDocList',
+      'setDataFilters',
+      'setSelectDataFilters'
     ]),
     ...mapActions('documentList', [
       'ajaxGetDocumentList'
@@ -2102,6 +2104,8 @@ export default {
                 }
                 break
             }
+            this.setDataFilters([])
+            this.setSelectDataFilters({})
             this.runShowOverlayPageLockout(false)
           } else {
             console.log(data.msg_err)

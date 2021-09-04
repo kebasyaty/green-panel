@@ -103,12 +103,12 @@ pub struct ElectricCar {
     //
     #[serde(default)]
     #[field_attrs(
-        widget = "selectTextDyn",
+        widget = "selectU32MultDyn",
         label = "Seats",
         required = true,
         hint = "Number of seats"
     )]
-    pub seats: Option<String>,
+    pub seats: Option<Vec<u32>>,
     //
     #[serde(default)]
     #[field_attrs(
@@ -117,5 +117,5 @@ pub struct ElectricCar {
         maxlength = 6000,
         css_classes = "ckeditor"
     )]
-    pub text_editor: Option<String>,
+    pub text_editor: Option<String>
 }
