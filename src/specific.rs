@@ -43,55 +43,83 @@ pub mod request_handlers {
     }
     // Sitemap
     // =============================================================================================
+    // https://www.sitemaps.org/
+    //
     #[derive(Serialize)]
-    struct SiteMap {
-        title: String,
-        date: String,
+    struct Item {
+        loc: String,        // Page url. Example: http://www.example.com/
+        lastmod: String,    // Date of last modification in YYYY-MM-DD format.
+        changefreq: String, // Probable frequency of change: always | hourly | daily | weekly | monthly | yearly | never
+        priority: f32, // The priority of URLs relative to other URLs on your site - from 0.0 to 1.0.
     }
+    //
+    struct Options {
+        base_url: String,
+        title_field: String,
+        limit: u32,
+        model_key: String,
+        changefreq: String, // Probable frequency of change: always | hourly | daily | weekly | monthly | yearly | never
+        priority: f32, // The priority of URLs relative to other URLs on your site - from 0.0 to 1.0.
+    }
+    //
     pub async fn sitemap(req: HttpRequest, tmpl: web::Data<Tera>) -> impl Responder {
+        let scheme = req.connection_info().scheme().to_owned();
+        let host = req.connection_info().host().to_owned();
+        //
         let mut ctx = Context::new();
-        ctx.insert("scheme", &req.connection_info().scheme().to_owned());
-        ctx.insert("host", &req.connection_info().host().to_owned());
         //
         let form_store = FORM_STORE.read().unwrap();
         let client_store = MONGODB_CLIENT_STORE.read().unwrap();
         //
-        // Electric Cars
+        // Generate sitemap
         // -----------------------------------------------------------------------------------------
-        let model_key = ElectricCar::key();
-        let form_cache = form_store.get(model_key.as_str()).unwrap();
-        let meta = &form_cache.meta;
-        let filter = None;
-        let options = Some(
-            FindOptions::builder()
-                .limit(100_i64)
-                .projection(Some(doc! {"model": 1, "updated_at": 1}))
-                .sort(Some(doc! {"updated_at": -1}))
-                .build(),
-        );
-        let client: &mongodb::sync::Client =
-            client_store.get(meta.db_client_name.as_str()).unwrap();
-        let coll = client
-            .database(meta.database_name.as_str())
-            .collection(meta.collection_name.as_str());
-        if let Ok(mut cursor) = coll.find(filter, options) {
-            let mut electric_cars: Vec<SiteMap> = Vec::new();
-            while let Some(doc) = cursor.next() {
-                if let Ok(doc) = doc {
-                    let model = slugify(doc.get_str("model").unwrap());
-                    let mut updated_at = doc.get_datetime("updated_at").unwrap().to_rfc3339();
-                    updated_at.truncate(10);
-                    let sitemap = SiteMap {
-                        title: model,
-                        date: updated_at,
-                    };
-                    electric_cars.push(sitemap);
+        let options: Vec<Options> = vec![
+            // Electric Cars.
+            Options {
+                base_url: format!("{}://{}", scheme, host),
+                title_field: String::from("model"),
+                limit: 100,
+                model_key: ElectricCar::key(),
+                changefreq: String::from("weekly"),
+                priority: 0.5,
+            },
+        ];
+        //
+        let mut items = Vec::<Item>::new();
+        for elem in options {
+            let form_cache = form_store.get(elem.model_key.as_str()).unwrap();
+            let meta = &form_cache.meta;
+            let filter = None;
+            let options = Some(
+                FindOptions::builder()
+                    .limit(elem.limit as i64)
+                    .projection(Some(doc! {elem.title_field.clone(): 1, "updated_at": 1}))
+                    .sort(Some(doc! {"updated_at": -1}))
+                    .build(),
+            );
+            let client: &mongodb::sync::Client =
+                client_store.get(meta.db_client_name.as_str()).unwrap();
+            let coll = client
+                .database(meta.database_name.as_str())
+                .collection(meta.collection_name.as_str());
+            if let Ok(mut cursor) = coll.find(filter, options) {
+                while let Some(doc) = cursor.next() {
+                    if let Ok(doc) = doc {
+                        let model = slugify(doc.get_str("model").unwrap());
+                        let mut updated_at = doc.get_datetime("updated_at").unwrap().to_rfc3339();
+                        updated_at.truncate(10);
+                        let item = Item {
+                            loc: format!("{}/{}", elem.base_url, model),
+                            lastmod: updated_at,
+                            changefreq: elem.changefreq.clone(),
+                            priority: elem.priority,
+                        };
+                        items.push(item);
+                    }
                 }
             }
-            if !electric_cars.is_empty() {
-                ctx.insert("electric_cars", &electric_cars);
-            }
         }
+        ctx.insert("items", &items);
         // -----------------------------------------------------------------------------------------
         let rendered = tmpl.render("sitemap.xml", &ctx).unwrap();
         HttpResponse::Ok().body(rendered)

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
-{% for car in electric_cars %}
+{% for item in items %}
    <url>
-      <loc>{{ scheme }}://{{ host }}/{{ car.title }}</loc>
-      <lastmod>{{ car.date }}</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.5</priority>
+      <loc>{{ item.loc|safe }}</loc>
+      <lastmod>{{ item.lastmod }}</lastmod>
+      <changefreq>{{ item.changefreq }}</changefreq>
+      <priority>{{ item.priority }}</priority>
    </url>
 {% endfor %}
 </urlset>
