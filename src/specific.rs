@@ -4,21 +4,30 @@
 
 use actix_files::NamedFile;
 use actix_web::{http, web, HttpRequest, HttpResponse, Responder, Result};
+use serde::Serialize;
 use tera::{Context, Tera};
 
 use crate::settings;
 pub use request_handlers::*;
+
+use slug::slugify;
+
+use crate::models::services::products::electric_cars::ElectricCar;
+use mango_orm::{ToModel, FORM_STORE, MONGODB_CLIENT_STORE};
+use mongodb::{bson::doc, options::FindOptions};
 
 // REQUEST HANDLERS
 // #################################################################################################
 pub mod request_handlers {
     use super::*;
     // Favicon
+    // =============================================================================================
     pub async fn favicon(app_state: web::Data<settings::AppState>) -> Result<NamedFile> {
         let path = app_state.format_static_root("favicons/favicon.png");
         Ok(NamedFile::open(path)?)
     }
     // Robots
+    // =============================================================================================
     pub async fn robots(req: HttpRequest, tmpl: web::Data<Tera>) -> impl Responder {
         let mut ctx = Context::new();
         ctx.insert("scheme", &req.connection_info().scheme().to_owned());
@@ -26,15 +35,66 @@ pub mod request_handlers {
         let rendered = tmpl.render("robots.txt", &ctx).unwrap();
         HttpResponse::Ok().body(rendered)
     }
-    // Sitemap
-    pub async fn sitemap(app_state: web::Data<settings::AppState>) -> Result<NamedFile> {
-        let path = app_state.format_template("sitemap.xml");
-        Ok(NamedFile::open(path)?)
-    }
     // Page 404
+    // =============================================================================================
     pub async fn page_404(app_state: web::Data<settings::AppState>) -> Result<NamedFile> {
         let path = app_state.format_template("404.html");
         Ok(NamedFile::open(path)?.set_status_code(http::StatusCode::NOT_FOUND))
+    }
+    // Sitemap
+    // =============================================================================================
+    #[derive(Serialize)]
+    struct SiteMap {
+        title: String,
+        date: String,
+    }
+    pub async fn sitemap(req: HttpRequest, tmpl: web::Data<Tera>) -> impl Responder {
+        let mut ctx = Context::new();
+        ctx.insert("scheme", &req.connection_info().scheme().to_owned());
+        ctx.insert("host", &req.connection_info().host().to_owned());
+        //
+        let form_store = FORM_STORE.read().unwrap();
+        let client_store = MONGODB_CLIENT_STORE.read().unwrap();
+        //
+        // Electric Cars
+        // -----------------------------------------------------------------------------------------
+        let model_key = ElectricCar::key();
+        let form_cache = form_store.get(model_key.as_str()).unwrap();
+        let meta = &form_cache.meta;
+        let filter = None;
+        let options = Some(
+            FindOptions::builder()
+                .limit(100_i64)
+                .projection(Some(doc! {"model": 1, "updated_at": 1}))
+                .sort(Some(doc! {"updated_at": -1}))
+                .build(),
+        );
+        let client: &mongodb::sync::Client =
+            client_store.get(meta.db_client_name.as_str()).unwrap();
+        let coll = client
+            .database(meta.database_name.as_str())
+            .collection(meta.collection_name.as_str());
+        if let Ok(mut cursor) = coll.find(filter, options) {
+            let mut electric_cars: Vec<SiteMap> = Vec::new();
+            while let Some(doc) = cursor.next() {
+                if let Ok(doc) = doc {
+                    let model = slugify(doc.get_str("model").unwrap());
+                    let mut updated_at = doc.get_datetime("updated_at").unwrap().to_rfc3339();
+                    updated_at.truncate(10);
+                    let sitemap = SiteMap {
+                        title: model,
+                        date: updated_at,
+                    };
+                    electric_cars.push(sitemap);
+                }
+            }
+            if !electric_cars.is_empty() {
+                ctx.insert("electric_cars", &electric_cars);
+            }
+        }
+        // -----------------------------------------------------------------------------------------
+        let rendered = tmpl.render("sitemap.xml", &ctx).unwrap();
+        HttpResponse::Ok().body(rendered)
     }
 }
 

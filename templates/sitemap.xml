@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+{% for car in electric_cars %}
    <url>
-      <loc>http://example.net/</loc>
-      <lastmod>2020-08-06</lastmod>
+      <loc>{{ scheme }}://{{ host }}/{{ car.title }}</loc>
+      <lastmod>{{ car.date }}</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
    </url>
+{% endfor %}
 </urlset>
