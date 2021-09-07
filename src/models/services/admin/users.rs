@@ -37,6 +37,10 @@ pub struct AdminProfile {
     pub username: Option<String>,
     //
     #[serde(default)]
+    #[field_attrs(widget = "hiddenSlug", unique = true, slug_sources = r#"["username"]"#)]
+    pub slug: Option<String>,
+    //
+    #[serde(default)]
     #[field_attrs(
         widget = "inputImage",
         label = "Photo",
@@ -188,6 +192,10 @@ pub struct SellerProfile {
         hint = "Valid characters: a-z A-Z 0-9 _ @ + .<br>Max size: 150"
     )]
     pub username: Option<String>,
+    //
+    #[serde(default)]
+    #[field_attrs(widget = "hiddenSlug", unique = true, slug_sources = r#"["username"]"#)]
+    pub slug: Option<String>,
     //
     #[serde(default)]
     #[field_attrs(
@@ -399,6 +407,10 @@ pub struct CustomerProfile {
         hint = "Valid characters: a-z A-Z 0-9 _ @ + .<br>Max size: 150"
     )]
     pub username: Option<String>,
+    //
+    #[serde(default)]
+    #[field_attrs(widget = "hiddenSlug", unique = true, slug_sources = r#"["username"]"#)]
+    pub slug: Option<String>,
     //
     #[serde(default)]
     #[field_attrs(

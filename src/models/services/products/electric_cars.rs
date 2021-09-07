@@ -24,6 +24,10 @@ pub struct ElectricCar {
     pub model: Option<String>,
     //
     #[serde(default)]
+    #[field_attrs(widget = "hiddenSlug", unique = true, slug_sources = r#"["model"]"#)]
+    pub slug: Option<String>,
+    //
+    #[serde(default)]
     #[field_attrs(
         widget = "inputImage",
         label = "Image",
@@ -117,5 +121,5 @@ pub struct ElectricCar {
         maxlength = 6000,
         css_classes = "ckeditor"
     )]
-    pub text_editor: Option<String>
+    pub text_editor: Option<String>,
 }

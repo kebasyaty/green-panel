@@ -10,8 +10,6 @@ use tera::{Context, Tera};
 use crate::settings;
 pub use request_handlers::*;
 
-use slug::slugify;
-
 use crate::models::services::products::electric_cars::ElectricCar;
 use mango_orm::{ToModel, FORM_STORE, MONGODB_CLIENT_STORE};
 use mongodb::{bson::doc, options::FindOptions};
@@ -55,7 +53,7 @@ pub mod request_handlers {
     //
     struct Options {
         base_url: String,
-        title_field: String,
+        slug_field: String,
         limit: u32,
         model_key: String,
         changefreq: String, // Probable frequency of change: always | hourly | daily | weekly | monthly | yearly | never
@@ -74,15 +72,16 @@ pub mod request_handlers {
         // Generate sitemap
         // -----------------------------------------------------------------------------------------
         let options: Vec<Options> = vec![
-            // Electric Cars.
+            // Electric Cars
             Options {
-                base_url: format!("{}://{}", scheme, host),
-                title_field: String::from("model"),
+                base_url: format!("{}://{}/products/electric_cars", scheme, host),
+                slug_field: String::from("slug"),
                 limit: 100,
                 model_key: ElectricCar::key(),
                 changefreq: String::from("weekly"),
                 priority: 0.5,
             },
+            // Other models ...
         ];
         //
         let mut items = Vec::<Item>::new();
@@ -93,7 +92,7 @@ pub mod request_handlers {
             let options = Some(
                 FindOptions::builder()
                     .limit(elem.limit as i64)
-                    .projection(Some(doc! {elem.title_field.clone(): 1, "updated_at": 1}))
+                    .projection(Some(doc! {elem.slug_field.as_str(): 1, "updated_at": 1}))
                     .sort(Some(doc! {"updated_at": -1}))
                     .build(),
             );
@@ -105,16 +104,18 @@ pub mod request_handlers {
             if let Ok(mut cursor) = coll.find(filter, options) {
                 while let Some(doc) = cursor.next() {
                     if let Ok(doc) = doc {
-                        let model = slugify(doc.get_str("model").unwrap());
-                        let mut updated_at = doc.get_datetime("updated_at").unwrap().to_rfc3339();
-                        updated_at.truncate(10);
-                        let item = Item {
-                            loc: format!("{}/{}", elem.base_url, model),
-                            lastmod: updated_at,
-                            changefreq: elem.changefreq.clone(),
-                            priority: elem.priority,
-                        };
-                        items.push(item);
+                        if let Ok(slug) = doc.get_str(elem.slug_field.as_str()) {
+                            let mut updated_at =
+                                doc.get_datetime("updated_at").unwrap().to_rfc3339();
+                            updated_at.truncate(10);
+                            let item = Item {
+                                loc: format!("{}/{}", elem.base_url, slug),
+                                lastmod: updated_at,
+                                changefreq: elem.changefreq.clone(),
+                                priority: elem.priority,
+                            };
+                            items.push(item);
+                        }
                     }
                 }
             }
