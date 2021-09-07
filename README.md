@@ -22,7 +22,6 @@
 - **regex -** [https://crates.io/crates/regex](https://crates.io/crates/regex "https://crates.io/crates/regex")
 - **sanitize-filename -** [https://crates.io/crates/sanitize-filename](https://crates.io/crates/sanitize-filename "https://crates.io/crates/sanitize-filename")
 - **serde_json -** [https://crates.io/crates/serde_json](https://crates.io/crates/serde_json "https://crates.io/crates/serde_json")
-- **str_slug -** [https://crates.io/crates/str_slug](https://crates.io/crates/str_slug "https://crates.io/crates/str_slug")
 - **uuid -** [https://crates.io/crates/uuid](https://crates.io/crates/uuid "https://crates.io/crates/uuid")
 - **serde -** [https://crates.io/crates/serde](https://crates.io/crates/serde "https://crates.io/crates/serde")
 - **tera -** [https://crates.io/crates/tera](https://crates.io/crates/tera "https://crates.io/crates/tera")
