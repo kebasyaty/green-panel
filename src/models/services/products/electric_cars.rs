@@ -24,7 +24,12 @@ pub struct ElectricCar {
     pub model: Option<String>,
     //
     #[serde(default)]
-    #[field_attrs(widget = "hiddenSlug", unique = true, slug_sources = r#"["model"]"#)]
+    #[field_attrs(
+        widget = "hiddenSlug",
+        unique = true,
+        required = true,
+        slug_sources = r#"["model"]"#
+    )]
     pub slug: Option<String>,
     //
     #[serde(default)]

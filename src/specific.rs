@@ -76,7 +76,7 @@ pub mod request_handlers {
             Options {
                 base_url: format!("{}://{}/products/electric_cars", scheme, host),
                 slug_field: String::from("slug"),
-                limit: 100,
+                limit: 60,
                 model_key: ElectricCar::key(),
                 changefreq: String::from("weekly"),
                 priority: 0.5,

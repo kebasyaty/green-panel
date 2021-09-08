@@ -37,7 +37,7 @@ pub struct AdminProfile {
     pub username: Option<String>,
     //
     #[serde(default)]
-    #[field_attrs(widget = "hiddenSlug", unique = true, slug_sources = r#"["username"]"#)]
+    #[field_attrs(widget = "hiddenSlug", unique = true, required = true, slug_sources = r#"["username"]"#)]
     pub slug: Option<String>,
     //
     #[serde(default)]
@@ -194,7 +194,7 @@ pub struct SellerProfile {
     pub username: Option<String>,
     //
     #[serde(default)]
-    #[field_attrs(widget = "hiddenSlug", unique = true, slug_sources = r#"["username"]"#)]
+    #[field_attrs(widget = "hiddenSlug", unique = true, required = true, slug_sources = r#"["username"]"#)]
     pub slug: Option<String>,
     //
     #[serde(default)]
@@ -409,7 +409,7 @@ pub struct CustomerProfile {
     pub username: Option<String>,
     //
     #[serde(default)]
-    #[field_attrs(widget = "hiddenSlug", unique = true, slug_sources = r#"["username"]"#)]
+    #[field_attrs(widget = "hiddenSlug", unique = true, required = true, slug_sources = r#"["username"]"#)]
     pub slug: Option<String>,
     //
     #[serde(default)]
