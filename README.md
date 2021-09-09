@@ -64,7 +64,7 @@
     $ sudo rm -r /var/log/mongodb
     $ sudo rm -r /var/lib/mongodb
     $ sudo rm -f /etc/mongod.conf
-    $ sudo rm -f /etc/apt/sources.list.d/mongodb-org-4.4.list    # for 4.4
+    $ sudo rm -f /etc/apt/sources.list.d/mongodb-org-4.4.list
 
 #### 2. [Download and unzip the project archive](https://github.com/kebasyaty/mango-panel/archive/refs/heads/main.zip "Download and unzip the project archive")
 #### 3. Go to the project directory and run the following commands:

@@ -97,20 +97,19 @@
       <v-card-text class="pa-4" v-if="render">
         <form :id="getIdForm()" class="document-form">
           <template v-for="field in fields">
-            <div :key="field.name" v-show="!field.is_hide" class="rounded-lg">
-              <!-- Hidden fields -->
-              <input
-                v-if="['hiddenText', 'hiddenI32', 'hiddenU32',
-                   'hiddenI64', 'hiddenF64'].includes(field.widget)"
-                v-model="fieldsData[field.name]"
-                :label="field.label"
-                :id="field.id"
-                :type="field.input_type"
-                :name="field.name"
-              />
-
-              <!-- Others fields. -->
-              <div v-if="!field.widget.includes('hidden')">
+            <!-- Hidden fields -->
+            <input
+              v-if="field.widget.includes('hidden')"
+              :key="field.name"
+              v-model="fieldsData[field.name]"
+              :label="field.label"
+              :id="field.id"
+              :type="field.input_type"
+              :name="field.name"
+            />
+            <!-- Others fields. -->
+            <div v-else :key="field.name">
+              <div v-show="!field.is_hide" class="rounded-lg">
                 <!-- Common messages for all fields. -->
                 <v-alert
                   v-if="field.common_msg.length > 0"
@@ -295,7 +294,7 @@
                     <v-text-field
                       class="mt-0 pt-0"
                       v-if="['inputText', 'inputEmail', 'inputPassword', 'inputPhone',
-                         'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6'].includes(field.widget)"
+                         'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6', 'inputSlug'].includes(field.widget)"
                       clearable
                       counter
                       :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
@@ -1402,6 +1401,9 @@ export default {
         case 'inputText':
           result = 'note-text-outline'
           break
+        case 'inputSlug':
+          result = 'snake'
+          break
         case 'inputColor':
           result = 'palette-outline'
           break
@@ -1471,6 +1473,7 @@ export default {
           case 'inputIP':
           case 'inputIPv4':
           case 'inputIPv6':
+          case 'inputSlug':
             fieldsData[field.name] = field.value || ''
             this.showWarning(field.common_msg)
             break
@@ -1510,11 +1513,19 @@ export default {
             this.showWarning(field.common_msg)
             break
           case 'hiddenText':
+            fieldsData[field.name] = field.value || ''
+            this.showWarning(field.common_msg)
+            break
           case 'hiddenI32':
           case 'hiddenU32':
           case 'hiddenI64':
+            tmp = parseInt(field.value)
+            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+            this.showWarning(field.common_msg)
+            break
           case 'hiddenF64':
-            fieldsData[field.name] = field.value || ''
+            tmp = parseFloat(field.value)
+            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
             this.showWarning(field.common_msg)
             break
           case 'numberI32':
