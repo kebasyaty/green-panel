@@ -159,7 +159,7 @@
                               small
                               color="red"
                               @click="[dynamicSelectionDialog[field.name] = false,
-                                   currValDynItem = {title: null, value: null},
+                                   newValDynItem = {title: null, value: null},
                                    delDynItems = [],
                                    setShowMsg(false),
                                    runShowOverlayPageLockout(false)]"
@@ -223,7 +223,7 @@
                                 <v-text-field
                                   clearable
                                   :label="$t('message.23')"
-                                  v-model="currValDynItem.title"
+                                  v-model="newValDynItem.title"
                                 ></v-text-field>
                               </v-col>
                               <v-col cols="12" sm="6">
@@ -234,7 +234,7 @@
                                   :step="field.step"
                                   :min="field.min"
                                   :max="field.max"
-                                  v-model="currValDynItem.value"
+                                  v-model="newValDynItem.value"
                                 ></v-text-field>
                               </v-col>
                             </v-row>
@@ -245,35 +245,46 @@
                             <v-btn
                               text
                               color="green"
-                              :disabled="!currValDynItem.title || !currValDynItem.value"
+                              :disabled="!newValDynItem.title || !newValDynItem.value"
                               @click="updateDynData(field.name, 'save')"
                             >{{ $t('message.19') }}</v-btn>
                           </v-card-actions>
                           <v-divider></v-divider>
                           <!-- Remove irrelevant items. -->
                           <v-card-text class="pb-0">
-                            <v-card-title class="px-0 pb-0">{{ $t('message.20') }}</v-card-title>
-                            <v-list two-line flat>
-                              <v-list-item-group v-model="delDynItems" multiple>
-                                <v-list-item
-                                  class="px-0"
-                                  v-for="item in field.options"
-                                  :key="item.title"
-                                >
-                                  <template v-slot:default="{ active, }">
-                                    <v-list-item-action>
-                                      <v-checkbox :input-value="active" color="red darken-3"></v-checkbox>
-                                    </v-list-item-action>
-                                    <v-list-item-content>
-                                      <v-list-item-title>{{ item.title }}</v-list-item-title>
-                                      <v-list-item-subtitle>{{ item.value }}</v-list-item-subtitle>
-                                    </v-list-item-content>
-                                  </template>
+                            <v-card-title class="px-0 pt-6 pb-0">{{ $t('message.20') }}</v-card-title>
+                            <v-autocomplete
+                              dense
+                              chips
+                              deletable-chips
+                              small-chips
+                              clearable
+                              multiple
+                              counter
+                              item-text="title"
+                              item-value="value"
+                              item-color="red darken-3"
+                              color="red darken-3"
+                              :disabled="field.options.length === 0"
+                              :type="field.input_type"
+                              class="shrink"
+                              v-model="delDynItems"
+                              :items="field.options"
+                            >
+                              <template v-slot:item="{ item, attrs, on }">
+                                <v-list-item v-on="on" v-bind="attrs" #default="{ active }">
+                                  <v-list-item-action>
+                                    <v-checkbox :input-value="active" color="red darken-3"></v-checkbox>
+                                  </v-list-item-action>
+                                  <v-list-item-content>
+                                    <v-list-item-title v-html="item.title"></v-list-item-title>
+                                    <v-list-item-subtitle v-html="item.value"></v-list-item-subtitle>
+                                  </v-list-item-content>
                                 </v-list-item>
-                              </v-list-item-group>
-                            </v-list>
+                              </template>
+                            </v-autocomplete>
                           </v-card-text>
-                          <v-card-actions>
+                          <v-card-actions class="pt-3">
                             <v-spacer></v-spacer>
                             <!-- Button - Delete. -->
                             <v-btn
@@ -282,7 +293,7 @@
                               :disabled="delDynItems.length === 0"
                               @click="[updateDynData(field.name, 'delete'),
                                    dynamicSelectionDialog[field.name] = false,
-                                   currValDynItem = {title: null, value: null},
+                                   newValDynItem = {title: null, value: null},
                                    delDynItems = []]"
                             >{{ $t('message.21') }}</v-btn>
                           </v-card-actions>
@@ -984,6 +995,7 @@
                          'selectI64Mult', 'selectF64Mult'].includes(field.widget)"
                       clearable
                       chips
+                      small-chips
                       deletable-chips
                       multiple
                       counter
@@ -1036,6 +1048,7 @@
                          'selectI64MultDyn', 'selectF64MultDyn'].includes(field.widget)"
                       clearable
                       chips
+                      small-chips
                       deletable-chips
                       multiple
                       counter
@@ -1162,7 +1175,7 @@ export default {
     fields: [],
     dynamicSelectionDialog: {},
     delDynItems: [],
-    currValDynItem: { title: null, value: null },
+    newValDynItem: { title: null, value: null },
     maxTotalFormSize: 16384, // 16384 = ~16 Kb (default data size for the form),
     render: true,
     dialogDocDelete: false,
@@ -1837,7 +1850,7 @@ export default {
                     this.vMenu = {}
                     this.dynamicSelectionDialog = {}
                     this.delDynItems = []
-                    this.currValDynItem = { title: null, value: null }
+                    this.newValDynItem = { title: null, value: null }
                     this.fieldsData = {}
                     this.fields = []
                     this.getFormData(document)
@@ -2007,25 +2020,26 @@ export default {
       const service = this.serviceList[indexService]
       const targetField = this.fields.filter(item => item.name === fieldName)[0]
       const targetOptions = {}
-      const delItemsName = []
+      const delItemsValue = []
 
       switch (mode) {
         case 'save':
+          this.newValDynItem.title = this.newValDynItem.title.trim()
           // Checking the `Title` field for valid characters.
-          if (!/^[-_.,`@#$%^&+=*!~)(:><?;№|\\/\s\w]+$/i.test(this.currValDynItem.title)) {
+          if (!/^[-_.,`@#$%^&+=*!~)(:><?;№|\\/\s\w]+$/i.test(this.newValDynItem.title)) {
             this.runShowMsg({ text: this.$t('message.61'), status: 'error' })
             return
           }
           // Validation uniqueness of names for dynamic enumerations.
           for (let idx = 0; idx < targetField.options.length; idx++) {
-            if (targetField.options[idx].title === this.currValDynItem.title) {
+            if (targetField.options[idx].title === this.newValDynItem.title) {
               this.runShowMsg({ text: `${this.$t('message.23')}: ${this.$t('message.33')}`, status: 'error' })
               return
             }
           }
           // Validation of a field of type text.
           if (targetField.widget.includes('Text')) {
-            if (!/^[-_.,`@#$%^&+=*!~)(:><?;№|\\/\s\w]+$/i.test(this.currValDynItem.value.toString().trim())) {
+            if (!/^[-_.,`@#$%^&+=*!~)(:><?;№|\\/\s\w]+$/i.test(this.newValDynItem.value.toString().trim())) {
               this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
               return
             }
@@ -2033,26 +2047,26 @@ export default {
           // Validation of a field of type u32.
           if (targetField.widget.includes('U32')) {
             // Checking the `Value` field for valid characters.
-            if (!/^\d+$/i.test(this.currValDynItem.value.toString().trim())) {
+            if (!/^\d+$/i.test(this.newValDynItem.value.toString().trim())) {
               this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
               return
             }
             // The value must not be less than zero.
-            if (+this.currValDynItem.value < 0) {
-              this.runShowMsg({ text: `${this.$t('message.23')}: ${this.currValDynItem.title}<br>${this.$t('message.24')}: ${this.$t('message.34')}.`, status: 'error' })
+            if (+this.newValDynItem.value < 0) {
+              this.runShowMsg({ text: `${this.$t('message.23')}: ${this.newValDynItem.title}<br>${this.$t('message.24')}: ${this.$t('message.34')}.`, status: 'error' })
               return
             }
           }
           // Validation of a field of type i32 and i64.
           if (targetField.widget.includes('I32') || targetField.widget.includes('I64')) {
-            if (!/^-?\d+$/.test(this.currValDynItem.value.toString().trim())) {
+            if (!/^-?\d+$/.test(this.newValDynItem.value.toString().trim())) {
               this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
               return
             }
           }
           // Validation of a field of type f64.
           if (targetField.widget.includes('F64')) {
-            if (!/^-?\d+((\.|,)\d+)?$/.test(this.currValDynItem.value.toString().trim())) {
+            if (!/^-?\d+((\.|,)\d+)?$/.test(this.newValDynItem.value.toString().trim())) {
               this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
               return
             }
@@ -2061,26 +2075,32 @@ export default {
           if (targetField.widget.includes('I32') || targetField.widget.includes('U32') ||
             targetField.widget.includes('I64')) {
             // Validate that the value is not fractional.
-            if (this.currValDynItem.value.includes('.') || this.currValDynItem.value.includes(',')) {
-              this.runShowMsg({ text: `${this.$t('message.23')}: ${this.currValDynItem.title}<br>${this.$t('message.24')}: ${this.$t('message.35')}.`, status: 'error' })
+            if (this.newValDynItem.value.includes('.') || this.newValDynItem.value.includes(',')) {
+              this.runShowMsg({ text: `${this.$t('message.23')}: ${this.newValDynItem.title}<br>${this.$t('message.24')}: ${this.$t('message.35')}.`, status: 'error' })
               return
             }
-            this.currValDynItem.value = parseInt(this.currValDynItem.value)
+            this.newValDynItem.value = parseInt(this.newValDynItem.value)
           } else if (targetField.widget.includes('F64')) {
-            this.currValDynItem.value = parseFloat(this.currValDynItem.value)
+            this.newValDynItem.value = parseFloat(this.newValDynItem.value)
           }
           // Prepare `options` for conversion to json-line.
-          targetOptions[fieldName] = targetField.options.concat(this.currValDynItem)
-            .map(item => [item.value.toString().trim(), item.title.trim()])
+          targetOptions[fieldName] = targetField.options.concat(this.newValDynItem)
+            .map(item => [item.value.toString().trim(), item.title])
+          targetOptions[fieldName].sort(function (item, item2) {
+            if (item.title < item2.title) { return -1 }
+            if (item.title > item2.title) { return 1 }
+            return 0
+          })
           break
         case 'delete':
           // Prepare `options` for conversion to json-line.
-          this.delDynItems.forEach(idx => {
-            delItemsName.push(targetField.options[idx].title)
-          })
+          for (let idx = 0; idx < this.delDynItems.length; idx++) {
+            delItemsValue.push(this.delDynItems[idx])
+          }
+          this.delDynItems = []
           targetOptions[fieldName] = targetField.options
-            .filter(item => !delItemsName.includes(item.title))
-            .map(item => [item.value.toString().trim(), item.title.trim()])
+            .filter(item => !delItemsValue.includes(item.value))
+            .map(item => [item.value.toString(), item.title])
           break
       }
 
@@ -2100,9 +2120,17 @@ export default {
             // Apply changes to the current state.
             switch (mode) {
               case 'save':
+                if (typeof this.newValDynItem.value === 'string') {
+                  this.newValDynItem.value = this.newValDynItem.value.trim()
+                }
                 for (let idx = 0; idx < this.fields.length; idx++) {
                   if (this.fields[idx].name === fieldName) {
-                    this.fields[idx].options.push(this.currValDynItem)
+                    this.fields[idx].options.push(this.newValDynItem)
+                    this.fields[idx].options.sort(function (item, item2) {
+                      if (item.title < item2.title) { return -1 }
+                      if (item.title > item2.title) { return 1 }
+                      return 0
+                    })
                     break
                   }
                 }
@@ -2110,8 +2138,16 @@ export default {
               case 'delete':
                 for (let idx = 0; idx < this.fields.length; idx++) {
                   if (this.fields[idx].name === fieldName) {
-                    this.fields[idx].options = this.fields[idx].options
-                      .filter(item => !delItemsName.includes(item.title))
+                    if (this.fields[idx].widget.includes('Mult')) {
+                      this.fieldsData[fieldName] = this.fieldsData[fieldName].filter(
+                        item => !delItemsValue.includes(item)
+                      )
+                    } else {
+                      this.fieldsData[fieldName] = null
+                    }
+                    this.fields[idx].options = this.fields[idx].options.filter(
+                      item => !delItemsValue.includes(item.value)
+                    )
                     break
                   }
                 }
@@ -2133,8 +2169,7 @@ export default {
         })
         .then(() => {
           this.dynamicSelectionDialog[fieldName] = false
-          this.delDynItems = []
-          this.currValDynItem = { title: null, value: null }
+          this.newValDynItem = { title: null, value: null }
         })
     },
     // Refresh form for update password.

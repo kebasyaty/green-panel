@@ -205,8 +205,8 @@
                 dense
                 chips
                 :deletable-chips="filter.multiple"
-                clearable
                 small-chips
+                clearable
                 hide-details
                 class="shrink"
                 v-model="selectDataFilters[filter.field]"

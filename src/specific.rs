@@ -140,6 +140,7 @@ pub mod request_handlers {
 #[cfg(test)]
 mod tests {
     use super::*;
+    //use crate::models;
     use actix_web::{http, test, App};
     use std::collections::HashMap;
 
@@ -147,6 +148,9 @@ mod tests {
     // *********************************************************************************************
     #[actix_rt::test]
     async fn test_handlers_ok() {
+        //
+        //models::registration::migration::mango_migration().unwrap();
+        //
         let app_state = web::Data::new(settings::AppState::new());
         let tera = Tera::new(concat!(env!("CARGO_MANIFEST_DIR"), "/templates/**/*")).unwrap();
 
@@ -166,8 +170,8 @@ mod tests {
         handlers.insert("favicon_ico", "/favicon.ico");
         handlers.insert("favicon", "/favicons/favicon.png");
         handlers.insert("robots", "/robots.txt");
-        //handlers.insert("sitemap", "/sitemap.xml");
         handlers.insert("page_404", "/test-page-404");
+        //handlers.insert("sitemap", "/sitemap.xml");
 
         for (handler, route) in &handlers {
             let req = test::TestRequest::get().uri(route).to_request();
