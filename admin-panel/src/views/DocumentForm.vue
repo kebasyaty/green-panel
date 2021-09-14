@@ -2087,8 +2087,8 @@ export default {
           targetOptions[fieldName] = targetField.options.concat(this.newValDynItem)
             .map(item => [item.value.toString().trim(), item.title])
           targetOptions[fieldName].sort(function (item, item2) {
-            if (item.title < item2.title) { return -1 }
-            if (item.title > item2.title) { return 1 }
+            if (item[1] > item2[1]) { return 1 }
+            if (item[1] < item2[1]) { return -1 }
             return 0
           })
           break
@@ -2127,8 +2127,8 @@ export default {
                   if (this.fields[idx].name === fieldName) {
                     this.fields[idx].options.push(this.newValDynItem)
                     this.fields[idx].options.sort(function (item, item2) {
-                      if (item.title < item2.title) { return -1 }
                       if (item.title > item2.title) { return 1 }
+                      if (item.title < item2.title) { return -1 }
                       return 0
                     })
                     break
