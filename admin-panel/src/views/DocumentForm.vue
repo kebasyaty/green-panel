@@ -2026,7 +2026,7 @@ export default {
         case 'save':
           this.newValDynItem.title = this.newValDynItem.title.trim()
           // Checking the `Title` field for valid characters.
-          if (!/^[-_.,`@#$%^&+=*!~)(:><?;№|\\/\s\w]+$/i.test(this.newValDynItem.title)) {
+          if (!/^[-_.,`@#$%^&+=*!~)(:><?;№|\\/\s\w\p{L}]+$/iu.test(this.newValDynItem.title)) {
             this.runShowMsg({ text: this.$t('message.61'), status: 'error' })
             return
           }
@@ -2039,7 +2039,7 @@ export default {
           }
           // Validation of a field of type text.
           if (targetField.widget.includes('Text')) {
-            if (!/^[-_.,`@#$%^&+=*!~)(:><?;№|\\/\s\w]+$/i.test(this.newValDynItem.value.toString().trim())) {
+            if (!/^[-_.,`@#$%^&+=*!~)(:><?;№|\\/\s\w\p{L}]+$/iu.test(this.newValDynItem.value.toString().trim())) {
               this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
               return
             }
@@ -2047,7 +2047,7 @@ export default {
           // Validation of a field of type u32.
           if (targetField.widget.includes('U32')) {
             // Checking the `Value` field for valid characters.
-            if (!/^\d+$/i.test(this.newValDynItem.value.toString().trim())) {
+            if (!/^\d+$/.test(this.newValDynItem.value.toString().trim())) {
               this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
               return
             }
@@ -2142,7 +2142,7 @@ export default {
                       this.fieldsData[fieldName] = this.fieldsData[fieldName].filter(
                         item => !delItemsValue.includes(item)
                       )
-                    } else {
+                    } else if (delItemsValue.includes(this.fieldsData[fieldName])) {
                       this.fieldsData[fieldName] = null
                     }
                     this.fields[idx].options = this.fields[idx].options.filter(
