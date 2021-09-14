@@ -140,6 +140,11 @@ export default {
             } else if (data.msg_err.length === 0) {
               const filters = data.filters
               const selectDataFilters = {}
+              filters.sort(function (item, item2) {
+                if (item.label > item2.label) { return 1 }
+                if (item.label < item2.label) { return -1 }
+                return 0
+              })
               filters.forEach(item => { selectDataFilters[item.field] = null })
               commit('setSelectDataFilters', selectDataFilters)
               commit('setDataFilters', filters)

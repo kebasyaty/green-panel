@@ -262,9 +262,9 @@ pub mod request_handlers {
                     };
                     let mut items = Vec::<Value>::new();
                     let options = widget.options.clone();
-                    for (value, text) in options {
+                    for (value, title) in options {
                         let item = json!({
-                            "text": text,
+                            "title": title,
                             "value": match value_type {
                                 "f64" => json!(value.parse::<f64>().unwrap()),
                                 "i64" => json!(value.parse::<i64>().unwrap()),

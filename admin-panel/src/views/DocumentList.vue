@@ -203,11 +203,13 @@
             >
               <v-autocomplete
                 dense
-                chips
+                :chips="filter.multiple"
                 :deletable-chips="filter.multiple"
-                small-chips
+                :small-chips="filter.multiple"
                 clearable
                 hide-details
+                item-text="title"
+                item-value="value"
                 class="shrink"
                 v-model="selectDataFilters[filter.field]"
                 :label="filter.label"
