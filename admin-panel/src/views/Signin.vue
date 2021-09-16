@@ -25,16 +25,20 @@
               :error-messages="usernameErrors"
               :label="$t('message.5')"
               required
+              clearable
               autofocus
               @input="$v.username.$touch()"
               @blur="$v.username.$touch()"
             ></v-text-field>
             <v-text-field
               v-model="password"
-              type="password"
               :error-messages="passwordErrors"
               :label="$t('message.6')"
               required
+              clearable
+              :append-icon="see_pass ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="see_pass ? 'text' : 'password'"
+              @click:append="see_pass = !see_pass"
               @input="$v.password.$touch()"
               @blur="$v.password.$touch()"
             ></v-text-field>
@@ -72,7 +76,8 @@ export default {
     // For protect against woodpeckers
     count_effort: 0,
     countdown: 10,
-    counter: 0
+    counter: 0,
+    see_pass: false
   }),
 
   computed: {

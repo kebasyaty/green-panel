@@ -2381,6 +2381,7 @@ export default {
 <style>
 .Password__strength-meter {
   background: #bdbdbd !important;
+  height: 2px !important;
 }
 .Password__strength-meter:after,
 .Password__strength-meter:before {
