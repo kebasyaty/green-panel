@@ -37,25 +37,28 @@
                 @click:append="dataUpdatePassword.see_pass = !dataUpdatePassword.see_pass"
                 :rules="[() => !!dataUpdatePassword.passwordOld || $t('message.51')]"
               ></v-text-field>
-              <v-text-field
-                id="newPassword"
-                ref="passwordNew"
-                class="mt-0 pt-0"
-                required
-                clearable
-                counter
-                :append-icon="dataUpdatePassword.see_pass ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="dataUpdatePassword.see_pass ? 'text' : 'password'"
-                :placeholder="$t('message.48')"
-                :hint="$t('message.50')"
-                v-model="dataUpdatePassword.passwordNew"
-                :maxlength="256"
-                @click:append="dataUpdatePassword.see_pass = !dataUpdatePassword.see_pass"
-                :rules="[
+              <div>
+                <v-text-field
+                  id="newPassword"
+                  ref="passwordNew"
+                  class="mt-0 pt-0"
+                  required
+                  clearable
+                  counter
+                  :append-icon="dataUpdatePassword.see_pass ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="dataUpdatePassword.see_pass ? 'text' : 'password'"
+                  :placeholder="$t('message.48')"
+                  :hint="$t('message.50')"
+                  v-model="dataUpdatePassword.passwordNew"
+                  :maxlength="256"
+                  @click:append="dataUpdatePassword.see_pass = !dataUpdatePassword.see_pass"
+                  :rules="[
                         () => !!dataUpdatePassword.passwordNew || $t('message.51'),
                         () => /^[a-z0-9@#$%^&+=*!~)(]{8,256}$/i.test(dataUpdatePassword.passwordNew) ||  $t('message.50')
                       ]"
-              ></v-text-field>
+                ></v-text-field>
+                <password v-model="dataUpdatePassword.passwordNew" :strength-meter-only="true" />
+              </div>
               <v-text-field
                 ref="passwordRepeat"
                 class="mt-0 pt-0"
@@ -1228,9 +1231,12 @@
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
 import generatePassword from 'password-generator'
+import Password from 'vue-password-strength-meter'
 
 export default {
   name: 'DocumentForm',
+
+  components: { Password },
 
   data: () => ({
     docTitle: '...',
@@ -2371,3 +2377,13 @@ export default {
 
 }
 </script>
+
+<style>
+.Password__strength-meter {
+  background: #bdbdbd !important;
+}
+.Password__strength-meter:after,
+.Password__strength-meter:before {
+  border-color: transparent !important;
+}
+</style>
