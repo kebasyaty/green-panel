@@ -37,6 +37,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.8.3",
     "fill-range": "^7.0.1",
+    "password-generator": "^2.3.2",
     "slug": "^4.0.2",
     "vue": "^2.6.11",
     "vue-axios": "^3.2.2",

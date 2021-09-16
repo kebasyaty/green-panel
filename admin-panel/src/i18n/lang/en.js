@@ -66,6 +66,9 @@ export default {
     62: 'The `Value` field contains invalid characters.',
     63: 'Select font color.',
     64: 'Filter',
-    65: 'Filter by categories'
+    65: 'Filter by categories',
+    66: 'Generate',
+    67: 'Copy',
+    68: 'Reset'
   }
 }

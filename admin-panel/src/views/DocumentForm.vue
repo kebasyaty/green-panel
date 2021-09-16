@@ -29,21 +29,28 @@
                 required
                 clearable
                 counter
+                :append-icon="dataUpdatePassword.see_pass ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="dataUpdatePassword.see_pass ? 'text' : 'password'"
                 :placeholder="$t('message.47')"
                 v-model="dataUpdatePassword.passwordOld"
                 :maxlength="256"
+                @click:append="dataUpdatePassword.see_pass = !dataUpdatePassword.see_pass"
                 :rules="[() => !!dataUpdatePassword.passwordOld || $t('message.51')]"
               ></v-text-field>
               <v-text-field
+                id="newPassword"
                 ref="passwordNew"
                 class="mt-0 pt-0"
                 required
                 clearable
                 counter
+                :append-icon="dataUpdatePassword.see_pass ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="dataUpdatePassword.see_pass ? 'text' : 'password'"
                 :placeholder="$t('message.48')"
                 :hint="$t('message.50')"
                 v-model="dataUpdatePassword.passwordNew"
                 :maxlength="256"
+                @click:append="dataUpdatePassword.see_pass = !dataUpdatePassword.see_pass"
                 :rules="[
                         () => !!dataUpdatePassword.passwordNew || $t('message.51'),
                         () => /^[a-z0-9@#$%^&+=*!~)(]{8,256}$/i.test(dataUpdatePassword.passwordNew) ||  $t('message.50')
@@ -55,38 +62,95 @@
                 required
                 clearable
                 counter
+                :append-icon="dataUpdatePassword.see_pass ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="dataUpdatePassword.see_pass ? 'text' : 'password'"
                 :placeholder="$t('message.49')"
                 v-model="dataUpdatePassword.passwordRepeat"
                 :maxlength="256"
+                @click:append="dataUpdatePassword.see_pass = !dataUpdatePassword.see_pass"
                 :rules="[
                         () => !!dataUpdatePassword.passwordRepeat || $t('message.51'),
                         () => dataUpdatePassword.passwordRepeat === dataUpdatePassword.passwordNew || $t('message.52'),
                       ]"
               ></v-text-field>
             </v-card-text>
-            <v-card-actions>
-              <v-btn
-                text
-                @click="[updatePassResetForm(), dialogUpdatePassword = false]"
-              >{{ $t('message.54') }}</v-btn>
+            <v-card-actions class="pt-0">
               <v-spacer></v-spacer>
-              <v-slide-x-reverse-transition>
-                <v-tooltip v-if="dataUpdatePassword.formHasErrors" left>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                      icon
-                      class="my-0"
-                      v-bind="attrs"
-                      @click="updatePassResetForm()"
-                      v-on="on"
-                    >
-                      <v-icon>mdi-refresh</v-icon>
-                    </v-btn>
-                  </template>
-                  <span>{{ $t('message.53') }}</span>
-                </v-tooltip>
-              </v-slide-x-reverse-transition>
-              <v-btn color="primary" text @click="updatePassword()">{{ $t('message.55') }}</v-btn>
+              <!-- Button - Close -->
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    icon
+                    v-bind="attrs"
+                    v-on="on"
+                    color="red"
+                    @click="[updatePassResetForm(), dialogUpdatePassword = false]"
+                  >
+                    <v-icon>mdi-close</v-icon>
+                  </v-btn>
+                </template>
+                {{ $t('message.18') }}
+              </v-tooltip>
+              <!-- Button - Generate password -->
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    icon
+                    v-bind="attrs"
+                    v-on="on"
+                    color="green"
+                    :loading="dataUpdatePassword.generate"
+                    :disabled="dataUpdatePassword.generate"
+                    @click="customPassword()"
+                  >
+                    <v-icon>mdi-cached</v-icon>
+                  </v-btn>
+                </template>
+                {{ $t('message.66') }}
+              </v-tooltip>
+              <!-- Button - Copy password -->
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    icon
+                    v-bind="attrs"
+                    v-on="on"
+                    color="yellow darken-1"
+                    :loading="dataUpdatePassword.generate"
+                    :disabled="dataUpdatePassword.generate"
+                    @click="copyPassword()"
+                  >
+                    <v-icon>mdi-content-copy</v-icon>
+                  </v-btn>
+                </template>
+                {{ $t('message.67') }}
+              </v-tooltip>
+              <!-- Button - Refresh form -->
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    icon
+                    v-bind="attrs"
+                    v-on="on"
+                    color="purple"
+                    class="my-0"
+                    @click="updatePassResetForm()"
+                  >
+                    <v-icon>mdi-refresh</v-icon>
+                  </v-btn>
+                </template>
+                {{ $t('message.68') }}
+              </v-tooltip>
+              <!-- Button - Update -->
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn icon v-bind="attrs" v-on="on" color="blue" text @click="updatePassword()">
+                    <v-icon>mdi-content-save</v-icon>
+                  </v-btn>
+                </template>
+                {{ $t('message.55') }}
+              </v-tooltip>
+              <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -1163,6 +1227,7 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
+import generatePassword from 'password-generator'
 
 export default {
   name: 'DocumentForm',
@@ -1176,14 +1241,33 @@ export default {
     dynamicSelectionDialog: {},
     delDynItems: [],
     newValDynItem: { title: null, value: null },
+    showLocalDate: {},
     maxTotalFormSize: 16384, // 16384 = ~16 Kb (default data size for the form),
     render: true,
     dialogDocDelete: false,
+    // Update password.
     dialogUpdatePassword: false,
     dataUpdatePassword: {
-      passwordOld: null, passwordNew: null, passwordRepeat: null, formHasErrors: false
+      passwordOld: null,
+      passwordNew: null,
+      passwordRepeat: null,
+      formHasErrors: false,
+      see_pass: false,
+      generate: false
     },
-    showLocalDate: {}
+    // Options password.
+    optionPass: {
+      passLength: 16,
+      uppercaseMinCount: 3,
+      lowercaseMinCount: 3,
+      numberMinCount: 2,
+      specialMinCount: 2,
+      UPPERCASE_RE: /([A-Z])/g,
+      LOWERCASE_RE: /([a-z])/g,
+      NUMBER_RE: /([\d])/g,
+      SPECIAL_CHAR_RE: /([@#$%^&+=*!~)(])/g,
+      NON_REPEATING_CHAR_RE: /([@#$%^&+=*!~)(a-z\d])\1{2,}/ig
+    }
   }),
 
   computed: {
@@ -1256,6 +1340,42 @@ export default {
       this.$nextTick(() => {
         this.render = true
       })
+    },
+    // Check password quality.
+    isStrongEnough(password) {
+      const uc = password.match(this.optionPass.UPPERCASE_RE)
+      const lc = password.match(this.optionPass.LOWERCASE_RE)
+      const n = password.match(this.optionPass.NUMBER_RE)
+      const sc = password.match(this.optionPass.SPECIAL_CHAR_RE)
+      const nr = password.match(this.optionPass.NON_REPEATING_CHAR_RE)
+      return password.length >= this.optionPass.passLength && !nr &&
+        uc && uc.length >= this.optionPass.uppercaseMinCount &&
+        lc && lc.length >= this.optionPass.lowercaseMinCount &&
+        n && n.length >= this.optionPass.numberMinCount &&
+        sc && sc.length >= this.optionPass.specialMinCount
+    },
+    // Generate password.
+    customPassword() {
+      this.dataUpdatePassword.generate = true
+      //
+      let password = ''
+      //
+      while (!this.isStrongEnough(password)) {
+        password = generatePassword(this.optionPass.passLength, false, /[a-z\d@#$%^&+=*!~)(]/i)
+      }
+      this.dataUpdatePassword.passwordNew = password
+      this.dataUpdatePassword.passwordRepeat = password
+      setTimeout(() => {
+        this.dataUpdatePassword.generate = false
+        return undefined
+      }, 300)
+    },
+    // Copy Password to Clipboard.
+    copyPassword() {
+      var copyText = document.getElementById('newPassword')
+      copyText.select()
+      copyText.setSelectionRange(0, 99999) /* For mobile devices */
+      navigator.clipboard.writeText(copyText.value)
     },
     // Get id form.
     getIdForm() {
@@ -2191,6 +2311,7 @@ export default {
       fields.forEach(field => {
         if (!this.dataUpdatePassword[field]) {
           this.dataUpdatePassword.formHasErrors = true
+          this.runShowOverlayPageLockout(false)
         }
         this.$refs[field].validate(true)
       })
