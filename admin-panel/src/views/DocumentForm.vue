@@ -57,7 +57,11 @@
                         () => /^[a-z0-9@#$%^&+=*!~)(]{8,256}$/i.test(dataUpdatePassword.passwordNew) ||  $t('message.50')
                       ]"
                 ></v-text-field>
-                <password v-model="dataUpdatePassword.passwordNew" :strength-meter-only="true" />
+                <password
+                  v-model="valuePasswordStrength"
+                  :strength-meter-only="true"
+                  :class="$vuetify.theme.dark ? 'theme--dark' : 'theme--light'"
+                />
               </div>
               <v-text-field
                 ref="passwordRepeat"
@@ -1294,7 +1298,14 @@ export default {
     ]),
     ...mapState('colorPicker', [
       'swatches'
-    ])
+    ]),
+    valuePasswordStrength: function () {
+      if (this.dataUpdatePassword.passwordNew) {
+        return this.dataUpdatePassword.passwordNew
+      } else {
+        return ''
+      }
+    }
   },
 
   methods: {
@@ -2379,12 +2390,20 @@ export default {
 </script>
 
 <style>
-.Password__strength-meter {
-  background: #bdbdbd !important;
+.Password.theme--dark .Password__strength-meter {
+  background: #757575 !important;
   height: 2px !important;
 }
-.Password__strength-meter:after,
-.Password__strength-meter:before {
-  border-color: transparent !important;
+.Password.theme--dark .Password__strength-meter:after,
+.Password.theme--dark .Password__strength-meter:before {
+  border-color: #212121 !important;
+}
+.Password.theme--light .Password__strength-meter {
+  background: #e0e0e0 !important;
+  height: 2px !important;
+}
+.Password.theme--light .Password__strength-meter:after,
+.Password.theme--light .Password__strength-meter:before {
+  border-color: #fff !important;
 }
 </style>
