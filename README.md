@@ -29,6 +29,11 @@
 - ...
 - **Vue.js -** [https://vuejs.org/](https://vuejs.org/ "https://vuejs.org/")
 - **Vuetify.js -** [https://vuetifyjs.com/](https://vuetifyjs.com/ "https://vuetifyjs.com/")
+- **vue-axios -** [https://www.npmjs.com/package/vue-axios](https://www.npmjs.com/package/vue-axios "https://www.npmjs.com/package/vue-axios")
+- **vue-password-strength-meter -** [https://www.npmjs.com/package/vue-password-strength-meter](https://www.npmjs.com/package/vue-password-strength-meter "https://www.npmjs.com/package/vue-password-strength-meter")
+- **password-generator -** [https://www.npmjs.com/package/password-generator](https://www.npmjs.com/package/password-generator "https://www.npmjs.com/package/password-generator")
+- **fill-range -** [https://www.npmjs.com/package/fill-range](https://www.npmjs.com/package/fill-range "https://www.npmjs.com/package/fill-range")
+- **slug -** [https://www.npmjs.com/package/slug](https://www.npmjs.com/package/slug "https://www.npmjs.com/package/slug")
 
 ## Hint
 #### For examples of Model fields, use [tests](https://github.com/kebasyaty/mango-orm/tree/master/test-drive/tests "tests").
