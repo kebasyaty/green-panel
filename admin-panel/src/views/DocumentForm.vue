@@ -82,12 +82,12 @@
               ></v-text-field>
             </v-card-text>
             <v-card-actions class="pt-0">
-              <v-spacer></v-spacer>
               <!-- Button - Close -->
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
                     icon
+                    large
                     v-bind="attrs"
                     v-on="on"
                     color="red"
@@ -98,11 +98,13 @@
                 </template>
                 {{ $t('message.18') }}
               </v-tooltip>
+              <v-spacer></v-spacer>
               <!-- Button - Generate password -->
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
                     icon
+                    large
                     v-bind="attrs"
                     v-on="on"
                     color="green"
@@ -120,6 +122,7 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
                     icon
+                    large
                     v-bind="attrs"
                     v-on="on"
                     color="yellow darken-1"
@@ -137,6 +140,7 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
                     icon
+                    large
                     v-bind="attrs"
                     v-on="on"
                     color="purple"
@@ -148,16 +152,24 @@
                 </template>
                 {{ $t('message.68') }}
               </v-tooltip>
+              <v-spacer></v-spacer>
               <!-- Button - Update -->
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn icon v-bind="attrs" v-on="on" color="blue" text @click="updatePassword()">
+                  <v-btn
+                    icon
+                    large
+                    v-bind="attrs"
+                    v-on="on"
+                    color="blue"
+                    text
+                    @click="updatePassword()"
+                  >
                     <v-icon>mdi-content-save</v-icon>
                   </v-btn>
                 </template>
                 {{ $t('message.55') }}
               </v-tooltip>
-              <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
