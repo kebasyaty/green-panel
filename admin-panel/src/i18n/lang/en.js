@@ -69,6 +69,7 @@ export default {
     65: 'Filter by categories',
     66: 'Generate',
     67: 'Copy',
-    68: 'Reset'
+    68: 'Reset',
+    69: 'Presence | Absence'
   }
 }

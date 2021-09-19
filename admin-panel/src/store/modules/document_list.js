@@ -77,14 +77,17 @@ export default {
             .collections[router.currentRoute.params.indexCollection]
         }
         const filters = {}
-        for (const [key, value] of Object.entries(state.selectDataFilters)) {
+        for (let idx = 0; idx < state.dataFilters.length; idx++) {
+          const filter = state.dataFilters[idx]
+          const key = filter.field
+          const value = state.selectDataFilters[key]
           if (value !== null) {
             if (Array.isArray(value)) {
               if (value.length > 0) {
-                filters[key] = value.map(String)
+                filters[key] = { value: value.map(String), negation: filter.negation }
               }
             } else {
-              filters[key] = String(value)
+              filters[key] = { value: String(value), negation: filter.negation }
             }
           }
         }

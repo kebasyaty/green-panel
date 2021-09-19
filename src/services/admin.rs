@@ -276,6 +276,7 @@ pub mod request_handlers {
                     let filter = json!({
                         "label": widget.label,
                         "field": field_name,
+                        "negation": false,
                         "multiple": widget_name.contains("Mult"),
                         "items": items
                     });
@@ -375,57 +376,102 @@ pub mod request_handlers {
                     }
                     if is_categories {
                         if let Some(category) = categories.get(field_name) {
+                            let category = category.as_object().unwrap();
+                            let value = category.get("value").unwrap();
+                            let negation = category.get("negation").unwrap().as_bool().unwrap();
                             match widget_type.as_str() {
                                 "selectText" | "selectTextDyn" => {
-                                    vec_doc_2.push(doc! {field_name: category.as_str().unwrap()});
+                                    let val = value.as_str().unwrap();
+                                    let doc = if !negation {
+                                        doc! {field_name: val}
+                                    } else {
+                                        doc! {field_name: {"$ne": val}}
+                                    };
+                                    vec_doc_2.push(doc);
                                 }
                                 "selectTextMult" | "selectTextMultDyn" => {
-                                    let arr: Vec<&str> = category
+                                    let arr: Vec<&str> = value
                                         .as_array()
                                         .unwrap()
                                         .iter()
                                         .map(|item| item.as_str().unwrap())
                                         .collect();
-                                    vec_doc_2.push(doc! {field_name: {"$all": arr}});
+                                    let doc = if !negation {
+                                        doc! {field_name: {"$all": arr}}
+                                    } else {
+                                        doc! {field_name: {"$not": {"$in": arr}}}
+                                    };
+                                    vec_doc_2.push(doc);
                                 }
                                 "selectI32" | "selectI32Dyn" => {
-                                    vec_doc_2.push(
-                                    doc! {field_name: category.as_str().unwrap().parse::<i32>().unwrap()},
-                                );
+                                    let val = value.as_str().unwrap().parse::<i32>().unwrap();
+                                    let doc = if !negation {
+                                        doc! {field_name: val}
+                                    } else {
+                                        doc! {field_name: {"$ne": val}}
+                                    };
+                                    vec_doc_2.push(doc);
                                 }
                                 "selectI32Mult" | "selectI32MultDyn" => {
-                                    let arr: Vec<i32> = category
+                                    let arr: Vec<i32> = value
                                         .as_array()
                                         .unwrap()
                                         .iter()
                                         .map(|item| item.as_str().unwrap().parse::<i32>().unwrap())
                                         .collect();
-                                    vec_doc_2.push(doc! {field_name: {"$all": arr}});
+                                    let doc = if !negation {
+                                        doc! {field_name: {"$all": arr}}
+                                    } else {
+                                        doc! {field_name: {"$not": {"$in": arr}}}
+                                    };
+                                    vec_doc_2.push(doc);
                                 }
                                 "selectU32" | "selectU32Dyn" | "selectI64" | "selectI64Dyn" => {
-                                    vec_doc_2.push(doc! {field_name: category.as_str().unwrap().parse::<i64>().unwrap()});
+                                    let val = value.as_str().unwrap().parse::<i64>().unwrap();
+                                    let doc = if !negation {
+                                        doc! {field_name: val}
+                                    } else {
+                                        doc! {field_name: {"$ne": val}}
+                                    };
+                                    vec_doc_2.push(doc);
                                 }
                                 "selectU32Mult" | "selectU32MultDyn" | "selectI64Mult"
                                 | "selectI64MultDyn" => {
-                                    let arr: Vec<i64> = category
+                                    let arr: Vec<i64> = value
                                         .as_array()
                                         .unwrap()
                                         .iter()
                                         .map(|item| item.as_str().unwrap().parse::<i64>().unwrap())
                                         .collect();
-                                    vec_doc_2.push(doc! {field_name: {"$all": arr}});
+                                    let doc = if !negation {
+                                        doc! {field_name: {"$all": arr}}
+                                    } else {
+                                        doc! {field_name: {"$not": {"$in": arr}}}
+                                    };
+                                    vec_doc_2.push(doc);
                                 }
                                 "selectF64" | "selectF64Dyn" => {
-                                    vec_doc_2.push(doc! {field_name: category.as_str().unwrap().parse::<f64>().unwrap()});
+                                    let val = value.as_str().unwrap().parse::<f64>().unwrap();
+                                    let doc = if !negation {
+                                        doc! {field_name: val}
+                                    } else {
+                                        doc! {field_name: {"$ne": val}}
+                                    };
+                                    vec_doc_2.push(doc);
                                 }
                                 "selectF64Mult" | "selectF64MultDyn" => {
-                                    let arr: Vec<f64> = category
+                                    let arr: Vec<f64> = value
                                         .as_array()
                                         .unwrap()
                                         .iter()
                                         .map(|item| item.as_str().unwrap().parse::<f64>().unwrap())
                                         .collect();
-                                    vec_doc_2.push(doc! {field_name: {"$all": arr}});
+                                    let doc = if !negation {
+                                        doc! {field_name: {"$all": arr}}
+                                    } else {
+                                        doc! {field_name: {"$not": {"$in": arr}}}
+                                    };
+                                    vec_doc_2.push(doc);
                                 }
                                 _ => {}
                             }

@@ -216,7 +216,24 @@
                 :multiple="filter.multiple"
                 :items="filter.items"
                 @input="getDocumentList()"
-              ></v-autocomplete>
+              >
+                <template v-slot:prepend>
+                  <v-tooltip top>
+                    <template v-slot:activator="{ on }">
+                      <v-btn
+                        icon
+                        :color="filter.negation ? 'blue' : 'red'"
+                        @click="[filter.negation = !filter.negation, getDocumentList()]"
+                      >
+                        <v-icon
+                          v-on="on"
+                        >{{ filter.negation ? 'mdi-minus-circle-outline' : 'mdi-plus-circle-outline' }}</v-icon>
+                      </v-btn>
+                    </template>
+                    {{ $t('message.69') }}
+                  </v-tooltip>
+                </template>
+              </v-autocomplete>
             </v-col>
           </v-row>
         </v-card-text>
