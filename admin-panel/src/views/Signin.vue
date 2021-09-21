@@ -9,7 +9,7 @@
           class="red--text text--darken-2 justify-center"
         >{{ counter }}</v-card-title>
         <!-- Login form -->
-        <form @submit.prevent="submit()" v-else>
+        <form class="mb-2" @submit.prevent="submit()" v-else>
           <v-card-text class="pb-0">
             <v-alert
               v-if="msg_error.length > 0"
@@ -46,16 +46,35 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn text color="green" type="submit">{{ $t('message.9') }}</v-btn>
-            <v-btn text color="red" class="ml-4" @click="clear">{{ $t('message.10') }}</v-btn>
+            <v-btn text color="red" class="ml-4" @click="clear()">{{ $t('message.10') }}</v-btn>
           </v-card-actions>
         </form>
+        <v-divider></v-divider>
+        <!-- reCaptcha v3 -->
+        <v-card-text class="text--caption font-weight-thin">
+          <div>This site is protected by reCAPTCHA and the Google</div>
+          <v-btn
+            text
+            x-small
+            color="blue"
+            href="https://policies.google.com/privacy"
+            target="_blank"
+          >Privacy Policy</v-btn>and
+          <v-btn
+            text
+            x-small
+            color="blue"
+            href="https://policies.google.com/terms"
+            target="_blank"
+          >Terms of Service</v-btn>apply.
+        </v-card-text>
       </v-card>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import { validationMixin } from 'vuelidate'
 import { required } from 'vuelidate/lib/validators'
 
@@ -82,7 +101,8 @@ export default {
 
   computed: {
     ...mapState([
-      'username'
+      'username',
+      'siteKey'
     ]),
     usernameErrors() {
       const errors = []
@@ -103,45 +123,69 @@ export default {
       'setUsername',
       'setIsAuthenticated'
     ]),
+    ...mapActions([
+      'ajaxGetSiteKey'
+    ]),
     submit() {
+      // Form validation
       this.$v.$touch()
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR'
       } else {
-        const payload = {
-          username: this.username,
-          password: this.password
-        }
-        this.axios.post('/admin/login', payload)
-          .then(response => {
-            const data = response.data
-            if (data.is_authenticated) {
-              this.setUsername(data.username)
-              this.setIsAuthenticated(true)
-            } else {
-              this.setIsAuthenticated(false)
-              this.msg_error = this.$t('message.27')
-              // Protect against woodpeckers
-              if (++this.count_effort === 2) {
-                this.counter = this.countdown
-                const timer = window.setInterval(() => {
-                  if (--this.counter === 0) {
-                    window.clearInterval(timer)
-                    this.countdown += Math.floor((Math.random() * 20) + 1)
-                    this.msg_error = ''
-                    this.clear()
-                    this.count_effort = 0
-                  }
-                }, 1000)
+        if (this.siteKey.length > 0) {
+          // ReCAPTCHA v3 request
+          this.$recaptchaLoaded().then(() => {
+            this.$recaptcha('login').then(token => {
+              // Login Request
+              const payload = {
+                username: this.username,
+                password: this.password,
+                token
               }
-            }
-          })
-          .catch(error => {
-            this.msg_error = this.$t('message.27')
+              this.axios.post('/admin/login', payload)
+                .then(response => {
+                  const data = response.data
+                  if (data.is_authenticated) {
+                    this.setUsername(data.username)
+                    this.setIsAuthenticated(true)
+                  } else {
+                    this.setIsAuthenticated(false)
+                    this.msg_error = this.$t('message.27')
+                    // Protect against woodpeckers
+                    if (++this.count_effort === 2) {
+                      this.counter = this.countdown
+                      const timer = window.setInterval(() => {
+                        if (--this.counter === 0) {
+                          window.clearInterval(timer)
+                          this.countdown += Math.floor((Math.random() * 20) + 1)
+                          this.msg_error = ''
+                          this.clear()
+                          this.count_effort = 0
+                        }
+                      }, 1000)
+                    }
+                  }
+                })
+                .catch(error => {
+                  this.msg_error = this.$t('message.27')
+                  console.log(error)
+                })
+            }).catch(error => {
+              this.msg_error = String(error)
+              console.log(error)
+            })
+          }).catch(error => {
+            this.msg_error = String(error)
             console.log(error)
           })
+        } else {
+          const error = this.$t('message.70')
+          this.msg_error = error
+          console.log(error)
+        }
       }
     },
+    // Clear form
     clear() {
       this.$v.$reset()
       this.username = ''
@@ -151,6 +195,12 @@ export default {
   },
 
   created() {
+    if (this.siteKey.length === 0) {
+      this.ajaxGetSiteKey().catch(error => {
+        this.msg_error = String(error)
+        console.log(error)
+      })
+    }
     if (this.$session.exists()) {
       this.$router.push({ name: 'home' })
     }

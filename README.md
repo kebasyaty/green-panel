@@ -26,11 +26,13 @@
 - **serde -** [https://crates.io/crates/serde](https://crates.io/crates/serde "https://crates.io/crates/serde")
 - **tera -** [https://crates.io/crates/tera](https://crates.io/crates/tera "https://crates.io/crates/tera")
 - **mongodb -** [https://crates.io/crates/mongodb](https://crates.io/crates/mongodb "https://crates.io/crates/mongodb")
+- **recaptcha -** [https://crates.io/crates/recaptcha](https://crates.io/crates/recaptcha "https://crates.io/crates/recaptcha")
 - ...
 - **Vue.js -** [https://vuejs.org/](https://vuejs.org/ "https://vuejs.org/")
 - **Vuetify.js -** [https://vuetifyjs.com/](https://vuetifyjs.com/ "https://vuetifyjs.com/")
 - **vue-axios -** [https://www.npmjs.com/package/vue-axios](https://www.npmjs.com/package/vue-axios "https://www.npmjs.com/package/vue-axios")
 - **vue-password-strength-meter -** [https://www.npmjs.com/package/vue-password-strength-meter](https://www.npmjs.com/package/vue-password-strength-meter "https://www.npmjs.com/package/vue-password-strength-meter")
+- **vue-recaptcha-v3 -** [https://www.npmjs.com/package/vue-recaptcha-v3](https://www.npmjs.com/package/vue-recaptcha-v3 "https://www.npmjs.com/package/vue-recaptcha-v3")
 - **password-generator -** [https://www.npmjs.com/package/password-generator](https://www.npmjs.com/package/password-generator "https://www.npmjs.com/package/password-generator")
 - **fill-range -** [https://www.npmjs.com/package/fill-range](https://www.npmjs.com/package/fill-range "https://www.npmjs.com/package/fill-range")
 - **slug -** [https://www.npmjs.com/package/slug](https://www.npmjs.com/package/slug "https://www.npmjs.com/package/slug")
@@ -76,7 +78,11 @@
     $ sudo apt update
 
 #### 2. [Download and unzip the project archive](https://github.com/kebasyaty/mango-panel/archive/refs/heads/main.zip "Download and unzip the project archive")
-#### 3. Go to the project directory and run the following commands:
+
+#### 3. The panel uses reCAPTCHA v3
+`For development, replace the demo-keys with your own -> mango-panel/src/settings/general.rs`
+
+#### 4. Go to the project directory and run the following commands:
     $ cargo build
     $ cargo run
     Open in a web browser http://127.0.0.1:8088/admin

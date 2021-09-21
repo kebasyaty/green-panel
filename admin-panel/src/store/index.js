@@ -12,12 +12,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    // Company Attributes.
     logo: '',
     brand: '',
     slogan: '',
+    // Access.
     isStart: true,
-    isAuthenticated: false,
     username: '..',
+    isAuthenticated: false,
+    // reCaptcha v3.
+    siteKey: '',
     // Open and close service list panel (navigation-drawer).
     openPanelServiceList: null,
     // Panel width for list of services (Drawer).

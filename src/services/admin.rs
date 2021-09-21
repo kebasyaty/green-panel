@@ -2,31 +2,11 @@
 //! Service (Subapplication) for administration.
 //!
 
-// Company Attributes
-const LOGO: &str = "img/logo.svg"; // in static
-const BRAND: &str = "Сompany Name";
-const SLOGAN: &str = "Brief description of the company.";
-
-// Language code.
-// CKEditor supported languages:
-// af | ar | ast | az | bg | ca | cs | da | de | de-ch | el | en-au |
-// en-gb | eo | es | et | eu | fa | fi | fr | gl | gu | he | hi |
-// hr | hu | id | it | ja | km | kn | ko | ku | lt | lv | ms |
-// nb | ne | nl | no | oc | pl | pt | pt-br | ro | ru | si | sk |
-// sl | sq | sr | sr-latn | sv | th | tk | tr | tt | ug | uk | vi |
-// zh | zh-cn
-const LANGUAGE_CODE: &str = "en";
-
-// Common functions
-fn admin_file_path(inner_path: &str) -> String {
-    format!("./admin/{}", inner_path)
-}
-
 // Import
 use actix_files::Files;
 use actix_files::NamedFile;
 use actix_session::Session;
-use actix_web::{error, web, Error, HttpResponse, Result};
+use actix_web::{error, web, Error, HttpRequest, HttpResponse, Result};
 
 use futures::StreamExt;
 use humansize::{file_size_opts, FileSize};
@@ -44,7 +24,14 @@ pub use configure_urls::*;
 pub use request_handlers::*;
 
 use crate::settings;
-use crate::settings::general::MAX_UPLOAD_SIZE;
+use crate::settings::general::{
+    BRAND, LANGUAGE_CODE, LOGO, MAX_UPLOAD_SIZE, RE_CAPTCHA_SECRET_KEY, RE_CAPTCHA_SITE_KEY, SLOGAN,
+};
+
+// Common functions
+fn admin_file_path(inner_path: &str) -> String {
+    format!("./admin/{}", inner_path)
+}
 
 // CONFIGURE URLs
 // #################################################################################################
@@ -56,6 +43,7 @@ pub mod configure_urls {
         cfg.service(web::resource("/login").route(web::post().to(login)));
         cfg.service(web::resource("/logout").route(web::post().to(logout)));
         cfg.service(web::resource("/sign-in").route(web::get().to(admin_panel)));
+        cfg.service(web::resource("/recaptcha-site-key").route(web::get().to(recaptcha_site_key)));
         cfg.service(web::resource("/service-list").route(web::post().to(service_list)));
         cfg.service(web::resource("/data-filters").route(web::post().to(data_filters)));
         cfg.service(web::resource("/document-list").route(web::post().to(document_list)));
@@ -110,27 +98,50 @@ pub mod request_handlers {
         Ok(NamedFile::open(path)?)
     }
 
+    // reCaptcha v3 - Get site key
+    // *********************************************************************************************
+    pub async fn recaptcha_site_key() -> Result<HttpResponse, Error> {
+        let msg_err = if RE_CAPTCHA_SITE_KEY.len() == 0 {
+            String::from("Error: reCaptcha v3 - Missing site key.")
+        } else {
+            String::new()
+        };
+        // Return json response
+        // -----------------------------------------------------------------------------------------
+        Ok(HttpResponse::Ok()
+            .content_type("application/json")
+            .json(json!( {
+                "site_key": RE_CAPTCHA_SITE_KEY,
+                "msg_err": msg_err
+            })))
+    }
+
     // Login
     // *********************************************************************************************
     #[derive(Deserialize)]
     pub struct LoginForm {
         username: String,
         password: String,
+        token: String, // reCaptcha v3
     }
 
     pub async fn login(
         session: Session,
         login_form: web::Json<LoginForm>,
+        req: HttpRequest,
     ) -> Result<HttpResponse, Error> {
         //
-        let username: String;
+        let mut username = String::new();
         let mut is_authenticated = false;
         let mut msg_err = String::new();
 
         // Access request identity
         // -----------------------------------------------------------------------------------------
         if let Some(user) = session.get::<String>("user")? {
-            if user == login_form.username && session.get::<bool>("is_active")?.unwrap() {
+            if user == login_form.username
+                && session.get::<bool>("is_staff")?.unwrap()
+                && session.get::<bool>("is_active")?.unwrap()
+            {
                 username = user;
                 is_authenticated = true;
             } else {
@@ -138,28 +149,44 @@ pub mod request_handlers {
                 msg_err = "Authentication failed.".to_string();
             }
         } else {
-            username = login_form.username.clone();
-            let password = login_form.password.clone();
-            let filter =
-                Some(doc! {"username": username.clone(), "is_staff": true, "is_active": true});
-            // Search for a user in the database
-            let output_data = users::AdminProfile::find_one(filter, None).unwrap();
-            // Check search result
-            if output_data.is_valid() {
-                // Get an instance of a User model
-                let user = output_data.model::<users::AdminProfile>().unwrap();
-                // Check password
-                let is_active = user.is_active.unwrap();
-                let is_staff = user.is_staff.unwrap();
-                if user.verify_password(password.as_str(), None).unwrap() && is_active && is_staff {
-                    // Add user identity to session
-                    session.set("user", user.username.unwrap())?; // Set `id user`
-                    session.set("hash", user.hash.unwrap())?; // Set `hash`
-                    session.set("is_active", is_active)?; // Set `is active`
-                    session.set("is_staff", is_staff)?; // Set `is staff`
-                    is_authenticated = true;
-                } else {
-                    msg_err = "Authentication failed.".to_string();
+            // Validation reCAPTCHA
+            let user_ip = req.peer_addr().unwrap().ip();
+            let res_recaptcha = recaptcha::verify(
+                RE_CAPTCHA_SECRET_KEY,
+                login_form.token.as_str(),
+                Some(&user_ip),
+            )
+            .await;
+            if res_recaptcha.is_err() {
+                msg_err = "Authentication failed - reCAPTCHA.".to_string();
+            } else {
+                // Validation of username and password
+                username = login_form.username.clone();
+                let password = login_form.password.clone();
+                let filter =
+                    Some(doc! {"username": username.clone(), "is_staff": true, "is_active": true});
+                // Search for a user in the database
+                let output_data = users::AdminProfile::find_one(filter, None).unwrap();
+                // Check search result
+                if output_data.is_valid() {
+                    // Get an instance of a User model
+                    let user = output_data.model::<users::AdminProfile>().unwrap();
+                    // Check password
+                    let is_active = user.is_active.unwrap();
+                    let is_staff = user.is_staff.unwrap();
+                    if user.verify_password(password.as_str(), None).unwrap()
+                        && is_active
+                        && is_staff
+                    {
+                        // Add user identity to session
+                        session.set("user", user.username.unwrap())?; // Set `id user`
+                        session.set("hash", user.hash.unwrap())?; // Set `hash`
+                        session.set("is_active", is_active)?; // Set `is active`
+                        session.set("is_staff", is_staff)?; // Set `is staff`
+                        is_authenticated = true;
+                    } else {
+                        msg_err = "Authentication failed.".to_string();
+                    }
                 }
             }
         }
@@ -364,6 +391,7 @@ pub mod request_handlers {
                 let mut vec_doc: Vec<Document> = Vec::new();
                 let mut vec_doc_2: Vec<Document> = Vec::new();
                 for (field_name, widget_type) in map_widget_type {
+                    // Text search
                     if is_search_query && query.fields_name.contains(field_name) {
                         match widget_type.as_str() {
                             "inputEmail" | "radioText" | "inputPhone" | "inputText"
@@ -374,12 +402,15 @@ pub mod request_handlers {
                             _ => {}
                         }
                     }
+                    // Search by categories - Fields of Selection type
                     if is_categories {
                         if let Some(category) = categories.get(field_name) {
                             let category = category.as_object().unwrap();
                             let value = category.get("value").unwrap();
                             let negation = category.get("negation").unwrap().as_bool().unwrap();
                             match widget_type.as_str() {
+                                // Text
+                                // -----------------------------------------------------------------
                                 "selectText" | "selectTextDyn" => {
                                     let val = value.as_str().unwrap();
                                     let doc = if !negation {
@@ -403,6 +434,8 @@ pub mod request_handlers {
                                     };
                                     vec_doc_2.push(doc);
                                 }
+                                // I32
+                                // -----------------------------------------------------------------
                                 "selectI32" | "selectI32Dyn" => {
                                     let val = value.as_str().unwrap().parse::<i32>().unwrap();
                                     let doc = if !negation {
@@ -426,6 +459,8 @@ pub mod request_handlers {
                                     };
                                     vec_doc_2.push(doc);
                                 }
+                                // U32 and I64
+                                // -----------------------------------------------------------------
                                 "selectU32" | "selectU32Dyn" | "selectI64" | "selectI64Dyn" => {
                                     let val = value.as_str().unwrap().parse::<i64>().unwrap();
                                     let doc = if !negation {
@@ -450,6 +485,8 @@ pub mod request_handlers {
                                     };
                                     vec_doc_2.push(doc);
                                 }
+                                // F64
+                                // -----------------------------------------------------------------
                                 "selectF64" | "selectF64Dyn" => {
                                     let val = value.as_str().unwrap().parse::<f64>().unwrap();
                                     let doc = if !negation {

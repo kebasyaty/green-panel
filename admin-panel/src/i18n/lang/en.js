@@ -70,6 +70,7 @@ export default {
     66: 'Generate',
     67: 'Copy',
     68: 'Reset',
-    69: 'Presence | Absence'
+    69: 'Presence | Absence',
+    70: 'ERROR: ReCAPTCHA v3 - Missing siteKey.'
   }
 }

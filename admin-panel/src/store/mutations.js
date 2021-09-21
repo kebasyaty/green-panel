@@ -11,11 +11,14 @@ export default {
   setIsStart(state, payload) {
     state.isStart = payload
   },
+  setUsername(state, payload) {
+    state.username = payload
+  },
   setIsAuthenticated(state, payload) {
     state.isAuthenticated = payload
   },
-  setUsername(state, payload) {
-    state.username = payload
+  setSiteKey(state, payload) {
+    state.siteKey = payload
   },
   setOpenPanelServiceList(state, payload) {
     state.openPanelServiceList = payload

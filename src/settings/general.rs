@@ -23,3 +23,23 @@ pub static MEDIA_ROOT: &str = "./media/";
 pub static STATIC_URL: &str = "/static/";
 pub static STATIC_ROOT: &str = "./static/";
 pub static TEMPLATES: &str = "./templates/";
+
+// Company Attributes
+pub const LOGO: &str = "img/logo.svg"; // in static
+pub const BRAND: &str = "Сompany Name";
+pub const SLOGAN: &str = "Brief description of the company.";
+
+// Language code.
+// CKEditor supported languages:
+// af | ar | ast | az | bg | ca | cs | da | de | de-ch | el | en-au |
+// en-gb | eo | es | et | eu | fa | fi | fr | gl | gu | he | hi |
+// hr | hu | id | it | ja | km | kn | ko | ku | lt | lv | ms |
+// nb | ne | nl | no | oc | pl | pt | pt-br | ro | ru | si | sk |
+// sl | sq | sr | sr-latn | sv | th | tk | tr | tt | ug | uk | vi |
+// zh | zh-cn
+pub const LANGUAGE_CODE: &str = "en";
+
+// reCAPTCHA v3
+// Create (for development use local domain - 127.0.0.1) your keys at: https://www.google.com/recaptcha/about/
+pub const RE_CAPTCHA_SITE_KEY: &str = "6LcJZnwcAAAAABh6OdOuT5lHmAUdQSMoqlnt11Np"; // Key for demo only.
+pub const RE_CAPTCHA_SECRET_KEY: &str = "6LcJZnwcAAAAABHgE0Bo-Qp96R15RPWbHjWXehbP"; // Key for demo only.
