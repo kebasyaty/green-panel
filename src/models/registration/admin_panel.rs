@@ -5,7 +5,11 @@ use mango_orm::{CachingModel, QCommon, QPaladins, ToModel};
 use mongodb::bson::{doc, document::Document};
 use serde_json::{json, Value};
 
-use crate::{models::services::admin::users, models::services::products::electric_cars, settings};
+use crate::{
+    models::services::admin::{admins, customers, sellers},
+    models::services::products::electric_cars,
+    settings,
+};
 
 // Add models
 // *************************************************************************************************
@@ -46,7 +50,7 @@ pub fn service_list() -> Value {
                     // AdminProfile
                     {
                         "title": "Admins",
-                        "model_key": users::AdminProfile::key(),
+                        "model_key": admins::AdminProfile::key(),
                         "fields": [
                             { "field": "username", "title": "Nickname" },
                             { "field": "photo", "title": "Photo" },
@@ -61,7 +65,7 @@ pub fn service_list() -> Value {
                     // SellerProfile
                     {
                         "title": "Sellers",
-                        "model_key": users::SellerProfile::key(),
+                        "model_key": sellers::SellerProfile::key(),
                         "fields": [
                             { "field": "username", "title": "Nickname" },
                             { "field": "photo", "title": "Photo" },
@@ -79,7 +83,7 @@ pub fn service_list() -> Value {
                     // CustomerProfile
                     {
                         "title": "Customers",
-                        "model_key": users::CustomerProfile::key(),
+                        "model_key": customers::CustomerProfile::key(),
                         "fields": [
                             { "field": "username", "title": "Nickname" },
                             { "field": "photo", "title": "Photo" },
@@ -134,51 +138,51 @@ pub fn get_document_reg(
     let mut json = String::new();
 
     // AdminProfile
-    if model_key == users::AdminProfile::key() {
+    if model_key == admins::AdminProfile::key() {
         if !doc_hash.is_empty() {
-            let object_id = users::AdminProfile::hash_to_id(doc_hash)?;
+            let object_id = admins::AdminProfile::hash_to_id(doc_hash)?;
             let filter = doc! {"_id": object_id};
-            let output_data = users::AdminProfile::find_one(Some(filter), None).unwrap();
+            let output_data = admins::AdminProfile::find_one(Some(filter), None).unwrap();
             if output_data.is_valid() {
                 json = output_data
-                    .model::<users::AdminProfile>()
+                    .model::<admins::AdminProfile>()
                     .unwrap()
                     .json_for_admin()?;
             }
         } else {
-            json = users::AdminProfile::form_json_for_admin()?
+            json = admins::AdminProfile::form_json_for_admin()?
         }
 
     // SellerProfile
-    } else if model_key == users::SellerProfile::key() {
+    } else if model_key == sellers::SellerProfile::key() {
         if !doc_hash.is_empty() {
-            let object_id = users::SellerProfile::hash_to_id(doc_hash)?;
+            let object_id = sellers::SellerProfile::hash_to_id(doc_hash)?;
             let filter = doc! {"_id": object_id};
-            let output_data = users::SellerProfile::find_one(Some(filter), None).unwrap();
+            let output_data = sellers::SellerProfile::find_one(Some(filter), None).unwrap();
             if output_data.is_valid() {
                 json = output_data
-                    .model::<users::SellerProfile>()
+                    .model::<sellers::SellerProfile>()
                     .unwrap()
                     .json_for_admin()?;
             }
         } else {
-            json = users::SellerProfile::form_json_for_admin()?
+            json = sellers::SellerProfile::form_json_for_admin()?
         }
 
     // CustomerProfile
-    } else if model_key == users::CustomerProfile::key() {
+    } else if model_key == customers::CustomerProfile::key() {
         if !doc_hash.is_empty() {
-            let object_id = users::CustomerProfile::hash_to_id(doc_hash)?;
+            let object_id = customers::CustomerProfile::hash_to_id(doc_hash)?;
             let filter = doc! {"_id": object_id};
-            let output_data = users::CustomerProfile::find_one(Some(filter), None).unwrap();
+            let output_data = customers::CustomerProfile::find_one(Some(filter), None).unwrap();
             if output_data.is_valid() {
                 json = output_data
-                    .model::<users::CustomerProfile>()
+                    .model::<customers::CustomerProfile>()
                     .unwrap()
                     .json_for_admin()?;
             }
         } else {
-            json = users::CustomerProfile::form_json_for_admin()?
+            json = customers::CustomerProfile::form_json_for_admin()?
         }
 
     // ElectricCar
@@ -217,23 +221,23 @@ pub fn save_document_reg(
     let mut json = String::new();
 
     // AdminProfile
-    if model_key == users::AdminProfile::key() {
-        let mut model = serde_json::from_slice::<users::AdminProfile>(&bytes)?;
+    if model_key == admins::AdminProfile::key() {
+        let mut model = serde_json::from_slice::<admins::AdminProfile>(&bytes)?;
         model.photo = app_state.base64_to_file(model.photo, "users/admins/photos");
         let output_data = model.save(None, None)?;
         json = output_data.json_for_admin()?;
 
     // SellerProfile
-    } else if model_key == users::SellerProfile::key() {
-        let mut model = serde_json::from_slice::<users::SellerProfile>(&bytes)?;
+    } else if model_key == sellers::SellerProfile::key() {
+        let mut model = serde_json::from_slice::<sellers::SellerProfile>(&bytes)?;
         model.photo = app_state.base64_to_file(model.photo, "users/sellers/photos");
         model.resume = app_state.base64_to_file(model.resume, "users/sellers/resume");
         let output_data = model.save(None, None)?;
         json = output_data.json_for_admin()?;
 
     // CustomerProfile
-    } else if model_key == users::CustomerProfile::key() {
-        let mut model = serde_json::from_slice::<users::CustomerProfile>(&bytes)?;
+    } else if model_key == customers::CustomerProfile::key() {
+        let mut model = serde_json::from_slice::<customers::CustomerProfile>(&bytes)?;
         model.photo = app_state.base64_to_file(model.photo, "users/customers/photos");
         let output_data = model.save(None, None)?;
         json = output_data.json_for_admin()?;
@@ -264,27 +268,27 @@ pub fn delete_document_reg(
     let mut msg_err = String::new();
 
     // AdminProfile
-    if model_key == users::AdminProfile::key() {
-        let output_data = users::AdminProfile::find_one(Some(filter), None)?;
-        let instance = output_data.model::<users::AdminProfile>()?;
+    if model_key == admins::AdminProfile::key() {
+        let output_data = admins::AdminProfile::find_one(Some(filter), None)?;
+        let instance = output_data.model::<admins::AdminProfile>()?;
         let output_data = instance.delete(None)?;
         if !output_data.is_valid() {
             msg_err = output_data.err_msg();
         }
 
     // SellerProfile
-    } else if model_key == users::SellerProfile::key() {
-        let output_data = users::SellerProfile::find_one(Some(filter), None)?;
-        let instance = output_data.model::<users::SellerProfile>()?;
+    } else if model_key == sellers::SellerProfile::key() {
+        let output_data = sellers::SellerProfile::find_one(Some(filter), None)?;
+        let instance = output_data.model::<sellers::SellerProfile>()?;
         let output_data = instance.delete(None)?;
         if !output_data.is_valid() {
             msg_err = output_data.err_msg();
         }
 
     // CustomerProfile
-    } else if model_key == users::CustomerProfile::key() {
-        let output_data = users::CustomerProfile::find_one(Some(filter), None)?;
-        let instance = output_data.model::<users::CustomerProfile>()?;
+    } else if model_key == customers::CustomerProfile::key() {
+        let output_data = customers::CustomerProfile::find_one(Some(filter), None)?;
+        let instance = output_data.model::<customers::CustomerProfile>()?;
         let output_data = instance.delete(None)?;
         if !output_data.is_valid() {
             msg_err = output_data.err_msg();
@@ -317,16 +321,16 @@ pub fn update_dyn_data_reg(
     json_options: &str,
 ) -> Result<(), Box<dyn std::error::Error>> {
     // AdminProfile
-    if model_key == users::AdminProfile::key() {
-        users::AdminProfile::db_update_dyn_widgets(json_options)?;
+    if model_key == admins::AdminProfile::key() {
+        admins::AdminProfile::db_update_dyn_widgets(json_options)?;
 
     // SellerProfile
-    } else if model_key == users::SellerProfile::key() {
-        users::SellerProfile::db_update_dyn_widgets(json_options)?;
+    } else if model_key == sellers::SellerProfile::key() {
+        sellers::SellerProfile::db_update_dyn_widgets(json_options)?;
 
     // CustomerProfile
-    } else if model_key == users::CustomerProfile::key() {
-        users::CustomerProfile::db_update_dyn_widgets(json_options)?;
+    } else if model_key == customers::CustomerProfile::key() {
+        customers::CustomerProfile::db_update_dyn_widgets(json_options)?;
 
     // ElectricCar
     } else if model_key == electric_cars::ElectricCar::key() {

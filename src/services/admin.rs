@@ -17,7 +17,7 @@ use mongodb::{
 use serde::Deserialize;
 use serde_json::{json, Value};
 
-use crate::models::{registration::admin_panel, services::admin::users};
+use crate::models::{registration::admin_panel, services::admin::admins};
 use mango_orm::{QCommon, QPaladins, ToModel, FORM_STORE, MONGODB_CLIENT_STORE};
 
 pub use configure_urls::*;
@@ -71,8 +71,8 @@ pub mod request_handlers {
         // Access request identity
         if session.get::<String>("user")?.is_none() {
             // Create first user (administrator)
-            if users::AdminProfile::estimated_document_count(None).unwrap() == 0_i64 {
-                let mut first_user = users::AdminProfile {
+            if admins::AdminProfile::estimated_document_count(None).unwrap() == 0_i64 {
+                let mut first_user = admins::AdminProfile {
                     // Valid characters: a-z A-Z 0-9 _ @ + .
                     // Max size: 150
                     username: Some("admin".into()),
@@ -166,11 +166,11 @@ pub mod request_handlers {
                 let filter =
                     Some(doc! {"username": username.clone(), "is_staff": true, "is_active": true});
                 // Search for a user in the database
-                let output_data = users::AdminProfile::find_one(filter, None).unwrap();
+                let output_data = admins::AdminProfile::find_one(filter, None).unwrap();
                 // Check search result
                 if output_data.is_valid() {
                     // Get an instance of a User model
-                    let user = output_data.model::<users::AdminProfile>().unwrap();
+                    let user = output_data.model::<admins::AdminProfile>().unwrap();
                     // Check password
                     let is_active = user.is_active.unwrap();
                     let is_staff = user.is_staff.unwrap();
@@ -1028,13 +1028,13 @@ pub mod request_handlers {
         }
 
         // Update password
-        if query.model_key == users::AdminProfile::key() {
+        if query.model_key == admins::AdminProfile::key() {
             if !query.doc_hash.is_empty() {
-                let object_id = users::AdminProfile::hash_to_id(query.doc_hash.as_str()).unwrap();
+                let object_id = admins::AdminProfile::hash_to_id(query.doc_hash.as_str()).unwrap();
                 let filter = doc! {"_id": object_id};
-                let output_data = users::AdminProfile::find_one(Some(filter), None).unwrap();
+                let output_data = admins::AdminProfile::find_one(Some(filter), None).unwrap();
                 if output_data.is_valid() {
-                    if let Ok(instance) = output_data.model::<users::AdminProfile>() {
+                    if let Ok(instance) = output_data.model::<admins::AdminProfile>() {
                         if !instance
                             .update_password(
                                 query.old_pass.as_str(),

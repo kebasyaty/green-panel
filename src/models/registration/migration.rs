@@ -1,7 +1,11 @@
 //! # Registering models for migration.
 //!
 
-use crate::models::{services::admin::users, services::products::electric_cars, settings};
+use crate::models::{
+    services::admin::{admins, customers, sellers},
+    services::products::electric_cars,
+    settings,
+};
 use mango_orm::{CachingModel, Monitor, ToModel, MONGODB_CLIENT_STORE};
 
 // Migration Service `Mango`.
@@ -22,9 +26,9 @@ pub fn mango_migration() -> Result<(), Box<dyn std::error::Error>> {
         // Register models.
         // -----------------------------------------------------------------------------------------
         models: vec![
-            users::AdminProfile::meta()?,
-            users::SellerProfile::meta()?,
-            users::CustomerProfile::meta()?,
+            admins::AdminProfile::meta()?,
+            sellers::SellerProfile::meta()?,
+            customers::CustomerProfile::meta()?,
             electric_cars::ElectricCar::meta()?,
         ],
     };
@@ -32,9 +36,9 @@ pub fn mango_migration() -> Result<(), Box<dyn std::error::Error>> {
 
     // Add metadata and widgects map to cache.
     // ---------------------------------------------------------------------------------------------
-    users::AdminProfile::to_cache()?;
-    users::SellerProfile::to_cache()?;
-    users::CustomerProfile::to_cache()?;
+    admins::AdminProfile::to_cache()?;
+    sellers::SellerProfile::to_cache()?;
+    customers::CustomerProfile::to_cache()?;
     electric_cars::ElectricCar::to_cache()?;
     //
     Ok(())

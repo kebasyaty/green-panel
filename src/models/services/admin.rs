@@ -1,6 +1,6 @@
 //! # Models for managing personal data of users.
 //!
-//! `users/User` - Model for creating user profiles.
-//!
 
-pub mod users;
+pub mod admins;
+pub mod customers;
+pub mod sellers;
