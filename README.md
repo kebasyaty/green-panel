@@ -101,8 +101,12 @@
 
 ![List of documents](https://github.com/kebasyaty/mango-panel/raw/main/images/5.png "List of documents")
 
+![Opened filter](https://github.com/kebasyaty/mango-panel/raw/main/images/14.png "Opened filter")
+
 ## Document form
 ![ Document form](https://github.com/kebasyaty/mango-panel/raw/main/images/4.png " Document form")
+
+![Update password](https://github.com/kebasyaty/mango-panel/raw/main/images/13.png "Update password")
 
 ## Example of using a dynamic widget
 #### Dynamic Widgets - This is a simplified alternative to `ForeignKey` and ` ManyToMan`. Dynamic widgets are used to create document-style categories.
