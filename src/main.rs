@@ -59,23 +59,16 @@ async fn run_http_server() -> std::io::Result<()> {
                     .header(http::header::X_CONTENT_TYPE_OPTIONS, "nosniff")
                     .header(
                         http::header::CONTENT_SECURITY_POLICY,
-                        if settings::DEBUG {
+                        format!(
                             concat!(
-                                "default-src 'self'; connect-src http:; font-src http: data:;",
-                                " img-src http: data:; media-src http:; object-src http:;",
-                                " script-src 'unsafe-inline' 'unsafe-eval' http:;",
-                                " frame-src http:; frame-ancestors http:;",
-                                " style-src 'unsafe-inline' http:;"
-                            )
-                        } else {
-                            concat!(
-                                "default-src 'self'; connect-src https:; font-src https: data:;",
-                                " img-src https: data:; media-src https:; object-src https:;",
-                                " script-src 'unsafe-inline' 'unsafe-eval' https:;",
-                                " frame-src https:; frame-ancestors https:;",
-                                " style-src 'unsafe-inline' https:;"
-                            )
-                        },
+                                "default-src 'self'; connect-src http{0}:; font-src http{0}: data:;",
+                                " img-src http{0}: data:; media-src http{0}:; object-src http{0}:;",
+                                " script-src 'unsafe-inline' 'unsafe-eval' http{0}:;",
+                                " frame-src http{0}:; frame-ancestors http{0}:;",
+                                " style-src 'unsafe-inline' http{0}:;"
+                            ),
+                            if settings::DEBUG { "" } else { "s" }
+                        ),
                     )
                     .header(
                         http::header::STRICT_TRANSPORT_SECURITY,
