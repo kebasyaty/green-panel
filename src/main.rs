@@ -61,11 +61,16 @@ async fn run_http_server() -> std::io::Result<()> {
                         http::header::CONTENT_SECURITY_POLICY,
                         format!(
                             concat!(
-                                "default-src 'self'; connect-src http{0}:; font-src http{0}: data:;",
-                                " img-src http{0}: data:; media-src http{0}:; object-src http{0}:;",
-                                " script-src 'unsafe-inline' 'unsafe-eval' http{0}:;",
-                                " frame-src http{0}:; frame-ancestors http{0}:;",
-                                " style-src 'unsafe-inline' http{0}:;"
+                                "default-src 'self';",
+                                " connect-src 'self' http{0}:;",
+                                " font-src 'self' data: 'unsafe-inline' http{0}:;",
+                                " img-src 'self' data: content: blob: http{0}:;",
+                                " media-src 'self' http{0}:;",
+                                " style-src 'self' 'unsafe-inline' http{0}:;",
+                                " script-src 'self' 'unsafe-inline' 'unsafe-eval' http{0}:;",
+                                " frame-src 'self' http{0}:;",
+                                " frame-ancestors 'self' http{0}:;",
+                                " object-src 'none';"
                             ),
                             if settings::DEBUG { "" } else { "s" }
                         ),
