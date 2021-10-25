@@ -1,9 +1,10 @@
 //! # Customer profiles.
 //!
 
+use crate::models::services::admin::users;
 use mango_orm::*;
 use metamorphose::Model;
-use regex::RegexBuilder;
+use mongodb::bson::{doc, oid::ObjectId};
 use serde::{Deserialize, Serialize};
 
 use crate::models::settings::{
@@ -13,71 +14,17 @@ use crate::models::settings::{
 
 // Customer profiles
 // *************************************************************************************************
-#[Model(
-    is_del_docs = false,
-    is_use_add_valid = true,
-    ignore_fields = "confirm_password"
-)]
+#[Model(is_del_docs = false, is_use_add_valid = true)]
 #[derive(Serialize, Deserialize, Default, Debug)]
 pub struct CustomerProfile {
     #[serde(default)]
     #[field_attrs(
         widget = "inputText",
-        label = "Username",
-        placeholder = "Enter your username",
+        label = "User hash",
         unique = true,
-        required = true,
-        maxlength = 150,
-        hint = "Valid characters: a-z A-Z 0-9 _ @ + .<br>Max size: 150"
+        placeholder = "Enter your user ID"
     )]
-    pub username: Option<String>,
-    //
-    #[serde(default)]
-    #[field_attrs(
-        widget = "inputSlug",
-        label = "Slug",
-        unique = true,
-        readonly = true,
-        is_hide = true,
-        hint = "To create a human readable url",
-        slug_sources = r#"["username"]"#
-    )]
-    pub slug: Option<String>,
-    //
-    #[serde(default)]
-    #[field_attrs(
-        widget = "inputImage",
-        label = "Photo",
-        value = r#"{
-                "path":"./media/no_avatar.png",
-                "url":"/media/no_avatar.png"
-            }"#,
-        placeholder = "Image in (JPEG or PNG) format",
-        accept = "image/jpeg,image/png",
-        hint = "Upload your photo",
-        thumbnails = r#"[["xs",150],["sm",300]]"# // all sizes: "xs","sm","md","lg"
-    )]
-    pub photo: Option<String>,
-    //
-    #[serde(default)]
-    #[field_attrs(
-        widget = "inputText",
-        label = "First name",
-        placeholder = "Enter your First name",
-        required = true,
-        maxlength = 150
-    )]
-    pub first_name: Option<String>,
-    //
-    #[serde(default)]
-    #[field_attrs(
-        widget = "inputText",
-        label = "Last name",
-        placeholder = "Enter your Last name",
-        required = true,
-        maxlength = 150
-    )]
-    pub last_name: Option<String>,
+    pub user_hash: Option<String>,
     //
     #[serde(default)]
     #[field_attrs(
@@ -104,38 +51,6 @@ pub struct CustomerProfile {
     //
     #[serde(default)]
     #[field_attrs(
-        widget = "inputColor",
-        value = "#ffffff",
-        label = "Color",
-        hint = "Your favorite color"
-    )]
-    pub color: Option<String>,
-    //
-    #[serde(default)]
-    #[field_attrs(
-        widget = "inputEmail",
-        label = "Contact's Mailing Address",
-        placeholder = "Please enter your email",
-        required = true,
-        unique = true,
-        maxlength = 320,
-        hint = "Your actual E-mail"
-    )]
-    pub email: Option<String>,
-    //
-    #[serde(default)]
-    #[field_attrs(
-        widget = "inputPhone",
-        label = "Contact's Phone Number",
-        placeholder = "Please enter your phone number",
-        maxlength = 30,
-        unique = true,
-        hint = "Your actual phone number"
-    )]
-    pub phone: Option<String>,
-    //
-    #[serde(default)]
-    #[field_attrs(
         widget = "inputText",
         label = "City",
         placeholder = "Enter the name of the city",
@@ -153,36 +68,6 @@ pub struct CustomerProfile {
         hint = "Select the country you live in"
     )]
     pub country: Option<String>,
-    //
-    #[serde(default)]
-    #[field_attrs(
-        widget = "inputPassword",
-        label = "Password",
-        placeholder = "Enter your password",
-        required = true,
-        minlength = 8,
-        hint = "Valid characters: a-z A-Z 0-9 @ # $ % ^ & + = * ! ~ ) (<br>Min size: 8"
-    )]
-    pub password: Option<String>,
-    //
-    #[serde(default)]
-    #[field_attrs(
-        widget = "inputPassword",
-        label = "Confirm password",
-        placeholder = "Repeat your password",
-        required = true,
-        minlength = 8,
-        hint = "Repeat your password"
-    )]
-    pub confirm_password: Option<String>,
-    //
-    #[serde(default)]
-    #[field_attrs(
-        widget = "checkBox",
-        label = "is active?",
-        hint = "Is this an active account?"
-    )]
-    pub is_active: Option<bool>,
 }
 
 impl AdditionalValidation for CustomerProfile {
@@ -194,26 +79,14 @@ impl AdditionalValidation for CustomerProfile {
             std::collections::HashMap::new();
 
         // Get clean data
-        let hash = self.hash.clone().unwrap_or_default();
-        let password = self.password.clone().unwrap_or_default();
-        let confirm_password = self.confirm_password.clone().unwrap_or_default();
-        let username = self.username.clone().unwrap_or_default();
+        let user_hash = self.hash.clone().unwrap_or_default();
 
         // Fields validation
-        if hash.is_empty() && password != confirm_password {
-            error_map.insert("confirm_password", "Password confirmation does not match.");
-        }
-        if !RegexBuilder::new(r"^[a-z\d_@+.]+$")
-            .case_insensitive(true)
-            .build()
-            .unwrap()
-            .is_match(username.as_str())
-        {
-            error_map.insert(
-                "username",
-                "Invalid characters present.<br>\
-                 Valid characters: a-z A-Z 0-9 _ @ + .",
-            );
+        let object_id = ObjectId::with_string(user_hash.as_str())?;
+        let filter = doc! {"_id": object_id};
+        let count = users::User::count_documents(Some(filter), None)?;
+        if count == 0 {
+            error_map.insert("user_hash", "The user's hash does not match.");
         }
 
         Ok(error_map)

@@ -6,7 +6,7 @@ use mongodb::bson::{doc, document::Document};
 use serde_json::{json, Value};
 
 use crate::{
-    models::services::admin::{admins, customers, sellers},
+    models::services::admin::{customers, sellers, users},
     models::services::products::electric_cars,
     settings,
 };
@@ -42,15 +42,15 @@ selectF64Mult, selectF64MultDyn
 */
 pub fn service_list() -> Value {
     json!([
-            // Admin
+            // Users
             // -------------------------------------------------------------------------------------
             {
                 "service": { "title": "Users", "icon": "account-multiple" },
                 "collections": [
-                    // AdminProfile
+                    // User
                     {
-                        "title": "Admins",
-                        "model_key": admins::AdminProfile::key(),
+                        "title": "Users",
+                        "model_key": users::User::key(),
                         "fields": [
                             { "field": "username", "title": "Nickname" },
                             { "field": "photo", "title": "Photo" },
@@ -58,44 +58,40 @@ pub fn service_list() -> Value {
                             { "field": "last_name", "title": "Last name" },
                             { "field": "email", "title": "E-mail" },
                             { "field": "phone", "title": "Phone" },
+                            { "field": "is_admin", "title": "Admin" },
+                            { "field": "is_staff", "title": "Staff" },
                             { "field": "is_active", "title": "Active" },
-                            { "field": "is_staff", "title": "Staff" }
                         ]
                     },
-                    // SellerProfile
+                ]
+            },
+            // User Profiles
+            // -------------------------------------------------------------------------------------
+            {
+                "service": { "title": "User Profiles", "icon": "briefcase-account" },
+                "collections": [
+                    // Sellers
                     {
                         "title": "Sellers",
                         "model_key": sellers::SellerProfile::key(),
                         "fields": [
-                            { "field": "username", "title": "Nickname" },
-                            { "field": "photo", "title": "Photo" },
-                            { "field": "first_name", "title": "First name" },
-                            { "field": "last_name", "title": "Last name" },
+                            { "field": "user_hash", "title": "User ID" },
                             { "field": "gender", "title": "Gender" },
                             { "field": "color", "title": "Favorite color" },
-                            { "field": "email", "title": "E-mail" },
-                            { "field": "phone", "title": "Phone" },
                             { "field": "city", "title": "City" },
                             { "field": "country", "title": "Country" },
-                            { "field": "is_active", "title": "Active" }
                         ]
                     },
-                    // CustomerProfile
+                    // Customers
                     {
                         "title": "Customers",
                         "model_key": customers::CustomerProfile::key(),
                         "fields": [
-                            { "field": "username", "title": "Nickname" },
-                            { "field": "photo", "title": "Photo" },
-                            { "field": "first_name", "title": "First name" },
-                            { "field": "last_name", "title": "Last name" },
+                            { "field": "user_hash", "title": "User ID" },
                             { "field": "gender", "title": "Gender" },
                             { "field": "color", "title": "Favorite color" },
-                            { "field": "email", "title": "E-mail" },
-                            { "field": "phone", "title": "Phone" },
                             { "field": "city", "title": "City" },
                             { "field": "country", "title": "Country" },
-                            { "field": "is_active", "title": "Active" }
                         ]
                     },
                 ]
@@ -105,7 +101,7 @@ pub fn service_list() -> Value {
             {
                 "service": { "title": "Products", "icon": "cart" },
                 "collections": [
-                    // ElectricCar
+                    // Electric Cars
                     {
                         "title": "Electric Cars",
                         "model_key": electric_cars::ElectricCar::key(),
@@ -137,20 +133,20 @@ pub fn get_document_reg(
 ) -> Result<String, Box<dyn std::error::Error>> {
     let mut json = String::new();
 
-    // AdminProfile
-    if model_key == admins::AdminProfile::key() {
+    // User
+    if model_key == users::User::key() {
         if !doc_hash.is_empty() {
-            let object_id = admins::AdminProfile::hash_to_id(doc_hash)?;
+            let object_id = users::User::hash_to_id(doc_hash)?;
             let filter = doc! {"_id": object_id};
-            let output_data = admins::AdminProfile::find_one(Some(filter), None).unwrap();
+            let output_data = users::User::find_one(Some(filter), None).unwrap();
             if output_data.is_valid() {
                 json = output_data
-                    .model::<admins::AdminProfile>()
+                    .model::<users::User>()
                     .unwrap()
                     .json_for_admin()?;
             }
         } else {
-            json = admins::AdminProfile::form_json_for_admin()?
+            json = users::User::form_json_for_admin()?
         }
 
     // SellerProfile
@@ -220,9 +216,9 @@ pub fn save_document_reg(
 ) -> Result<String, Box<dyn std::error::Error>> {
     let mut json = String::new();
 
-    // AdminProfile
-    if model_key == admins::AdminProfile::key() {
-        let mut model = serde_json::from_slice::<admins::AdminProfile>(&bytes)?;
+    // User
+    if model_key == users::User::key() {
+        let mut model = serde_json::from_slice::<users::User>(&bytes)?;
         model.photo = app_state.base64_to_file(model.photo, "users/admins/photos");
         let output_data = model.save(None, None)?;
         json = output_data.json_for_admin()?;
@@ -230,7 +226,6 @@ pub fn save_document_reg(
     // SellerProfile
     } else if model_key == sellers::SellerProfile::key() {
         let mut model = serde_json::from_slice::<sellers::SellerProfile>(&bytes)?;
-        model.photo = app_state.base64_to_file(model.photo, "users/sellers/photos");
         model.resume = app_state.base64_to_file(model.resume, "users/sellers/resume");
         let output_data = model.save(None, None)?;
         json = output_data.json_for_admin()?;
@@ -238,7 +233,6 @@ pub fn save_document_reg(
     // CustomerProfile
     } else if model_key == customers::CustomerProfile::key() {
         let mut model = serde_json::from_slice::<customers::CustomerProfile>(&bytes)?;
-        model.photo = app_state.base64_to_file(model.photo, "users/customers/photos");
         let output_data = model.save(None, None)?;
         json = output_data.json_for_admin()?;
 
@@ -267,10 +261,10 @@ pub fn delete_document_reg(
 ) -> Result<String, Box<dyn std::error::Error>> {
     let mut msg_err = String::new();
 
-    // AdminProfile
-    if model_key == admins::AdminProfile::key() {
-        let output_data = admins::AdminProfile::find_one(Some(filter), None)?;
-        let instance = output_data.model::<admins::AdminProfile>()?;
+    // User
+    if model_key == users::User::key() {
+        let output_data = users::User::find_one(Some(filter), None)?;
+        let instance = output_data.model::<users::User>()?;
         let output_data = instance.delete(None)?;
         if !output_data.is_valid() {
             msg_err = output_data.err_msg();
@@ -320,9 +314,9 @@ pub fn update_dyn_data_reg(
     model_key: &str,
     json_options: &str,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    // AdminProfile
-    if model_key == admins::AdminProfile::key() {
-        admins::AdminProfile::db_update_dyn_widgets(json_options)?;
+    // User
+    if model_key == users::User::key() {
+        users::User::db_update_dyn_widgets(json_options)?;
 
     // SellerProfile
     } else if model_key == sellers::SellerProfile::key() {

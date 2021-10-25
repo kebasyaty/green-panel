@@ -9,17 +9,22 @@
         <v-spacer></v-spacer>
         <!-- Update password. -->
         <v-dialog
-          v-if="$route.params.service === 'users' && $route.params.indexDoc !== 'new'"
+          v-if="
+            $route.params.service === 'users' &&
+            $route.params.indexDoc !== 'new'
+          "
           v-model="dialogUpdatePassword"
           persistent
           max-width="600px"
         >
           <template v-slot:activator="{ on, attrs }">
-            <v-btn text color="green" v-bind="attrs" v-on="on">{{ $t('message.46') }}</v-btn>
+            <v-btn text color="green" v-bind="attrs" v-on="on">{{
+              $t("message.46")
+            }}</v-btn>
           </template>
           <v-card ref="updatePasswordForm">
             <v-card-title>
-              <span class="h6">{{ $t('message.46') }}</span>
+              <span class="h6">{{ $t("message.46") }}</span>
             </v-card-title>
             <v-card-text>
               <v-text-field
@@ -29,13 +34,19 @@
                 required
                 clearable
                 counter
-                :append-icon="dataUpdatePassword.see_pass ? 'mdi-eye' : 'mdi-eye-off'"
+                :append-icon="
+                  dataUpdatePassword.see_pass ? 'mdi-eye' : 'mdi-eye-off'
+                "
                 :type="dataUpdatePassword.see_pass ? 'text' : 'password'"
                 :placeholder="$t('message.47')"
                 v-model="dataUpdatePassword.passwordOld"
                 :maxlength="256"
-                @click:append="dataUpdatePassword.see_pass = !dataUpdatePassword.see_pass"
-                :rules="[() => !!dataUpdatePassword.passwordOld || $t('message.51')]"
+                @click:append="
+                  dataUpdatePassword.see_pass = !dataUpdatePassword.see_pass
+                "
+                :rules="[
+                  () => !!dataUpdatePassword.passwordOld || $t('message.51'),
+                ]"
               ></v-text-field>
               <div>
                 <v-text-field
@@ -45,17 +56,24 @@
                   required
                   clearable
                   counter
-                  :append-icon="dataUpdatePassword.see_pass ? 'mdi-eye' : 'mdi-eye-off'"
+                  :append-icon="
+                    dataUpdatePassword.see_pass ? 'mdi-eye' : 'mdi-eye-off'
+                  "
                   :type="dataUpdatePassword.see_pass ? 'text' : 'password'"
                   :placeholder="$t('message.48')"
                   :hint="$t('message.50')"
                   v-model="dataUpdatePassword.passwordNew"
                   :maxlength="256"
-                  @click:append="dataUpdatePassword.see_pass = !dataUpdatePassword.see_pass"
+                  @click:append="
+                    dataUpdatePassword.see_pass = !dataUpdatePassword.see_pass
+                  "
                   :rules="[
-                        () => !!dataUpdatePassword.passwordNew || $t('message.51'),
-                        () => /^[a-z0-9@#$%^&+=*!~)(]{8,256}$/i.test(dataUpdatePassword.passwordNew) ||  $t('message.50')
-                      ]"
+                    () => !!dataUpdatePassword.passwordNew || $t('message.51'),
+                    () =>
+                      /^[a-z0-9@#$%^&+=*!~)(]{8,256}$/i.test(
+                        dataUpdatePassword.passwordNew
+                      ) || $t('message.50'),
+                  ]"
                 ></v-text-field>
                 <password
                   v-model="valuePasswordStrength"
@@ -69,16 +87,22 @@
                 required
                 clearable
                 counter
-                :append-icon="dataUpdatePassword.see_pass ? 'mdi-eye' : 'mdi-eye-off'"
+                :append-icon="
+                  dataUpdatePassword.see_pass ? 'mdi-eye' : 'mdi-eye-off'
+                "
                 :type="dataUpdatePassword.see_pass ? 'text' : 'password'"
                 :placeholder="$t('message.49')"
                 v-model="dataUpdatePassword.passwordRepeat"
                 :maxlength="256"
-                @click:append="dataUpdatePassword.see_pass = !dataUpdatePassword.see_pass"
+                @click:append="
+                  dataUpdatePassword.see_pass = !dataUpdatePassword.see_pass
+                "
                 :rules="[
-                        () => !!dataUpdatePassword.passwordRepeat || $t('message.51'),
-                        () => dataUpdatePassword.passwordRepeat === dataUpdatePassword.passwordNew || $t('message.52'),
-                      ]"
+                  () => !!dataUpdatePassword.passwordRepeat || $t('message.51'),
+                  () =>
+                    dataUpdatePassword.passwordRepeat ===
+                      dataUpdatePassword.passwordNew || $t('message.52'),
+                ]"
               ></v-text-field>
             </v-card-text>
             <v-card-actions class="pt-0">
@@ -91,12 +115,14 @@
                     v-bind="attrs"
                     v-on="on"
                     color="red"
-                    @click="[updatePassResetForm(), dialogUpdatePassword = false]"
+                    @click="
+                      [updatePassResetForm(), (dialogUpdatePassword = false)]
+                    "
                   >
                     <v-icon>mdi-close</v-icon>
                   </v-btn>
                 </template>
-                {{ $t('message.18') }}
+                {{ $t("message.18") }}
               </v-tooltip>
               <v-spacer></v-spacer>
               <!-- Button - Generate password -->
@@ -115,7 +141,7 @@
                     <v-icon>mdi-cached</v-icon>
                   </v-btn>
                 </template>
-                {{ $t('message.66') }}
+                {{ $t("message.66") }}
               </v-tooltip>
               <!-- Button - Copy password -->
               <v-tooltip top>
@@ -133,7 +159,7 @@
                     <v-icon>mdi-content-copy</v-icon>
                   </v-btn>
                 </template>
-                {{ $t('message.67') }}
+                {{ $t("message.67") }}
               </v-tooltip>
               <!-- Button - Refresh form -->
               <v-tooltip top>
@@ -150,7 +176,7 @@
                     <v-icon>mdi-refresh</v-icon>
                   </v-btn>
                 </template>
-                {{ $t('message.68') }}
+                {{ $t("message.68") }}
               </v-tooltip>
               <v-spacer></v-spacer>
               <!-- Button - Update -->
@@ -168,7 +194,7 @@
                     <v-icon>mdi-content-save</v-icon>
                   </v-btn>
                 </template>
-                {{ $t('message.55') }}
+                {{ $t("message.55") }}
               </v-tooltip>
             </v-card-actions>
           </v-card>
@@ -201,16 +227,25 @@
                   color="deep-orange"
                   icon="mdi-alert"
                   border="left"
-                >{{ field.common_msg }}</v-alert>
+                  >{{ field.common_msg }}</v-alert
+                >
 
                 <!-- Wrapper for fields. -->
                 <v-card flat outlined class="mt-4">
-                  <v-card-text :class="field.widget !== 'checkBox' ? 'pt-2 pb-0' : 'pt-2 pb-4'">
+                  <v-card-text
+                    :class="
+                      field.widget !== 'checkBox' ? 'pt-2 pb-0' : 'pt-2 pb-4'
+                    "
+                  >
                     <div v-if="field.widget !== 'checkBox'">
                       <!-- Title of field. -->
-                      <v-card-title class="pa-0 text-subtitle-1 font-weight-medium">
+                      <v-card-title
+                        class="pa-0 text-subtitle-1 font-weight-medium"
+                      >
                         {{ field.label }}
-                        <span v-if="field.required" class="red--text pl-2">&#9913;</span>
+                        <span v-if="field.required" class="red--text pl-2"
+                          >&#9913;</span
+                        >
                       </v-card-title>
                       <!-- Hint for field. -->
                       <v-card-subtitle
@@ -227,7 +262,14 @@
                       >
                         <template v-slot:activator="{ on, attrs }">
                           <!-- Button - Open a dialog. -->
-                          <v-btn text x-small color="orange" class="mb-2" v-bind="attrs" v-on="on">
+                          <v-btn
+                            text
+                            x-small
+                            color="orange"
+                            class="mb-2"
+                            v-bind="attrs"
+                            v-on="on"
+                          >
                             <v-icon>mdi-plus</v-icon>
                             <span>/</span>
                             <v-icon>mdi-minus</v-icon>
@@ -241,65 +283,101 @@
                               icon
                               small
                               color="red"
-                              @click="[dynamicSelectionDialog[field.name] = false,
-                                   newValDynItem = {title: null, value: null},
-                                   delDynItems = [],
-                                   setShowMsg(false),
-                                   runShowOverlayPageLockout(false)]"
+                              @click="
+                                [
+                                  (dynamicSelectionDialog[field.name] = false),
+                                  (newValDynItem = {
+                                    title: null,
+                                    value: null,
+                                  }),
+                                  (delDynItems = []),
+                                  setShowMsg(false),
+                                  runShowOverlayPageLockout(false),
+                                ]
+                              "
                             >
                               <v-icon>mdi-close</v-icon>
                             </v-btn>
                           </v-card-actions>
                           <!-- Add new list item. -->
                           <v-card-text class="pb-0">
-                            <v-card-title class="px-0 py-0">{{ $t('message.22') }}</v-card-title>
+                            <v-card-title class="px-0 py-0">{{
+                              $t("message.22")
+                            }}</v-card-title>
                             <v-card-subtitle
                               v-if="field.widget.includes('Text')"
                               class="px-0 pt-2 pb-2"
                             >
-                              <span class="font-weight-medium green--text">{{ $t('message.41') }}</span>
+                              <span class="font-weight-medium green--text">{{
+                                $t("message.41")
+                              }}</span>
                               <br />
-                              <span class="cyan--text">{{ $t('message.23') }}:&ensp;</span>
-                              <span>{{ $t('message.57') }}</span>
+                              <span class="cyan--text"
+                                >{{ $t("message.23") }}:&ensp;</span
+                              >
+                              <span>{{ $t("message.57") }}</span>
                               <br />
-                              <span class="cyan--text">{{ $t('message.24') }}:&ensp;</span>
-                              <span>{{ $t('message.57') }}</span>
+                              <span class="cyan--text"
+                                >{{ $t("message.24") }}:&ensp;</span
+                              >
+                              <span>{{ $t("message.57") }}</span>
                             </v-card-subtitle>
                             <v-card-subtitle
                               v-else-if="field.widget.includes('U32')"
                               class="px-0 pt-2 pb-2"
                             >
-                              <span class="font-weight-medium green--text">{{ $t('message.41') }}</span>
+                              <span class="font-weight-medium green--text">{{
+                                $t("message.41")
+                              }}</span>
                               <br />
-                              <span class="cyan--text">{{ $t('message.23') }}:&ensp;</span>
-                              <span>{{ $t('message.57') }}</span>
+                              <span class="cyan--text"
+                                >{{ $t("message.23") }}:&ensp;</span
+                              >
+                              <span>{{ $t("message.57") }}</span>
                               <br />
-                              <span class="cyan--text">{{ $t('message.24') }}:&ensp;</span>
-                              <span>{{ $t('message.58') }}</span>
+                              <span class="cyan--text"
+                                >{{ $t("message.24") }}:&ensp;</span
+                              >
+                              <span>{{ $t("message.58") }}</span>
                             </v-card-subtitle>
                             <v-card-subtitle
-                              v-else-if="field.widget.includes('I32') || field.widget.includes('I64')"
+                              v-else-if="
+                                field.widget.includes('I32') ||
+                                field.widget.includes('I64')
+                              "
                               class="px-0 pt-2 pb-2"
                             >
-                              <span class="font-weight-medium green--text">{{ $t('message.41') }}</span>
+                              <span class="font-weight-medium green--text">{{
+                                $t("message.41")
+                              }}</span>
                               <br />
-                              <span class="cyan--text">{{ $t('message.23') }}:&ensp;</span>
-                              <span>{{ $t('message.57') }}</span>
+                              <span class="cyan--text"
+                                >{{ $t("message.23") }}:&ensp;</span
+                              >
+                              <span>{{ $t("message.57") }}</span>
                               <br />
-                              <span class="cyan--text">{{ $t('message.24') }}:&ensp;</span>
-                              <span>{{ $t('message.59') }}</span>
+                              <span class="cyan--text"
+                                >{{ $t("message.24") }}:&ensp;</span
+                              >
+                              <span>{{ $t("message.59") }}</span>
                             </v-card-subtitle>
                             <v-card-subtitle
                               v-else-if="field.widget.includes('F64')"
                               class="px-0 pt-2 pb-2"
                             >
-                              <span class="font-weight-medium green--text">{{ $t('message.41') }}</span>
+                              <span class="font-weight-medium green--text">{{
+                                $t("message.41")
+                              }}</span>
                               <br />
-                              <span class="cyan--text">{{ $t('message.23') }}:&ensp;</span>
-                              <span>{{ $t('message.57') }}</span>
+                              <span class="cyan--text"
+                                >{{ $t("message.23") }}:&ensp;</span
+                              >
+                              <span>{{ $t("message.57") }}</span>
                               <br />
-                              <span class="cyan--text">{{ $t('message.24') }}:&ensp;</span>
-                              <span>{{ $t('message.60') }}</span>
+                              <span class="cyan--text"
+                                >{{ $t("message.24") }}:&ensp;</span
+                              >
+                              <span>{{ $t("message.60") }}</span>
                             </v-card-subtitle>
                             <v-row>
                               <v-col cols="12" sm="6">
@@ -328,14 +406,19 @@
                             <v-btn
                               text
                               color="green"
-                              :disabled="!newValDynItem.title || !newValDynItem.value"
+                              :disabled="
+                                !newValDynItem.title || !newValDynItem.value
+                              "
                               @click="updateDynData(field.name, 'save')"
-                            >{{ $t('message.19') }}</v-btn>
+                              >{{ $t("message.19") }}</v-btn
+                            >
                           </v-card-actions>
                           <v-divider></v-divider>
                           <!-- Remove irrelevant items. -->
                           <v-card-text class="pb-0">
-                            <v-card-title class="px-0 pt-6 pb-0">{{ $t('message.20') }}</v-card-title>
+                            <v-card-title class="px-0 pt-6 pb-0">{{
+                              $t("message.20")
+                            }}</v-card-title>
                             <v-autocomplete
                               dense
                               chips
@@ -355,13 +438,24 @@
                               :items="field.options"
                             >
                               <template v-slot:item="{ item, attrs, on }">
-                                <v-list-item v-on="on" v-bind="attrs" #default="{ active }">
+                                <v-list-item
+                                  v-on="on"
+                                  v-bind="attrs"
+                                  #default="{ active }"
+                                >
                                   <v-list-item-action>
-                                    <v-checkbox :input-value="active" color="red darken-3"></v-checkbox>
+                                    <v-checkbox
+                                      :input-value="active"
+                                      color="red darken-3"
+                                    ></v-checkbox>
                                   </v-list-item-action>
                                   <v-list-item-content>
-                                    <v-list-item-title v-html="item.title"></v-list-item-title>
-                                    <v-list-item-subtitle v-html="item.value"></v-list-item-subtitle>
+                                    <v-list-item-title
+                                      v-html="item.title"
+                                    ></v-list-item-title>
+                                    <v-list-item-subtitle
+                                      v-html="item.value"
+                                    ></v-list-item-subtitle>
                                   </v-list-item-content>
                                 </v-list-item>
                               </template>
@@ -374,11 +468,19 @@
                               text
                               color="red"
                               :disabled="delDynItems.length === 0"
-                              @click="[updateDynData(field.name, 'delete'),
-                                   dynamicSelectionDialog[field.name] = false,
-                                   newValDynItem = {title: null, value: null},
-                                   delDynItems = []]"
-                            >{{ $t('message.21') }}</v-btn>
+                              @click="
+                                [
+                                  updateDynData(field.name, 'delete'),
+                                  (dynamicSelectionDialog[field.name] = false),
+                                  (newValDynItem = {
+                                    title: null,
+                                    value: null,
+                                  }),
+                                  (delDynItems = []),
+                                ]
+                              "
+                              >{{ $t("message.21") }}</v-btn
+                            >
                           </v-card-actions>
                         </v-card>
                       </v-dialog>
@@ -387,8 +489,19 @@
                     <!-- Text fields -->
                     <v-text-field
                       class="mt-0 pt-0"
-                      v-if="['inputText', 'inputEmail', 'inputPassword', 'inputPhone',
-                         'inputUrl', 'inputIP', 'inputIPv4', 'inputIPv6', 'inputSlug'].includes(field.widget)"
+                      v-if="
+                        [
+                          'inputText',
+                          'inputEmail',
+                          'inputPassword',
+                          'inputPhone',
+                          'inputUrl',
+                          'inputIP',
+                          'inputIPv4',
+                          'inputIPv6',
+                          'inputSlug',
+                        ].includes(field.widget)
+                      "
                       clearable
                       counter
                       :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
@@ -409,7 +522,14 @@
                     <!-- Number fields -->
                     <v-text-field
                       class="mt-0 pt-1"
-                      v-if="['numberI32', 'numberU32', 'numberI64', 'numberF64'].includes(field.widget)"
+                      v-if="
+                        [
+                          'numberI32',
+                          'numberU32',
+                          'numberI64',
+                          'numberF64',
+                        ].includes(field.widget)
+                      "
                       clearable
                       :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                       v-model="fieldsData[field.name]"
@@ -430,7 +550,14 @@
 
                     <!-- Range fields -->
                     <div
-                      v-if="['rangeI32', 'rangeU32', 'rangeI64', 'rangeF64'].includes(field.widget)"
+                      v-if="
+                        [
+                          'rangeI32',
+                          'rangeU32',
+                          'rangeI64',
+                          'rangeF64',
+                        ].includes(field.widget)
+                      "
                     >
                       <v-divider class="mb-1"></v-divider>
                       <div>{{ `value: ${fieldsData[field.name]}` }}</div>
@@ -460,7 +587,15 @@
                     <!-- Radio buttons fields -->
                     <v-radio-group
                       class="mt-1"
-                      v-if="['radioText', 'radioI32', 'radioU32', 'radioI64', 'radioF64'].includes(field.widget)"
+                      v-if="
+                        [
+                          'radioText',
+                          'radioI32',
+                          'radioU32',
+                          'radioI64',
+                          'radioF64',
+                        ].includes(field.widget)
+                      "
                       v-model="fieldsData[field.name]"
                       :messages="field.warning"
                       :error-messages="field.error"
@@ -497,14 +632,24 @@
 
                     <!-- File information -->
                     <div
-                      v-if="field.widget === 'inputFile' && fieldsData[field.name].url !== undefined && fieldsData[field.name].url.length > 0"
+                      v-if="
+                        field.widget === 'inputFile' &&
+                        fieldsData[field.name].url !== undefined &&
+                        fieldsData[field.name].url.length > 0
+                      "
                     >
                       <v-divider></v-divider>
                       <div
-                        v-for="(item, index) in [getFileIcon(fieldsData[field.name].name.split('.').pop())]"
+                        v-for="(item, index) in [
+                          getFileIcon(
+                            fieldsData[field.name].name.split('.').pop()
+                          ),
+                        ]"
                         :key="`${item.icon}-${index}`"
                       >
-                        <v-icon :color="item.color" size="60">{{ `mdi-${item.icon}` }}</v-icon>
+                        <v-icon :color="item.color" size="60">{{
+                          `mdi-${item.icon}`
+                        }}</v-icon>
                       </div>
                       <v-btn
                         text
@@ -513,11 +658,17 @@
                         class="text-lowercase px-0"
                         :href="fieldsData[field.name].url"
                         target="_blank"
-                      >{{ fieldsData[field.name].url }}</v-btn>
+                        >{{ fieldsData[field.name].url }}</v-btn
+                      >
                       <v-card-subtitle
                         v-if="fieldsData[field.name].size !== undefined"
                         class="pa-0"
-                      >{{ `${$t('message.28')}: ${humanFileSize(fieldsData[field.name].size)}` }}</v-card-subtitle>
+                        >{{
+                          `${$t("message.28")}: ${humanFileSize(
+                            fieldsData[field.name].size
+                          )}`
+                        }}</v-card-subtitle
+                      >
                       <v-checkbox
                         dense
                         hide-details
@@ -530,13 +681,20 @@
 
                     <!-- Image thumbnail -->
                     <div
-                      v-if="field.widget === 'inputImage' && fieldsData[field.name].url !== undefined && fieldsData[field.name].url.length > 0"
+                      v-if="
+                        field.widget === 'inputImage' &&
+                        fieldsData[field.name].url !== undefined &&
+                        fieldsData[field.name].url.length > 0
+                      "
                     >
                       <v-divider></v-divider>
                       <div class="mt-2 mb-1 h-60">
                         <img
                           class="rounded-lg"
-                          :src="fieldsData[field.name].url_xs || fieldsData[field.name].url"
+                          :src="
+                            fieldsData[field.name].url_xs ||
+                            fieldsData[field.name].url
+                          "
                           height="60"
                           alt="Image"
                         />
@@ -548,11 +706,17 @@
                         class="text-lowercase px-0"
                         :href="fieldsData[field.name].url"
                         target="_blank"
-                      >{{ fieldsData[field.name].url }}</v-btn>
+                        >{{ fieldsData[field.name].url }}</v-btn
+                      >
                       <v-card-subtitle
                         v-if="fieldsData[field.name].size !== undefined"
                         class="pa-0"
-                      >{{ `${$t('message.28')}: ${humanFileSize(fieldsData[field.name].size)}` }}</v-card-subtitle>
+                        >{{
+                          `${$t("message.28")}: ${humanFileSize(
+                            fieldsData[field.name].size
+                          )}`
+                        }}</v-card-subtitle
+                      >
                       <v-checkbox
                         dense
                         hide-details
@@ -661,13 +825,17 @@
                             small
                             color="primary"
                             @click="vMenu[field.name] = false"
-                          >{{ $t('message.18') }}</v-btn>
+                            >{{ $t("message.18") }}</v-btn
+                          >
                           <v-btn
                             text
                             small
                             color="primary"
-                            @click="$refs[field.name][0].save(fieldsData[field.name])"
-                          >OK</v-btn>
+                            @click="
+                              $refs[field.name][0].save(fieldsData[field.name])
+                            "
+                            >OK</v-btn
+                          >
                         </v-card-actions>
                       </v-card>
                     </v-menu>
@@ -675,7 +843,11 @@
                     <!-- Textarea fields -->
                     <div
                       v-if="field.widget === 'textArea'"
-                      :class="field.css_classes.includes('ckeditor') ? 'mt-1 mb-2' : ''"
+                      :class="
+                        field.css_classes.includes('ckeditor')
+                          ? 'mt-1 mb-2'
+                          : ''
+                      "
                     >
                       <div v-if="field.css_classes.includes('ckeditor')">
                         <v-card-subtitle
@@ -775,17 +947,23 @@
                           small
                           color="primary"
                           @click="vMenu[field.name] = false"
-                        >{{ $t('message.18') }}</v-btn>
+                          >{{ $t("message.18") }}</v-btn
+                        >
                         <v-btn
                           text
                           small
                           color="primary"
-                          @click="$refs[field.name][0].save(fieldsData[field.name])"
-                        >OK</v-btn>
+                          @click="
+                            $refs[field.name][0].save(fieldsData[field.name])
+                          "
+                          >OK</v-btn
+                        >
                       </v-date-picker>
                       <!-- only max -->
                       <v-date-picker
-                        v-else-if="field.min.length === 0 && field.max.length > 0"
+                        v-else-if="
+                          field.min.length === 0 && field.max.length > 0
+                        "
                         scrollable
                         v-model="fieldsData[field.name]"
                         year-icon="mdi-calendar-blank"
@@ -801,13 +979,17 @@
                           small
                           color="primary"
                           @click="vMenu[field.name] = false"
-                        >{{ $t('message.18') }}</v-btn>
+                          >{{ $t("message.18") }}</v-btn
+                        >
                         <v-btn
                           text
                           small
                           color="primary"
-                          @click="$refs[field.name][0].save(fieldsData[field.name])"
-                        >OK</v-btn>
+                          @click="
+                            $refs[field.name][0].save(fieldsData[field.name])
+                          "
+                          >OK</v-btn
+                        >
                       </v-date-picker>
                       <!-- min and max -->
                       <v-date-picker
@@ -828,13 +1010,17 @@
                           small
                           color="primary"
                           @click="vMenu[field.name] = false"
-                        >{{ $t('message.18') }}</v-btn>
+                          >{{ $t("message.18") }}</v-btn
+                        >
                         <v-btn
                           text
                           small
                           color="primary"
-                          @click="$refs[field.name][0].save(fieldsData[field.name])"
-                        >OK</v-btn>
+                          @click="
+                            $refs[field.name][0].save(fieldsData[field.name])
+                          "
+                          >OK</v-btn
+                        >
                       </v-date-picker>
                       <!-- without min and max -->
                       <v-date-picker
@@ -853,13 +1039,17 @@
                           small
                           color="primary"
                           @click="vMenu[field.name] = false"
-                        >{{ $t('message.18') }}</v-btn>
+                          >{{ $t("message.18") }}</v-btn
+                        >
                         <v-btn
                           text
                           small
                           color="primary"
-                          @click="$refs[field.name][0].save(fieldsData[field.name])"
-                        >OK</v-btn>
+                          @click="
+                            $refs[field.name][0].save(fieldsData[field.name])
+                          "
+                          >OK</v-btn
+                        >
                       </v-date-picker>
                     </v-menu>
 
@@ -880,7 +1070,9 @@
                             <v-text-field
                               class="mt-0 pt-1"
                               clearable
-                              :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
+                              :prepend-icon="`mdi-${getFieldIcon(
+                                field.widget
+                              )}`"
                               v-model="showLocalDate[field.name]"
                               :id="field.id"
                               :name="field.name"
@@ -898,7 +1090,9 @@
                           </template>
                           <!-- only min -->
                           <v-date-picker
-                            v-if="field.min.length > 0 && field.max.length === 0"
+                            v-if="
+                              field.min.length > 0 && field.max.length === 0
+                            "
                             scrollable
                             v-model="fieldsData[field.name]"
                             year-icon="mdi-calendar-blank"
@@ -914,17 +1108,25 @@
                               small
                               color="primary"
                               @click="vMenu[field.name] = false"
-                            >{{ $t('message.18') }}</v-btn>
+                              >{{ $t("message.18") }}</v-btn
+                            >
                             <v-btn
                               text
                               small
                               color="primary"
-                              @click="$refs[field.name][0].save(fieldsData[field.name])"
-                            >OK</v-btn>
+                              @click="
+                                $refs[field.name][0].save(
+                                  fieldsData[field.name]
+                                )
+                              "
+                              >OK</v-btn
+                            >
                           </v-date-picker>
                           <!-- only max -->
                           <v-date-picker
-                            v-else-if="field.min.length === 0 && field.max.length > 0"
+                            v-else-if="
+                              field.min.length === 0 && field.max.length > 0
+                            "
                             scrollable
                             v-model="fieldsData[field.name]"
                             year-icon="mdi-calendar-blank"
@@ -940,17 +1142,25 @@
                               small
                               color="primary"
                               @click="vMenu[field.name] = false"
-                            >{{ $t('message.18') }}</v-btn>
+                              >{{ $t("message.18") }}</v-btn
+                            >
                             <v-btn
                               text
                               small
                               color="primary"
-                              @click="$refs[field.name][0].save(fieldsData[field.name])"
-                            >OK</v-btn>
+                              @click="
+                                $refs[field.name][0].save(
+                                  fieldsData[field.name]
+                                )
+                              "
+                              >OK</v-btn
+                            >
                           </v-date-picker>
                           <!-- min and max -->
                           <v-date-picker
-                            v-else-if="field.min.length > 0 && field.max.length > 0"
+                            v-else-if="
+                              field.min.length > 0 && field.max.length > 0
+                            "
                             scrollable
                             v-model="fieldsData[field.name]"
                             year-icon="mdi-calendar-blank"
@@ -967,13 +1177,19 @@
                               small
                               color="primary"
                               @click="vMenu[field.name] = false"
-                            >{{ $t('message.18') }}</v-btn>
+                              >{{ $t("message.18") }}</v-btn
+                            >
                             <v-btn
                               text
                               small
                               color="primary"
-                              @click="$refs[field.name][0].save(fieldsData[field.name])"
-                            >OK</v-btn>
+                              @click="
+                                $refs[field.name][0].save(
+                                  fieldsData[field.name]
+                                )
+                              "
+                              >OK</v-btn
+                            >
                           </v-date-picker>
                           <!-- without min and max -->
                           <v-date-picker
@@ -992,13 +1208,19 @@
                               small
                               color="primary"
                               @click="vMenu[field.name] = false"
-                            >{{ $t('message.18') }}</v-btn>
+                              >{{ $t("message.18") }}</v-btn
+                            >
                             <v-btn
                               text
                               small
                               color="primary"
-                              @click="$refs[field.name][0].save(fieldsData[field.name])"
-                            >OK</v-btn>
+                              @click="
+                                $refs[field.name][0].save(
+                                  fieldsData[field.name]
+                                )
+                              "
+                              >OK</v-btn
+                            >
                           </v-date-picker>
                         </v-menu>
                       </v-col>
@@ -1031,7 +1253,9 @@
                               :class="field.css_classes"
                               v-bind="attrs"
                               v-on="on"
-                              @click:clear="fieldsData[`${field.name}__time`] = null"
+                              @click:clear="
+                                fieldsData[`${field.name}__time`] = null
+                              "
                             ></v-text-field>
                           </template>
                           <v-time-picker
@@ -1039,7 +1263,11 @@
                             scrollable
                             v-if="vMenu[`${field.name}__time`]"
                             v-model="fieldsData[`${field.name}__time`]"
-                            @click:minute="$refs[`${field.name}__time`][0].save(fieldsData[`${field.name}__time`])"
+                            @click:minute="
+                              $refs[`${field.name}__time`][0].save(
+                                fieldsData[`${field.name}__time`]
+                              )
+                            "
                             :disabled="field.disabled"
                             :readonly="field.readonly"
                           ></v-time-picker>
@@ -1050,8 +1278,15 @@
                     <!-- Selection fields-->
                     <v-autocomplete
                       class="pt-0"
-                      v-if="['selectText', 'selectI32', 'selectU32',
-                         'selectI64', 'selectF64'].includes(field.widget)"
+                      v-if="
+                        [
+                          'selectText',
+                          'selectI32',
+                          'selectU32',
+                          'selectI64',
+                          'selectF64',
+                        ].includes(field.widget)
+                      "
                       clearable
                       :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                       :items="field.options"
@@ -1074,8 +1309,15 @@
                     -->
                     <v-autocomplete
                       class="pt-0"
-                      v-if="['selectTextMult', 'selectI32Mult', 'selectU32Mult',
-                         'selectI64Mult', 'selectF64Mult'].includes(field.widget)"
+                      v-if="
+                        [
+                          'selectTextMult',
+                          'selectI32Mult',
+                          'selectU32Mult',
+                          'selectI64Mult',
+                          'selectF64Mult',
+                        ].includes(field.widget)
+                      "
                       clearable
                       chips
                       small-chips
@@ -1103,8 +1345,15 @@
                     -->
                     <v-autocomplete
                       class="pt-0"
-                      v-if="['selectTextDyn', 'selectI32Dyn', 'selectU32Dyn',
-                         'selectI64Dyn', 'selectF64Dyn'].includes(field.widget)"
+                      v-if="
+                        [
+                          'selectTextDyn',
+                          'selectI32Dyn',
+                          'selectU32Dyn',
+                          'selectI64Dyn',
+                          'selectF64Dyn',
+                        ].includes(field.widget)
+                      "
                       clearable
                       :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
                       :items="field.options"
@@ -1127,8 +1376,15 @@
                     -->
                     <v-autocomplete
                       class="pt-0"
-                      v-if="['selectTextMultDyn', 'selectI32MultDyn', 'selectU32MultDyn',
-                         'selectI64MultDyn', 'selectF64MultDyn'].includes(field.widget)"
+                      v-if="
+                        [
+                          'selectTextMultDyn',
+                          'selectI32MultDyn',
+                          'selectU32MultDyn',
+                          'selectI64MultDyn',
+                          'selectF64MultDyn',
+                        ].includes(field.widget)
+                      "
                       clearable
                       chips
                       small-chips
@@ -1217,7 +1473,14 @@
         <!-- Save button. -->
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn text small color="blue" v-bind="attrs" v-on="on" @click="saveDoc()">
+            <v-btn
+              text
+              small
+              color="blue"
+              v-bind="attrs"
+              v-on="on"
+              @click="saveDoc()"
+            >
               <v-icon>mdi-content-save</v-icon>
             </v-btn>
           </template>
@@ -1229,15 +1492,18 @@
     <!-- Confirm deletion of the document. -->
     <v-dialog v-model="dialogDocDelete" max-width="290">
       <v-card>
-        <v-card-title class="h6">{{ $t('message.39') }}</v-card-title>
+        <v-card-title class="h6">{{ $t("message.39") }}</v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="dialogDocDelete = false">{{ $t('message.18') }}</v-btn>
+          <v-btn color="primary" text @click="dialogDocDelete = false">{{
+            $t("message.18")
+          }}</v-btn>
           <v-btn
             color="red"
             text
-            @click="[deleteDoc(), dialogDocDelete = false]"
-          >{{ $t('message.21') }}</v-btn>
+            @click="[deleteDoc(), (dialogDocDelete = false)]"
+            >{{ $t("message.21") }}</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -1245,18 +1511,18 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex'
-import generatePassword from 'password-generator'
-import Password from 'vue-password-strength-meter'
+import { mapState, mapMutations, mapActions } from "vuex";
+import generatePassword from "password-generator";
+import Password from "vue-password-strength-meter";
 
 export default {
-  name: 'DocumentForm',
+  name: "DocumentForm",
 
   components: { Password },
 
   data: () => ({
-    docTitle: '...',
-    breadcrumbs: '... > ... > ...',
+    docTitle: "...",
+    breadcrumbs: "... > ... > ...",
     vMenu: {},
     fieldsData: {},
     fields: [],
@@ -1275,7 +1541,7 @@ export default {
       passwordRepeat: null,
       formHasErrors: false,
       see_pass: false,
-      generate: false
+      generate: false,
     },
     // Options password.
     optionPass: {
@@ -1288,1117 +1554,1234 @@ export default {
       LOWERCASE_RE: /([a-z])/g,
       NUMBER_RE: /([\d])/g,
       SPECIAL_CHAR_RE: /([@#$%^&+=*!~)(])/g,
-      NON_REPEATING_CHAR_RE: /([@#$%^&+=*!~)(a-z\d])\1{2,}/ig
-    }
+      NON_REPEATING_CHAR_RE: /([@#$%^&+=*!~)(a-z\d])\1{2,}/gi,
+    },
   }),
 
   computed: {
-    ...mapState([
-      'serviceList'
+    ...mapState(["serviceList"]),
+    ...mapState("documentList", [
+      "documents",
+      "currentPageNumber",
+      "pageCount",
+      "docsPerPage",
+      "sortDocList",
+      "sortDirectDocList",
     ]),
-    ...mapState('documentList', [
-      'documents',
-      'currentPageNumber',
-      'pageCount',
-      'docsPerPage',
-      'sortDocList',
-      'sortDirectDocList'
-    ]),
-    ...mapState('ckeditor', [
-      'classicCKEditor',
-      'configCKEditor'
-    ]),
-    ...mapState('colorPicker', [
-      'swatches'
-    ]),
+    ...mapState("ckeditor", ["classicCKEditor", "configCKEditor"]),
+    ...mapState("colorPicker", ["swatches"]),
     valuePasswordStrength: function () {
       if (this.dataUpdatePassword.passwordNew) {
-        return this.dataUpdatePassword.passwordNew
+        return this.dataUpdatePassword.passwordNew;
       } else {
-        return ''
+        return "";
       }
-    }
+    },
   },
 
   methods: {
-    ...mapMutations([
-      'setIsAuthenticated'
+    ...mapMutations(["setIsAuthenticated"]),
+    ...mapMutations("popUpMsgs", ["setShowMsg"]),
+    ...mapMutations("documentList", [
+      "setDocuments",
+      "setCurrentPageNumber",
+      "setDocsPerPage",
+      "setSortDocList",
+      "setSortDirectDocList",
+      "setDataFilters",
+      "setSelectDataFilters",
     ]),
-    ...mapMutations('popUpMsgs', [
-      'setShowMsg'
-    ]),
-    ...mapMutations('documentList', [
-      'setDocuments',
-      'setCurrentPageNumber',
-      'setDocsPerPage',
-      'setSortDocList',
-      'setSortDirectDocList',
-      'setDataFilters',
-      'setSelectDataFilters'
-    ]),
-    ...mapActions('documentList', [
-      'ajaxGetDocumentList'
-    ]),
-    ...mapActions('popUpMsgs', [
-      'runShowMsg'
-    ]),
-    ...mapActions('overlays', [
-      'runShowOverlayPageLockout'
-    ]),
+    ...mapActions("documentList", ["ajaxGetDocumentList"]),
+    ...mapActions("popUpMsgs", ["runShowMsg"]),
+    ...mapActions("overlays", ["runShowOverlayPageLockout"]),
     // Router - Go back one step.
     goBack() {
-      const service = this.$route.params.service
-      const collection = this.$route.params.collection
-      const indexService = this.$route.params.indexService
-      const indexCollection = this.$route.params.indexCollection
-      this.setShowMsg(false)
-      this.setDocuments([])
+      const service = this.$route.params.service;
+      const collection = this.$route.params.collection;
+      const indexService = this.$route.params.indexService;
+      const indexCollection = this.$route.params.indexCollection;
+      this.setShowMsg(false);
+      this.setDocuments([]);
       this.$router.replace({
         path: `/${service}/${indexService}/${collection}/${indexCollection}/document-list`,
         query: {
           per: this.docsPerPage,
           page: this.currentPageNumber,
           sort: this.sortDocList,
-          direct: this.sortDirectDocList
-        }
-      })
+          direct: this.sortDirectDocList,
+        },
+      });
     },
     // To Rerender Component.
     reload() {
-      this.render = false
+      this.render = false;
       this.$nextTick(() => {
-        this.render = true
-      })
+        this.render = true;
+      });
     },
     // Check password quality.
     isStrongEnough(password) {
-      const uc = password.match(this.optionPass.UPPERCASE_RE)
-      const lc = password.match(this.optionPass.LOWERCASE_RE)
-      const n = password.match(this.optionPass.NUMBER_RE)
-      const sc = password.match(this.optionPass.SPECIAL_CHAR_RE)
-      const nr = password.match(this.optionPass.NON_REPEATING_CHAR_RE)
-      return password.length >= this.optionPass.passLength && !nr &&
-        uc && uc.length >= this.optionPass.uppercaseMinCount &&
-        lc && lc.length >= this.optionPass.lowercaseMinCount &&
-        n && n.length >= this.optionPass.numberMinCount &&
-        sc && sc.length >= this.optionPass.specialMinCount
+      const uc = password.match(this.optionPass.UPPERCASE_RE);
+      const lc = password.match(this.optionPass.LOWERCASE_RE);
+      const n = password.match(this.optionPass.NUMBER_RE);
+      const sc = password.match(this.optionPass.SPECIAL_CHAR_RE);
+      const nr = password.match(this.optionPass.NON_REPEATING_CHAR_RE);
+      return (
+        password.length >= this.optionPass.passLength &&
+        !nr &&
+        uc &&
+        uc.length >= this.optionPass.uppercaseMinCount &&
+        lc &&
+        lc.length >= this.optionPass.lowercaseMinCount &&
+        n &&
+        n.length >= this.optionPass.numberMinCount &&
+        sc &&
+        sc.length >= this.optionPass.specialMinCount
+      );
     },
     // Generate password.
     customPassword() {
-      this.dataUpdatePassword.generate = true
+      this.dataUpdatePassword.generate = true;
       //
-      let password = ''
+      let password = "";
       //
       while (!this.isStrongEnough(password)) {
-        password = generatePassword(this.optionPass.passLength, false, /[a-z\d@#$%^&+=*!~)(]/i)
+        password = generatePassword(
+          this.optionPass.passLength,
+          false,
+          /[a-z\d@#$%^&+=*!~)(]/i
+        );
       }
-      this.dataUpdatePassword.passwordNew = password
-      this.dataUpdatePassword.passwordRepeat = password
+      this.dataUpdatePassword.passwordNew = password;
+      this.dataUpdatePassword.passwordRepeat = password;
       setTimeout(() => {
-        this.dataUpdatePassword.generate = false
-        return undefined
-      }, 300)
+        this.dataUpdatePassword.generate = false;
+        return undefined;
+      }, 300);
     },
     // Copy Password to Clipboard.
     copyPassword() {
-      var copyText = document.getElementById('newPassword')
-      copyText.select()
-      copyText.setSelectionRange(0, 99999) /* For mobile devices */
-      navigator.clipboard.writeText(copyText.value)
+      var copyText = document.getElementById("newPassword");
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); /* For mobile devices */
+      navigator.clipboard.writeText(copyText.value);
     },
     // Get id form.
     getIdForm() {
-      const indexService = this.$route.params.indexService
-      const indexCollection = this.$route.params.indexCollection
-      const service = this.serviceList[indexService]
-      return service.collections[indexCollection].model_key.split('__')[1].substring(1)
+      const indexService = this.$route.params.indexService;
+      const indexCollection = this.$route.params.indexCollection;
+      const service = this.serviceList[indexService];
+      return service.collections[indexCollection].model_key
+        .split("__")[1]
+        .substring(1);
     },
     // Determine if the document was previously created.
     isCreatedDoc() {
-      return !isNaN(parseInt(this.$route.params.indexDoc))
+      return !isNaN(parseInt(this.$route.params.indexDoc));
     },
     // Get human readable version of file size.
     humanFileSize(size) {
-      var i = Math.floor(Math.log(size) / Math.log(1024))
-      return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i]
+      var i = Math.floor(Math.log(size) / Math.log(1024));
+      return (
+        (size / Math.pow(1024, i)).toFixed(2) * 1 +
+        " " +
+        ["B", "kB", "MB", "GB", "TB"][i]
+      );
     },
     // Get field type with dynamic widget.
     getDynFieldType(widget) {
-      let result = 'text'
-      if (widget.includes('I32') || widget.includes('U32') ||
-        widget.includes('I64') || widget.includes('F64')) {
-        result = 'number'
+      let result = "text";
+      if (
+        widget.includes("I32") ||
+        widget.includes("U32") ||
+        widget.includes("I64") ||
+        widget.includes("F64")
+      ) {
+        result = "number";
       }
-      return result
+      return result;
     },
     // Default color.
     defaultColor(fieldName) {
       if (!this.fieldsData[fieldName]) {
-        this.fieldsData[fieldName] = '#00000000'
+        this.fieldsData[fieldName] = "#00000000";
       }
     },
     // Update local date.
     updateLocalDate(fieldName) {
-      this.showLocalDate[fieldName] = new Date(this.fieldsData[fieldName])
-        .toLocaleDateString([this.$i18n.locale, 'en'])
+      this.showLocalDate[fieldName] = new Date(
+        this.fieldsData[fieldName]
+      ).toLocaleDateString([this.$i18n.locale, "en"]);
     },
     // Get the associative icon for the file.
     getFileIcon(extension) {
-      let result
+      let result;
       switch (extension.toLowerCase()) {
-        case 'txt':
-        case 'text':
-          result = { color: 'blue', icon: 'note-text-outline' }
-          break
-        case 'doc':
-        case 'dot':
-        case 'wbk':
-        case 'docx':
-        case 'docm':
-        case 'dotx':
-        case 'dotm':
-        case 'docb':
-          result = { color: 'blue', icon: 'microsoft-word' }
-          break
-        case 'xls':
-        case 'xlt':
-        case 'xlm':
-        case 'xlsx':
-        case 'xlsm':
-        case 'xltx':
-        case 'xltm':
-        case 'xlsb':
-        case 'xla':
-        case 'xlam':
-        case 'xll':
-        case 'xlw':
-          result = { color: 'green', icon: 'microsoft-excel' }
-          break
-        case 'ppt':
-        case 'pot':
-        case 'pps':
-        case 'pptx':
-        case 'pptm':
-        case 'potx':
-        case 'potm':
-        case 'ppam':
-        case 'ppsx':
-        case 'ppsm':
-        case 'sldx':
-        case 'sldm':
-          result = { color: 'orange', icon: 'microsoft-powerpoint' }
-          break
-        case 'accdb':
-        case 'accde':
-        case 'accdt':
-        case 'accdr':
-          result = { color: 'pink', icon: 'microsoft-access' }
-          break
-        case 'one':
-          result = { color: 'purple', icon: 'microsoft-onenote' }
-          break
-        case 'pub':
-          result = { color: 'teal', icon: 'alpha-p-box' }
-          break
-        case 'xml':
-          result = { color: 'blue', icon: 'xml' }
-          break
-        case 'svg':
-        case 'svgz':
-          result = { color: 'amber', icon: 'svg' }
-          break
-        case 'pdf':
-          result = { color: 'red', icon: 'file-pdf-box' }
-          break
-        case 'html':
-        case 'htm':
-          result = { color: 'orange', icon: 'language-html5' }
-          break
-        case 'epub':
-          result = { color: 'lime', icon: 'book-open-page-variant-outline' }
-          break
-        case 'odt':
-          result = { color: 'blue', icon: 'file-document-outline' }
-          break
-        case 'sxw':
-        case 'stw':
-        case 'sxg':
-          result = { color: 'blue-grey', icon: 'file-document-outline' }
-          break
-        case 'sxc':
-        case 'stc':
-          result = { color: 'lime', icon: 'table' }
-          break
-        case 'sxd':
-        case 'std':
-          result = { color: 'amber', icon: 'draw' }
-          break
-        case 'sxi':
-        case 'sti':
-          result = { color: 'orange', icon: 'monitor-dashboard' }
-          break
-        case 'sxm':
-          result = { color: 'blue-grey', icon: 'math-integral-box' }
-          break
-        case 'djvu':
-        case 'djv':
-          result = { color: 'grey darken-1', icon: 'text-box-multiple-outline' }
-          break
-        case 'csv':
-          result = { color: 'grey darken-1', icon: 'file-delimited-outline' }
-          break
-        case 'tsv':
-        case 'tab':
-          result = { color: 'grey darken-1', icon: 'file-table-outline' }
-          break
+        case "txt":
+        case "text":
+          result = { color: "blue", icon: "note-text-outline" };
+          break;
+        case "doc":
+        case "dot":
+        case "wbk":
+        case "docx":
+        case "docm":
+        case "dotx":
+        case "dotm":
+        case "docb":
+          result = { color: "blue", icon: "microsoft-word" };
+          break;
+        case "xls":
+        case "xlt":
+        case "xlm":
+        case "xlsx":
+        case "xlsm":
+        case "xltx":
+        case "xltm":
+        case "xlsb":
+        case "xla":
+        case "xlam":
+        case "xll":
+        case "xlw":
+          result = { color: "green", icon: "microsoft-excel" };
+          break;
+        case "ppt":
+        case "pot":
+        case "pps":
+        case "pptx":
+        case "pptm":
+        case "potx":
+        case "potm":
+        case "ppam":
+        case "ppsx":
+        case "ppsm":
+        case "sldx":
+        case "sldm":
+          result = { color: "orange", icon: "microsoft-powerpoint" };
+          break;
+        case "accdb":
+        case "accde":
+        case "accdt":
+        case "accdr":
+          result = { color: "pink", icon: "microsoft-access" };
+          break;
+        case "one":
+          result = { color: "purple", icon: "microsoft-onenote" };
+          break;
+        case "pub":
+          result = { color: "teal", icon: "alpha-p-box" };
+          break;
+        case "xml":
+          result = { color: "blue", icon: "xml" };
+          break;
+        case "svg":
+        case "svgz":
+          result = { color: "amber", icon: "svg" };
+          break;
+        case "pdf":
+          result = { color: "red", icon: "file-pdf-box" };
+          break;
+        case "html":
+        case "htm":
+          result = { color: "orange", icon: "language-html5" };
+          break;
+        case "epub":
+          result = { color: "lime", icon: "book-open-page-variant-outline" };
+          break;
+        case "odt":
+          result = { color: "blue", icon: "file-document-outline" };
+          break;
+        case "sxw":
+        case "stw":
+        case "sxg":
+          result = { color: "blue-grey", icon: "file-document-outline" };
+          break;
+        case "sxc":
+        case "stc":
+          result = { color: "lime", icon: "table" };
+          break;
+        case "sxd":
+        case "std":
+          result = { color: "amber", icon: "draw" };
+          break;
+        case "sxi":
+        case "sti":
+          result = { color: "orange", icon: "monitor-dashboard" };
+          break;
+        case "sxm":
+          result = { color: "blue-grey", icon: "math-integral-box" };
+          break;
+        case "djvu":
+        case "djv":
+          result = {
+            color: "grey darken-1",
+            icon: "text-box-multiple-outline",
+          };
+          break;
+        case "csv":
+          result = { color: "grey darken-1", icon: "file-delimited-outline" };
+          break;
+        case "tsv":
+        case "tab":
+          result = { color: "grey darken-1", icon: "file-table-outline" };
+          break;
         default:
-          result = { color: 'grey darken-1', icon: 'file-hidden' }
+          result = { color: "grey darken-1", icon: "file-hidden" };
       }
-      return result
+      return result;
     },
     // Get icon of field.
     getFieldIcon(widget) {
-      let result = ''
+      let result = "";
       switch (widget) {
-        case 'inputText':
-          result = 'note-text-outline'
-          break
-        case 'inputSlug':
-          result = 'snake'
-          break
-        case 'inputColor':
-          result = 'palette-outline'
-          break
-        case 'inputDate':
-        case 'inputDateTime':
-          result = 'calendar'
-          break
-        case 'inputEmail':
-          result = 'email-outline'
-          break
-        case 'inputPassword':
-          result = 'lock-outline'
-          break
-        case 'inputPhone':
-          result = 'phone'
-          break
-        case 'inputUrl':
-          result = 'wan'
-          break
-        case 'inputFile':
-          result = 'paperclip'
-          break
-        case 'inputImage':
-          result = 'camera-outline'
-          break
-        case 'inputIP':
-        case 'inputIPv4':
-        case 'inputIPv6':
-          result = 'account-network'
-          break
-        case 'textArea':
-          result = 'script-text-outline'
-          break
+        case "inputText":
+          result = "note-text-outline";
+          break;
+        case "inputSlug":
+          result = "snake";
+          break;
+        case "inputColor":
+          result = "palette-outline";
+          break;
+        case "inputDate":
+        case "inputDateTime":
+          result = "calendar";
+          break;
+        case "inputEmail":
+          result = "email-outline";
+          break;
+        case "inputPassword":
+          result = "lock-outline";
+          break;
+        case "inputPhone":
+          result = "phone";
+          break;
+        case "inputUrl":
+          result = "wan";
+          break;
+        case "inputFile":
+          result = "paperclip";
+          break;
+        case "inputImage":
+          result = "camera-outline";
+          break;
+        case "inputIP":
+        case "inputIPv4":
+        case "inputIPv6":
+          result = "account-network";
+          break;
+        case "textArea":
+          result = "script-text-outline";
+          break;
         default:
-          if (widget.includes('number')) {
-            result = 'numeric'
-          } else if (widget.includes('range')) {
-            result = 'arrow-split-vertical'
-          } else if (widget.includes('select')) {
-            result = 'form-select'
+          if (widget.includes("number")) {
+            result = "numeric";
+          } else if (widget.includes("range")) {
+            result = "arrow-split-vertical";
+          } else if (widget.includes("select")) {
+            result = "form-select";
           }
       }
       //
-      return result
+      return result;
     },
     // Show popup warning.
     showWarning(msg) {
       if (msg.length > 0) {
-        this.runShowMsg({ text: msg, status: 'warning' })
+        this.runShowMsg({ text: msg, status: "warning" });
       }
     },
     // Get data for fields of form.
     getFormData(document) {
-      const vMenu = {}
-      const fieldsData = {}
-      const dynamicSelectionDialog = {}
+      const vMenu = {};
+      const fieldsData = {};
+      const dynamicSelectionDialog = {};
 
-      document.forEach(field => {
-        let tmp
+      document.forEach((field) => {
+        let tmp;
 
         switch (field.widget) {
-          case 'inputText':
-          case 'inputEmail':
-          case 'inputPassword':
-          case 'inputPhone':
-          case 'inputUrl':
-          case 'inputIP':
-          case 'inputIPv4':
-          case 'inputIPv6':
-          case 'inputSlug':
-            fieldsData[field.name] = field.value || ''
-            this.showWarning(field.common_msg)
-            break
-          case 'textArea':
-            fieldsData[field.name] = field.value || ''
-            this.showWarning(field.common_msg)
-            break
-          case 'inputColor':
-            vMenu[field.name] = false
-            fieldsData[field.name] = field.value || '#00000000'
-            this.showWarning(field.common_msg)
-            break
-          case 'inputDate':
-            vMenu[field.name] = false
-            field.min = field.min || ''
-            field.max = field.max || ''
-            fieldsData[field.name] = field.value || null
-            this.showLocalDate[field.name] =
-              field.value ? new Date(field.value)
-                .toLocaleDateString([this.$i18n.locale, 'en']) : ''
-            this.showWarning(field.common_msg)
-            break
-          case 'inputDateTime':
-            vMenu[field.name] = false
-            vMenu[`${field.name}__time`] = false
-            field.min = field.min || ''
-            field.max = field.max || ''
-            tmp = field.value || ''
-            fieldsData[field.name] = tmp.length > 0 ? tmp.substr(0, 10) : null
+          case "inputText":
+          case "inputEmail":
+          case "inputPassword":
+          case "inputPhone":
+          case "inputUrl":
+          case "inputIP":
+          case "inputIPv4":
+          case "inputIPv6":
+          case "inputSlug":
+            fieldsData[field.name] = field.value || "";
+            this.showWarning(field.common_msg);
+            break;
+          case "textArea":
+            fieldsData[field.name] = field.value || "";
+            this.showWarning(field.common_msg);
+            break;
+          case "inputColor":
+            vMenu[field.name] = false;
+            fieldsData[field.name] = field.value || "#00000000";
+            this.showWarning(field.common_msg);
+            break;
+          case "inputDate":
+            vMenu[field.name] = false;
+            field.min = field.min || "";
+            field.max = field.max || "";
+            fieldsData[field.name] = field.value || null;
+            this.showLocalDate[field.name] = field.value
+              ? new Date(field.value).toLocaleDateString([
+                  this.$i18n.locale,
+                  "en",
+                ])
+              : "";
+            this.showWarning(field.common_msg);
+            break;
+          case "inputDateTime":
+            vMenu[field.name] = false;
+            vMenu[`${field.name}__time`] = false;
+            field.min = field.min || "";
+            field.max = field.max || "";
+            tmp = field.value || "";
+            fieldsData[field.name] = tmp.length > 0 ? tmp.substr(0, 10) : null;
             fieldsData[`${field.name}__time`] =
-              tmp.length > 0 ? new Date(tmp + 'Z')
-                .toLocaleTimeString()
-                .slice(0, 5) : new Date().toLocaleTimeString().slice(0, 5)
-            this.showLocalDate[field.name] =
-              field.value ? new Date(field.value)
-                .toLocaleDateString([this.$i18n.locale, 'en']) : ''
-            this.showWarning(field.common_msg)
-            break
-          case 'hiddenText':
-            fieldsData[field.name] = field.value || ''
-            this.showWarning(field.common_msg)
-            break
-          case 'hiddenI32':
-          case 'hiddenU32':
-          case 'hiddenI64':
-            tmp = parseInt(field.value)
-            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
-            this.showWarning(field.common_msg)
-            break
-          case 'hiddenF64':
-            tmp = parseFloat(field.value)
-            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
-            this.showWarning(field.common_msg)
-            break
-          case 'numberI32':
-          case 'numberU32':
-          case 'numberI64':
-            tmp = parseInt(field.value)
-            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
-            this.showWarning(field.common_msg)
-            break
-          case 'numberF64':
-            tmp = parseFloat(field.value)
-            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
-            this.showWarning(field.common_msg)
-            break
-          case 'rangeI32':
-          case 'rangeU32':
-          case 'rangeI64':
-            fieldsData[field.name] = parseInt(field.value)
-            this.showWarning(field.common_msg)
-            break
-          case 'rangeF64':
-            fieldsData[field.name] = parseFloat(field.value)
-            this.showWarning(field.common_msg)
-            break
-          case 'radioText':
-            fieldsData[field.name] = field.value || ''
-            this.showWarning(field.common_msg)
-            break
-          case 'radioI32':
-          case 'radioU32':
-          case 'radioI64':
-            tmp = parseInt(field.value)
-            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+              tmp.length > 0
+                ? new Date(tmp + "Z").toLocaleTimeString().slice(0, 5)
+                : new Date().toLocaleTimeString().slice(0, 5);
+            this.showLocalDate[field.name] = field.value
+              ? new Date(field.value).toLocaleDateString([
+                  this.$i18n.locale,
+                  "en",
+                ])
+              : "";
+            this.showWarning(field.common_msg);
+            break;
+          case "hiddenText":
+            fieldsData[field.name] = field.value || "";
+            this.showWarning(field.common_msg);
+            break;
+          case "hiddenI32":
+          case "hiddenU32":
+          case "hiddenI64":
+            tmp = parseInt(field.value);
+            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
+            this.showWarning(field.common_msg);
+            break;
+          case "hiddenF64":
+            tmp = parseFloat(field.value);
+            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
+            this.showWarning(field.common_msg);
+            break;
+          case "numberI32":
+          case "numberU32":
+          case "numberI64":
+            tmp = parseInt(field.value);
+            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
+            this.showWarning(field.common_msg);
+            break;
+          case "numberF64":
+            tmp = parseFloat(field.value);
+            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
+            this.showWarning(field.common_msg);
+            break;
+          case "rangeI32":
+          case "rangeU32":
+          case "rangeI64":
+            fieldsData[field.name] = parseInt(field.value);
+            this.showWarning(field.common_msg);
+            break;
+          case "rangeF64":
+            fieldsData[field.name] = parseFloat(field.value);
+            this.showWarning(field.common_msg);
+            break;
+          case "radioText":
+            fieldsData[field.name] = field.value || "";
+            this.showWarning(field.common_msg);
+            break;
+          case "radioI32":
+          case "radioU32":
+          case "radioI64":
+            tmp = parseInt(field.value);
+            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
             field.options.forEach(function (item) {
-              item[0] = parseInt(item[0])
-            })
-            this.showWarning(field.common_msg)
-            break
-          case 'radioF64':
-            tmp = parseFloat(field.value)
-            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+              item[0] = parseInt(item[0]);
+            });
+            this.showWarning(field.common_msg);
+            break;
+          case "radioF64":
+            tmp = parseFloat(field.value);
+            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
             field.options.forEach(function (item) {
-              item[0] = parseFloat(item[0])
-            })
-            this.showWarning(field.common_msg)
-            break
-          case 'checkBox':
-            fieldsData[field.name] = field.checked
-            this.showWarning(field.common_msg)
-            break
-          case 'selectText':
-            fieldsData[field.name] = field.value || ''
+              item[0] = parseFloat(item[0]);
+            });
+            this.showWarning(field.common_msg);
+            break;
+          case "checkBox":
+            fieldsData[field.name] = field.checked;
+            this.showWarning(field.common_msg);
+            break;
+          case "selectText":
+            fieldsData[field.name] = field.value || "";
             field.options = field.options.map(function (item) {
-              return { value: item[0], title: item[1] }
-            })
-            this.showWarning(field.common_msg)
-            break
-          case 'selectI32':
-          case 'selectU32':
-          case 'selectI64':
-            tmp = parseInt(field.value)
-            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+              return { value: item[0], title: item[1] };
+            });
+            this.showWarning(field.common_msg);
+            break;
+          case "selectI32":
+          case "selectU32":
+          case "selectI64":
+            tmp = parseInt(field.value);
+            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
             field.options = field.options.map(function (item) {
-              return { value: parseInt(item[0]), title: item[1] }
-            })
-            this.showWarning(field.common_msg)
-            break
-          case 'selectF64':
-            tmp = parseFloat(field.value)
-            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+              return { value: parseInt(item[0]), title: item[1] };
+            });
+            this.showWarning(field.common_msg);
+            break;
+          case "selectF64":
+            tmp = parseFloat(field.value);
+            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
             field.options = field.options.map(function (item) {
-              return { value: parseFloat(item[0]), title: item[1] }
-            })
-            this.showWarning(field.common_msg)
-            break
-          case 'selectTextMult':
-            fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : []
+              return { value: parseFloat(item[0]), title: item[1] };
+            });
+            this.showWarning(field.common_msg);
+            break;
+          case "selectTextMult":
+            fieldsData[field.name] =
+              field.value.length > 0 ? JSON.parse(field.value) : [];
             field.options = field.options.map(function (item) {
-              return { value: item[0], title: item[1] }
-            })
-            this.showWarning(field.common_msg)
-            break
-          case 'selectI32Mult':
-          case 'selectU32Mult':
-          case 'selectI64Mult':
-            fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value).map(item => parseInt(item)) : []
+              return { value: item[0], title: item[1] };
+            });
+            this.showWarning(field.common_msg);
+            break;
+          case "selectI32Mult":
+          case "selectU32Mult":
+          case "selectI64Mult":
+            fieldsData[field.name] =
+              field.value.length > 0
+                ? JSON.parse(field.value).map((item) => parseInt(item))
+                : [];
             field.options = field.options.map(function (item) {
-              return { value: parseInt(item[0]), title: item[1] }
-            })
-            this.showWarning(field.common_msg)
-            break
-          case 'selectF64Mult':
-            fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value).map(item => parseFloat(item)) : []
+              return { value: parseInt(item[0]), title: item[1] };
+            });
+            this.showWarning(field.common_msg);
+            break;
+          case "selectF64Mult":
+            fieldsData[field.name] =
+              field.value.length > 0
+                ? JSON.parse(field.value).map((item) => parseFloat(item))
+                : [];
             field.options = field.options.map(function (item) {
-              return { value: parseFloat(item[0]), title: item[1] }
-            })
-            this.showWarning(field.common_msg)
-            break
-          case 'selectTextDyn':
-            fieldsData[field.name] = field.value || ''
+              return { value: parseFloat(item[0]), title: item[1] };
+            });
+            this.showWarning(field.common_msg);
+            break;
+          case "selectTextDyn":
+            fieldsData[field.name] = field.value || "";
             field.options = field.options.map(function (item) {
-              return { value: item[0], title: item[1] }
-            })
-            dynamicSelectionDialog[field.name] = false
-            this.showWarning(field.common_msg)
-            break
-          case 'selectI32Dyn':
-          case 'selectU32Dyn':
-          case 'selectI64Dyn':
-            tmp = parseInt(field.value)
-            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+              return { value: item[0], title: item[1] };
+            });
+            dynamicSelectionDialog[field.name] = false;
+            this.showWarning(field.common_msg);
+            break;
+          case "selectI32Dyn":
+          case "selectU32Dyn":
+          case "selectI64Dyn":
+            tmp = parseInt(field.value);
+            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
             field.options = field.options.map(function (item) {
-              return { value: parseInt(item[0]), title: item[1] }
-            })
-            dynamicSelectionDialog[field.name] = false
-            this.showWarning(field.common_msg)
-            break
-          case 'selectF64Dyn':
-            tmp = parseFloat(field.value)
-            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : ''
+              return { value: parseInt(item[0]), title: item[1] };
+            });
+            dynamicSelectionDialog[field.name] = false;
+            this.showWarning(field.common_msg);
+            break;
+          case "selectF64Dyn":
+            tmp = parseFloat(field.value);
+            fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
             field.options = field.options.map(function (item) {
-              return { value: parseFloat(item[0]), title: item[1] }
-            })
-            dynamicSelectionDialog[field.name] = false
-            this.showWarning(field.common_msg)
-            break
-          case 'selectTextMultDyn':
-            fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : []
+              return { value: parseFloat(item[0]), title: item[1] };
+            });
+            dynamicSelectionDialog[field.name] = false;
+            this.showWarning(field.common_msg);
+            break;
+          case "selectTextMultDyn":
+            fieldsData[field.name] =
+              field.value.length > 0 ? JSON.parse(field.value) : [];
             field.options = field.options.map(function (item) {
-              return { value: item[0], title: item[1] }
-            })
-            dynamicSelectionDialog[field.name] = false
-            this.showWarning(field.common_msg)
-            break
-          case 'selectI32MultDyn':
-          case 'selectU32MultDyn':
-          case 'selectI64MultDyn':
-            fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value).map(item => parseInt(item)) : []
+              return { value: item[0], title: item[1] };
+            });
+            dynamicSelectionDialog[field.name] = false;
+            this.showWarning(field.common_msg);
+            break;
+          case "selectI32MultDyn":
+          case "selectU32MultDyn":
+          case "selectI64MultDyn":
+            fieldsData[field.name] =
+              field.value.length > 0
+                ? JSON.parse(field.value).map((item) => parseInt(item))
+                : [];
             field.options = field.options.map(function (item) {
-              return { value: parseInt(item[0]), title: item[1] }
-            })
-            dynamicSelectionDialog[field.name] = false
-            this.showWarning(field.common_msg)
-            break
-          case 'selectF64MultDyn':
-            fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value).map(item => parseFloat(item)) : []
+              return { value: parseInt(item[0]), title: item[1] };
+            });
+            dynamicSelectionDialog[field.name] = false;
+            this.showWarning(field.common_msg);
+            break;
+          case "selectF64MultDyn":
+            fieldsData[field.name] =
+              field.value.length > 0
+                ? JSON.parse(field.value).map((item) => parseFloat(item))
+                : [];
             field.options = field.options.map(function (item) {
-              return { value: parseFloat(item[0]), title: item[1] }
-            })
-            dynamicSelectionDialog[field.name] = false
-            this.showWarning(field.common_msg)
-            break
-          case 'inputFile':
-          case 'inputImage':
-            fieldsData[field.name] = field.value.length > 0 ? JSON.parse(field.value) : {}
-            fieldsData[field.name].is_delete = false
-            this.showWarning(field.common_msg)
-            break
+              return { value: parseFloat(item[0]), title: item[1] };
+            });
+            dynamicSelectionDialog[field.name] = false;
+            this.showWarning(field.common_msg);
+            break;
+          case "inputFile":
+          case "inputImage":
+            fieldsData[field.name] =
+              field.value.length > 0 ? JSON.parse(field.value) : {};
+            fieldsData[field.name].is_delete = false;
+            this.showWarning(field.common_msg);
+            break;
         }
-      })
+      });
 
-      this.vMenu = vMenu
-      this.fieldsData = fieldsData
-      this.dynamicSelectionDialog = dynamicSelectionDialog
-      this.fields = document
+      this.vMenu = vMenu;
+      this.fieldsData = fieldsData;
+      this.dynamicSelectionDialog = dynamicSelectionDialog;
+      this.fields = document;
     },
 
     // Converte File to base64.
     toBase64(file) {
       return new Promise((resolve, reject) => {
-        const reader = new FileReader()
-        reader.readAsDataURL(file)
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
         reader.onload = () => {
-          let encoded = reader.result.toString().replace(/^data:(.*,)?/, '')
-          if ((encoded.length % 4) > 0) {
-            encoded += '='.repeat(4 - (encoded.length % 4))
+          let encoded = reader.result.toString().replace(/^data:(.*,)?/, "");
+          if (encoded.length % 4 > 0) {
+            encoded += "=".repeat(4 - (encoded.length % 4));
           }
-          resolve(encoded)
-        }
-        reader.onerror = error => reject(error)
-      })
+          resolve(encoded);
+        };
+        reader.onerror = (error) => reject(error);
+      });
     },
 
     // Save/Update the document.
-    saveDoc(mode = 'save') {
-      this.setShowMsg(false)
-      this.runShowOverlayPageLockout(true)
+    saveDoc(mode = "save") {
+      this.setShowMsg(false);
+      this.runShowOverlayPageLockout(true);
 
-      const indexService = this.$route.params.indexService
-      const indexCollection = this.$route.params.indexCollection
-      const service = this.serviceList[indexService]
-      const modelKey = service.collections[indexCollection].model_key
-      const cloneFieldsData = JSON.parse(JSON.stringify(this.fieldsData))
+      const indexService = this.$route.params.indexService;
+      const indexCollection = this.$route.params.indexCollection;
+      const service = this.serviceList[indexService];
+      const modelKey = service.collections[indexCollection].model_key;
+      const cloneFieldsData = JSON.parse(JSON.stringify(this.fieldsData));
 
       const prepareData = () => {
         return new Promise((resolve, reject) => {
           const countFileType = this.fields.reduce((sum, field) => {
-            if (field.input_type === 'file') {
-              ++sum
+            if (field.input_type === "file") {
+              ++sum;
             }
-            return sum
-          }, 0)
-          let dataSumSize = 0
+            return sum;
+          }, 0);
+          let dataSumSize = 0;
           const response = (counter) => {
             if (counter === countFileType) {
               if (dataSumSize <= this.maxTotalFormSize) {
-                resolve()
+                resolve();
               } else {
-                const msg = `The total size of the form data exceeds the ${this.humanFileSize(this.maxTotalFormSize)} limit.`
-                reject(msg)
+                const msg = `The total size of the form data exceeds the ${this.humanFileSize(
+                  this.maxTotalFormSize
+                )} limit.`;
+                reject(msg);
               }
             }
-          }
-          let counter = 0
-          response(counter)
-          this.fields.forEach(field => {
+          };
+          let counter = 0;
+          response(counter);
+          this.fields.forEach((field) => {
             // Convert numeric data types.
-            if (field.widget.includes('I32') || field.widget.includes('U32') ||
-              field.widget.includes('I64')) {
-              if (field.widget.includes('Mult')) {
-                cloneFieldsData[field.name] = cloneFieldsData[field.name].map(item => parseInt(item))
+            if (
+              field.widget.includes("I32") ||
+              field.widget.includes("U32") ||
+              field.widget.includes("I64")
+            ) {
+              if (field.widget.includes("Mult")) {
+                cloneFieldsData[field.name] = cloneFieldsData[field.name].map(
+                  (item) => parseInt(item)
+                );
               } else {
-                cloneFieldsData[field.name] = parseInt(cloneFieldsData[field.name])
+                cloneFieldsData[field.name] = parseInt(
+                  cloneFieldsData[field.name]
+                );
               }
-            } else if (field.widget.includes('F64')) {
-              if (field.widget.includes('Mult')) {
-                cloneFieldsData[field.name] = cloneFieldsData[field.name].map(item => parseFloat(item))
+            } else if (field.widget.includes("F64")) {
+              if (field.widget.includes("Mult")) {
+                cloneFieldsData[field.name] = cloneFieldsData[field.name].map(
+                  (item) => parseFloat(item)
+                );
               } else {
-                cloneFieldsData[field.name] = parseFloat(cloneFieldsData[field.name])
+                cloneFieldsData[field.name] = parseFloat(
+                  cloneFieldsData[field.name]
+                );
               }
             }
             // inputDateTime - Combining date and time.
-            if (field.widget === 'inputDateTime') {
+            if (field.widget === "inputDateTime") {
               if (cloneFieldsData[field.name]) {
-                let localTime = cloneFieldsData[`${field.name}__time`]
+                let localTime = cloneFieldsData[`${field.name}__time`];
                 if (!localTime) {
-                  localTime = new Date().toLocaleTimeString().slice(0, 5)
+                  localTime = new Date().toLocaleTimeString().slice(0, 5);
                 }
-                cloneFieldsData[field.name] = new Date(cloneFieldsData[field.name] + 'T' + localTime).toISOString().slice(0, 16)
+                cloneFieldsData[field.name] = new Date(
+                  cloneFieldsData[field.name] + "T" + localTime
+                )
+                  .toISOString()
+                  .slice(0, 16);
               }
-              delete cloneFieldsData[`${field.name}__time`]
+              delete cloneFieldsData[`${field.name}__time`];
             }
             // Preparing data from fields of the `file` type.
-            if (field.input_type === 'file') {
-              const files = document.getElementById(field.id).files
+            if (field.input_type === "file") {
+              const files = document.getElementById(field.id).files;
               if (files.length > 0) {
-                const file = files[0]
-                const fileName = file.name
-                dataSumSize += file.size
-                this.toBase64(file).then(
-                  data => {
+                const file = files[0];
+                const fileName = file.name;
+                dataSumSize += file.size;
+                this.toBase64(file)
+                  .then((data) => {
                     cloneFieldsData[field.name] = JSON.stringify({
                       name: fileName,
                       base64: data,
-                      is_delete: this.fieldsData[field.name].url !== undefined &&
+                      is_delete:
+                        this.fieldsData[field.name].url !== undefined &&
                         this.fieldsData[field.name].url.length > 0
-                        ? true : this.fieldsData[field.name].is_delete
-                    })
-                    response(++counter)
-                  }
-                ).catch(error => {
-                  reject(error)
-                })
+                          ? true
+                          : this.fieldsData[field.name].is_delete,
+                    });
+                    response(++counter);
+                  })
+                  .catch((error) => {
+                    reject(error);
+                  });
               } else {
                 if (this.fieldsData[field.name].is_delete) {
                   cloneFieldsData[field.name] = JSON.stringify({
-                    name: '',
-                    base64: '',
-                    is_delete: this.fieldsData[field.name].is_delete
-                  })
+                    name: "",
+                    base64: "",
+                    is_delete: this.fieldsData[field.name].is_delete,
+                  });
                 } else {
-                  cloneFieldsData[field.name] = null
+                  cloneFieldsData[field.name] = null;
                 }
-                response(++counter)
+                response(++counter);
               }
             }
-          })
-        })
-      }
+          });
+        });
+      };
 
-      prepareData().then(
-        () => {
+      prepareData()
+        .then(() => {
           const options = {
-            method: 'POST',
+            method: "POST",
             data: cloneFieldsData,
-            url: `/admin/${modelKey}/save-document`
-          }
+            url: `/admin/${modelKey}/save-document`,
+          };
 
           this.axios(options)
-            .then(response => {
-              const data = response.data
+            .then((response) => {
+              const data = response.data;
               if (!data.is_authenticated) {
-                this.runShowOverlayPageLockout(false)
-                this.setIsAuthenticated(false)
+                this.runShowOverlayPageLockout(false);
+                this.setIsAuthenticated(false);
               } else if (data.msg_err.length === 0) {
-                const document = JSON.parse(data.document)
+                const document = JSON.parse(data.document);
                 for (let idx = 0, len = document.length; idx < len; idx++) {
-                  const field = document[idx]
+                  const field = document[idx];
                   if (field.error.length > 0 || field.common_msg.length > 0) {
-                    mode = 'save_and_edit'
-                    break
+                    mode = "save_and_edit";
+                    break;
                   }
                 }
                 switch (mode) {
-                  case 'save':
-                    this.goBack()
-                    break
-                  case 'save_and_edit':
-                    this.vMenu = {}
-                    this.dynamicSelectionDialog = {}
-                    this.delDynItems = []
-                    this.newValDynItem = { title: null, value: null }
-                    this.fieldsData = {}
-                    this.fields = []
-                    this.getFormData(document)
-                    this.reload()
-                    break
-                  case 'save_and_new':
+                  case "save":
+                    this.goBack();
+                    break;
+                  case "save_and_edit":
+                    this.vMenu = {};
+                    this.dynamicSelectionDialog = {};
+                    this.delDynItems = [];
+                    this.newValDynItem = { title: null, value: null };
+                    this.fieldsData = {};
+                    this.fields = [];
+                    this.getFormData(document);
+                    this.reload();
+                    break;
+                  case "save_and_new":
                     if (this.$session.exists()) {
-                      this.$session.set('num_page', this.currentPageNumber)
-                      this.$session.set('num_per', this.docsPerPage)
-                      this.$session.set('sort', this.sortDocList)
-                      this.$session.set('direct', this.sortDirectDocList)
+                      this.$session.set("num_page", this.currentPageNumber);
+                      this.$session.set("num_per", this.docsPerPage);
+                      this.$session.set("sort", this.sortDocList);
+                      this.$session.set("direct", this.sortDirectDocList);
                     }
-                    this.$router.replace({
-                      name: 'documenForm',
-                      params: {
-                        service: this.$route.params.service,
-                        indexService: this.$route.params.indexService,
-                        collection: this.$route.params.collection,
-                        indexCollection: this.$route.params.indexCollection,
-                        indexDoc: 'new'
-                      }
-                    }, () => window.document.location.reload(), () => window.document.location.reload())
-                    break
+                    this.$router.replace(
+                      {
+                        name: "documenForm",
+                        params: {
+                          service: this.$route.params.service,
+                          indexService: this.$route.params.indexService,
+                          collection: this.$route.params.collection,
+                          indexCollection: this.$route.params.indexCollection,
+                          indexDoc: "new",
+                        },
+                      },
+                      () => window.document.location.reload(),
+                      () => window.document.location.reload()
+                    );
+                    break;
                 }
-                this.runShowOverlayPageLockout(false)
+                this.runShowOverlayPageLockout(false);
               } else {
-                console.log(data.msg_err)
-                this.runShowOverlayPageLockout(false)
-                this.runShowMsg({ text: data.msg_err, status: 'error' })
+                console.log(data.msg_err);
+                this.runShowOverlayPageLockout(false);
+                this.runShowMsg({ text: data.msg_err, status: "error" });
               }
             })
-            .catch(error => {
-              console.log(error)
-              this.runShowOverlayPageLockout(false)
-              this.runShowMsg({ text: error, status: 'error' })
-            })
-        }
-      ).catch(error => {
-        console.log(error)
-        this.runShowOverlayPageLockout(false)
-        this.runShowMsg({ text: error, status: 'error' })
-      })
+            .catch((error) => {
+              console.log(error);
+              this.runShowOverlayPageLockout(false);
+              this.runShowMsg({ text: error, status: "error" });
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+          this.runShowOverlayPageLockout(false);
+          this.runShowMsg({ text: error, status: "error" });
+        });
     },
 
     // Get Title of document.
     getDocTitle() {
-      const indexDoc = this.$route.params.indexDoc
-      let title = ''
-      if (indexDoc !== 'new') {
-        const indexService = this.$route.params.indexService
-        const indexCollection = this.$route.params.indexCollection
-        const fieldName = this.serviceList[indexService].collections[indexCollection].fields[0].field
-        title = this.documents[indexDoc][fieldName]
+      const indexDoc = this.$route.params.indexDoc;
+      let title = "";
+      if (indexDoc !== "new") {
+        const indexService = this.$route.params.indexService;
+        const indexCollection = this.$route.params.indexCollection;
+        const fieldName =
+          this.serviceList[indexService].collections[indexCollection].fields[0]
+            .field;
+        title = this.documents[indexDoc][fieldName];
       } else {
-        title = this.$t('message.26')
+        title = this.$t("message.26");
       }
-      this.docTitle = title
+      this.docTitle = title;
     },
 
     // Get scheme route of document.
     getBreadcrumbs() {
-      const indexService = this.$route.params.indexService
-      const indexCollection = this.$route.params.indexCollection
-      const service = this.serviceList[indexService]
-      this.breadcrumbs = `${service.service.title} > ${service.collections[indexCollection].title} > ${this.docTitle}`
+      const indexService = this.$route.params.indexService;
+      const indexCollection = this.$route.params.indexCollection;
+      const service = this.serviceList[indexService];
+      this.breadcrumbs = `${service.service.title} > ${service.collections[indexCollection].title} > ${this.docTitle}`;
     },
 
     // Get document
     ajaxGetDoc(indexes) {
-      const service = this.serviceList[indexes.indexService]
+      const service = this.serviceList[indexes.indexService];
       const payload = {
         model_key: service.collections[indexes.indexCollection].model_key,
-        doc_hash: this.documents[indexes.indexDoc] !== undefined ? this.documents[indexes.indexDoc].hash : ''
-      }
-      this.axios.post('/admin/get-document', payload)
-        .then(response => {
-          const data = response.data
+        doc_hash:
+          this.documents[indexes.indexDoc] !== undefined
+            ? this.documents[indexes.indexDoc].hash
+            : "",
+      };
+      this.axios
+        .post("/admin/get-document", payload)
+        .then((response) => {
+          const data = response.data;
           if (!data.is_authenticated) {
-            this.runShowOverlayPageLockout(false)
-            this.setIsAuthenticated(false)
+            this.runShowOverlayPageLockout(false);
+            this.setIsAuthenticated(false);
           } else if (data.msg_err.length === 0) {
             // 16384 = ~16 Kb (default data size for the form)
-            this.maxTotalFormSize = data.max_size - 16384
-            this.getDocTitle()
-            this.getBreadcrumbs()
+            this.maxTotalFormSize = data.max_size - 16384;
+            this.getDocTitle();
+            this.getBreadcrumbs();
             if (data.document.length > 0) {
-              const document = JSON.parse(data.document)
-              this.getFormData(document)
+              const document = JSON.parse(data.document);
+              this.getFormData(document);
             }
-            this.runShowOverlayPageLockout(false)
+            this.runShowOverlayPageLockout(false);
           } else {
-            console.log(data.msg_err)
-            this.runShowOverlayPageLockout(false)
-            this.runShowMsg({ text: data.msg_err, status: 'error' })
+            console.log(data.msg_err);
+            this.runShowOverlayPageLockout(false);
+            this.runShowMsg({ text: data.msg_err, status: "error" });
           }
         })
-        .catch(error => {
-          console.log(error)
-          this.runShowOverlayPageLockout(false)
-          this.runShowMsg({ text: error, status: 'error' })
-        })
+        .catch((error) => {
+          console.log(error);
+          this.runShowOverlayPageLockout(false);
+          this.runShowMsg({ text: error, status: "error" });
+        });
     },
     getDoc() {
-      this.setShowMsg(false)
-      this.runShowOverlayPageLockout(true)
-      const indexService = this.$route.params.indexService
-      const indexCollection = this.$route.params.indexCollection
-      const indexDoc = this.$route.params.indexDoc
+      this.setShowMsg(false);
+      this.runShowOverlayPageLockout(true);
+      const indexService = this.$route.params.indexService;
+      const indexCollection = this.$route.params.indexCollection;
+      const indexDoc = this.$route.params.indexDoc;
       if (this.documents.length > 0) {
-        this.ajaxGetDoc({ indexService, indexCollection, indexDoc })
+        this.ajaxGetDoc({ indexService, indexCollection, indexDoc });
       } else {
-        this.ajaxGetDocumentList({ indexService, indexCollection }).then(() => {
-          this.ajaxGetDoc({ indexService, indexCollection, indexDoc })
-        })
-          .catch(error => {
-            console.log(error)
-            this.runShowOverlayPageLockout(false)
-            this.runShowMsg({ text: error, status: 'error' })
+        this.ajaxGetDocumentList({ indexService, indexCollection })
+          .then(() => {
+            this.ajaxGetDoc({ indexService, indexCollection, indexDoc });
           })
+          .catch((error) => {
+            console.log(error);
+            this.runShowOverlayPageLockout(false);
+            this.runShowMsg({ text: error, status: "error" });
+          });
       }
     },
 
     // Remove document from collection.
     deleteDoc() {
-      this.setShowMsg(false)
-      this.runShowOverlayPageLockout(true)
-      const indexService = this.$route.params.indexService
-      const indexCollection = this.$route.params.indexCollection
-      const indexDoc = this.$route.params.indexDoc
-      const service = this.serviceList[indexService]
+      this.setShowMsg(false);
+      this.runShowOverlayPageLockout(true);
+      const indexService = this.$route.params.indexService;
+      const indexCollection = this.$route.params.indexCollection;
+      const indexDoc = this.$route.params.indexDoc;
+      const service = this.serviceList[indexService];
       const payload = {
         model_key: service.collections[indexCollection].model_key,
-        doc_hash: this.documents[indexDoc] !== undefined ? this.documents[indexDoc].hash : ''
-      }
+        doc_hash:
+          this.documents[indexDoc] !== undefined
+            ? this.documents[indexDoc].hash
+            : "",
+      };
       if (payload.doc_hash.length === 0) {
-        this.runShowOverlayPageLockout(false)
-        return
+        this.runShowOverlayPageLockout(false);
+        return;
       }
-      this.axios.post('/admin/delete-document', payload)
-        .then(response => {
-          const data = response.data
+      this.axios
+        .post("/admin/delete-document", payload)
+        .then((response) => {
+          const data = response.data;
           if (!data.is_authenticated) {
-            this.runShowOverlayPageLockout(false)
-            this.setIsAuthenticated(false)
+            this.runShowOverlayPageLockout(false);
+            this.setIsAuthenticated(false);
           } else if (data.msg_err.length === 0) {
-            this.runShowOverlayPageLockout(false)
-            this.goBack()
+            this.runShowOverlayPageLockout(false);
+            this.goBack();
           } else {
-            console.log(data.msg_err)
-            this.runShowOverlayPageLockout(false)
-            this.runShowMsg({ text: data.msg_err, status: 'error' })
+            console.log(data.msg_err);
+            this.runShowOverlayPageLockout(false);
+            this.runShowMsg({ text: data.msg_err, status: "error" });
           }
         })
-        .catch(error => {
-          console.log(error)
-          this.runShowOverlayPageLockout(false)
-          this.runShowMsg({ text: error, status: 'error' })
-        })
+        .catch((error) => {
+          console.log(error);
+          this.runShowOverlayPageLockout(false);
+          this.runShowMsg({ text: error, status: "error" });
+        });
     },
 
     // Adding and deleting dynamic elements.
     updateDynData(fieldName, mode) {
-      this.setShowMsg(false)
-      this.runShowOverlayPageLockout(true)
-      const indexService = this.$route.params.indexService
-      const indexCollection = this.$route.params.indexCollection
-      const service = this.serviceList[indexService]
-      const targetField = this.fields.filter(item => item.name === fieldName)[0]
-      const targetOptions = {}
-      const delItemsValue = []
+      this.setShowMsg(false);
+      this.runShowOverlayPageLockout(true);
+      const indexService = this.$route.params.indexService;
+      const indexCollection = this.$route.params.indexCollection;
+      const service = this.serviceList[indexService];
+      const targetField = this.fields.filter(
+        (item) => item.name === fieldName
+      )[0];
+      const targetOptions = {};
+      const delItemsValue = [];
 
       switch (mode) {
-        case 'save':
-          this.newValDynItem.title = this.newValDynItem.title.trim()
+        case "save":
+          this.newValDynItem.title = this.newValDynItem.title.trim();
           // Checking the `Title` field for valid characters.
-          if (!/^[-_.,`@#$%^&+=*!~)(:><?;№|\\/\s\w\p{L}]+$/iu.test(this.newValDynItem.title)) {
-            this.runShowMsg({ text: this.$t('message.61'), status: 'error' })
-            return
+          if (
+            !/^[-_.,`@#$%^&+=*!~)(:><?;№|\\/\s\w\p{L}]+$/iu.test(
+              this.newValDynItem.title
+            )
+          ) {
+            this.runShowMsg({ text: this.$t("message.61"), status: "error" });
+            return;
           }
           // Validation uniqueness of names for dynamic enumerations.
           for (let idx = 0; idx < targetField.options.length; idx++) {
             if (targetField.options[idx].title === this.newValDynItem.title) {
-              this.runShowMsg({ text: `${this.$t('message.23')}: ${this.$t('message.33')}`, status: 'error' })
-              return
+              this.runShowMsg({
+                text: `${this.$t("message.23")}: ${this.$t("message.33")}`,
+                status: "error",
+              });
+              return;
             }
           }
           // Validation of a field of type text.
-          if (targetField.widget.includes('Text')) {
-            if (!/^[-_.,`@#$%^&+=*!~)(:><?;№|\\/\s\w\p{L}]+$/iu.test(this.newValDynItem.value.toString().trim())) {
-              this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
-              return
+          if (targetField.widget.includes("Text")) {
+            if (
+              !/^[-_.,`@#$%^&+=*!~)(:><?;№|\\/\s\w\p{L}]+$/iu.test(
+                this.newValDynItem.value.toString().trim()
+              )
+            ) {
+              this.runShowMsg({ text: this.$t("message.62"), status: "error" });
+              return;
             }
           }
           // Validation of a field of type u32.
-          if (targetField.widget.includes('U32')) {
+          if (targetField.widget.includes("U32")) {
             // Checking the `Value` field for valid characters.
             if (!/^\d+$/.test(this.newValDynItem.value.toString().trim())) {
-              this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
-              return
+              this.runShowMsg({ text: this.$t("message.62"), status: "error" });
+              return;
             }
             // The value must not be less than zero.
             if (+this.newValDynItem.value < 0) {
-              this.runShowMsg({ text: `${this.$t('message.23')}: ${this.newValDynItem.title}<br>${this.$t('message.24')}: ${this.$t('message.34')}.`, status: 'error' })
-              return
+              this.runShowMsg({
+                text: `${this.$t("message.23")}: ${
+                  this.newValDynItem.title
+                }<br>${this.$t("message.24")}: ${this.$t("message.34")}.`,
+                status: "error",
+              });
+              return;
             }
           }
           // Validation of a field of type i32 and i64.
-          if (targetField.widget.includes('I32') || targetField.widget.includes('I64')) {
+          if (
+            targetField.widget.includes("I32") ||
+            targetField.widget.includes("I64")
+          ) {
             if (!/^-?\d+$/.test(this.newValDynItem.value.toString().trim())) {
-              this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
-              return
+              this.runShowMsg({ text: this.$t("message.62"), status: "error" });
+              return;
             }
           }
           // Validation of a field of type f64.
-          if (targetField.widget.includes('F64')) {
-            if (!/^-?\d+((\.|,)\d+)?$/.test(this.newValDynItem.value.toString().trim())) {
-              this.runShowMsg({ text: this.$t('message.62'), status: 'error' })
-              return
+          if (targetField.widget.includes("F64")) {
+            if (
+              !/^-?\d+((\.|,)\d+)?$/.test(
+                this.newValDynItem.value.toString().trim()
+              )
+            ) {
+              this.runShowMsg({ text: this.$t("message.62"), status: "error" });
+              return;
             }
           }
           // Convert to the appropriate numeric type.
-          if (targetField.widget.includes('I32') || targetField.widget.includes('U32') ||
-            targetField.widget.includes('I64')) {
+          if (
+            targetField.widget.includes("I32") ||
+            targetField.widget.includes("U32") ||
+            targetField.widget.includes("I64")
+          ) {
             // Validate that the value is not fractional.
-            if (this.newValDynItem.value.includes('.') || this.newValDynItem.value.includes(',')) {
-              this.runShowMsg({ text: `${this.$t('message.23')}: ${this.newValDynItem.title}<br>${this.$t('message.24')}: ${this.$t('message.35')}.`, status: 'error' })
-              return
+            if (
+              this.newValDynItem.value.includes(".") ||
+              this.newValDynItem.value.includes(",")
+            ) {
+              this.runShowMsg({
+                text: `${this.$t("message.23")}: ${
+                  this.newValDynItem.title
+                }<br>${this.$t("message.24")}: ${this.$t("message.35")}.`,
+                status: "error",
+              });
+              return;
             }
-            this.newValDynItem.value = parseInt(this.newValDynItem.value)
-          } else if (targetField.widget.includes('F64')) {
-            this.newValDynItem.value = parseFloat(this.newValDynItem.value)
+            this.newValDynItem.value = parseInt(this.newValDynItem.value);
+          } else if (targetField.widget.includes("F64")) {
+            this.newValDynItem.value = parseFloat(this.newValDynItem.value);
           }
           // Prepare `options` for conversion to json-line.
-          targetOptions[fieldName] = targetField.options.concat(this.newValDynItem)
-            .map(item => [item.value.toString().trim(), item.title])
+          targetOptions[fieldName] = targetField.options
+            .concat(this.newValDynItem)
+            .map((item) => [item.value.toString().trim(), item.title]);
           targetOptions[fieldName].sort(function (item, item2) {
-            if (item[1] > item2[1]) { return 1 }
-            if (item[1] < item2[1]) { return -1 }
-            return 0
-          })
-          break
-        case 'delete':
+            if (item[1] > item2[1]) {
+              return 1;
+            }
+            if (item[1] < item2[1]) {
+              return -1;
+            }
+            return 0;
+          });
+          break;
+        case "delete":
           // Prepare `options` for conversion to json-line.
           for (let idx = 0; idx < this.delDynItems.length; idx++) {
-            delItemsValue.push(this.delDynItems[idx])
+            delItemsValue.push(this.delDynItems[idx]);
           }
-          this.delDynItems = []
+          this.delDynItems = [];
           targetOptions[fieldName] = targetField.options
-            .filter(item => !delItemsValue.includes(item.value))
-            .map(item => [item.value.toString(), item.title])
-          break
+            .filter((item) => !delItemsValue.includes(item.value))
+            .map((item) => [item.value.toString(), item.title]);
+          break;
       }
 
       // Create a payload and send it to the server.
-      const jsonOptions = JSON.stringify(targetOptions)
+      const jsonOptions = JSON.stringify(targetOptions);
       const payload = {
         model_key: service.collections[indexCollection].model_key,
-        json_options: jsonOptions
-      }
-      this.axios.post('/admin/update-dyn-data', payload)
-        .then(response => {
-          const data = response.data
+        json_options: jsonOptions,
+      };
+      this.axios
+        .post("/admin/update-dyn-data", payload)
+        .then((response) => {
+          const data = response.data;
           if (!data.is_authenticated) {
-            this.runShowOverlayPageLockout(false)
-            this.setIsAuthenticated(false)
+            this.runShowOverlayPageLockout(false);
+            this.setIsAuthenticated(false);
           } else if (data.msg_err.length === 0) {
             // Apply changes to the current state.
             switch (mode) {
-              case 'save':
-                if (typeof this.newValDynItem.value === 'string') {
-                  this.newValDynItem.value = this.newValDynItem.value.trim()
+              case "save":
+                if (typeof this.newValDynItem.value === "string") {
+                  this.newValDynItem.value = this.newValDynItem.value.trim();
                 }
                 for (let idx = 0; idx < this.fields.length; idx++) {
                   if (this.fields[idx].name === fieldName) {
-                    this.fields[idx].options.push(this.newValDynItem)
+                    this.fields[idx].options.push(this.newValDynItem);
                     this.fields[idx].options.sort(function (item, item2) {
-                      if (item.title > item2.title) { return 1 }
-                      if (item.title < item2.title) { return -1 }
-                      return 0
-                    })
-                    break
+                      if (item.title > item2.title) {
+                        return 1;
+                      }
+                      if (item.title < item2.title) {
+                        return -1;
+                      }
+                      return 0;
+                    });
+                    break;
                   }
                 }
-                break
-              case 'delete':
+                break;
+              case "delete":
                 for (let idx = 0; idx < this.fields.length; idx++) {
                   if (this.fields[idx].name === fieldName) {
-                    if (this.fields[idx].widget.includes('Mult')) {
-                      this.fieldsData[fieldName] = this.fieldsData[fieldName].filter(
-                        item => !delItemsValue.includes(item)
-                      )
-                    } else if (delItemsValue.includes(this.fieldsData[fieldName])) {
-                      this.fieldsData[fieldName] = null
+                    if (this.fields[idx].widget.includes("Mult")) {
+                      this.fieldsData[fieldName] = this.fieldsData[
+                        fieldName
+                      ].filter((item) => !delItemsValue.includes(item));
+                    } else if (
+                      delItemsValue.includes(this.fieldsData[fieldName])
+                    ) {
+                      this.fieldsData[fieldName] = null;
                     }
                     this.fields[idx].options = this.fields[idx].options.filter(
-                      item => !delItemsValue.includes(item.value)
-                    )
-                    break
+                      (item) => !delItemsValue.includes(item.value)
+                    );
+                    break;
                   }
                 }
-                break
+                break;
             }
-            this.setDataFilters([])
-            this.setSelectDataFilters({})
-            this.runShowOverlayPageLockout(false)
+            this.setDataFilters([]);
+            this.setSelectDataFilters({});
+            this.runShowOverlayPageLockout(false);
           } else {
-            console.log(data.msg_err)
-            this.runShowOverlayPageLockout(false)
-            this.runShowMsg({ text: data.msg_err, status: 'error' })
+            console.log(data.msg_err);
+            this.runShowOverlayPageLockout(false);
+            this.runShowMsg({ text: data.msg_err, status: "error" });
           }
         })
-        .catch(error => {
-          console.log(error)
-          this.runShowOverlayPageLockout(false)
-          this.runShowMsg({ text: error, status: 'error' })
+        .catch((error) => {
+          console.log(error);
+          this.runShowOverlayPageLockout(false);
+          this.runShowMsg({ text: error, status: "error" });
         })
         .then(() => {
-          this.dynamicSelectionDialog[fieldName] = false
-          this.newValDynItem = { title: null, value: null }
-        })
+          this.dynamicSelectionDialog[fieldName] = false;
+          this.newValDynItem = { title: null, value: null };
+        });
     },
     // Refresh form for update password.
     updatePassResetForm() {
-      this.dataUpdatePassword.formHasErrors = false
-      const fields = ['passwordOld', 'passwordNew', 'passwordRepeat']
+      this.dataUpdatePassword.formHasErrors = false;
+      const fields = ["passwordOld", "passwordNew", "passwordRepeat"];
 
-      fields.forEach(field => {
-        this.$refs[field].reset()
-      })
+      fields.forEach((field) => {
+        this.$refs[field].reset();
+      });
     },
     // Update password
     updatePassword() {
-      this.setShowMsg(false)
-      this.runShowOverlayPageLockout(true)
-      this.dataUpdatePassword.formHasErrors = false
-      const fields = ['passwordOld', 'passwordNew', 'passwordRepeat']
+      this.setShowMsg(false);
+      this.runShowOverlayPageLockout(true);
+      this.dataUpdatePassword.formHasErrors = false;
+      const fields = ["passwordOld", "passwordNew", "passwordRepeat"];
 
-      fields.forEach(field => {
+      fields.forEach((field) => {
         if (!this.dataUpdatePassword[field]) {
-          this.dataUpdatePassword.formHasErrors = true
-          this.runShowOverlayPageLockout(false)
+          this.dataUpdatePassword.formHasErrors = true;
+          this.runShowOverlayPageLockout(false);
         }
-        this.$refs[field].validate(true)
-      })
+        this.$refs[field].validate(true);
+      });
 
       if (!this.dataUpdatePassword.formHasErrors) {
-        const indexService = this.$route.params.indexService
-        const indexCollection = this.$route.params.indexCollection
-        const indexDoc = this.$route.params.indexDoc
-        const service = this.serviceList[indexService]
+        const indexService = this.$route.params.indexService;
+        const indexCollection = this.$route.params.indexCollection;
+        const indexDoc = this.$route.params.indexDoc;
+        const service = this.serviceList[indexService];
         const payload = {
           old_pass: this.dataUpdatePassword.passwordOld,
           new_pass: this.dataUpdatePassword.passwordNew,
           model_key: service.collections[indexCollection].model_key,
-          doc_hash: this.documents[indexDoc] !== undefined ? this.documents[indexDoc].hash : ''
-        }
+          doc_hash:
+            this.documents[indexDoc] !== undefined
+              ? this.documents[indexDoc].hash
+              : "",
+        };
 
-        this.axios.post('/admin/update-password', payload)
-          .then(response => {
-            const data = response.data
+        this.axios
+          .post("/admin/update-password", payload)
+          .then((response) => {
+            const data = response.data;
             if (!data.is_authenticated) {
-              this.runShowOverlayPageLockout(false)
-              this.setIsAuthenticated(false)
+              this.runShowOverlayPageLockout(false);
+              this.setIsAuthenticated(false);
             } else if (data.msg_err.length === 0) {
-              this.dialogUpdatePassword = false
-              this.runShowOverlayPageLockout(false)
-              this.runShowMsg({ text: this.$t('message.56'), status: 'success' })
+              this.dialogUpdatePassword = false;
+              this.runShowOverlayPageLockout(false);
+              this.runShowMsg({
+                text: this.$t("message.56"),
+                status: "success",
+              });
             } else {
-              console.log(data.msg_err)
-              this.runShowOverlayPageLockout(false)
-              this.runShowMsg({ text: data.msg_err, status: 'error' })
+              console.log(data.msg_err);
+              this.runShowOverlayPageLockout(false);
+              this.runShowMsg({ text: data.msg_err, status: "error" });
             }
           })
-          .catch(error => {
-            console.log(error)
-            this.runShowOverlayPageLockout(false)
-            this.runShowMsg({ text: error, status: 'error' })
-          })
+          .catch((error) => {
+            console.log(error);
+            this.runShowOverlayPageLockout(false);
+            this.runShowMsg({ text: error, status: "error" });
+          });
       }
-    }
+    },
   },
 
   created() {
     // Update the request parameters from the session.
     if (this.$session.exists()) {
-      this.setCurrentPageNumber(this.$session.get('num_page') || 1)
-      this.setDocsPerPage(this.$session.get('num_per') || 50)
-      this.setSortDocList(this.$session.get('sort') || 'alphabetical_links')
-      this.setSortDirectDocList(this.$session.get('direct') || -1)
-      this.$session.remove('num_page')
-      this.$session.remove('num_per')
-      this.$session.remove('sort')
-      this.$session.remove('direct')
+      this.setCurrentPageNumber(this.$session.get("num_page") || 1);
+      this.setDocsPerPage(this.$session.get("num_per") || 50);
+      this.setSortDocList(this.$session.get("sort") || "alphabetical_links");
+      this.setSortDirectDocList(this.$session.get("direct") || -1);
+      this.$session.remove("num_page");
+      this.$session.remove("num_per");
+      this.$session.remove("sort");
+      this.$session.remove("direct");
     }
     // Get document.
-    this.getDoc()
-  }
-
-}
+    this.getDoc();
+  },
+};
 </script>
 
 <style>

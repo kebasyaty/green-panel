@@ -16,12 +16,12 @@ export default {
     Colors:
     https://vuetifyjs.com/en/styles/colors/#material-colors
     */
-    swatches: []
+    swatches: [],
   },
 
   getters: {},
 
   mutations: {},
 
-  actions: {}
-}
+  actions: {},
+};

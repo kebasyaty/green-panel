@@ -1,13 +1,13 @@
-import Vue from 'vue'
-import Vuetify from 'vuetify/lib/framework'
+import Vue from "vue";
+import Vuetify from "vuetify/lib/framework";
 
-Vue.use(Vuetify)
+Vue.use(Vuetify);
 
 const opts = {
   icons: {
-    iconfont: 'mdi'
+    iconfont: "mdi",
   },
-  theme: { dark: true }
-}
+  theme: { dark: true },
+};
 
-export default new Vuetify(opts)
+export default new Vuetify(opts);

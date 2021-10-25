@@ -2,7 +2,7 @@
 //!
 
 use crate::models::{
-    services::admin::{admins, customers, sellers},
+    services::admin::{customers, sellers, users},
     services::products::electric_cars,
     settings,
 };
@@ -26,7 +26,7 @@ pub fn mango_migration() -> Result<(), Box<dyn std::error::Error>> {
         // Register models.
         // -----------------------------------------------------------------------------------------
         models: vec![
-            admins::AdminProfile::meta()?,
+            users::User::meta()?,
             sellers::SellerProfile::meta()?,
             customers::CustomerProfile::meta()?,
             electric_cars::ElectricCar::meta()?,
@@ -36,7 +36,7 @@ pub fn mango_migration() -> Result<(), Box<dyn std::error::Error>> {
 
     // Add metadata and widgects map to cache.
     // ---------------------------------------------------------------------------------------------
-    admins::AdminProfile::to_cache()?;
+    users::User::to_cache()?;
     sellers::SellerProfile::to_cache()?;
     customers::CustomerProfile::to_cache()?;
     electric_cars::ElectricCar::to_cache()?;

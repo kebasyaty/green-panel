@@ -59,7 +59,7 @@
     #
     $ reboot
     ### Configuration file:
-    sudo nano /etc/mongod.conf
+    $ sudo nano /etc/mongod.conf
     ### Systemd:
     $ sudo systemctl status mongod
     $ sudo systemctl start mongod
@@ -97,8 +97,6 @@
 ![Welcome page](https://github.com/kebasyaty/mango-panel/raw/main/images/2.png "Welcome page")
 
 ## List of documents
-![List of documents](https://github.com/kebasyaty/mango-panel/raw/main/images/3.png "List of documents")
-
 ![List of documents](https://github.com/kebasyaty/mango-panel/raw/main/images/5.png "List of documents")
 
 ![Opened filter](https://github.com/kebasyaty/mango-panel/raw/main/images/14.png "Opened filter")

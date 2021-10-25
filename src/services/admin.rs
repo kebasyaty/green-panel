@@ -17,7 +17,7 @@ use mongodb::{
 use serde::Deserialize;
 use serde_json::{json, Value};
 
-use crate::models::{registration::admin_panel, services::admin::admins};
+use crate::models::{registration::admin_panel, services::admin::users};
 use mango_orm::{QCommon, QPaladins, ToModel, FORM_STORE, MONGODB_CLIENT_STORE};
 
 pub use configure_urls::*;
@@ -71,8 +71,8 @@ pub mod request_handlers {
         // Access request identity
         if session.get::<String>("user")?.is_none() {
             // Create first user (administrator)
-            if admins::AdminProfile::estimated_document_count(None).unwrap() == 0_i64 {
-                let mut first_user = admins::AdminProfile {
+            if users::User::estimated_document_count(None).unwrap() == 0_i64 {
+                let mut first_user = users::User {
                     // Valid characters: a-z A-Z 0-9 _ @ + .
                     // Max size: 150
                     username: Some("admin".into()),
@@ -81,6 +81,11 @@ pub mod request_handlers {
                     // Min size: 8
                     password: Some("12345678".into()),
                     confirm_password: Some("12345678".into()),
+                    //
+                    is_admin: Some(true),
+                    is_staff: Some(true),
+                    is_active: Some(true),
+                    //
                     ..Default::default()
                 };
                 let result = first_user.save(None, None).unwrap();
@@ -139,6 +144,7 @@ pub mod request_handlers {
         // -----------------------------------------------------------------------------------------
         if let Some(user) = session.get::<String>("user")? {
             if user == login_form.username
+                && session.get::<bool>("is_admin")?.unwrap()
                 && session.get::<bool>("is_staff")?.unwrap()
                 && session.get::<bool>("is_active")?.unwrap()
             {
@@ -163,26 +169,30 @@ pub mod request_handlers {
                 // Validation of username and password
                 username = login_form.username.clone();
                 let password = login_form.password.clone();
-                let filter =
-                    Some(doc! {"username": username.clone(), "is_staff": true, "is_active": true});
+                let filter = Some(
+                    doc! {"username": username.clone(), "is_admin": true, "is_staff": true, "is_active": true},
+                );
                 // Search for a user in the database
-                let output_data = admins::AdminProfile::find_one(filter, None).unwrap();
+                let output_data = users::User::find_one(filter, None).unwrap();
                 // Check search result
                 if output_data.is_valid() {
                     // Get an instance of a User model
-                    let user = output_data.model::<admins::AdminProfile>().unwrap();
+                    let user = output_data.model::<users::User>().unwrap();
                     // Check password
-                    let is_active = user.is_active.unwrap();
+                    let is_admin = user.is_admin.unwrap();
                     let is_staff = user.is_staff.unwrap();
+                    let is_active = user.is_active.unwrap();
                     if user.verify_password(password.as_str(), None).unwrap()
-                        && is_active
+                        && is_admin
                         && is_staff
+                        && is_active
                     {
                         // Add user identity to session
                         session.set("user", user.username.unwrap())?; // Set `id user`
                         session.set("hash", user.hash.unwrap())?; // Set `hash`
-                        session.set("is_active", is_active)?; // Set `is active`
+                        session.set("is_admin", is_admin)?; // Set `is admin`
                         session.set("is_staff", is_staff)?; // Set `is staff`
+                        session.set("is_active", is_active)?; // Set `is active`
                         is_authenticated = true;
                     } else {
                         msg_err = "Authentication failed.".to_string();
@@ -228,8 +238,9 @@ pub mod request_handlers {
         // Access request identity
         if session.get::<String>("user")?.is_some()
             && session.get::<String>("hash")?.is_some()
-            && session.get::<bool>("is_active")?.unwrap()
+            && session.get::<bool>("is_admin")?.unwrap()
             && session.get::<bool>("is_staff")?.unwrap()
+            && session.get::<bool>("is_active")?.unwrap()
         {
             is_authenticated = true;
         } else {
@@ -268,8 +279,9 @@ pub mod request_handlers {
         // -----------------------------------------------------------------------------------------
         if session.get::<String>("user")?.is_some()
             && session.get::<String>("hash")?.is_some()
-            && session.get::<bool>("is_active")?.unwrap()
+            && session.get::<bool>("is_admin")?.unwrap()
             && session.get::<bool>("is_staff")?.unwrap()
+            && session.get::<bool>("is_active")?.unwrap()
         {
             is_authenticated = true;
             //
@@ -353,8 +365,9 @@ pub mod request_handlers {
         // -----------------------------------------------------------------------------------------
         if session.get::<String>("user")?.is_some()
             && session.get::<String>("hash")?.is_some()
-            && session.get::<bool>("is_active")?.unwrap()
+            && session.get::<bool>("is_admin")?.unwrap()
             && session.get::<bool>("is_staff")?.unwrap()
+            && session.get::<bool>("is_active")?.unwrap()
         {
             is_authenticated = true;
         } else {
@@ -583,9 +596,9 @@ pub mod request_handlers {
                 let mut tmp_doc = doc! {
                     "hash": Bson::String(doc.get_object_id("_id").unwrap().to_hex()),
                     "created_at":
-                        Bson::String(doc.get_datetime("created_at").unwrap().to_rfc3339()[..16].to_string()),
+                        Bson::String(doc.get_datetime("created_at").unwrap().to_rfc3339()[..19].to_string()),
                     "updated_at":
-                        Bson::String(doc.get_datetime("updated_at").unwrap().to_rfc3339()[..16].to_string())
+                        Bson::String(doc.get_datetime("updated_at").unwrap().to_rfc3339()[..19].to_string())
                 };
                 for field_name in query.fields_name.iter() {
                     match map_widget_type.get(field_name).unwrap().as_str() {
@@ -693,7 +706,7 @@ pub mod request_handlers {
                             };
                             tmp_doc.insert(
                                 field_name,
-                                format!(r#"<span class="mdi mdi-18px mdi-{}"></span>"#, icon_name),
+                                format!(r#"<span class="mdi mdi-24px mdi-{} lime--text text--darken-1"></span>"#, icon_name),
                             );
                         }
                         _ => {
@@ -744,8 +757,9 @@ pub mod request_handlers {
         // -----------------------------------------------------------------------------------------
         if session.get::<String>("user")?.is_some()
             && session.get::<String>("hash")?.is_some()
-            && session.get::<bool>("is_active")?.unwrap()
+            && session.get::<bool>("is_admin")?.unwrap()
             && session.get::<bool>("is_staff")?.unwrap()
+            && session.get::<bool>("is_active")?.unwrap()
         {
             is_authenticated = true;
         } else {
@@ -792,8 +806,9 @@ pub mod request_handlers {
         // -----------------------------------------------------------------------------------------
         if session.get::<String>("user")?.is_some()
             && session.get::<String>("hash")?.is_some()
-            && session.get::<bool>("is_active")?.unwrap()
+            && session.get::<bool>("is_admin")?.unwrap()
             && session.get::<bool>("is_staff")?.unwrap()
+            && session.get::<bool>("is_active")?.unwrap()
         {
             is_authenticated = true;
         } else {
@@ -851,8 +866,9 @@ pub mod request_handlers {
         // -----------------------------------------------------------------------------------------
         if session.get::<String>("user")?.is_some()
             && session.get::<String>("hash")?.is_some()
-            && session.get::<bool>("is_active")?.unwrap()
+            && session.get::<bool>("is_admin")?.unwrap()
             && session.get::<bool>("is_staff")?.unwrap()
+            && session.get::<bool>("is_active")?.unwrap()
         {
             is_authenticated = true;
         } else {
@@ -908,8 +924,9 @@ pub mod request_handlers {
         // -----------------------------------------------------------------------------------------
         if session.get::<String>("user")?.is_some()
             && session.get::<String>("hash")?.is_some()
-            && session.get::<bool>("is_active")?.unwrap()
+            && session.get::<bool>("is_admin")?.unwrap()
             && session.get::<bool>("is_staff")?.unwrap()
+            && session.get::<bool>("is_active")?.unwrap()
         {
             is_authenticated = true;
         } else {
@@ -972,8 +989,9 @@ pub mod request_handlers {
         // -----------------------------------------------------------------------------------------
         if session.get::<String>("user")?.is_some()
             && session.get::<String>("hash")?.is_some()
-            && session.get::<bool>("is_active")?.unwrap()
+            && session.get::<bool>("is_admin")?.unwrap()
             && session.get::<bool>("is_staff")?.unwrap()
+            && session.get::<bool>("is_active")?.unwrap()
         {
             is_authenticated = true;
         } else {
@@ -1019,8 +1037,9 @@ pub mod request_handlers {
         // -----------------------------------------------------------------------------------------
         if session.get::<String>("user")?.is_some()
             && session.get::<String>("hash")?.is_some()
-            && session.get::<bool>("is_active")?.unwrap()
+            && session.get::<bool>("is_admin")?.unwrap()
             && session.get::<bool>("is_staff")?.unwrap()
+            && session.get::<bool>("is_active")?.unwrap()
         {
             is_authenticated = true;
         } else {
@@ -1028,13 +1047,13 @@ pub mod request_handlers {
         }
 
         // Update password
-        if query.model_key == admins::AdminProfile::key() {
+        if query.model_key == users::User::key() {
             if !query.doc_hash.is_empty() {
-                let object_id = admins::AdminProfile::hash_to_id(query.doc_hash.as_str()).unwrap();
+                let object_id = users::User::hash_to_id(query.doc_hash.as_str()).unwrap();
                 let filter = doc! {"_id": object_id};
-                let output_data = admins::AdminProfile::find_one(Some(filter), None).unwrap();
+                let output_data = users::User::find_one(Some(filter), None).unwrap();
                 if output_data.is_valid() {
-                    if let Ok(instance) = output_data.model::<admins::AdminProfile>() {
+                    if let Ok(instance) = output_data.model::<users::User>() {
                         if !instance
                             .update_password(
                                 query.old_pass.as_str(),

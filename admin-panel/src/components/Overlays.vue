@@ -6,29 +6,25 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations } from "vuex";
 
 export default {
-  name: 'Overlays',
+  name: "Overlays",
 
   computed: {
-    ...mapState('overlays', [
-      'overlayPageLockout'
-    ]),
+    ...mapState("overlays", ["overlayPageLockout"]),
     compShowMsg: {
       get: function () {
-        return this.overlayPageLockout
+        return this.overlayPageLockout;
       },
       set: function (flag) {
-        this.setOverlayPageLockout(flag)
-      }
-    }
+        this.setOverlayPageLockout(flag);
+      },
+    },
   },
 
   methods: {
-    ...mapMutations('overlays', [
-      'setOverlayPageLockout'
-    ])
-  }
-}
+    ...mapMutations("overlays", ["setOverlayPageLockout"]),
+  },
+};
 </script>

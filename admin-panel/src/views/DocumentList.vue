@@ -31,7 +31,7 @@
             <!-- Button - Add a new document. -->
             <v-btn text color="green" :to="docUrlNoIndex + '/new'">
               <v-icon left>mdi-file-plus-outline</v-icon>
-              {{ $t('message.25') }}
+              {{ $t("message.25") }}
             </v-btn>
           </v-col>
         </v-row>
@@ -45,7 +45,7 @@
               @click="deleteDocs()"
             >
               <v-icon left>mdi-close-thick</v-icon>
-              {{ $t('message.4') }}
+              {{ $t("message.4") }}
             </v-btn>
           </v-col>
         </v-row>
@@ -84,7 +84,7 @@
               @click="showFilterDoc = true"
             >
               <v-icon left>mdi-filter</v-icon>
-              {{ $t('message.64') }}
+              {{ $t("message.64") }}
             </v-btn>
           </v-col>
         </v-row>
@@ -93,7 +93,11 @@
           <template v-slot:default>
             <thead
               class="document-list"
-              :style="$vuetify.theme.dark ? 'background: #1d1f34;' : 'background: #f5f6fb;'"
+              :style="
+                $vuetify.theme.dark
+                  ? 'background: #1d1f34;'
+                  : 'background: #f5f6fb;'
+              "
             >
               <tr>
                 <!-- Symbol - № -->
@@ -113,14 +117,20 @@
                 <th
                   v-for="(field, idxHeader) in fields"
                   :key="`header-${idxHeader}`"
-                >{{ field.title }}</th>
-                <th>{{ $t('message.29') }}</th>
-                <th>{{ $t('message.30') }}</th>
+                >
+                  {{ field.title }}
+                </th>
+                <th>{{ $t("message.29") }}</th>
+                <th>{{ $t("message.30") }}</th>
+                <th>Doc Hash</th>
               </tr>
             </thead>
             <tbody>
               <!-- Document list. -->
-              <tr v-for="(document, idxDoc) in documents" :key="`doc-${idxDoc}`">
+              <tr
+                v-for="(document, idxDoc) in documents"
+                :key="`doc-${idxDoc}`"
+              >
                 <!-- Number of the document in the table. -->
                 <td width="76" class="pr-0">{{ idxDoc + progressionStep }}</td>
                 <!-- Delete document. -->
@@ -141,13 +151,22 @@
                     <router-link
                       v-if="idxField === 0"
                       :to="createDocumentUrl(idxDoc)"
-                    >{{ document[item.field] }}</router-link>
+                      >{{ document[item.field] }}</router-link
+                    >
                     <span v-else v-html="document[item.field]"></span>
                   </td>
                 </template>
                 <!-- Date fields. -->
-                <td width="160" v-html="formattingDate(document.created_at)"></td>
-                <td width="160" v-html="formattingDate(document.updated_at)"></td>
+                <td
+                  width="180"
+                  v-html="formattingDate(document.created_at)"
+                ></td>
+                <td
+                  width="180"
+                  v-html="formattingDate(document.updated_at)"
+                ></td>
+                <!-- Hash field. -->
+                <td class="red--text">{{ document.hash }}</td>
               </tr>
             </tbody>
           </template>
@@ -192,7 +211,7 @@
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-card-actions>
-        <v-card-title class="pt-0 pb-6">{{ $t('message.65') }}</v-card-title>
+        <v-card-title class="pt-0 pb-6">{{ $t("message.65") }}</v-card-title>
         <v-card-text>
           <v-row justify="center">
             <v-col
@@ -223,14 +242,21 @@
                       <v-btn
                         icon
                         :color="filter.negation ? 'blue' : 'red'"
-                        @click="[filter.negation = !filter.negation, getDocumentList()]"
+                        @click="
+                          [
+                            (filter.negation = !filter.negation),
+                            getDocumentList(),
+                          ]
+                        "
                       >
-                        <v-icon
-                          v-on="on"
-                        >{{ filter.negation ? 'mdi-minus-circle-outline' : 'mdi-plus-circle-outline' }}</v-icon>
+                        <v-icon v-on="on">{{
+                          filter.negation
+                            ? "mdi-minus-circle-outline"
+                            : "mdi-plus-circle-outline"
+                        }}</v-icon>
                       </v-btn>
                     </template>
-                    {{ $t('message.69') }}
+                    {{ $t("message.69") }}
                   </v-tooltip>
                 </template>
               </v-autocomplete>
@@ -243,331 +269,339 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex'
-import slug from 'slug'
-import fillRange from 'fill-range'
+import { mapState, mapMutations, mapActions } from "vuex";
+import slug from "slug";
+import fillRange from "fill-range";
 
 export default {
-  name: 'DocumentList',
+  name: "DocumentList",
 
   data: () => ({
     deleteAllDocsFlag: false,
     docsToBeDeleted: [],
     countPerPage: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
-    showFilterDoc: false
+    showFilterDoc: false,
   }),
 
   computed: {
-    ...mapState([
-      'serviceList'
-    ]),
-    ...mapState('documentList', [
-      'documents',
-      'currentPageNumber',
-      'pageCount',
-      'progressionStep',
-      'docsPerPage',
-      'sortDocList',
-      'sortDirectDocList',
-      'sortTypes',
-      'searchQuery',
-      'dataFilters',
-      'selectDataFilters',
-      'blockPagination',
-      'blockLoadDocs'
+    ...mapState(["serviceList"]),
+    ...mapState("documentList", [
+      "documents",
+      "currentPageNumber",
+      "pageCount",
+      "progressionStep",
+      "docsPerPage",
+      "sortDocList",
+      "sortDirectDocList",
+      "sortTypes",
+      "searchQuery",
+      "dataFilters",
+      "selectDataFilters",
+      "blockPagination",
+      "blockLoadDocs",
     ]),
     updateCurrentPageNumber: {
       get: function () {
-        return this.currentPageNumber
+        return this.currentPageNumber;
       },
       set: function (num) {
-        this.deleteAllDocsFlag = false
-        this.docsToBeDeleted = []
-        this.setCurrentPageNumber(num)
-      }
+        this.deleteAllDocsFlag = false;
+        this.docsToBeDeleted = [];
+        this.setCurrentPageNumber(num);
+      },
     },
     updateSearchQuery: {
       get: function () {
-        return this.searchQuery
+        return this.searchQuery;
       },
       set: function (text) {
-        this.setSearchQuery(text)
-      }
+        this.setSearchQuery(text);
+      },
     },
     updateDocsPerPage: {
       get: function () {
-        return this.docsPerPage
+        return this.docsPerPage;
       },
       set: function (num) {
-        this.setDocsPerPage(num)
-      }
+        this.setDocsPerPage(num);
+      },
     },
     updateSortDocList: {
       get: function () {
-        return this.sortDocList
+        return this.sortDocList;
       },
       set: function (sort) {
-        this.setSortDocList(sort)
-      }
+        this.setSortDocList(sort);
+      },
     },
     updateSortDirectDocList: {
       get: function () {
-        return this.sortDirectDocList
+        return this.sortDirectDocList;
       },
       set: function (direc) {
-        this.setSortDirectDocList(direc)
-      }
+        this.setSortDirectDocList(direc);
+      },
     },
     // Get Title of collection.
     collectionTitle: function () {
-      const indexService = this.$route.params.indexService
-      const indexCollection = this.$route.params.indexCollection
-      return this.serviceList[indexService].collections[indexCollection].title
+      const indexService = this.$route.params.indexService;
+      const indexCollection = this.$route.params.indexCollection;
+      return this.serviceList[indexService].collections[indexCollection].title;
     },
     // Get the route scheme to the collection.
     breadcrumbs: function () {
-      const indexService = this.$route.params.indexService
-      const serviceTitle = this.serviceList[indexService].service.title
-      return `${serviceTitle} > ${this.collectionTitle}`
+      const indexService = this.$route.params.indexService;
+      const serviceTitle = this.serviceList[indexService].service.title;
+      return `${serviceTitle} > ${this.collectionTitle}`;
     },
     // Document url without hash.
     docUrlNoIndex: function () {
-      const currentUserLocale = this.$i18n.locale
-      const indexService = this.$route.params.indexService
-      const indexCollection = this.$route.params.indexCollection
-      const service = this.serviceList[indexService]
-      const slugServiceTitle = slug(service.service.title, { locale: currentUserLocale })
-      const slugCollectionTitle = slug(this.collectionTitle, { locale: currentUserLocale })
-      return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document`
+      const currentUserLocale = this.$i18n.locale;
+      const indexService = this.$route.params.indexService;
+      const indexCollection = this.$route.params.indexCollection;
+      const service = this.serviceList[indexService];
+      const slugServiceTitle = slug(service.service.title, {
+        locale: currentUserLocale,
+      });
+      const slugCollectionTitle = slug(this.collectionTitle, {
+        locale: currentUserLocale,
+      });
+      return `/${slugServiceTitle}/${indexService}/${slugCollectionTitle}/${indexCollection}/document`;
     },
     // Get field list.
     fields: function () {
-      const indexService = this.$route.params.indexService
-      const indexCollection = this.$route.params.indexCollection
-      return this.serviceList[indexService].collections[indexCollection].fields
-    }
+      const indexService = this.$route.params.indexService;
+      const indexCollection = this.$route.params.indexCollection;
+      return this.serviceList[indexService].collections[indexCollection].fields;
+    },
   },
 
   watch: {
     blockLoadDocs: function (flag) {
       if (!flag) {
-        this.deleteAllDocsFlag = false
-        this.docsToBeDeleted = []
+        this.deleteAllDocsFlag = false;
+        this.docsToBeDeleted = [];
       }
-    }
+    },
   },
 
   filters: {
     upperCase: function (value) {
-      if (!value) return ''
-      value = value.toString()
-      return value.toUpperCase()
-    }
+      if (!value) return "";
+      value = value.toString();
+      return value.toUpperCase();
+    },
   },
 
   methods: {
-    ...mapMutations('documentList', [
-      'setCurrentPageNumber',
-      'setProgressionStep',
-      'setDocsPerPage',
-      'setSortDocList',
-      'setSortDirectDocList',
-      'setSearchQuery'
+    ...mapMutations("documentList", [
+      "setCurrentPageNumber",
+      "setProgressionStep",
+      "setDocsPerPage",
+      "setSortDocList",
+      "setSortDirectDocList",
+      "setSearchQuery",
     ]),
-    ...mapMutations('popUpMsgs', [
-      'setShowMsg'
+    ...mapMutations("popUpMsgs", ["setShowMsg"]),
+    ...mapActions("documentList", [
+      "ajaxGetDocumentList",
+      "ajaxGetDataFilters",
+      "resetPageNumberDefault",
     ]),
-    ...mapActions('documentList', [
-      'ajaxGetDocumentList',
-      'ajaxGetDataFilters',
-      'resetPageNumberDefault'
-    ]),
-    ...mapActions('popUpMsgs', [
-      'runShowMsg'
-    ]),
-    ...mapActions('overlays', [
-      'runShowOverlayPageLockout'
-    ]),
+    ...mapActions("popUpMsgs", ["runShowMsg"]),
+    ...mapActions("overlays", ["runShowOverlayPageLockout"]),
     // Router - Go back one step.
     goBack() {
-      this.setShowMsg(false)
-      this.$router.replace({ name: 'home' })
+      this.setShowMsg(false);
+      this.$router.replace({ name: "home" });
     },
     // Sorting options for the list of documents.
     itemsSortDocList() {
       return [
-        { text: this.$t('message.40'), value: this.sortTypes[0] },
-        { text: this.$t('message.29'), value: this.sortTypes[1] },
-        { text: this.$t('message.30'), value: this.sortTypes[2] }
-      ]
+        { text: this.$t("message.40"), value: this.sortTypes[0] },
+        { text: this.$t("message.29"), value: this.sortTypes[1] },
+        { text: this.$t("message.30"), value: this.sortTypes[2] },
+      ];
     },
     // Sort direction options.
     itemsSortDirectDocList() {
       return [
-        { text: this.$t('message.42'), value: -1 },
-        { text: this.$t('message.43'), value: 1 }
-      ]
+        { text: this.$t("message.42"), value: -1 },
+        { text: this.$t("message.43"), value: 1 },
+      ];
     },
     // Refresh the number of documents per page.
     changeDocsPerPage() {
-      const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=1&sort=${this.sortDocList}&direct=${this.sortDirectDocList}`
-      document.location.replace(url)
+      const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=1&sort=${this.sortDocList}&direct=${this.sortDirectDocList}`;
+      document.location.replace(url);
     },
     // Get a list of documents.
     getDocumentList() {
-      this.setShowMsg(false)
-      this.runShowOverlayPageLockout(true)
+      this.setShowMsg(false);
+      this.runShowOverlayPageLockout(true);
       if (this.docsToBeDeleted.length > 0) {
-        this.deleteAllDocsFlag = false
-        this.docsToBeDeleted = []
+        this.deleteAllDocsFlag = false;
+        this.docsToBeDeleted = [];
       }
       return new Promise((resolve, reject) => {
         this.ajaxGetDocumentList()
           .then(() => {
-            this.runShowOverlayPageLockout(false)
-            resolve()
+            this.runShowOverlayPageLockout(false);
+            resolve();
           })
-          .catch(error => {
-            console.log(error)
-            this.runShowOverlayPageLockout(false)
-            this.runShowMsg({ text: error, status: 'error' })
-            reject(error)
-          })
-      })
+          .catch((error) => {
+            console.log(error);
+            this.runShowOverlayPageLockout(false);
+            this.runShowMsg({ text: error, status: "error" });
+            reject(error);
+          });
+      });
     },
     // After changing the page number, update the url state.
     refreshUrlState() {
-      const numPage = this.currentPageNumber
-      this.setProgressionStep(((this.docsPerPage * (numPage - 1))) + 1)
-      this.$route.query.page = numPage
-      const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${numPage}&sort=${this.sortDocList}&direct=${this.sortDirectDocList}`
-      history.replaceState(null, null, url)
+      const numPage = this.currentPageNumber;
+      this.setProgressionStep(this.docsPerPage * (numPage - 1) + 1);
+      this.$route.query.page = numPage;
+      const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${numPage}&sort=${this.sortDocList}&direct=${this.sortDirectDocList}`;
+      history.replaceState(null, null, url);
     },
     // Documents search.
     documentSearch() {
       // Reset page number to default.
-      this.resetPageNumberDefault(this.getRequestParams())
+      this.resetPageNumberDefault(this.getRequestParams());
       // Get a list of documents.
       if (!this.blockLoadDocs) {
-        this.getDocumentList()
+        this.getDocumentList();
       }
     },
     // Create Url for Document.
     createDocumentUrl(indexDoc) {
-      return `${this.docUrlNoIndex}/${indexDoc}`
+      return `${this.docUrlNoIndex}/${indexDoc}`;
     },
     // Formatting date.
     formattingDate(date) {
-      const local = new Date(date + 'Z')
-      const localDate = local.toLocaleDateString([this.$i18n.locale, 'en'])
-      const localTime = local.toLocaleTimeString().slice(0, 5)
-      return `<span class="cyan--text text--darken-2">${localDate}</span> <span class="orange--text text--darken-2">${localTime}</span>`
+      const local = new Date(date + "Z");
+      const localDate = local.toLocaleDateString([this.$i18n.locale, "en"]);
+      const localTime = local.toLocaleTimeString().slice(0, 8);
+      return `<span class="cyan--text text--darken-2">${localDate}</span> <span class="orange--text text--darken-2">${localTime}</span>`;
     },
     // Mark all documents for deletion.
     markAllDocsForDeletion() {
-      this.docsToBeDeleted = this.deleteAllDocsFlag ? fillRange(0, this.documents.length - 1) : []
+      this.docsToBeDeleted = this.deleteAllDocsFlag
+        ? fillRange(0, this.documents.length - 1)
+        : [];
     },
     // Check the status of the list of selected documents to be deleted.
     checkStatusListSelectedDocsDeleted() {
-      this.deleteAllDocsFlag = this.docsToBeDeleted.length === this.documents.length
+      this.deleteAllDocsFlag =
+        this.docsToBeDeleted.length === this.documents.length;
     },
     // Restart the list of documents for with the correct number of pages.
     restartDocList() {
-      let numPage = this.currentPageNumber
+      let numPage = this.currentPageNumber;
       if (numPage > 1 && this.pageCount < numPage) {
-        const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=${--numPage}&sort=${this.sortDocList}&direct=${this.sortDirectDocList}`
-        document.location.replace(url)
+        const url = `${window.location.protocol}//${
+          window.location.host
+        }/admin${this.$route.path}?per=${
+          this.docsPerPage
+        }&page=${--numPage}&sort=${this.sortDocList}&direct=${
+          this.sortDirectDocList
+        }`;
+        document.location.replace(url);
       }
     },
     // Delete selected documents.
     deleteDocs() {
-      this.setShowMsg(false)
-      this.runShowOverlayPageLockout(true)
-      const indexService = this.$route.params.indexService
-      const indexCollection = this.$route.params.indexCollection
-      const service = this.serviceList[indexService]
-      const docHashList = []
-      this.docsToBeDeleted.forEach(idx => {
-        docHashList.push(this.documents[idx].hash)
-      })
+      this.setShowMsg(false);
+      this.runShowOverlayPageLockout(true);
+      const indexService = this.$route.params.indexService;
+      const indexCollection = this.$route.params.indexCollection;
+      const service = this.serviceList[indexService];
+      const docHashList = [];
+      this.docsToBeDeleted.forEach((idx) => {
+        docHashList.push(this.documents[idx].hash);
+      });
       const payload = {
         model_key: service.collections[indexCollection].model_key,
-        doc_hash_list: docHashList
-      }
-      this.axios.post('/admin/delete-many-doc', payload)
-        .then(response => {
-          const data = response.data
+        doc_hash_list: docHashList,
+      };
+      this.axios
+        .post("/admin/delete-many-doc", payload)
+        .then((response) => {
+          const data = response.data;
           if (!data.is_authenticated) {
-            this.runShowOverlayPageLockout(false)
-            this.setIsAuthenticated(false)
+            this.runShowOverlayPageLockout(false);
+            this.setIsAuthenticated(false);
           } else if (data.msg_err.length === 0) {
-            this.setShowMsg(false)
+            this.setShowMsg(false);
             this.getDocumentList().then(() => {
-              this.restartDocList()
-            })
+              this.restartDocList();
+            });
           } else {
-            console.log(data.msg_err)
-            this.runShowOverlayPageLockout(false)
-            this.runShowMsg({ text: data.msg_err, status: 'error' })
+            console.log(data.msg_err);
+            this.runShowOverlayPageLockout(false);
+            this.runShowMsg({ text: data.msg_err, status: "error" });
           }
         })
-        .catch(error => {
-          console.log(error)
-          this.runShowOverlayPageLockout(false)
-          this.runShowMsg({ text: error, status: 'error' })
-        })
+        .catch((error) => {
+          console.log(error);
+          this.runShowOverlayPageLockout(false);
+          this.runShowMsg({ text: error, status: "error" });
+        });
     },
     // Get request parameters - per, page, sort, direct.
     getRequestParams() {
       // Page number.
-      let numPage = this.$route.query.page
-      numPage = numPage !== undefined ? parseInt(numPage) : 1
+      let numPage = this.$route.query.page;
+      numPage = numPage !== undefined ? parseInt(numPage) : 1;
       if (Number.isNaN(numPage)) {
-        this.runShowMsg({ text: this.$t('message.36'), status: 'error' })
+        this.runShowMsg({ text: this.$t("message.36"), status: "error" });
       }
       // The number of documents per page.
-      let numPer = this.$route.query.per
-      numPer = numPer !== undefined ? parseInt(numPer) : this.docsPerPage
+      let numPer = this.$route.query.per;
+      numPer = numPer !== undefined ? parseInt(numPer) : this.docsPerPage;
       if (Number.isNaN(numPer)) {
-        this.runShowMsg({ text: this.$t('message.38'), status: 'error' })
+        this.runShowMsg({ text: this.$t("message.38"), status: "error" });
       }
       // Sorting type.
-      let sortType = this.$route.query.sort
-      sortType = sortType !== undefined ? sortType : this.sortDocList
+      let sortType = this.$route.query.sort;
+      sortType = sortType !== undefined ? sortType : this.sortDocList;
       if (!this.sortTypes.includes(sortType)) {
-        this.runShowMsg({ text: this.$t('message.44'), status: 'error' })
+        this.runShowMsg({ text: this.$t("message.44"), status: "error" });
       }
       // Sorting direction.
-      let sortDirect = this.$route.query.direct
-      sortDirect = sortDirect !== undefined ? parseInt(sortDirect) : this.sortDirectDocList
+      let sortDirect = this.$route.query.direct;
+      sortDirect =
+        sortDirect !== undefined
+          ? parseInt(sortDirect)
+          : this.sortDirectDocList;
       if (Number.isNaN(sortDirect)) {
-        this.runShowMsg({ text: this.$t('message.45'), status: 'error' })
+        this.runShowMsg({ text: this.$t("message.45"), status: "error" });
       }
       //
-      this.setProgressionStep(((numPer * (numPage - 1))) + 1)
-      return { numPage, numPer, sortType, sortDirect }
-    }
+      this.setProgressionStep(numPer * (numPage - 1) + 1);
+      return { numPage, numPer, sortType, sortDirect };
+    },
   },
 
   created() {
     // Reset page number to default.
-    this.resetPageNumberDefault(this.getRequestParams())
+    this.resetPageNumberDefault(this.getRequestParams());
     // Get a list of documents.
     if (!this.blockLoadDocs) {
       this.getDocumentList().then(() => {
-        this.restartDocList()
+        this.restartDocList();
         if (this.dataFilters.length === 0) {
-          this.ajaxGetDataFilters()
-            .catch(error => {
-              console.log(error)
-              this.runShowOverlayPageLockout(false)
-              this.runShowMsg({ text: error, status: 'error' })
-            })
+          this.ajaxGetDataFilters().catch((error) => {
+            console.log(error);
+            this.runShowOverlayPageLockout(false);
+            this.runShowMsg({ text: error, status: "error" });
+          });
         }
-      })
+      });
     }
-  }
-}
+  },
+};
 </script>
 
 <style>

@@ -7,7 +7,8 @@
         <v-card-title
           v-if="count_effort === 2"
           class="red--text text--darken-2 justify-center"
-        >{{ counter }}</v-card-title>
+          >{{ counter }}</v-card-title
+        >
         <!-- Login form -->
         <form class="mb-2" @submit.prevent="submit()" v-else>
           <v-card-text class="pb-0">
@@ -17,7 +18,8 @@
               text
               type="error"
               class="mb-0"
-            >{{ msg_error }}</v-alert>
+              >{{ msg_error }}</v-alert
+            >
           </v-card-text>
           <v-card-text>
             <v-text-field
@@ -45,8 +47,12 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn text color="green" type="submit">{{ $t('message.9') }}</v-btn>
-            <v-btn text color="red" class="ml-4" @click="clear()">{{ $t('message.10') }}</v-btn>
+            <v-btn text color="green" type="submit">{{
+              $t("message.9")
+            }}</v-btn>
+            <v-btn text color="red" class="ml-4" @click="clear()">{{
+              $t("message.10")
+            }}</v-btn>
           </v-card-actions>
         </form>
         <v-divider></v-divider>
@@ -59,14 +65,16 @@
             color="blue"
             href="https://policies.google.com/privacy"
             target="_blank"
-          >Privacy Policy</v-btn>and
+            >Privacy Policy</v-btn
+          >and
           <v-btn
             text
             x-small
             color="blue"
             href="https://policies.google.com/terms"
             target="_blank"
-          >Terms of Service</v-btn>apply.
+            >Terms of Service</v-btn
+          >apply.
         </v-card-text>
       </v-card>
     </v-row>
@@ -74,138 +82,137 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex'
-import { validationMixin } from 'vuelidate'
-import { required } from 'vuelidate/lib/validators'
+import { mapState, mapMutations, mapActions } from "vuex";
+import { validationMixin } from "vuelidate";
+import { required } from "vuelidate/lib/validators";
 
 export default {
   mixins: [validationMixin],
 
   validations: {
     username: { required },
-    password: { required }
+    password: { required },
   },
 
-  name: 'Signin',
+  name: "Signin",
 
   data: () => ({
-    username: '',
-    password: '',
-    msg_error: '',
+    username: "",
+    password: "",
+    msg_error: "",
     // For protect against woodpeckers
     count_effort: 0,
     countdown: 10,
     counter: 0,
-    see_pass: false
+    see_pass: false,
   }),
 
   computed: {
-    ...mapState([
-      'username',
-      'siteKey'
-    ]),
+    ...mapState(["username", "siteKey"]),
     usernameErrors() {
-      const errors = []
-      if (!this.$v.username.$dirty) return errors
-      !this.$v.username.required && errors.push(this.$t('message.7'))
-      return errors
+      const errors = [];
+      if (!this.$v.username.$dirty) return errors;
+      !this.$v.username.required && errors.push(this.$t("message.7"));
+      return errors;
     },
     passwordErrors() {
-      const errors = []
-      if (!this.$v.password.$dirty) return errors
-      !this.$v.password.required && errors.push(this.$t('message.8'))
-      return errors
-    }
+      const errors = [];
+      if (!this.$v.password.$dirty) return errors;
+      !this.$v.password.required && errors.push(this.$t("message.8"));
+      return errors;
+    },
   },
 
   methods: {
-    ...mapMutations([
-      'setUsername',
-      'setIsAuthenticated'
-    ]),
-    ...mapActions([
-      'ajaxGetSiteKey'
-    ]),
+    ...mapMutations(["setUsername", "setIsAuthenticated"]),
+    ...mapActions(["ajaxGetSiteKey"]),
     submit() {
       // Form validation
-      this.$v.$touch()
+      this.$v.$touch();
       if (this.$v.$invalid) {
-        this.submitStatus = 'ERROR'
+        this.submitStatus = "ERROR";
       } else {
         if (this.siteKey.length > 0) {
           // ReCAPTCHA v3 request
-          this.$recaptchaLoaded().then(() => {
-            this.$recaptcha('login').then(token => {
-              // Login Request
-              const payload = {
-                username: this.username,
-                password: this.password,
-                token
-              }
-              this.axios.post('/admin/login', payload)
-                .then(response => {
-                  const data = response.data
-                  if (data.is_authenticated) {
-                    this.setUsername(data.username)
-                    this.setIsAuthenticated(true)
-                  } else {
-                    this.setIsAuthenticated(false)
-                    this.msg_error = this.$t('message.27')
-                    // Protect against woodpeckers
-                    if (++this.count_effort === 2) {
-                      this.counter = this.countdown
-                      const timer = window.setInterval(() => {
-                        if (--this.counter === 0) {
-                          window.clearInterval(timer)
-                          this.countdown += Math.floor((Math.random() * 20) + 1)
-                          this.msg_error = ''
-                          this.clear()
-                          this.count_effort = 0
+          this.$recaptchaLoaded()
+            .then(() => {
+              this.$recaptcha("login")
+                .then((token) => {
+                  // Login Request
+                  const payload = {
+                    username: this.username,
+                    password: this.password,
+                    token,
+                  };
+                  this.axios
+                    .post("/admin/login", payload)
+                    .then((response) => {
+                      const data = response.data;
+                      if (data.is_authenticated) {
+                        this.setUsername(data.username);
+                        this.setIsAuthenticated(true);
+                      } else {
+                        this.setIsAuthenticated(false);
+                        this.msg_error = this.$t("message.27");
+                        // Protect against woodpeckers
+                        if (++this.count_effort === 2) {
+                          this.counter = this.countdown;
+                          const timer = window.setInterval(() => {
+                            if (--this.counter === 0) {
+                              window.clearInterval(timer);
+                              this.countdown += Math.floor(
+                                Math.random() * 20 + 1
+                              );
+                              this.msg_error = "";
+                              this.clear();
+                              this.count_effort = 0;
+                            }
+                          }, 1000);
                         }
-                      }, 1000)
-                    }
-                  }
+                      }
+                    })
+                    .catch((error) => {
+                      this.msg_error = this.$t("message.27");
+                      console.log(error);
+                    });
                 })
-                .catch(error => {
-                  this.msg_error = this.$t('message.27')
-                  console.log(error)
-                })
-            }).catch(error => {
-              this.msg_error = String(error)
-              console.log(error)
+                .catch((error) => {
+                  this.msg_error = String(error);
+                  console.log(error);
+                });
             })
-          }).catch(error => {
-            this.msg_error = String(error)
-            console.log(error)
-          })
+            .catch((error) => {
+              this.msg_error = String(error);
+              console.log(error);
+            });
         } else {
-          const error = this.$t('message.70')
-          this.msg_error = error
-          console.log(error)
+          const error = this.$t("message.70");
+          this.msg_error = error;
+          console.log(error);
         }
       }
     },
     // Clear form
     clear() {
-      this.$v.$reset()
-      this.username = ''
-      this.password = ''
-      this.msg_error = ''
-    }
+      this.$v.$reset();
+      this.username = "";
+      this.password = "";
+      this.msg_error = "";
+    },
   },
 
   created() {
     if (this.siteKey.length === 0) {
-      this.ajaxGetSiteKey().catch(error => {
-        this.msg_error = String(error)
-        console.log(error)
-      })
+      this.ajaxGetSiteKey().catch((error) => {
+        this.msg_error = String(error);
+        console.log(error);
+      });
     }
     if (this.$session.exists()) {
-      this.$router.push({ name: 'home' })
+      this.$router.push({ name: "home" });
     }
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

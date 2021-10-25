@@ -1,9 +1,22 @@
 <template>
   <!-- Pop-up messages -->
-  <v-snackbar app top text outlined timeout="-1" :color="msgStatus" v-model="compShowMsg">
+  <v-snackbar
+    app
+    top
+    text
+    outlined
+    timeout="-1"
+    :color="msgStatus"
+    v-model="compShowMsg"
+  >
     <span v-html="textMsg"></span>
     <template v-slot:action="{ attrs }">
-      <v-btn icon :color="msgStatus" v-bind="attrs" @click="compShowMsg = false">
+      <v-btn
+        icon
+        :color="msgStatus"
+        v-bind="attrs"
+        @click="compShowMsg = false"
+      >
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </template>
@@ -11,31 +24,25 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations } from "vuex";
 
 export default {
-  name: 'PopUpMsgs',
+  name: "PopUpMsgs",
 
   computed: {
-    ...mapState('popUpMsgs', [
-      'showMsg',
-      'textMsg',
-      'msgStatus'
-    ]),
+    ...mapState("popUpMsgs", ["showMsg", "textMsg", "msgStatus"]),
     compShowMsg: {
       get: function () {
-        return this.showMsg
+        return this.showMsg;
       },
       set: function (flag) {
-        this.setShowMsg(flag)
-      }
-    }
+        this.setShowMsg(flag);
+      },
+    },
   },
 
   methods: {
-    ...mapMutations('popUpMsgs', [
-      'setShowMsg'
-    ])
-  }
-}
+    ...mapMutations("popUpMsgs", ["setShowMsg"]),
+  },
+};
 </script>

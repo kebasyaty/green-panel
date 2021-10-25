@@ -1,22 +1,38 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "checkJs": false,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "target": "es2020",
+    "module": "es2015",
+    "baseUrl": "./",
     "paths": {
       "@/*": [
-        "./src/*"
+        "src/*"
       ],
+      "vue$/*": [
+        "vue/dist/vue.runtime.esm.js/*"
+      ]
     }
   },
   "exclude": [
+    "dist",
     "node_modules",
     "**/node_modules/*",
+    "build",
+    ".vscode",
     ".nuxt",
-    "dist",
-    "bower_components",
+    "coverage",
+    "jspm_packages",
     "tmp",
     "temp",
-    "jspm_packages"
+    "bower_components",
+    ".npm",
+    ".yarn"
   ],
+  "typeAcquisition": {
+    "enable": true
+  },
   "include": [
     "src/**/*"
   ]
