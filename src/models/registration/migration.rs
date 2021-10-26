@@ -2,8 +2,8 @@
 //!
 
 use crate::models::{
-    services::admin::{customers, sellers, users},
-    services::products::electric_cars,
+    services::accounts::{customers, sellers, users},
+    services::products::cars,
     settings,
 };
 use mango_orm::{CachingModel, Monitor, ToModel, MONGODB_CLIENT_STORE};
@@ -29,7 +29,7 @@ pub fn mango_migration() -> Result<(), Box<dyn std::error::Error>> {
             users::User::meta()?,
             sellers::SellerProfile::meta()?,
             customers::CustomerProfile::meta()?,
-            electric_cars::ElectricCar::meta()?,
+            cars::Car::meta()?,
         ],
     };
     monitor.migrat()?;
@@ -39,7 +39,7 @@ pub fn mango_migration() -> Result<(), Box<dyn std::error::Error>> {
     users::User::to_cache()?;
     sellers::SellerProfile::to_cache()?;
     customers::CustomerProfile::to_cache()?;
-    electric_cars::ElectricCar::to_cache()?;
+    cars::Car::to_cache()?;
     //
     Ok(())
 }

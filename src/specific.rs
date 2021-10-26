@@ -10,7 +10,7 @@ use tera::{Context, Tera};
 use crate::settings;
 pub use request_handlers::*;
 
-use crate::models::services::products::electric_cars::ElectricCar;
+use crate::models::services::products::cars::Car;
 use mango_orm::{ToModel, FORM_STORE, MONGODB_CLIENT_STORE};
 use mongodb::{bson::doc, options::FindOptions};
 
@@ -85,7 +85,7 @@ pub mod request_handlers {
                 base_url: format!("{}://{}/products/electric_cars", scheme, host),
                 slug_field: String::from("slug"),
                 limit: 60,
-                model_key: ElectricCar::key(),
+                model_key: Car::key(),
                 changefreq: String::from("weekly"),
                 priority: 0.5,
             },

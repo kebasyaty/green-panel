@@ -20,32 +20,47 @@ pub const PROJECT_NAME: &str = "store";
 // Example: "7rzgacfqQB3B7q7T"
 pub const UNIQUE_PROJECT_KEY: &str = "qn9JGrB3bCRMQnF";
 
-// Admin - Settings for user accounts.
+// Users
 // *************************************************************************************************
-pub mod admin {
+pub mod users {
     // Valid characters: _ a-z A-Z 0-9
     // Max size: 31
     // First character: a-z A-Z
-    pub const SERVICE_NAME: &str = "admin";
+    pub const SERVICE_NAME: &str = "accounts";
     // Valid characters: _ a-z A-Z 0-9
     // Max size: 21
     // First character: a-z A-Z
-    pub const DATABASE_NAME: &str = "users";
+    pub const DATABASE_NAME: &str = "accounts";
     pub const DB_CLIENT_NAME: &str = "default";
     pub const DB_QUERY_DOCS_LIMIT: u32 = 1000;
 }
 
-// Electric Cars - Settings for products such as electric cars.
+// User Profiles
 // *************************************************************************************************
-pub mod electric_cars {
+pub mod user_profiles {
     // Valid characters: _ a-z A-Z 0-9
     // Max size: 31
     // First character: a-z A-Z
-    pub const SERVICE_NAME: &str = "electric_cars";
+    pub const SERVICE_NAME: &str = "accounts";
     // Valid characters: _ a-z A-Z 0-9
     // Max size: 21
     // First character: a-z A-Z
-    pub const DATABASE_NAME: &str = "cars";
+    pub const DATABASE_NAME: &str = "accounts";
+    pub const DB_CLIENT_NAME: &str = "default";
+    pub const DB_QUERY_DOCS_LIMIT: u32 = 1000;
+}
+
+// Products
+// *************************************************************************************************
+pub mod cars {
+    // Valid characters: _ a-z A-Z 0-9
+    // Max size: 31
+    // First character: a-z A-Z
+    pub const SERVICE_NAME: &str = "products";
+    // Valid characters: _ a-z A-Z 0-9
+    // Max size: 21
+    // First character: a-z A-Z
+    pub const DATABASE_NAME: &str = "products";
     pub const DB_CLIENT_NAME: &str = "default";
     pub const DB_QUERY_DOCS_LIMIT: u32 = 1000;
 }

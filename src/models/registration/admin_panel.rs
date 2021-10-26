@@ -6,8 +6,8 @@ use mongodb::bson::{doc, document::Document};
 use serde_json::{json, Value};
 
 use crate::{
-    models::services::admin::{customers, sellers, users},
-    models::services::products::electric_cars,
+    models::services::accounts::{customers, sellers, users},
+    models::services::products::cars,
     settings,
 };
 
@@ -75,9 +75,8 @@ pub fn service_list() -> Value {
                         "title": "Sellers",
                         "model_key": sellers::SellerProfile::key(),
                         "fields": [
-                            { "field": "user_hash", "title": "User ID" },
+                            { "field": "user_id", "title": "User ID" },
                             { "field": "gender", "title": "Gender" },
-                            { "field": "color", "title": "Favorite color" },
                             { "field": "city", "title": "City" },
                             { "field": "country", "title": "Country" },
                         ]
@@ -87,9 +86,8 @@ pub fn service_list() -> Value {
                         "title": "Customers",
                         "model_key": customers::CustomerProfile::key(),
                         "fields": [
-                            { "field": "user_hash", "title": "User ID" },
+                            { "field": "user_id", "title": "User ID" },
                             { "field": "gender", "title": "Gender" },
-                            { "field": "color", "title": "Favorite color" },
                             { "field": "city", "title": "City" },
                             { "field": "country", "title": "Country" },
                         ]
@@ -104,7 +102,7 @@ pub fn service_list() -> Value {
                     // Electric Cars
                     {
                         "title": "Electric Cars",
-                        "model_key": electric_cars::ElectricCar::key(),
+                        "model_key": cars::Car::key(),
                         "fields": [
                             { "field": "model", "title": "Model" },
                             { "field": "image", "title": "Image" },
@@ -149,7 +147,7 @@ pub fn get_document_reg(
             json = users::User::form_json_for_admin()?
         }
 
-    // SellerProfile
+    // Seller Profile
     } else if model_key == sellers::SellerProfile::key() {
         if !doc_hash.is_empty() {
             let object_id = sellers::SellerProfile::hash_to_id(doc_hash)?;
@@ -165,7 +163,7 @@ pub fn get_document_reg(
             json = sellers::SellerProfile::form_json_for_admin()?
         }
 
-    // CustomerProfile
+    // Customer Profile
     } else if model_key == customers::CustomerProfile::key() {
         if !doc_hash.is_empty() {
             let object_id = customers::CustomerProfile::hash_to_id(doc_hash)?;
@@ -181,20 +179,17 @@ pub fn get_document_reg(
             json = customers::CustomerProfile::form_json_for_admin()?
         }
 
-    // ElectricCar
-    } else if model_key == electric_cars::ElectricCar::key() {
+    // Electric Car
+    } else if model_key == cars::Car::key() {
         if !doc_hash.is_empty() {
-            let object_id = electric_cars::ElectricCar::hash_to_id(doc_hash)?;
+            let object_id = cars::Car::hash_to_id(doc_hash)?;
             let filter = doc! {"_id": object_id};
-            let output_data = electric_cars::ElectricCar::find_one(Some(filter), None).unwrap();
+            let output_data = cars::Car::find_one(Some(filter), None).unwrap();
             if output_data.is_valid() {
-                json = output_data
-                    .model::<electric_cars::ElectricCar>()
-                    .unwrap()
-                    .json_for_admin()?;
+                json = output_data.model::<cars::Car>().unwrap().json_for_admin()?;
             }
         } else {
-            json = electric_cars::ElectricCar::form_json_for_admin()?
+            json = cars::Car::form_json_for_admin()?
         }
 
     // Error
@@ -223,22 +218,22 @@ pub fn save_document_reg(
         let output_data = model.save(None, None)?;
         json = output_data.json_for_admin()?;
 
-    // SellerProfile
+    // Seller Profile
     } else if model_key == sellers::SellerProfile::key() {
         let mut model = serde_json::from_slice::<sellers::SellerProfile>(&bytes)?;
         model.resume = app_state.base64_to_file(model.resume, "users/sellers/resume");
         let output_data = model.save(None, None)?;
         json = output_data.json_for_admin()?;
 
-    // CustomerProfile
+    // Customer Profile
     } else if model_key == customers::CustomerProfile::key() {
         let mut model = serde_json::from_slice::<customers::CustomerProfile>(&bytes)?;
         let output_data = model.save(None, None)?;
         json = output_data.json_for_admin()?;
 
-    // ElectricCar
-    } else if model_key == electric_cars::ElectricCar::key() {
-        let mut model = serde_json::from_slice::<electric_cars::ElectricCar>(&bytes)?;
+    // ElectricC ar
+    } else if model_key == cars::Car::key() {
+        let mut model = serde_json::from_slice::<cars::Car>(&bytes)?;
         model.image = app_state.base64_to_file(model.image, "products/electric_cars/images");
         let output_data = model.save(None, None)?;
         json = output_data.json_for_admin()?;
@@ -270,7 +265,7 @@ pub fn delete_document_reg(
             msg_err = output_data.err_msg();
         }
 
-    // SellerProfile
+    // Seller Profile
     } else if model_key == sellers::SellerProfile::key() {
         let output_data = sellers::SellerProfile::find_one(Some(filter), None)?;
         let instance = output_data.model::<sellers::SellerProfile>()?;
@@ -279,7 +274,7 @@ pub fn delete_document_reg(
             msg_err = output_data.err_msg();
         }
 
-    // CustomerProfile
+    // Customer Profile
     } else if model_key == customers::CustomerProfile::key() {
         let output_data = customers::CustomerProfile::find_one(Some(filter), None)?;
         let instance = output_data.model::<customers::CustomerProfile>()?;
@@ -288,10 +283,10 @@ pub fn delete_document_reg(
             msg_err = output_data.err_msg();
         }
 
-    // ElectricCar
-    } else if model_key == electric_cars::ElectricCar::key() {
-        let output_data = electric_cars::ElectricCar::find_one(Some(filter), None)?;
-        let instance = output_data.model::<electric_cars::ElectricCar>()?;
+    // Electric Car
+    } else if model_key == cars::Car::key() {
+        let output_data = cars::Car::find_one(Some(filter), None)?;
+        let instance = output_data.model::<cars::Car>()?;
         let output_data = instance.delete(None)?;
         if !output_data.is_valid() {
             msg_err = output_data.err_msg();
@@ -318,17 +313,17 @@ pub fn update_dyn_data_reg(
     if model_key == users::User::key() {
         users::User::db_update_dyn_widgets(json_options)?;
 
-    // SellerProfile
+    // Seller Profile
     } else if model_key == sellers::SellerProfile::key() {
         sellers::SellerProfile::db_update_dyn_widgets(json_options)?;
 
-    // CustomerProfile
+    // Customer Profile
     } else if model_key == customers::CustomerProfile::key() {
         customers::CustomerProfile::db_update_dyn_widgets(json_options)?;
 
-    // ElectricCar
-    } else if model_key == electric_cars::ElectricCar::key() {
-        electric_cars::ElectricCar::db_update_dyn_widgets(json_options)?;
+    // Electric Car
+    } else if model_key == cars::Car::key() {
+        cars::Car::db_update_dyn_widgets(json_options)?;
 
     // Error
     } else {

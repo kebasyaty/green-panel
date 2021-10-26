@@ -17,7 +17,7 @@ use mongodb::{
 use serde::Deserialize;
 use serde_json::{json, Value};
 
-use crate::models::{registration::admin_panel, services::admin::users};
+use crate::models::{registration::admin_panel, services::accounts::users};
 use mango_orm::{QCommon, QPaladins, ToModel, FORM_STORE, MONGODB_CLIENT_STORE};
 
 pub use configure_urls::*;
@@ -30,7 +30,7 @@ use crate::settings::general::{
 
 // Common functions
 fn admin_file_path(inner_path: &str) -> String {
-    format!("./admin/{}", inner_path)
+    format!("./web-admin/{}", inner_path)
 }
 
 // CONFIGURE URLs
@@ -39,7 +39,7 @@ pub mod configure_urls {
     use super::*;
 
     pub fn config(cfg: &mut web::ServiceConfig) {
-        cfg.service(Files::new("/contrib", "./admin"));
+        cfg.service(Files::new("/contrib", "./web-admin"));
         cfg.service(web::resource("/login").route(web::post().to(login)));
         cfg.service(web::resource("/logout").route(web::post().to(logout)));
         cfg.service(web::resource("/sign-in").route(web::get().to(admin_panel)));
@@ -686,7 +686,7 @@ pub mod request_handlers {
                                         }
                                         if !img_url.is_empty() {
                                             format!(
-                                                r#"<img class="rounded-lg mt-1" src="{}" height="60" alt="Image">"#,
+                                                r#"<img class="rounded-lg mt-1" src="{}" height="40" alt="Image">"#,
                                                 img_url
                                             )
                                         } else {
