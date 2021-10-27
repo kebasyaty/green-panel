@@ -19,6 +19,7 @@
     "dist",
     "node_modules",
     "**/node_modules/*",
+    "**/*.spec.js",
     "build",
     ".vscode",
     ".nuxt",
