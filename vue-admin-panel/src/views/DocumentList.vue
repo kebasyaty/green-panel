@@ -24,7 +24,25 @@
                 :placeholder="$t('message.3')"
                 append-icon="mdi-magnify"
                 @input="documentSearch()"
-              ></v-text-field>
+              >
+                <template v-slot:append-outer>
+                  <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        icon
+                        color="green"
+                        v-bind="attrs"
+                        v-on="on"
+                        @click="pasteSearchData()"
+                        style="margin-top: -10px"
+                      >
+                        <v-icon>mdi-content-paste</v-icon>
+                      </v-btn>
+                    </template>
+                    <span>{{ $t("message.71") }}</span>
+                  </v-tooltip>
+                </template>
+              </v-text-field>
             </div>
           </v-col>
           <v-col cols="12" md="6" class="text-md-right">
@@ -148,11 +166,26 @@
                 <template v-for="(item, idxField) in fields">
                   <!-- Link to document. -->
                   <td :key="idxField">
-                    <router-link
-                      v-if="idxField === 0"
-                      :to="createDocumentUrl(idxDoc)"
-                      >{{ document[item.field] }}</router-link
-                    >
+                    <template v-if="idxField === 0">
+                      <!-- Copy the name of the link to the clipboard. -->
+                      <span>
+                        <v-btn
+                          icon
+                          color="green"
+                          v-bind="attrs"
+                          v-on="on"
+                          @click="copyLinkNameDoc(document[item.field])"
+                        >
+                          <v-icon>mdi-content-copy</v-icon>
+                        </v-btn>
+                      </span>
+                      <!-- Link to document form. -->
+                      <span>
+                        <router-link :to="getDocFormUrl(idxDoc)">{{
+                          document[item.field]
+                        }}</router-link>
+                      </span>
+                    </template>
                     <span v-else v-html="document[item.field]"></span>
                   </td>
                 </template>
@@ -166,17 +199,22 @@
                   v-html="formattingDate(document.updated_at)"
                 ></td>
                 <!-- Hash field. -->
-                <td class="green--text">
+                <td>
                   <!-- Button - Copy document ID to clipboard. -->
-                  <v-btn
-                    text
-                    small
-                    color="green"
-                    @click="copyHashDoc(document.hash)"
-                  >
-                    <v-icon left>mdi-content-copy</v-icon>
-                    {{ document.hash }}
-                  </v-btn>
+                  <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        icon
+                        color="green"
+                        v-bind="attrs"
+                        v-on="on"
+                        @click="copyHashDoc(document.hash)"
+                      >
+                        <v-icon>mdi-content-copy</v-icon>
+                      </v-btn>
+                    </template>
+                    <span>{{ document.hash }}</span>
+                  </v-tooltip>
                 </td>
               </tr>
             </tbody>
@@ -326,7 +364,7 @@ export default {
         return this.searchQuery;
       },
       set: function (text) {
-        this.setSearchQuery(text);
+        this.setSearchQuery(text ? text.trim() : text);
       },
     },
     updateDocsPerPage: {
@@ -426,6 +464,14 @@ export default {
       this.setShowMsg(false);
       this.$router.replace({ name: "home" });
     },
+    // Data from the clipboard, paste into the search field.
+    pasteSearchData() {
+      this.updateSearchQuery = "";
+      navigator.clipboard.readText().then((clipText) => {
+        this.updateSearchQuery = clipText;
+        this.documentSearch();
+      });
+    },
     // Sorting options for the list of documents.
     itemsSortDocList() {
       return [
@@ -445,6 +491,17 @@ export default {
     changeDocsPerPage() {
       const url = `${window.location.protocol}//${window.location.host}/admin${this.$route.path}?per=${this.docsPerPage}&page=1&sort=${this.sortDocList}&direct=${this.sortDirectDocList}`;
       document.location.replace(url);
+    },
+    // Copy document link name to clipboard.
+    copyLinkNameDoc(linkName) {
+      navigator.clipboard.writeText(linkName).then(
+        () => {
+          /* clipboard successfully set */
+        },
+        () => {
+          this.runShowMsg({ text: "Clipboard write failed.", status: "error" });
+        }
+      );
     },
     // Copy document ID to clipboard.
     copyHashDoc(hash) {
@@ -496,8 +553,8 @@ export default {
         this.getDocumentList();
       }
     },
-    // Create Url for Document.
-    createDocumentUrl(indexDoc) {
+    // Get Url address to document form.
+    getDocFormUrl(indexDoc) {
       return `${this.docUrlNoIndex}/${indexDoc}`;
     },
     // Formatting date.

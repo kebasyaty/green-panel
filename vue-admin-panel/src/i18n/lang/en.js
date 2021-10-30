@@ -72,5 +72,6 @@ export default {
     68: "Reset",
     69: "Presence | Absence",
     70: "ERROR: ReCAPTCHA v3 - Missing siteKey.",
+    71: "Paste data from clipboard.",
   },
 };

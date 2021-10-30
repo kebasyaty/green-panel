@@ -97,6 +97,8 @@
 ![Welcome page](https://github.com/kebasyaty/mango-panel/raw/main/images/2.png "Welcome page")
 
 ## List of documents
+![List of documents](https://github.com/kebasyaty/mango-panel/raw/main/images/3.png "List of users")
+
 ![List of documents](https://github.com/kebasyaty/mango-panel/raw/main/images/5.png "List of documents")
 
 ![Opened filter](https://github.com/kebasyaty/mango-panel/raw/main/images/14.png "Opened filter")
