@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import state from "@/store/state";
 import mutations from "@/store/mutations";
 import actions from "@/store/actions";
 import documentList from "@/store/modules/document_list";
@@ -11,28 +12,7 @@ import colorPicker from "@/store/modules/color_picker";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-    // Company Attributes.
-    logo: "",
-    brand: "",
-    slogan: "",
-    // Access.
-    isStart: true,
-    username: "..",
-    isAuthenticated: false,
-    // reCaptcha v3.
-    siteKey: "",
-    // Open and close service list panel (navigation-drawer).
-    openPanelServiceList: null,
-    // Panel width for list of services (Drawer).
-    panelWidthServiceList: 360,
-    // The current service in which the collection is selected.
-    selectedService: [],
-    // List of services (sub-applications) with nested list of collections.
-    // Hint: For menu admin panel.
-    serviceList: [],
-  },
-
+  state,
   mutations,
   actions,
   modules: {

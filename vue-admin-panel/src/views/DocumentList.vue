@@ -546,10 +546,15 @@ export default {
     },
     // Documents search.
     documentSearch() {
-      // Reset page number to default.
-      this.resetPageNumberDefault(this.getRequestParams());
       // Get a list of documents.
-      if (!this.blockLoadDocs) {
+      if (this.blockLoadDocs) {
+        setTimeout(() => {
+          this.documentSearch();
+        }, 100);
+      } else {
+        // Reset page number to default.
+        this.resetPageNumberDefault(this.getRequestParams());
+        // Request a list of documents.
         this.getDocumentList();
       }
     },
