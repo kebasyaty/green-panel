@@ -4,6 +4,11 @@
 
 ### Admin panel for easy use of [mango-orm](https://github.com/kebasyaty/mango-orm "mango-orm").  This example uses [actix-web](https://github.com/actix/actix-web "actix-web") . Other frameworks can be used by this analogy.
 
+## Attention
+#### [MongoDB Rust Driver](https://crates.io/crates/mongodb/1.2.3 "MongoDB Rust Driver") version 1.2.3 is used.
+
+#### For examples of Model fields, use [tests](https://github.com/kebasyaty/mango-orm/tree/master/test-drive/tests "tests"
+
 ## Requirements
 - **actix-cors -** [https://crates.io/crates/actix-cors](https://crates.io/crates/actix-cors "https://crates.io/crates/actix-cors")
 - **actix-files -** [https://crates.io/crates/actix-files](https://crates.io/crates/actix-files "https://crates.io/crates/actix-files")
@@ -36,9 +41,6 @@
 - **password-generator -** [https://www.npmjs.com/package/password-generator](https://www.npmjs.com/package/password-generator "https://www.npmjs.com/package/password-generator")
 - **fill-range -** [https://www.npmjs.com/package/fill-range](https://www.npmjs.com/package/fill-range "https://www.npmjs.com/package/fill-range")
 - **slug -** [https://www.npmjs.com/package/slug](https://www.npmjs.com/package/slug "https://www.npmjs.com/package/slug")
-
-## Hint
-#### For examples of Model fields, use [tests](https://github.com/kebasyaty/mango-orm/tree/master/test-drive/tests "tests").
 
 ## Quick start
 #### 1.  Install mongodb (if not installed)
