@@ -8,8 +8,8 @@ use tera::Tera;
 
 // Application settings
 pub mod settings;
-// Specific request handlers (favicon, robots, sitemap, page_404)
-pub mod specific;
+// Specific request handlers (favicon, robots, sitemap, page_404 ...)
+pub mod spices;
 // Services (sub-apps)
 pub mod services;
 // Mango-ORM Models
@@ -105,17 +105,17 @@ async fn run_http_server() -> std::io::Result<()> {
             // Media files
             .service(Files::new("/media", settings::MEDIA_ROOT.to_owned()))
             // Specific handlers
-            .route("/favicon.ico", web::route().to(specific::favicon_ico))
-            .route("/favicons/{icon}", web::route().to(specific::favicon))
-            .route("/robots.txt", web::route().to(specific::robots))
-            .route("/sitemap.xml", web::route().to(specific::sitemap))
+            .route("/favicon.ico", web::route().to(spices::favicon_ico))
+            .route("/favicons/{icon}", web::route().to(spices::favicon))
+            .route("/robots.txt", web::route().to(spices::robots))
+            .route("/sitemap.xml", web::route().to(spices::sitemap))
             // ... <- Other services
             // Admin service (Admin panel page)
             .service(web::scope("/admin").configure(services::admin::config))
             // Primal service (Home page)
             .service(web::scope("*").configure(services::primal::config))
             // Page 404
-            .default_service(web::route().to(specific::page_404))
+            .default_service(web::route().to(spices::page_404))
     })
     // .keep_alive(5)
     .bind(settings::local_domain())?

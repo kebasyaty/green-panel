@@ -79,10 +79,11 @@ pub mod request_handlers {
         //
         // Generate sitemap
         // -----------------------------------------------------------------------------------------
+        // Add models < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < <
         let options: Vec<Options> = vec![
-            // Electric Cars
+            // Cars
             Options {
-                base_url: format!("{}://{}/products/electric_cars", scheme, host),
+                base_url: format!("{}://{}/products/cars", scheme, host),
                 slug_field: String::from("slug"),
                 limit: 60,
                 model_key: Car::key(),
