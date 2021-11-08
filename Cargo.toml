@@ -1,9 +1,9 @@
 [package]
-authors = ["your_nickname <your_email>"]
-description = "An example of implementing the admin panel."
+authors = ["First_name Last_name <example@email.net>"]
+description = "Some text"
 edition = "2018"
 license = "MIT OR Apache-2.0"
-name = "mango-panel"
+name = "project-name"
 readme = "README.md"
 version = "0.1.0"
 
