@@ -47,12 +47,18 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn text color="green" type="submit">{{
+            <v-btn dark small depressed color="green darken-2" type="submit">{{
               $t("message.9")
             }}</v-btn>
-            <v-btn text color="red" class="ml-4" @click="clear()">{{
-              $t("message.10")
-            }}</v-btn>
+            <v-btn
+              dark
+              small
+              depressed
+              color="red darken-2"
+              class="ml-4"
+              @click="clear()"
+              >{{ $t("message.10") }}</v-btn
+            >
           </v-card-actions>
         </form>
         <v-divider></v-divider>

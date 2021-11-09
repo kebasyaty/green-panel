@@ -18,9 +18,14 @@
           max-width="600px"
         >
           <template v-slot:activator="{ on, attrs }">
-            <v-btn text color="green" v-bind="attrs" v-on="on">{{
-              $t("message.46")
-            }}</v-btn>
+            <v-btn
+              dark
+              depressed
+              color="green darken-2"
+              v-bind="attrs"
+              v-on="on"
+              >{{ $t("message.46") }}</v-btn
+            >
           </template>
           <v-card ref="updatePasswordForm">
             <v-card-title>
@@ -110,11 +115,13 @@
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
-                    icon
-                    large
+                    fab
+                    dark
+                    small
+                    depressed
                     v-bind="attrs"
                     v-on="on"
-                    color="red"
+                    color="red darken-2"
                     @click="
                       [updatePassResetForm(), (dialogUpdatePassword = false)]
                     "
@@ -129,11 +136,13 @@
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
-                    icon
-                    large
+                    fab
+                    dark
+                    small
+                    depressed
                     v-bind="attrs"
                     v-on="on"
-                    color="green"
+                    color="green darken-2"
                     :loading="dataUpdatePassword.generate"
                     :disabled="dataUpdatePassword.generate"
                     @click="customPassword()"
@@ -147,14 +156,17 @@
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
-                    icon
-                    large
+                    fab
+                    dark
+                    small
+                    depressed
                     v-bind="attrs"
                     v-on="on"
-                    color="yellow darken-1"
+                    color="yellow darken-2"
                     :loading="dataUpdatePassword.generate"
                     :disabled="dataUpdatePassword.generate"
                     @click="copyPassword()"
+                    class="mx-4"
                   >
                     <v-icon>mdi-content-copy</v-icon>
                   </v-btn>
@@ -165,11 +177,13 @@
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
-                    icon
-                    large
+                    fab
+                    dark
+                    small
+                    depressed
                     v-bind="attrs"
                     v-on="on"
-                    color="purple"
+                    color="purple darken-2"
                     class="my-0"
                     @click="updatePassResetForm()"
                   >
@@ -183,12 +197,13 @@
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
-                    icon
-                    large
+                    fab
+                    dark
+                    small
+                    depressed
                     v-bind="attrs"
                     v-on="on"
-                    color="blue"
-                    text
+                    color="blue darken-2"
                     @click="updatePassword()"
                   >
                     <v-icon>mdi-content-save</v-icon>
@@ -263,16 +278,16 @@
                         <template v-slot:activator="{ on, attrs }">
                           <!-- Button - Open a dialog. -->
                           <v-btn
-                            text
-                            x-small
-                            color="orange"
+                            fab
+                            dark
+                            depressed
+                            small
+                            color="#84240c"
                             class="mb-2"
                             v-bind="attrs"
                             v-on="on"
                           >
-                            <v-icon>mdi-plus</v-icon>
-                            <span>/</span>
-                            <v-icon>mdi-minus</v-icon>
+                            <v-icon>mdi-plus-minus-variant</v-icon>
                           </v-btn>
                         </template>
                         <v-card>
@@ -404,8 +419,10 @@
                             <v-spacer></v-spacer>
                             <!-- Button - Save. -->
                             <v-btn
-                              text
-                              color="green"
+                              dark
+                              small
+                              depressed
+                              color="green darken-2"
                               :disabled="
                                 !newValDynItem.title || !newValDynItem.value
                               "
@@ -465,8 +482,10 @@
                             <v-spacer></v-spacer>
                             <!-- Button - Delete. -->
                             <v-btn
-                              text
-                              color="red"
+                              dark
+                              small
+                              depressed
+                              color="red darken-2"
                               :disabled="delDynItems.length === 0"
                               @click="
                                 [
@@ -647,9 +666,18 @@
                         ]"
                         :key="`${item.icon}-${index}`"
                       >
-                        <v-icon :color="item.color" size="60">{{
-                          `mdi-${item.icon}`
-                        }}</v-icon>
+                        <v-sheet
+                          rounded
+                          color="white"
+                          elevation="0"
+                          height="60"
+                          width="60"
+                          class="my-1"
+                        >
+                          <v-icon light :color="item.color" size="60">{{
+                            `mdi-${item.icon}`
+                          }}</v-icon>
+                        </v-sheet>
                       </div>
                       <v-btn
                         text
@@ -851,7 +879,7 @@
                     >
                       <div v-if="field.css_classes.includes('ckeditor')">
                         <v-card-subtitle
-                          class="px-0 pt-0 pb-1 cyan--text text--lighten-1"
+                          class="px-0 pt-0 pb-1 red--text"
                           v-html="`&#9913;&#9913; ${$t('message.63')}`"
                         ></v-card-subtitle>
                         <ckeditor
@@ -1419,9 +1447,11 @@
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              text
+              fab
+              dark
               small
-              color="red"
+              depressed
+              color="red darken-2"
               :disabled="$route.params.indexDoc === 'new'"
               v-bind="attrs"
               v-on="on"
@@ -1437,9 +1467,9 @@
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              text
-              small
-              color="green"
+              dark
+              depressed
+              color="green darken-2"
               v-bind="attrs"
               v-on="on"
               @click="saveDoc('save_and_new')"
@@ -1455,9 +1485,9 @@
         <v-tooltip top v-if="isCreatedDoc()">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              text
-              small
-              color="orange"
+              dark
+              depressed
+              color="orange darken-2"
               class="mx-4"
               v-bind="attrs"
               v-on="on"
@@ -1474,12 +1504,15 @@
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              text
+              fab
+              dark
               small
-              color="blue"
+              depressed
+              color="blue darken-2"
               v-bind="attrs"
               v-on="on"
               @click="saveDoc()"
+              :class="isCreatedDoc() ? '' : 'ml-4'"
             >
               <v-icon>mdi-content-save</v-icon>
             </v-btn>

@@ -4,6 +4,7 @@
     app
     top
     text
+    light
     timeout="-1"
     :color="msgStatus"
     v-model="compShowMsg"

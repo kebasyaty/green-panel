@@ -29,8 +29,11 @@
                   <v-tooltip top>
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
-                        icon
-                        color="green"
+                        fab
+                        dark
+                        small
+                        depressed
+                        color="green darken-2"
                         v-bind="attrs"
                         v-on="on"
                         @click="pasteSearchData()"
@@ -47,7 +50,12 @@
           </v-col>
           <v-col cols="12" md="6" class="text-md-right">
             <!-- Button - Add a new document. -->
-            <v-btn text color="green" :to="docUrlNoIndex + '/new'">
+            <v-btn
+              dark
+              depressed
+              color="green darken-2"
+              :to="docUrlNoIndex + '/new'"
+            >
               <v-icon left>mdi-file-plus-outline</v-icon>
               {{ $t("message.25") }}
             </v-btn>
@@ -58,8 +66,9 @@
             <!-- Button - Delete all selected documents. -->
             <v-btn
               dark
+              depressed
               v-if="docsToBeDeleted.length > 0"
-              color="red darken-3"
+              color="red darken-2"
               @click="deleteDocs()"
             >
               <v-icon left>mdi-close-thick</v-icon>
@@ -96,8 +105,9 @@
             <!-- Filter by selection fields. -->
             <v-btn
               dark
-              text
-              color="blue"
+              small
+              depressed
+              color="blue darken-2"
               :disabled="dataFilters.length === 0"
               @click="showFilterDoc = true"
             >
@@ -125,7 +135,7 @@
                   <v-checkbox
                     hide-details
                     v-model="deleteAllDocsFlag"
-                    color="red darken-3"
+                    color="red darken-2"
                     class="mt-0 pt-0"
                     @change="markAllDocsForDeletion()"
                     :disabled="documents.length === 0"
@@ -157,7 +167,7 @@
                     hide-details
                     v-model="docsToBeDeleted"
                     :value="idxDoc"
-                    color="red darken-3"
+                    color="red darken-2"
                     class="mt-0 pt-0"
                     @change="checkStatusListSelectedDocsDeleted()"
                   ></v-checkbox>
@@ -167,14 +177,18 @@
                   <!-- Link to document. -->
                   <td :key="idxField">
                     <template v-if="idxField === 0">
-                      <!-- Copy the name of the link to the clipboard. -->
+                      <!-- Copy doc name to clipboard. -->
                       <span>
                         <v-btn
-                          icon
-                          color="green"
+                          fab
+                          dark
+                          small
+                          depressed
+                          color="green darken-2"
                           v-bind="attrs"
                           v-on="on"
                           @click="copyLinkNameDoc(document[item.field])"
+                          class="mr-2"
                         >
                           <v-icon>mdi-content-copy</v-icon>
                         </v-btn>
@@ -204,8 +218,11 @@
                   <v-tooltip top>
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
-                        icon
-                        color="green"
+                        fab
+                        dark
+                        small
+                        depressed
+                        color="green darken-2"
                         v-bind="attrs"
                         v-on="on"
                         @click="copyHashDoc(document.hash)"
