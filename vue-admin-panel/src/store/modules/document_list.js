@@ -72,7 +72,7 @@ export default {
         if ("indexService" in payload && "indexCollection" in payload) {
           collection =
             rootState.serviceList[payload.indexService].collections[
-            payload.indexCollection
+              payload.indexCollection
             ];
         } else {
           collection =
@@ -138,7 +138,7 @@ export default {
         if ("indexService" in payload && "indexCollection" in payload) {
           collection =
             rootState.serviceList[payload.indexService].collections[
-            payload.indexCollection
+              payload.indexCollection
             ];
         } else {
           collection =
