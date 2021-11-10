@@ -38,4 +38,7 @@ export default {
   setTextErrMsg(state, payload) {
     state.textErrMsg = payload;
   },
+  setBtnBgColor(state, color) {
+    state.btnBgColor = color;
+  },
 };

@@ -18,4 +18,6 @@ export default {
   // List of services (sub-applications) with nested list of collections.
   // Hint: For menu admin panel.
   serviceList: [],
+  // Background color for buttons.
+  btnBgColor: "grey darken-3",
 };

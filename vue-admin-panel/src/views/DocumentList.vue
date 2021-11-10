@@ -28,18 +28,19 @@
                 <template v-slot:append-outer>
                   <v-tooltip top>
                     <template v-slot:activator="{ on, attrs }">
+                      <!-- Paste search data from clipboard. -->
                       <v-btn
                         fab
                         dark
                         small
                         depressed
-                        color="green darken-2"
+                        :color="btnBgColor"
                         v-bind="attrs"
                         v-on="on"
                         @click="pasteSearchData()"
                         style="margin-top: -10px"
                       >
-                        <v-icon>mdi-content-paste</v-icon>
+                        <v-icon color="green">mdi-content-paste</v-icon>
                       </v-btn>
                     </template>
                     <span>{{ $t("message.71") }}</span>
@@ -53,11 +54,11 @@
             <v-btn
               dark
               depressed
-              color="green darken-2"
+              :color="btnBgColor"
               :to="docUrlNoIndex + '/new'"
             >
-              <v-icon left>mdi-file-plus-outline</v-icon>
-              {{ $t("message.25") }}
+              <v-icon left color="green">mdi-file-plus-outline</v-icon>
+              <span class="green--text">{{ $t("message.25") }}</span>
             </v-btn>
           </v-col>
         </v-row>
@@ -68,11 +69,11 @@
               dark
               depressed
               v-if="docsToBeDeleted.length > 0"
-              color="red darken-2"
+              :color="btnBgColor"
               @click="deleteDocs()"
             >
-              <v-icon left>mdi-close-thick</v-icon>
-              {{ $t("message.4") }}
+              <v-icon left color="red">mdi-close-thick</v-icon>
+              <span class="red--text text">{{ $t("message.4") }}</span>
             </v-btn>
           </v-col>
         </v-row>
@@ -107,12 +108,12 @@
               dark
               small
               depressed
-              color="blue darken-2"
+              :color="btnBgColor"
               :disabled="dataFilters.length === 0"
               @click="showFilterDoc = true"
             >
-              <v-icon left>mdi-filter</v-icon>
-              {{ $t("message.64") }}
+              <v-icon left color="blue">mdi-filter</v-icon>
+              <span class="blue--text">{{ $t("message.64") }}</span>
             </v-btn>
           </v-col>
         </v-row>
@@ -129,9 +130,11 @@
             >
               <tr>
                 <!-- Symbol - № -->
-                <th>&#8470;</th>
+                <th align="left" style="text-align: left !important">
+                  &#8470;
+                </th>
                 <!-- Mark all documents for deletion. -->
-                <th>
+                <th align="center">
                   <v-checkbox
                     hide-details
                     v-model="deleteAllDocsFlag"
@@ -143,26 +146,34 @@
                 </th>
                 <!-- Other headers. -->
                 <th
+                  align="center"
                   v-for="(field, idxHeader) in fields"
                   :key="`header-${idxHeader}`"
                 >
                   {{ field.title }}
                 </th>
-                <th>{{ $t("message.29") }}</th>
-                <th>{{ $t("message.30") }}</th>
-                <th>ID</th>
+                <th align="center">{{ $t("message.29") }}</th>
+                <th align="center">{{ $t("message.30") }}</th>
+                <th align="center">ID</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="document-list">
               <!-- Document list. -->
               <tr
                 v-for="(document, idxDoc) in documents"
                 :key="`doc-${idxDoc}`"
               >
                 <!-- Number of the document in the table. -->
-                <td width="76" class="pr-0">{{ idxDoc + progressionStep }}</td>
+                <td
+                  width="76"
+                  align="left"
+                  class="pr-0"
+                  style="text-align: left !important"
+                >
+                  {{ idxDoc + progressionStep }}
+                </td>
                 <!-- Delete document. -->
-                <td width="76" class="pr-0">
+                <td width="76" align="center" class="pr-0">
                   <v-checkbox
                     hide-details
                     v-model="docsToBeDeleted"
@@ -175,7 +186,7 @@
                 <!-- Other fields. -->
                 <template v-for="(item, idxField) in fields">
                   <!-- Link to document. -->
-                  <td :key="idxField">
+                  <td align="center" :key="idxField">
                     <template v-if="idxField === 0">
                       <!-- Copy doc name to clipboard. -->
                       <span>
@@ -184,13 +195,13 @@
                           dark
                           small
                           depressed
-                          color="green darken-2"
+                          :color="btnBgColor"
                           v-bind="attrs"
                           v-on="on"
                           @click="copyLinkNameDoc(document[item.field])"
                           class="mr-2"
                         >
-                          <v-icon>mdi-content-copy</v-icon>
+                          <v-icon color="green">mdi-content-copy</v-icon>
                         </v-btn>
                       </span>
                       <!-- Link to document form. -->
@@ -213,7 +224,7 @@
                   v-html="formattingDate(document.updated_at)"
                 ></td>
                 <!-- Hash field. -->
-                <td>
+                <td align="center">
                   <!-- Button - Copy document ID to clipboard. -->
                   <v-tooltip top>
                     <template v-slot:activator="{ on, attrs }">
@@ -222,12 +233,12 @@
                         dark
                         small
                         depressed
-                        color="green darken-2"
+                        :color="btnBgColor"
                         v-bind="attrs"
                         v-on="on"
                         @click="copyHashDoc(document.hash)"
                       >
-                        <v-icon>mdi-content-copy</v-icon>
+                        <v-icon color="green">mdi-content-copy</v-icon>
                       </v-btn>
                     </template>
                     <span>{{ document.hash }}</span>
@@ -306,8 +317,11 @@
                   <v-tooltip top>
                     <template v-slot:activator="{ on }">
                       <v-btn
-                        icon
-                        :color="filter.negation ? 'blue' : 'red'"
+                        fab
+                        dark
+                        small
+                        depressed
+                        :color="btnBgColor"
                         @click="
                           [
                             (filter.negation = !filter.negation),
@@ -315,11 +329,13 @@
                           ]
                         "
                       >
-                        <v-icon v-on="on">{{
-                          filter.negation
-                            ? "mdi-minus-circle-outline"
-                            : "mdi-plus-circle-outline"
-                        }}</v-icon>
+                        <v-icon
+                          :color="filter.negation ? 'blue' : 'red'"
+                          v-on="on"
+                          >{{
+                            filter.negation ? "mdi-minus" : "mdi-plus"
+                          }}</v-icon
+                        >
                       </v-btn>
                     </template>
                     {{ $t("message.69") }}
@@ -350,7 +366,7 @@ export default {
   }),
 
   computed: {
-    ...mapState(["serviceList"]),
+    ...mapState(["serviceList", "btnBgColor"]),
     ...mapState("documentList", [
       "documents",
       "currentPageNumber",
@@ -709,5 +725,9 @@ export default {
 .v-data-table__wrapper > table > thead.document-list > tr > th {
   background: none !important;
   font-size: 0.9rem !important;
+  text-align: center !important;
+}
+.v-data-table__wrapper > table > tbody.document-list > tr > td {
+  text-align: center !important;
 }
 </style>

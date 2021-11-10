@@ -18,13 +18,8 @@
           max-width="600px"
         >
           <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              dark
-              depressed
-              color="green darken-2"
-              v-bind="attrs"
-              v-on="on"
-              >{{ $t("message.46") }}</v-btn
+            <v-btn dark depressed :color="btnBgColor" v-bind="attrs" v-on="on"
+              ><span class="green--text">{{ $t("message.46") }}</span></v-btn
             >
           </template>
           <v-card ref="updatePasswordForm">
@@ -121,12 +116,12 @@
                     depressed
                     v-bind="attrs"
                     v-on="on"
-                    color="red darken-2"
+                    :color="btnBgColor"
                     @click="
                       [updatePassResetForm(), (dialogUpdatePassword = false)]
                     "
                   >
-                    <v-icon>mdi-close</v-icon>
+                    <v-icon color="red">mdi-close</v-icon>
                   </v-btn>
                 </template>
                 {{ $t("message.18") }}
@@ -142,12 +137,12 @@
                     depressed
                     v-bind="attrs"
                     v-on="on"
-                    color="green darken-2"
+                    :color="btnBgColor"
                     :loading="dataUpdatePassword.generate"
                     :disabled="dataUpdatePassword.generate"
                     @click="customPassword()"
                   >
-                    <v-icon>mdi-cached</v-icon>
+                    <v-icon color="green">mdi-cached</v-icon>
                   </v-btn>
                 </template>
                 {{ $t("message.66") }}
@@ -162,13 +157,13 @@
                     depressed
                     v-bind="attrs"
                     v-on="on"
-                    color="yellow darken-2"
+                    :color="btnBgColor"
                     :loading="dataUpdatePassword.generate"
                     :disabled="dataUpdatePassword.generate"
                     @click="copyPassword()"
                     class="mx-4"
                   >
-                    <v-icon>mdi-content-copy</v-icon>
+                    <v-icon color="yellow darken-3">mdi-content-copy</v-icon>
                   </v-btn>
                 </template>
                 {{ $t("message.67") }}
@@ -183,11 +178,11 @@
                     depressed
                     v-bind="attrs"
                     v-on="on"
-                    color="purple darken-2"
+                    :color="btnBgColor"
                     class="my-0"
                     @click="updatePassResetForm()"
                   >
-                    <v-icon>mdi-refresh</v-icon>
+                    <v-icon color="purple">mdi-refresh</v-icon>
                   </v-btn>
                 </template>
                 {{ $t("message.68") }}
@@ -203,10 +198,10 @@
                     depressed
                     v-bind="attrs"
                     v-on="on"
-                    color="blue darken-2"
+                    :color="btnBgColor"
                     @click="updatePassword()"
                   >
-                    <v-icon>mdi-content-save</v-icon>
+                    <v-icon color="blue">mdi-content-save</v-icon>
                   </v-btn>
                 </template>
                 {{ $t("message.55") }}
@@ -282,12 +277,14 @@
                             dark
                             depressed
                             small
-                            color="#84240c"
+                            :color="btnBgColor"
                             class="mb-2"
                             v-bind="attrs"
                             v-on="on"
                           >
-                            <v-icon>mdi-plus-minus-variant</v-icon>
+                            <v-icon color="deep-orange darken-4"
+                              >mdi-plus-minus-variant</v-icon
+                            >
                           </v-btn>
                         </template>
                         <v-card>
@@ -422,12 +419,14 @@
                               dark
                               small
                               depressed
-                              color="green darken-2"
+                              :color="btnBgColor"
                               :disabled="
                                 !newValDynItem.title || !newValDynItem.value
                               "
                               @click="updateDynData(field.name, 'save')"
-                              >{{ $t("message.19") }}</v-btn
+                              ><span class="green--text">{{
+                                $t("message.19")
+                              }}</span></v-btn
                             >
                           </v-card-actions>
                           <v-divider></v-divider>
@@ -485,7 +484,7 @@
                               dark
                               small
                               depressed
-                              color="red darken-2"
+                              :color="btnBgColor"
                               :disabled="delDynItems.length === 0"
                               @click="
                                 [
@@ -498,7 +497,9 @@
                                   (delDynItems = []),
                                 ]
                               "
-                              >{{ $t("message.21") }}</v-btn
+                              ><spam class="red--text">{{
+                                $t("message.21")
+                              }}</spam></v-btn
                             >
                           </v-card-actions>
                         </v-card>
@@ -1451,13 +1452,13 @@
               dark
               small
               depressed
-              color="red darken-2"
+              :color="btnBgColor"
               :disabled="$route.params.indexDoc === 'new'"
               v-bind="attrs"
               v-on="on"
               @click="dialogDocDelete = true"
             >
-              <v-icon>mdi-close-thick</v-icon>
+              <v-icon color="red">mdi-close-thick</v-icon>
             </v-btn>
           </template>
           <span v-text="$t('message.13')"></span>
@@ -1469,14 +1470,14 @@
             <v-btn
               dark
               depressed
-              color="green darken-2"
+              :color="btnBgColor"
               v-bind="attrs"
               v-on="on"
               @click="saveDoc('save_and_new')"
             >
-              <v-icon>mdi-content-save</v-icon>
-              <v-icon>mdi-ampersand</v-icon>
-              <v-icon>mdi-file-outline</v-icon>
+              <v-icon color="green">mdi-content-save</v-icon>
+              <v-icon color="green">mdi-ampersand</v-icon>
+              <v-icon color="green">mdi-file-outline</v-icon>
             </v-btn>
           </template>
           <span v-text="$t('message.14')"></span>
@@ -1487,15 +1488,15 @@
             <v-btn
               dark
               depressed
-              color="orange darken-2"
+              :color="btnBgColor"
               class="mx-4"
               v-bind="attrs"
               v-on="on"
               @click="saveDoc('save_and_edit')"
             >
-              <v-icon>mdi-content-save</v-icon>
-              <v-icon>mdi-ampersand</v-icon>
-              <v-icon>mdi-file-document-edit-outline</v-icon>
+              <v-icon color="orange">mdi-content-save</v-icon>
+              <v-icon color="orange">mdi-ampersand</v-icon>
+              <v-icon color="orange">mdi-file-document-edit-outline</v-icon>
             </v-btn>
           </template>
           <span v-text="$t('message.15')"></span>
@@ -1508,13 +1509,13 @@
               dark
               small
               depressed
-              color="blue darken-2"
+              :color="btnBgColor"
               v-bind="attrs"
               v-on="on"
               @click="saveDoc()"
               :class="isCreatedDoc() ? '' : 'ml-4'"
             >
-              <v-icon>mdi-content-save</v-icon>
+              <v-icon color="blue">mdi-content-save</v-icon>
             </v-btn>
           </template>
           <span v-text="$t('message.16')"></span>
@@ -1592,7 +1593,7 @@ export default {
   }),
 
   computed: {
-    ...mapState(["serviceList"]),
+    ...mapState(["serviceList", "btnBgColor"]),
     ...mapState("documentList", [
       "documents",
       "currentPageNumber",

@@ -57,6 +57,7 @@ export default {
       "setUsername",
       "setIsAuthenticated",
       "setOpenPanelServiceList",
+      "setBtnBgColor",
     ]),
     ...mapMutations("documentList", [
       "setCurrentPageNumber",
@@ -92,6 +93,10 @@ export default {
       if (this.$session.exists()) {
         this.$session.set("theme_dark", this.$vuetify.theme.dark);
       }
+      const colorClass = this.$vuetify.theme.dark
+        ? "grey darken-3"
+        : "grey lighten-5";
+      this.setBtnBgColor(colorClass);
     },
   },
 };
