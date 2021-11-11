@@ -424,9 +424,14 @@
                                 !newValDynItem.title || !newValDynItem.value
                               "
                               @click="updateDynData(field.name, 'save')"
-                              ><span class="green--text">{{
-                                $t("message.19")
-                              }}</span></v-btn
+                              ><span
+                                :class="{
+                                  'green--text':
+                                    !!newValDynItem.title &&
+                                    !!newValDynItem.value,
+                                }"
+                                >{{ $t("message.19") }}</span
+                              ></v-btn
                             >
                           </v-card-actions>
                           <v-divider></v-divider>
@@ -497,9 +502,10 @@
                                   (delDynItems = []),
                                 ]
                               "
-                              ><spam class="red--text">{{
-                                $t("message.21")
-                              }}</spam></v-btn
+                              ><spam
+                                :class="{ 'red--text': delDynItems.length > 0 }"
+                                >{{ $t("message.21") }}</spam
+                              ></v-btn
                             >
                           </v-card-actions>
                         </v-card>

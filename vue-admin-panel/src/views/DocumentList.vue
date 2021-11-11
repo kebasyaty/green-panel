@@ -113,7 +113,9 @@
               @click="showFilterDoc = true"
             >
               <v-icon left color="blue">mdi-filter</v-icon>
-              <span class="blue--text">{{ $t("message.64") }}</span>
+              <span :class="{ 'blue--text': dataFilters.length > 0 }">{{
+                $t("message.64")
+              }}</span>
             </v-btn>
           </v-col>
         </v-row>
