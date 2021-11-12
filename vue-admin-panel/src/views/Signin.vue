@@ -47,17 +47,17 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark small depressed :color="btnBgColor" type="submit"
-              ><spam class="green--text">{{ $t("message.9") }}</spam></v-btn
+            <v-btn dark small depressed :color="btnGreen.bg" type="submit"
+              ><spam :class="btnGreen.text">{{ $t("message.9") }}</spam></v-btn
             >
             <v-btn
               dark
               small
               depressed
-              :color="btnBgColor"
+              :color="btnRed.bg"
               class="ml-4"
               @click="clear()"
-              ><spam class="red--text">{{ $t("message.10") }}</spam></v-btn
+              ><spam :class="btnRed.text">{{ $t("message.10") }}</spam></v-btn
             >
           </v-card-actions>
         </form>
@@ -114,7 +114,7 @@ export default {
   }),
 
   computed: {
-    ...mapState(["username", "siteKey", "btnBgColor"]),
+    ...mapState(["username", "siteKey", "btnRed", "btnGreen"]),
     usernameErrors() {
       const errors = [];
       if (!this.$v.username.$dirty) return errors;

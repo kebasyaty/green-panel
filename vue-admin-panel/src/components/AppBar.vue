@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 
 export default {
   name: "AppBar",
@@ -57,13 +57,13 @@ export default {
       "setUsername",
       "setIsAuthenticated",
       "setOpenPanelServiceList",
-      "setBtnBgColor",
     ]),
     ...mapMutations("documentList", [
       "setCurrentPageNumber",
       "setProgressionStep",
       "setDocsPerPage",
     ]),
+    ...mapActions(["changeBtnStyle"]),
     logout() {
       this.axios
         .post("/admin/logout", {})
@@ -93,10 +93,7 @@ export default {
       if (this.$session.exists()) {
         this.$session.set("theme_dark", this.$vuetify.theme.dark);
       }
-      const colorClass = this.$vuetify.theme.dark
-        ? "grey darken-3"
-        : "grey lighten-5";
-      this.setBtnBgColor(colorClass);
+      this.changeBtnStyle(this.$vuetify.theme.dark);
     },
   },
 };

@@ -34,13 +34,15 @@
                         dark
                         small
                         depressed
-                        :color="btnBgColor"
+                        :color="btnGreen.bg"
                         v-bind="attrs"
                         v-on="on"
                         @click="pasteSearchData()"
                         style="margin-top: -10px"
                       >
-                        <v-icon color="green">mdi-content-paste</v-icon>
+                        <v-icon :color="btnGreen.icon"
+                          >mdi-content-paste</v-icon
+                        >
                       </v-btn>
                     </template>
                     <span>{{ $t("message.71") }}</span>
@@ -54,11 +56,11 @@
             <v-btn
               dark
               depressed
-              :color="btnBgColor"
+              :color="btnGreen.bg"
               :to="docUrlNoIndex + '/new'"
             >
-              <v-icon left color="green">mdi-file-plus-outline</v-icon>
-              <span class="green--text">{{ $t("message.25") }}</span>
+              <v-icon left :color="btnGreen.icon">mdi-file-plus-outline</v-icon>
+              <span :class="btnGreen.text">{{ $t("message.25") }}</span>
             </v-btn>
           </v-col>
         </v-row>
@@ -69,11 +71,11 @@
               dark
               depressed
               v-if="docsToBeDeleted.length > 0"
-              :color="btnBgColor"
+              :color="btnRed.bg"
               @click="deleteDocs()"
             >
-              <v-icon left color="red">mdi-close-thick</v-icon>
-              <span class="red--text text">{{ $t("message.4") }}</span>
+              <v-icon left :color="btnRed.icon">mdi-close-thick</v-icon>
+              <span :class="btnRed.text">{{ $t("message.4") }}</span>
             </v-btn>
           </v-col>
         </v-row>
@@ -108,12 +110,12 @@
               dark
               small
               depressed
-              :color="btnBgColor"
+              :color="btnBlue.bg"
               :disabled="dataFilters.length === 0"
               @click="showFilterDoc = true"
             >
-              <v-icon left color="blue">mdi-filter</v-icon>
-              <span :class="{ 'blue--text': dataFilters.length > 0 }">{{
+              <v-icon left :color="btnBlue.icon">mdi-filter</v-icon>
+              <span :class="dataFilters.length > 0 ? btnBlue.text : ''">{{
                 $t("message.64")
               }}</span>
             </v-btn>
@@ -197,13 +199,15 @@
                           dark
                           small
                           depressed
-                          :color="btnBgColor"
+                          :color="btnGreen.bg"
                           v-bind="attrs"
                           v-on="on"
                           @click="copyLinkNameDoc(document[item.field])"
                           class="mr-2"
                         >
-                          <v-icon color="green">mdi-content-copy</v-icon>
+                          <v-icon :color="btnGreen.icon"
+                            >mdi-content-copy</v-icon
+                          >
                         </v-btn>
                       </span>
                       <!-- Link to document form. -->
@@ -235,12 +239,12 @@
                         dark
                         small
                         depressed
-                        :color="btnBgColor"
+                        :color="btnGreen.bg"
                         v-bind="attrs"
                         v-on="on"
                         @click="copyHashDoc(document.hash)"
                       >
-                        <v-icon color="green">mdi-content-copy</v-icon>
+                        <v-icon :color="btnGreen.icon">mdi-content-copy</v-icon>
                       </v-btn>
                     </template>
                     <span>{{ document.hash }}</span>
@@ -323,7 +327,7 @@
                         dark
                         small
                         depressed
-                        :color="btnBgColor"
+                        :color="filter.negation ? btnBlue.bg : btnRed.bg"
                         @click="
                           [
                             (filter.negation = !filter.negation),
@@ -332,7 +336,7 @@
                         "
                       >
                         <v-icon
-                          :color="filter.negation ? 'blue' : 'red'"
+                          :color="filter.negation ? btnBlue.icon : btnRed.icon"
                           v-on="on"
                           >{{
                             filter.negation ? "mdi-minus" : "mdi-plus"
@@ -368,7 +372,7 @@ export default {
   }),
 
   computed: {
-    ...mapState(["serviceList", "btnBgColor"]),
+    ...mapState(["serviceList", "btnRed", "btnBlue", "btnGreen"]),
     ...mapState("documentList", [
       "documents",
       "currentPageNumber",
