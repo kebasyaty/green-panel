@@ -18,8 +18,13 @@
           max-width="600px"
         >
           <template v-slot:activator="{ on, attrs }">
-            <v-btn dark depressed :color="btnGreen.bg" v-bind="attrs" v-on="on"
-              ><span :class="btnGreen.text">{{ $t("message.46") }}</span></v-btn
+            <v-btn
+              dark
+              depressed
+              color="green darken-2"
+              v-bind="attrs"
+              v-on="on"
+              ><span>{{ $t("message.46") }}</span></v-btn
             >
           </template>
           <v-card ref="updatePasswordForm">
@@ -116,12 +121,12 @@
                     depressed
                     v-bind="attrs"
                     v-on="on"
-                    :color="btnRed.bg"
+                    color="red darken-2"
                     @click="
                       [updatePassResetForm(), (dialogUpdatePassword = false)]
                     "
                   >
-                    <v-icon :color="btnRed.icon">mdi-close</v-icon>
+                    <v-icon>mdi-close</v-icon>
                   </v-btn>
                 </template>
                 {{ $t("message.18") }}
@@ -137,12 +142,12 @@
                     depressed
                     v-bind="attrs"
                     v-on="on"
-                    :color="btnGreen.bg"
+                    color="orange darken-2"
                     :loading="dataUpdatePassword.generate"
                     :disabled="dataUpdatePassword.generate"
                     @click="customPassword()"
                   >
-                    <v-icon :color="btnGreen.icon">mdi-cached</v-icon>
+                    <v-icon>mdi-cached</v-icon>
                   </v-btn>
                 </template>
                 {{ $t("message.66") }}
@@ -157,13 +162,13 @@
                     depressed
                     v-bind="attrs"
                     v-on="on"
-                    :color="btnYellow.bg"
+                    color="green darken-2"
                     :loading="dataUpdatePassword.generate"
                     :disabled="dataUpdatePassword.generate"
                     @click="copyPassword()"
                     class="mx-4"
                   >
-                    <v-icon :color="btnYellow.icon">mdi-content-copy</v-icon>
+                    <v-icon>mdi-content-copy</v-icon>
                   </v-btn>
                 </template>
                 {{ $t("message.67") }}
@@ -178,11 +183,11 @@
                     depressed
                     v-bind="attrs"
                     v-on="on"
-                    :color="btnPurple.bg"
+                    color="purple darken-2"
                     class="my-0"
                     @click="updatePassResetForm()"
                   >
-                    <v-icon :color="btnPurple.icon">mdi-refresh</v-icon>
+                    <v-icon>mdi-refresh</v-icon>
                   </v-btn>
                 </template>
                 {{ $t("message.68") }}
@@ -198,10 +203,10 @@
                     depressed
                     v-bind="attrs"
                     v-on="on"
-                    :color="btnBlue.bg"
+                    color="blue darken-2"
                     @click="updatePassword()"
                   >
-                    <v-icon :color="btnBlue.icon">mdi-content-save</v-icon>
+                    <v-icon>mdi-content-save</v-icon>
                   </v-btn>
                 </template>
                 {{ $t("message.55") }}
@@ -402,19 +407,12 @@
                               dark
                               small
                               depressed
-                              :color="btnBlue.bg"
+                              color="blue darken-2"
                               :disabled="
                                 !newValDynItem.title || !newValDynItem.value
                               "
                               @click="updateDynData(field.name, 'save')"
-                              ><span
-                                :class="
-                                  !!newValDynItem.title && !!newValDynItem.value
-                                    ? btnBlue.text
-                                    : ''
-                                "
-                                >{{ $t("message.19") }}</span
-                              ></v-btn
+                              ><span>{{ $t("message.19") }}</span></v-btn
                             >
                           </v-card-actions>
                           <v-divider></v-divider>
@@ -472,7 +470,7 @@
                               dark
                               small
                               depressed
-                              :color="btnRed.bg"
+                              color="red darken-2"
                               :disabled="delDynItems.length === 0"
                               @click="
                                 [
@@ -485,12 +483,7 @@
                                   (delDynItems = []),
                                 ]
                               "
-                              ><spam
-                                :class="
-                                  delDynItems.length > 0 ? btnRed.text : ''
-                                "
-                                >{{ $t("message.21") }}</spam
-                              ></v-btn
+                              ><spam>{{ $t("message.21") }}</spam></v-btn
                             >
                           </v-card-actions>
                         </v-card>
@@ -1396,12 +1389,10 @@
                           dark
                           depressed
                           small
-                          :color="btnDeepOrange.bg"
+                          color="orange darken-2"
                           @click="dynamicSelectionDialog[field.name] = true"
                         >
-                          <v-icon :color="btnDeepOrange.icon"
-                            >mdi-plus-minus-variant</v-icon
-                          >
+                          <v-icon>mdi-plus-minus-variant</v-icon>
                         </v-btn>
                       </template>
                     </v-autocomplete>
@@ -1447,12 +1438,10 @@
                           dark
                           depressed
                           small
-                          :color="btnDeepOrange.bg"
+                          color="orange darken-2"
                           @click="dynamicSelectionDialog[field.name] = true"
                         >
-                          <v-icon :color="btnDeepOrange.icon"
-                            >mdi-plus-minus-variant</v-icon
-                          >
+                          <v-icon>mdi-plus-minus-variant</v-icon>
                         </v-btn>
                       </template>
                     </v-autocomplete>
@@ -1473,13 +1462,13 @@
               dark
               small
               depressed
-              :color="btnRed.bg"
+              color="red darken-2"
               :disabled="$route.params.indexDoc === 'new'"
               v-bind="attrs"
               v-on="on"
               @click="dialogDocDelete = true"
             >
-              <v-icon :color="btnRed.icon">mdi-close</v-icon>
+              <v-icon>mdi-close</v-icon>
             </v-btn>
           </template>
           <span v-text="$t('message.13')"></span>
@@ -1491,14 +1480,14 @@
             <v-btn
               dark
               depressed
-              :color="btnGreen.bg"
+              color="green darken-2"
               v-bind="attrs"
               v-on="on"
               @click="saveDoc('save_and_new')"
             >
-              <v-icon :color="btnGreen.icon">mdi-content-save</v-icon>
-              <v-icon :color="btnGreen.icon">mdi-ampersand</v-icon>
-              <v-icon :color="btnGreen.icon">mdi-file-outline</v-icon>
+              <v-icon>mdi-content-save</v-icon>
+              <v-icon>mdi-ampersand</v-icon>
+              <v-icon>mdi-file-outline</v-icon>
             </v-btn>
           </template>
           <span v-text="$t('message.14')"></span>
@@ -1509,17 +1498,15 @@
             <v-btn
               dark
               depressed
-              :color="btnOrange.bg"
-              class="mx-4"
+              color="btnOrange.bg"
+              class="orange darken-2 mx-4"
               v-bind="attrs"
               v-on="on"
               @click="saveDoc('save_and_edit')"
             >
-              <v-icon :color="btnDeepOrange.icon">mdi-content-save</v-icon>
-              <v-icon :color="btnDeepOrange.icon">mdi-ampersand</v-icon>
-              <v-icon :color="btnDeepOrange.icon"
-                >mdi-file-document-edit-outline</v-icon
-              >
+              <v-icon>mdi-content-save</v-icon>
+              <v-icon>mdi-ampersand</v-icon>
+              <v-icon>mdi-file-document-edit-outline</v-icon>
             </v-btn>
           </template>
           <span v-text="$t('message.15')"></span>
@@ -1532,13 +1519,13 @@
               dark
               small
               depressed
-              :color="btnBlue.bg"
+              color="blue darken-2"
               v-bind="attrs"
               v-on="on"
               @click="saveDoc()"
               :class="isCreatedDoc() ? '' : 'ml-4'"
             >
-              <v-icon :color="btnBlue.icon">mdi-content-save</v-icon>
+              <v-icon>mdi-content-save</v-icon>
             </v-btn>
           </template>
           <span v-text="$t('message.16')"></span>
@@ -1620,7 +1607,7 @@ export default {
       "serviceList",
       "btnRed",
       "btnPurple",
-      "btnBlue",
+      "btnLightBlue",
       "btnGreen",
       "btnYellow",
       "btnOrange",

@@ -34,15 +34,13 @@
                         dark
                         small
                         depressed
-                        :color="btnGreen.bg"
+                        color="green darken-2"
                         v-bind="attrs"
                         v-on="on"
                         @click="pasteSearchData()"
                         style="margin-top: -10px"
                       >
-                        <v-icon :color="btnGreen.icon"
-                          >mdi-content-paste</v-icon
-                        >
+                        <v-icon>mdi-content-paste</v-icon>
                       </v-btn>
                     </template>
                     <span>{{ $t("message.71") }}</span>
@@ -56,11 +54,11 @@
             <v-btn
               dark
               depressed
-              :color="btnGreen.bg"
+              color="green darken-2"
               :to="docUrlNoIndex + '/new'"
             >
-              <v-icon left :color="btnGreen.icon">mdi-file-plus-outline</v-icon>
-              <span :class="btnGreen.text">{{ $t("message.25") }}</span>
+              <v-icon left>mdi-file-plus-outline</v-icon>
+              <span>{{ $t("message.25") }}</span>
             </v-btn>
           </v-col>
         </v-row>
@@ -71,11 +69,11 @@
               dark
               depressed
               v-if="docsToBeDeleted.length > 0"
-              :color="btnRed.bg"
+              color="red darken-2"
               @click="deleteDocs()"
             >
-              <v-icon left :color="btnRed.icon">mdi-close-thick</v-icon>
-              <span :class="btnRed.text">{{ $t("message.4") }}</span>
+              <v-icon left>mdi-close-thick</v-icon>
+              <span>{{ $t("message.4") }}</span>
             </v-btn>
           </v-col>
         </v-row>
@@ -110,14 +108,12 @@
               dark
               small
               depressed
-              :color="btnBlue.bg"
+              color="blue darken-2"
               :disabled="dataFilters.length === 0"
               @click="showFilterDoc = true"
             >
-              <v-icon left :color="btnBlue.icon">mdi-filter</v-icon>
-              <span :class="dataFilters.length > 0 ? btnBlue.text : ''">{{
-                $t("message.64")
-              }}</span>
+              <v-icon left>mdi-filter</v-icon>
+              <span>{{ $t("message.64") }}</span>
             </v-btn>
           </v-col>
         </v-row>
@@ -199,15 +195,13 @@
                           dark
                           small
                           depressed
-                          :color="btnGreen.bg"
+                          color="green darken-2"
                           v-bind="attrs"
                           v-on="on"
                           @click="copyLinkNameDoc(document[item.field])"
                           class="mr-2"
                         >
-                          <v-icon :color="btnGreen.icon"
-                            >mdi-content-copy</v-icon
-                          >
+                          <v-icon>mdi-content-copy</v-icon>
                         </v-btn>
                       </span>
                       <!-- Link to document form. -->
@@ -239,12 +233,12 @@
                         dark
                         small
                         depressed
-                        :color="btnGreen.bg"
+                        color="green darken-2"
                         v-bind="attrs"
                         v-on="on"
                         @click="copyHashDoc(document.hash)"
                       >
-                        <v-icon :color="btnGreen.icon">mdi-content-copy</v-icon>
+                        <v-icon>mdi-content-copy</v-icon>
                       </v-btn>
                     </template>
                     <span>{{ document.hash }}</span>
@@ -274,7 +268,6 @@
             <v-pagination
               v-if="!blockPagination"
               circle
-              color="#2196f38f"
               v-model="updateCurrentPageNumber"
               :length="pageCount"
               :total-visible="5"
@@ -327,7 +320,9 @@
                         dark
                         small
                         depressed
-                        :color="filter.negation ? btnBlue.bg : btnRed.bg"
+                        :color="
+                          filter.negation ? 'blue darken-2' : 'red darken-2'
+                        "
                         @click="
                           [
                             (filter.negation = !filter.negation),
@@ -335,13 +330,9 @@
                           ]
                         "
                       >
-                        <v-icon
-                          :color="filter.negation ? btnBlue.icon : btnRed.icon"
-                          v-on="on"
-                          >{{
-                            filter.negation ? "mdi-minus" : "mdi-plus"
-                          }}</v-icon
-                        >
+                        <v-icon v-on="on">{{
+                          filter.negation ? "mdi-minus" : "mdi-plus"
+                        }}</v-icon>
                       </v-btn>
                     </template>
                     {{ $t("message.69") }}
@@ -372,7 +363,7 @@ export default {
   }),
 
   computed: {
-    ...mapState(["serviceList", "btnRed", "btnBlue", "btnGreen"]),
+    ...mapState(["serviceList", "btnRed", "btnLightBlue", "btnGreen"]),
     ...mapState("documentList", [
       "documents",
       "currentPageNumber",

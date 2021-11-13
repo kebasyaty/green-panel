@@ -69,7 +69,6 @@ export default {
       "setServiceList",
     ]),
     ...mapMutations("ckeditor", ["setLanguageCKEditor"]),
-    ...mapActions(["changeBtnStyle"]),
     ...mapActions("popUpMsgs", ["runShowMsg"]),
     // Get a list of services and collections
     getServiceList() {
@@ -114,10 +113,9 @@ export default {
     if (this.$session.exists()) {
       this.setUsername(this.$session.get("username"));
       if (this.$session.has("theme_dark")) {
-        const isDarkTheme = this.$session.get("theme_dark");
-        this.$vuetify.theme.dark = isDarkTheme;
-        this.changeBtnStyle(isDarkTheme);
+        this.$vuetify.theme.dark = this.$session.get("theme_dark");
       }
+      //
       this.setIsAuthenticated(true);
       // Get a list of services and collections
       this.getServiceList();

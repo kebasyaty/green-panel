@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 export default {
   name: "AppBar",
@@ -63,7 +63,6 @@ export default {
       "setProgressionStep",
       "setDocsPerPage",
     ]),
-    ...mapActions(["changeBtnStyle"]),
     logout() {
       this.axios
         .post("/admin/logout", {})
@@ -89,11 +88,11 @@ export default {
         });
     },
     changeTheme() {
-      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+      const isDarkTheme = !this.$vuetify.theme.dark;
+      this.$vuetify.theme.dark = isDarkTheme;
       if (this.$session.exists()) {
-        this.$session.set("theme_dark", this.$vuetify.theme.dark);
+        this.$session.set("theme_dark", isDarkTheme);
       }
-      this.changeBtnStyle(this.$vuetify.theme.dark);
     },
   },
 };
