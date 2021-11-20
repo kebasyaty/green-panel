@@ -5,11 +5,15 @@
       "@/*": ["./src/*"]
     }
   },
+  "include": [
+    "src/**/*.js",
+    "src/**/*.vue",
+    "tests/**/*.js",
+  ],
   "exclude": [
     "dist",
     "node_modules",
-    "**/node_modules/*",
-    "**/*.spec.js",
+    "**/node_modules",
     "build",
     ".vscode",
     ".nuxt",
@@ -20,6 +24,5 @@
     "bower_components",
     ".npm",
     ".yarn"
-  ],
-  "include": ["src/**/*"]
+  ]
 }
