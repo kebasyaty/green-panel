@@ -62,7 +62,7 @@ async fn run_http_server() -> std::io::Result<()> {
                         format!(
                             concat!(
                                 "default-src 'self';",
-                                " connect-src 'self' http{0}:;",
+                                " connect-src 'self' ws: http{0}:;",
                                 " font-src 'self' data: 'unsafe-inline' http{0}:;",
                                 " img-src 'self' data: content: blob: http{0}:;",
                                 " media-src 'self' http{0}:;",
