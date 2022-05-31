@@ -55,13 +55,15 @@
     $ sudo apt update
     $ sudo apt install mongodb-org
     $ sudo systemctl enable --now mongod
+    #
     # For check
     $ mongod --version
     $ mongo --eval 'db.runCommand({ connectionStatus: 1 })' 
-    #
     $ reboot
+    #
     ### Configuration file:
     $ sudo nano /etc/mongod.conf
+    #
     ### Systemd:
     $ sudo systemctl status mongod
     $ sudo systemctl start mongod
@@ -69,6 +71,7 @@
     $ sudo systemctl restart mongod
     $ sudo systemctl enable mongod
     $ sudo systemctl disable mongod
+    #
     ### Uninstall:
     $ sudo systemctl stop mongod
     $ sudo systemctl disable mongod
@@ -144,3 +147,4 @@
     pub text_editor: Option<String>,
 
 ![Field `textarea` type and pulse CKEditor 5](https://github.com/kebasyaty/mango-panel/raw/main/images/11.png "Field `textarea` type and pulse CKEditor 5")
+s
