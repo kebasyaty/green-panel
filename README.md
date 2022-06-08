@@ -55,7 +55,6 @@
     $ sudo apt update
     $ sudo apt install mongodb-org
     $ sudo systemctl enable --now mongod
-    #
     # For check
     $ mongod --version
     $ mongo --eval 'db.runCommand({ connectionStatus: 1 })' 
