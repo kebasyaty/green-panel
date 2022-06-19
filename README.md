@@ -89,7 +89,7 @@
 #### 4. Go to the project directory and run the following commands:
     $ cargo build
     $ cargo run
-    Open in a web browser http://127.0.0.1:8088/admin
+    Open in a web browser http://127.0.0.1:8080/admin
 
 ##  Login page
 #### On the first visit to the panel, the first user with administrator rights will be created.
