@@ -7,7 +7,7 @@ pub static DEBUG: bool = true;
 pub static PROJECT_NAME: &str = "Project Name";
 // Http Server
 pub static LOCAL_DOMAIN: &str = "127.0.0.1";
-pub static PORT: u16 = 8088;
+pub static PORT: u16 = 8080;
 // Site
 pub static SITE_DOMAIN: &str = "www.site-name.net";
 // Max size of loaded content for Form and Json - 2.016 mb
