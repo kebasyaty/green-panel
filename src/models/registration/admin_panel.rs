@@ -1,5 +1,4 @@
-//! # Add models to admin panel.
-//!
+//! Add models to admin panel.
 
 use mango_orm::{CachingModel, QCommon, QPaladins, ToModel};
 use mongodb::bson::{doc, document::Document};
@@ -136,15 +135,13 @@ pub fn get_document_reg(
         if !doc_hash.is_empty() {
             let object_id = users::User::hash_to_id(doc_hash)?;
             let filter = doc! {"_id": object_id};
-            let output_data = users::User::find_one(Some(filter), None).unwrap();
-            if output_data.is_valid() {
-                json = output_data
-                    .model::<users::User>()
-                    .unwrap()
-                    .json_for_admin()?;
+            let user = users::User::find_one_to_model_instance::<users::User>(filter, None)?;
+            if user.is_some() {
+                let user = user.unwrap();
+                json = user.json_for_admin()?;
             }
         } else {
-            json = users::User::form_json_for_admin()?
+            json = users::User::to_json_for_admin()?
         }
 
     // Seller Profile
@@ -152,15 +149,15 @@ pub fn get_document_reg(
         if !doc_hash.is_empty() {
             let object_id = sellers::SellerProfile::hash_to_id(doc_hash)?;
             let filter = doc! {"_id": object_id};
-            let output_data = sellers::SellerProfile::find_one(Some(filter), None).unwrap();
-            if output_data.is_valid() {
-                json = output_data
-                    .model::<sellers::SellerProfile>()
-                    .unwrap()
-                    .json_for_admin()?;
+            let seller = sellers::SellerProfile::find_one_to_model_instance::<
+                sellers::SellerProfile,
+            >(filter, None)?;
+            if seller.is_some() {
+                let seller = seller.unwrap();
+                json = seller.json_for_admin()?;
             }
         } else {
-            json = sellers::SellerProfile::form_json_for_admin()?
+            json = sellers::SellerProfile::to_json_for_admin()?
         }
 
     // Customer Profile
@@ -168,15 +165,15 @@ pub fn get_document_reg(
         if !doc_hash.is_empty() {
             let object_id = customers::CustomerProfile::hash_to_id(doc_hash)?;
             let filter = doc! {"_id": object_id};
-            let output_data = customers::CustomerProfile::find_one(Some(filter), None).unwrap();
-            if output_data.is_valid() {
-                json = output_data
-                    .model::<customers::CustomerProfile>()
-                    .unwrap()
-                    .json_for_admin()?;
+            let customer = customers::CustomerProfile::find_one_to_model_instance::<
+                customers::CustomerProfile,
+            >(filter, None)?;
+            if customer.is_some() {
+                let customer = customer.unwrap();
+                json = customer.json_for_admin()?;
             }
         } else {
-            json = customers::CustomerProfile::form_json_for_admin()?
+            json = customers::CustomerProfile::to_json_for_admin()?
         }
 
     // Electric Car
@@ -184,12 +181,13 @@ pub fn get_document_reg(
         if !doc_hash.is_empty() {
             let object_id = cars::Car::hash_to_id(doc_hash)?;
             let filter = doc! {"_id": object_id};
-            let output_data = cars::Car::find_one(Some(filter), None).unwrap();
-            if output_data.is_valid() {
-                json = output_data.model::<cars::Car>().unwrap().json_for_admin()?;
+            let car = cars::Car::find_one_to_model_instance::<cars::Car>(filter, None)?;
+            if car.is_some() {
+                let car = car.unwrap();
+                json = car.json_for_admin()?;
             }
         } else {
-            json = cars::Car::form_json_for_admin()?
+            json = cars::Car::to_json_for_admin()?
         }
 
     // Error
@@ -216,27 +214,27 @@ pub fn save_document_reg(
         let mut model = serde_json::from_slice::<users::User>(&bytes)?;
         model.photo = app_state.base64_to_file(model.photo, "users/admins/photos");
         let output_data = model.save(None, None)?;
-        json = output_data.json_for_admin()?;
+        json = output_data.to_json_for_admin()?;
 
     // Seller Profile
     } else if model_key == sellers::SellerProfile::key() {
         let mut model = serde_json::from_slice::<sellers::SellerProfile>(&bytes)?;
         model.resume = app_state.base64_to_file(model.resume, "users/sellers/resume");
         let output_data = model.save(None, None)?;
-        json = output_data.json_for_admin()?;
+        json = output_data.to_json_for_admin()?;
 
     // Customer Profile
     } else if model_key == customers::CustomerProfile::key() {
         let mut model = serde_json::from_slice::<customers::CustomerProfile>(&bytes)?;
         let output_data = model.save(None, None)?;
-        json = output_data.json_for_admin()?;
+        json = output_data.to_json_for_admin()?;
 
     // ElectricC ar
     } else if model_key == cars::Car::key() {
         let mut model = serde_json::from_slice::<cars::Car>(&bytes)?;
         model.image = app_state.base64_to_file(model.image, "products/electric_cars/images");
         let output_data = model.save(None, None)?;
-        json = output_data.json_for_admin()?;
+        json = output_data.to_json_for_admin()?;
 
     // Error
     } else {
@@ -258,38 +256,50 @@ pub fn delete_document_reg(
 
     // User
     if model_key == users::User::key() {
-        let output_data = users::User::find_one(Some(filter), None)?;
-        let instance = output_data.model::<users::User>()?;
-        let output_data = instance.delete(None)?;
-        if !output_data.is_valid() {
-            msg_err = output_data.err_msg();
+        let user = users::User::find_one_to_model_instance::<users::User>(filter, None)?;
+        if user.is_some() {
+            let user = user.unwrap();
+            let output_data = user.delete(None)?;
+            if !output_data.is_valid() {
+                msg_err = output_data.err_msg();
+            }
         }
 
     // Seller Profile
     } else if model_key == sellers::SellerProfile::key() {
-        let output_data = sellers::SellerProfile::find_one(Some(filter), None)?;
-        let instance = output_data.model::<sellers::SellerProfile>()?;
-        let output_data = instance.delete(None)?;
-        if !output_data.is_valid() {
-            msg_err = output_data.err_msg();
+        let seller = sellers::SellerProfile::find_one_to_model_instance::<sellers::SellerProfile>(
+            filter, None,
+        )?;
+        if seller.is_some() {
+            let seller = seller.unwrap();
+            let output_data = seller.delete(None)?;
+            if !output_data.is_valid() {
+                msg_err = output_data.err_msg();
+            }
         }
 
     // Customer Profile
     } else if model_key == customers::CustomerProfile::key() {
-        let output_data = customers::CustomerProfile::find_one(Some(filter), None)?;
-        let instance = output_data.model::<customers::CustomerProfile>()?;
-        let output_data = instance.delete(None)?;
-        if !output_data.is_valid() {
-            msg_err = output_data.err_msg();
+        let customer = customers::CustomerProfile::find_one_to_model_instance::<
+            customers::CustomerProfile,
+        >(filter, None)?;
+        if customer.is_some() {
+            let customer = customer.unwrap();
+            let output_data = customer.delete(None)?;
+            if !output_data.is_valid() {
+                msg_err = output_data.err_msg();
+            }
         }
 
     // Electric Car
     } else if model_key == cars::Car::key() {
-        let output_data = cars::Car::find_one(Some(filter), None)?;
-        let instance = output_data.model::<cars::Car>()?;
-        let output_data = instance.delete(None)?;
-        if !output_data.is_valid() {
-            msg_err = output_data.err_msg();
+        let car = cars::Car::find_one_to_model_instance::<cars::Car>(filter, None)?;
+        if car.is_some() {
+            let car = car.unwrap();
+            let output_data = car.delete(None)?;
+            if !output_data.is_valid() {
+                msg_err = output_data.err_msg();
+            }
         }
 
     // Error

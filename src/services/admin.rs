@@ -1,8 +1,5 @@
-//! # Admin
-//! Service (Subapplication) for administration.
-//!
+//! Service (Subapplication) for admin panel.
 
-// Import
 use actix_files::Files;
 use actix_files::NamedFile;
 use actix_session::Session;
@@ -28,7 +25,7 @@ use crate::settings::general::{
     BRAND, LANGUAGE_CODE, LOGO, MAX_UPLOAD_SIZE, RE_CAPTCHA_SECRET_KEY, RE_CAPTCHA_SITE_KEY, SLOGAN,
 };
 
-// Common functions
+// Common functions.
 fn admin_file_path(inner_path: &str) -> String {
     format!("./web-admin/{}", inner_path)
 }
@@ -169,15 +166,14 @@ pub mod request_handlers {
                 // Validation of username and password
                 username = login_form.username.clone();
                 let password = login_form.password.clone();
-                let filter = Some(
-                    doc! {"username": username.clone(), "is_admin": true, "is_staff": true, "is_active": true},
-                );
+                let filter = doc! {"username": username.clone(), "is_admin": true, "is_staff": true, "is_active": true};
                 // Search for a user in the database
-                let output_data = users::User::find_one(filter, None).unwrap();
+                let user =
+                    users::User::find_one_to_model_instance::<users::User>(filter, None).unwrap();
                 // Check search result
-                if output_data.is_valid() {
+                if user.is_some() {
                     // Get an instance of a User model
-                    let user = output_data.model::<users::User>().unwrap();
+                    let user = user.unwrap();
                     // Check password
                     let is_admin = user.is_admin.unwrap();
                     let is_staff = user.is_staff.unwrap();
@@ -399,7 +395,9 @@ pub mod request_handlers {
                 for (field_name, widget_type) in map_widget_type {
                     if fields_name.contains(field_name) {
                         match widget_type.as_str() {
-                            "inputText"| "hiddenText" => tmp_doc.push(doc! {field_name: search_query}),
+                            "inputText" | "hiddenText" => {
+                                tmp_doc.push(doc! {field_name: search_query})
+                            }
                             _ => {}
                         }
                     }
@@ -1074,23 +1072,21 @@ pub mod request_handlers {
             if !query.doc_hash.is_empty() {
                 let object_id = users::User::hash_to_id(query.doc_hash.as_str()).unwrap();
                 let filter = doc! {"_id": object_id};
-                let output_data = users::User::find_one(Some(filter), None).unwrap();
-                if output_data.is_valid() {
-                    if let Ok(instance) = output_data.model::<users::User>() {
-                        if !instance
-                            .update_password(
-                                query.old_pass.as_str(),
-                                query.new_pass.as_str(),
-                                None,
-                                None,
-                            )
-                            .unwrap()
-                        {
-                            msg_err =
-                                "Sorry, your password has not been updated. Try again.".to_string();
-                        }
-                    } else {
-                        return Err(error::ErrorBadRequest("No model instance was received."));
+                let user =
+                    users::User::find_one_to_model_instance::<users::User>(filter, None).unwrap();
+                if user.is_some() {
+                    let user = user.unwrap();
+                    if !user
+                        .update_password(
+                            query.old_pass.as_str(),
+                            query.new_pass.as_str(),
+                            None,
+                            None,
+                        )
+                        .unwrap()
+                    {
+                        msg_err =
+                            "Sorry, your password has not been updated. Try again.".to_string();
                     }
                 } else {
                     return Err(error::ErrorBadRequest("User is not found."));

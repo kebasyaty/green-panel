@@ -1,11 +1,3 @@
-use actix_cors::Cors;
-use actix_files::Files;
-use actix_session::CookieSession;
-use actix_web::{http, middleware, web, App, HttpResponse, HttpServer};
-
-use env_logger;
-use tera::Tera;
-
 // Application settings
 pub mod settings;
 // Specific request handlers (favicon, robots, sitemap, page_404 ...)
@@ -14,6 +6,14 @@ pub mod spices;
 pub mod services;
 // Mango-ORM Models
 pub mod models;
+
+use actix_cors::Cors;
+use actix_files::Files;
+use actix_session::CookieSession;
+use actix_web::{http, middleware, web, App, HttpResponse, HttpServer};
+
+use env_logger;
+use tera::Tera;
 
 fn main() -> std::io::Result<()> {
     // Run migration.
