@@ -188,28 +188,36 @@
                   <!-- Link to document. -->
                   <td align="center" :key="idxField">
                     <template v-if="idxField === 0">
-                      <!-- Copy doc name to clipboard. -->
-                      <span>
-                        <v-btn
-                          fab
-                          dark
-                          small
-                          depressed
-                          color="green darken-2"
-                          v-bind="attrs"
-                          v-on="on"
-                          @click="copyLinkNameDoc(document[item.field])"
-                          class="mr-2"
-                        >
-                          <v-icon>mdi-content-copy</v-icon>
-                        </v-btn>
-                      </span>
-                      <!-- Link to document form. -->
-                      <span>
-                        <router-link :to="getDocFormUrl(idxDoc)">{{
-                          document[item.field]
-                        }}</router-link>
-                      </span>
+                      <table>
+                        <tr>
+                          <td>
+                            <!-- Copy doc name to clipboard. -->
+                            <span>
+                              <v-btn
+                                fab
+                                dark
+                                small
+                                depressed
+                                color="green darken-2"
+                                v-bind="attrs"
+                                v-on="on"
+                                @click="copyLinkNameDoc(document[item.field])"
+                                class="mr-2"
+                              >
+                                <v-icon>mdi-content-copy</v-icon>
+                              </v-btn>
+                            </span>
+                          </td>
+                          <td>
+                            <!-- Link to document form. -->
+                            <span>
+                              <router-link :to="getDocFormUrl(idxDoc)">{{
+                                document[item.field]
+                              }}</router-link>
+                            </span>
+                          </td>
+                        </tr>
+                      </table>
                     </template>
                     <span v-else v-html="document[item.field]"></span>
                   </td>

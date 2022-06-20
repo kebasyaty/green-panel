@@ -1,7 +1,7 @@
 // English
 export default {
   message: {
-    0: "Reload panel",
+    0: "Home page",
     1: "Light or Dark theme",
     2: "Logout",
     3: "Search",

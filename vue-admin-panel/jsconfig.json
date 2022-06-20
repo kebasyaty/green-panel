@@ -2,7 +2,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "~/*": ["./*"],
+      "@/*": ["./*"],
+      "~~/*": ["./*"],
+      "@@/*": ["./*"]
     }
   },
   "include": [
@@ -15,6 +18,8 @@
     "node_modules",
     "**/node_modules",
     "build",
+    "public",
+    "static",
     ".vscode",
     ".nuxt",
     "coverage",
@@ -23,6 +28,7 @@
     "temp",
     "bower_components",
     ".npm",
-    ".yarn"
+    ".yarn",
+    ".git",
   ]
 }

@@ -9,7 +9,7 @@
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on" :href="homeUrl">
-          <v-icon>mdi-reload</v-icon>
+          <v-icon>mdi-home</v-icon>
         </v-btn>
       </template>
       <span>{{ $t("message.0") }}</span>
