@@ -13,8 +13,9 @@ pub static SITE_DOMAIN: &str = "www.site-name.net";
 // Max size of loaded content for Form and Json - 2.016 mb
 pub static MAX_UPLOAD_SIZE: usize = (2.016 * 1024.0 * 1024.0) as usize;
 // Security
-// http://www.miniwebtool.com/django-secret-key-generator/
-pub static SECRET_KEY: &str = "hf@$%#-ftw(ia4jualowaqlejtm17h*98pzqk18bd65um5_xnx";
+// https://passwordsgenerator.net/
+// Hint: Minimum 64 characters.
+pub static SECRET_KEY: &str = "-H%QdH?ga$pLA39P2%86@KjArWp-G6$jA@Zk%nF2+jgZeKq8Wxf-sQL!_mh2wmKQ";
 // Session
 pub static SESSION_KEY: &[u8] = SECRET_KEY.as_bytes();
 // Files
