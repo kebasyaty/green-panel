@@ -1,4 +1,5 @@
 # vue-admin-panel
+#### The client part of the project, created on the Vue.js framework.
 
 ## Visual Studio Code
 ### Plugins:
