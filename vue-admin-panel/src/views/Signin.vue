@@ -2,16 +2,8 @@
   <v-container fluid fill-height>
     <v-row justify="space-around">
       <v-card width="400" class="pa-4">
-        <v-icon
-          v-if="is_lock_open"
-          large
-          color="green darken-2"
-          class="icon-lock"
-        >
-          mdi-lock-open-variant</v-icon
-        >
-        <v-icon v-else large color="green darken-2" class="icon-lock">
-          mdi-lock</v-icon
+        <v-icon large color="green darken-2" class="icon-lock">
+          {{ is_lock_open ? "mdi-lock-open-variant" : "mdi-lock" }}</v-icon
         >
         <!-- Countdown -->
         <v-card-title
