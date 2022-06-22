@@ -13,7 +13,7 @@
 - [Sublime Material Theme](https://marketplace.visualstudio.com/items?itemName=jprestidge.theme-material-theme "Sublime Material Theme")
 - [Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme "Material Icon Theme")
 
-#### Settings for "Highlight Matching Tag"
+#### Settings for "Highlight Matching Tag":
       "highlight-matching-tag.styles": {
         "opening": {
           "left": {
