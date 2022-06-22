@@ -15,7 +15,7 @@ use serde::Deserialize;
 use serde_json::{json, Value};
 
 use crate::models::{registration::admin_panel, services::accounts::users};
-use mango_orm::{QCommon, QPaladins, ToModel, FORM_STORE, MONGODB_CLIENT_STORE};
+use mango_orm::{QCommons, QPaladins, ToModel, FORM_STORE, MONGODB_CLIENT_STORE};
 
 pub use configure_urls::*;
 pub use request_handlers::*;

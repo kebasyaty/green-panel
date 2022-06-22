@@ -1,6 +1,6 @@
 //! Add models to admin panel.
 
-use mango_orm::{CachingModel, QCommon, QPaladins, ToModel};
+use mango_orm::{CachingModel, QCommons, QPaladins, ToModel};
 use mongodb::bson::{doc, document::Document};
 use serde_json::{json, Value};
 
