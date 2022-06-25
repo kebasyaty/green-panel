@@ -146,4 +146,3 @@
     pub text_editor: Option<String>,
 
 ![Field `textarea` type and pulse CKEditor 5](https://github.com/kebasyaty/mango-panel/raw/main/images/11.png "Field `textarea` type and pulse CKEditor 5")
-s
