@@ -1256,7 +1256,7 @@
                               prepend-icon="mdi-clock-time-four-outline"
                               v-model="fieldsData[`${field.name}__time`]"
                               :label="$t('message.17')"
-                              :id="field.id"
+                              :id="`${field.id}__time`"
                               type="time"
                               :name="`${field.name}__time`"
                               :placeholder="field.placeholder"
