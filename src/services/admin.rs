@@ -229,6 +229,7 @@ pub mod request_handlers {
         session: Session,
         app_state: web::Data<settings::AppState>,
     ) -> Result<HttpResponse, Error> {
+        //
         let mut is_authenticated = false;
         let mut msg_err = String::new();
         // Access request identity
@@ -251,7 +252,7 @@ pub mod request_handlers {
                 "brand": BRAND,
                 "slogan": SLOGAN,
                 "language_code": LANGUAGE_CODE,
-                "service_list": admin_panel::service_list(),
+                "service_list": admin_panel::service_list().unwrap(),
                 "msg_err": msg_err
             })))
     }
@@ -1068,7 +1069,7 @@ pub mod request_handlers {
         }
 
         // Update password
-        if query.model_key == users::User::key() {
+        if query.model_key == users::User::key().unwrap() {
             if !query.doc_hash.is_empty() {
                 let object_id = users::User::hash_to_id(query.doc_hash.as_str()).unwrap();
                 let filter = doc! {"_id": object_id};

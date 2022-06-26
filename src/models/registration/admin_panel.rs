@@ -39,86 +39,85 @@ selectTextMult, selectTextMultDyn, selectI32Mult, selectI32MultDyn,
 selectU32Mult, selectU32MultDyn, selectI64Mult, selectI64MultDyn,
 selectF64Mult, selectF64MultDyn
 */
-pub fn service_list() -> Value {
-    json!([
-            // Users
-            // -------------------------------------------------------------------------------------
-            {
-                "service": { "title": "Users", "icon": "account-multiple" },
-                "collections": [
-                    // User
-                    {
-                        "title": "Users",
-                        "model_key": users::User::key(),
-                        "fields": [
-                            { "field": "username", "title": "Nickname" },
-                            { "field": "photo", "title": "Photo" },
-                            { "field": "first_name", "title": "First name" },
-                            { "field": "last_name", "title": "Last name" },
-                            { "field": "email", "title": "E-mail" },
-                            { "field": "phone", "title": "Phone" },
-                            { "field": "is_admin", "title": "Admin" },
-                            { "field": "is_staff", "title": "Staff" },
-                            { "field": "is_active", "title": "Active" },
-                        ]
-                    },
-                ]
-            },
-            // User Profiles
-            // -------------------------------------------------------------------------------------
-            {
-                "service": { "title": "User Profiles", "icon": "briefcase-account" },
-                "collections": [
-                    // Sellers
-                    {
-                        "title": "Sellers",
-                        "model_key": sellers::SellerProfile::key(),
-                        "fields": [
-                            { "field": "user_id", "title": "User ID" },
-                            { "field": "gender", "title": "Gender" },
-                            { "field": "city", "title": "City" },
-                            { "field": "country", "title": "Country" },
-                        ]
-                    },
-                    // Customers
-                    {
-                        "title": "Customers",
-                        "model_key": customers::CustomerProfile::key(),
-                        "fields": [
-                            { "field": "user_id", "title": "User ID" },
-                            { "field": "gender", "title": "Gender" },
-                            { "field": "city", "title": "City" },
-                            { "field": "country", "title": "Country" },
-                        ]
-                    },
-                ]
-            },
-            // Products
-            // -------------------------------------------------------------------------------------
-            {
-                "service": { "title": "Products", "icon": "cart" },
-                "collections": [
-                    // Electric Cars
-                    {
-                        "title": "Electric Cars",
-                        "model_key": cars::Car::key(),
-                        "fields": [
-                            { "field": "model", "title": "Model" },
-                            { "field": "image", "title": "Image" },
-                            { "field": "year", "title": "Year" },
-                            { "field": "style", "title": "Style" },
-                            { "field": "price", "title": "Price" },
-                            { "field": "engine", "title": "Engine" },
-                            { "field": "trans", "title": "Transmission" },
-                            { "field": "drive", "title": "Drive" },
-                            { "field": "colors", "title": "Colors" },
-                            { "field": "seats", "title": "Seats" }
-                        ]
-                    }
-                ]
-            },
-        ]
-    )
+pub fn service_list() -> Result<Value, Box<dyn std::error::Error>> {
+    Ok(json!([
+        // Users
+        // -------------------------------------------------------------------------------------
+        {
+            "service": { "title": "Users", "icon": "account-multiple" },
+            "collections": [
+                // User
+                {
+                    "title": "Users",
+                    "model_key": users::User::key()?,
+                    "fields": [
+                        { "field": "username", "title": "Nickname" },
+                        { "field": "photo", "title": "Photo" },
+                        { "field": "first_name", "title": "First name" },
+                        { "field": "last_name", "title": "Last name" },
+                        { "field": "email", "title": "E-mail" },
+                        { "field": "phone", "title": "Phone" },
+                        { "field": "is_admin", "title": "Admin" },
+                        { "field": "is_staff", "title": "Staff" },
+                        { "field": "is_active", "title": "Active" },
+                    ]
+                },
+            ]
+        },
+        // User Profiles
+        // -------------------------------------------------------------------------------------
+        {
+            "service": { "title": "User Profiles", "icon": "briefcase-account" },
+            "collections": [
+                // Sellers
+                {
+                    "title": "Sellers",
+                    "model_key": sellers::SellerProfile::key()?,
+                    "fields": [
+                        { "field": "user_id", "title": "User ID" },
+                        { "field": "gender", "title": "Gender" },
+                        { "field": "city", "title": "City" },
+                        { "field": "country", "title": "Country" },
+                    ]
+                },
+                // Customers
+                {
+                    "title": "Customers",
+                    "model_key": customers::CustomerProfile::key()?,
+                    "fields": [
+                        { "field": "user_id", "title": "User ID" },
+                        { "field": "gender", "title": "Gender" },
+                        { "field": "city", "title": "City" },
+                        { "field": "country", "title": "Country" },
+                    ]
+                },
+            ]
+        },
+        // Products
+        // -------------------------------------------------------------------------------------
+        {
+            "service": { "title": "Products", "icon": "cart" },
+            "collections": [
+                // Electric Cars
+                {
+                    "title": "Electric Cars",
+                    "model_key": cars::Car::key()?,
+                    "fields": [
+                        { "field": "model", "title": "Model" },
+                        { "field": "image", "title": "Image" },
+                        { "field": "year", "title": "Year" },
+                        { "field": "style", "title": "Style" },
+                        { "field": "price", "title": "Price" },
+                        { "field": "engine", "title": "Engine" },
+                        { "field": "trans", "title": "Transmission" },
+                        { "field": "drive", "title": "Drive" },
+                        { "field": "colors", "title": "Colors" },
+                        { "field": "seats", "title": "Seats" }
+                    ]
+                }
+            ]
+        },
+    ]))
 }
 
 // Step 2
@@ -131,7 +130,7 @@ pub fn get_document_reg(
     let mut json = String::new();
 
     // User
-    if model_key == users::User::key() {
+    if model_key == users::User::key()? {
         if !doc_hash.is_empty() {
             let object_id = users::User::hash_to_id(doc_hash)?;
             let filter = doc! {"_id": object_id};
@@ -145,7 +144,7 @@ pub fn get_document_reg(
         }
 
     // Seller Profile
-    } else if model_key == sellers::SellerProfile::key() {
+    } else if model_key == sellers::SellerProfile::key()? {
         if !doc_hash.is_empty() {
             let object_id = sellers::SellerProfile::hash_to_id(doc_hash)?;
             let filter = doc! {"_id": object_id};
@@ -161,7 +160,7 @@ pub fn get_document_reg(
         }
 
     // Customer Profile
-    } else if model_key == customers::CustomerProfile::key() {
+    } else if model_key == customers::CustomerProfile::key()? {
         if !doc_hash.is_empty() {
             let object_id = customers::CustomerProfile::hash_to_id(doc_hash)?;
             let filter = doc! {"_id": object_id};
@@ -177,7 +176,7 @@ pub fn get_document_reg(
         }
 
     // Electric Car
-    } else if model_key == cars::Car::key() {
+    } else if model_key == cars::Car::key()? {
         if !doc_hash.is_empty() {
             let object_id = cars::Car::hash_to_id(doc_hash)?;
             let filter = doc! {"_id": object_id};
@@ -210,27 +209,27 @@ pub fn save_document_reg(
     let mut json = String::new();
 
     // User
-    if model_key == users::User::key() {
+    if model_key == users::User::key()? {
         let mut model = serde_json::from_slice::<users::User>(&bytes)?;
         model.photo = app_state.base64_to_file(model.photo, "users/admins/photos");
         let output_data = model.save(None, None)?;
         json = output_data.to_json_for_admin()?;
 
     // Seller Profile
-    } else if model_key == sellers::SellerProfile::key() {
+    } else if model_key == sellers::SellerProfile::key()? {
         let mut model = serde_json::from_slice::<sellers::SellerProfile>(&bytes)?;
         model.resume = app_state.base64_to_file(model.resume, "users/sellers/resume");
         let output_data = model.save(None, None)?;
         json = output_data.to_json_for_admin()?;
 
     // Customer Profile
-    } else if model_key == customers::CustomerProfile::key() {
+    } else if model_key == customers::CustomerProfile::key()? {
         let mut model = serde_json::from_slice::<customers::CustomerProfile>(&bytes)?;
         let output_data = model.save(None, None)?;
         json = output_data.to_json_for_admin()?;
 
     // ElectricC ar
-    } else if model_key == cars::Car::key() {
+    } else if model_key == cars::Car::key()? {
         let mut model = serde_json::from_slice::<cars::Car>(&bytes)?;
         model.image = app_state.base64_to_file(model.image, "products/electric_cars/images");
         let output_data = model.save(None, None)?;
@@ -255,7 +254,7 @@ pub fn delete_document_reg(
     let mut msg_err = String::new();
 
     // User
-    if model_key == users::User::key() {
+    if model_key == users::User::key()? {
         let user = users::User::find_one_to_model_instance::<users::User>(filter, None)?;
         if user.is_some() {
             let user = user.unwrap();
@@ -266,7 +265,7 @@ pub fn delete_document_reg(
         }
 
     // Seller Profile
-    } else if model_key == sellers::SellerProfile::key() {
+    } else if model_key == sellers::SellerProfile::key()? {
         let seller = sellers::SellerProfile::find_one_to_model_instance::<sellers::SellerProfile>(
             filter, None,
         )?;
@@ -279,7 +278,7 @@ pub fn delete_document_reg(
         }
 
     // Customer Profile
-    } else if model_key == customers::CustomerProfile::key() {
+    } else if model_key == customers::CustomerProfile::key()? {
         let customer = customers::CustomerProfile::find_one_to_model_instance::<
             customers::CustomerProfile,
         >(filter, None)?;
@@ -292,7 +291,7 @@ pub fn delete_document_reg(
         }
 
     // Electric Car
-    } else if model_key == cars::Car::key() {
+    } else if model_key == cars::Car::key()? {
         let car = cars::Car::find_one_to_model_instance::<cars::Car>(filter, None)?;
         if car.is_some() {
             let car = car.unwrap();
@@ -320,19 +319,19 @@ pub fn update_dyn_data_reg(
     json_options: &str,
 ) -> Result<(), Box<dyn std::error::Error>> {
     // User
-    if model_key == users::User::key() {
+    if model_key == users::User::key()? {
         users::User::db_update_dyn_widgets(json_options)?;
 
     // Seller Profile
-    } else if model_key == sellers::SellerProfile::key() {
+    } else if model_key == sellers::SellerProfile::key()? {
         sellers::SellerProfile::db_update_dyn_widgets(json_options)?;
 
     // Customer Profile
-    } else if model_key == customers::CustomerProfile::key() {
+    } else if model_key == customers::CustomerProfile::key()? {
         customers::CustomerProfile::db_update_dyn_widgets(json_options)?;
 
     // Electric Car
-    } else if model_key == cars::Car::key() {
+    } else if model_key == cars::Car::key()? {
         cars::Car::db_update_dyn_widgets(json_options)?;
 
     // Error

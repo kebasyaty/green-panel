@@ -86,7 +86,7 @@ pub mod request_handlers {
                 base_url: format!("{}://{}/products/cars", scheme, host),
                 slug_field: String::from("slug"),
                 limit: 60,
-                model_key: Car::key(),
+                model_key: Car::key().unwrap(),
                 changefreq: String::from("weekly"),
                 priority: 0.5,
             },
