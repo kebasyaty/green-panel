@@ -1468,7 +1468,7 @@
               v-on="on"
               @click="dialogDocDelete = true"
             >
-              <v-icon>mdi-close</v-icon>
+              <v-icon>mdi-delete</v-icon>
             </v-btn>
           </template>
           <span v-text="$t('message.13')"></span>
