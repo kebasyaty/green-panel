@@ -206,42 +206,38 @@ pub fn save_document_reg(
     bytes: &actix_web::web::BytesMut,
     app_state: actix_web::web::Data<settings::state::AppState>,
 ) -> Result<String, Box<dyn std::error::Error>> {
-    let mut json = String::new();
-
     // User
     if model_key == users::User::key()? {
         let mut model = serde_json::from_slice::<users::User>(&bytes)?;
         model.photo = app_state.base64_to_file(model.photo, "users/admins/photos");
         let output_data = model.save(None, None)?;
-        json = output_data.to_json_for_admin()?;
+        output_data.to_json_for_admin()
 
     // Seller Profile
     } else if model_key == sellers::SellerProfile::key()? {
         let mut model = serde_json::from_slice::<sellers::SellerProfile>(&bytes)?;
         model.resume = app_state.base64_to_file(model.resume, "users/sellers/resume");
         let output_data = model.save(None, None)?;
-        json = output_data.to_json_for_admin()?;
+        output_data.to_json_for_admin()
 
     // Customer Profile
     } else if model_key == customers::CustomerProfile::key()? {
         let mut model = serde_json::from_slice::<customers::CustomerProfile>(&bytes)?;
         let output_data = model.save(None, None)?;
-        json = output_data.to_json_for_admin()?;
+        output_data.to_json_for_admin()
 
     // ElectricC ar
     } else if model_key == cars::Car::key()? {
         let mut model = serde_json::from_slice::<cars::Car>(&bytes)?;
         model.image = app_state.base64_to_file(model.image, "products/electric_cars/images");
         let output_data = model.save(None, None)?;
-        json = output_data.to_json_for_admin()?;
+        output_data.to_json_for_admin()
 
     // Error
     } else {
         Err("Module: `src/models/registration/admin_panel` > \
              Method: `save_document_reg` : No match for `model_key`.")?
     }
-    //
-    Ok(json)
 }
 
 // Step 4
