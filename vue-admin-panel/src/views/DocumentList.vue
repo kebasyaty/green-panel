@@ -72,7 +72,7 @@
               color="red darken-2"
               @click="deleteDocs()"
             >
-              <v-icon left>mdi-close-thick</v-icon>
+              <v-icon left>mdi-delete</v-icon>
               <span>{{ $t("message.4") }}</span>
             </v-btn>
           </v-col>
