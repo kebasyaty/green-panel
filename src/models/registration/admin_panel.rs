@@ -306,25 +306,23 @@ pub fn delete_document_reg(model_key: &str, filter: Document) -> Result<String, 
 pub fn update_dyn_data_reg(model_key: &str, json_options: &str) -> Result<(), Box<dyn Error>> {
     // User
     if model_key == users::User::key()? {
-        users::User::db_update_dyn_widgets(json_options)?;
+        users::User::db_update_dyn_widgets(json_options)
 
     // Seller Profile
     } else if model_key == sellers::SellerProfile::key()? {
-        sellers::SellerProfile::db_update_dyn_widgets(json_options)?;
+        sellers::SellerProfile::db_update_dyn_widgets(json_options)
 
     // Customer Profile
     } else if model_key == customers::CustomerProfile::key()? {
-        customers::CustomerProfile::db_update_dyn_widgets(json_options)?;
+        customers::CustomerProfile::db_update_dyn_widgets(json_options)
 
     // Electric Car
     } else if model_key == cars::Car::key()? {
-        cars::Car::db_update_dyn_widgets(json_options)?;
+        cars::Car::db_update_dyn_widgets(json_options)
 
     // Error
     } else {
         Err("Module: `src/models/registration/admin_panel` > \
              Method: `update_dyn_data_reg` : No match for `model_key`.")?
     }
-    //
-    Ok(())
 }
