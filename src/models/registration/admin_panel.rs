@@ -206,29 +206,29 @@ pub fn save_document_reg(
 ) -> Result<String, Box<dyn Error>> {
     // User
     if model_key == users::User::key()? {
-        let mut model = serde_json::from_slice::<users::User>(&bytes)?;
-        model.photo = app_state.base64_to_file(model.photo, "users/accounts/avatars");
-        let output_data = model.save(None, None)?;
+        let mut user = serde_json::from_slice::<users::User>(&bytes)?;
+        user.photo = app_state.base64_to_file(user.photo, "users/accounts/avatars");
+        let output_data = user.save(None, None)?;
         output_data.to_json_for_admin()
 
     // Seller Profile
     } else if model_key == sellers::SellerProfile::key()? {
-        let mut model = serde_json::from_slice::<sellers::SellerProfile>(&bytes)?;
-        model.resume = app_state.base64_to_file(model.resume, "users/sellers/resume");
-        let output_data = model.save(None, None)?;
+        let mut seller = serde_json::from_slice::<sellers::SellerProfile>(&bytes)?;
+        seller.resume = app_state.base64_to_file(seller.resume, "users/sellers/resume");
+        let output_data = seller.save(None, None)?;
         output_data.to_json_for_admin()
 
     // Customer Profile
     } else if model_key == customers::CustomerProfile::key()? {
-        let mut model = serde_json::from_slice::<customers::CustomerProfile>(&bytes)?;
-        let output_data = model.save(None, None)?;
+        let mut customer = serde_json::from_slice::<customers::CustomerProfile>(&bytes)?;
+        let output_data = customer.save(None, None)?;
         output_data.to_json_for_admin()
 
     // ElectricC ar
     } else if model_key == cars::Car::key()? {
-        let mut model = serde_json::from_slice::<cars::Car>(&bytes)?;
-        model.image = app_state.base64_to_file(model.image, "products/electric_cars/posters");
-        let output_data = model.save(None, None)?;
+        let mut car = serde_json::from_slice::<cars::Car>(&bytes)?;
+        car.image = app_state.base64_to_file(car.image, "products/electric_cars/posters");
+        let output_data = car.save(None, None)?;
         output_data.to_json_for_admin()
 
     // Error
