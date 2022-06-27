@@ -209,7 +209,7 @@ pub fn save_document_reg(
     // User
     if model_key == users::User::key()? {
         let mut model = serde_json::from_slice::<users::User>(&bytes)?;
-        model.photo = app_state.base64_to_file(model.photo, "users/users/photos");
+        model.photo = app_state.base64_to_file(model.photo, "users/accounts/avatars");
         let output_data = model.save(None, None)?;
         output_data.to_json_for_admin()
 
@@ -229,7 +229,7 @@ pub fn save_document_reg(
     // ElectricC ar
     } else if model_key == cars::Car::key()? {
         let mut model = serde_json::from_slice::<cars::Car>(&bytes)?;
-        model.image = app_state.base64_to_file(model.image, "products/electric_cars/images");
+        model.image = app_state.base64_to_file(model.image, "products/electric_cars/posters");
         let output_data = model.save(None, None)?;
         output_data.to_json_for_admin()
 
