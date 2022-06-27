@@ -1,14 +1,15 @@
 //! Add models to admin panel.
 
-use mango_orm::{CachingModel, QCommons, QPaladins, ToModel};
-use mongodb::bson::{doc, document::Document};
-use serde_json::{json, Value};
-
 use crate::{
     models::services::accounts::{customers, sellers, users},
     models::services::products::cars,
     settings,
 };
+
+use mango_orm::{CachingModel, QCommons, QPaladins, ToModel};
+use mongodb::bson::{doc, document::Document};
+use serde_json::{json, Value};
+use std::error::Error;
 
 // Add models
 // *************************************************************************************************
@@ -39,7 +40,7 @@ selectTextMult, selectTextMultDyn, selectI32Mult, selectI32MultDyn,
 selectU32Mult, selectU32MultDyn, selectI64Mult, selectI64MultDyn,
 selectF64Mult, selectF64MultDyn
 */
-pub fn service_list() -> Result<Value, Box<dyn std::error::Error>> {
+pub fn service_list() -> Result<Value, Box<dyn Error>> {
     Ok(json!([
         // Users
         // -------------------------------------------------------------------------------------
@@ -123,10 +124,7 @@ pub fn service_list() -> Result<Value, Box<dyn std::error::Error>> {
 // Step 2
 // -------------------------------------------------------------------------------------------------
 // Connect models for the `src/services/admin.rs/get_document` method.
-pub fn get_document_reg(
-    model_key: &str,
-    doc_hash: &str,
-) -> Result<String, Box<dyn std::error::Error>> {
+pub fn get_document_reg(model_key: &str, doc_hash: &str) -> Result<String, Box<dyn Error>> {
     let mut json = String::new();
 
     // User
@@ -205,7 +203,7 @@ pub fn save_document_reg(
     model_key: &str,
     bytes: &actix_web::web::BytesMut,
     app_state: actix_web::web::Data<settings::state::AppState>,
-) -> Result<String, Box<dyn std::error::Error>> {
+) -> Result<String, Box<dyn Error>> {
     // User
     if model_key == users::User::key()? {
         let mut model = serde_json::from_slice::<users::User>(&bytes)?;
@@ -243,12 +241,7 @@ pub fn save_document_reg(
 // Step 4
 // -------------------------------------------------------------------------------------------------
 // Connect models for the `src/services/admin.rs/delete_document | delete_many_doc` method.
-pub fn delete_document_reg(
-    model_key: &str,
-    filter: Document,
-) -> Result<String, Box<dyn std::error::Error>> {
-    let mut msg_err = String::new();
-
+pub fn delete_document_reg(model_key: &str, filter: Document) -> Result<String, Box<dyn Error>> {
     // User
     if model_key == users::User::key()? {
         let user = users::User::find_one_to_model_instance::<users::User>(filter, None)?;
@@ -256,7 +249,7 @@ pub fn delete_document_reg(
             let user = user.unwrap();
             let output_data = user.delete(None)?;
             if !output_data.is_valid() {
-                msg_err = output_data.err_msg();
+                return Ok(output_data.err_msg());
             }
         }
 
@@ -269,7 +262,7 @@ pub fn delete_document_reg(
             let seller = seller.unwrap();
             let output_data = seller.delete(None)?;
             if !output_data.is_valid() {
-                msg_err = output_data.err_msg();
+                return Ok(output_data.err_msg());
             }
         }
 
@@ -282,7 +275,7 @@ pub fn delete_document_reg(
             let customer = customer.unwrap();
             let output_data = customer.delete(None)?;
             if !output_data.is_valid() {
-                msg_err = output_data.err_msg();
+                return Ok(output_data.err_msg());
             }
         }
 
@@ -293,7 +286,7 @@ pub fn delete_document_reg(
             let car = car.unwrap();
             let output_data = car.delete(None)?;
             if !output_data.is_valid() {
-                msg_err = output_data.err_msg();
+                return Ok(output_data.err_msg());
             }
         }
 
@@ -303,17 +296,14 @@ pub fn delete_document_reg(
              Method: `delete_document_reg | delete_many_doc` : No match for `model_key`.")?
     }
     //
-    Ok(msg_err)
+    Ok(String::new())
 }
 
 // Step 5
 // -------------------------------------------------------------------------------------------------
 // Connect models for the `src/services/admin.rs/update_dyn_data` method.
 // Hint: Refresh data for dynamic widgets.
-pub fn update_dyn_data_reg(
-    model_key: &str,
-    json_options: &str,
-) -> Result<(), Box<dyn std::error::Error>> {
+pub fn update_dyn_data_reg(model_key: &str, json_options: &str) -> Result<(), Box<dyn Error>> {
     // User
     if model_key == users::User::key()? {
         users::User::db_update_dyn_widgets(json_options)?;
