@@ -240,7 +240,7 @@ pub fn save_document_reg(
 
 // Step 4
 // -------------------------------------------------------------------------------------------------
-// Connect models for the `src/services/admin.rs/delete_document | delete_many_doc` method.
+// Connect models for the `src/services/admin.rs/delete_document` ( delete_many_doc method ).
 pub fn delete_document_reg(model_key: &str, filter: Document) -> Result<String, Box<dyn Error>> {
     // User
     if model_key == users::User::key()? {
