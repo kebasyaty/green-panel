@@ -224,7 +224,7 @@ pub fn save_document_reg(
         let output_data = customer.save(None, None)?;
         output_data.to_json_for_admin()
 
-    // ElectricC ar
+    // ElectricCar
     } else if model_key == cars::Car::key()? {
         let mut car = serde_json::from_slice::<cars::Car>(&bytes)?;
         car.image = app_state.base64_to_file(car.image, "products/electric_cars/posters");
