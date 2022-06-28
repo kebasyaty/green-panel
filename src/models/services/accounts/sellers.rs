@@ -21,6 +21,7 @@ pub struct SellerProfile {
     #[field_attrs(
         widget = "inputText",
         label = "User ID",
+        required = true,
         unique = true, // For relationship effect OneToOne.
         placeholder = "Enter your user ID"
     )]
