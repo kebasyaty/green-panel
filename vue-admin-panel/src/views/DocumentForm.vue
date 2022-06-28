@@ -1991,6 +1991,20 @@ export default {
           case "inputDateTime":
             vMenu[field.name] = false;
             vMenu[`${field.name}__time`] = false;
+            if (
+              this.$route.params.indexDoc === "new" &&
+              (field.name === "created_at" || field.name === "updated_at")
+            ) {
+              field.is_hide = true;
+            }
+            switch (field.name) {
+              case "created_at":
+                field.label = this.$t("message.72");
+                break;
+              case "updated_at":
+                field.label = this.$t("message.73");
+                break;
+            }
             field.min = field.min || "";
             field.max = field.max || "";
             tmp = field.value || "";

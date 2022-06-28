@@ -73,5 +73,7 @@ export default {
     69: "Presence | Absence",
     70: "ERROR: ReCAPTCHA v3 - Missing siteKey.",
     71: "Paste data from clipboard.",
+    72: "Created at",
+    73: "Updated at",
   },
 };
