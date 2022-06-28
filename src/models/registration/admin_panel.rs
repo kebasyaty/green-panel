@@ -207,7 +207,7 @@ pub fn save_document_reg(
     // User
     if model_key == users::User::key()? {
         let mut user = serde_json::from_slice::<users::User>(&bytes)?;
-        user.photo = app_state.base64_to_file(user.photo, "users/accounts/avatars");
+        user.photo = app_state.base64_to_file(user.photo, "users/avatars");
         let output_data = user.save(None, None)?;
         output_data.to_json_for_admin()
 
