@@ -2322,10 +2322,12 @@ export default {
                       name: fileName,
                       base64: data,
                       is_delete:
-                        this.fieldsData[field.name].url !== undefined &&
-                        this.fieldsData[field.name].url.length > 0
-                          ? true
-                          : this.fieldsData[field.name].is_delete,
+                        this.$route.params.indexDoc !== "new"
+                          ? this.fieldsData[field.name].url !== undefined &&
+                            this.fieldsData[field.name].url.length > 0
+                            ? true
+                            : false
+                          : false,
                     });
                     response(++counter);
                   })
