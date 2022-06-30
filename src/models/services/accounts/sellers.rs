@@ -95,11 +95,16 @@ impl AdditionalValidation for SellerProfile {
         let user_id = self.user_id.clone().unwrap_or_default();
 
         // Fields validation
-        let object_id = ObjectId::with_string(user_id.as_str())?;
-        let filter = doc! {"_id": object_id};
-        let count = users::User::count_documents(Some(filter), None)?;
-        if count == 0 {
-            error_map.insert("user_id", "The user's ID does not match.");
+        let object_id = ObjectId::with_string(user_id.as_str());
+        if object_id.is_ok() {
+            let object_id = object_id?;
+            let filter = doc! {"_id": object_id};
+            let count = users::User::count_documents(Some(filter), None)?;
+            if count == 0 {
+                error_map.insert("user_id", "The user's ID does not match.");
+            }
+        } else {
+            error_map.insert("user_id", "Invalid user ID.");
         }
 
         Ok(error_map)
