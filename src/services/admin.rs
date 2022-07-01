@@ -26,7 +26,7 @@ use crate::settings::general::{
 };
 
 // Common functions.
-fn admin_file_path(inner_path: &str) -> String {
+fn admin_get_file_path(inner_path: &str) -> String {
     format!("./web-admin/{}", inner_path)
 }
 
@@ -95,7 +95,7 @@ pub mod request_handlers {
             }
         }
         // Get path to admin page
-        let path = admin_file_path("index.html");
+        let path = admin_get_file_path("index.html");
         // Return response
         Ok(NamedFile::open(path)?)
     }
@@ -697,45 +697,39 @@ pub mod request_handlers {
                             tmp_doc.insert(field_name, result.to_string());
                         }
                         "inputImage" => {
-                            tmp_doc.insert(
-                                field_name,
-                                if let Ok(img_bson) = doc.get_document(field_name) {
-                                        let urls: [&str; 5] = ["url_xs", "url_sm", "url_md", "url_lg", "url"];
-                                        let mut img_url: &str = "";
-                                        for url in urls.iter() {
-                                            if let Ok(img) = img_bson.get_str(url) {
-                                                img_url = img;
-                                                break;
-                                            }
-                                        }
-                                        if !img_url.is_empty() {
-                                            format!(
+                            let mut img_html = String::new();
+                            if let Ok(img_bson) = doc.get_document(field_name) {
+                                let urls: [&str; 5] =
+                                    ["url_xs", "url_sm", "url_md", "url_lg", "url"];
+                                for url in urls.iter() {
+                                    if let Ok(thumbnail_url) = img_bson.get_str(url) {
+                                        if !thumbnail_url.is_empty() {
+                                            img_html = format!(
                                                 r#"<img class="rounded-lg mt-1" src="{}" height="40" alt="Image">"#,
-                                                img_url
-                                            )
-                                        } else {
-                                            String::new()
+                                                thumbnail_url
+                                            );
+                                            break;
                                         }
-                                } else {
-                                    String::new()
+                                    }
                                 }
-                            );
+                            }
+                            tmp_doc.insert(field_name, img_html);
                         }
                         "checkBox" => {
-                            let bool_val = doc.get_bool(field_name).unwrap_or(false);
-                            let icon_name = if bool_val {
-                                "checkbox-marked-outline"
+                            let checked = doc.get_bool(field_name).unwrap_or(false);
+                            let (icon_name, color_name) = if checked {
+                                ("checkbox-marked-outline", "orange")
                             } else {
-                                "checkbox-blank-outline"
+                                ("checkbox-blank-outline", "lime")
                             };
                             tmp_doc.insert(
                                 field_name,
-                                format!(r#"<span class="mdi mdi-24px mdi-{} lime--text text--darken-1"></span>"#, icon_name),
+                                format!(r#"<span class="mdi mdi-24px mdi-{} {}--text text--darken-1"></span>"#, icon_name, color_name),
                             );
                         }
                         _ => {
                             let msg = format!(
-                                "admin_panel/service_list() > Field: `{}` : Invalid data type.",
+                                "services/admin/service_list() > Field: `{}` -> Invalid Widget type.",
                                 field_name
                             );
                             return Err(error::ErrorBadRequest(msg));

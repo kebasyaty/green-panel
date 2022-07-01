@@ -605,7 +605,7 @@ export default {
       const local = new Date(date + "Z");
       const localDate = local.toLocaleDateString([this.$i18n.locale, "en"]);
       const localTime = local.toLocaleTimeString().slice(0, 8);
-      return `<span class="cyan--text text--darken-2">${localDate}</span> <span class="orange--text text--darken-2">${localTime}</span>`;
+      return `<span class="cyan--text text--darken-1 font-weight-black">${localDate}</span> <span class="orange--text text--darken-1 font-weight-black">${localTime}</span>`;
     },
     // Mark all documents for deletion.
     markAllDocsForDeletion() {
