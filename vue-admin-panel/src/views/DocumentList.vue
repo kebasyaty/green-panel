@@ -192,29 +192,30 @@
                         <tr>
                           <td>
                             <!-- Copy doc name to clipboard. -->
-                            <span>
-                              <v-btn
-                                fab
-                                dark
-                                small
-                                depressed
-                                color="green darken-2"
-                                v-bind="attrs"
-                                v-on="on"
-                                @click="copyLinkNameDoc(document[item.field])"
-                                class="mr-2"
-                              >
-                                <v-icon>mdi-content-copy</v-icon>
-                              </v-btn>
-                            </span>
+                            <v-tooltip top>
+                              <template v-slot:activator="{ on, attrs }">
+                                <v-btn
+                                  fab
+                                  dark
+                                  small
+                                  depressed
+                                  color="green darken-2"
+                                  v-bind="attrs"
+                                  v-on="on"
+                                  @click="copyLinkNameDoc(document[item.field])"
+                                  class="mr-2"
+                                >
+                                  <v-icon>mdi-content-copy</v-icon>
+                                </v-btn>
+                              </template>
+                              <span>{{ document[item.field] }}</span>
+                            </v-tooltip>
                           </td>
                           <td>
                             <!-- Link to document form. -->
-                            <span>
-                              <router-link :to="getDocFormUrl(idxDoc)">{{
-                                document[item.field]
-                              }}</router-link>
-                            </span>
+                            <router-link :to="getDocFormUrl(idxDoc)">{{
+                              document[item.field]
+                            }}</router-link>
                           </td>
                         </tr>
                       </table>

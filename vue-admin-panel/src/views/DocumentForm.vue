@@ -1952,6 +1952,8 @@ export default {
 
       document.forEach((field) => {
         let tmp;
+        //
+        field.error = field.error.replace(/<br>/g, " ");
 
         switch (field.widget) {
           case "inputText":
