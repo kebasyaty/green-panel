@@ -387,9 +387,8 @@ pub mod request_handlers {
             // -------------------------------------------------------------------------------------
             // Query filter
             let mut filter = None;
-            // If the query string looks like an id hash.
-            let re_is_hash = regex::Regex::new(r"^[a-f0-9]{24}$").unwrap();
-            if re_is_hash.is_match(search_query) {
+            // If the query string looks like an id hash.;
+            if ObjectId::with_string(search_query).is_ok() {
                 let mut tmp_doc: Vec<Document> = Vec::new();
                 let object_id = ObjectId::with_string(search_query).unwrap();
                 tmp_doc.push(doc! {"_id": object_id});
