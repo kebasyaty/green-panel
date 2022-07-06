@@ -319,22 +319,22 @@ pub fn delete_document_reg(model_key: &str, filter: Document) -> Result<String, 
 // -------------------------------------------------------------------------------------------------
 /// Connect models for the `src/services/admin.rs/update_dyn_data` method.
 /// Hint: Refresh data for dynamic widgets.
-pub fn update_dyn_data_reg(model_key: &str, json_options: &str) -> Result<(), Box<dyn Error>> {
+pub fn update_dyn_data_reg(model_key: &str, options_json: &str) -> Result<(), Box<dyn Error>> {
     // User
     if model_key == users::User::key()? {
-        users::User::db_update_dyn_widgets(json_options)
+        users::User::db_update_dyn_widgets(options_json)
 
     // Seller Profile
     } else if model_key == sellers::SellerProfile::key()? {
-        sellers::SellerProfile::db_update_dyn_widgets(json_options)
+        sellers::SellerProfile::db_update_dyn_widgets(options_json)
 
     // Customer Profile
     } else if model_key == customers::CustomerProfile::key()? {
-        customers::CustomerProfile::db_update_dyn_widgets(json_options)
+        customers::CustomerProfile::db_update_dyn_widgets(options_json)
 
     // Electric Car
     } else if model_key == cars::Car::key()? {
-        cars::Car::db_update_dyn_widgets(json_options)
+        cars::Car::db_update_dyn_widgets(options_json)
 
     // Error
     } else {
