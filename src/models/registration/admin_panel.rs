@@ -9,7 +9,7 @@ use crate::{
 };
 
 use mango_orm::{CachingModel, QCommons, QPaladins, ToModel};
-use mongodb::bson::{doc, document::Document};
+use mongodb::bson::{doc, document::Document, oid::ObjectId};
 use serde_json::{json, Value};
 use std::error::Error;
 
@@ -127,26 +127,26 @@ pub fn service_list() -> Result<Value, Box<dyn Error>> {
 // -------------------------------------------------------------------------------------------------
 /// Connect models for the `src/services/admin.rs/get_document` method.
 pub fn get_document_reg(model_key: &str, doc_hash: &str) -> Result<String, Box<dyn Error>> {
-    let mut json = String::new();
+    let mut json_line = String::new();
 
     // User
     if model_key == users::User::key()? {
-        let object_id = users::User::hash_to_id(doc_hash);
+        let object_id = ObjectId::with_string(doc_hash);
         if object_id.is_ok() {
             let object_id = object_id.unwrap();
             let filter = doc! {"_id": object_id};
             let user = users::User::find_one_to_model_instance::<users::User>(filter, None)?;
             if user.is_some() {
                 let user = user.unwrap();
-                json = user.json_for_admin()?;
+                json_line = user.json_for_admin()?;
             }
         } else {
-            json = users::User::to_json_for_admin()?
+            json_line = users::User::to_json_for_admin()?
         }
 
     // Seller Profile
     } else if model_key == sellers::SellerProfile::key()? {
-        let object_id = sellers::SellerProfile::hash_to_id(doc_hash);
+        let object_id = ObjectId::with_string(doc_hash);
         if object_id.is_ok() {
             let object_id = object_id.unwrap();
             let filter = doc! {"_id": object_id};
@@ -155,15 +155,15 @@ pub fn get_document_reg(model_key: &str, doc_hash: &str) -> Result<String, Box<d
             >(filter, None)?;
             if seller.is_some() {
                 let seller = seller.unwrap();
-                json = seller.json_for_admin()?;
+                json_line = seller.json_for_admin()?;
             }
         } else {
-            json = sellers::SellerProfile::to_json_for_admin()?
+            json_line = sellers::SellerProfile::to_json_for_admin()?
         }
 
     // Customer Profile
     } else if model_key == customers::CustomerProfile::key()? {
-        let object_id = customers::CustomerProfile::hash_to_id(doc_hash);
+        let object_id = ObjectId::with_string(doc_hash);
         if object_id.is_ok() {
             let object_id = object_id.unwrap();
             let filter = doc! {"_id": object_id};
@@ -172,25 +172,25 @@ pub fn get_document_reg(model_key: &str, doc_hash: &str) -> Result<String, Box<d
             >(filter, None)?;
             if customer.is_some() {
                 let customer = customer.unwrap();
-                json = customer.json_for_admin()?;
+                json_line = customer.json_for_admin()?;
             }
         } else {
-            json = customers::CustomerProfile::to_json_for_admin()?
+            json_line = customers::CustomerProfile::to_json_for_admin()?
         }
 
     // Car
     } else if model_key == cars::Car::key()? {
-        let object_id = cars::Car::hash_to_id(doc_hash);
+        let object_id = ObjectId::with_string(doc_hash);
         if object_id.is_ok() {
             let object_id = object_id.unwrap();
             let filter = doc! {"_id": object_id};
             let car = cars::Car::find_one_to_model_instance::<cars::Car>(filter, None)?;
             if car.is_some() {
                 let car = car.unwrap();
-                json = car.json_for_admin()?;
+                json_line = car.json_for_admin()?;
             }
         } else {
-            json = cars::Car::to_json_for_admin()?
+            json_line = cars::Car::to_json_for_admin()?
         }
 
     // Error
@@ -199,7 +199,7 @@ pub fn get_document_reg(model_key: &str, doc_hash: &str) -> Result<String, Box<d
              Method: `get_document_reg` : No match for `model_key`.")?
     }
     //
-    Ok(json)
+    Ok(json_line)
 }
 
 // Step 3
