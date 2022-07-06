@@ -178,7 +178,7 @@ pub fn get_document_reg(model_key: &str, doc_hash: &str) -> Result<String, Box<d
             json = customers::CustomerProfile::to_json_for_admin()?
         }
 
-    // Electric Car
+    // Car
     } else if model_key == cars::Car::key()? {
         let object_id = cars::Car::hash_to_id(doc_hash);
         if object_id.is_ok() {
@@ -230,7 +230,7 @@ pub fn save_document_reg(
         let output_data = customer.save(None, None)?;
         output_data.to_json_for_admin()
 
-    // ElectricCar
+    // Car
     } else if model_key == cars::Car::key()? {
         let mut car = serde_json::from_slice::<cars::Car>(&bytes)?;
         car.image = app_state.base64_to_file(car.image, "products/cars/posters");
@@ -293,7 +293,7 @@ pub fn delete_document_reg(model_key: &str, filter: Document) -> Result<String, 
             err_msg = String::from("Document is missing.");
         }
 
-    // Electric Car
+    // Car
     } else if model_key == cars::Car::key()? {
         let car = cars::Car::find_one_to_model_instance::<cars::Car>(filter, None)?;
         if car.is_some() {
@@ -332,7 +332,7 @@ pub fn update_dyn_data_reg(model_key: &str, options_json: &str) -> Result<(), Bo
     } else if model_key == customers::CustomerProfile::key()? {
         customers::CustomerProfile::db_update_dyn_widgets(options_json)
 
-    // Electric Car
+    // Car
     } else if model_key == cars::Car::key()? {
         cars::Car::db_update_dyn_widgets(options_json)
 
