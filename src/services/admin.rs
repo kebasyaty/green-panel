@@ -768,7 +768,7 @@ pub mod request_handlers {
         let mut msg_err = String::new();
         let model_key = query.model_key.clone();
         let doc_hash = query.doc_hash.clone();
-        let mut document = String::new();
+        let mut doc_json = String::new();
 
         // Access request identity
         // -----------------------------------------------------------------------------------------
@@ -786,7 +786,12 @@ pub mod request_handlers {
         // Define the desired model by `model_key` and
         // get an instance of the model in json format (for the administrator)
         if msg_err.is_empty() {
-            document = admin_panel::get_document_reg(model_key.as_str(), doc_hash.as_str()).unwrap()
+            let result = admin_panel::get_document_reg(model_key.as_str(), doc_hash.as_str());
+            if result.is_ok() {
+                doc_json = result.unwrap();
+            } else {
+                msg_err = result.unwrap_err().to_string();
+            }
         }
 
         // Return json response
@@ -794,7 +799,7 @@ pub mod request_handlers {
         Ok(HttpResponse::Ok()
             .content_type("application/json")
             .json(json!({
-                "document": document,
+                "document": doc_json,
                 "is_authenticated": is_authenticated,
                 "msg_err": msg_err,
                 "max_size": MAX_UPLOAD_SIZE
@@ -817,7 +822,7 @@ pub mod request_handlers {
         //
         let mut is_authenticated = false;
         let mut msg_err = String::new();
-        let mut document = String::new();
+        let mut doc_json = String::new();
 
         // Access request identity
         // -----------------------------------------------------------------------------------------
@@ -848,8 +853,8 @@ pub mod request_handlers {
 
         // Define the desired model with `model_key` and save/update in the database
         if msg_err.is_empty() {
-            document =
-                admin_panel::save_document_reg(path.model_key.as_str(), &bytes, app_state).unwrap()
+            doc_json =
+                admin_panel::save_document_reg(path.model_key.as_str(), &bytes, app_state).unwrap();
         }
 
         // Return json response
@@ -858,8 +863,8 @@ pub mod request_handlers {
             .content_type("application/json")
             .json(json!({
                 "is_authenticated": is_authenticated,
+                "document": doc_json,
                 "msg_err": msg_err,
-                "document": document,
             })))
     }
 
@@ -963,7 +968,7 @@ pub mod request_handlers {
                     // Create a filter for a database query
                     let object_id = ObjectId::with_string(hash.as_str()).unwrap();
                     let filter = doc! {"_id": object_id};
-
+                    // Delete document
                     msg_err = admin_panel::delete_document_reg(model_key, filter).unwrap();
                     if !msg_err.is_empty() {
                         break;
