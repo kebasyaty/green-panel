@@ -141,6 +141,8 @@ pub fn get_document_reg(model_key: &str, doc_hash: &str) -> Result<String, Box<d
             if user.is_some() {
                 let user = user.unwrap();
                 json_line = user.json_for_admin()?;
+            } else {
+                Err("Document is missing.")?
             }
         } else {
             json_line = users::User::to_json_for_admin()?
@@ -159,6 +161,8 @@ pub fn get_document_reg(model_key: &str, doc_hash: &str) -> Result<String, Box<d
             if seller.is_some() {
                 let seller = seller.unwrap();
                 json_line = seller.json_for_admin()?;
+            } else {
+                Err("Document is missing.")?
             }
         } else {
             json_line = sellers::SellerProfile::to_json_for_admin()?
@@ -177,6 +181,8 @@ pub fn get_document_reg(model_key: &str, doc_hash: &str) -> Result<String, Box<d
             if customer.is_some() {
                 let customer = customer.unwrap();
                 json_line = customer.json_for_admin()?;
+            } else {
+                Err("Document is missing.")?
             }
         } else {
             json_line = customers::CustomerProfile::to_json_for_admin()?
@@ -193,6 +199,8 @@ pub fn get_document_reg(model_key: &str, doc_hash: &str) -> Result<String, Box<d
             if car.is_some() {
                 let car = car.unwrap();
                 json_line = car.json_for_admin()?;
+            } else {
+                Err("Document is missing.")?
             }
         } else {
             json_line = cars::Car::to_json_for_admin()?
@@ -201,8 +209,10 @@ pub fn get_document_reg(model_key: &str, doc_hash: &str) -> Result<String, Box<d
     // Error
     // ---------------------------------------------------------------------------------------------
     } else {
-        Err("Module: `src/models/registration/admin_panel` > \
-             Method: `get_document_reg` : No match for `model_key`.")?
+        panic!(
+            "Module: `src/models/registration/admin_panel` > \
+             Method: `get_document_reg` : No match for `model_key`."
+        )
     }
     //
     Ok(json_line)
@@ -251,8 +261,10 @@ pub fn save_document_reg(
     // Error
     // ---------------------------------------------------------------------------------------------
     } else {
-        Err("Module: `src/models/registration/admin_panel` > \
-             Method: `save_document_reg` : No match for `model_key`.")?
+        panic!(
+            "Module: `src/models/registration/admin_panel` > \
+             Method: `save_document_reg` : No match for `model_key`."
+        )
     }
 }
 
@@ -326,8 +338,10 @@ pub fn delete_document_reg(model_key: &str, filter: Document) -> Result<String, 
     // Error
     // ---------------------------------------------------------------------------------------------
     } else {
-        Err("Module: `src/models/registration/admin_panel` > \
-             Method: `delete_document_reg | delete_many_doc` : No match for `model_key`.")?
+        panic!(
+            "Module: `src/models/registration/admin_panel` > \
+             Method: `delete_document_reg | delete_many_doc` : No match for `model_key`."
+        )
     }
     //
     Ok(err_msg)
@@ -362,7 +376,9 @@ pub fn update_dyn_data_reg(model_key: &str, options_json: &str) -> Result<(), Bo
     // Error
     // ---------------------------------------------------------------------------------------------
     } else {
-        Err("Module: `src/models/registration/admin_panel` > \
-             Method: `update_dyn_data_reg` : No match for `model_key`.")?
+        panic!(
+            "Module: `src/models/registration/admin_panel` > \
+             Method: `update_dyn_data_reg` : No match for `model_key`."
+        )
     }
 }
