@@ -1,8 +1,4 @@
-//! # Services (sub-apps)
-//!
-//! `primal` - Service/Subapplication by default.
-//! `admin` - Service/Subapplication for administration.
-//!
+//! Services (sub-apps)
 
 pub mod admin;
 pub mod primal;

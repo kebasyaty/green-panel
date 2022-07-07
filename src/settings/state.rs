@@ -1,5 +1,4 @@
-//! # Application state
-//!
+//! Application state.
 
 use base64;
 use serde_json::{json, Value};

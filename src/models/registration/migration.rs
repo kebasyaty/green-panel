@@ -1,14 +1,14 @@
-//! # Registering models for migration.
-//!
+//! Registering models for migration.
+
+use mango_orm::{CachingModel, Monitor, ToModel, MONGODB_CLIENT_STORE};
 
 use crate::models::{
     services::accounts::{customers, sellers, users},
     services::products::cars,
     settings,
 };
-use mango_orm::{CachingModel, Monitor, ToModel, MONGODB_CLIENT_STORE};
 
-// Migration Service `Mango`.
+/// Migration Service `Mango`.
 // *************************************************************************************************
 pub fn mango_migration() -> Result<(), Box<dyn std::error::Error>> {
     // Caching MongoDB clients.

@@ -1,5 +1,10 @@
 //! Registering models for the admin panel.
 
+use mango_orm::{CachingModel, QCommons, QPaladins, ToModel};
+use mongodb::bson::{doc, document::Document, oid::ObjectId};
+use serde_json::{json, Value};
+use std::error::Error;
+
 use crate::{
     models::services::{
         accounts::{customers, sellers, users},
@@ -8,15 +13,10 @@ use crate::{
     settings,
 };
 
-use mango_orm::{CachingModel, QCommons, QPaladins, ToModel};
-use mongodb::bson::{doc, document::Document, oid::ObjectId};
-use serde_json::{json, Value};
-use std::error::Error;
-
 // ADD MODELS
 // =================================================================================================
 // Step 1
-// -------------------------------------------------------------------------------------------------
+// *************************************************************************************************
 // Hint: get icon name (service) - https://materialdesignicons.com/
 /*
 Fields with the following types of widgets are supported:
@@ -101,7 +101,7 @@ pub fn service_list() -> Result<Value, Box<dyn Error>> {
         {
             "service": { "title": "Products", "icon": "cart" },
             "collections": [
-                // Electric Cars
+                // Cars
                 {
                     "title": "Electric Cars",
                     "model_key": cars::Car::key()?,
@@ -124,12 +124,14 @@ pub fn service_list() -> Result<Value, Box<dyn Error>> {
 }
 
 // Step 2
-// -------------------------------------------------------------------------------------------------
-/// Connect models for the `src/services/admin.rs/get_document` method.
+// *************************************************************************************************
+/// Models registration for `src/services/admin.rs > get_document()`.
 pub fn get_document_reg(model_key: &str, doc_hash: &str) -> Result<String, Box<dyn Error>> {
+    //
     let mut json_line = String::new();
-
+    //
     // User
+    // ---------------------------------------------------------------------------------------------
     if model_key == users::User::key()? {
         let object_id = ObjectId::with_string(doc_hash);
         if object_id.is_ok() {
@@ -145,6 +147,7 @@ pub fn get_document_reg(model_key: &str, doc_hash: &str) -> Result<String, Box<d
         }
 
     // Seller Profile
+    // ---------------------------------------------------------------------------------------------
     } else if model_key == sellers::SellerProfile::key()? {
         let object_id = ObjectId::with_string(doc_hash);
         if object_id.is_ok() {
@@ -162,6 +165,7 @@ pub fn get_document_reg(model_key: &str, doc_hash: &str) -> Result<String, Box<d
         }
 
     // Customer Profile
+    // ---------------------------------------------------------------------------------------------
     } else if model_key == customers::CustomerProfile::key()? {
         let object_id = ObjectId::with_string(doc_hash);
         if object_id.is_ok() {
@@ -179,6 +183,7 @@ pub fn get_document_reg(model_key: &str, doc_hash: &str) -> Result<String, Box<d
         }
 
     // Car
+    // ---------------------------------------------------------------------------------------------
     } else if model_key == cars::Car::key()? {
         let object_id = ObjectId::with_string(doc_hash);
         if object_id.is_ok() {
@@ -194,6 +199,7 @@ pub fn get_document_reg(model_key: &str, doc_hash: &str) -> Result<String, Box<d
         }
 
     // Error
+    // ---------------------------------------------------------------------------------------------
     } else {
         Err("Module: `src/models/registration/admin_panel` > \
              Method: `get_document_reg` : No match for `model_key`.")?
@@ -203,14 +209,16 @@ pub fn get_document_reg(model_key: &str, doc_hash: &str) -> Result<String, Box<d
 }
 
 // Step 3
-// -------------------------------------------------------------------------------------------------
-/// Connect models for the `src/services/admin.rs/save_document` method.
+// *************************************************************************************************
+/// Models registration for  `src/services/admin.rs > save_document()`.
 pub fn save_document_reg(
     model_key: &str,
     bytes: &actix_web::web::BytesMut,
     app_state: actix_web::web::Data<settings::state::AppState>,
 ) -> Result<String, Box<dyn Error>> {
+    //
     // User
+    // ---------------------------------------------------------------------------------------------
     if model_key == users::User::key()? {
         let mut user = serde_json::from_slice::<users::User>(&bytes)?;
         user.photo = app_state.base64_to_file(user.photo, "users/avatars");
@@ -218,6 +226,7 @@ pub fn save_document_reg(
         output_data.to_json_for_admin()
 
     // Seller Profile
+    // ---------------------------------------------------------------------------------------------
     } else if model_key == sellers::SellerProfile::key()? {
         let mut seller = serde_json::from_slice::<sellers::SellerProfile>(&bytes)?;
         seller.resume = app_state.base64_to_file(seller.resume, "users/sellers/resume");
@@ -225,12 +234,14 @@ pub fn save_document_reg(
         output_data.to_json_for_admin()
 
     // Customer Profile
+    // ---------------------------------------------------------------------------------------------
     } else if model_key == customers::CustomerProfile::key()? {
         let mut customer = serde_json::from_slice::<customers::CustomerProfile>(&bytes)?;
         let output_data = customer.save(None, None)?;
         output_data.to_json_for_admin()
 
     // Car
+    // ---------------------------------------------------------------------------------------------
     } else if model_key == cars::Car::key()? {
         let mut car = serde_json::from_slice::<cars::Car>(&bytes)?;
         car.image = app_state.base64_to_file(car.image, "products/cars/posters");
@@ -238,6 +249,7 @@ pub fn save_document_reg(
         output_data.to_json_for_admin()
 
     // Error
+    // ---------------------------------------------------------------------------------------------
     } else {
         Err("Module: `src/models/registration/admin_panel` > \
              Method: `save_document_reg` : No match for `model_key`.")?
@@ -245,12 +257,14 @@ pub fn save_document_reg(
 }
 
 // Step 4
-// -------------------------------------------------------------------------------------------------
-/// Connect models for the `src/services/admin.rs/delete_document` ( delete_many_doc method ).
+// *************************************************************************************************
+/// Models registration for `src/services/admin.rs > delete_document()`.
 pub fn delete_document_reg(model_key: &str, filter: Document) -> Result<String, Box<dyn Error>> {
     //
     let mut err_msg = String::new();
+    //
     // User
+    // ---------------------------------------------------------------------------------------------
     if model_key == users::User::key()? {
         let user = users::User::find_one_to_model_instance::<users::User>(filter, None)?;
         if user.is_some() {
@@ -264,6 +278,7 @@ pub fn delete_document_reg(model_key: &str, filter: Document) -> Result<String, 
         }
 
     // Seller Profile
+    // ---------------------------------------------------------------------------------------------
     } else if model_key == sellers::SellerProfile::key()? {
         let seller = sellers::SellerProfile::find_one_to_model_instance::<sellers::SellerProfile>(
             filter, None,
@@ -279,6 +294,7 @@ pub fn delete_document_reg(model_key: &str, filter: Document) -> Result<String, 
         }
 
     // Customer Profile
+    // ---------------------------------------------------------------------------------------------
     } else if model_key == customers::CustomerProfile::key()? {
         let customer = customers::CustomerProfile::find_one_to_model_instance::<
             customers::CustomerProfile,
@@ -294,6 +310,7 @@ pub fn delete_document_reg(model_key: &str, filter: Document) -> Result<String, 
         }
 
     // Car
+    // ---------------------------------------------------------------------------------------------
     } else if model_key == cars::Car::key()? {
         let car = cars::Car::find_one_to_model_instance::<cars::Car>(filter, None)?;
         if car.is_some() {
@@ -307,6 +324,7 @@ pub fn delete_document_reg(model_key: &str, filter: Document) -> Result<String, 
         }
 
     // Error
+    // ---------------------------------------------------------------------------------------------
     } else {
         Err("Module: `src/models/registration/admin_panel` > \
              Method: `delete_document_reg | delete_many_doc` : No match for `model_key`.")?
@@ -316,27 +334,33 @@ pub fn delete_document_reg(model_key: &str, filter: Document) -> Result<String, 
 }
 
 // Step 5
-// -------------------------------------------------------------------------------------------------
-/// Connect models for the `src/services/admin.rs/update_dyn_data` method.
+// *************************************************************************************************
+/// Models registration for  `src/services/admin.rs > update_dyn_data()`.
 /// Hint: Refresh data for dynamic widgets.
 pub fn update_dyn_data_reg(model_key: &str, options_json: &str) -> Result<(), Box<dyn Error>> {
+    //
     // User
+    // ---------------------------------------------------------------------------------------------
     if model_key == users::User::key()? {
         users::User::db_update_dyn_widgets(options_json)
 
     // Seller Profile
+    // ---------------------------------------------------------------------------------------------
     } else if model_key == sellers::SellerProfile::key()? {
         sellers::SellerProfile::db_update_dyn_widgets(options_json)
 
     // Customer Profile
+    // ---------------------------------------------------------------------------------------------
     } else if model_key == customers::CustomerProfile::key()? {
         customers::CustomerProfile::db_update_dyn_widgets(options_json)
 
     // Car
+    // ---------------------------------------------------------------------------------------------
     } else if model_key == cars::Car::key()? {
         cars::Car::db_update_dyn_widgets(options_json)
 
     // Error
+    // ---------------------------------------------------------------------------------------------
     } else {
         Err("Module: `src/models/registration/admin_panel` > \
              Method: `update_dyn_data_reg` : No match for `model_key`.")?

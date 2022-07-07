@@ -1,8 +1,4 @@
-//! # Mango-ORM model settings
-//!
-//! `admin` - Settings for user accounts.
-//! `electric_cars` - Settings for products such as electric cars.
-//!
+//! Settings for mango-orm models.
 
 // General settings for the project.
 // *************************************************************************************************
@@ -21,8 +17,9 @@ pub const PROJECT_NAME: &str = "store";
 // To generate a key: https://passwordsgenerator.net/
 pub const UNIQUE_PROJECT_KEY: &str = "qn9JGrB3bCRMQnF";
 
-// Users
+// Accounts
 // *************************************************************************************************
+// Users
 pub mod users {
     // Valid characters: _ a-z A-Z 0-9
     // Max size: 31
@@ -37,7 +34,6 @@ pub mod users {
 }
 
 // User Profiles
-// *************************************************************************************************
 pub mod user_profiles {
     // Valid characters: _ a-z A-Z 0-9
     // Max size: 31
@@ -53,6 +49,7 @@ pub mod user_profiles {
 
 // Products
 // *************************************************************************************************
+// Cars
 pub mod cars {
     // Valid characters: _ a-z A-Z 0-9
     // Max size: 31

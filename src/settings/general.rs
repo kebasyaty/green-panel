@@ -1,5 +1,4 @@
-//! # General settings
-//!
+//! General settings.
 
 // Development status
 pub static DEBUG: bool = true;

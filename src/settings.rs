@@ -1,13 +1,12 @@
-//! # Application settings
-//!
-
-pub use corrective_functions::*;
-pub use general::*;
-pub use state::*;
+//! Application settings
 
 pub mod corrective_functions;
 pub mod general;
 pub mod state;
+
+pub use corrective_functions::*;
+pub use general::*;
+pub use state::*;
 
 // TESTS
 // #################################################################################################

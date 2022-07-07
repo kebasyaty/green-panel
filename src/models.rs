@@ -1,5 +1,4 @@
-//! # Mango-ORM Models
-//!
+//! Mango-ORM Models.
 
 pub mod registration;
 pub mod services;

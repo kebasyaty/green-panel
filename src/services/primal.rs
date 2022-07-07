@@ -1,16 +1,12 @@
-//! # Primal
 //! Service (Subapplication) by default.
-//!
 
 use actix_session::Session;
 use actix_web::{web, Error, HttpResponse};
-
+pub use configure_urls::*;
+pub use request_handlers::*;
 use tera::{Context, Tera};
 
 use crate::settings;
-
-pub use configure_urls::*;
-pub use request_handlers::*;
 
 // CONFIGURE URLs
 // #################################################################################################

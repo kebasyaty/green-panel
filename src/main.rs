@@ -11,7 +11,6 @@ use actix_cors::Cors;
 use actix_files::Files;
 use actix_session::CookieSession;
 use actix_web::{http, middleware, web, App, HttpResponse, HttpServer};
-
 use env_logger;
 use tera::Tera;
 
