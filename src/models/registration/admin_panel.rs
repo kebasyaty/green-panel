@@ -140,12 +140,12 @@ pub fn get_document_reg(model_key: &str, doc_hash: &str) -> Result<String, Box<d
             let user = users::User::find_one_to_model_instance::<users::User>(filter, None)?;
             if user.is_some() {
                 let user = user.unwrap();
-                json_line = user.json_for_admin()?;
+                json_line = user.instance_to_json_for_admin()?;
             } else {
                 Err("Document is missing.")?
             }
         } else {
-            json_line = users::User::to_json_for_admin()?
+            json_line = users::User::model_to_json_for_admin()?
         }
 
     // Seller Profile
@@ -160,12 +160,12 @@ pub fn get_document_reg(model_key: &str, doc_hash: &str) -> Result<String, Box<d
             >(filter, None)?;
             if seller.is_some() {
                 let seller = seller.unwrap();
-                json_line = seller.json_for_admin()?;
+                json_line = seller.instance_to_json_for_admin()?;
             } else {
                 Err("Document is missing.")?
             }
         } else {
-            json_line = sellers::SellerProfile::to_json_for_admin()?
+            json_line = sellers::SellerProfile::model_to_json_for_admin()?
         }
 
     // Customer Profile
@@ -180,12 +180,12 @@ pub fn get_document_reg(model_key: &str, doc_hash: &str) -> Result<String, Box<d
             >(filter, None)?;
             if customer.is_some() {
                 let customer = customer.unwrap();
-                json_line = customer.json_for_admin()?;
+                json_line = customer.instance_to_json_for_admin()?;
             } else {
                 Err("Document is missing.")?
             }
         } else {
-            json_line = customers::CustomerProfile::to_json_for_admin()?
+            json_line = customers::CustomerProfile::model_to_json_for_admin()?
         }
 
     // Car
@@ -198,12 +198,12 @@ pub fn get_document_reg(model_key: &str, doc_hash: &str) -> Result<String, Box<d
             let car = cars::Car::find_one_to_model_instance::<cars::Car>(filter, None)?;
             if car.is_some() {
                 let car = car.unwrap();
-                json_line = car.json_for_admin()?;
+                json_line = car.instance_to_json_for_admin()?;
             } else {
                 Err("Document is missing.")?
             }
         } else {
-            json_line = cars::Car::to_json_for_admin()?
+            json_line = cars::Car::model_to_json_for_admin()?
         }
 
     // Error
