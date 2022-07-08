@@ -86,7 +86,7 @@ pub mod request_handlers {
                     ..Default::default()
                 };
                 let result = first_user.save(None, None).unwrap();
-                if !result.is_valid() {
+                if !result.is_valid().unwrap() {
                     panic!(
                         "Model: `User` : Error while creating the first user. In detail: {}.",
                         result.hash().unwrap()

@@ -51,8 +51,8 @@ pub fn result(
         )?;
         if instance.is_some() {
             let output_data = instance.unwrap().delete(None)?;
-            if !output_data.is_valid() {
-                return Ok(output_data.err_msg());
+            if !output_data.is_valid()? {
+                return Ok(output_data.err_msg()?);
             }
         } else {
             return Ok(String::from("Document is missing."));

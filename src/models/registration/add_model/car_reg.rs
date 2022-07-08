@@ -46,8 +46,8 @@ pub fn result(
         let instance = cars::Car::find_one_to_model_instance::<cars::Car>(filter.unwrap(), None)?;
         if instance.is_some() {
             let output_data = instance.unwrap().delete(None)?;
-            if !output_data.is_valid() {
-                return Ok(output_data.err_msg());
+            if !output_data.is_valid()? {
+                return Ok(output_data.err_msg()?);
             }
         } else {
             return Ok(String::from("Document is missing."));
