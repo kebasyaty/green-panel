@@ -252,7 +252,7 @@ pub mod request_handlers {
                 "brand": BRAND,
                 "slogan": SLOGAN,
                 "language_code": LANGUAGE_CODE,
-                "service_list": admin_panel::service_list().unwrap(),
+                "service_list": admin_panel::get_service_list_for_admin().unwrap(),
                 "msg_err": msg_err
             })))
     }
@@ -786,7 +786,14 @@ pub mod request_handlers {
         // Define the desired model by `model_key` and
         // get an instance of the model in json format (for the administrator)
         if msg_err.is_empty() {
-            let result = admin_panel::get_document_reg(model_key.as_str(), doc_hash.as_str());
+            let result = admin_panel::get_result_for_admin(
+                model_key.as_str(),
+                Some(doc_hash.as_str()),
+                None,
+                None,
+                None,
+                None,
+            );
             if result.is_ok() {
                 doc_json = result.unwrap();
             } else {
@@ -853,8 +860,15 @@ pub mod request_handlers {
 
         // Define the desired model with `model_key` and save/update in the database
         if msg_err.is_empty() {
-            doc_json =
-                admin_panel::save_document_reg(path.model_key.as_str(), &bytes, app_state).unwrap();
+            doc_json = admin_panel::get_result_for_admin(
+                path.model_key.as_str(),
+                None,
+                Some(&bytes),
+                Some(app_state),
+                None,
+                None,
+            )
+            .unwrap();
         }
 
         // Return json response
@@ -908,8 +922,15 @@ pub mod request_handlers {
                 let object_id = ObjectId::with_string(query.doc_hash.as_str()).unwrap();
                 let filter = doc! {"_id": object_id};
 
-                msg_err =
-                    admin_panel::delete_document_reg(query.model_key.as_str(), filter).unwrap();
+                msg_err = admin_panel::get_result_for_admin(
+                    query.model_key.as_str(),
+                    None,
+                    None,
+                    None,
+                    Some(filter),
+                    None,
+                )
+                .unwrap();
             } else {
                 msg_err = "It is forbidden to perform delete.".to_string();
             }
@@ -925,7 +946,7 @@ pub mod request_handlers {
             })))
     }
 
-    // Delete document
+    // Delete documents
     // *********************************************************************************************
     #[derive(Deserialize)]
     pub struct QueryDeleteManyDoc {
@@ -961,15 +982,21 @@ pub mod request_handlers {
             let form_cache = form_store.get(query.model_key.as_str()).unwrap();
             let meta = &form_cache.meta;
             //
-            let model_key = query.model_key.as_str();
-            //
             if meta.is_del_docs {
                 for hash in query.doc_hash_list.iter() {
                     // Create a filter for a database query
                     let object_id = ObjectId::with_string(hash.as_str()).unwrap();
                     let filter = doc! {"_id": object_id};
                     // Delete document
-                    msg_err = admin_panel::delete_document_reg(model_key, filter).unwrap();
+                    msg_err = admin_panel::get_result_for_admin(
+                        query.model_key.as_str(),
+                        None,
+                        None,
+                        None,
+                        Some(filter),
+                        None,
+                    )
+                    .unwrap();
                     if !msg_err.is_empty() {
                         break;
                     }
@@ -1021,8 +1048,15 @@ pub mod request_handlers {
         // Define the desired model by `model_key` and update dynamic data
         // -----------------------------------------------------------------------------------------
         if msg_err.is_empty() {
-            admin_panel::update_dyn_data_reg(query.model_key.as_str(), query.json_options.as_str())
-                .unwrap();
+            admin_panel::get_result_for_admin(
+                query.model_key.as_str(),
+                None,
+                None,
+                None,
+                None,
+                Some(query.json_options.as_str()),
+            )
+            .unwrap();
         }
 
         // Return json response
