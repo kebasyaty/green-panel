@@ -1,6 +1,6 @@
 //! Registering models for the admin panel.
 
-use mango_orm::ToModel;
+use mango_orm::Main;
 use mongodb::bson::document::Document;
 use serde_json::{json, Value};
 use std::error::Error;
