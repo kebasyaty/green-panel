@@ -1,6 +1,6 @@
 //! Registering models for migration.
 
-use mango_orm::{CachingModel, Main, Monitor, MONGODB_CLIENT_STORE};
+use mango_orm::{Caching, Main, Monitor, MONGODB_CLIENT_STORE};
 
 use crate::models::{
     services::accounts::{customers, sellers, users},

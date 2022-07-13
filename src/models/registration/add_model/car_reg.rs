@@ -1,4 +1,4 @@
-use mango_orm::{CachingModel, QCommons, QPaladins};
+use mango_orm::{Caching, QCommons, QPaladins};
 use mongodb::bson::{doc, document::Document, oid::ObjectId};
 use std::error::Error;
 
