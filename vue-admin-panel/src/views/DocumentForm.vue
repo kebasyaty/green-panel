@@ -9,10 +9,7 @@
         <v-spacer></v-spacer>
         <!-- Update password. -->
         <v-dialog
-          v-if="
-            $route.params.service === 'users' &&
-            $route.params.indexDoc !== 'new'
-          "
+          v-if="is_password && $route.params.indexDoc !== 'new'"
           v-model="dialogUpdatePassword"
           persistent
           max-width="600px"
@@ -1577,6 +1574,7 @@ export default {
     maxTotalFormSize: 16384, // 16384 = ~16 Kb (default data size for the form),
     render: true,
     dialogDocDelete: false,
+    is_password: false,
     // Update password.
     dialogUpdatePassword: false,
     dataUpdatePassword: {
@@ -1952,6 +1950,10 @@ export default {
 
       document.forEach((field) => {
         let tmp;
+        //
+        if (!this.is_password) {
+          this.is_password = field.name === "password";
+        }
         //
         field.error = field.error.replace(/<br>/g, " ");
 

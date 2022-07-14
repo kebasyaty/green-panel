@@ -158,6 +158,7 @@ export default {
                     .then((response) => {
                       const data = response.data;
                       if (data.is_authenticated) {
+                        this.msg_error = "";
                         this.is_lock_open = true;
                         setTimeout(() => {
                           this.setUsername(data.username);

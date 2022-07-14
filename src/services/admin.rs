@@ -1109,17 +1109,16 @@ pub mod request_handlers {
                     users::User::find_one_to_model_instance::<users::User>(filter, None).unwrap();
                 if user.is_some() {
                     let user = user.unwrap();
-                    if !user
+                    let output_data = user
                         .update_password(
                             query.old_pass.as_str(),
                             query.new_pass.as_str(),
                             None,
                             None,
                         )
-                        .unwrap()
-                    {
-                        msg_err =
-                            "Sorry, your password has not been updated. Try again.".to_string();
+                        .unwrap();
+                    if !output_data.is_valid().unwrap() {
+                        msg_err = output_data.err_msg().unwrap();
                     }
                 } else {
                     return Err(error::ErrorBadRequest("User is not found."));

@@ -63,7 +63,9 @@ export default {
       "setProgressionStep",
       "setDocsPerPage",
     ]),
+    ...mapMutations("popUpMsgs", ["setShowMsg"]),
     logout() {
+      this.setShowMsg(false);
       this.axios
         .post("/admin/logout", {})
         .then(() => {
