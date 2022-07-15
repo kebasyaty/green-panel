@@ -35,7 +35,7 @@ pub mod request_handlers {
         if let Some(user) = session.get::<String>("user")? {
             welcome = format!("Welcome! {}", user);
         } else {
-            welcome = "Welcome Anonymous!".to_string();
+            welcome = "Welcome!".to_string();
         }
         // Get page from template
         let mut ctx = Context::new();
