@@ -21,7 +21,7 @@ pub fn result(
         if object_id.is_ok() {
             let object_id = object_id.unwrap();
             let filter = doc! {"_id": object_id};
-            let instance = cars::Car::find_one_to_model_instance::<cars::Car>(filter, None)?;
+            let instance = cars::Car::find_one_to_model_instance(filter, None)?;
             if instance.is_some() {
                 return instance.unwrap().instance_to_json_for_admin();
             } else {
@@ -43,7 +43,7 @@ pub fn result(
     } else if filter.is_some() {
         // Delete document
         // -----------------------------------------------------------------------------------------
-        let instance = cars::Car::find_one_to_model_instance::<cars::Car>(filter.unwrap(), None)?;
+        let instance = cars::Car::find_one_to_model_instance(filter.unwrap(), None)?;
         if instance.is_some() {
             let output_data = instance.unwrap().delete(None)?;
             if !output_data.is_valid()? {

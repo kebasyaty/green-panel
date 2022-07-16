@@ -39,12 +39,12 @@ pub mod request_handlers {
         }
         // Get page from template
         let mut ctx = Context::new();
-        ctx.insert("title", app_state.get_app_name().as_str());
+        ctx.insert("title", &app_state.get_app_name());
         ctx.insert(
             "description",
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         );
-        ctx.insert("welcome", welcome.as_str());
+        ctx.insert("welcome", &welcome);
         let rendered = tmpl.render("index.html", &ctx).unwrap();
         // Return response
         Ok(HttpResponse::Ok().content_type("text/html").body(rendered))

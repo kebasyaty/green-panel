@@ -4,22 +4,19 @@ use actix_files::Files;
 use actix_files::NamedFile;
 use actix_session::Session;
 use actix_web::{error, web, Error, HttpRequest, HttpResponse, Result};
-
+pub use configure_urls::*;
 use futures::StreamExt;
 use humansize::{file_size_opts, FileSize};
+use mango_orm::{Main, QCommons, QPaladins, FORM_STORE, MONGODB_CLIENT_STORE};
 use mongodb::{
     bson::{doc, document::Document, oid::ObjectId, Bson, Regex},
     options::FindOptions,
 };
+pub use request_handlers::*;
 use serde::Deserialize;
 use serde_json::{json, Value};
 
 use crate::models::{registration::admin_panel, services::accounts::users};
-use mango_orm::{Main, QCommons, QPaladins, FORM_STORE, MONGODB_CLIENT_STORE};
-
-pub use configure_urls::*;
-pub use request_handlers::*;
-
 use crate::settings;
 use crate::settings::general::{
     BRAND, LANGUAGE_CODE, LOGO, MAX_UPLOAD_SIZE, RE_CAPTCHA_SECRET_KEY, RE_CAPTCHA_SITE_KEY, SLOGAN,
@@ -168,8 +165,7 @@ pub mod request_handlers {
                 let password = login_form.password.clone();
                 let filter = doc! {"username": username.clone(), "is_admin": true, "is_staff": true, "is_active": true};
                 // Search for a user in the database
-                let user =
-                    users::User::find_one_to_model_instance::<users::User>(filter, None).unwrap();
+                let user = users::User::find_one_to_model_instance(filter, None).unwrap();
                 // Check search result
                 if user.is_some() {
                     // Get an instance of a User model
@@ -688,7 +684,7 @@ pub mod request_handlers {
                             let result = result[1..result.len() - 1]
                                 .to_string()
                                 .replace(r#"""#, "")
-                                .replace(",", " ; ");
+                                .replace(",", " | ");
                             let result = re_find_color.replace_all(
                                 result.as_str(),
                                 r#"<div class="sm-show-color" style="background-color:$color;"></div>"#,
@@ -1105,8 +1101,7 @@ pub mod request_handlers {
             if !query.doc_hash.is_empty() {
                 let object_id = users::User::hash_to_id(query.doc_hash.as_str()).unwrap();
                 let filter = doc! {"_id": object_id};
-                let user =
-                    users::User::find_one_to_model_instance::<users::User>(filter, None).unwrap();
+                let user = users::User::find_one_to_model_instance(filter, None).unwrap();
                 if user.is_some() {
                     let user = user.unwrap();
                     let output_data = user
