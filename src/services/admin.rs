@@ -923,7 +923,7 @@ pub mod request_handlers {
                     None,
                     None,
                     None,
-                    Some(filter),
+                    Some(&filter),
                     None,
                 )
                 .unwrap();
@@ -989,7 +989,7 @@ pub mod request_handlers {
                         None,
                         None,
                         None,
-                        Some(filter),
+                        Some(&filter),
                         None,
                     )
                     .unwrap();

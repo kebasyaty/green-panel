@@ -2,7 +2,7 @@
 
 # mango-panel
 
-### Admin panel for easy use of [mango-orm](https://github.com/kebasyaty/mango-orm "mango-orm").  This example uses [actix-web](https://github.com/actix/actix-web "actix-web") . Other frameworks can be used by this analogy.
+### Admin panel for easy use of [mango-orm](https://github.com/kebasyaty/mango-orm "mango-orm").  This example uses [actix-web](https://github.com/actix/actix-web "actix-web").
 
 ## Attention
 #### [MongoDB Rust Driver](https://crates.io/crates/mongodb/1.2.5 "MongoDB Rust Driver") version 1.2.5 is used.
