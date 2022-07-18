@@ -1,6 +1,6 @@
 //! Registering models for the admin panel.
 
-use mango_orm::{Administrator, Caching, Main};
+use mango_orm::{Administrator, Main, OutputDataAdmin};
 use mongodb::bson::document::Document;
 use serde_json::{json, Value};
 use std::error::Error;
@@ -140,90 +140,72 @@ pub fn get_result_for_admin(
     // User
     // ---------------------------------------------------------------------------------------------
     if model_key == users::User::key()? {
-        type Model = users::User;
-        //
-        if options_json.is_some() {
-            // Update dynamic widget data
-            Model::db_update_dyn_widgets(options_json.unwrap())?;
-            return Ok(String::new());
+        match users::User::instance_for_admin(doc_hash, bytes, filter, options_json)? {
+            OutputDataAdmin::EarlyResult(data) => return Ok(data),
+            OutputDataAdmin::Instance(data) => {
+                if let Some(mut instance) = data {
+                    if let Some(app_state) = app_state {
+                        // Optional handling of inputFile and inputImage fields.
+                        instance.photo = app_state.base64_to_file(instance.photo, "users/avatars");
+                    }
+                    return instance.result_for_admin(doc_hash, bytes, filter);
+                }
+            }
         }
-        let instance = Model::instance_for_admin(doc_hash, bytes, filter);
-        if instance.is_err() && doc_hash.is_some() {
-            return Model::model_to_json_for_admin();
-        }
-        let mut instance = instance.unwrap().unwrap();
-        if bytes.is_some() && app_state.is_some() {
-            // Optional handling of inputFile and inputImage fields.
-            let app_state = app_state.unwrap();
-            instance.photo = app_state.base64_to_file(instance.photo, "users/avatars");
-        }
-        return instance.result_for_admin(doc_hash, bytes, filter);
     // Seller Profile
     // ---------------------------------------------------------------------------------------------
     } else if model_key == sellers::SellerProfile::key()? {
-        type Model = sellers::SellerProfile;
-        //
-        if options_json.is_some() {
-            // Update dynamic widget data
-            Model::db_update_dyn_widgets(options_json.unwrap())?;
-            return Ok(String::new());
+        match sellers::SellerProfile::instance_for_admin(doc_hash, bytes, filter, options_json)? {
+            OutputDataAdmin::EarlyResult(data) => return Ok(data),
+            OutputDataAdmin::Instance(data) => {
+                if let Some(mut instance) = data {
+                    if let Some(app_state) = app_state {
+                        // Optional handling of inputFile and inputImage fields.
+                        instance.resume =
+                            app_state.base64_to_file(instance.resume, "users/sellers/resume");
+                    }
+                    return instance.result_for_admin(doc_hash, bytes, filter);
+                }
+            }
         }
-        let instance = Model::instance_for_admin(doc_hash, bytes, filter);
-        if instance.is_err() && doc_hash.is_some() {
-            return Model::model_to_json_for_admin();
-        }
-        let mut instance = instance.unwrap().unwrap();
-        if bytes.is_some() && app_state.is_some() {
-            // Optional handling of inputFile and inputImage fields.
-            let app_state = app_state.unwrap();
-            instance.resume = app_state.base64_to_file(instance.resume, "users/sellers/resume");
-        }
-        return instance.result_for_admin(doc_hash, bytes, filter);
     // Customer Profile
     // ---------------------------------------------------------------------------------------------
     } else if model_key == customers::CustomerProfile::key()? {
-        type Model = customers::CustomerProfile;
-        //
-        if options_json.is_some() {
-            // Update dynamic widget data
-            Model::db_update_dyn_widgets(options_json.unwrap())?;
-            return Ok(String::new());
+        match customers::CustomerProfile::instance_for_admin(doc_hash, bytes, filter, options_json)?
+        {
+            OutputDataAdmin::EarlyResult(data) => return Ok(data),
+            OutputDataAdmin::Instance(data) => {
+                if let Some(mut instance) = data {
+                    if let Some(_app_state) = app_state {
+                        // Optional handling of inputFile and inputImage fields.
+                    }
+                    return instance.result_for_admin(doc_hash, bytes, filter);
+                }
+            }
         }
-        let instance = Model::instance_for_admin(doc_hash, bytes, filter);
-        if instance.is_err() && doc_hash.is_some() {
-            return Model::model_to_json_for_admin();
-        }
-        let mut instance = instance.unwrap().unwrap();
-        if bytes.is_some() && app_state.is_some() {
-            // Optional handling of inputFile and inputImage fields.
-            //let app_state = app_state.unwrap();
-        }
-        return instance.result_for_admin(doc_hash, bytes, filter);
+
     // Car
     // ---------------------------------------------------------------------------------------------
     } else if model_key == cars::Car::key()? {
-        type Model = cars::Car;
-        //
-        if options_json.is_some() {
-            // Update dynamic widget data
-            Model::db_update_dyn_widgets(options_json.unwrap())?;
-            return Ok(String::new());
+        match cars::Car::instance_for_admin(doc_hash, bytes, filter, options_json)? {
+            OutputDataAdmin::EarlyResult(data) => return Ok(data),
+            OutputDataAdmin::Instance(data) => {
+                if let Some(mut instance) = data {
+                    if let Some(app_state) = app_state {
+                        // Optional handling of inputFile and inputImage fields.
+                        instance.image =
+                            app_state.base64_to_file(instance.image, "products/cars/posters");
+                    }
+                    return instance.result_for_admin(doc_hash, bytes, filter);
+                }
+            }
         }
-        let instance = Model::instance_for_admin(doc_hash, bytes, filter);
-        if instance.is_err() && doc_hash.is_some() {
-            return Model::model_to_json_for_admin();
-        }
-        let mut instance = instance.unwrap().unwrap();
-        if bytes.is_some() && app_state.is_some() {
-            // Optional handling of inputFile and inputImage fields.
-            let app_state = app_state.unwrap();
-            instance.image = app_state.base64_to_file(instance.image, "products/cars/posters");
-        }
-        return instance.result_for_admin(doc_hash, bytes, filter);
     // Error
     // ---------------------------------------------------------------------------------------------
     } else {
         Err("Module: `src/models/registration/admin_panel` > \
              Method: `get_result_for_admin` : No match for `model_key`.")?
     }
+    //
+    Err("Document missing")?
 }
