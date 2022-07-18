@@ -140,7 +140,7 @@ pub fn get_result_for_admin(
     // User
     // ---------------------------------------------------------------------------------------------
     if model_key == users::User::key()? {
-        match users::User::instance_for_admin(doc_hash, bytes, filter, options_json)? {
+        match users::User::actix_instance_for_admin(doc_hash, bytes, filter, options_json)? {
             OutputDataAdmin::EarlyResult(data) => return Ok(data),
             OutputDataAdmin::Instance(data) => {
                 if let Some(mut instance) = data {
@@ -148,14 +148,19 @@ pub fn get_result_for_admin(
                         // Optional handling of inputFile and inputImage fields.
                         instance.photo = app_state.base64_to_file(instance.photo, "users/avatars");
                     }
-                    return instance.result_for_admin(doc_hash, bytes, filter);
+                    return instance.actix_result_for_admin(doc_hash, bytes, filter);
                 }
             }
         }
     // Seller Profile
     // ---------------------------------------------------------------------------------------------
     } else if model_key == sellers::SellerProfile::key()? {
-        match sellers::SellerProfile::instance_for_admin(doc_hash, bytes, filter, options_json)? {
+        match sellers::SellerProfile::actix_instance_for_admin(
+            doc_hash,
+            bytes,
+            filter,
+            options_json,
+        )? {
             OutputDataAdmin::EarlyResult(data) => return Ok(data),
             OutputDataAdmin::Instance(data) => {
                 if let Some(mut instance) = data {
@@ -164,22 +169,26 @@ pub fn get_result_for_admin(
                         instance.resume =
                             app_state.base64_to_file(instance.resume, "users/sellers/resume");
                     }
-                    return instance.result_for_admin(doc_hash, bytes, filter);
+                    return instance.actix_result_for_admin(doc_hash, bytes, filter);
                 }
             }
         }
     // Customer Profile
     // ---------------------------------------------------------------------------------------------
     } else if model_key == customers::CustomerProfile::key()? {
-        match customers::CustomerProfile::instance_for_admin(doc_hash, bytes, filter, options_json)?
-        {
+        match customers::CustomerProfile::actix_instance_for_admin(
+            doc_hash,
+            bytes,
+            filter,
+            options_json,
+        )? {
             OutputDataAdmin::EarlyResult(data) => return Ok(data),
             OutputDataAdmin::Instance(data) => {
                 if let Some(mut instance) = data {
                     if let Some(_app_state) = app_state {
                         // Optional handling of inputFile and inputImage fields.
                     }
-                    return instance.result_for_admin(doc_hash, bytes, filter);
+                    return instance.actix_result_for_admin(doc_hash, bytes, filter);
                 }
             }
         }
@@ -187,7 +196,7 @@ pub fn get_result_for_admin(
     // Car
     // ---------------------------------------------------------------------------------------------
     } else if model_key == cars::Car::key()? {
-        match cars::Car::instance_for_admin(doc_hash, bytes, filter, options_json)? {
+        match cars::Car::actix_instance_for_admin(doc_hash, bytes, filter, options_json)? {
             OutputDataAdmin::EarlyResult(data) => return Ok(data),
             OutputDataAdmin::Instance(data) => {
                 if let Some(mut instance) = data {
@@ -196,7 +205,7 @@ pub fn get_result_for_admin(
                         instance.image =
                             app_state.base64_to_file(instance.image, "products/cars/posters");
                     }
-                    return instance.result_for_admin(doc_hash, bytes, filter);
+                    return instance.actix_result_for_admin(doc_hash, bytes, filter);
                 }
             }
         }
