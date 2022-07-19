@@ -25,6 +25,16 @@ Vue.use(VueAxios, axios);
 Vue.use(VueSession, { persist: true });
 Vue.use(CKEditor);
 
+// Usage: {{ text.title | truncate(20) }}
+Vue.filter("truncate", function (text, length, suffix) {
+  suffix = suffix || "...";
+  if (text.length > length) {
+    return text.substring(0, length) + suffix;
+  } else {
+    return text;
+  }
+});
+
 // Create VueI18n instance with options.
 const i18n = new VueI18n({
   locale: "en",

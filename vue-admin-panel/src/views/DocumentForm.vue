@@ -2768,6 +2768,7 @@ export default {
     },
     // Refresh form for update password.
     updatePassResetForm() {
+      this.setShowMsg(false);
       this.dataUpdatePassword.formHasErrors = false;
       const fields = ["passwordOld", "passwordNew", "passwordRepeat"];
 

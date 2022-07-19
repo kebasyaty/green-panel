@@ -188,9 +188,9 @@
                   <!-- Link to document. -->
                   <td align="center" :key="idxField">
                     <template v-if="idxField === 0">
-                      <table>
+                      <table width="100%">
                         <tr>
-                          <td>
+                          <td width="40">
                             <!-- Copy doc name to clipboard. -->
                             <v-tooltip top>
                               <template v-slot:activator="{ on, attrs }">
@@ -211,11 +211,23 @@
                               <span>{{ document[item.field] }}</span>
                             </v-tooltip>
                           </td>
-                          <td>
+                          <td align="left">
                             <!-- Link to document form. -->
-                            <router-link :to="getDocFormUrl(idxDoc)">{{
-                              document[item.field]
-                            }}</router-link>
+                            <v-btn
+                              :dark="$vuetify.theme.dark"
+                              small
+                              depressed
+                              :color="
+                                $vuetify.theme.dark
+                                  ? 'grey darken-3'
+                                  : 'grey lighten-3'
+                              "
+                              class="text-none"
+                              :to="getDocFormUrl(idxDoc)"
+                            >
+                              <v-icon left>mdi-open-in-new</v-icon>
+                              {{ document[item.field] | truncate(30) }}
+                            </v-btn>
                           </td>
                         </tr>
                       </table>
