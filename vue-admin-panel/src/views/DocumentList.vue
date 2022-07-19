@@ -165,7 +165,7 @@
               >
                 <!-- Number of the document in the table. -->
                 <td
-                  width="76"
+                  width="34"
                   align="left"
                   class="pr-0"
                   style="text-align: left !important"
@@ -173,7 +173,7 @@
                   {{ idxDoc + progressionStep }}
                 </td>
                 <!-- Delete document. -->
-                <td width="76" align="center" class="pr-0">
+                <td width="34" align="center" class="pr-0">
                   <v-checkbox
                     hide-details
                     v-model="docsToBeDeleted"
@@ -214,15 +214,16 @@
                           <td align="left">
                             <!-- Link to document form. -->
                             <v-btn
-                              :dark="$vuetify.theme.dark"
                               small
+                              block
                               depressed
+                              :dark="$vuetify.theme.dark"
                               :color="
                                 $vuetify.theme.dark
                                   ? 'grey darken-3'
                                   : 'grey lighten-3'
                               "
-                              class="text-none"
+                              class="btn-doc-name"
                               :to="getDocFormUrl(idxDoc)"
                             >
                               <v-icon left>mdi-open-in-new</v-icon>

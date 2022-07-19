@@ -32,6 +32,12 @@ button:not(.v-pagination__item--active).v-pagination__item:hover,
   border: 1px solid #e0e0e0 !important;
 }
 
+/* Link buttons for document names. */
+.btn-doc-name {
+  text-transform: none !important;
+  justify-content: left !important;
+}
+
 /* Position
 ----------------------------------------------------------------------------------------------------
 */
@@ -100,11 +106,4 @@ button:not(.v-pagination__item--active).v-pagination__item:hover,
 */
 .noHover {
   pointer-events: none;
-}
-
-/* Text
-----------------------------------------------------------------------------------------------------
-*/
-.text-none {
-  text-transform: none !important;
 }
