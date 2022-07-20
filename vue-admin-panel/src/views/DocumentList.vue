@@ -53,6 +53,7 @@
             <!-- Button - Add a new document. -->
             <v-btn
               dark
+              rounded
               depressed
               color="green darken-2"
               :to="docUrlNoIndex + '/new'"
@@ -67,6 +68,7 @@
             <!-- Button - Delete all selected documents. -->
             <v-btn
               dark
+              rounded
               depressed
               v-if="docsToBeDeleted.length > 0"
               color="red darken-2"
@@ -107,6 +109,7 @@
             <v-btn
               dark
               small
+              rounded
               depressed
               color="blue darken-2"
               :disabled="dataFilters.length === 0"
@@ -185,9 +188,14 @@
                 </td>
                 <!-- Other fields. -->
                 <template v-for="(item, idxField) in fields">
-                  <!-- Link to document. -->
-                  <td align="center" :key="idxField">
-                    <template v-if="idxField === 0">
+                  <td
+                    align="center"
+                    :key="idxField"
+                    :width="idxField ? '' : '100'"
+                  >
+                    <span v-if="idxField" v-html="document[item.field]"></span>
+                    <template v-else>
+                      <!-- Link to document. -->
                       <table width="100%">
                         <tr>
                           <td width="40">
@@ -211,11 +219,12 @@
                               <span>{{ document[item.field] }}</span>
                             </v-tooltip>
                           </td>
-                          <td align="left">
+                          <td align="left" width="100">
                             <!-- Link to document form. -->
                             <v-btn
                               small
                               block
+                              rounded
                               depressed
                               :dark="$vuetify.theme.dark"
                               :color="
@@ -233,7 +242,6 @@
                         </tr>
                       </table>
                     </template>
-                    <span v-else v-html="document[item.field]"></span>
                   </td>
                 </template>
                 <!-- Date fields. -->

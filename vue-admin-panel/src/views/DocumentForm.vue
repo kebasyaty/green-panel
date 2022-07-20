@@ -17,6 +17,7 @@
           <template v-slot:activator="{ on, attrs }">
             <v-btn
               dark
+              rounded
               depressed
               color="green darken-2"
               v-bind="attrs"
@@ -403,6 +404,7 @@
                             <v-btn
                               dark
                               small
+                              rounded
                               depressed
                               color="blue darken-2"
                               :disabled="
@@ -466,6 +468,7 @@
                             <v-btn
                               dark
                               small
+                              rounded
                               depressed
                               color="red darken-2"
                               :disabled="delDynItems.length === 0"
@@ -1476,6 +1479,7 @@
           <template v-slot:activator="{ on, attrs }">
             <v-btn
               dark
+              rounded
               depressed
               color="green darken-2"
               v-bind="attrs"
@@ -1494,6 +1498,7 @@
           <template v-slot:activator="{ on, attrs }">
             <v-btn
               dark
+              rounded
               depressed
               color="btnOrange.bg"
               class="orange darken-2 mx-4"
@@ -1536,12 +1541,12 @@
         <v-card-title class="h6">{{ $t("message.39") }}</v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="dialogDocDelete = false">{{
+          <v-btn text color="primary" @click="dialogDocDelete = false">{{
             $t("message.18")
           }}</v-btn>
           <v-btn
-            color="red"
             text
+            color="red"
             @click="[deleteDoc(), (dialogDocDelete = false)]"
             >{{ $t("message.21") }}</v-btn
           >
