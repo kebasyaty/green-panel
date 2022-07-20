@@ -26,7 +26,19 @@
             >
           </template>
           <v-card ref="updatePasswordForm">
-            <v-card-title>
+            <v-card-actions class="pr-3 pt-2 pb-0">
+              <v-spacer></v-spacer>
+              <!-- Button - Close. -->
+              <v-btn
+                icon
+                small
+                color="red"
+                @click="[updatePassResetForm(), (dialogUpdatePassword = false)]"
+              >
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+            </v-card-actions>
+            <v-card-title class="pt-0">
               <span class="h6">{{ $t("message.46") }}</span>
             </v-card-title>
             <v-card-text>
@@ -109,34 +121,13 @@
               ></v-text-field>
             </v-card-text>
             <v-card-actions class="pt-0">
-              <!-- Button - Close -->
-              <v-tooltip top>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    fab
-                    dark
-                    small
-                    depressed
-                    v-bind="attrs"
-                    v-on="on"
-                    color="red darken-2"
-                    @click="
-                      [updatePassResetForm(), (dialogUpdatePassword = false)]
-                    "
-                  >
-                    <v-icon>mdi-close</v-icon>
-                  </v-btn>
-                </template>
-                {{ $t("message.18") }}
-              </v-tooltip>
-              <v-spacer></v-spacer>
               <!-- Button - Generate password -->
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
                     fab
                     dark
-                    small
+                    x-small
                     depressed
                     v-bind="attrs"
                     v-on="on"
@@ -156,7 +147,7 @@
                   <v-btn
                     fab
                     dark
-                    small
+                    x-small
                     depressed
                     v-bind="attrs"
                     v-on="on"
@@ -177,7 +168,7 @@
                   <v-btn
                     fab
                     dark
-                    small
+                    x-small
                     depressed
                     v-bind="attrs"
                     v-on="on"
@@ -197,7 +188,7 @@
                   <v-btn
                     fab
                     dark
-                    small
+                    x-small
                     depressed
                     v-bind="attrs"
                     v-on="on"
@@ -1767,7 +1758,7 @@ export default {
     updateLocalDate(fieldName) {
       this.showLocalDate[fieldName] = new Date(
         this.fieldsData[fieldName]
-      ).toLocaleDateString([this.$i18n.locale, "en"]);
+      ).toLocaleDateString([this.$userLang, "en"]);
     },
     // Get the associative icon for the file.
     getFileIcon(extension) {
@@ -1990,10 +1981,7 @@ export default {
             field.max = field.max || "";
             fieldsData[field.name] = field.value || null;
             this.showLocalDate[field.name] = field.value
-              ? new Date(field.value).toLocaleDateString([
-                  this.$i18n.locale,
-                  "en",
-                ])
+              ? new Date(field.value).toLocaleDateString([this.$userLang, "en"])
               : "";
             this.showWarning(field.common_msg);
             break;
@@ -2023,10 +2011,7 @@ export default {
                 ? new Date(tmp + "Z").toLocaleTimeString().slice(0, 5)
                 : new Date().toLocaleTimeString().slice(0, 5);
             this.showLocalDate[field.name] = field.value
-              ? new Date(field.value).toLocaleDateString([
-                  this.$i18n.locale,
-                  "en",
-                ])
+              ? new Date(field.value).toLocaleDateString([this.$userLang, "en"])
               : "";
             this.showWarning(field.common_msg);
             break;

@@ -35,6 +35,11 @@ Vue.filter("truncate", function (text, length, suffix) {
   }
 });
 
+//
+Vue.prototype.$userLang = (navigator.language || navigator.userLanguage)
+  .slice(0, 2)
+  .toLowerCase();
+
 // Create VueI18n instance with options.
 const i18n = new VueI18n({
   locale: "en",

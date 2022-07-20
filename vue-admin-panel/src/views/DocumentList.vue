@@ -105,7 +105,7 @@
             </div>
           </v-col>
           <v-col cols="auto" class="py-0">
-            <!-- Filter by selection fields. -->
+            <!-- Filter by fields of `selection` type. -->
             <v-btn
               dark
               small
@@ -348,7 +348,7 @@
                       <v-btn
                         fab
                         dark
-                        small
+                        x-small
                         depressed
                         :color="
                           filter.negation ? 'blue darken-2' : 'red darken-2'
@@ -625,7 +625,7 @@ export default {
     // Formatting date.
     formattingDate(date) {
       const local = new Date(date + "Z");
-      const localDate = local.toLocaleDateString([this.$i18n.locale, "en"]);
+      const localDate = local.toLocaleDateString([this.$userLang, "en"]);
       const localTime = local.toLocaleTimeString().slice(0, 8);
       return `<span class="cyan--text text--darken-1 font-weight-black">${localDate}</span> <span class="orange--text text--darken-1 font-weight-black">${localTime}</span>`;
     },
