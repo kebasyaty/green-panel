@@ -1477,9 +1477,9 @@
               v-on="on"
               @click="saveDoc('save_and_new')"
             >
-              <v-icon>mdi-content-save</v-icon>
-              <v-icon>mdi-ampersand</v-icon>
-              <v-icon>mdi-file-outline</v-icon>
+              <v-icon small>mdi-content-save</v-icon>
+              <v-icon small>mdi-ampersand</v-icon>
+              <v-icon small>mdi-file-outline</v-icon>
             </v-btn>
           </template>
           <span v-text="$t('message.14')"></span>
@@ -1497,9 +1497,9 @@
               v-on="on"
               @click="saveDoc('save_and_edit')"
             >
-              <v-icon>mdi-content-save</v-icon>
-              <v-icon>mdi-ampersand</v-icon>
-              <v-icon>mdi-file-document-edit-outline</v-icon>
+              <v-icon small>mdi-content-save</v-icon>
+              <v-icon small>mdi-ampersand</v-icon>
+              <v-icon small>mdi-file-document-edit-outline</v-icon>
             </v-btn>
           </template>
           <span v-text="$t('message.15')"></span>
