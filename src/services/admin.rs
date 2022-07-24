@@ -7,7 +7,7 @@ use actix_web::{error, web, Error, HttpRequest, HttpResponse, Result};
 pub use configure_urls::*;
 use futures::StreamExt;
 use humansize::{file_size_opts, FileSize};
-use mango_orm::{Main, QCommons, QPaladins, FORM_STORE, MONGODB_CLIENT_STORE};
+use mango_orm::{Main, QCommons, QPaladins, MODEL_STORE, MONGODB_CLIENT_STORE};
 use mongodb::{
     bson::{doc, document::Document, oid::ObjectId, Bson, Regex},
     options::FindOptions,
@@ -83,10 +83,10 @@ pub mod request_handlers {
                     ..Default::default()
                 };
                 let result = first_user.save(None, None).unwrap();
-                if !result.is_valid().unwrap() {
+                if !result.is_valid() {
                     panic!(
                         "Model: `User` : Error while creating the first user. In detail: {}.",
-                        result.hash().unwrap()
+                        result.hash()
                     )
                 }
             }
@@ -278,9 +278,9 @@ pub mod request_handlers {
         {
             is_authenticated = true;
             //
-            let form_store = FORM_STORE.read().unwrap();
+            let form_store = MODEL_STORE.read().unwrap();
             let form_cache = form_store.get(query.model_key.as_str()).unwrap();
-            let map_widgets = &form_cache.map_widgets;
+            let map_widgets = &form_cache.widget_map;
             //
             for (field_name, widget) in map_widgets {
                 let widget_name = widget.widget.as_str();
@@ -372,10 +372,10 @@ pub mod request_handlers {
         if msg_err.is_empty() {
             // Get read access from cache
             // -------------------------------------------------------------------------------------
-            let form_store = FORM_STORE.read().unwrap();
+            let form_store = MODEL_STORE.read().unwrap();
             let form_cache = form_store.get(query.model_key.as_str()).unwrap();
             let meta = &form_cache.meta;
-            let map_widget_type = &meta.map_widget_type;
+            let map_widget_type = &meta.widget_type_map;
             let search_query: &str = query.search_query.as_str();
             let fields_name = &query.fields_name;
 
@@ -910,7 +910,7 @@ pub mod request_handlers {
         // Get read access from cache
         // -----------------------------------------------------------------------------------------
         if msg_err.is_empty() {
-            let form_store = FORM_STORE.read().unwrap();
+            let form_store = MODEL_STORE.read().unwrap();
             let form_cache = form_store.get(query.model_key.as_str()).unwrap();
             let meta = &form_cache.meta;
             if meta.is_del_docs {
@@ -974,7 +974,7 @@ pub mod request_handlers {
         // Get read access from cache
         // -----------------------------------------------------------------------------------------
         if msg_err.is_empty() {
-            let form_store = FORM_STORE.read().unwrap();
+            let form_store = MODEL_STORE.read().unwrap();
             let form_cache = form_store.get(query.model_key.as_str()).unwrap();
             let meta = &form_cache.meta;
             //
@@ -1112,8 +1112,8 @@ pub mod request_handlers {
                             None,
                         )
                         .unwrap();
-                    if !output_data.is_valid().unwrap() {
-                        msg_err = output_data.err_msg().unwrap();
+                    if !output_data.is_valid() {
+                        msg_err = output_data.err_msg();
                     }
                 } else {
                     return Err(error::ErrorBadRequest("User is not found."));

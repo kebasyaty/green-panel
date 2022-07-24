@@ -2,7 +2,7 @@
 
 use actix_files::NamedFile;
 use actix_web::{http, web, HttpRequest, HttpResponse, Responder, Result};
-use mango_orm::{Main, FORM_STORE, MONGODB_CLIENT_STORE};
+use mango_orm::{Main, MODEL_STORE, MONGODB_CLIENT_STORE};
 use mongodb::{bson::doc, options::FindOptions};
 pub use request_handlers::*;
 use serde::Serialize;
@@ -70,7 +70,7 @@ pub mod request_handlers {
         //
         let mut ctx = Context::new();
         //
-        let form_store = FORM_STORE.read().unwrap();
+        let form_store = MODEL_STORE.read().unwrap();
         let client_store = MONGODB_CLIENT_STORE.read().unwrap();
         //
         // Generate sitemap
