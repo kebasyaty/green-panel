@@ -12,7 +12,7 @@ pub static SITE_DOMAIN: &str = "www.site-name.net";
 // Max size of loaded content for Form and Json - 2.016 mb
 pub static MAX_UPLOAD_SIZE: usize = (2.016 * 1024.0 * 1024.0) as usize;
 // Security
-// https://passwordsgenerator.net/
+// To generate a key: https://randompasswordgen.com/
 // Hint: Minimum 64 characters.
 pub static SECRET_KEY: &str = "-H%QdH?ga$pLA39P2%86@KjArWp-G6$jA@Zk%nF2+jgZeKq8Wxf-sQL!_mh2wmKQ";
 // Session

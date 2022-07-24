@@ -14,7 +14,7 @@ pub const PROJECT_NAME: &str = "store";
 // Valid characters: a-z A-Z 0-9
 // Size: 8-16
 // Example: "7rzgacfqQB3B7q7T"
-// To generate a key: https://passwordsgenerator.net/
+// To generate a key: https://randompasswordgen.com/
 pub const UNIQUE_PROJECT_KEY: &str = "qn9JGrB3bCRMQnF";
 
 // Accounts
