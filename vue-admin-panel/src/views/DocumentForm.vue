@@ -223,15 +223,15 @@
             <!-- Others fields. -->
             <div v-else :key="field.name">
               <div v-show="!field.is_hide" class="rounded-lg">
-                <!-- Common messages for all fields. -->
+                <!-- Alert message for the entire web form. -->
                 <v-alert
-                  v-if="field.common_msg.length > 0"
+                  v-if="field.alert.length > 0"
                   text
                   dense
                   color="deep-orange"
                   icon="mdi-alert"
                   border="left"
-                  >{{ field.common_msg }}</v-alert
+                  >{{ field.alert }}</v-alert
                 >
 
                 <!-- Wrapper for fields. -->
@@ -1964,16 +1964,16 @@ export default {
           case "inputIPv6":
           case "inputSlug":
             fieldsData[field.name] = field.value || "";
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "textArea":
             fieldsData[field.name] = field.value || "";
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "inputColor":
             vMenu[field.name] = false;
             fieldsData[field.name] = field.value || "#00000000";
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "inputDate":
             vMenu[field.name] = false;
@@ -1983,7 +1983,7 @@ export default {
             this.showLocalDate[field.name] = field.value
               ? new Date(field.value).toLocaleDateString([this.$userLang, "en"])
               : "";
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "inputDateTime":
             vMenu[field.name] = false;
@@ -2013,49 +2013,49 @@ export default {
             this.showLocalDate[field.name] = field.value
               ? new Date(field.value).toLocaleDateString([this.$userLang, "en"])
               : "";
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "hiddenText":
             fieldsData[field.name] = field.value || "";
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "hiddenI32":
           case "hiddenU32":
           case "hiddenI64":
             tmp = parseInt(field.value);
             fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "hiddenF64":
             tmp = parseFloat(field.value);
             fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "numberI32":
           case "numberU32":
           case "numberI64":
             tmp = parseInt(field.value);
             fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "numberF64":
             tmp = parseFloat(field.value);
             fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "rangeI32":
           case "rangeU32":
           case "rangeI64":
             fieldsData[field.name] = parseInt(field.value);
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "rangeF64":
             fieldsData[field.name] = parseFloat(field.value);
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "radioText":
             fieldsData[field.name] = field.value || "";
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "radioI32":
           case "radioU32":
@@ -2065,7 +2065,7 @@ export default {
             field.options.forEach(function (item) {
               item[0] = parseInt(item[0]);
             });
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "radioF64":
             tmp = parseFloat(field.value);
@@ -2073,18 +2073,18 @@ export default {
             field.options.forEach(function (item) {
               item[0] = parseFloat(item[0]);
             });
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "checkBox":
             fieldsData[field.name] = field.checked;
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "selectText":
             fieldsData[field.name] = field.value || "";
             field.options = field.options.map(function (item) {
               return { value: item[0], title: item[1] };
             });
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "selectI32":
           case "selectU32":
@@ -2094,7 +2094,7 @@ export default {
             field.options = field.options.map(function (item) {
               return { value: parseInt(item[0]), title: item[1] };
             });
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "selectF64":
             tmp = parseFloat(field.value);
@@ -2102,7 +2102,7 @@ export default {
             field.options = field.options.map(function (item) {
               return { value: parseFloat(item[0]), title: item[1] };
             });
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "selectTextMult":
             fieldsData[field.name] =
@@ -2110,7 +2110,7 @@ export default {
             field.options = field.options.map(function (item) {
               return { value: item[0], title: item[1] };
             });
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "selectI32Mult":
           case "selectU32Mult":
@@ -2122,7 +2122,7 @@ export default {
             field.options = field.options.map(function (item) {
               return { value: parseInt(item[0]), title: item[1] };
             });
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "selectF64Mult":
             fieldsData[field.name] =
@@ -2132,7 +2132,7 @@ export default {
             field.options = field.options.map(function (item) {
               return { value: parseFloat(item[0]), title: item[1] };
             });
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "selectTextDyn":
             fieldsData[field.name] = field.value || "";
@@ -2140,7 +2140,7 @@ export default {
               return { value: item[0], title: item[1] };
             });
             dynamicSelectionDialog[field.name] = false;
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "selectI32Dyn":
           case "selectU32Dyn":
@@ -2151,7 +2151,7 @@ export default {
               return { value: parseInt(item[0]), title: item[1] };
             });
             dynamicSelectionDialog[field.name] = false;
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "selectF64Dyn":
             tmp = parseFloat(field.value);
@@ -2160,7 +2160,7 @@ export default {
               return { value: parseFloat(item[0]), title: item[1] };
             });
             dynamicSelectionDialog[field.name] = false;
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "selectTextMultDyn":
             fieldsData[field.name] =
@@ -2169,7 +2169,7 @@ export default {
               return { value: item[0], title: item[1] };
             });
             dynamicSelectionDialog[field.name] = false;
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "selectI32MultDyn":
           case "selectU32MultDyn":
@@ -2182,7 +2182,7 @@ export default {
               return { value: parseInt(item[0]), title: item[1] };
             });
             dynamicSelectionDialog[field.name] = false;
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "selectF64MultDyn":
             fieldsData[field.name] =
@@ -2193,14 +2193,14 @@ export default {
               return { value: parseFloat(item[0]), title: item[1] };
             });
             dynamicSelectionDialog[field.name] = false;
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
           case "inputFile":
           case "inputImage":
             fieldsData[field.name] =
               field.value.length > 0 ? JSON.parse(field.value) : {};
             fieldsData[field.name].is_delete = false;
-            this.showWarning(field.common_msg);
+            this.showWarning(field.alert);
             break;
         }
       });
@@ -2358,7 +2358,7 @@ export default {
                 const document = JSON.parse(data.document);
                 for (let idx = 0, len = document.length; idx < len; idx++) {
                   const field = document[idx];
-                  if (field.error.length > 0 || field.common_msg.length > 0) {
+                  if (field.error.length > 0 || field.alert.length > 0) {
                     mode = "save_and_edit";
                     break;
                   }
