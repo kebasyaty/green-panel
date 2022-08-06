@@ -1,6 +1,6 @@
 //! Registering models for the admin panel.
 
-use mango_orm::{Administrator, Main, OutputDataAdmin};
+use green_barrel::{Administrator, Main, OutputDataAdmin};
 use mongodb::bson::document::Document;
 use serde_json::{json, Value};
 use std::error::Error;
@@ -120,7 +120,7 @@ pub fn get_service_list_for_admin() -> Result<Value, Box<dyn Error>> {
                         { "field": "colors", "title": "Colors" },
                         { "field": "seats", "title": "Seats" }
                     ]
-                }
+                },
             ]
         },
     ]))
@@ -137,6 +137,7 @@ pub fn get_result_for_admin(
     filter: Option<&Document>,
     dyn_data: Option<Value>,
 ) -> Result<String, Box<dyn Error>> {
+    //
     // User
     // ---------------------------------------------------------------------------------------------
     if model_key == users::User::key()? {
@@ -152,6 +153,7 @@ pub fn get_result_for_admin(
                 }
             }
         }
+
     // Seller Profile
     // ---------------------------------------------------------------------------------------------
     } else if model_key == sellers::SellerProfile::key()? {
@@ -168,6 +170,7 @@ pub fn get_result_for_admin(
                 }
             }
         }
+
     // Customer Profile
     // ---------------------------------------------------------------------------------------------
     } else if model_key == customers::CustomerProfile::key()? {
@@ -201,6 +204,7 @@ pub fn get_result_for_admin(
                 }
             }
         }
+
     // Error
     // ---------------------------------------------------------------------------------------------
     } else {

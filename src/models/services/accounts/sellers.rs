@@ -1,6 +1,6 @@
 //! Seller profiles.
 
-use mango_orm::*;
+use green_barrel::*;
 use metamorphose::Model;
 use mongodb::bson::{doc, oid::ObjectId};
 use serde::{Deserialize, Serialize};

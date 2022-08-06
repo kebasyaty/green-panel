@@ -2,7 +2,7 @@
 
 use actix_files::NamedFile;
 use actix_web::{http, web, HttpRequest, HttpResponse, Responder, Result};
-use mango_orm::{Main, MODEL_STORE, MONGODB_CLIENT_STORE};
+use green_barrel::{Main, MODEL_STORE, MONGODB_CLIENT_STORE};
 use mongodb::{bson::doc, options::FindOptions};
 pub use request_handlers::*;
 use serde::Serialize;

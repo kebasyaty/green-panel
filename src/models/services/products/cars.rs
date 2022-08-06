@@ -1,6 +1,6 @@
 //! Cars
 
-use mango_orm::*;
+use green_barrel::*;
 use metamorphose::Model;
 use serde::{Deserialize, Serialize};
 

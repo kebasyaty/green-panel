@@ -1,6 +1,6 @@
 //! User accounts.
 
-use mango_orm::*;
+use green_barrel::*;
 use metamorphose::Model;
 use regex::RegexBuilder;
 use serde::{Deserialize, Serialize};
