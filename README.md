@@ -5,6 +5,7 @@
 ### Admin panel for easy use of [Green Barrel](https://github.com/kebasyaty/green-barrel "green-barrel").  This template uses [actix-web](https://github.com/actix/actix-web "actix-web").
 
 ## Attention
+#### [MongoDB version 4.4](https://www.mongodb.com/docs/manual/release-notes/4.4/ "MongoDB version 4.4")
 #### [MongoDB Rust Driver](https://crates.io/crates/mongodb/1.2.5 "MongoDB Rust Driver") version 1.2.5 is used.
 
 #### For examples of Model fields, use [tests](https://github.com/kebasyaty/green-barrel/tree/master/test-drive/tests "tests").
