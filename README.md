@@ -50,6 +50,7 @@
 
 #### 1. Install mongodb (if not installed)
 
+```shell
     ### Ubuntu, Mint:
     $ sudo apt install mongodb
     ## OR
@@ -86,6 +87,7 @@
     $ sudo rm -f /etc/mongod.conf
     $ sudo apt-add-repository --remove 'deb [arch=amd64] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse' # for mongodb-org
     $ sudo apt update
+```
 
 #### 2. [Download and unzip the project archive](https://github.com/kebasyaty/actix-greenpanel/archive/refs/heads/main.zip "Download and unzip the project archive")
 
@@ -95,9 +97,11 @@
 
 #### 4. Go to the project directory and run the following commands:
 
-    $ cargo build
+```shell
     $ cargo run
-    Open in a web browser http://127.0.0.1:8080/admin
+```
+
+Open in a web browser http://127.0.0.1:8080/admin
 
 ## Login page
 
@@ -157,6 +161,7 @@
 
 **Editor settings:** mango-panel/admin-panel/src/store/modules/ckeditor.js
 
+```rust
     //  Example of a field in the Model.
     #[serde(default)]
     #[field_attrs(
@@ -166,6 +171,7 @@
         css_classes = "ckeditor"
     )]
     pub text_editor: Option<String>,
+```
 
 ![Field `textarea` type and pulse CKEditor 5](https://github.com/kebasyaty/actix-greenpanel/raw/main/images/11.png "Field `textarea` type and pulse CKEditor 5")
 
