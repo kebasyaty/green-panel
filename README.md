@@ -2,12 +2,12 @@
 
 # Actix-Greenpanel
 
-### Admin panel for easy use of [mango-orm](https://github.com/kebasyaty/mango-orm "mango-orm").  This example uses [actix-web](https://github.com/actix/actix-web "actix-web").
+### Admin panel for easy use of [Green Barrel](https://github.com/kebasyaty/green-barrel "green-barrel").  This example uses [actix-web](https://github.com/actix/actix-web "actix-web").
 
 ## Attention
 #### [MongoDB Rust Driver](https://crates.io/crates/mongodb/1.2.5 "MongoDB Rust Driver") version 1.2.5 is used.
 
-#### For examples of Model fields, use [tests](https://github.com/kebasyaty/mango-orm/tree/master/test-drive/tests "tests").
+#### For examples of Model fields, use [tests](https://github.com/kebasyaty/green-barrel/tree/master/test-drive/tests "tests").
 
 ## Requirements
 - **actix-cors -** [https://crates.io/crates/actix-cors](https://crates.io/crates/actix-cors "https://crates.io/crates/actix-cors")
