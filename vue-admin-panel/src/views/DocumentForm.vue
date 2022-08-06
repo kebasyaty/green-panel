@@ -261,7 +261,7 @@
                       <v-dialog
                         persistent
                         max-width="600px"
-                        v-model="dynamicSelectionDialog[field.name]"
+                        v-model="dynDataDialog[field.name]"
                         v-if="field.widget.includes('Dyn')"
                       >
                         <v-card>
@@ -274,12 +274,12 @@
                               color="red"
                               @click="
                                 [
-                                  (dynamicSelectionDialog[field.name] = false),
-                                  (newValDynItem = {
+                                  (dynDataDialog[field.name] = false),
+                                  (addDynDataElem = {
                                     title: null,
                                     value: null,
                                   }),
-                                  (delDynItems = []),
+                                  (delDynDataValue = null),
                                   setShowMsg(false),
                                   runShowOverlayPageLockout(false),
                                 ]
@@ -290,13 +290,15 @@
                           </v-card-actions>
                           <!-- Add new list item. -->
                           <v-card-text class="pb-0">
-                            <v-card-title class="px-0 py-0">{{
+                            <v-card-title
+                              class="pa-0 font-size-1-4-rem green--text"
+                              ><v-spacer></v-spacer>{{ field.label
+                              }}<v-spacer></v-spacer
+                            ></v-card-title>
+                            <v-card-title class="px-0 pt-2 pb-0">{{
                               $t("message.22")
                             }}</v-card-title>
-                            <v-card-subtitle
-                              v-if="field.widget.includes('Text')"
-                              class="px-0 pt-2 pb-2"
-                            >
+                            <v-card-subtitle class="px-0 pt-2 pb-2">
                               <span class="font-weight-medium green--text">{{
                                 $t("message.41")
                               }}</span>
@@ -309,82 +311,54 @@
                               <span class="cyan--text"
                                 >{{ $t("message.24") }}:&ensp;</span
                               >
-                              <span>{{ $t("message.57") }}</span>
-                            </v-card-subtitle>
-                            <v-card-subtitle
-                              v-else-if="field.widget.includes('U32')"
-                              class="px-0 pt-2 pb-2"
-                            >
-                              <span class="font-weight-medium green--text">{{
-                                $t("message.41")
-                              }}</span>
-                              <br />
-                              <span class="cyan--text"
-                                >{{ $t("message.23") }}:&ensp;</span
-                              >
-                              <span>{{ $t("message.57") }}</span>
-                              <br />
-                              <span class="cyan--text"
-                                >{{ $t("message.24") }}:&ensp;</span
-                              >
-                              <span>{{ $t("message.58") }}</span>
-                            </v-card-subtitle>
-                            <v-card-subtitle
-                              v-else-if="
-                                field.widget.includes('I32') ||
-                                field.widget.includes('I64')
-                              "
-                              class="px-0 pt-2 pb-2"
-                            >
-                              <span class="font-weight-medium green--text">{{
-                                $t("message.41")
-                              }}</span>
-                              <br />
-                              <span class="cyan--text"
-                                >{{ $t("message.23") }}:&ensp;</span
-                              >
-                              <span>{{ $t("message.57") }}</span>
-                              <br />
-                              <span class="cyan--text"
-                                >{{ $t("message.24") }}:&ensp;</span
-                              >
-                              <span>{{ $t("message.59") }}</span>
-                            </v-card-subtitle>
-                            <v-card-subtitle
-                              v-else-if="field.widget.includes('F64')"
-                              class="px-0 pt-2 pb-2"
-                            >
-                              <span class="font-weight-medium green--text">{{
-                                $t("message.41")
-                              }}</span>
-                              <br />
-                              <span class="cyan--text"
-                                >{{ $t("message.23") }}:&ensp;</span
-                              >
-                              <span>{{ $t("message.57") }}</span>
-                              <br />
-                              <span class="cyan--text"
-                                >{{ $t("message.24") }}:&ensp;</span
-                              >
-                              <span>{{ $t("message.60") }}</span>
+                              <template>
+                                <span v-if="field.widget.includes('Text')">{{
+                                  $t("message.57")
+                                }}</span>
+                                <span
+                                  v-else-if="field.widget.includes('U32')"
+                                  >{{ $t("message.58") }}</span
+                                >
+                                <span
+                                  v-else-if="field.widget.includes('I32')"
+                                  >{{ $t("message.59") }}</span
+                                >
+                                <span
+                                  v-else-if="field.widget.includes('I64')"
+                                  >{{ $t("message.60") }}</span
+                                >
+                                <span
+                                  v-else-if="field.widget.includes('F64')"
+                                  >{{ $t("message.61") }}</span
+                                >
+                              </template>
                             </v-card-subtitle>
                             <v-row>
                               <v-col cols="12" sm="6">
                                 <v-text-field
                                   clearable
+                                  counter="150"
                                   :label="$t('message.23')"
-                                  v-model="newValDynItem.title"
+                                  v-model="addDynDataElem.title"
                                 ></v-text-field>
                               </v-col>
                               <v-col cols="12" sm="6">
                                 <v-text-field
+                                  v-if="field.widget.includes('Text')"
                                   clearable
                                   :label="$t('message.24')"
-                                  :type="getDynFieldType(field.widget)"
+                                  :counter="field.maxlength"
+                                  v-model="addDynDataElem.value"
+                                ></v-text-field>
+                                <v-text-field
+                                  v-else
+                                  clearable
+                                  :label="$t('message.24')"
+                                  type="number"
                                   :step="field.step"
                                   :min="field.min"
                                   :max="field.max"
-                                  v-model="newValDynItem.value"
+                                  v-model="addDynDataElem.value"
                                 ></v-text-field>
                               </v-col>
                             </v-row>
@@ -399,48 +373,37 @@
                               depressed
                               color="blue darken-2"
                               :disabled="
-                                !newValDynItem.title || !newValDynItem.value
+                                !addDynDataElem.title || !addDynDataElem.value
                               "
-                              @click="updateDynData(field.name, 'save')"
+                              @click="updateDynData(field.name, false)"
                               ><span>{{ $t("message.19") }}</span></v-btn
                             >
                           </v-card-actions>
                           <v-divider></v-divider>
-                          <!-- Remove irrelevant items. -->
+                          <!-- Remove irrelevant item. -->
                           <v-card-text class="pb-0">
                             <v-card-title class="px-0 pt-6 pb-0">{{
                               $t("message.20")
                             }}</v-card-title>
                             <v-autocomplete
                               dense
-                              chips
-                              deletable-chips
-                              small-chips
                               clearable
-                              multiple
-                              counter
                               item-text="title"
                               item-value="value"
                               item-color="red darken-3"
                               color="red darken-3"
                               :disabled="field.options.length === 0"
-                              :type="field.input_type"
                               class="shrink"
-                              v-model="delDynItems"
+                              v-model="delDynDataValue"
                               :items="field.options"
                             >
                               <template v-slot:item="{ item, attrs, on }">
-                                <v-list-item
-                                  v-on="on"
-                                  v-bind="attrs"
-                                  #default="{ active }"
-                                >
-                                  <v-list-item-action>
-                                    <v-checkbox
-                                      :input-value="active"
-                                      color="red darken-3"
-                                    ></v-checkbox>
-                                  </v-list-item-action>
+                                <v-list-item v-on="on" v-bind="attrs">
+                                  <v-list-item-icon>
+                                    <v-icon color="red darken-3"
+                                      >mdi-delete</v-icon
+                                    >
+                                  </v-list-item-icon>
                                   <v-list-item-content>
                                     <v-list-item-title
                                       v-html="item.title"
@@ -462,18 +425,8 @@
                               rounded
                               depressed
                               color="red darken-2"
-                              :disabled="delDynItems.length === 0"
-                              @click="
-                                [
-                                  updateDynData(field.name, 'delete'),
-                                  (dynamicSelectionDialog[field.name] = false),
-                                  (newValDynItem = {
-                                    title: null,
-                                    value: null,
-                                  }),
-                                  (delDynItems = []),
-                                ]
-                              "
+                              :disabled="delDynDataValue === null"
+                              @click="updateDynData(field.name, true)"
                               ><spam>{{ $t("message.21") }}</spam></v-btn
                             >
                           </v-card-actions>
@@ -1381,7 +1334,7 @@
                           depressed
                           small
                           color="orange darken-2"
-                          @click="dynamicSelectionDialog[field.name] = true"
+                          @click="dynDataDialog[field.name] = true"
                         >
                           <v-icon>mdi-plus-minus-variant</v-icon>
                         </v-btn>
@@ -1430,7 +1383,7 @@
                           depressed
                           small
                           color="orange darken-2"
-                          @click="dynamicSelectionDialog[field.name] = true"
+                          @click="dynDataDialog[field.name] = true"
                         >
                           <v-icon>mdi-plus-minus-variant</v-icon>
                         </v-btn>
@@ -1563,9 +1516,9 @@ export default {
     vMenu: {},
     fieldsData: {},
     fields: [],
-    dynamicSelectionDialog: {},
-    delDynItems: [],
-    newValDynItem: { title: null, value: null },
+    dynDataDialog: {},
+    delDynDataValue: null,
+    addDynDataElem: { title: null, value: null },
     showLocalDate: {},
     maxTotalFormSize: 16384, // 16384 = ~16 Kb (default data size for the form),
     render: true,
@@ -1724,7 +1677,7 @@ export default {
     },
     // Determine if the document was previously created.
     isCreatedDoc() {
-      return !isNaN(parseInt(this.$route.params.indexDoc));
+      return !isNaN(Number.parseInt(this.$route.params.indexDoc));
     },
     // Get human readable version of file size.
     humanFileSize(size) {
@@ -1734,19 +1687,6 @@ export default {
         " " +
         ["B", "kB", "MB", "GB", "TB"][i]
       );
-    },
-    // Get field type with dynamic widget.
-    getDynFieldType(widget) {
-      let result = "text";
-      if (
-        widget.includes("I32") ||
-        widget.includes("U32") ||
-        widget.includes("I64") ||
-        widget.includes("F64")
-      ) {
-        result = "number";
-      }
-      return result;
     },
     // Default color.
     defaultColor(fieldName) {
@@ -1942,7 +1882,7 @@ export default {
     getFormData(document) {
       const vMenu = {};
       const fieldsData = {};
-      const dynamicSelectionDialog = {};
+      const dynDataDialog = {};
 
       document.forEach((field) => {
         let tmp;
@@ -2022,35 +1962,35 @@ export default {
           case "hiddenI32":
           case "hiddenU32":
           case "hiddenI64":
-            tmp = parseInt(field.value);
+            tmp = Number.parseInt(field.value);
             fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
             this.showWarning(field.alert);
             break;
           case "hiddenF64":
-            tmp = parseFloat(field.value);
+            tmp = Number.parseFloat(field.value);
             fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
             this.showWarning(field.alert);
             break;
           case "numberI32":
           case "numberU32":
           case "numberI64":
-            tmp = parseInt(field.value);
+            tmp = Number.parseInt(field.value);
             fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
             this.showWarning(field.alert);
             break;
           case "numberF64":
-            tmp = parseFloat(field.value);
+            tmp = Number.parseFloat(field.value);
             fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
             this.showWarning(field.alert);
             break;
           case "rangeI32":
           case "rangeU32":
           case "rangeI64":
-            fieldsData[field.name] = parseInt(field.value);
+            fieldsData[field.name] = Number.parseInt(field.value);
             this.showWarning(field.alert);
             break;
           case "rangeF64":
-            fieldsData[field.name] = parseFloat(field.value);
+            fieldsData[field.name] = Number.parseFloat(field.value);
             this.showWarning(field.alert);
             break;
           case "radioText":
@@ -2060,18 +2000,18 @@ export default {
           case "radioI32":
           case "radioU32":
           case "radioI64":
-            tmp = parseInt(field.value);
+            tmp = Number.parseInt(field.value);
             fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
             field.options.forEach(function (item) {
-              item[0] = parseInt(item[0]);
+              item[0] = Number.parseInt(item[0]);
             });
             this.showWarning(field.alert);
             break;
           case "radioF64":
-            tmp = parseFloat(field.value);
+            tmp = Number.parseFloat(field.value);
             fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
             field.options.forEach(function (item) {
-              item[0] = parseFloat(item[0]);
+              item[0] = Number.parseFloat(item[0]);
             });
             this.showWarning(field.alert);
             break;
@@ -2089,18 +2029,18 @@ export default {
           case "selectI32":
           case "selectU32":
           case "selectI64":
-            tmp = parseInt(field.value);
+            tmp = Number.parseInt(field.value);
             fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
             field.options = field.options.map(function (item) {
-              return { value: parseInt(item[0]), title: item[1] };
+              return { value: Number.parseInt(item[0]), title: item[1] };
             });
             this.showWarning(field.alert);
             break;
           case "selectF64":
-            tmp = parseFloat(field.value);
+            tmp = Number.parseFloat(field.value);
             fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
             field.options = field.options.map(function (item) {
-              return { value: parseFloat(item[0]), title: item[1] };
+              return { value: Number.parseFloat(item[0]), title: item[1] };
             });
             this.showWarning(field.alert);
             break;
@@ -2117,20 +2057,20 @@ export default {
           case "selectI64Mult":
             fieldsData[field.name] =
               field.value.length > 0
-                ? JSON.parse(field.value).map((item) => parseInt(item))
+                ? JSON.parse(field.value).map((item) => Number.parseInt(item))
                 : [];
             field.options = field.options.map(function (item) {
-              return { value: parseInt(item[0]), title: item[1] };
+              return { value: Number.parseInt(item[0]), title: item[1] };
             });
             this.showWarning(field.alert);
             break;
           case "selectF64Mult":
             fieldsData[field.name] =
               field.value.length > 0
-                ? JSON.parse(field.value).map((item) => parseFloat(item))
+                ? JSON.parse(field.value).map((item) => Number.parseFloat(item))
                 : [];
             field.options = field.options.map(function (item) {
-              return { value: parseFloat(item[0]), title: item[1] };
+              return { value: Number.parseFloat(item[0]), title: item[1] };
             });
             this.showWarning(field.alert);
             break;
@@ -2139,27 +2079,27 @@ export default {
             field.options = field.options.map(function (item) {
               return { value: item[0], title: item[1] };
             });
-            dynamicSelectionDialog[field.name] = false;
+            dynDataDialog[field.name] = false;
             this.showWarning(field.alert);
             break;
           case "selectI32Dyn":
           case "selectU32Dyn":
           case "selectI64Dyn":
-            tmp = parseInt(field.value);
+            tmp = Number.parseInt(field.value);
             fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
             field.options = field.options.map(function (item) {
-              return { value: parseInt(item[0]), title: item[1] };
+              return { value: Number.parseInt(item[0]), title: item[1] };
             });
-            dynamicSelectionDialog[field.name] = false;
+            dynDataDialog[field.name] = false;
             this.showWarning(field.alert);
             break;
           case "selectF64Dyn":
-            tmp = parseFloat(field.value);
+            tmp = Number.parseFloat(field.value);
             fieldsData[field.name] = !Number.isNaN(tmp) ? tmp : "";
             field.options = field.options.map(function (item) {
-              return { value: parseFloat(item[0]), title: item[1] };
+              return { value: Number.parseFloat(item[0]), title: item[1] };
             });
-            dynamicSelectionDialog[field.name] = false;
+            dynDataDialog[field.name] = false;
             this.showWarning(field.alert);
             break;
           case "selectTextMultDyn":
@@ -2168,7 +2108,7 @@ export default {
             field.options = field.options.map(function (item) {
               return { value: item[0], title: item[1] };
             });
-            dynamicSelectionDialog[field.name] = false;
+            dynDataDialog[field.name] = false;
             this.showWarning(field.alert);
             break;
           case "selectI32MultDyn":
@@ -2176,23 +2116,23 @@ export default {
           case "selectI64MultDyn":
             fieldsData[field.name] =
               field.value.length > 0
-                ? JSON.parse(field.value).map((item) => parseInt(item))
+                ? JSON.parse(field.value).map((item) => Number.parseInt(item))
                 : [];
             field.options = field.options.map(function (item) {
-              return { value: parseInt(item[0]), title: item[1] };
+              return { value: Number.parseInt(item[0]), title: item[1] };
             });
-            dynamicSelectionDialog[field.name] = false;
+            dynDataDialog[field.name] = false;
             this.showWarning(field.alert);
             break;
           case "selectF64MultDyn":
             fieldsData[field.name] =
               field.value.length > 0
-                ? JSON.parse(field.value).map((item) => parseFloat(item))
+                ? JSON.parse(field.value).map((item) => Number.parseFloat(item))
                 : [];
             field.options = field.options.map(function (item) {
-              return { value: parseFloat(item[0]), title: item[1] };
+              return { value: Number.parseFloat(item[0]), title: item[1] };
             });
-            dynamicSelectionDialog[field.name] = false;
+            dynDataDialog[field.name] = false;
             this.showWarning(field.alert);
             break;
           case "inputFile":
@@ -2207,7 +2147,7 @@ export default {
 
       this.vMenu = vMenu;
       this.fieldsData = fieldsData;
-      this.dynamicSelectionDialog = dynamicSelectionDialog;
+      this.dynDataDialog = dynDataDialog;
       this.fields = document;
     },
 
@@ -2270,20 +2210,20 @@ export default {
             ) {
               if (field.widget.includes("Mult")) {
                 cloneFieldsData[field.name] = cloneFieldsData[field.name].map(
-                  (item) => parseInt(item)
+                  (item) => Number.parseInt(item)
                 );
               } else {
-                cloneFieldsData[field.name] = parseInt(
+                cloneFieldsData[field.name] = Number.parseInt(
                   cloneFieldsData[field.name]
                 );
               }
             } else if (field.widget.includes("F64")) {
               if (field.widget.includes("Mult")) {
                 cloneFieldsData[field.name] = cloneFieldsData[field.name].map(
-                  (item) => parseFloat(item)
+                  (item) => Number.parseFloat(item)
                 );
               } else {
-                cloneFieldsData[field.name] = parseFloat(
+                cloneFieldsData[field.name] = Number.parseFloat(
                   cloneFieldsData[field.name]
                 );
               }
@@ -2369,9 +2309,9 @@ export default {
                     break;
                   case "save_and_edit":
                     this.vMenu = {};
-                    this.dynamicSelectionDialog = {};
-                    this.delDynItems = [];
-                    this.newValDynItem = { title: null, value: null };
+                    this.dynDataDialog = {};
+                    this.delDynDataValue = null;
+                    this.addDynDataElem = { title: null, value: null };
                     this.fieldsData = {};
                     this.fields = [];
                     this.getFormData(document);
@@ -2548,7 +2488,7 @@ export default {
     },
 
     // Adding and deleting dynamic elements.
-    updateDynData(fieldName, mode) {
+    updateDynData(fieldName, isDelete) {
       this.setShowMsg(false);
       this.runShowOverlayPageLockout(true);
       const indexService = this.$route.params.indexService;
@@ -2557,135 +2497,234 @@ export default {
       const targetField = this.fields.filter(
         (item) => item.name === fieldName
       )[0];
-      const targetOptions = {};
-      const delItemsValue = [];
-
-      switch (mode) {
-        case "save":
-          this.newValDynItem.title = this.newValDynItem.title.trim();
-          // Checking the `Title` field for valid characters.
-          if (
-            !/^[-_.,`@#$%^&+=*!~)(:><?;№|\\/\s\w\p{L}]+$/iu.test(
-              this.newValDynItem.title
-            )
-          ) {
-            this.runShowMsg({ text: this.$t("message.61"), status: "error" });
+      //
+      let delValue;
+      //
+      if (isDelete) {
+        if (targetField.widget.includes("Text")) {
+          delValue = this.delDynDataValue;
+        } else if (targetField.widget.includes("F64")) {
+          delValue = Number.parseFloat(this.delDynDataValue);
+          if (Number.isNaN(delValue)) {
+            this.runShowMsg({
+              text: this.$t("message.78"),
+              status: "error",
+            });
             return;
           }
-          // Validation uniqueness of names for dynamic enumerations.
-          for (let idx = 0; idx < targetField.options.length; idx++) {
-            if (targetField.options[idx].title === this.newValDynItem.title) {
-              this.runShowMsg({
-                text: `${this.$t("message.23")}: ${this.$t("message.33")}`,
-                status: "error",
-              });
-              return;
-            }
+        } else {
+          delValue = Number.parseInt(this.delDynDataValue);
+          if (Number.isNaN(delValue)) {
+            this.runShowMsg({
+              text: this.$t("message.78"),
+              status: "error",
+            });
+            return;
           }
-          // Validation of a field of type text.
-          if (targetField.widget.includes("Text")) {
-            if (
-              !/^[-_.,`@#$%^&+=*!~)(:><?;№|\\/\s\w\p{L}]+$/iu.test(
-                this.newValDynItem.value.toString().trim()
-              )
-            ) {
-              this.runShowMsg({ text: this.$t("message.62"), status: "error" });
-              return;
-            }
+        }
+      } else {
+        // Check if the Title is correct.
+        // -----------------------------------------------------------------------------------------
+        this.addDynDataElem.title = this.addDynDataElem.title.trim();
+        // Title uniqueness check.
+        for (let idx = 0; idx < targetField.options.length; idx++) {
+          if (targetField.options[idx].title === this.addDynDataElem.title) {
+            this.runShowMsg({
+              text: `${this.$t("message.23")}: ${this.$t("message.33")}`,
+              status: "error",
+            });
+            return;
           }
-          // Validation of a field of type u32.
-          if (targetField.widget.includes("U32")) {
-            // Checking the `Value` field for valid characters.
-            if (!/^\d+$/.test(this.newValDynItem.value.toString().trim())) {
-              this.runShowMsg({ text: this.$t("message.62"), status: "error" });
-              return;
-            }
-            // The value must not be less than zero.
-            if (+this.newValDynItem.value < 0) {
-              this.runShowMsg({
-                text: `${this.$t("message.23")}: ${
-                  this.newValDynItem.title
-                }<br>${this.$t("message.24")}: ${this.$t("message.34")}.`,
-                status: "error",
-              });
-              return;
-            }
-          }
-          // Validation of a field of type i32 and i64.
+        }
+        //
+        if (this.addDynDataElem.title.length > 150) {
+          this.runShowMsg({
+            text: `${this.$t("message.23")}: ${this.$t("message.75")}`,
+            status: "error",
+          });
+          return;
+        }
+
+        // Check if the Value is correct.
+        // -----------------------------------------------------------------------------------------
+        if (targetField.widget.includes("Text")) {
+          this.addDynDataElem.value = this.addDynDataElem.value.trim();
+          let value = this.addDynDataElem.value;
+          // Check for the allowed number of characters.
+          let valueLen = value.length;
           if (
-            targetField.widget.includes("I32") ||
-            targetField.widget.includes("I64")
+            valueLen < targetField.minlength ||
+            valueLen > targetField.maxlength
           ) {
-            if (!/^-?\d+$/.test(this.newValDynItem.value.toString().trim())) {
-              this.runShowMsg({ text: this.$t("message.62"), status: "error" });
-              return;
-            }
+            this.runShowMsg({
+              text: `${this.$t("message.23")}: ${
+                this.addDynDataElem.title
+              }<br>${this.$t("message.24")}: ${this.$t("message.76")} ${
+                targetField.minlength
+              } <-> ${targetField.maxlength}`,
+              status: "error",
+            });
+            return;
           }
-          // Validation of a field of type f64.
+        } else {
+          // Check if the number is in the allowed range.
+          // ---------------------------------------------------------------------------------------
+          let min = targetField.min;
+          let max = targetField.max;
+          // Checking fractional values for an acceptable limit.
           if (targetField.widget.includes("F64")) {
-            if (
-              !/^-?\d+((\.|,)\d+)?$/.test(
-                this.newValDynItem.value.toString().trim()
-              )
-            ) {
-              this.runShowMsg({ text: this.$t("message.62"), status: "error" });
+            this.addDynDataElem.value = Number.parseFloat(
+              this.addDynDataElem.value
+            );
+            let value = this.addDynDataElem.value;
+            if (Number.isNaN(value)) {
+              this.runShowMsg({
+                text: `${this.$t("message.23")}: ${
+                  this.addDynDataElem.title
+                }<br>${this.$t("message.24")}: ${this.$t("message.77")}.`,
+                status: "error",
+              });
               return;
             }
-          }
-          // Convert to the appropriate numeric type.
-          if (
-            targetField.widget.includes("I32") ||
-            targetField.widget.includes("U32") ||
-            targetField.widget.includes("I64")
-          ) {
-            // Validate that the value is not fractional.
-            if (
-              this.newValDynItem.value.includes(".") ||
-              this.newValDynItem.value.includes(",")
+            if (value < -Number.MAX_VALUE || value > Number.MAX_VALUE) {
+              this.runShowMsg({
+                text: `${this.$t("message.23")}: ${
+                  this.addDynDataElem.title
+                }<br>${this.$t("message.24")}: ${this.$t(
+                  "message.62"
+                )} ${-Number.MAX_VALUE} <-> ${Number.MAX_VALUE}`,
+                status: "error",
+              });
+              return;
+            } else if (
+              (min.length > 0 && value < Number.parseFloat(min)) ||
+              (max.length > 0 && value > Number.parseFloat(max))
             ) {
               this.runShowMsg({
                 text: `${this.$t("message.23")}: ${
-                  this.newValDynItem.title
+                  this.addDynDataElem.title
+                }<br>${this.$t("message.24")}: ${this.$t(
+                  "message.62"
+                )} ${min} <-> ${max}`,
+                status: "error",
+              });
+              return;
+            }
+          } else {
+            // Validate that the value is not fractional.
+            let value = this.addDynDataElem.value;
+            if (
+              (typeof value === "string" &&
+                (value.includes(".") || value.includes(","))) ||
+              (typeof value === "number" && !Number.isInteger(value))
+            ) {
+              this.runShowMsg({
+                text: `${this.$t("message.23")}: ${
+                  this.addDynDataElem.title
                 }<br>${this.$t("message.24")}: ${this.$t("message.35")}.`,
                 status: "error",
               });
               return;
             }
-            this.newValDynItem.value = parseInt(this.newValDynItem.value);
-          } else if (targetField.widget.includes("F64")) {
-            this.newValDynItem.value = parseFloat(this.newValDynItem.value);
-          }
-          // Prepare `options` for conversion to json-line.
-          targetOptions[fieldName] = targetField.options
-            .concat(this.newValDynItem)
-            .map((item) => [item.value.toString().trim(), item.title]);
-          targetOptions[fieldName].sort(function (item, item2) {
-            if (item[1] > item2[1]) {
-              return 1;
+            // Checking integer values for a valid limit.
+            this.addDynDataElem.value = Number.parseInt(
+              this.addDynDataElem.value
+            );
+            value = this.addDynDataElem.value;
+            if (Number.isNaN(value)) {
+              this.runShowMsg({
+                text: `${this.$t("message.23")}: ${
+                  this.addDynDataElem.title
+                }<br>${this.$t("message.24")}: ${this.$t("message.77")}.`,
+                status: "error",
+              });
+              return;
             }
-            if (item[1] < item2[1]) {
-              return -1;
+            if (
+              targetField.widget.includes("U32") &&
+              (value < 0 || value > 4294967295)
+            ) {
+              this.runShowMsg({
+                text: `${this.$t("message.23")}: ${
+                  this.addDynDataElem.title
+                }<br>${this.$t("message.24")}: ${this.$t(
+                  "message.62"
+                )} 0 <-> 4_294_967_295`,
+                status: "error",
+              });
+              return;
+            } else if (
+              targetField.widget.includes("I32") &&
+              (value < -2147483648 || value > 2147483647)
+            ) {
+              this.runShowMsg({
+                text: `${this.$t("message.23")}: ${
+                  this.addDynDataElem.title
+                }<br>${this.$t("message.24")}: ${this.$t(
+                  "message.62"
+                )} -2_147_483_648 <-> 2_147_483_647`,
+                status: "error",
+              });
+              return;
+            } else if (
+              targetField.widget.includes("I64") &&
+              (value < Number.MIN_SAFE_INTEGER ||
+                value > Number.MAX_SAFE_INTEGER)
+            ) {
+              this.runShowMsg({
+                text: `${this.$t("message.23")}: ${
+                  this.addDynDataElem.title
+                }<br>${this.$t("message.24")}: ${this.$t("message.62")} ${
+                  Number.MIN_SAFE_INTEGER
+                } <-> ${Number.MAX_SAFE_INTEGER}`,
+                status: "error",
+              });
+              return;
             }
-            return 0;
-          });
-          break;
-        case "delete":
-          // Prepare `options` for conversion to json-line.
-          for (let idx = 0; idx < this.delDynItems.length; idx++) {
-            delItemsValue.push(this.delDynItems[idx]);
+            //
+            if (
+              (min.length > 0 && value < Number.parseInt(min)) ||
+              (max.length > 0 && value > Number.parseInt(max))
+            ) {
+              this.runShowMsg({
+                text: `${this.$t("message.23")}: ${
+                  this.addDynDataElem.title
+                }<br>${this.$t("message.24")}: ${this.$t(
+                  "message.62"
+                )} ${min} <-> ${max}`,
+                status: "error",
+              });
+              return;
+            }
           }
-          this.delDynItems = [];
-          targetOptions[fieldName] = targetField.options
-            .filter((item) => !delItemsValue.includes(item.value))
-            .map((item) => [item.value.toString(), item.title]);
-          break;
+        }
+        // Value uniqueness check.
+        for (let idx = 0; idx < targetField.options.length; idx++) {
+          if (targetField.options[idx].value === this.addDynDataElem.value) {
+            this.runShowMsg({
+              text: `${this.$t("message.23")}: ${
+                this.addDynDataElem.title
+              }<br>${this.$t("message.24")}: ${this.$t("message.74")}`,
+              status: "error",
+            });
+            return;
+          }
+        }
       }
 
       // Create a payload and send it to the server.
-      const jsonOptions = JSON.stringify(targetOptions);
+      let dynData = isDelete
+        ? targetField.options.filter((item) => item.value == delValue)[0]
+        : this.addDynDataElem;
+      const dynDataJson = JSON.stringify({
+        field_name: fieldName,
+        value: dynData.value,
+        title: dynData.title,
+        is_delete: isDelete,
+      });
       const payload = {
         model_key: service.collections[indexCollection].model_key,
-        json_options: jsonOptions,
+        dyn_data: dynDataJson,
       };
       this.axios
         .post("/admin/update-dyn-data", payload)
@@ -2696,46 +2735,30 @@ export default {
             this.setIsAuthenticated(false);
           } else if (data.msg_err.length === 0) {
             // Apply changes to the current state.
-            switch (mode) {
-              case "save":
-                if (typeof this.newValDynItem.value === "string") {
-                  this.newValDynItem.value = this.newValDynItem.value.trim();
-                }
-                for (let idx = 0; idx < this.fields.length; idx++) {
-                  if (this.fields[idx].name === fieldName) {
-                    this.fields[idx].options.push(this.newValDynItem);
-                    this.fields[idx].options.sort(function (item, item2) {
-                      if (item.title > item2.title) {
-                        return 1;
-                      }
-                      if (item.title < item2.title) {
-                        return -1;
-                      }
-                      return 0;
-                    });
-                    break;
+            if (isDelete) {
+              for (let idx = 0; idx < this.fields.length; idx++) {
+                if (this.fields[idx].name === fieldName) {
+                  if (targetField.widget.includes("Mult")) {
+                    this.fieldsData[fieldName] = this.fieldsData[
+                      fieldName
+                    ].filter((item) => item != delValue);
+                  } else {
+                    this.fieldsData[fieldName] = null;
                   }
+                  //
+                  this.fields[idx].options = this.fields[idx].options.filter(
+                    (item) => item.value != delValue
+                  );
+                  break;
                 }
-                break;
-              case "delete":
-                for (let idx = 0; idx < this.fields.length; idx++) {
-                  if (this.fields[idx].name === fieldName) {
-                    if (this.fields[idx].widget.includes("Mult")) {
-                      this.fieldsData[fieldName] = this.fieldsData[
-                        fieldName
-                      ].filter((item) => !delItemsValue.includes(item));
-                    } else if (
-                      delItemsValue.includes(this.fieldsData[fieldName])
-                    ) {
-                      this.fieldsData[fieldName] = null;
-                    }
-                    this.fields[idx].options = this.fields[idx].options.filter(
-                      (item) => !delItemsValue.includes(item.value)
-                    );
-                    break;
-                  }
+              }
+            } else {
+              for (let idx = 0; idx < this.fields.length; idx++) {
+                if (this.fields[idx].name === fieldName) {
+                  this.fields[idx].options.push(this.addDynDataElem);
+                  break;
                 }
-                break;
+              }
             }
             this.setDataFilters([]);
             this.setSelectDataFilters({});
@@ -2752,8 +2775,8 @@ export default {
           this.runShowMsg({ text: error, status: "error" });
         })
         .then(() => {
-          this.dynamicSelectionDialog[fieldName] = false;
-          this.newValDynItem = { title: null, value: null };
+          this.delDynDataValue = null;
+          this.addDynDataElem = { title: null, value: null };
         });
     },
     // Refresh form for update password.

@@ -107,3 +107,10 @@ button:not(.v-pagination__item--active).v-pagination__item:hover,
 .noHover {
   pointer-events: none;
 }
+
+/* Fonts
+----------------------------------------------------------------------------------------------------
+*/
+.font-size-1-4-rem {
+  font-size: 1.4rem !important;
+}

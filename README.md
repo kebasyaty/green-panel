@@ -1,13 +1,14 @@
 [![Logo](https://github.com/kebasyaty/mango-panel/raw/main/images/logo.svg "Logo")](https://github.com/kebasyaty/mango-panel "Logo")
 
-# actix-mango-panel
+# Actix-Greenpanel
 
-### Admin panel for easy use of [mango-orm](https://github.com/kebasyaty/mango-orm "mango-orm").  This example uses [actix-web](https://github.com/actix/actix-web "actix-web").
+### Admin panel for easy use of [Green Barrel](https://github.com/kebasyaty/green-barrel "green-barrel").  This template uses [actix-web](https://github.com/actix/actix-web "actix-web").
 
 ## Attention
+#### [MongoDB version 4.4](https://www.mongodb.com/docs/manual/release-notes/4.4/ "MongoDB version 4.4")
 #### [MongoDB Rust Driver](https://crates.io/crates/mongodb/1.2.5 "MongoDB Rust Driver") version 1.2.5 is used.
 
-#### For examples of Model fields, use [tests](https://github.com/kebasyaty/mango-orm/tree/master/test-drive/tests "tests").
+#### For examples of Model fields, use [tests](https://github.com/kebasyaty/green-barrel/tree/master/test-drive/tests "tests").
 
 ## Requirements
 - **actix-cors -** [https://crates.io/crates/actix-cors](https://crates.io/crates/actix-cors "https://crates.io/crates/actix-cors")
@@ -146,3 +147,7 @@
     pub text_editor: Option<String>,
 
 ![Field `textarea` type and pulse CKEditor 5](https://github.com/kebasyaty/mango-panel/raw/main/images/11.png "Field `textarea` type and pulse CKEditor 5")
+
+## License
+
+#### This project is licensed under the [MIT](https://github.com/kebasyaty/actix-greenpanel/blob/main/LICENSE-MIT "MIT") and [Apache Version 2.0](https://github.com/kebasyaty/actix-greenpanel/blob/main/LICENSE-APACHE "Apache Version 2.0")

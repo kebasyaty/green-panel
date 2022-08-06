@@ -7,7 +7,7 @@ use actix_web::{error, web, Error, HttpRequest, HttpResponse, Result};
 pub use configure_urls::*;
 use futures::StreamExt;
 use humansize::{file_size_opts, FileSize};
-use mango_orm::{Main, QCommons, QPaladins, MODEL_STORE, MONGODB_CLIENT_STORE};
+use green_barrel::{Main, QCommons, QPaladins, MODEL_STORE, MONGODB_CLIENT_STORE};
 use mongodb::{
     bson::{doc, document::Document, oid::ObjectId, Bson, Regex},
     options::FindOptions,
@@ -566,7 +566,7 @@ pub mod request_handlers {
                 "created" => doc! {"created_at": query.direct},
                 "updated" => doc! {"updated_at": query.direct},
                 _ => {
-                    let msg = "Sorting Documents - There is no match for the sort type.";
+                    let msg = "Sorting Documents => There is no match for the sort type.";
                     return Err(error::ErrorBadRequest(msg));
                 }
             };
@@ -684,7 +684,7 @@ pub mod request_handlers {
                             let result = result[1..result.len() - 1]
                                 .to_string()
                                 .replace(r#"""#, "")
-                                .replace(",", " | ");
+                                .replace(",", r#"<span class="green--text"> | </span>"#);
                             let result = re_find_color.replace_all(
                                 result.as_str(),
                                 r#"<div class="sm-show-color" style="background-color:$color;"></div>"#,
@@ -1017,7 +1017,7 @@ pub mod request_handlers {
     #[derive(Deserialize)]
     pub struct QueryUpdateDynData {
         model_key: String,
-        json_options: String,
+        dyn_data: String,
     }
 
     pub async fn update_dyn_data(
@@ -1044,13 +1044,14 @@ pub mod request_handlers {
         // Define the desired model by `model_key` and update dynamic data
         // -----------------------------------------------------------------------------------------
         if msg_err.is_empty() {
+            let dyn_data = serde_json::from_str::<Value>(query.dyn_data.as_str()).unwrap();
             admin_panel::get_result_for_admin(
                 query.model_key.as_str(),
                 None,
                 None,
                 None,
                 None,
-                Some(query.json_options.as_str()),
+                Some(dyn_data),
             )
             .unwrap();
         }

@@ -1,13 +1,12 @@
-//! # Administrator profiles.
-//!
+//! User accounts.
 
-use mango_orm::*;
+use green_barrel::*;
 use metamorphose::Model;
 use regex::RegexBuilder;
 use serde::{Deserialize, Serialize};
 
 use crate::models::settings::{
-    users::{DATABASE_NAME, DB_CLIENT_NAME, DB_QUERY_DOCS_LIMIT, SERVICE_NAME},
+    accounts::{DATABASE_NAME, DB_CLIENT_NAME, DB_QUERY_DOCS_LIMIT, SERVICE_NAME},
     PROJECT_NAME, UNIQUE_PROJECT_KEY,
 };
 

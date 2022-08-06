@@ -15,26 +15,11 @@ pub const PROJECT_NAME: &str = "store";
 // Size: 8-16
 // Example: "7rzgacfqQB3B7q7T"
 // To generate a key: https://randompasswordgen.com/
-pub const UNIQUE_PROJECT_KEY: &str = "qn9JGrB3bCRMQnF";
+pub const UNIQUE_PROJECT_KEY: &str = "v1k9834DDNAe74GT";
 
 // Accounts
 // *************************************************************************************************
-// Users
-pub mod users {
-    // Valid characters: _ a-z A-Z 0-9
-    // Max size: 31
-    // First character: a-z A-Z
-    pub const SERVICE_NAME: &str = "accounts";
-    // Valid characters: _ a-z A-Z 0-9
-    // Max size: 21
-    // First character: a-z A-Z
-    pub const DATABASE_NAME: &str = "accounts";
-    pub const DB_CLIENT_NAME: &str = "default";
-    pub const DB_QUERY_DOCS_LIMIT: u32 = 1000;
-}
-
-// User Profiles
-pub mod user_profiles {
+pub mod accounts {
     // Valid characters: _ a-z A-Z 0-9
     // Max size: 31
     // First character: a-z A-Z
@@ -49,8 +34,7 @@ pub mod user_profiles {
 
 // Products
 // *************************************************************************************************
-// Cars
-pub mod cars {
+pub mod products {
     // Valid characters: _ a-z A-Z 0-9
     // Max size: 31
     // First character: a-z A-Z
