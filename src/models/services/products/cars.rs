@@ -1,12 +1,11 @@
-//! Electric Cars
-//!
+//! Cars
 
 use mango_orm::*;
 use metamorphose::Model;
 use serde::{Deserialize, Serialize};
 
 use crate::models::settings::{
-    cars::{DATABASE_NAME, DB_CLIENT_NAME, DB_QUERY_DOCS_LIMIT, SERVICE_NAME},
+    products::{DATABASE_NAME, DB_CLIENT_NAME, DB_QUERY_DOCS_LIMIT, SERVICE_NAME},
     PROJECT_NAME, UNIQUE_PROJECT_KEY,
 };
 

@@ -106,7 +106,7 @@ pub fn get_service_list_for_admin() -> Result<Value, Box<dyn Error>> {
             "collections": [
                 // Cars
                 {
-                    "title": "Electric Cars",
+                    "title": "Cars",
                     "model_key": cars::Car::key()?,
                     "fields": [
                         { "field": "model", "title": "Model" },
@@ -135,12 +135,12 @@ pub fn get_result_for_admin(
     bytes: Option<&actix_web::web::BytesMut>,
     app_state: Option<actix_web::web::Data<settings::state::AppState>>,
     filter: Option<&Document>,
-    options_json: Option<&str>,
+    dyn_data: Option<Value>,
 ) -> Result<String, Box<dyn Error>> {
     // User
     // ---------------------------------------------------------------------------------------------
     if model_key == users::User::key()? {
-        match users::User::actix_instance_for_admin(doc_hash, bytes, filter, options_json)? {
+        match users::User::actix_instance_for_admin(doc_hash, bytes, filter, dyn_data)? {
             OutputDataAdmin::EarlyResult(data) => return Ok(data),
             OutputDataAdmin::Instance(data) => {
                 if let Some(mut instance) = data {
@@ -155,12 +155,7 @@ pub fn get_result_for_admin(
     // Seller Profile
     // ---------------------------------------------------------------------------------------------
     } else if model_key == sellers::SellerProfile::key()? {
-        match sellers::SellerProfile::actix_instance_for_admin(
-            doc_hash,
-            bytes,
-            filter,
-            options_json,
-        )? {
+        match sellers::SellerProfile::actix_instance_for_admin(doc_hash, bytes, filter, dyn_data)? {
             OutputDataAdmin::EarlyResult(data) => return Ok(data),
             OutputDataAdmin::Instance(data) => {
                 if let Some(mut instance) = data {
@@ -177,10 +172,7 @@ pub fn get_result_for_admin(
     // ---------------------------------------------------------------------------------------------
     } else if model_key == customers::CustomerProfile::key()? {
         match customers::CustomerProfile::actix_instance_for_admin(
-            doc_hash,
-            bytes,
-            filter,
-            options_json,
+            doc_hash, bytes, filter, dyn_data,
         )? {
             OutputDataAdmin::EarlyResult(data) => return Ok(data),
             OutputDataAdmin::Instance(data) => {
@@ -196,7 +188,7 @@ pub fn get_result_for_admin(
     // Car
     // ---------------------------------------------------------------------------------------------
     } else if model_key == cars::Car::key()? {
-        match cars::Car::actix_instance_for_admin(doc_hash, bytes, filter, options_json)? {
+        match cars::Car::actix_instance_for_admin(doc_hash, bytes, filter, dyn_data)? {
             OutputDataAdmin::EarlyResult(data) => return Ok(data),
             OutputDataAdmin::Instance(data) => {
                 if let Some(mut instance) = data {

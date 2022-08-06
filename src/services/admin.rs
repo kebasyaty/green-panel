@@ -1017,7 +1017,7 @@ pub mod request_handlers {
     #[derive(Deserialize)]
     pub struct QueryUpdateDynData {
         model_key: String,
-        json_options: String,
+        dyn_data: String,
     }
 
     pub async fn update_dyn_data(
@@ -1044,13 +1044,14 @@ pub mod request_handlers {
         // Define the desired model by `model_key` and update dynamic data
         // -----------------------------------------------------------------------------------------
         if msg_err.is_empty() {
+            let dyn_data = serde_json::from_str::<Value>(query.dyn_data.as_str()).unwrap();
             admin_panel::get_result_for_admin(
                 query.model_key.as_str(),
                 None,
                 None,
                 None,
                 None,
-                Some(query.json_options.as_str()),
+                Some(dyn_data),
             )
             .unwrap();
         }

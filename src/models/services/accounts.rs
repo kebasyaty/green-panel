@@ -1,5 +1,4 @@
-//! # Models for managing personal data of users.
-//!
+//! Accounts and user profiles.
 
 pub mod customers;
 pub mod sellers;

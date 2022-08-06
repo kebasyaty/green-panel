@@ -1,5 +1,4 @@
-//! # Customer profiles.
-//!
+//! Customer profiles.
 
 use mango_orm::*;
 use metamorphose::Model;
@@ -9,7 +8,7 @@ use serde::{Deserialize, Serialize};
 use crate::models::{
     services::accounts::users,
     settings::{
-        user_profiles::{DATABASE_NAME, DB_CLIENT_NAME, DB_QUERY_DOCS_LIMIT, SERVICE_NAME},
+        accounts::{DATABASE_NAME, DB_CLIENT_NAME, DB_QUERY_DOCS_LIMIT, SERVICE_NAME},
         PROJECT_NAME, UNIQUE_PROJECT_KEY,
     },
 };
