@@ -1,8 +1,11 @@
 # vue-admin-panel
+
 #### The client part of the project, created on the Vue.js framework.
 
 ## Visual Studio Code
+
 ### Plugins:
+
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint "ESLint")
 - [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur "Vetur")
 - [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode "Prettier - Code formatter")
@@ -14,6 +17,7 @@
 - [Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme "Material Icon Theme")
 
 #### Settings for "Highlight Matching Tag":
+
       "highlight-matching-tag.styles": {
         "opening": {
           "left": {

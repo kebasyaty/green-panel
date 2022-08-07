@@ -35,7 +35,7 @@ Vue.filter("truncate", function (text, length, suffix) {
   }
 });
 
-//
+// Determine language code by browser localization.
 Vue.prototype.$userLang = (navigator.language || navigator.userLanguage)
   .slice(0, 2)
   .toLowerCase();

@@ -64,7 +64,7 @@ export default {
     60: "Number from -9_007_199_254_740_991 до 9_007_199_254_740_991",
     61: "Fractional numbers",
     62: "Out of range",
-    63: "Select font color.",
+    63: "63-???",
     64: "Filter",
     65: "Filter by categories",
     66: "Generate",

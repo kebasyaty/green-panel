@@ -38,6 +38,14 @@ button:not(.v-pagination__item--active).v-pagination__item:hover,
   justify-content: left !important;
 }
 
+/* CKEditor
+----------------------------------------------------------------------------------------------------
+*/
+.ck.ck-editor {
+  background-color: white;
+  color: black;
+}
+
 /* Position
 ----------------------------------------------------------------------------------------------------
 */
