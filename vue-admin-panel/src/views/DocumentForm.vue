@@ -807,10 +807,6 @@
                       "
                     >
                       <div v-if="field.css_classes.includes('ckeditor')">
-                        <v-card-subtitle
-                          class="px-0 pt-0 pb-1 red--text"
-                          v-html="`&#9913;&#9913; ${$t('message.63')}`"
-                        ></v-card-subtitle>
                         <ckeditor
                           :editor="classicCKEditor"
                           v-model="fieldsData[field.name]"
@@ -835,8 +831,8 @@
                         ></v-alert>
                       </div>
                       <v-textarea
-                        class="mt-0 pt-1"
                         v-else
+                        class="mt-0 pt-1"
                         counter
                         clearable
                         :prepend-icon="`mdi-${getFieldIcon(field.widget)}`"
