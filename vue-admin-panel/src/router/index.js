@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import HomePage from "../views/HomePage.vue";
 
 Vue.use(VueRouter);
 
@@ -9,7 +9,7 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: Home,
+    component: HomePage,
     meta: {
       authRequired: true,
     },
@@ -18,7 +18,7 @@ const routes = [
   {
     path: "/sign-in",
     name: "signin",
-    component: () => import("../views/Signin.vue"),
+    component: () => import("../views/SigninPage.vue"),
   },
   // Document list
   {

@@ -380,7 +380,6 @@
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
 import slug from "slug";
-import fillRange from "fill-range";
 
 export default {
   name: "DocumentList",
@@ -393,7 +392,7 @@ export default {
   }),
 
   computed: {
-    ...mapState(["serviceList", "btnRed", "btnLightBlue", "btnGreen"]),
+    ...mapState(["serviceList"]),
     ...mapState("documentList", [
       "documents",
       "currentPageNumber",
@@ -518,7 +517,7 @@ export default {
       "resetPageNumberDefault",
     ]),
     ...mapActions("popUpMsgs", ["runShowMsg"]),
-    ...mapActions("overlays", ["runShowOverlayPageLockout"]),
+    ...mapActions("pageLockout", ["runShowOverlayPageLockout"]),
     // Router - Go back one step.
     goBack() {
       this.setShowMsg(false);
@@ -632,7 +631,7 @@ export default {
     // Mark all documents for deletion.
     markAllDocsForDeletion() {
       this.docsToBeDeleted = this.deleteAllDocsFlag
-        ? fillRange(0, this.documents.length - 1)
+        ? [...Array(this.documents.length).keys()]
         : [];
     },
     // Check the status of the list of selected documents to be deleted.

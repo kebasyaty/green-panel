@@ -1,12 +1,28 @@
+const { defineConfig } = require("@vue/cli-service");
 const path = require("path");
 const CKEditorWebpackPlugin = require("@ckeditor/ckeditor5-dev-webpack-plugin");
 const { styles } = require("@ckeditor/ckeditor5-dev-utils");
 
-module.exports = {
+module.exports = defineConfig({
+  parallel: false,
   transpileDependencies: ["vuetify", /ckeditor5-[^/\\]+[/\\]src[/\\].+\.js$/],
   publicPath: process.env.NODE_ENV === "production" ? "/admin/contrib/" : "/",
   outputDir: path.resolve(__dirname, "../web-admin"),
   configureWebpack: {
+    resolve: {
+      modules: [],
+      fallback: {
+        fs: false,
+        tls: false,
+        net: false,
+        path: false,
+        zlib: false,
+        http: false,
+        https: false,
+        stream: false,
+        crypto: false,
+      },
+    },
     plugins: [
       new CKEditorWebpackPlugin({
         // See https://ckeditor.com/docs/ckeditor5/latest/features/ui-language.html
@@ -31,12 +47,14 @@ module.exports = {
       .use("postcss-loader")
       .loader("postcss-loader")
       .tap(() => {
-        return styles.getPostCssConfig({
-          themeImporter: {
-            themePath: require.resolve("@ckeditor/ckeditor5-theme-lark"),
-          },
-          minify: true,
-        });
+        return {
+          postcssOptions: styles.getPostCssConfig({
+            themeImporter: {
+              themePath: require.resolve("@ckeditor/ckeditor5-theme-lark"),
+            },
+            minify: true,
+          }),
+        };
       });
   },
-};
+});

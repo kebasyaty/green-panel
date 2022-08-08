@@ -4,7 +4,7 @@
       <NavigationBar />
       <AppBar />
       <PopUpMsgs />
-      <Overlays />
+      <PageLockout />
     </template>
 
     <v-main>
@@ -18,7 +18,7 @@ import { mapState, mapMutations, mapActions } from "vuex";
 import NavigationBar from "@/components/NavigationBar.vue";
 import AppBar from "@/components/AppBar.vue";
 import PopUpMsgs from "@/components/PopUpMsgs.vue";
-import Overlays from "@/components/Overlays.vue";
+import PageLockout from "@/components/PageLockout.vue";
 
 export default {
   name: "App",
@@ -27,7 +27,7 @@ export default {
     NavigationBar,
     AppBar,
     PopUpMsgs,
-    Overlays,
+    PageLockout,
   },
 
   computed: {

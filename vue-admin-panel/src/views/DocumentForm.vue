@@ -1589,7 +1589,7 @@ export default {
     ]),
     ...mapActions("documentList", ["ajaxGetDocumentList"]),
     ...mapActions("popUpMsgs", ["runShowMsg"]),
-    ...mapActions("overlays", ["runShowOverlayPageLockout"]),
+    ...mapActions("pageLockout", ["runShowOverlayPageLockout"]),
     // Router - Go back one step.
     goBack() {
       const service = this.$route.params.service;
