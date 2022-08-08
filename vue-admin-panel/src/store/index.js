@@ -5,7 +5,7 @@ import mutations from "@/store/mutations";
 import actions from "@/store/actions";
 import documentList from "@/store/modules/document_list";
 import popUpMsgs from "@/store/modules/pop_up_msgs";
-import overlays from "@/store/modules/overlays";
+import pageLockout from "@/store/modules/page_lockout";
 import ckeditor from "@/store/modules/ckeditor";
 import colorPicker from "@/store/modules/color_picker";
 
@@ -18,7 +18,7 @@ export default new Vuex.Store({
   modules: {
     documentList,
     popUpMsgs,
-    overlays,
+    pageLockout,
     ckeditor,
     colorPicker,
   },

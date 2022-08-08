@@ -1,18 +1,15 @@
 {
   "compilerOptions": {
+    "target": "es6",
+    "module": "esnext",
     "baseUrl": ".",
+    "moduleResolution": "node",
     "paths": {
-      "~/*": ["./*"],
-      "@/*": ["./*"],
-      "~~/*": ["./*"],
-      "@@/*": ["./*"]
-    }
+      "@/*": ["src/*"]
+    },
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
-  "include": [
-    "src/**/*.js",
-    "src/**/*.vue",
-    "tests/**/*.js",
-  ],
+  "include": ["src/**/*.js", "src/**/*.vue", "tests/**/*.js"],
   "exclude": [
     "dist",
     "node_modules",
@@ -29,6 +26,6 @@
     "bower_components",
     ".npm",
     ".yarn",
-    ".git",
+    ".git"
   ]
 }

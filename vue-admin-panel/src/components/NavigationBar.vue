@@ -149,7 +149,7 @@ export default {
       "resetPageNumberDefault",
     ]),
     ...mapActions("popUpMsgs", ["runShowMsg"]),
-    ...mapActions("overlays", ["runShowOverlayPageLockout"]),
+    ...mapActions("pageLockout", ["runShowOverlayPageLockout"]),
     // List of services - Resetting previously activated items.
     resetPreActivatedService: function (currIndex) {
       this.setSelectedService(
