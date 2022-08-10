@@ -1,8 +1,8 @@
-[![Logo](https://github.com/kebasyaty/actix-greenpanel/raw/main/images/logo.svg "Logo")](https://github.com/kebasyaty/actix-greenpanel "Logo")
+[![Logo](https://github.com/kebasyaty/actix-greenpanel/raw/green-barrel_v_0_12_x/images/logo.svg "Logo")](https://github.com/kebasyaty/actix-greenpanel/tree/green-barrel_v_0_12_x "Actix-Greenpanel")
 
 # Actix-Greenpanel
 
-### Admin panel for easy use of [Green Barrel](https://github.com/kebasyaty/green-barrel "green-barrel"). This template uses [actix-web](https://github.com/actix/actix-web "actix-web").
+### Admin panel for easy use of [Green Barrel](https://github.com/kebasyaty/green-barrel/tree/v0 "Green Barrel"). This template uses [actix-web](https://github.com/actix/actix-web "actix-web").
 
 ## Attention
 
@@ -10,7 +10,7 @@
 
 #### [MongoDB Rust Driver](https://crates.io/crates/mongodb/1.2.5 "MongoDB Rust Driver") version 1.2.5 is used.
 
-#### For examples of Model fields, use [tests](https://github.com/kebasyaty/green-barrel/tree/master/test-drive/tests "tests").
+#### For examples of Model fields, use [tests](https://github.com/kebasyaty/green-barrel/tree/v0/test-drive/tests "tests").
 
 ## Requirements
 
