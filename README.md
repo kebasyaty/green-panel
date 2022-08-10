@@ -51,10 +51,10 @@
 #### 1. Install mongodb (if not installed)
 
 ```shell
-    ### Ubuntu, Mint:
+    ### Ubuntu, Linux Mint:
     $ sudo apt install mongodb
     ## OR
-    ### Ubuntu 20.04, Mint 20.x:
+    ### Ubuntu 20.04, Linux Mint 20.x:
     $ sudo apt update
     $ sudo apt install dirmngr gnupg apt-transport-https ca-certificates
     $ wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
@@ -93,7 +93,7 @@
 
 #### 3. The panel uses reCAPTCHA v3
 
-`For development, replace the demo-keys with your own -> mango-panel/src/settings/general.rs`
+`For development, replace the demo-keys with your own -> actix-greenpanel/src/settings/general.rs`
 
 #### 4. Go to the project directory and run the following commands:
 
