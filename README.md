@@ -1,6 +1,6 @@
 [![Logo](https://github.com/kebasyaty/actix-greenpanel/raw/green-barrel_v_0_12_x/images/logo.svg "Logo")](https://github.com/kebasyaty/actix-greenpanel/tree/green-barrel_v_0_12_x "Actix-Greenpanel")
 
-# Actix-Greenpanel
+# Green Panel
 
 ### Admin panel for easy use of [Green Barrel](https://github.com/kebasyaty/green-barrel/tree/v0 "Green Barrel"). This template uses [actix-web](https://github.com/actix/actix-web "actix-web").
 
